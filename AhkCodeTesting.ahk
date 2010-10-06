@@ -23,6 +23,8 @@ else
 	msgbox other color
 exit
 
+asdffasasfdfdsaafdsfds
+
 
 lbl1:
 joevar := PixelIsColor(xCoord, yCoord, 0xFFFFFF)
