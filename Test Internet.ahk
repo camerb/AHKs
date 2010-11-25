@@ -1,0 +1,9 @@
+Run, http://www.nascar.com/
+Sleep 300
+Run, http://www.usaa.com/
+Sleep 300
+Run, http://www.facebook.com/
+Sleep 300
+Run, http://www.autohotkey.com/
+Sleep 300
+Run, http://www.google.com/

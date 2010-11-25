@@ -1,0 +1,81 @@
+ERROR: 2010-03-13_16-33-07 hello               
+
+Debug: 2010-09-10_00-15-43 D:\Documents and Settings\Toshimi\My Documents\My Dropbox\AHKs\temporary5.ahk 
+   silent log
+   GetOS
+   780
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   TOSHIMI
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+
+Debug: 2010-09-10_00-16-37 D:\Documents and Settings\Toshimi\My Documents\My Dropbox\AHKs\temporary5.ahk 
+   silent log
+   GetOS
+   780
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   TOSHIMI
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+
+Debug: 2010-09-10_00-16-37 D:\Documents and Settings\Toshimi\My Documents\My Dropbox\AHKs\temporary5.ahk 
+   log
+   WIN_XP
+
+ERROR: 2010-09-15_03-02-18 D:\Documents and Settings\Toshimi\My Documents\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Failed Test:
+   AssertSendViaClipboard
+   basic test of send text
+   Before, before, before
+   Sent via clipboard
+
+ERROR: 2010-09-15_03-02-44 D:\Documents and Settings\Toshimi\My Documents\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Failed Test:
+   AssertSendViaClipboard
+   Test of Sending a large chunk of text
+   Prior
+   SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboard
+
+ERROR: 2010-09-15_03-04-27 D:\Documents and Settings\Toshimi\My Documents\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Failed Test:
+   AssertSendViaClipboard
+   Testing replacing a large chunk that was already on the clipboard
+   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, before
+   Sent via clipboard
+
+ERROR: 2010-09-15_03-05-58 D:\Documents and Settings\Toshimi\My Documents\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Failed Test:
+   AssertSendViaClipboard
+   Testing both a large chunk prior and sending a large chunk via clipboard
+   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, before
+   SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboard
+
+ERROR: 2010-10-12_20-17-14 D:\Documents and Settings\Toshimi\My Documents\My Dropbox\AHKs\Spy.ahk 
+   LOG ERRORD ProgramFilesDir
+   was not able to find 'relativePath':
+   \AutoHotkey\AU3_Spy.exe
+
+ERROR: 2010-10-13_03-03-18 D:\Documents and Settings\Toshimi\My Documents\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Failed Test:
+   AssertSendViaClipboard
+   Testing replacing a large chunk that was already on the clipboard
+   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, before
+   Sent via clipboard
+
+ERROR: 2010-10-13_03-04-43 D:\Documents and Settings\Toshimi\My Documents\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Failed Test:
+   AssertSendViaClipboard
+   Testing both a large chunk prior and sending a large chunk via clipboard
+   BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, beforeefore, before, before
+   SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboardent via clipboard
+

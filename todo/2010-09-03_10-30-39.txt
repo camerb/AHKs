@@ -1,0 +1,1 @@
+IRSSI-/set hide_colors=ON

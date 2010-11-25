@@ -1,0 +1,1 @@
+IRSSI-install XMPP plugin

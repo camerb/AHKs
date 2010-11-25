@@ -1,0 +1,44 @@
+Restrict pdfs so that you need to log in to download them
+Figure out how to restore the live DB to the dev DB on FL
+Find a way to separate editorial and enduser dbs
+maybe we should make an xhtmleditor that would prevent <BR> from being inserted at the end of the text
+write up a faq section on settimer and multithreading for ahk webpage
+write ahk faq on passing command line params
+EPMS-PropertyForm-Put OptimisticLocking in there
+EPMS-Prop-Xtemplate for mgmt co info
+EPMS-Prop-Add form to the grid
+EPMS-Prop-Add OptimisticLocking fields to live DB
+Mitsi-Docu-Need to make a new doc for DB naming schemes to explain how tables and cols should be named
+FL-DBbackups-make script that will re-set owner of all tables to fl_web
+EPMS-Prop-Get Debian VM working
+AHK-Work-Hotkey to launch and log into putty, scp and win explorer to make it faster to move things live
+AHK-Tools-Make a tiny program and call it TailGate for following the tails of logs
+FL-Finish up server
+FL-Get fake subscriptions login page
+give FL admin rights
+Work-Get Candies
+FL-get rid of users_POST redefined error message
+FL-DBandServer-Make sure the fl (readonly) user can see the database on argon
+FL-DB-Add PgAdmin Vacuum to chron job
+FL-DB-Make sure Wes does SNMP
+FL-Server-Document Server Install
+FL-resize memberships grid columns
+FL-should we be failing on delete if the record was already deleted? this is probably an issue with ext sending too many requests
+FL-might need to make a nice display message for endusers who are missing a role
+FL-MFW-Outlaw adding duplicate usernames when submitting a new or edited user
+
+FL-get rid of <br> at the end of judge addresses
+FL-reduce server errors-Controller/Search.pm lines 36
+and lines 42 and 48, too
+FL-put the headers into the File controller (esp File Size)
+FL-enduser-Logout link on enduser search header
+FL-docu-make a new DB diagram for Ron
+FL-reduce errors-Vacancies 61, Judges 37
+AHK-transferTo macro (part will be in persistent)
+FL-Apache error documen
+EPMS-Prop-Update fails now
+EPMS-Prop-Only initial update works on prop form?
+AHKs-Need to refactor task mgr so that each task is in its own file (will allow easier deletes)
+Personal-Email LTF a scan of the cancellation sheet (avillarreal@lifetimefitness.com)
+AHK-make as expected-FileMoveDir, FileRemoveDir
+AHK-FuncLib-"are there files in this folder?", "are there folders in this folder?" ContainsFiles(), ContainsFolders()... then launch functions that handle it, rather than cramming all this crap in #persistent

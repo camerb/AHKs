@@ -1,0 +1,1 @@
+sure seems like I can't get ahk to detect any of these images on faithconnector. must be because of the way that they are rendered.

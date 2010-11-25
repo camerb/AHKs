@@ -1,0 +1,6 @@
+11/17/2009 added always on top check box
+set the pause button to freeze the text in addition to the ctrl+/
+corrected variable sourceindex to instead use COM_Invoke(pelt,"sourceindex")
+11/17/2009 implemented suggestions from Sinkfaze for use of the pause button
+also haded hotkey win+s to read text under curser
+11/18/2009Implemented jethrows code that uses Seans idea for guis to highlight moused over element using code based on Lexikos' LetUserSelectRect() function - http://www.autohotkey.com/forum/viewtopic.php?t=49784

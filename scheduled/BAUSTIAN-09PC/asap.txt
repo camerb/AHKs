@@ -1,0 +1,3 @@
+#include functionlibrary.ahk
+
+Debug("hi")

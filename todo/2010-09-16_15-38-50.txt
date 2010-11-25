@@ -1,0 +1,1 @@
+AHK-Startup-Ensure that shortcuts are in startup folder for everything that should be there (also ensure they are in the all-users folder)

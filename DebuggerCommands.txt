@@ -1,0 +1,226 @@
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.EditCourts' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Groups' } );
+FL.fn.createWindow('FL.ui.grid.Vacancies', 66);
+FL.fn.createWindow('FL.ui.grid.Addresses', 9);
+FL.fn.createWindow('FL.ui.form.Clerk', 9);
+FL.fn.createWindow('FL.ui.grid.Memberships', 9);
+FL.fn.createWindow('FL.ui.grid.Clerks', 9);
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:4070 } );
+TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.grid.Users' } );
+TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:9 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.JudgeJournal', prev_id:39713, next_id:39714 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.JudgeJournal', item_id:82 } );
+TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );
+FL.fn.createWindow('FL.ui.grid.Educations', 999);
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.Terms', item_id: 59 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.mgmt.CourtJudge', item_id: 59 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );
+FL.fn.createWindow('FL.ui.grid.Educations', 999);
+TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );
+FL.fn.createWindow('FL.ui.grid.Educations', 999);
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );
+TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );
+FL.fn.createWindow('FL.ui.grid.Educations', 999);
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:9 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:999 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.JudgeJournal', item_id:82 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
+EPMS
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.form.User' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:4070 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:999 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:19790 } );
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.Users' } );
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.form.Judge', item_id:82 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );
+EPMS
+perl equity.pl Property_List_20100901.txt > report.txt
+perl equitypropertycleanup.pl
+perl equitypropertycleanup.pl > report.txt
+perl equitypropertycleanup.pl > report.txt
+EPMS
+perl avalonbay.pl "avalonbay data.csv"
+EPMS
+perl greystar.pl "gsassociates (1).csv"
+perl greystar.pl "gsassociates (1).txt"
+perl greystar.pl "gsassociates (small).txt"
+perl greystar.pl "gsassociates (1).txt"
+perl greystar.pl "gsassociates (1).txt" > report.txt
+perl greystar.pl "gsassociates (1).txt" > report.txt 0
+EPMS
+perl greystar.pl "gsassociates (1).txt" > report.txt 0
+EPMS
+perl greystar.pl "gsassociates (1).txt" > report.txt 0
+EPMS
+perl pinnacle.pl pinnacle1641.csv > report.txt
+perl bh.pl bh51.csv > report.txt
+perl homeproperties.pl homeproperties.csv > report.txt
+perl homeproperties.pl homeproperties1035.csv > report.txt
+perl bh.pl bh51.csv > report.txt
+perl pinnacle.pl pinnacle1641.csv > report.txt
+perl pinnacle.pl pinnacle1641.csv > report.txt 0
+perl bh.pl bh51.csv > report.txt 0
+perl homeproperties.pl homeproperties1035.csv > report.txt 0
+perl bh.pl bh51.csv > report.txt 0
+perl pinnacle.pl pinnacle1641.csv > report.txt 0
+perl homeproperties.pl homeproperties1035.csv > report.txt 0
+EPMS
+perl exportAllToCsv.pl
+EPMS
+perl queue_surveys.pl
+perl avalonbay.pl avalonbaydata.csv > report.txt
+perl avalonbay.pl avalonbaydata.csv > report.txt 0
+perl avalonbay.pl avalonbaydata1.csv > report.txt 0
+perl avalonbay.pl avalonbaydata.csv > report.txt 0
+perl avalonbay.pl avalonbaydata1.csv > report.txt 0
+perl avalonbay.pl avalonbaydata.csv > report.txt 0
+perl queue_surveys.pl
+EPMS
+perl queue_surveys.pl
+EPMS
+perl surveyexample.pl surveyexample.csv > report.txt 0
+perl surveyexample.pl surveyexample.csv > report.txt
+perl surveyexample.pl surveyexample.csv > report.txt 0
+EPMS
+perl exportAllToCsv.pl
+EPMS
+perl queue_surveys.pl
+perl surveyexample.pl surveyexample.csv > report.txt 0
+perl queue_surveys.pl
+perl surveyexample.pl surveyexample.csv > report.txt 0
+EPMS
+perl surveyexample.pl surveyexample.csv > report.txt 0
+EPMS
+FL.fn.createWindow('FL.ui.grid.Educations', 999);
+FL.fn.createWindow('FL.ui.form.AccountInfo', 999);
+EPMS
+perl surveyexample.pl 9-2-10_new_patient_send_list.csv > report.txt
+perl propcleanup.pl
+perl propcleanup.pl 831
+perl propcleanup.pl 831 > C:\code\report.txt
+EPMS
+perl bounce_importer.pl
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );
+perl bounce_importer.pl
+perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );
+EPMS
+perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt
+perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey1.csv > C:\code\report.txt
+perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt
+EPMS
+EOMS
+EPMS
+perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.IpAuthBys' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.IpAuthBys' } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.Subscriptions' } );
+
+perl findOrphanShops.pl
+EPMS
+perl pinnacle.pl C:\import_files\pinnacle-2010-october-props.csv > C:\code\report.txt
+perl pinnacle.pl C:\import_files\pinnacle-2010-october-props.csv > C:\code\report.txt
+perl avalonbay.pl C:\import_files\avalonbay-2010-october-props.csv > C:\code\report.txt
+perl pinnacle.pl C:\import_files\pinnacle-2010-october-props.csv > C:\code\report.txt
+perl avalonbay.pl C:\import_files\avalonbay-2010-october-props.csv > C:\code\report.txt
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );
+perl pinnacle2744.pl C:\import_files\pinnacle2744-2010-october-props.csv > C:\code\report.txt
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );
+perl script\fl_workbench.pl
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );
+perl script\fl_workbench.pl
+perl pinnacle2744.pl C:\import_files\pinnacle2744-2010-october-props.csv > C:\code\report.txt
+perl script\fl_workbench.pl
+perl pinnacle2744.pl C:\import_files\pinnacle2744-2010-october-props.csv > C:\code\report.txt
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );
+perl script\fl_workbench.pl
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );
+FL.fn.createWindow('FL.ui.grid.Memberships', 3775);
+perl nacha.pl > C:\code\report.txt
+EPMS
+EPMS
+EPMS
+
+
+
+perl greystar.pl > C:\code\report.txt
+perl greystar.pl > C:\code\report.txt
+perl greystar.pl 0 > C:\code\report.txt
+perl concord.pl C:\import_files\concord-2010-october-props.csv > C:\code\report.txt
+perl greystar.pl > C:\code\report.txt
+1: {C:\code\epms\script\employee_importers}, 2: {perl greystar.pl > C:\code\report.txt}
+cmd, 1: {C:\code\epms\script\employee_importers}, 2: {perl greystar.pl > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl greystar.pl > C:\code\report.txt}
+cmd 1: {C:\code\epms\script}, 2: {perl nacha.pl > C:\code\report.txt}
+EPMS
+cmd 1: {C:\code\bench\script\db_scripts}, 2: {perl 998_fix_primary_court.pl}
+cmd 1: {C:\code\bench\script\db_scripts}, 2: {perl 997_fix_unicode_chars.pl}
+cmd 1: {C:\code\bench\script\db_scripts}, 2: {perl 996_fix_other_chars.pl}
+cmd 1: {C:\code\bench\script\db_scripts}, 2: {perl 997_fix_unicode_chars.pl}
+EPMS
+cmd 1: {C:\code\restaurant}, 2: {perl im.pl}
+EPMS
+cmd 1: {C:\export_files}, 2: {perl C:\code\Bench\script\db_scripts\exportAllToCsv.pl}
+EPMS
+cmd 1: {C:\code\Examples}, 2: {perl JiraClient.pl}
+cmd 1: {C:\code\Examples}, 2: {perl JiraClient.pl "FLB" "Testing JIRA::Client"}
+cmd 1: {C:\code\Examples}, 2: {perl JiraClient.pl}
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.EditCourts' } );
+EPMS
+cmd 1: {C:\code\epms\script\misc_importers}, 2: {perl workbench_temp_call_record.pl}
+EPMS
+cmd 1: {C:\code\epms\script\misc_importers}, 2: {perl workbench_temp_call_record.pl}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl bounce_importer.pl}
+cmd 1: {C:\code\epms\script\misc_importers}, 2: {perl workbench_temp_call_record.pl}
+EPMS
+cmd 1: {C:\code\epms\script\misc_importers}, 2: {perl workbench_temp_call_record.pl}
+EPMS
+cmd 1: {C:\code\epms\script\misc_importers}, 2: {perl workbench_temp_call_record.pl}

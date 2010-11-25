@@ -1,0 +1,1 @@
+See how the Ctrl+s was sent, but the window didn't happen to be listening for it at the time? Make a function that keeps checking if the window pops up, then in a few seconds tries to send the Ctrl+s again.

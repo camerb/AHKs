@@ -1,0 +1,2972 @@
+
+Debug: 2010-08-27_03-01-00 C:\My Dropbox\AHKs\AutoHotkey.ahk reloading script               
+
+Debug: 2010-08-27_03-02-00 C:\My Dropbox\AHKs\UnitTests.ahk Starting hotkey unit tests               
+
+Debug: 2010-08-27_03-02-40 C:\My Dropbox\AHKs\UnitTests.ahk Tests have finished               
+
+ERROR: 2010-08-27_10-09-52 C:\My Dropbox\AHKs\CaptureAhkImage.ahk silent log errord A_ComputerName PHOSPHORUS A_OSVERSIONNUM  A_OSVERSION WIN_XP Checked using DLLCALL 5       
+
+ERROR: 2010-08-27_10-09-52 C:\My Dropbox\AHKs\CaptureAhkImage.ahk silent log errord A_ComputerName PHOSPHORUS A_OSVERSIONNUM  A_OSVERSION WIN_XP Checked using DLLCALL 5       
+
+ERROR: 2010-08-27_10-09-52 C:\My Dropbox\AHKs\CaptureAhkImage.ahk silent log errord A_ComputerName PHOSPHORUS A_OSVERSIONNUM  A_OSVERSION WIN_XP Checked using DLLCALL 5       
+
+ERROR: 2010-08-27_10-09-52 C:\My Dropbox\AHKs\CaptureAhkImage.ahk looks like this OS is unsupported log errord GetOS()  A_ComputerName PHOSPHORUS           
+
+ERROR: 2010-08-27_10-10-20 C:\My Dropbox\AHKs\CaptureAhkImage.ahk silent log errord A_ComputerName PHOSPHORUS A_OSVERSIONNUM  A_OSVERSION WIN_XP Checked using DLLCALL 5       
+
+Debug: 2010-08-27_10-25-44 C:\My Dropbox\AHKs\CaptureAhkImage.ahk silent log GetOS 758 Note: known errors here with detecting that Phosphorus is running Win7 A_ComputerName: PHOSPHORUS A_OSVERSIONNUM:  A_OSVERSION: WIN_XP Checked using DLLCALL: 5    
+
+Debug: 2010-08-27_10-27-08 C:\My Dropbox\AHKs\CaptureAhkImage.ahk silent log GetOS 758 Note: known errors here with detecting that Phosphorus is running Win7 A_ComputerName: PHOSPHORUS A_OSVERSIONNUM:  A_OSVERSION: WIN_XP Checked using DLLCALL: 5    
+
+Debug: 2010-08-27_10-27-32 C:\My Dropbox\AHKs\CaptureAhkImage.ahk silent log GetOS 758 Note: known errors here with detecting that Phosphorus is running Win7 A_ComputerName: PHOSPHORUS A_OSVERSIONNUM:  A_OSVERSION: WIN_XP Checked using DLLCALL: 5    
+
+Debug: 2010-08-27_15-45-30 C:\My Dropbox\AHKs\AutoHotkey.ahk silent found files               
+
+Debug: 2010-08-27_15-45-30 C:\My Dropbox\AHKs\AutoHotkey.ahk silent found files               
+
+Debug: 2010-08-27_15-45-30 C:\My Dropbox\AHKs\AutoHotkey.ahk silent found files               
+
+Debug: 2010-08-27_15-45-30 C:\My Dropbox\AHKs\AutoHotkey.ahk silent found files               
+
+Debug: 2010-08-27_15-54-00 C:\My Dropbox\AHKs\AutoHotkey.ahk 18               
+
+Debug: 2010-08-27_15-54-02 C:\My Dropbox\AHKs\AutoHotkey.ahk 18               
+
+Debug: 2010-08-27_15-54-05 C:\My Dropbox\AHKs\AutoHotkey.ahk 18               
+
+Debug: 2010-08-27_15-54-07 C:\My Dropbox\AHKs\AutoHotkey.ahk 18               
+
+Debug: 2010-08-27_15-54-10 C:\My Dropbox\AHKs\AutoHotkey.ahk 18               
+
+Debug: 2010-08-27_15-54-12 C:\My Dropbox\AHKs\AutoHotkey.ahk 18               
+
+Debug: 2010-08-27_15-54-15 C:\My Dropbox\AHKs\AutoHotkey.ahk 18               
+
+Debug: 2010-08-27_15-54-17 C:\My Dropbox\AHKs\AutoHotkey.ahk 18               
+
+Debug: 2010-08-27_15-55-20 C:\My Dropbox\AHKs\Scheduled-20090203010203.ahk silent testing scheduled Scheduled-20090203010203.ahk 2010-08-27_15-55-20             
+
+ERROR: 2010-08-27_22-29-11 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 1428 284             
+
+ERROR: 2010-08-27_22-29-13 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 226 225             
+
+ERROR: 2010-08-27_22-29-15 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 245 827             
+
+ERROR: 2010-08-27_22-29-16 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 1446 762             
+
+ERROR: 2010-08-27_22-36-12 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 218 845             
+
+ERROR: 2010-08-27_22-55-19 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 208 862             
+
+ERROR: 2010-08-27_22-55-24 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 219 842             
+
+ERROR: 2010-08-27_22-55-26 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 219 842             
+
+ERROR: 2010-08-27_22-55-30 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 219 845             
+
+ERROR: 2010-08-27_22-55-32 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 207 852             
+
+ERROR: 2010-08-27_22-55-36 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 218 854             
+
+ERROR: 2010-08-27_22-55-40 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 205 835             
+
+ERROR: 2010-08-27_22-55-43 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 219 840             
+
+ERROR: 2010-08-27_22-55-44 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 219 840             
+
+ERROR: 2010-08-27_22-55-45 C:\My Dropbox\AHKs\hon.ahk silent mouse coords: log errord 219 840             
+
+Debug: 2010-08-30_09-51-50 C:\My Dropbox\AHKs\MTSI Startup.ahk GVIM               
+
+Debug: 2010-08-30_09-51-57 C:\My Dropbox\AHKs\MTSI Startup.ahk Mozilla Firefox               
+
+Debug: 2010-08-30_09-51-59 C:\My Dropbox\AHKs\MTSI Startup.ahk GVIM               
+
+Debug: 2010-08-30_09-52-01 C:\My Dropbox\AHKs\MTSI Startup.ahk ahk_class gdkWindowToplevel               
+
+Debug: 2010-08-30_09-52-04 C:\My Dropbox\AHKs\MTSI Startup.ahk cmd.exe               
+
+Debug: 2010-08-30_09-52-06 C:\My Dropbox\AHKs\MTSI Startup.ahk Opera               
+
+Debug: 2010-08-30_09-52-09 C:\My Dropbox\AHKs\MTSI Startup.ahk pgAdmin III ahk_class wxWindowClassNR               
+
+Debug: 2010-08-30_09-52-12 C:\My Dropbox\AHKs\MTSI Startup.ahk GVIM               
+
+Debug: 2010-08-30_09-52-16 C:\My Dropbox\AHKs\MTSI Startup.ahk Running ArrangeWindows script for all screens               
+
+Debug: 2010-08-30_09-52-23 C:\My Dropbox\AHKs\MTSI Startup.ahk All finished with the boot AHK               
+
+Debug: 2010-08-30_09-58-33 C:\My Dropbox\AHKs\temporary2.ahk silent log GetOS 758 Note: known errors here with detecting that Phosphorus is running Win7 A_ComputerName: PHOSPHORUS A_OSVERSIONNUM:  A_OSVERSION: WIN_XP Checked using DLLCALL: 5    
+
+Debug: 2010-08-30_09-58-33 C:\My Dropbox\AHKs\temporary2.ahk log WIN_7              
+
+Debug: 2010-08-30_10-10-32 C:\My Dropbox\AHKs\MTSI Startup.ahk GVIM               
+
+Debug: 2010-08-30_10-10-41 C:\My Dropbox\AHKs\MTSI Startup.ahk Mozilla Firefox               
+
+Debug: 2010-08-30_10-10-46 C:\My Dropbox\AHKs\MTSI Startup.ahk GVIM               
+
+Debug: 2010-08-30_10-11-40 C:\My Dropbox\AHKs\MTSI Startup.ahk ahk_class gdkWindowToplevel               
+
+Debug: 2010-08-30_10-11-43 C:\My Dropbox\AHKs\MTSI Startup.ahk cmd.exe               
+
+Debug: 2010-08-30_10-11-45 C:\My Dropbox\AHKs\MTSI Startup.ahk Opera               
+
+Debug: 2010-08-30_10-11-56 C:\My Dropbox\AHKs\MTSI Startup.ahk pgAdmin III ahk_class wxWindowClassNR               
+
+Debug: 2010-08-30_10-11-59 C:\My Dropbox\AHKs\MTSI Startup.ahk GVIM               
+
+Debug: 2010-08-30_10-12-03 C:\My Dropbox\AHKs\MTSI Startup.ahk Running ArrangeWindows script for all screens               
+
+Debug: 2010-08-30_10-12-09 C:\My Dropbox\AHKs\MTSI Startup.ahk All finished with the boot AHK               
+
+ERROR: 2010-08-30_15-50-06 C:\My Dropbox\AHKs\temporary3.ahk LOG ERRORD err               
+
+ERROR: 2010-08-30_15-50-16 C:\My Dropbox\AHKs\temporary3.ahk LOG ERRORD err               
+
+ERROR: 2010-08-30_15-51-48 C:\My Dropbox\AHKs\temporary3.ahk LOG ERRORD err               
+
+ERROR: 2010-08-30_15-57-11 C:\My Dropbox\AHKs\temporary3.ahk 
+   LOG ERRORD err
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+ERROR: 2010-08-30_15-58-23 C:\My Dropbox\AHKs\temporary3.ahk 
+   LOG ERRORD err
+
+ERROR: 2010-08-30_16-00-06 C:\My Dropbox\AHKs\temporary3.ahk 
+   LOG ERRORD err
+
+ERROR: 2010-08-30_16-00-50 C:\My Dropbox\AHKs\temporary3.ahk 
+   LOG ERRORD FATAL die!<F5>
+
+Debug: 2010-09-03_15-43-36 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   769
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+
+ERROR: 2010-09-03_21-28-53 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent recorded mouse coords:
+   214
+   848
+
+ERROR: 2010-09-03_22-01-22 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   214
+   848
+
+ERROR: 2010-09-03_22-01-22 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   214
+   848
+
+ERROR: 2010-09-03_22-01-24 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   214
+   848
+
+ERROR: 2010-09-03_22-02-46 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent recorded mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-02-47 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent recorded mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-22 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-22 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-24 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-24 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-24 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-32 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-32 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-33 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-33 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-34 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-34 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-39 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-39 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-40 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-40 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-41 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-11-42 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-15-46 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-15-46 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-17-11 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-17-11 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-50-45 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-50-45 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-50-46 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_22-50-46 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_23-05-21 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_23-05-21 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+ERROR: 2010-09-03_23-05-22 C:\My Dropbox\AHKs\hon.ahk 
+   LOG ERRORD silent tried to click at mouse coords:
+   213
+   1024
+
+Debug: 2010-09-08_17-23-00 C:\My Dropbox\AHKs\temporary4.ahk 
+   log yo
+
+Debug: 2010-09-08_17-23-24 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log yo
+
+Debug: 2010-09-08_17-23-55 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log yo
+   hey
+
+Debug: 2010-09-08_17-24-06 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log yo
+   hey
+   
+
+ERROR: 2010-09-10_03-02-02 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of IsMinimized() and IsMaximized()
+   window named 'notepad' already exists
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+ERROR: 2010-09-10_03-02-22 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of AssertForceWinFocusIfExist()
+   window named 'notepad' already exists
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+ERROR: 2010-09-11_03-02-02 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of IsMinimized() and IsMaximized()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-11_03-02-22 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of AssertForceWinFocusIfExist()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-12_03-02-02 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of IsMinimized() and IsMaximized()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-12_03-02-22 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of AssertForceWinFocusIfExist()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-13_03-02-02 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of IsMinimized() and IsMaximized()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-13_03-02-22 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of AssertForceWinFocusIfExist()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-13_03-02-45 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Failed Test:
+   AssertSendViaClipboard
+   basic test of send text
+   Before, before, before
+   Sent via clipboard
+
+ERROR: 2010-09-15_10-19-02 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of IsMinimized() and IsMaximized()
+   window named 'notepad' already exists
+
+Debug: 2010-09-16_16-10-40 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   793
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+
+ERROR: 2010-09-17_03-02-02 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of IsMinimized() and IsMaximized()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-17_03-02-22 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of AssertForceWinFocusIfExist()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-17_03-02-42 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test:
+   TestSendViaClipboard
+   window named 'notepad' already exists
+
+Debug: 2010-09-23_16-21-01 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   795
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+ERROR: 2010-09-23_17-14-30 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   LOG ERRORD silent
+   RunAhkAndBabysit
+   Scheduled-asap.ahk
+   AHK file had an error...
+   OK
+Error at line 1.
+
+Line Text: include FunctionLibrary.ahk
+Error: This line does not contain a recognized action.
+
+The program will exit.
+
+
+ERROR: 2010-09-23_17-17-00 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   LOG ERRORD silent
+   started attempt to download file
+
+ERROR: 2010-09-23_17-17-00 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   LOG ERRORD silent
+   supposedly finished download command
+
+ERROR: 2010-09-23_17-17-30 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   LOG ERRORD silent
+   started attempt to download file
+
+ERROR: 2010-09-23_17-17-31 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   LOG ERRORD silent
+   supposedly finished download command
+
+ERROR: 2010-09-24_11-20-00 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   LOG ERRORD silent
+   started attempt to download file
+
+ERROR: 2010-09-24_11-20-00 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   LOG ERRORD silent
+   supposedly finished download command
+
+ERROR: 2010-09-24_11-29-15 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   LOG ERRORD silent
+   started attempt to download file
+
+ERROR: 2010-09-24_11-29-15 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   LOG ERRORD silent
+   supposedly finished download command
+
+ERROR: 2010-09-24_12-06-00 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   LOG ERRORD silent
+   started attempt to download file
+
+ERROR: 2010-09-24_12-06-00 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   LOG ERRORD silent
+   supposedly finished download command
+
+ERROR: 2010-09-24_12-06-15 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   LOG ERRORD silent
+   started attempt to download file
+
+ERROR: 2010-09-24_12-06-15 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   LOG ERRORD silent
+   supposedly finished download command
+
+Debug: 2010-09-24_12-07-30 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-asap.ahk
+
+Debug: 2010-09-24_12-09-00 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-asap.ahk
+
+ERROR: 2010-09-24_12-09-00 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   LOG ERRORD silent
+   RunAhkAndBabysit
+   Scheduled-asap.ahk
+   AHK file had an error...
+   OK
+Error at line 3.
+
+Line Text: include
+Error: This line does not contain a recognized action.
+
+The program will exit.
+
+   ... end of error msg
+
+Debug: 2010-09-24_12-19-15 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-asap.ahk
+
+ERROR: 2010-09-24_12-19-15 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   LOG ERRORD silent
+   RunAhkAndBabysit
+   Scheduled-asap.ahk
+   AHK file had an error...
+   OK
+Error at line 3.
+
+Line Text: include
+Error: This line does not contain a recognized action.
+
+The program will exit.
+
+   ... end of error msg
+
+Debug: 2010-09-24_12-19-30 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-asap.ahk
+
+ERROR: 2010-09-24_12-19-30 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   LOG ERRORD silent
+   RunAhkAndBabysit
+   Scheduled-asap.ahk
+   AHK file had an error...
+   OK
+Error at line 3.
+
+Line Text: include
+Error: This line does not contain a recognized action.
+
+The program will exit.
+
+   ... end of error msg
+
+Debug: 2010-09-24_12-19-45 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-asap.ahk
+
+ERROR: 2010-09-24_12-19-45 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   LOG ERRORD silent
+   RunAhkAndBabysit
+   Scheduled-asap.ahk
+   AHK file had an error...
+   OK
+Error at line 3.
+
+Line Text: include
+Error: This line does not contain a recognized action.
+
+The program will exit.
+
+   ... end of error msg
+
+Debug: 2010-09-24_12-20-30 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-asap.ahk
+
+Debug: 2010-09-24_12-20-30 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   silent log
+   hello
+
+ERROR: 2010-09-25_03-02-02 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of IsMinimized() and IsMaximized()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-25_03-02-22 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of AssertForceWinFocusIfExist()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-25_03-02-42 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test:
+   TestSendViaClipboard
+   window named 'notepad' already exists
+
+ERROR: 2010-09-26_03-02-02 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of IsMinimized() and IsMaximized()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-26_03-02-22 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of AssertForceWinFocusIfExist()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-26_03-02-42 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test:
+   TestSendViaClipboard
+   window named 'notepad' already exists
+
+ERROR: 2010-09-27_03-02-02 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of IsMinimized() and IsMaximized()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-27_03-02-22 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of AssertForceWinFocusIfExist()
+   window named 'notepad' already exists
+
+ERROR: 2010-09-27_03-02-42 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test:
+   TestSendViaClipboard
+   window named 'notepad' already exists
+
+Debug: 2010-10-08_16-52-33 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   800
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-10-13_12-36-28 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   807
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+ERROR: 2010-10-13_12-45-04 C:\My Dropbox\AHKs\LaunchChrome.ahk 
+   LOG ERRORD ClickIfImageSearch
+   images/reopenTabsIcon.bmp
+   does not exist
+
+Debug: 2010-10-19_12-29-34 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   807
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-10-19_12-31-23 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   807
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-10-21_15-20-44 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   807
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+ERROR: 2010-10-21_16-25-45 C:\My Dropbox\AHKs\DebugAgain.ahk 
+   LOG ERRORD um, guessing that you meant to have the scrolllock key down to refresh the server (since you're running a perl script)
+
+Debug: 2010-10-25_10-23-45 C:\My Dropbox\AHKs\temporary9.ahk 
+   <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">  <html>  <head>  <title>Christian Rock 89.7 Power FM</title>  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">  </head>    <body bgcolor="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">  <table width="282" border="0" cellspacing="0" cellpadding="0">    <tr>      <td width="313">&nbsp;</td>    </tr>    <tr>      <td bgcolor="#000000"><table width="281" border="0" align="center" cellpadding="3" cellspacing="0">          <tr>            <td width="393" bgcolor="#000000"><div align="left">                <div align="left">                  <table border="0" cellpadding="5" width="280" cellspacing="0">                    <tr>                      <td height="13" valign="top" align="left" bgcolor="#000000" width="187"><b><font color="#FFFFFF" size="2" face="Arial">Now Playing </font></b> <font color="#CCCCCC" size="2" face="Verdana, Arial"><em>                      </em></font><font color="#CCCCCC" size="2" face="Verdana, Arial"><em> </em></font> <font color="#CCCCCC" size="2" face="Verdana, Arial"><em> </em></font> </td>                      <td valign="top" align="left" bgcolor="#000000" width="83"><font color="#CCCCCC" size="2" face="Verdana, Arial"><em>                        <input name="button" type="button" onClick="history.go(0)" value="Update">                      </em></font></td>                    </tr>                    <tr bgcolor="#000000">                      <td colspan="2" align="left" valign="top"> <font face="Arial" color="#00FF00" size=2>                        12:52:20 pm - Kiros, Broken State  (2010)<br>                      </font> </td>                    </tr>                  </table>                  <font color="#CCCCCC" size="2" face="Verdana, Arial"><em> </em></font><font color="#CCCCCC" size="2" face="Verdana, Arial"><em> </em></font></div>                <div align="left">                  <table border="0" cellpadding="5" width="280" cellspacing="0">                    <tr>                      <td height="13" valign="top" align="left" bgcolor="#000000" width="273"><b><font color="#FFFFFF" size="2" face="Arial">What's Played Recently</font></b></td>                    </tr>                    <tr>                      <td width="273" height="26" align="left" valign="top" bgcolor="#000000"> <font face="Arial" color="#FFFFFF" size=2>                        9:35:26 am - House Of Heroes, Lose Control  (2008)<br>9:39:11 am - The Christian Rock Station, 89.7 Power FM<br>9:39:27 am - Manafest, Avalanche  (2010)<br>9:42:30 am - Haste The Day, White As Snow  (2010)<br>9:47:06 am - , <br>9:47:09 am - Mark Matlock, Wisdom Works<br>9:48:06 am - Power FM, Back to music<br>9:48:08 am - Decyfer Down, Crash  (2009)<br>9:51:08 am - Abandon Kansas, Months and Years  (2010)<br>9:54:47 am - , Power FM<br>9:54:48 am - Revive, Almost Missed This Moment  (2010)<br>9:58:12 am - Pillar, Fireproof  (2002)<br>10:01:57 am - KVRK, Sanger/Dallas/Fort Worth<br>10:02:08 am - Hyland, Til Death  (2009)<br>10:05:25 am - Number One Gun, Forest  (2010)<br>10:09:21 am - , Power FM<br>10:09:23 am - Hawk Nelson, Crazy Love  (2010)<br>10:12:59 am - Mutemath, The Nerve  (2009)<br>10:15:48 am - Power FM, The Christian Rock Station<br>10:15:51 am - Everyday Sunday, Breathing For Me  (2009)<br>10:18:25 am - Philmont, Backdown  (2009)<br>10:21:09 am - , <br>10:21:11 am - Reflecting God, PSA<br>10:22:09 am - Power FM, Back to music<br>10:22:11 am - Switchfoot, Oh! Gravity  (2006)<br>10:24:40 am - Stellar Kart, We Shine  (2009)<br>10:28:22 am - , Power FM<br>10:28:23 am - Ivoryline, Instincts  (2010)<br>10:31:44 am - Me In Motion, Losers  (2009)<br>10:34:41 am - Power FM, The Christian Rock Station<br>10:34:44 am - Remedy Drive, Something Made To Last  (2009)<br>10:37:16 am - The Rocket Summer, Of Men And Angels  (2010)<br>10:40:53 am - , <br>10:40:56 am - Steve Russo, Real Answers<br>10:41:55 am - Power FM, Back to music<br>10:41:57 am - Dizmas, Yours  (2008)<br>10:45:16 am - Deas Vail, Cages  (2010)<br>10:49:36 am - , Power FM<br>10:49:37 am - Disciple, Dear X (You Don't Own Me)  (2010)<br>10:53:08 am - Jars of Clay, Dead Man (Carry Me)  (2006)<br>10:56:24 am - 89.7, Power FM<br>10:56:25 am - This Beautiful Republic, Casting Off  (2007)<br>10:59:25 am - KVRK FM, The Christian Rock Station<br>10:59:31 am - The Almost, Stop It  (2008)<br>11:02:59 am - The Classic Crime, Four Chords  (2010)<br>11:06:33 am - , Power FM<br>11:06:34 am - Flyleaf, Arise  (2010)<br>11:10:49 am - Jeremy Camp, Take My Life  (2003)<br>11:13:52 am - Listener Supported, <br>11:13:56 am - Thrice, In Exile  (2010)<br>11:17:40 am - The Showdown, Take Me Home  (2010)<br>11:22:57 am - , <br>11:22:59 am - Share-a-thon Volunteer, Promo<br>11:23:32 am - Mark Matlock, Wisdom Works<br>11:24:29 am - Power FM, Back to music<br>11:24:32 am - Demon Hunter, Deteriorate  (2006)<br>11:29:57 am - The Letter Black, Hanging On By A Thread  (2009)<br>11:32:56 am - , Power FM<br>11:32:57 am - Seabird, Believe Me  (2009)<br>11:36:00 am - RED, Death Of Me  (2009)<br>11:39:07 am - Power FM, The Christian Rock Station<br>11:39:10 am - Fireflight, Forever  (2009)<br>11:42:45 am - Write This Down, Hand Grenades  (2010)<br>11:45:55 am - , <br>11:45:57 am - Power Gear, Promo<br>11:46:22 am - Need Him, PSA<br>11:47:22 am - Power FM, Back to music<br>11:47:24 am - The Turning, Never Again  (2006)<br>11:50:54 am - Project 86, Destroyer  (2010)<br>11:55:31 am - , Power FM<br>11:55:32 am - Decyfer Down, Ride With Me  (2010)<br>11:58:52 am - The Fold, Gravity  (2006)<br>12:01:57 pm - KVRK FM, The Christian Rock Station<br>12:02:03 pm - Falling Up, Moonlit  (2005)<br>12:05:25 pm - Queens Club, Dust  (2010)<br>12:08:54 pm - , Power FM<br>12:08:56 pm - House Of Heroes, Elevator  (2010)<br>12:11:51 pm - Abandon, Providence  (2008)<br>12:15:16 pm - Follow us on Facebook, 89.7 Power FM<br>12:15:25 pm - Hawk Nelson, Alive  (2009)<br>12:18:39 pm - Skillet, Forgiven  (2010)<br>12:22:04 pm - , <br>12:22:07 pm - Music Poll, Promo<br>12:22:24 pm - Sean Dunn, Groundwire<br>12:23:23 pm - Power FM, Back To Music<br>12:23:25 pm - Kutless, Your Touch  (2002)<br>12:27:41 pm - Pillar, Whatever It Takes  (2010)<br>12:31:31 pm - , Power FM<br>12:31:32 pm - Relient K, Therapy  (2010)<br>12:35:04 pm - Ivoryline, Be Still And Breathe  (2008)<br>12:38:27 pm - Listener, Supported<br>12:38:30 pm - Thousand Foot Krutch, Fire It Up  (2009)<br>12:41:23 pm - Manic Drive, Music  (2009)<br>12:44:43 pm - , <br>12:44:45 pm - Logos Bookstore, Sponsorship<br>12:45:06 pm - Jeff Klein, Walk The Way<br>12:46:04 pm - Power FM, Back To Music<br>12:46:05 pm - StorySide B, Don't Let It Go  (2007)<br>12:49:08 pm - Philmont, Where To Start  (2009)<br>12:52:19 pm - , Power FM<br>                      </font> </td>                    </tr>                  </table>                </div>            </div></td>          </tr>      </table></td>    </tr>  </table>  <p>&nbsp;</p>  </body>  </html>    
+
+Debug: 2010-10-25_10-24-03 C:\My Dropbox\AHKs\temporary9.ahk 
+   <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">  <html>  <head>  <title>Christian Rock 89.7 Power FM</title>  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">  </head>    <body bgcolor="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">  <table width="282" border="0" cellspacing="0" cellpadding="0">    <tr>      <td width="313">&nbsp;</td>    </tr>    <tr>      <td bgcolor="#000000"><table width="281" border="0" align="center" cellpadding="3" cellspacing="0">          <tr>            <td width="393" bgcolor="#000000"><div align="left">                <div align="left">                  <table border="0" cellpadding="5" width="280" cellspacing="0">                    <tr>                      <td height="13" valign="top" align="left" bgcolor="#000000" width="187"><b><font color="#FFFFFF" size="2" face="Arial">Now Playing </font></b> <font color="#CCCCCC" size="2" face="Verdana, Arial"><em>                      </em></font><font color="#CCCCCC" size="2" face="Verdana, Arial"><em> </em></font> <font color="#CCCCCC" size="2" face="Verdana, Arial"><em> </em></font> </td>                      <td valign="top" align="left" bgcolor="#000000" width="83"><font color="#CCCCCC" size="2" face="Verdana, Arial"><em>                        <input name="button" type="button" onClick="history.go(0)" value="Update">                      </em></font></td>                    </tr>                    <tr bgcolor="#000000">                      <td colspan="2" align="left" valign="top"> <font face="Arial" color="#00FF00" size=2>                        12:52:20 pm - Kiros, Broken State  (2010)<br>                      </font> </td>                    </tr>                  </table>                  <font color="#CCCCCC" size="2" face="Verdana, Arial"><em> </em></font><font color="#CCCCCC" size="2" face="Verdana, Arial"><em> </em></font></div>                <div align="left">                  <table border="0" cellpadding="5" width="280" cellspacing="0">                    <tr>                      <td height="13" valign="top" align="left" bgcolor="#000000" width="273"><b><font color="#FFFFFF" size="2" face="Arial">What's Played Recently</font></b></td>                    </tr>                    <tr>                      <td width="273" height="26" align="left" valign="top" bgcolor="#000000"> <font face="Arial" color="#FFFFFF" size=2>                        9:35:26 am - House Of Heroes, Lose Control  (2008)<br>9:39:11 am - The Christian Rock Station, 89.7 Power FM<br>9:39:27 am - Manafest, Avalanche  (2010)<br>9:42:30 am - Haste The Day, White As Snow  (2010)<br>9:47:06 am - , <br>9:47:09 am - Mark Matlock, Wisdom Works<br>9:48:06 am - Power FM, Back to music<br>9:48:08 am - Decyfer Down, Crash  (2009)<br>9:51:08 am - Abandon Kansas, Months and Years  (2010)<br>9:54:47 am - , Power FM<br>9:54:48 am - Revive, Almost Missed This Moment  (2010)<br>9:58:12 am - Pillar, Fireproof  (2002)<br>10:01:57 am - KVRK, Sanger/Dallas/Fort Worth<br>10:02:08 am - Hyland, Til Death  (2009)<br>10:05:25 am - Number One Gun, Forest  (2010)<br>10:09:21 am - , Power FM<br>10:09:23 am - Hawk Nelson, Crazy Love  (2010)<br>10:12:59 am - Mutemath, The Nerve  (2009)<br>10:15:48 am - Power FM, The Christian Rock Station<br>10:15:51 am - Everyday Sunday, Breathing For Me  (2009)<br>10:18:25 am - Philmont, Backdown  (2009)<br>10:21:09 am - , <br>10:21:11 am - Reflecting God, PSA<br>10:22:09 am - Power FM, Back to music<br>10:22:11 am - Switchfoot, Oh! Gravity  (2006)<br>10:24:40 am - Stellar Kart, We Shine  (2009)<br>10:28:22 am - , Power FM<br>10:28:23 am - Ivoryline, Instincts  (2010)<br>10:31:44 am - Me In Motion, Losers  (2009)<br>10:34:41 am - Power FM, The Christian Rock Station<br>10:34:44 am - Remedy Drive, Something Made To Last  (2009)<br>10:37:16 am - The Rocket Summer, Of Men And Angels  (2010)<br>10:40:53 am - , <br>10:40:56 am - Steve Russo, Real Answers<br>10:41:55 am - Power FM, Back to music<br>10:41:57 am - Dizmas, Yours  (2008)<br>10:45:16 am - Deas Vail, Cages  (2010)<br>10:49:36 am - , Power FM<br>10:49:37 am - Disciple, Dear X (You Don't Own Me)  (2010)<br>10:53:08 am - Jars of Clay, Dead Man (Carry Me)  (2006)<br>10:56:24 am - 89.7, Power FM<br>10:56:25 am - This Beautiful Republic, Casting Off  (2007)<br>10:59:25 am - KVRK FM, The Christian Rock Station<br>10:59:31 am - The Almost, Stop It  (2008)<br>11:02:59 am - The Classic Crime, Four Chords  (2010)<br>11:06:33 am - , Power FM<br>11:06:34 am - Flyleaf, Arise  (2010)<br>11:10:49 am - Jeremy Camp, Take My Life  (2003)<br>11:13:52 am - Listener Supported, <br>11:13:56 am - Thrice, In Exile  (2010)<br>11:17:40 am - The Showdown, Take Me Home  (2010)<br>11:22:57 am - , <br>11:22:59 am - Share-a-thon Volunteer, Promo<br>11:23:32 am - Mark Matlock, Wisdom Works<br>11:24:29 am - Power FM, Back to music<br>11:24:32 am - Demon Hunter, Deteriorate  (2006)<br>11:29:57 am - The Letter Black, Hanging On By A Thread  (2009)<br>11:32:56 am - , Power FM<br>11:32:57 am - Seabird, Believe Me  (2009)<br>11:36:00 am - RED, Death Of Me  (2009)<br>11:39:07 am - Power FM, The Christian Rock Station<br>11:39:10 am - Fireflight, Forever  (2009)<br>11:42:45 am - Write This Down, Hand Grenades  (2010)<br>11:45:55 am - , <br>11:45:57 am - Power Gear, Promo<br>11:46:22 am - Need Him, PSA<br>11:47:22 am - Power FM, Back to music<br>11:47:24 am - The Turning, Never Again  (2006)<br>11:50:54 am - Project 86, Destroyer  (2010)<br>11:55:31 am - , Power FM<br>11:55:32 am - Decyfer Down, Ride With Me  (2010)<br>11:58:52 am - The Fold, Gravity  (2006)<br>12:01:57 pm - KVRK FM, The Christian Rock Station<br>12:02:03 pm - Falling Up, Moonlit  (2005)<br>12:05:25 pm - Queens Club, Dust  (2010)<br>12:08:54 pm - , Power FM<br>12:08:56 pm - House Of Heroes, Elevator  (2010)<br>12:11:51 pm - Abandon, Providence  (2008)<br>12:15:16 pm - Follow us on Facebook, 89.7 Power FM<br>12:15:25 pm - Hawk Nelson, Alive  (2009)<br>12:18:39 pm - Skillet, Forgiven  (2010)<br>12:22:04 pm - , <br>12:22:07 pm - Music Poll, Promo<br>12:22:24 pm - Sean Dunn, Groundwire<br>12:23:23 pm - Power FM, Back To Music<br>12:23:25 pm - Kutless, Your Touch  (2002)<br>12:27:41 pm - Pillar, Whatever It Takes  (2010)<br>12:31:31 pm - , Power FM<br>12:31:32 pm - Relient K, Therapy  (2010)<br>12:35:04 pm - Ivoryline, Be Still And Breathe  (2008)<br>12:38:27 pm - Listener, Supported<br>12:38:30 pm - Thousand Foot Krutch, Fire It Up  (2009)<br>12:41:23 pm - Manic Drive, Music  (2009)<br>12:44:43 pm - , <br>12:44:45 pm - Logos Bookstore, Sponsorship<br>12:45:06 pm - Jeff Klein, Walk The Way<br>12:46:04 pm - Power FM, Back To Music<br>12:46:05 pm - StorySide B, Don't Let It Go  (2007)<br>12:49:08 pm - Philmont, Where To Start  (2009)<br>12:52:19 pm - , Power FM<br>                      </font> </td>                    </tr>                  </table>                </div>            </div></td>          </tr>      </table></td>    </tr>  </table>  <p>&nbsp;</p>  </body>  </html>    
+
+ERROR: 2010-10-27_03-02-02 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of IsMinimized() and IsMaximized()
+   window named 'notepad' already exists
+
+ERROR: 2010-10-27_03-02-22 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of AssertForceWinFocusIfExist()
+   window named 'notepad' already exists
+
+ERROR: 2010-10-27_03-02-42 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test:
+   TestSendViaClipboard
+   window named 'notepad' already exists
+
+Debug: 2010-10-27_10-25-56 C:\My Dropbox\AHKs\ChangeDebugItem.ahk 
+   |EPMS|EPMS|perl nacha.pl > C:\code\report.txt|FL.fn.createWindow('FL.ui.grid.Memberships', 3775);|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl script\fl_workbench.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl pinnacle2744.pl C:\import_files\pinnacle2744-2010-october-props.csv > C:\code\report.txt|perl script\fl_workbench.pl|perl pinnacle2744.pl C:\import_files\pinnacle2744-2010-october-props.csv > C:\code\report.txt|perl script\fl_workbench.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl script\fl_workbench.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl pinnacle2744.pl C:\import_files\pinnacle2744-2010-october-props.csv > C:\code\report.txt|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl avalonbay.pl C:\import_files\avalonbay-2010-october-props.csv > C:\code\report.txt|perl pinnacle.pl C:\import_files\pinnacle-2010-october-props.csv > C:\code\report.txt|perl avalonbay.pl C:\import_files\avalonbay-2010-october-props.csv > C:\code\report.txt|perl pinnacle.pl C:\import_files\pinnacle-2010-october-props.csv > C:\code\report.txt|perl pinnacle.pl C:\import_files\pinnacle-2010-october-props.csv > C:\code\report.txt|EPMS|perl findOrphanShops.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.Subscriptions' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.IpAuthBys' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.IpAuthBys' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|EPMS|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt|EPMS|EOMS|EPMS|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey1.csv > C:\code\report.txt|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt|perl bounce_importer.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|EPMS|perl bounce_importer.pl|EPMS|perl propcleanup.pl 831 > C:\code\report.txt|perl propcleanup.pl 831|perl propcleanup.pl|perl surveyexample.pl 9-2-10_new_patient_send_list.csv > report.txt|EPMS|FL.fn.createWindow('FL.ui.form.AccountInfo', 999);|FL.fn.createWindow('FL.ui.grid.Educations', 999);|EPMS|perl surveyexample.pl surveyexample.csv > report.txt 0|EPMS|perl surveyexample.pl surveyexample.csv > report.txt 0|perl queue_surveys.pl|perl surveyexample.pl surveyexample.csv > report.txt 0|perl queue_surveys.pl|EPMS|perl exportAllToCsv.pl|EPMS|perl surveyexample.pl surveyexample.csv > report.txt 0|perl surveyexample.pl surveyexample.csv > report.txt|perl surveyexample.pl surveyexample.csv > report.txt 0|EPMS|perl queue_surveys.pl|EPMS|perl queue_surveys.pl|perl avalonbay.pl avalonbaydata.csv > report.txt 0|perl avalonbay.pl avalonbaydata1.csv > report.txt 0|perl avalonbay.pl avalonbaydata.csv > report.txt 0|perl avalonbay.pl avalonbaydata1.csv > report.txt 0|perl avalonbay.pl avalonbaydata.csv > report.txt 0|perl avalonbay.pl avalonbaydata.csv > report.txt|perl queue_surveys.pl|EPMS|perl exportAllToCsv.pl|EPMS|perl homeproperties.pl homeproperties1035.csv > report.txt 0|perl pinnacle.pl pinnacle1641.csv > report.txt 0|perl bh.pl bh51.csv > report.txt 0|perl homeproperties.pl homeproperties1035.csv > report.txt 0|perl bh.pl bh51.csv > report.txt 0|perl pinnacle.pl pinnacle1641.csv > report.txt 0|perl pinnacle.pl pinnacle1641.csv > report.txt|perl bh.pl bh51.csv > report.txt|perl homeproperties.pl homeproperties1035.csv > report.txt|perl homeproperties.pl homeproperties.csv > report.txt|perl bh.pl bh51.csv > report.txt|perl pinnacle.pl pinnacle1641.csv > report.txt|EPMS|perl greystar.pl "gsassociates (1).txt" > report.txt 0|EPMS|perl greystar.pl "gsassociates (1).txt" > report.txt 0|EPMS|perl greystar.pl "gsassociates (1).txt" > report.txt 0|perl greystar.pl "gsassociates (1).txt" > report.txt|perl greystar.pl "gsassociates (1).txt"|perl greystar.pl "gsassociates (small).txt"|perl greystar.pl "gsassociates (1).txt"|perl greystar.pl "gsassociates (1).csv"|EPMS|perl avalonbay.pl "avalonbay data.csv"|EPMS|perl equitypropertycleanup.pl > report.txt|perl equitypropertycleanup.pl > report.txt|perl equitypropertycleanup.pl|perl equity.pl Property_List_20100901.txt > report.txt|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.form.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:19790 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:999 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:4070 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.form.User' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.JudgeJournal', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:999 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:9 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.fn.createWindow('FL.ui.grid.Educations', 999);|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|FL.fn.createWindow('FL.ui.grid.Educations', 999);|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );|FL.fn.createWindow('FL.ui.grid.Educations', 999);|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.mgmt.CourtJudge', item_id: 59 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.Terms', item_id: 59 } );|FL.fn.createWindow('FL.ui.grid.Educations', 999);|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.JudgeJournal', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.JudgeJournal', prev_id:39713, next_id:39714 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:9 } );|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:4070 } );|FL.fn.createWindow('FL.ui.grid.Clerks', 9);|FL.fn.createWindow('FL.ui.grid.Memberships', 9);|FL.fn.createWindow('FL.ui.form.Clerk', 9);|FL.fn.createWindow('FL.ui.grid.Addresses', 9);|FL.fn.createWindow('FL.ui.grid.Vacancies', 66);|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Groups' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.EditCourts' } );|
+
+Debug: 2010-10-27_10-27-27 C:\My Dropbox\AHKs\ChangeDebugItem.ahk 
+   |EPMS|EPMS|perl nacha.pl > C:\code\report.txt|FL.fn.createWindow('FL.ui.grid.Memberships', 3775);|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl script\fl_workbench.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl pinnacle2744.pl C:\import_files\pinnacle2744-2010-october-props.csv > C:\code\report.txt|perl script\fl_workbench.pl|perl pinnacle2744.pl C:\import_files\pinnacle2744-2010-october-props.csv > C:\code\report.txt|perl script\fl_workbench.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl script\fl_workbench.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl pinnacle2744.pl C:\import_files\pinnacle2744-2010-october-props.csv > C:\code\report.txt|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl avalonbay.pl C:\import_files\avalonbay-2010-october-props.csv > C:\code\report.txt|perl pinnacle.pl C:\import_files\pinnacle-2010-october-props.csv > C:\code\report.txt|perl avalonbay.pl C:\import_files\avalonbay-2010-october-props.csv > C:\code\report.txt|perl pinnacle.pl C:\import_files\pinnacle-2010-october-props.csv > C:\code\report.txt|perl pinnacle.pl C:\import_files\pinnacle-2010-october-props.csv > C:\code\report.txt|EPMS|perl findOrphanShops.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.Subscriptions' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.IpAuthBys' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.IpAuthBys' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|EPMS|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt|EPMS|EOMS|EPMS|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey1.csv > C:\code\report.txt|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt|perl bounce_importer.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|EPMS|perl bounce_importer.pl|EPMS|perl propcleanup.pl 831 > C:\code\report.txt|perl propcleanup.pl 831|perl propcleanup.pl|perl surveyexample.pl 9-2-10_new_patient_send_list.csv > report.txt|EPMS|FL.fn.createWindow('FL.ui.form.AccountInfo', 999);|FL.fn.createWindow('FL.ui.grid.Educations', 999);|EPMS|perl surveyexample.pl surveyexample.csv > report.txt 0|EPMS|perl surveyexample.pl surveyexample.csv > report.txt 0|perl queue_surveys.pl|perl surveyexample.pl surveyexample.csv > report.txt 0|perl queue_surveys.pl|EPMS|perl exportAllToCsv.pl|EPMS|perl surveyexample.pl surveyexample.csv > report.txt 0|perl surveyexample.pl surveyexample.csv > report.txt|perl surveyexample.pl surveyexample.csv > report.txt 0|EPMS|perl queue_surveys.pl|EPMS|perl queue_surveys.pl|perl avalonbay.pl avalonbaydata.csv > report.txt 0|perl avalonbay.pl avalonbaydata1.csv > report.txt 0|perl avalonbay.pl avalonbaydata.csv > report.txt 0|perl avalonbay.pl avalonbaydata1.csv > report.txt 0|perl avalonbay.pl avalonbaydata.csv > report.txt 0|perl avalonbay.pl avalonbaydata.csv > report.txt|perl queue_surveys.pl|EPMS|perl exportAllToCsv.pl|EPMS|perl homeproperties.pl homeproperties1035.csv > report.txt 0|perl pinnacle.pl pinnacle1641.csv > report.txt 0|perl bh.pl bh51.csv > report.txt 0|perl homeproperties.pl homeproperties1035.csv > report.txt 0|perl bh.pl bh51.csv > report.txt 0|perl pinnacle.pl pinnacle1641.csv > report.txt 0|perl pinnacle.pl pinnacle1641.csv > report.txt|perl bh.pl bh51.csv > report.txt|perl homeproperties.pl homeproperties1035.csv > report.txt|perl homeproperties.pl homeproperties.csv > report.txt|perl bh.pl bh51.csv > report.txt|perl pinnacle.pl pinnacle1641.csv > report.txt|EPMS|perl greystar.pl "gsassociates (1).txt" > report.txt 0|EPMS|perl greystar.pl "gsassociates (1).txt" > report.txt 0|EPMS|perl greystar.pl "gsassociates (1).txt" > report.txt 0|perl greystar.pl "gsassociates (1).txt" > report.txt|perl greystar.pl "gsassociates (1).txt"|perl greystar.pl "gsassociates (small).txt"|perl greystar.pl "gsassociates (1).txt"|perl greystar.pl "gsassociates (1).csv"|EPMS|perl avalonbay.pl "avalonbay data.csv"|EPMS|perl equitypropertycleanup.pl > report.txt|perl equitypropertycleanup.pl > report.txt|perl equitypropertycleanup.pl|perl equity.pl Property_List_20100901.txt > report.txt|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.form.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:19790 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:999 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:4070 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.form.User' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.JudgeJournal', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:999 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:9 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.fn.createWindow('FL.ui.grid.Educations', 999);|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|FL.fn.createWindow('FL.ui.grid.Educations', 999);|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );|FL.fn.createWindow('FL.ui.grid.Educations', 999);|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.mgmt.CourtJudge', item_id: 59 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.Terms', item_id: 59 } );|FL.fn.createWindow('FL.ui.grid.Educations', 999);|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.JudgeJournal', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.JudgeJournal', prev_id:39713, next_id:39714 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:9 } );|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:4070 } );|FL.fn.createWindow('FL.ui.grid.Clerks', 9);|FL.fn.createWindow('FL.ui.grid.Memberships', 9);|FL.fn.createWindow('FL.ui.form.Clerk', 9);|FL.fn.createWindow('FL.ui.grid.Addresses', 9);|FL.fn.createWindow('FL.ui.grid.Vacancies', 66);|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Groups' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.EditCourts' } );|
+
+Debug: 2010-10-27_10-28-39 C:\My Dropbox\AHKs\ChangeDebugItem.ahk 
+   |EPMS|perl nacha.pl > C:\code\report.txt|FL.fn.createWindow('FL.ui.grid.Memberships', 3775);|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl script\fl_workbench.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl pinnacle2744.pl C:\import_files\pinnacle2744-2010-october-props.csv > C:\code\report.txt|perl script\fl_workbench.pl|perl pinnacle2744.pl C:\import_files\pinnacle2744-2010-october-props.csv > C:\code\report.txt|perl script\fl_workbench.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl script\fl_workbench.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl pinnacle2744.pl C:\import_files\pinnacle2744-2010-october-props.csv > C:\code\report.txt|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );|perl avalonbay.pl C:\import_files\avalonbay-2010-october-props.csv > C:\code\report.txt|perl pinnacle.pl C:\import_files\pinnacle-2010-october-props.csv > C:\code\report.txt|perl avalonbay.pl C:\import_files\avalonbay-2010-october-props.csv > C:\code\report.txt|perl pinnacle.pl C:\import_files\pinnacle-2010-october-props.csv > C:\code\report.txt|perl pinnacle.pl C:\import_files\pinnacle-2010-october-props.csv > C:\code\report.txt|EPMS|perl findOrphanShops.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.Subscriptions' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.IpAuthBys' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.IpAuthBys' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|EPMS|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt|EPMS|EOMS|EPMS|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey1.csv > C:\code\report.txt|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|perl fibro_renewal_survey.pl C:\import_files\fibro_renewal_survey.csv > C:\code\report.txt|perl bounce_importer.pl|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|EPMS|perl bounce_importer.pl|EPMS|perl propcleanup.pl 831 > C:\code\report.txt|perl propcleanup.pl 831|perl propcleanup.pl|perl surveyexample.pl 9-2-10_new_patient_send_list.csv > report.txt|EPMS|FL.fn.createWindow('FL.ui.form.AccountInfo', 999);|FL.fn.createWindow('FL.ui.grid.Educations', 999);|EPMS|perl surveyexample.pl surveyexample.csv > report.txt 0|EPMS|perl surveyexample.pl surveyexample.csv > report.txt 0|perl queue_surveys.pl|perl surveyexample.pl surveyexample.csv > report.txt 0|perl queue_surveys.pl|EPMS|perl exportAllToCsv.pl|EPMS|perl surveyexample.pl surveyexample.csv > report.txt 0|perl surveyexample.pl surveyexample.csv > report.txt|perl surveyexample.pl surveyexample.csv > report.txt 0|EPMS|perl queue_surveys.pl|EPMS|perl queue_surveys.pl|perl avalonbay.pl avalonbaydata.csv > report.txt 0|perl avalonbay.pl avalonbaydata1.csv > report.txt 0|perl avalonbay.pl avalonbaydata.csv > report.txt 0|perl avalonbay.pl avalonbaydata1.csv > report.txt 0|perl avalonbay.pl avalonbaydata.csv > report.txt 0|perl avalonbay.pl avalonbaydata.csv > report.txt|perl queue_surveys.pl|EPMS|perl exportAllToCsv.pl|EPMS|perl homeproperties.pl homeproperties1035.csv > report.txt 0|perl pinnacle.pl pinnacle1641.csv > report.txt 0|perl bh.pl bh51.csv > report.txt 0|perl homeproperties.pl homeproperties1035.csv > report.txt 0|perl bh.pl bh51.csv > report.txt 0|perl pinnacle.pl pinnacle1641.csv > report.txt 0|perl pinnacle.pl pinnacle1641.csv > report.txt|perl bh.pl bh51.csv > report.txt|perl homeproperties.pl homeproperties1035.csv > report.txt|perl homeproperties.pl homeproperties.csv > report.txt|perl bh.pl bh51.csv > report.txt|perl pinnacle.pl pinnacle1641.csv > report.txt|EPMS|perl greystar.pl "gsassociates (1).txt" > report.txt 0|EPMS|perl greystar.pl "gsassociates (1).txt" > report.txt 0|EPMS|perl greystar.pl "gsassociates (1).txt" > report.txt 0|perl greystar.pl "gsassociates (1).txt" > report.txt|perl greystar.pl "gsassociates (1).txt"|perl greystar.pl "gsassociates (small).txt"|perl greystar.pl "gsassociates (1).txt"|perl greystar.pl "gsassociates (1).csv"|EPMS|perl avalonbay.pl "avalonbay data.csv"|EPMS|perl equitypropertycleanup.pl > report.txt|perl equitypropertycleanup.pl > report.txt|perl equitypropertycleanup.pl|perl equity.pl Property_List_20100901.txt > report.txt|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.form.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:19790 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:999 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:4070 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.form.User' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|EPMS|EPMS|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.JudgeJournal', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:999 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:9 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.fn.createWindow('FL.ui.grid.Educations', 999);|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|FL.fn.createWindow('FL.ui.grid.Educations', 999);|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );|FL.fn.createWindow('FL.ui.grid.Educations', 999);|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Court', item_id:8 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.mgmt.CourtJudge', item_id: 59 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.Terms', item_id: 59 } );|FL.fn.createWindow('FL.ui.grid.Educations', 999);|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.JudgeJournal', item_id:82 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.JudgeJournal', prev_id:39713, next_id:39714 } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Courts' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:9 } );|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.filtergrid.EventLogs' } );|TM.globals.mainpanel.addOrSwitchTo({ xtype:'TM.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:4070 } );|FL.fn.createWindow('FL.ui.grid.Clerks', 9);|FL.fn.createWindow('FL.ui.grid.Memberships', 9);|FL.fn.createWindow('FL.ui.form.Clerk', 9);|FL.fn.createWindow('FL.ui.grid.Addresses', 9);|FL.fn.createWindow('FL.ui.grid.Vacancies', 66);|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Groups' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'MTSI.ui.grid.Users' } );|FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.EditCourts' } );|
+
+ERROR: 2010-10-28_03-02-02 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of IsMinimized() and IsMaximized()
+   window named 'notepad' already exists
+
+ERROR: 2010-10-28_03-02-22 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test of AssertForceWinFocusIfExist()
+   window named 'notepad' already exists
+
+ERROR: 2010-10-28_03-02-42 C:\My Dropbox\AHKs\UnitTests.ahk 
+   LOG ERRORD Skipped Test:
+   TestSendViaClipboard
+   window named 'notepad' already exists
+
+Debug: 2010-11-01_16-01-23 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   816
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-08_17-26-26 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   827
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-09_09-47-08 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   827
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-09_09-49-01 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   827
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   3
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   13
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   23
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   33
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   43
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   53
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   63
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   73
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   83
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   93
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   103
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   113
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   123
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   133
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   143
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   153
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   163
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   173
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   183
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   193
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   203
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   213
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   223
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   233
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   243
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   253
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   263
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   273
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   283
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   293
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   303
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   313
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   323
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   333
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   343
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   353
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   363
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   373
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   383
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   393
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   403
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   413
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   423
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   433
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   443
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   453
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   463
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   473
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   483
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   493
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   503
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   513
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   523
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   533
+
+Debug: 2010-11-09_15-20-17 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   543
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   553
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   563
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   573
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   583
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   593
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   603
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   613
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   623
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   633
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   643
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   653
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   663
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   673
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   683
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   693
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   703
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   713
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   723
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   733
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   743
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   753
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   763
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   773
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   783
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   793
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   803
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   813
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   823
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   833
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   843
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   853
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   863
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   873
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   883
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   893
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   903
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   913
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   923
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   933
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   943
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   953
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   963
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   973
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   983
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   993
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1003
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1013
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1023
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1033
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1043
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1053
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1063
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1073
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1083
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1093
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1103
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1113
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1123
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1133
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1143
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1153
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1163
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1173
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1183
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1193
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1203
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1213
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1223
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1233
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1243
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1253
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1263
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1273
+
+Debug: 2010-11-09_15-20-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1283
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1293
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1303
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1313
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1323
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1333
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1343
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1353
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1363
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1373
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1383
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1393
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1403
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1413
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1423
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1433
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1443
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1453
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1463
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1473
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1483
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1493
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1503
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1513
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1523
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1533
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1543
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1553
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1563
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1573
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1583
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1593
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1603
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1613
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1623
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1633
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1643
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1653
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1663
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1673
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1683
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1693
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1703
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1713
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1723
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1733
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1743
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1753
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1763
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1773
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1783
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1793
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1803
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1813
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1823
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1833
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1843
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1853
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1863
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1873
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1883
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1893
+
+Debug: 2010-11-09_15-20-19 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1903
+
+Debug: 2010-11-09_15-23-47 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   3
+
+Debug: 2010-11-09_15-23-47 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   13
+
+Debug: 2010-11-09_15-23-47 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   23
+
+Debug: 2010-11-09_15-23-47 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   33
+
+Debug: 2010-11-09_15-23-47 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   43
+
+Debug: 2010-11-09_15-23-47 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   53
+
+Debug: 2010-11-09_15-23-47 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   63
+
+Debug: 2010-11-09_15-23-48 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   73
+
+Debug: 2010-11-09_15-23-48 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   83
+
+Debug: 2010-11-09_15-23-48 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   93
+
+Debug: 2010-11-09_15-23-48 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   103
+
+Debug: 2010-11-09_15-23-48 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   113
+
+Debug: 2010-11-09_15-23-48 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   123
+
+Debug: 2010-11-09_15-23-48 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   133
+
+Debug: 2010-11-09_15-23-48 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   143
+
+Debug: 2010-11-09_15-23-48 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   153
+
+Debug: 2010-11-09_15-23-49 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   163
+
+Debug: 2010-11-09_15-23-49 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   173
+
+Debug: 2010-11-09_15-23-49 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   183
+
+Debug: 2010-11-09_15-23-49 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   193
+
+Debug: 2010-11-09_15-23-49 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   203
+
+Debug: 2010-11-09_15-23-49 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   213
+
+Debug: 2010-11-09_15-23-49 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   223
+
+Debug: 2010-11-09_15-23-49 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   233
+
+Debug: 2010-11-09_15-23-49 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   243
+
+Debug: 2010-11-09_15-23-50 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   253
+
+Debug: 2010-11-09_15-23-50 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   263
+
+Debug: 2010-11-09_15-23-50 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   273
+
+Debug: 2010-11-09_15-23-50 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   283
+
+Debug: 2010-11-09_15-23-50 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   293
+
+Debug: 2010-11-09_15-23-50 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   303
+
+Debug: 2010-11-09_15-23-50 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   313
+
+Debug: 2010-11-09_15-23-50 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   323
+
+Debug: 2010-11-09_15-23-50 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   333
+
+Debug: 2010-11-09_15-23-51 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   343
+
+Debug: 2010-11-09_15-23-51 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   353
+
+Debug: 2010-11-09_15-23-51 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   363
+
+Debug: 2010-11-09_15-23-51 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   373
+
+Debug: 2010-11-09_15-23-51 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   383
+
+Debug: 2010-11-09_15-23-51 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   393
+
+Debug: 2010-11-09_15-23-51 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   403
+
+Debug: 2010-11-09_15-23-51 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   413
+
+Debug: 2010-11-09_15-23-51 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   423
+
+Debug: 2010-11-09_15-23-52 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   433
+
+Debug: 2010-11-09_15-23-52 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   443
+
+Debug: 2010-11-09_15-23-52 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   453
+
+Debug: 2010-11-09_15-23-52 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   463
+
+Debug: 2010-11-09_15-23-52 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   473
+
+Debug: 2010-11-09_15-23-52 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   483
+
+Debug: 2010-11-09_15-23-52 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   493
+
+Debug: 2010-11-09_15-23-52 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   503
+
+Debug: 2010-11-09_15-23-52 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   513
+
+Debug: 2010-11-09_15-23-53 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   523
+
+Debug: 2010-11-09_15-23-53 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   533
+
+Debug: 2010-11-09_15-23-53 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   543
+
+Debug: 2010-11-09_15-23-53 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   553
+
+Debug: 2010-11-09_15-23-53 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   563
+
+Debug: 2010-11-09_15-23-53 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   573
+
+Debug: 2010-11-09_15-23-53 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   583
+
+Debug: 2010-11-09_15-23-53 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   593
+
+Debug: 2010-11-09_15-23-53 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   603
+
+Debug: 2010-11-09_15-23-54 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   613
+
+Debug: 2010-11-09_15-23-54 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   623
+
+Debug: 2010-11-09_15-23-54 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   633
+
+Debug: 2010-11-09_15-23-54 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   643
+
+Debug: 2010-11-09_15-23-54 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   653
+
+Debug: 2010-11-09_15-23-54 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   663
+
+Debug: 2010-11-09_15-23-54 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   673
+
+Debug: 2010-11-09_15-23-54 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   683
+
+Debug: 2010-11-09_15-23-54 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   693
+
+Debug: 2010-11-09_15-23-54 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   703
+
+Debug: 2010-11-09_15-23-55 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   713
+
+Debug: 2010-11-09_15-23-55 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   723
+
+Debug: 2010-11-09_15-23-55 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   733
+
+Debug: 2010-11-09_15-23-55 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   743
+
+Debug: 2010-11-09_15-23-55 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   753
+
+Debug: 2010-11-09_15-23-55 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   763
+
+Debug: 2010-11-09_15-23-55 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   773
+
+Debug: 2010-11-09_15-23-55 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   783
+
+Debug: 2010-11-09_15-23-55 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   793
+
+Debug: 2010-11-09_15-23-56 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   803
+
+Debug: 2010-11-09_15-23-56 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   813
+
+Debug: 2010-11-09_15-23-56 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   823
+
+Debug: 2010-11-09_15-23-56 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   833
+
+Debug: 2010-11-09_15-23-56 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   843
+
+Debug: 2010-11-09_15-23-56 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   853
+
+Debug: 2010-11-09_15-23-56 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   863
+
+Debug: 2010-11-09_15-23-56 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   873
+
+Debug: 2010-11-09_15-23-56 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   883
+
+Debug: 2010-11-09_15-23-57 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   893
+
+Debug: 2010-11-09_15-23-57 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   903
+
+Debug: 2010-11-09_15-23-57 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   913
+
+Debug: 2010-11-09_15-23-57 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   923
+
+Debug: 2010-11-09_15-23-57 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   933
+
+Debug: 2010-11-09_15-23-57 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   943
+
+Debug: 2010-11-09_15-23-57 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   953
+
+Debug: 2010-11-09_15-23-57 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   963
+
+Debug: 2010-11-09_15-23-57 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   973
+
+Debug: 2010-11-09_15-23-58 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   983
+
+Debug: 2010-11-09_15-23-58 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   993
+
+Debug: 2010-11-09_15-23-58 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1003
+
+Debug: 2010-11-09_15-23-58 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1013
+
+Debug: 2010-11-09_15-23-58 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1023
+
+Debug: 2010-11-09_15-23-58 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1033
+
+Debug: 2010-11-09_15-23-58 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1043
+
+Debug: 2010-11-09_15-23-58 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1053
+
+Debug: 2010-11-09_15-23-58 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1063
+
+Debug: 2010-11-09_15-23-59 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1073
+
+Debug: 2010-11-09_15-23-59 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1083
+
+Debug: 2010-11-09_15-23-59 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1093
+
+Debug: 2010-11-09_15-23-59 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1103
+
+Debug: 2010-11-09_15-23-59 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1113
+
+Debug: 2010-11-09_15-23-59 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1123
+
+Debug: 2010-11-09_15-23-59 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1133
+
+Debug: 2010-11-09_15-23-59 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1143
+
+Debug: 2010-11-09_15-23-59 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1153
+
+Debug: 2010-11-09_15-24-00 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1163
+
+Debug: 2010-11-09_15-24-00 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1173
+
+Debug: 2010-11-09_15-24-00 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1183
+
+Debug: 2010-11-09_15-24-00 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1193
+
+Debug: 2010-11-09_15-24-00 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1203
+
+Debug: 2010-11-09_15-24-00 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1213
+
+Debug: 2010-11-09_15-24-00 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1223
+
+Debug: 2010-11-09_15-24-00 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1233
+
+Debug: 2010-11-09_15-24-00 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1243
+
+Debug: 2010-11-09_15-24-00 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1253
+
+Debug: 2010-11-09_15-24-01 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1263
+
+Debug: 2010-11-09_15-24-01 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1273
+
+Debug: 2010-11-09_15-24-01 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1283
+
+Debug: 2010-11-09_15-24-01 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1293
+
+Debug: 2010-11-09_15-24-01 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1303
+
+Debug: 2010-11-09_15-24-01 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1313
+
+Debug: 2010-11-09_15-24-01 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1323
+
+Debug: 2010-11-09_15-24-01 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1333
+
+Debug: 2010-11-09_15-24-01 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1343
+
+Debug: 2010-11-09_15-24-02 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1353
+
+Debug: 2010-11-09_15-24-02 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1363
+
+Debug: 2010-11-09_15-24-02 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1373
+
+Debug: 2010-11-09_15-24-02 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1383
+
+Debug: 2010-11-09_15-24-02 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1393
+
+Debug: 2010-11-09_15-24-02 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1403
+
+Debug: 2010-11-09_15-24-02 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1413
+
+Debug: 2010-11-09_15-24-02 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1423
+
+Debug: 2010-11-09_15-24-02 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1433
+
+Debug: 2010-11-09_15-24-03 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1443
+
+Debug: 2010-11-09_15-24-03 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1453
+
+Debug: 2010-11-09_15-24-03 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1463
+
+Debug: 2010-11-09_15-24-03 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1473
+
+Debug: 2010-11-09_15-24-03 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1483
+
+Debug: 2010-11-09_15-24-03 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1493
+
+Debug: 2010-11-09_15-24-03 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1503
+
+Debug: 2010-11-09_15-24-03 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1513
+
+Debug: 2010-11-09_15-24-03 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1523
+
+Debug: 2010-11-09_15-24-04 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1533
+
+Debug: 2010-11-09_15-24-04 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1543
+
+Debug: 2010-11-09_15-24-04 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1553
+
+Debug: 2010-11-09_15-24-04 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1563
+
+Debug: 2010-11-09_15-24-04 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1573
+
+Debug: 2010-11-09_15-24-04 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1583
+
+Debug: 2010-11-09_15-24-04 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1593
+
+Debug: 2010-11-09_15-24-04 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1603
+
+Debug: 2010-11-09_15-24-04 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1613
+
+Debug: 2010-11-09_15-24-05 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1623
+
+Debug: 2010-11-09_15-24-05 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1633
+
+Debug: 2010-11-09_15-24-05 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1643
+
+Debug: 2010-11-09_15-24-05 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1653
+
+Debug: 2010-11-09_15-24-05 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1663
+
+Debug: 2010-11-09_15-24-05 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1673
+
+Debug: 2010-11-09_15-24-05 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1683
+
+Debug: 2010-11-09_15-24-05 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1693
+
+Debug: 2010-11-09_15-24-05 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1703
+
+Debug: 2010-11-09_15-24-06 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1713
+
+Debug: 2010-11-09_15-24-06 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1723
+
+Debug: 2010-11-09_15-24-06 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1733
+
+Debug: 2010-11-09_15-24-06 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1743
+
+Debug: 2010-11-09_15-24-06 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1753
+
+Debug: 2010-11-09_15-24-06 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1763
+
+Debug: 2010-11-09_15-24-06 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1773
+
+Debug: 2010-11-09_15-24-06 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1783
+
+Debug: 2010-11-09_15-24-06 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1793
+
+Debug: 2010-11-09_15-24-07 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1803
+
+Debug: 2010-11-09_15-24-07 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1813
+
+Debug: 2010-11-09_15-24-07 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1823
+
+Debug: 2010-11-09_15-24-07 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1833
+
+Debug: 2010-11-09_15-24-07 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1843
+
+Debug: 2010-11-09_15-24-07 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1853
+
+Debug: 2010-11-09_15-24-07 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1863
+
+Debug: 2010-11-09_15-24-07 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1873
+
+Debug: 2010-11-09_15-24-07 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1883
+
+Debug: 2010-11-09_15-24-07 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1893
+
+Debug: 2010-11-09_15-24-08 C:\My Dropbox\AHKs\temporary7.ahk 
+   silent log
+   Current RAM use
+   1903
+
+Debug: 2010-11-11_12-46-54 C:\My Dropbox\AHKs\temporary7.ahk 
+   <!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"><title>Google</title><script>window.google={kEI:"FDrcTMk4m4o1lY3gsAk",kEXPI:"17259,17291,17315,23628,23670,24472,26637,26761,26849,26869,27147,27404,27510",kCSI:{e:"17259,17291,17315,23628,23670,24472,26637,26761,26849,26869,27147,27404,27510",ei:"FDrcTMk4m4o1lY3gsAk",expi:"17259,17291,17315,23628,23670,24472,26637,26761,26849,26869,27147,27404,27510"},ml:function(){},kHL:"en",time:function(){return(new Date).getTime()},log:function(b,d,c){var a=new Image,e=google,g=e.lc,f=e.li;a.onerror=(a.onload=(a.onabort=function(){delete g[f]}));g[f]=a;c=c||"/gen_204?atyp=i&ct="+b+"&cad="+d+"&zx="+google.time();a.src=c;e.li=f+1},lc:[],li:0,Toolbelt:{}};
+window.google.sn="webhp";var i=window.google.timers={};window.google.startTick=function(a,b){i[a]={t:{start:(new Date).getTime()},bfr:!(!b)}};window.google.tick=function(a,b,c){if(!i[a])google.startTick(a);i[a].t[b]=c||(new Date).getTime()};google.startTick("load",true);try{}catch(v){}
+window.google.jsrt_kill=1;
+var _gjwl=location;function _gjuc(){var e=_gjwl.href.indexOf("#");if(e>=0){var a=_gjwl.href.substring(e);if(a.indexOf("&q=")>0||a.indexOf("#q=")>=0){a=a.substring(1);if(a.indexOf("#")==-1){for(var c=0;c<a.length;){var d=c;if(a.charAt(d)=="&")++d;var b=a.indexOf("&",d);if(b==-1)b=a.length;var f=a.substring(d,b);if(f.indexOf("fp=")==0){a=a.substring(0,c)+a.substring(b,a.length);b=c}else if(f=="cad=h")return 0;c=b}_gjwl.href="/search?"+a+"&cad=h";return 1}}}return 0}function _gjp(){!(window._gjwl.hash&&
+window._gjuc())&&setTimeout(_gjp,500)};
+window._gjp && _gjp()</script><style id=gstyle>body{margin:0}#gog{padding:3px 8px 0}td{line-height:.8em}.gac_m td{line-height:17px}form{margin-bottom:20px}body,td,a,p,.h{font-family:arial,sans-serif}.h{color:#36c;font-size:20px}.q{color:#00c}.ts td{padding:0}.ts{border-collapse:collapse}em{font-weight:bold;font-style:normal}.lst{width:496px}.tiah{width:458px}input{font-family:inherit}a.gb1,a.gb2,a.gb3,a.gb4{color:#11c !important}#gbar,#guser{font-size:13px;padding-top:1px !important}#gbar{height:22px}#guser{padding-bottom:7px !important;text-align:right}.gbh,.gbd{border-top:1px solid #c9d7f1;font-size:1px}.gbh{height:0;position:absolute;top:24px;width:100%}@media all{.gb1{height:22px;margin-right:.5em;vertical-align:top}#gbar{float:left}}a.gb1,a.gb4{color:#00c !important}body{background:#fff;color:black}input{-moz-box-sizing:content-box}a{color:#11c;text-decoration:none}a:hover,a:active{text-decoration:underline}.fl a{color:#4272db}a:visited{color:#551a8b}a.gb1,a.gb4{text-decoration:underline}a.gb3:hover{text-decoration:none}#ghead a.gb2:hover{color:#fff!important}.ds{display:-moz-inline-box}.ds{border-bottom:solid 1px #e7e7e7;border-right:solid 1px #e7e7e7;display:inline-block;margin:3px 0 4px;margin-left:4px}.sblc{padding-top:5px}.sblc a{display:block;margin:2px 0;margin-left:13px;font-size:11px;}.lsbb{background:#eee;border:solid 1px;border-color:#ccc #999 #999 #ccc;height:30px;display:block}.lsb{background:url(/images/srpr/nav_logo25.png) bottom;font:15px arial,sans-serif;border:none;color:#000;cursor:pointer;height:30px;margin:0;outline:0;vertical-align:top}.lsb:active{background:#ccc}.lst:focus{outline:none}.ftl,#fll a{margin:0 12px}#addlang a{padding:0 3px}.gac_v div{display:none}.gac_v .gac_v2,.gac_bt{display:block!important}</style><script>google.y={};google.x=function(e,g){google.y[e.id]=[e,g];return false};</script></head><body bgcolor=#ffffff text=#000000 link=#0000cc vlink=#551a8b alink=#ff0000 onload="document.f.q.focus();if(document.images)new Image().src='/images/srpr/nav_logo25.png'" ><textarea id=csi style=display:none></textarea><iframe name=wgjf style=display:none></iframe><div id=ghead><div id=gbar><nobr><b class=gb1>Web</b> <a onclick=gbar.qs(this) href="http://www.google.com/imghp?hl=en&tab=wi" class=gb1>Images</a> <a onclick=gbar.qs(this) href="http://video.google.com/?hl=en&tab=wv" class=gb1>Videos</a> <a onclick=gbar.qs(this) href="http://maps.google.com/maps?hl=en&tab=wl" class=gb1>Maps</a> <a onclick=gbar.qs(this) href="http://news.google.com/nwshp?hl=en&tab=wn" class=gb1>News</a> <a onclick=gbar.qs(this) href="http://www.google.com/prdhp?hl=en&tab=wf" class=gb1>Shopping</a> <a href="http://mail.google.com/mail/?hl=en&tab=wm" class=gb1>Gmail</a> <a href="http://www.google.com/intl/en/options/" class=gb1 style="text-decoration:none"><u>more</u> &raquo;</a></nobr></div><div id=guser width=100%><nobr><span id=gbn class=gbi></span><span id=gbf class=gbf></span><span id=gbe><a href="/url?sa=p&pref=ig&pval=3&q=http://www.google.com/ig%3Fhl%3Den%26source%3Diglk&usg=AFQjCNFA18XPfgb7dKnXfKz7x7g1GDH1tg" class=gb4>iGoogle</a> | </span><a href="/preferences?hl=en" class=gb4>Settings</a> | <a href="https://www.google.com/accounts/Login?hl=en&continue=http://www.google.com/" class=gb4>Sign in</a></nobr></div><div class=gbh style=left:0></div><div class=gbh style=right:0></div></div> <center><br clear=all id=lgpd><div id=lga><a href="/search?q=Veterans+Day&amp;ct=veteransday2010-ps&amp;oi=ddle"><img alt="Veterans Day 2010" title="Veterans Day 2010" border=0 height=145 src="/logos/2010/veteransday2010-ps.jpg" width=384 id=logo onload="window.lol&&lol()"/></a><br><br></div><form action="/search" name=f><table cellpadding=0 cellspacing=0><tr valign=top><td width=25%>&nbsp;</td><td align=center nowrap><input name=hl type=hidden value=en><input name=source type=hidden value=hp><input type=hidden name=ie value="ISO-8859-1"><div class=ds style="height:32px;margin:4px 0"><input autocomplete="off" maxlength=2048 name=q class="lst" title="Google Search" value="" size=57 style="background:#fff;border:1px solid #ccc;border-bottom-color:#999;border-right-color:#999;color:#000;font:18px arial,sans-serif bold;height:25px;margin:0;padding:5px 8px 0 6px;vertical-align:top"></div><br style="line-height:0"><span class=ds ><span class=lsbb><input name=btnG type=submit value="Google Search" class=lsb></span></span><span class=ds><span class=lsbb><input name=btnI type=submit value="I&#39;m Feeling Lucky" class=lsb></span></span></td><td nowrap width=25% align=left class=sblc><a href="/advanced_search?hl=en">Advanced Search</a><a href="/language_tools?hl=en">Language Tools</a></td></tr></table></form><div style="font-size:83%;min-height:3.5em"><br><div id=prm><font size=-1><font color=red>New!</font> Peek at the pages in your search results with <a href="/aclk?sa=L&ai=C-OGOVDncTPSIOcf4qgHwovGQAoWJj8UBzfy7gBXB2ZzZExABIMFUUKb-rp77_____wFgyQaqBLcBT9CXJFK09G2cG8tPzD48OefuMTIM7sbuYqAuX4MG4Bwtc8oXNrMCklQN2ZzDpxTg5Hb__0_c_8dHwkAlHmaXElwl_Ff3yTz1XMTVfRF8tI9mucT960p0XcAUf9CmAN-bUcbCErsX2FiNUDmcDN6h-Sd4kKOG3cOua9zmqkhNPEEitF-nHaO2g7Ixl9NW97QGrt3dR3TGjF_DtbuxojmEYkOBrjp78YNsK1Y47CSajTUpdLBmEuEA&num=1&sig=AGiWqtx7cS3aA5F8O-ZDE5hXU4m6fBRcTQ&adurl=http://www.google.com/landing/instantpreviews/%23utm_campaign%3Dlaunch%26utm_medium%3Dhpp%26utm_source%3Dcom">Instant Previews</a></font><br><br></div></div><div id=res></div><span id=footer><center id=fctr><div style="font-size:10pt"><div id=fll style="margin:19px auto 19px auto;text-align:center"><a href="/intl/en/ads/">Advertising&nbsp;Programs</a><a href="/services/">Business Solutions</a><a href="/intl/en/about.html">About Google</a></div></div><p style="color:#767676;font-size:8pt">&copy; 2010 - <a href="/intl/en/privacy.html">Privacy</a></p></center></span> <div id=xjsd></div><div id=xjsi><script>if(google.y)google.y.first=[];if(google.y)google.y.first=[];if(!google.xjs){google.dstr=[];google.rein=[];window.setTimeout(function(){var a=document.createElement("script");a.src="/extern_js/f/CgJlbhICdXMgACswRTgALCswWjgALCswDjgALCswFzgALCswJzgALCswPDgALCswCjgAQC8sKzAWOAAsKzAlOM-IASwrMEA4ACwrMEE4ACwrME04CiwrMFQ4ACwrMGk4ACwrMBg4ACwrMCY4ACyAAiaQAiM/jihESDhA-p8.js";(document.getElementById("xjsd")||document.body).appendChild(a);if(google.timers&&google.timers.load.t)google.timers.load.t.xjsls=(new Date).getTime();},0);
+google.xjs=1}google.neegg=1;google.y.first.push(function(){var form=document.f||document.f||document.gs;google.ac.i(form,form.q,'','','',{a:1,l:1,o:1,sw:1});google.mc = [[14,{}],[64,{}],[105,{}],[22,{"m_error":"\u003Cfont color=red\u003EError:\u003C/font\u003E The server could not complete your request.  Try again in 30 seconds.","m_tip":"Click for more information"}],[84,{}]];google.med('init');google.History&&google.History.initialize('/')});if(google.j&&google.j.en&&google.j.xi){window.setTimeout(google.j.xi,0);google.fade=null;}</script></div><script>(function(){
+var b,d,e,f;function g(a,c){if(a.removeEventListener){a.removeEventListener("load",c,false);a.removeEventListener("error",c,false)}else{a.detachEvent("onload",c);a.detachEvent("onerror",c)}}function h(a){f=(new Date).getTime();++d;a=a||window.event;var c=a.target||a.srcElement;g(c,h)}var i=document.getElementsByTagName("img");b=i.length;d=0;for(var j=0,k;j<b;++j){k=i[j];if(k.complete||typeof k.src!="string"||!k.src)++d;else if(k.addEventListener){k.addEventListener("load",h,false);k.addEventListener("error",
+h,false)}else{k.attachEvent("onload",h);k.attachEvent("onerror",h)}}e=b-d;function l(){if(!google.timers.load.t)return;google.timers.load.t.ol=(new Date).getTime();google.timers.load.t.iml=f;google.kCSI.imc=d;google.kCSI.imn=b;google.kCSI.imp=e;google.timers.load.t.xjs&&google.report&&google.report(google.timers.load,google.kCSI)}if(window.addEventListener)window.addEventListener("load",l,false);else if(window.attachEvent)window.attachEvent("onload",l);google.timers.load.t.prt=(f=(new Date).getTime());
+})();
+</script>
+
+Debug: 2010-11-11_12-49-33 C:\My Dropbox\AHKs\temporary7.ahk 
+   <!doctype html><html><head><meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"><title>Google</title><script>window.google={kEI:"sjrcTKydM4rQM-XhybgJ",kEXPI:"17259,17291,17315,23628,23670,24472,26637,26761,26849,26869,27147,27404,27510",kCSI:{e:"17259,17291,17315,23628,23670,24472,26637,26761,26849,26869,27147,27404,27510",ei:"sjrcTKydM4rQM-XhybgJ",expi:"17259,17291,17315,23628,23670,24472,26637,26761,26849,26869,27147,27404,27510"},ml:function(){},kHL:"en",time:function(){return(new Date).getTime()},log:function(b,d,c){var a=new Image,e=google,g=e.lc,f=e.li;a.onerror=(a.onload=(a.onabort=function(){delete g[f]}));g[f]=a;c=c||"/gen_204?atyp=i&ct="+b+"&cad="+d+"&zx="+google.time();a.src=c;e.li=f+1},lc:[],li:0,Toolbelt:{}};
+window.google.sn="webhp";var i=window.google.timers={};window.google.startTick=function(a,b){i[a]={t:{start:(new Date).getTime()},bfr:!(!b)}};window.google.tick=function(a,b,c){if(!i[a])google.startTick(a);i[a].t[b]=c||(new Date).getTime()};google.startTick("load",true);try{}catch(v){}
+window.google.jsrt_kill=1;
+var _gjwl=location;function _gjuc(){var e=_gjwl.href.indexOf("#");if(e>=0){var a=_gjwl.href.substring(e);if(a.indexOf("&q=")>0||a.indexOf("#q=")>=0){a=a.substring(1);if(a.indexOf("#")==-1){for(var c=0;c<a.length;){var d=c;if(a.charAt(d)=="&")++d;var b=a.indexOf("&",d);if(b==-1)b=a.length;var f=a.substring(d,b);if(f.indexOf("fp=")==0){a=a.substring(0,c)+a.substring(b,a.length);b=c}else if(f=="cad=h")return 0;c=b}_gjwl.href="/search?"+a+"&cad=h";return 1}}}return 0}function _gjp(){!(window._gjwl.hash&&
+window._gjuc())&&setTimeout(_gjp,500)};
+window._gjp && _gjp()</script><style id=gstyle>body{margin:0}#gog{padding:3px 8px 0}td{line-height:.8em}.gac_m td{line-height:17px}form{margin-bottom:20px}body,td,a,p,.h{font-family:arial,sans-serif}.h{color:#36c;font-size:20px}.q{color:#00c}.ts td{padding:0}.ts{border-collapse:collapse}em{font-weight:bold;font-style:normal}.lst{width:496px}.tiah{width:458px}input{font-family:inherit}a.gb1,a.gb2,a.gb3,a.gb4{color:#11c !important}#gbar,#guser{font-size:13px;padding-top:1px !important}#gbar{height:22px}#guser{padding-bottom:7px !important;text-align:right}.gbh,.gbd{border-top:1px solid #c9d7f1;font-size:1px}.gbh{height:0;position:absolute;top:24px;width:100%}@media all{.gb1{height:22px;margin-right:.5em;vertical-align:top}#gbar{float:left}}a.gb1,a.gb4{color:#00c !important}body{background:#fff;color:black}input{-moz-box-sizing:content-box}a{color:#11c;text-decoration:none}a:hover,a:active{text-decoration:underline}.fl a{color:#4272db}a:visited{color:#551a8b}a.gb1,a.gb4{text-decoration:underline}a.gb3:hover{text-decoration:none}#ghead a.gb2:hover{color:#fff!important}.ds{display:-moz-inline-box}.ds{border-bottom:solid 1px #e7e7e7;border-right:solid 1px #e7e7e7;display:inline-block;margin:3px 0 4px;margin-left:4px}.sblc{padding-top:5px}.sblc a{display:block;margin:2px 0;margin-left:13px;font-size:11px;}.lsbb{background:#eee;border:solid 1px;border-color:#ccc #999 #999 #ccc;height:30px;display:block}.lsb{background:url(/images/srpr/nav_logo25.png) bottom;font:15px arial,sans-serif;border:none;color:#000;cursor:pointer;height:30px;margin:0;outline:0;vertical-align:top}.lsb:active{background:#ccc}.lst:focus{outline:none}.ftl,#fll a{margin:0 12px}#addlang a{padding:0 3px}.gac_v div{display:none}.gac_v .gac_v2,.gac_bt{display:block!important}</style><script>google.y={};google.x=function(e,g){google.y[e.id]=[e,g];return false};</script></head><body bgcolor=#ffffff text=#000000 link=#0000cc vlink=#551a8b alink=#ff0000 onload="document.f.q.focus();if(document.images)new Image().src='/images/srpr/nav_logo25.png'" ><textarea id=csi style=display:none></textarea><iframe name=wgjf style=display:none></iframe><div id=ghead><div id=gbar><nobr><b class=gb1>Web</b> <a onclick=gbar.qs(this) href="http://www.google.com/imghp?hl=en&tab=wi" class=gb1>Images</a> <a onclick=gbar.qs(this) href="http://video.google.com/?hl=en&tab=wv" class=gb1>Videos</a> <a onclick=gbar.qs(this) href="http://maps.google.com/maps?hl=en&tab=wl" class=gb1>Maps</a> <a onclick=gbar.qs(this) href="http://news.google.com/nwshp?hl=en&tab=wn" class=gb1>News</a> <a onclick=gbar.qs(this) href="http://www.google.com/prdhp?hl=en&tab=wf" class=gb1>Shopping</a> <a href="http://mail.google.com/mail/?hl=en&tab=wm" class=gb1>Gmail</a> <a href="http://www.google.com/intl/en/options/" class=gb1 style="text-decoration:none"><u>more</u> &raquo;</a></nobr></div><div id=guser width=100%><nobr><span id=gbn class=gbi></span><span id=gbf class=gbf></span><span id=gbe><a href="/url?sa=p&pref=ig&pval=3&q=http://www.google.com/ig%3Fhl%3Den%26source%3Diglk&usg=AFQjCNFA18XPfgb7dKnXfKz7x7g1GDH1tg" class=gb4>iGoogle</a> | </span><a href="/preferences?hl=en" class=gb4>Settings</a> | <a href="https://www.google.com/accounts/Login?hl=en&continue=http://www.google.com/" class=gb4>Sign in</a></nobr></div><div class=gbh style=left:0></div><div class=gbh style=right:0></div></div> <center><br clear=all id=lgpd><div id=lga><a href="/search?q=Veterans+Day&amp;ct=veteransday2010-ps&amp;oi=ddle"><img alt="Veterans Day 2010" title="Veterans Day 2010" border=0 height=145 src="/logos/2010/veteransday2010-ps.jpg" width=384 id=logo onload="window.lol&&lol()"/></a><br><br></div><form action="/search" name=f><table cellpadding=0 cellspacing=0><tr valign=top><td width=25%>&nbsp;</td><td align=center nowrap><input name=hl type=hidden value=en><input name=source type=hidden value=hp><input type=hidden name=ie value="ISO-8859-1"><div class=ds style="height:32px;margin:4px 0"><input autocomplete="off" maxlength=2048 name=q class="lst" title="Google Search" value="" size=57 style="background:#fff;border:1px solid #ccc;border-bottom-color:#999;border-right-color:#999;color:#000;font:18px arial,sans-serif bold;height:25px;margin:0;padding:5px 8px 0 6px;vertical-align:top"></div><br style="line-height:0"><span class=ds ><span class=lsbb><input name=btnG type=submit value="Google Search" class=lsb></span></span><span class=ds><span class=lsbb><input name=btnI type=submit value="I&#39;m Feeling Lucky" class=lsb></span></span></td><td nowrap width=25% align=left class=sblc><a href="/advanced_search?hl=en">Advanced Search</a><a href="/language_tools?hl=en">Language Tools</a></td></tr></table></form><div style="font-size:83%;min-height:3.5em"><br><div id=prm><font size=-1><font color=red>New!</font> Peek at the pages in your search results with <a href="/aclk?sa=L&ai=CWP5N2zfcTM2NNMKoqAGJ8qTEAoWJj8UBzfy7gBXB2ZzZExABIMFUUKb-rp77_____wFgyQaqBLEBT9BntLHdJ9e5tz-rxz5hzFBxuOxTtRU7YNGO_Je4hQxnqavaPlP1ilAwKdPNaXMcmJ8nLbjIN0hMmTr-zW5Uu7sFu8Z1T4RRvm9-q6k7EPsNICMBL0O2mEwdCSZM-4Re54CA551SynwKbY2TFF4ezhrjgYwJI9Q8HSPhQCZcGjNY_hp6ldtclN7Q6S1VW2Cwp7kHrQZmfkAP4Cw7e5-ELfVhCz1_Gx01y4WvuPw8w_EO&num=1&sig=AGiWqtzafY3pz_rAS4Aj3O7qkURhVEfJQg&adurl=http://www.google.com/landing/instantpreviews/%23utm_campaign%3Dlaunch%26utm_medium%3Dhpp%26utm_source%3Dcom">Instant Previews</a></font><br><br></div></div><div id=res></div><span id=footer><center id=fctr><div style="font-size:10pt"><div id=fll style="margin:19px auto 19px auto;text-align:center"><a href="/intl/en/ads/">Advertising&nbsp;Programs</a><a href="/services/">Business Solutions</a><a href="/intl/en/about.html">About Google</a></div></div><p style="color:#767676;font-size:8pt">&copy; 2010 - <a href="/intl/en/privacy.html">Privacy</a></p></center></span> <div id=xjsd></div><div id=xjsi><script>if(google.y)google.y.first=[];if(google.y)google.y.first=[];if(!google.xjs){google.dstr=[];google.rein=[];window.setTimeout(function(){var a=document.createElement("script");a.src="/extern_js/f/CgJlbhICdXMgACswRTgALCswWjgALCswDjgALCswFzgALCswJzgALCswPDgALCswCjgAQC8sKzAWOAAsKzAlOM-IASwrMEA4ACwrMEE4ACwrME04CiwrMFQ4ACwrMGk4ACwrMBg4ACwrMCY4ACyAAiaQAiM/jihESDhA-p8.js";(document.getElementById("xjsd")||document.body).appendChild(a);if(google.timers&&google.timers.load.t)google.timers.load.t.xjsls=(new Date).getTime();},0);
+google.xjs=1}google.neegg=1;google.y.first.push(function(){var form=document.f||document.f||document.gs;google.ac.i(form,form.q,'','','',{a:1,l:1,o:1,sw:1});google.mc = [[14,{}],[64,{}],[105,{}],[22,{"m_error":"\u003Cfont color=red\u003EError:\u003C/font\u003E The server could not complete your request.  Try again in 30 seconds.","m_tip":"Click for more information"}],[84,{}]];google.med('init');google.History&&google.History.initialize('/')});if(google.j&&google.j.en&&google.j.xi){window.setTimeout(google.j.xi,0);google.fade=null;}</script></div><script>(function(){
+var b,d,e,f;function g(a,c){if(a.removeEventListener){a.removeEventListener("load",c,false);a.removeEventListener("error",c,false)}else{a.detachEvent("onload",c);a.detachEvent("onerror",c)}}function h(a){f=(new Date).getTime();++d;a=a||window.event;var c=a.target||a.srcElement;g(c,h)}var i=document.getElementsByTagName("img");b=i.length;d=0;for(var j=0,k;j<b;++j){k=i[j];if(k.complete||typeof k.src!="string"||!k.src)++d;else if(k.addEventListener){k.addEventListener("load",h,false);k.addEventListener("error",
+h,false)}else{k.attachEvent("onload",h);k.attachEvent("onerror",h)}}e=b-d;function l(){if(!google.timers.load.t)return;google.timers.load.t.ol=(new Date).getTime();google.timers.load.t.iml=f;google.kCSI.imc=d;google.kCSI.imn=b;google.kCSI.imp=e;google.timers.load.t.xjs&&google.report&&google.report(google.timers.load,google.kCSI)}if(window.addEventListener)window.addEventListener("load",l,false);else if(window.attachEvent)window.attachEvent("onload",l);google.timers.load.t.prt=(f=(new Date).getTime());
+})();
+</script>
+
+Debug: 2010-11-15_12-06-44 C:\My Dropbox\AHKs\temporary7.ahk 
+   log
+   EPMS     Create XLS Report of Timecard Data at C:\code\Examples\JiraClient.pl line 7.
+soapenv:Server.userException, org.xml.sax.SAXException: Invalid element in com.atlassian.jira.rpc.soap.beans.RemoteIssue - title at C:\code\Examples\JiraClient.pl line 12
+
+
+Debug: 2010-11-15_12-08-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   log
+   EPMS     Create XLS Report of Timecard Data at C:\code\Examples\JiraClient.pl line 7.
+
+
+ERROR: 2010-11-15_14-50-31 C:\My Dropbox\AHKs\SendQueuedEmails.ahk 
+   LOG ERRORD
+   Function Name:	"Send"
+ERROR:		(0x80040211)
+PROG:	
+DESC:	The message could not be sent to the SMTP server. The transport error code was 0x80040217. The server response was not available
+
+HELP:	,0
+
+ERROR: 2010-11-15_15-36-24 INCORRECT USAGE
+
+PROPER USAGE IS: ahk.exe ssmsAppPath user pass destDbName               
+
+Debug: 2010-11-16_21-41-31 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-asap.ahk
+
+ERROR: 2010-11-16_21-46-48 C:\My Dropbox\AHKs\Scheduled-asap.ahk 
+   LOG ERRORD shutting down soon
+
+Debug: 2010-11-17_13-49-13 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   867
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-17_17-07-28 C:\My Dropbox\AHKs\temporary7.ahk 
+   log
+   fadsafsdafafsd     Change Gender Diversity Links at C:\code\Examples\JiraClient.pl line 7.
+soapenv:Server.userException, com.atlassian.jira.rpc.exception.RemotePermissionException: The project specified does not exist or you don't have permission to create issues in it. at C:\code\Examples\JiraClient.pl line 12
+
+
+Debug: 2010-11-17_17-08-18 C:\My Dropbox\AHKs\temporary7.ahk 
+   log
+   FLB     Change Gender Diversity Links in enduser sidebar at C:\code\Examples\JiraClient.pl line 7.
+
+
+Debug: 2010-11-19_13-20-11 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   869
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-19_13-21-33 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   869
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-19_13-25-38 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   869
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-19_13-27-07 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   869
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-19_13-28-36 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   869
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-19_13-33-59 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   869
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-23_20-16-00 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-asap.ahk
+
+Debug: 2010-11-23_20-21-15 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-asap.ahk
+
+Debug: 2010-11-23_20-26-30 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-asap.ahk
+
+Debug: 2010-11-23_20-31-30 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-asap.ahk
+
+Debug: 2010-11-24_09-23-00 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20100909010203.ahk
+
