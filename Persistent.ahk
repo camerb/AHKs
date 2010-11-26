@@ -23,6 +23,8 @@ if (A_Hour==3 AND A_Min==2 AND Mod(A_Sec, 15)==0)
       SleepMinutes(1)
       Run, CreateDropboxBackup.ahk
       SleepMinutes(10)
+      Run, PushToGit.ahk
+      SleepMinutes(3)
    }
    else if (A_ComputerName="PHOSPHORUS")
    {

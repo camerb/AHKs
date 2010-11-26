@@ -67,6 +67,7 @@ CustomTitleMatchMode(options="")
 
 ForceWinFocus(titleofwin, options="")
 {
+   returned:=false
    CustomTitleMatchMode(options)
 
    ;TODO would like to see these three lines look more like optionalDebug(options, titleofwin)
@@ -74,17 +75,29 @@ ForceWinFocus(titleofwin, options="")
    if ( InStr(options, "Debug") || A_Debug )
       debug(titleofwin)
 
-   WinWait, %titleofwin%,
-   IfWinNotActive, %titleofwin%,
-   WinActivate, %titleofwin%,
-   WinWaitActive, %titleofwin%,
+   Loop
+   {
+      WinWait, %titleofwin%, , 1
+      IfWinNotActive, %titleofwin%,
+         WinActivate, %titleofwin%,
+      WinWaitActive, %titleofwin%, , 1
+      IfWinActive, %titleofwin%,
+      {
+         returned:=true
+         break
+      }
+   }
 
    CustomTitleMatchMode("Default")
+
+   return returned
 }
 
 ;NOTE this is not the same because it checks if the window already exists first
 ;  rather than just waiting forever for the window
 ;TODO probably should merge these two methods (with an ifexist option)
+;or we could have a timeout option that waits for the specified
+;number of seconds and then just returns false
 ForceWinFocusIfExist(titleofwin, options="")
 {
    returned:=false
@@ -108,6 +121,7 @@ ForceWinFocusIfExist(titleofwin, options="")
    return returned
 }
 
+;TODO not sure if the return values here are good or if they suck!
 ;Closes the window if it exists, then returns true if it actually did exist in the first place
 CloseWin(titleofwin, options="")
 {
