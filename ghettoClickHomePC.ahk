@@ -12,6 +12,6 @@ NUMPAD2::
 click up
 return
 
-ESC::
+^ESC::
 Suspend
 return

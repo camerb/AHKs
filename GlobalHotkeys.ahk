@@ -130,6 +130,7 @@ SetTitleMatchMode, RegEx
 WinGetTitle, titletext, ahk_class OperaWindowClass
 Process, Exist, foobar2000.exe
 FoobarPID := ERRORLEVEL
+PowerIsStreamingInWMP:=WinExist("Windows Media Player")
 if (titletext=="106.1 KISS FM - Opera" or titletext=="Mix 102.9 Stream - Opera"
       or titletext=="89.7 Power FM - Powered by ChristianNetcast.com - Opera"
       or titletext=="http://www.christiannetcast.com/listen/dynamicasx.asp?station=kvtt-fm2 - Opera"
@@ -137,10 +138,14 @@ if (titletext=="106.1 KISS FM - Opera" or titletext=="Mix 102.9 Stream - Opera"
 {
    ;debug("i saw a media window")
    ;Stop music
+   ;WinShow, ahk_class OperaWindowClass
    ForceWinFocus(titletext, "Contains")
    ;Send, !d
    SendInput, !dhttp://www.google.com/{enter}
-   WinMinimize
+}
+else if (PowerIsStreamingInWMP)
+{
+   WinClose, Windows Media Player
 }
 else if (FoobarPID)
 {
@@ -157,17 +162,25 @@ else if (FoobarPID)
       ;this will stop it
       Send, {ALT}ps
    }
-   WinMinimize
 }
 else
 {
    InputBox, bookmark, Choose Station, Choose which station you'd like to play
+
+   if (InStr(bookmark, "Power"))
+   {
+      Run, http://www.christiannetcast.com/listen/dynamicasx.asp?station=897power-fm
+      return
+   }
 
    IfWinNotExist, ahk_class OperaWindowClass
    {
       operaPath:=ProgramFilesDir("\Opera\opera.exe")
       Run, %operaPath%
    }
+
+   ;WinShow, ahk_class OperaWindowClass
+   Sleep, 2000
 
    url=http://66.228.115.186/listen/player.asp?station=897power-fm&
    if (InStr(bookmark, "Last"))
@@ -178,8 +191,8 @@ else
       url=http://www.mix1029.com/mediaplayer/?station=KDMX-FM&action=listenlive&channel_title=
    ;else if (InStr(bookmark, "Wilder"))
       ;url=http://www.christiannetcast.com/listen/dynamicasx.asp?station=kvtt-fm2
-   else if (InStr(bookmark, "Power"))
-      url=http://66.228.115.186/listen/player.asp?station=897power-fm&
+   ;power
+      ;url=http://66.228.115.186/listen/player.asp?station=897power-fm&
 
    ;debug("no media player detected... launching power fm")
    ;TODO model the other sections after this one... maybe make a function GoToURL(url, browser)
@@ -189,13 +202,14 @@ else
    Sleep, 100
    SendInput, %url%{ENTER}
    Sleep, 100
-   WinMinimize
 
 ;http://www.1061kissfm.com/mediaplayer/?station=KHKS-FM&action=listenlive&channel_title=
 ;http://www.mix1029.com/mediaplayer/?station=KDMX-FM&action=listenlive&channel_title=
 ;http://66.228.115.186/listen/player.asp?station=897power-fm&
 ;http://www.christiannetcast.com/listen/dynamicasx.asp?station=kvtt-fm2
 }
+;WinMinimize
+;WinHide
 return
 
 ;Record the artist name in the log so we can remove them from the last.fm library later
@@ -218,17 +232,17 @@ vk5Dsc15D:: Send, {Ctrl Down}{Alt}{Ctrl Up}
 vk90sc045:: Send, {Ctrl Down}{Alt}{Ctrl Up}
 */
 
+;FIXME the code flow here is kinda crappy
 ;Show the current track from last.fm
 AppsKey & SC122::
 AppsKey & Launch_Media::
 SetTitleMatchMode, RegEx
-WinGetTitle, titletext, Last.fm
-if (titletext=="89.7 Power FM - Powered by ChristianNetcast.com - Opera")
+WinGetTitle, titletext, (Last.fm|Power FM)
+PowerIsStreamingInWMP:=WinExist("Windows Media Player")
+if (titletext=="89.7 Power FM - Powered by ChristianNetcast.com - Opera" OR PowerIsStreamingInWMP)
 {
    filename=C:\DataExchange\urltempfile.txt
-   ;UrlDownloadToVar or HttpQuery would be better here
-   UrlDownloadToFile, http://on-air.897powerfm.com/, %filename%
-   FileRead, playlist, %filename%
+   playlist:=UrlDownloadToVar("http://on-air.897powerfm.com/")
 
    playlist:=RegExReplace(playlist, "(`r|`n)", " ")
    RegExMatch(playlist, "Now Playing.*What`'s Played Recently", outputVar)
@@ -244,7 +258,7 @@ if (titletext=="")
    WinGetTitle, titletext, ahk_class QWidget
 if (titletext<>"")
 {
-   titletext:=RegExReplace(titletext, " - Last.fm - Opera", "")
+   titletext:=StringReplace(titletext, " - Last.fm - Opera")
    Debug(titletext)
 }
 return
