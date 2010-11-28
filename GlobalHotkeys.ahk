@@ -54,6 +54,9 @@ AppsKey & a:: Run, TaskMgr-AllTasks.ahk
 ;Make New Task
 AppsKey & n:: Run, TaskMgr-NewTask.ahk
 
+;Make New Jira Issue
+AppsKey & j:: Run, CreateJiraIssue.ahk
+
 ;PrintScreen, Crop and Save
 AppsKey & c:: Run, CaptureAhkImage.ahk
 

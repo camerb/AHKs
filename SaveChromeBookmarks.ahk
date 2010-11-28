@@ -6,12 +6,13 @@ IfWinNotExist, Google Chrome
    wasNotRunning:=true
    Run, Chrome
 }
+Run, http://www.google.com/
 ForceWinFocus("Google Chrome", "Contains")
-Sleep, 500
+Sleep, 1500
 Send, {ALT 6}
-Sleep, 500
+Sleep, 1500
 Send, {ENTER}
-Sleep, 500
+Sleep, 1500
 Send, b
 
 ForceWinFocus("Bookmark Manager", "Contains")

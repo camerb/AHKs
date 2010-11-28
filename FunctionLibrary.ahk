@@ -798,7 +798,8 @@ GetProcesses()
    return l
 }
 
-GetCpuUsage( PID )    {
+GetCpuUsage( PID )
+{
    Static oldKrnlTime, oldUserTime
    Static newKrnlTime, newUserTime
 
@@ -968,7 +969,7 @@ DirectoryScan(directoryToScan, reportFilePath)
    FileAppend, Current Time: %time%`n, %reportFilePath%
 }
 
-;returns url rather than saving to a file
+;returns url response rather than saving to a file
 UrlDownloadToVar(URL, Proxy="", ProxyBypass="")
 {
    AutoTrim, Off
@@ -1026,7 +1027,7 @@ UrlDownloadToVar(URL, Proxy="", ProxyBypass="")
 }
 
 ;return a string where each item is separated by the specified separator
-concatWithSep(separator, t0, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t10="", t11="", t12="", t13="", t14="", t15="")
+ConcatWithSep(separator, t0, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t10="", t11="", t12="", t13="", t14="", t15="")
 {
    returned:=t0
    Loop 15
