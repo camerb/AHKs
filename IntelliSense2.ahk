@@ -36,9 +36,9 @@ SetKeyDelay, 0
 ;#SingleInstance
 #include FunctionLibrary.ahk
 
-;~[::
-;debug()
-;return
+F12:: reload
+
+
 
 ; Use the Input command to watch for commands that the user types:
 Loop
