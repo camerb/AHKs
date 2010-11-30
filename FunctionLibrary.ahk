@@ -552,6 +552,10 @@ CloseDifficultApps()
       if NOT ErrorLevel
          ControlClick, &No
    }
+   Process, WaitClose, ssms.exe, 15
+   Process, Close, ssms.exe
+   Process, WaitClose, vmware-vmx.exe, 15
+   Process, Close, vmware-vmx.exe
    Process, WaitClose, vmplayer.exe, 15
    Process, Close, vmplayer.exe
 }

@@ -58,6 +58,14 @@ if (A_WDay=5 AND A_Hour=10 AND A_Min=0 AND A_Sec=0)
 }
 ;}}}
 
+;{{{Check weather and put it on the remote widget
+if (Mod(A_Min, 15)==0)
+{
+   if (A_ComputerName="PHOSPHORUSVM")
+      Run, TestRemoteWidget.ahk
+}
+;}}}
+
 ;{{{Run scheduled AHKs
 if (Mod(A_Sec, 15)==0)
 {
