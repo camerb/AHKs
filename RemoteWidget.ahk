@@ -3,7 +3,7 @@
 ;TODO Someday I need to make an actual C# widget for Desktop Sidebar
 ; and get rid of the Capture Panel/AHK GUI combo that you see here
 
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ;Run, TestRemoteWidget.ahk
 guiTitle=%A_ScriptName% ahk_class AutoHotkeyGUI

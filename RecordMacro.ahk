@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 runPath:=ProgramFilesDir("\AutoHotkey\AutoScriptWriter\AutoScriptWriter.exe")
 Run, %runPath%

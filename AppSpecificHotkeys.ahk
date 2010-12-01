@@ -248,3 +248,26 @@ if ClickIfImageSearch("images\ssms\DropdownDefaultSelected.bmp")
 }
 return
 #IfWinActive
+
+#IfWinActive ahk_class MSPaintApp
+NumpadMult::
+if (GetOS() == "WIN_7")
+   Send, ^+x
+else
+   Send, ^x^e1{TAB}1{ENTER}^v
+return
+
+NumpadAdd::
+if (GetOS() == "WIN_7")
+   Send, ^{PGUP}
+else
+   Send, {ALT}vzu6{ENTER}
+return
+
+NumpadSub::
+if (GetOS() == "WIN_7")
+   Send, ^{PGDN}
+else
+   Send, ^{PGUP}
+return
+#IfWinActive

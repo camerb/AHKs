@@ -3,7 +3,7 @@
 ;####################################################
 
 #include FacebookGameFunctions.ahk
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ;####################################################
 ;          The actual "running" script itself

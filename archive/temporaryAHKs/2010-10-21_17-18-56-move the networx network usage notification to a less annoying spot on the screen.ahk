@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 thewintitle=NetWorx Notification ahk_class TTimedMessageForm
 IfWinExist, %thewintitle%

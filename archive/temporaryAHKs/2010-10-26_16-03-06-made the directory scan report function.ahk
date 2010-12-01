@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 DirectoryScan("C:\DataExchange\*", "C:\My Dropbox\dirScan-workDataEx.txt")
 

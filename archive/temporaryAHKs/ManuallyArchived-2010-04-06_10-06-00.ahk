@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 RButton::
   While GetKeyState("RButton", "P")

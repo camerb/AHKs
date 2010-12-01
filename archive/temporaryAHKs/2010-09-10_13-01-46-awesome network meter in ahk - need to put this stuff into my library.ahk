@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 ;http://www.autohotkey.com/forum/topic18033.html
 #SingleInstance, Force
 

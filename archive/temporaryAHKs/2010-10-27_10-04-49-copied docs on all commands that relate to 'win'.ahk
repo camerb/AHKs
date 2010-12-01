@@ -2,7 +2,7 @@
 
 ;Description of all window methods from the docs
 
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 hello=joetext
 debug(hello)

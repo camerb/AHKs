@@ -1,6 +1,9 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 file=C:\My Dropbox\Public\remotewidget.txt
+csv=C:\My Dropbox\Public\temps.csv
+
+time:=CurrentTime("hyphenated")
 
 ;Loop
 ;{
@@ -12,5 +15,8 @@ FileDelete, %file%
 FileAppend, Current Temp is: %var%`r`nhello, %file%
 FileAppend, %rand%`r`nhello, %file%
 FileAppend, `r`nft, %file%
+
+;output the temp and time (cause data is awesome)
+FileAppend, %time%`,%var%`n, %csv%
 ;SleepSeconds(20)
 ;}

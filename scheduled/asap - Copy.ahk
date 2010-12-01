@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 filepath:="C:\My Dropbox\dirScan-homeDataEx.txt"
 time:=CurrentTime("hyphenated")

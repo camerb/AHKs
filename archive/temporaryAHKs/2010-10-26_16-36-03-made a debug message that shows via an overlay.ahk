@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ;TODO put this in a function
 ;TODO make an ahk that is singleinstance, and

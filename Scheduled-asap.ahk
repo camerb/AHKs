@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ;Run, https://www.noisetrade.com/?dc=qpemBM#
 ;DirectoryScan("C:\Downloads\*prison_show.zip", "C:\My Dropbox\dirScan-groves_album.txt")
@@ -17,5 +17,5 @@ DirectoryScan("C:\", "C:\My Dropbox\scanned-hd.txt")
 SleepMinutes(1)
 Run, ForceReloadAll.exe
 
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 SelfDestruct()

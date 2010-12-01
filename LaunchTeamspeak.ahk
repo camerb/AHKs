@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 Run, "C:\Program Files\TeamSpeak 3 Client\ts3client_win32.exe"
 

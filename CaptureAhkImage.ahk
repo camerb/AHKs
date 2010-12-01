@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 #singleinstance force
 
 if ( GetOS() == "WIN_7" )
@@ -7,9 +7,7 @@ if ( GetOS() == "WIN_7" )
    Sleep, 100
    IfWinExist, ahk_class MSPaintApp
    {
-      WinActivate
-      debug("Paint is already open")
-      return
+      fatalErrord("Paint is already open")
    }
 
    Run, C:\Windows\system32\mspaint.exe
@@ -49,9 +47,7 @@ else if ( GetOS() == "WIN_XP" )
    Sleep, 100
    IfWinExist, ahk_class MSPaintApp
    {
-      WinActivate
-      debug("Paint is already open")
-      return
+      fatalErrord("Paint is already open")
    }
 
    Run, C:\Windows\system32\mspaint.exe
@@ -85,5 +81,5 @@ else if ( GetOS() == "WIN_XP" )
 }
 else
 {
-   errord("looks like this OS is unsupported", "GetOS()", GetOS(), "A_ComputerName", A_ComputerName)
+   fatalErrord("looks like this OS is unsupported", "GetOS()", GetOS(), "A_ComputerName", A_ComputerName)
 }

@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ;IsFileEqual(1, 2)
 loop 9

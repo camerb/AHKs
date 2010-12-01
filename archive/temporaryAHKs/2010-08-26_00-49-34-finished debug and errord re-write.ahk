@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 dggg("hello")
 dggg("hello", "mult params", "222", 333)

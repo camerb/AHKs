@@ -1,6 +1,6 @@
 ;Restart
 
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 CloseDifficultApps()
 Shutdown 2

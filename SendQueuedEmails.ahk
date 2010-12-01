@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 #include thirdParty\COM.ahk
 
 Loop, C:\DataExchange\SendEmail\*.txt

@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 MyVar := 1
 MyVar := 2, MyVar :=""

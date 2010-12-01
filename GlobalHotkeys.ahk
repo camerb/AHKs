@@ -200,6 +200,22 @@ else
    ;debug("no media player detected... launching power fm")
    ;TODO model the other sections after this one... maybe make a function GoToURL(url, browser)
    ForceWinFocus("ahk_class (OpWindow|OperaWindowClass)", "RegEx")
+   Loop
+   {
+      Sleep, 100
+      WinGetActiveTitle, titletext
+      Sleep, 100
+      Send, ^{TAB}
+      Sleep, 100
+      WinGetActiveTitle, titletextnew
+      Sleep, 100
+      if (titletext == titletextnew)
+         break
+      Sleep, 100
+      Send, ^w
+      Sleep, 100
+   }
+   ;debug()
    Sleep, 100
    SendInput, !d
    Sleep, 100

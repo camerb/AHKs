@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ForceWinFocus("RecordMacro.ahk (c:\My Dropbox\AHKs) - GVIM")
 MouseClick, left,  862,  875

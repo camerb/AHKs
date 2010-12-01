@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ForceWinFocus("GVIM", "Contains")
 SendInput, ,c {ESC 6}{;}w{enter}

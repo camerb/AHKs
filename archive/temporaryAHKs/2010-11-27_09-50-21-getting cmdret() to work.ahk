@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 #include Third Party\CMDret.ahk
 
 ;Run, systeminfo | find `"OS V`"

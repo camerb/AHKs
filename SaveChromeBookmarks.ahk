@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 SetTitleMatchMode, 2
 IfWinNotExist, Google Chrome

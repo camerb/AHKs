@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 foo := CurrentTime()
 ;debug(foo)

@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 ;http://www.autohotkey.com/forum/viewtopic.php?t=59801
 DetectHiddenWindows, On
 

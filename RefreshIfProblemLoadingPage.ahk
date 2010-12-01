@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 TimeToExit:=CurrentTimePlus(20)
 while true

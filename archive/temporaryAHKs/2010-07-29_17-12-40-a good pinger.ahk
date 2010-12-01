@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 #include thirdParty\ping.ahk
 
 StartTime:=StartTimer()

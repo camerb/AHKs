@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 #singleinstance force
 
 x := "a|b|c|d|e|f|g"

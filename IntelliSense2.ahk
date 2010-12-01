@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 ;originally was in autohotkey install dir Extras/Scripts/IntelliSense.ahk
 
 ; IntelliSense -- by Rajat (requires XP/2k/NT)
@@ -34,7 +34,7 @@ I_Icon =
 
 SetKeyDelay, 0
 ;#SingleInstance
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 F12:: reload
 

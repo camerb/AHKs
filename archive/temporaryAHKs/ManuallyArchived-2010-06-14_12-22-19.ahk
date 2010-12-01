@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 #singleinstance force
 
 Run, C:\Program Files (x86)\PostgreSQL\8.4\bin\pgAdmin3.exe

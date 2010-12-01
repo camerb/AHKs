@@ -1,5 +1,5 @@
 ;this attempt at pinging an address sucks
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 Ping("google.com", Average, Minimum, Maximum, Status, Loss, 4, "",1500)
 debug(status)

@@ -1,7 +1,7 @@
 ;Automate cpan update (press enter whenever it asks a question)
 ;TODO beter solution is to take a screenshot of the window, and compare it to one from a minute ago... if it hasn't changed, then hit enter (prod it along)
 
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 cpanWindow=cpan ahk_class ConsoleWindowClass
 

@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ;replacement for sending emails... write to file, then send it off (quicker)
 

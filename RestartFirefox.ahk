@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 Process, Close, firefox.exe
 Sleep, 10000

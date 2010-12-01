@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 debug("yo")
 fatalerrord("die!<F5>")

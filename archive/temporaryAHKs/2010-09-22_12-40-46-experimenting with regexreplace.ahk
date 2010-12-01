@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 
 ;filedelete, %a_scriptdir%\zzz1.txt

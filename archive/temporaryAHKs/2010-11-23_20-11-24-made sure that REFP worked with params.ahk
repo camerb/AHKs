@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 path="C:\My Dropbox\ahk-REFP\
 infile=%path%in1.txt"

@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ;SelfDestruct()
 
@@ -12,7 +12,7 @@ Loop, %path%\*.ahk
    ;copy file contents to a new ahk and run it
    tempahk=%A_WorkingDir%\Scheduled-%A_LoopFileName%
    FileCopy, %A_LoopFileFullPath%, %tempahk%
-   FileAppend, `n#include FunctionLibrary.ahk`nSelfDestruct(), %tempahk%
+   FileAppend, `n#include FcnLib.ahk`nSelfDestruct(), %tempahk%
    Run, %tempahk%
    FileDelete, %A_LoopFileFullPath%
 

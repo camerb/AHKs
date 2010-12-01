@@ -1041,3 +1041,75 @@ ConcatWithSep(separator, t0, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8
    }
    return returned
 }
+
+;some sites require a /real/ login, so we aren't able to do a
+;   simple request. Instead we should use a browser, view source,
+;   and copy the source to the clipboard.
+;TODO maybe have a browser param to choose which browser you
+;   want to use to request the page.
+GhettoUrlDownloadToVar(url)
+{
+   ;opera save page source
+   WinGetActiveTitle, oldTitle
+   ForceWinFocus("ahk_class (OperaWindowClass|OpWindow)", "RegEx")
+   Send, !d
+   Sleep, 100
+   Send, %url%
+   Send, {ENTER}
+   Sleep, 100
+
+   WinWaitActiveTitleChange(oldTitle)
+   Sleep, 100
+
+   Send, {CTRLDOWN}uacw{CTRLUP}
+   return Clipboard
+}
+
+;Wait until the title of the active window changes (note that changing to another window sets it off, too)
+WinWaitActiveTitleChange(oldTitle="")
+{
+   if (oldTitle == "")
+      WinGetActiveTitle, oldTitle
+   ;loop until the window title changes
+   Loop
+   {
+      WinGetActiveTitle, newTitle
+      if (oldTitle != newTitle)
+         break
+      Sleep, 100
+   }
+}
+
+;ACCIDENTALLY copy/pasted this twice... did I change anything?
+;GhettoUrlDownloadToVar(url)
+;{
+   ;;opera save page source
+   ;WinGetActiveTitle, oldTitle
+   ;ForceWinFocus("ahk_class (OperaWindowClass|OpWindow)", "RegEx")
+   ;Send, !d
+   ;Sleep, 100
+   ;Send, %url%
+   ;Send, {ENTER}
+   ;Sleep, 100
+
+   ;WinWaitActiveTitleChange(oldTitle)
+   ;Sleep, 100
+
+   ;Send, {CTRLDOWN}uacw{CTRLUP}
+   ;return Clipboard
+;}
+
+;;Wait until the title of the active window changes (note that changing to another window sets it off, too)
+;WinWaitActiveTitleChange(oldTitle="")
+;{
+   ;if (oldTitle == "")
+      ;WinGetActiveTitle, oldTitle
+   ;;loop until the window title changes
+   ;Loop
+   ;{
+      ;WinGetActiveTitle, newTitle
+      ;if (oldTitle != newTitle)
+         ;break
+      ;Sleep, 100
+   ;}
+;}

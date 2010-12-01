@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 Run, "C:\Program Files (x86)\Pidgin\pidgin.exe"
 

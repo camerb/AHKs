@@ -15666,3 +15666,133 @@ Credit cards provided by USAA Savings Bank, other bank products by USAA Federal 
 <!-- END HTML BODY -->
 </html>
 
+ERROR: 2010-11-30_21-28-26 C:\My Dropbox\AHKs\temporary4.ahk 
+   LOG ERRORD FATAL temporary4.ahk
+   21
+   UsaaLogin
+   didn't find next button
+
+ERROR: 2010-11-30_21-30-03 C:\My Dropbox\AHKs\temporary4.ahk 
+   LOG ERRORD FATAL temporary4.ahk
+   21
+   UsaaLogin
+   didn't find next button
+
+ERROR: 2010-11-30_22-35-38 C:\My Dropbox\AHKs\temporary4.ahk 
+   LOG ERRORD FATAL temporary4.ahk
+   21
+   UsaaLogin
+   didn't find next button
+
+Debug: 2010-11-30_22-40-40 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   GetOS
+   903
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   BAUSTIAN-09PC
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-30_22-40-48 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   GetOS
+   903
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   BAUSTIAN-09PC
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-30_22-40-55 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   GetOS
+   903
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   BAUSTIAN-09PC
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-30_22-41-23 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   GetOS
+   903
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   BAUSTIAN-09PC
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-30_22-41-24 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   GetOS
+   903
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   BAUSTIAN-09PC
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-30_22-41-35 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   GetOS
+   903
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   BAUSTIAN-09PC
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-11-30_22-42-26 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   GetOS
+   903
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   BAUSTIAN-09PC
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+

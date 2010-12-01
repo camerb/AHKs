@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ; Example #2: This will visit all windows on the entire system and display info about each of them:
 WinGet, id, list,,, Program Manager

@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 sendEmail("hello", "darn`nworld!!!")
 

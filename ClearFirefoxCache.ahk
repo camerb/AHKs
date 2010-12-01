@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ForceWinFocus("Mozilla Firefox", "Contains")
 Send, ^+{DEL}

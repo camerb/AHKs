@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 FolderToCopy := Prompt("What folder do you want to transfer to another computer?", "folder")
 DestinationComputer := Prompt("What PC do you want to transfer it to?")

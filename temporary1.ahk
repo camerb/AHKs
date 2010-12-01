@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 t("WinTitle=>joejoe")
 t("joejoe")

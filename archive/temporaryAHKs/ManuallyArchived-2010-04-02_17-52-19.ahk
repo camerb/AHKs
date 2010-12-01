@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 AssertDirExist(true,  A_ProgramFiles, "Program Files")
 AssertDirExist(true,  A_WinDir, "Windows Dir")

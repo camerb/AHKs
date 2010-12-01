@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 Gui, Add, Edit  , w200 h100 vMyEdit_1   gCopyText  ,
 Gui, Add, Edit  , w200 h100 vMyEdit_2   gCopyText  ,

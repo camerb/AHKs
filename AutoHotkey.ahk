@@ -9,7 +9,7 @@ SetTitleMatchMode, RegEx
 #include RefreshHotkeys.ahk
 
 ;Functions
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ;########## all the includes that I need to be sure to make:
 

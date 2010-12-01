@@ -1,3 +1,3 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ForceWinFocus("Program Manager")

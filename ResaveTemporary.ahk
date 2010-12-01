@@ -1,6 +1,6 @@
 ;Change hotkey mapping (resave file)
 
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 InputBox, mode, Archive`, Remap or make Permanent, Would you like to archive a temporary hotkey`, move it to a different hotkey or make it a permanent hotkey?
 ;mode:=prompt("")

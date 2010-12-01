@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 TrayMsg2("111")
 TrayMsg2("222")

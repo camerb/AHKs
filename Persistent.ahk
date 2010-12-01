@@ -59,10 +59,14 @@ if (A_WDay=5 AND A_Hour=10 AND A_Min=0 AND A_Sec=0)
 ;}}}
 
 ;{{{Check weather and put it on the remote widget
-if (Mod(A_Min, 15)==0)
+if (Mod(A_Min, 15)==0 && A_Sec==0)
 {
    if (A_ComputerName="PHOSPHORUSVM")
+   {
+      debug("silent log", "ran remote widget update")
       Run, TestRemoteWidget.ahk
+      sleepseconds(2)
+   }
 }
 ;}}}
 
@@ -84,7 +88,7 @@ if (Mod(A_Sec, 15)==0)
          ;copy file contents to a new ahk and run it
          tempahk=Scheduled-%A_LoopFileName%
          FileCopy, %A_LoopFileFullPath%, %tempahk%, 1
-         FileAppend, `n#include FunctionLibrary.ahk`nSelfDestruct(), %tempahk%
+         FileAppend, `n#include FcnLib.ahk`nSelfDestruct(), %tempahk%
          debug("silent log", "running scheduled ahk:", tempahk)
          status:=RunAhkAndBabysit(tempahk)
          FileDelete, %A_LoopFileFullPath%

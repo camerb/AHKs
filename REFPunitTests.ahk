@@ -1,4 +1,4 @@
-#include FunctionLibrary.ahk
+#include FcnLib.ahk
 
 ;assert("asdf", "jkl`nuiop", "asdf", "no matches")
 ;assert("asdf", "asdf`nuiop", "uiop", "simple match")
