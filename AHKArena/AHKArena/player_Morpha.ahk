@@ -1,4 +1,4 @@
-morphaScript(){ ;v1.3 compatible
+morphaScript(){ ;v2.0 compatible
 GLOBAL
 Gosub, morphaClass%unitclass%
 
@@ -6,9 +6,9 @@ morphaClass1:
 If (morphaResources > 3)
 	{
 	If (morphaClass2unitCount > 2)
-		AA_Build(101101, 3) ;if more than 2 workers, build an attacker
+		AA_Build(201101, 3) ;if more than 2 workers, build an attacker
 	Else ; 1move, 2build, 3scan, 4attack, 5gather, 6hp
-		AA_Build(102010, 2) ; otherwise, build a worker
+		AA_Build(202010, 2) ; otherwise, build a worker
 	}
 return
 

@@ -1,9 +1,14 @@
-This is Camerb's repo of AHKs that make his life easier. 
-Maybe you can take parts of them and make your life easier, 
-too. This repo is open source, so have fun with the code 
-here. Don't try to sell this code, cause it's free, but if 
-this code just happens to help you be more productive and 
+This is Camerb's repo of AHKs that make his life easier.
+Maybe you can take parts of them and make your life easier,
+too. This repo is open source, so have fun with the code
+here. Don't try to sell this code, cause it's free, but if
+this code just happens to help you be more productive and
 it makes you some money, that's perfectly fine.
+
+FYI: I run plain vanilla AHK (autohotkey.com). I don't run
+any of the variants, like IronAHK or AHK_L, but I might
+work with IronAHK if I move to Linux someday. All my current
+machines are running either Win7 or WinXP.
 
 Come to #ahk on irc.freenode.net to discuss or ask for help.
 

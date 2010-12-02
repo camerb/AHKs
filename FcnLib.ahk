@@ -188,7 +188,7 @@ MouseMoveIfImageSearch(filename)
 {
    if NOT FileExist(filename)
    {
-      errord(A_ThisFunc, filename, "does not exist")
+      errord(A_ThisFunc, filename, "the aforementioned file does not exist")
       return false
    }
 
@@ -205,7 +205,7 @@ ClickIfImageSearch(filename, clickOptions="left Mouse")
 {
    if NOT FileExist(filename)
    {
-      errord(A_ThisFunc, filename, "does not exist")
+      errord(A_ThisFunc, filename, "the aforementioned file does not exist")
       return false
    }
 
@@ -1049,25 +1049,56 @@ ConcatWithSep(separator, t0, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8
 ;   want to use to request the page.
 GhettoUrlDownloadToVar(url)
 {
+   A_ShortSleep=5000
+   ;number to verify that the clipboard was never assigned to
+   null:=Random(100000,999999)
+   Clipboard:=null
+
    ;opera save page source
    WinGetActiveTitle, oldTitle
    ForceWinFocus("ahk_class (OperaWindowClass|OpWindow)", "RegEx")
    Send, !d
-   Sleep, 100
+   Sleep, %A_ShortSleep%
    Send, %url%
    Send, {ENTER}
-   Sleep, 100
+   Sleep, %A_ShortSleep%
 
    WinWaitActiveTitleChange(oldTitle)
-   Sleep, 100
+   Sleep, %A_ShortSleep%
 
-   Send, {CTRLDOWN}uacw{CTRLUP}
+   ;Send, {CTRLDOWN}uacw{CTRLUP}
+   Send, ^u
+   Send, ^u
+   Send, ^u
+   Sleep, %A_ShortSleep%
+   Send, ^a
+   Send, ^a
+   Send, ^a
+   Sleep, %A_ShortSleep%
+   Send, ^c
+   Send, ^c
+   Send, ^c
+   Send, ^c
+   ClipWait, 2
+   Sleep, %A_ShortSleep%
+   Send, ^w
+   Sleep, 5000
+
+   if (Clipboard == null)
+   {
+      debug("silent log", clipboard, null)
+      ;errord("silent", "clipboard never got any new contents")
+      return "empty"
+   }
+
    return Clipboard
 }
 
 ;Wait until the title of the active window changes (note that changing to another window sets it off, too)
 WinWaitActiveTitleChange(oldTitle="")
 {
+   ;if they didn't give a title, try to grab the title as quickly as possible
+   ;this is less reliable, but if we don't have the title, we'll just do the best we can
    if (oldTitle == "")
       WinGetActiveTitle, oldTitle
    ;loop until the window title changes

@@ -63,8 +63,7 @@ if (Mod(A_Min, 15)==0 && A_Sec==0)
 {
    if (A_ComputerName="PHOSPHORUSVM")
    {
-      debug("silent log", "ran remote widget update")
-      Run, TestRemoteWidget.ahk
+      Run, UpdateRemoteWidget.ahk
       sleepseconds(2)
    }
 }
