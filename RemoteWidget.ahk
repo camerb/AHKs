@@ -17,6 +17,7 @@ Gui:
    Loop
    {
       entireMessage:=urldownloadtovar("http://dl.dropbox.com/u/789954/remotewidget.txt")
+      entireMessage.=urldownloadtovar("http://dl.dropbox.com/u/789954/remotewidget-livesitemode.txt")
       LV_Delete()
       Loop, parse, entireMessage, `r`n
       {

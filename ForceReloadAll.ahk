@@ -6,15 +6,17 @@ while true
    pid:=ERRORLEVEL
    if NOT pid
       break
-   debug(pid)
+   ;debug(pid)
    ;Sleep, 1000
    PostMessage,0x111,65405,0,,ahk_pid %pid%
    Process, WaitClose, %pid%, 1
+
+   ;if it exists
    Process, Exist, %pid%
    pid:=ERRORLEVEL
    if pid
    {
-      debug("closing")
+      ;debug("closing")
       Process, Close, %pid%
    }
 }
@@ -31,5 +33,5 @@ while true
     ;}
 ;}
 
-;debug("about to run main ahk file again")
-Run, AutoHotKey.ahk
+;debug("about to run main ahk files again")
+RunAhk("StartIdleAhks.ahk")

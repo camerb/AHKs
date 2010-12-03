@@ -1,0 +1,9 @@
+Debug: 2010-12-02_22-25-15 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20101202222505.ahk
+
+Debug: 2010-12-02_22-25-15 C:\My Dropbox\AHKs\Scheduled-20101202222505.ahk 
+   silent log
+   hello from phos
+

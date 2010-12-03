@@ -1,0 +1,643 @@
+Debug: 2010-12-02_22-56-24 C:\My Dropbox\AHKs\temporary7.ahk 
+   SILENT LOG Hello World!
+
+Debug: 2010-12-02_23-12-21 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-02_23-12-21 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   thought this was a candidate for deletion
+   saw that weird member access page
+
+Debug: 2010-12-02_23-12-56 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-14-37 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null
+
+Debug: 2010-12-02_23-14-42 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   1000.19
+
+Debug: 2010-12-02_23-14-59 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-16-20 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null
+
+Debug: 2010-12-02_23-16-25 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   601.16
+
+Debug: 2010-12-02_23-16-35 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-16-35 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null
+
+Debug: 2010-12-02_23-16-40 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   
+
+Debug: 2010-12-02_23-16-40 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   2010-12-02_23-12-09,1000.19,601.16,,
+
+Debug: 2010-12-02_23-17-02 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-02_23-17-03 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   thought this was a candidate for deletion
+   saw that weird member access page
+
+Debug: 2010-12-02_23-20-04 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-20-04 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null
+
+Debug: 2010-12-02_23-20-10 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   1000.19
+
+Debug: 2010-12-02_23-20-24 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-20-24 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null
+
+Debug: 2010-12-02_23-20-30 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   601.16
+
+Debug: 2010-12-02_23-20-44 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-20-44 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null
+
+Debug: 2010-12-02_23-20-50 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   770.52
+
+Debug: 2010-12-02_23-20-50 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   2010-12-02_23-19-15,1000.19,601.16,770.52,830.83
+
+Debug: 2010-12-02_23-23-36 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-02_23-23-36 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   thought this was a candidate for deletion
+   saw that weird member access page
+
+Debug: 2010-12-02_23-24-15 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-24-15 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-24-21 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   1000.19
+
+Debug: 2010-12-02_23-24-35 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-24-36 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   2
+
+Debug: 2010-12-02_23-24-42 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   601.16
+
+Debug: 2010-12-02_23-24-56 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-24-56 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-25-02 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   770.52
+
+Debug: 2010-12-02_23-25-02 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   2010-12-02_23-23-25,1000.19,601.16,770.52,830.83
+
+Debug: 2010-12-02_23-26-59 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-26-59 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-27-04 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   1000.19
+
+Debug: 2010-12-02_23-27-14 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-27-14 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-27-19 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   601.16
+
+Debug: 2010-12-02_23-27-30 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-27-30 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-27-35 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   770.52
+
+Debug: 2010-12-02_23-27-35 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   2010-12-02_23-26-15,1000.19,601.16,770.52,830.83
+
+Debug: 2010-12-02_23-28-30 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-28-30 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-28-35 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   1000.19
+
+Debug: 2010-12-02_23-28-45 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-28-45 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-28-51 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   601.16
+
+Debug: 2010-12-02_23-29-02 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-29-02 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-29-07 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   770.52
+
+Debug: 2010-12-02_23-29-07 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   2010-12-02_23-27-45,1000.19,601.16,770.52,830.83
+
+Debug: 2010-12-02_23-30-00 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-30-00 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-30-06 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   1000.19
+
+Debug: 2010-12-02_23-30-16 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-30-16 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-30-21 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   601.16
+
+Debug: 2010-12-02_23-30-32 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-30-32 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-30-37 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   770.52
+
+Debug: 2010-12-02_23-30-37 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   2010-12-02_23-29-17,1000.19,601.16,770.52,830.83
+
+Debug: 2010-12-02_23-31-39 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-31-39 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-31-44 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   1000.19
+
+Debug: 2010-12-02_23-31-54 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-31-54 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-31-59 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   601.16
+
+Debug: 2010-12-02_23-32-09 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-32-09 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-32-14 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   770.52
+
+Debug: 2010-12-02_23-32-15 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   2010-12-02_23-30-56,1000.19,601.16,770.52,830.83
+
+Debug: 2010-12-02_23-43-32 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-02_23-44-01 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-44-01 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   7
+
+Debug: 2010-12-02_23-44-07 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   
+
+Debug: 2010-12-02_23-44-10 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-44-10 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   7
+
+Debug: 2010-12-02_23-44-16 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   
+
+Debug: 2010-12-02_23-44-20 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-44-20 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   5
+
+Debug: 2010-12-02_23-44-26 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   
+
+Debug: 2010-12-02_23-44-26 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   2010-12-02_23-43-22,,,,
+
+ERROR: 2010-12-02_23-44-26 C:\My Dropbox\AHKs\temporary4.ahk 
+   LOG ERRORD FATAL
+   temporary4.ahk
+   69
+   
+   login attempt completely unsuccessful
+
+ERROR: 2010-12-02_23-44-27 C:\My Dropbox\AHKs\SendQueuedEmails.ahk 
+   LOG ERRORD
+   Function Name:	"AddAttachment"
+ERROR:		(0x800C000D)
+PROG:	CDO.Message.1
+DESC:	Unknown Error
+HELP:	,0
+
+ERROR2:	Member not found.
+	(0x80020003)
+
+Debug: 2010-12-02_23-51-36 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-02_23-52-05 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-53-35 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-02_23-55-36 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-55-36 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-55-42 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   
+
+Debug: 2010-12-02_23-55-48 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-55-48 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-56-29 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-02_23-56-40 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-02_23-57-11 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   just copied to clipboard
+
+Debug: 2010-12-02_23-57-11 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-02_23-57-18 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   
+
+Debug: 2010-12-03_00-01-33 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-03_00-01-51 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-03_00-02-32 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-03_00-02-38 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   1000.19
+
+Debug: 2010-12-03_00-02-54 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-03_00-03-01 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   601.16
+
+Debug: 2010-12-03_00-03-15 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-03_00-03-21 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   770.52
+
+Debug: 2010-12-03_00-03-21 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   2010-12-03_00-01-41,1000.19,601.16,770.52,830.83
+
+Debug: 2010-12-03_00-05-09 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-03_00-05-49 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-03_00-05-55 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   1000.19
+
+Debug: 2010-12-03_00-06-09 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-03_00-06-16 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   601.16
+
+Debug: 2010-12-03_00-06-29 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-03_00-06-35 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   770.52
+
+Debug: 2010-12-03_00-06-35 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   2010-12-03_00-05-00,1000.19,601.16,770.52,830.83
+
+Debug: 2010-12-03_00-06-51 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-03_00-07-30 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-03_00-07-36 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   1000.19
+
+Debug: 2010-12-03_00-07-48 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-03_00-07-54 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   601.16
+
+Debug: 2010-12-03_00-08-07 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-03_00-08-13 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   770.52
+
+Debug: 2010-12-03_00-08-13 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   2010-12-03_00-06-41,1000.19,601.16,770.52,830.83
+
+Debug: 2010-12-03_00-08-29 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-03_00-09-14 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-03_00-09-20 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   1000.19
+
+Debug: 2010-12-03_00-09-32 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-03_00-09-38 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   601.16
+
+Debug: 2010-12-03_00-09-52 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   clipboard is no longer null after # of tries:
+   1
+
+Debug: 2010-12-03_00-09-58 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   igloo
+   770.52
+
+Debug: 2010-12-03_00-09-58 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   2010-12-03_00-08-19,1000.19,601.16,770.52,830.83
+

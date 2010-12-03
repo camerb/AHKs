@@ -11,6 +11,9 @@
 #include thirdParty\ScreenCapture.ahk
 SaveScreenShot(descriptiveText="", directoryPath="C:\DataExchange\PrintScreen")
 {
+   if (directoryPath="dropbox")
+      directoryPath=C:\My Dropbox\ahk large files\screenshots\%A_ComputerName%
+
    FileCreateDir, %directoryPath%
    FormatTime FileNameText,, yyyyMMddHHmmss
    fullfilename = %directoryPath%\%descriptiveText%%FileNameText%.bmp
@@ -663,8 +666,9 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
    {
       ;TODO make that true,false,undef helper function for helpful debug suggestions
       ;TODO if the one before has a colon at the end, then just add a space instead of a newline
-      if (text%A_Index% <> "ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ")
-         messageText.="`n   " . text%A_Index%
+      if (text%A_Index% == "ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ")
+         break
+      messageText.="`n   " . text%A_Index%
    }
    messageText.="`n`n"
 
@@ -704,6 +708,12 @@ fatalErrord(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ",
    textOrOptions=FATAL %textOrOptions%
    errord(textOrOptions, text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15)
    ExitApp
+}
+
+log(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text3="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text4="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text5="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text6="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text7="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text8="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text9="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text10="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text11="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text12="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text13="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text14="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text15="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ")
+{
+   textOrOptions=SILENT LOG %textOrOptions%
+   debug(textOrOptions, text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15)
 }
 
 SelfDestruct()
@@ -1031,116 +1041,15 @@ UrlDownloadToVar(URL, Proxy="", ProxyBypass="")
 }
 
 ;return a string where each item is separated by the specified separator
-ConcatWithSep(separator, t0, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t10="", t11="", t12="", t13="", t14="", t15="")
+ConcatWithSep(separator, text0, text1, text2="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text3="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text4="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text5="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text6="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text7="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text8="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text9="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text10="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text11="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text12="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text13="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text14="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text15="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ")
 {
-   returned:=t0
+   returned:=text0
    Loop 15
    {
+      if (text%A_Index% == "ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ")
+         break
       returned .= separator
-      returned .= t%A_Index%
+      returned .= text%A_Index%
    }
    return returned
 }
-
-;some sites require a /real/ login, so we aren't able to do a
-;   simple request. Instead we should use a browser, view source,
-;   and copy the source to the clipboard.
-;TODO maybe have a browser param to choose which browser you
-;   want to use to request the page.
-GhettoUrlDownloadToVar(url)
-{
-   A_ShortSleep=5000
-   ;number to verify that the clipboard was never assigned to
-   null:=Random(100000,999999)
-   Clipboard:=null
-
-   ;opera save page source
-   WinGetActiveTitle, oldTitle
-   ForceWinFocus("ahk_class (OperaWindowClass|OpWindow)", "RegEx")
-   Send, !d
-   Sleep, %A_ShortSleep%
-   Send, %url%
-   Send, {ENTER}
-   Sleep, %A_ShortSleep%
-
-   WinWaitActiveTitleChange(oldTitle)
-   Sleep, %A_ShortSleep%
-
-   ;Send, {CTRLDOWN}uacw{CTRLUP}
-   Send, ^u
-   Send, ^u
-   Send, ^u
-   Sleep, %A_ShortSleep%
-   Send, ^a
-   Send, ^a
-   Send, ^a
-   Sleep, %A_ShortSleep%
-   Send, ^c
-   Send, ^c
-   Send, ^c
-   Send, ^c
-   ClipWait, 2
-   Sleep, %A_ShortSleep%
-   Send, ^w
-   Sleep, 5000
-
-   if (Clipboard == null)
-   {
-      debug("silent log", clipboard, null)
-      ;errord("silent", "clipboard never got any new contents")
-      return "empty"
-   }
-
-   return Clipboard
-}
-
-;Wait until the title of the active window changes (note that changing to another window sets it off, too)
-WinWaitActiveTitleChange(oldTitle="")
-{
-   ;if they didn't give a title, try to grab the title as quickly as possible
-   ;this is less reliable, but if we don't have the title, we'll just do the best we can
-   if (oldTitle == "")
-      WinGetActiveTitle, oldTitle
-   ;loop until the window title changes
-   Loop
-   {
-      WinGetActiveTitle, newTitle
-      if (oldTitle != newTitle)
-         break
-      Sleep, 100
-   }
-}
-
-;ACCIDENTALLY copy/pasted this twice... did I change anything?
-;GhettoUrlDownloadToVar(url)
-;{
-   ;;opera save page source
-   ;WinGetActiveTitle, oldTitle
-   ;ForceWinFocus("ahk_class (OperaWindowClass|OpWindow)", "RegEx")
-   ;Send, !d
-   ;Sleep, 100
-   ;Send, %url%
-   ;Send, {ENTER}
-   ;Sleep, 100
-
-   ;WinWaitActiveTitleChange(oldTitle)
-   ;Sleep, 100
-
-   ;Send, {CTRLDOWN}uacw{CTRLUP}
-   ;return Clipboard
-;}
-
-;;Wait until the title of the active window changes (note that changing to another window sets it off, too)
-;WinWaitActiveTitleChange(oldTitle="")
-;{
-   ;if (oldTitle == "")
-      ;WinGetActiveTitle, oldTitle
-   ;;loop until the window title changes
-   ;Loop
-   ;{
-      ;WinGetActiveTitle, newTitle
-      ;if (oldTitle != newTitle)
-         ;break
-      ;Sleep, 100
-   ;}
-;}

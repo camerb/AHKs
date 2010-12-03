@@ -24,6 +24,11 @@ else
    FileCopy, C:\code\epms\cgi\epms_mydev.json, C:\code\epms\cgi\epms_local.json, 1
 }
 
+file=C:\My Dropbox\Public\remotewidget-livesitemode.txt
+FileDelete, %file%
+FileAppend, `n%bool%, %file%
+FileAppend, `nft, %file%
+
 ;debugBool(0=="0")
 ;debugBool(1=="1")
 

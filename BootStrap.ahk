@@ -1,9 +1,8 @@
 #include FcnLib.ahk
 
-Run, AutoHotkey.ahk
 Run, Startup%A_ComputerName%.ahk
 
-RunAhk("RemoteWidget.ahk")
+RunAhk("StartIdleAhks.ahk")
 
 ;apps that should run on all my computers
 Run, C:\My Dropbox\Programs\CLCL\CLCL.exe
