@@ -1053,3 +1053,12 @@ ConcatWithSep(separator, text0, text1, text2="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", te
    }
    return returned
 }
+
+;figure out if this computer is a VM
+IsVM(ComputerName="")
+{
+   if (ComputerName=="")
+      ComputerName:=A_ComputerName
+
+   return !!InStr(ComputerName, "VM")
+}

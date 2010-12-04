@@ -641,3 +641,7 @@ Debug: 2010-12-03_00-09-58 C:\My Dropbox\AHKs\temporary4.ahk
    silent log
    2010-12-03_00-08-19,1000.19,601.16,770.52,830.83
 
+ERROR: 2010-12-03_07-40-27 INCORRECT USAGE
+
+PROPER USAGE IS: ahk.exe ssmsAppPath user pass destDbName               
+

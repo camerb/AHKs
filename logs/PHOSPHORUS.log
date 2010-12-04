@@ -7,3 +7,18 @@ Debug: 2010-12-02_22-25-15 C:\My Dropbox\AHKs\Scheduled-20101202222505.ahk
    silent log
    hello from phos
 
+Debug: 2010-12-03_09-31-51 C:\My Dropbox\AHKs\CreateJiraIssue.ahk 
+   log
+   FLB     Configure argon so that it starts Catalyst and Plack after a restart at C:\code\Examples\JiraClient.pl line 7.
+
+
+Debug: 2010-12-03_15-37-18 C:\My Dropbox\AHKs\CreateJiraIssue.ahk 
+   log
+   EPMS     Enable sendgrid category for survey mailings at C:\code\Examples\JiraClient.pl line 7.
+
+
+Debug: 2010-12-03_16-13-35 C:\My Dropbox\AHKs\CreateJiraIssue.ahk 
+   log
+   EPMS     Allow 5 digit bank account numbers for ACH at C:\code\Examples\JiraClient.pl line 7.
+
+

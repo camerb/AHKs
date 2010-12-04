@@ -72,6 +72,12 @@ return
 ;TODO a dropdown menu that allows text input in AHK
 ;TODO C# autocompleter field
 AppsKey & k::
+if NOT IsVM()
+{
+   ;use Find and Run Robot, if possible
+   Send, {PAUSE}
+   return
+}
 InputBox, filename, AHK Filename, Please enter the filename of the AHK to run:
 
 ;if they forgot to add ".ahk", then add it

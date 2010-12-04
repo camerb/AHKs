@@ -1,7 +1,7 @@
 #include FcnLib.ahk
 #include C:\My Dropbox\ahk large files\usaalogin.ahk
 
-C_VersionNum=igloo
+C_VersionNum=kids
 C_ShortSleep=100
 C_MedSleep=2000
 C_LongSleep=6000
@@ -25,6 +25,11 @@ if ClickIfImageSearch("images/usaa/Logo.bmp")
 else
    debug("silent log", A_ScriptName, "What on earth, we didn't even see the usaa logo")
 
+;Loop 5
+;{
+;if ForceWinFocusIfExist("")
+;}
+
 if ForceWinFocusIfExist("Log On to usaa.com - Opera")
 {
    debug("silent log", A_ScriptName, "thought this was a candidate for deletion", "saw that weird log on page")
@@ -33,7 +38,7 @@ if ForceWinFocusIfExist("Log On to usaa.com - Opera")
    Sleep, 100
    Send, usaa.com{ENTER}
    Sleep, %C_LongSleep%
-   ForceWinFocusIfExist("Log On to usaa.com - Opera")
+   if ForceWinFocusIfExist("Log On to usaa.com - Opera")
       die("unable to get past alternative login screen", A_ScriptName, A_LineNumber, A_ThisFunc)
    Sleep, %C_LongSleep%
 }
@@ -59,7 +64,7 @@ overallBalance := SavingsBalance + CheckingBalance - CreditBalance
 overallBalance := StringTrimRight(overallBalance, 4)
 
 csvline:=ConcatWithSep(",", time, SavingsBalance, CheckingBalance, CreditBalance, overallBalance)
-debug("silent log", csvline)
+debug("silent log grey line", csvline)
 FileAppend, %csvline%`n, %csvfile%
 
 if (SavingsBalance=="" and CheckingBalance=="" and CreditBalance=="")
@@ -110,7 +115,7 @@ GoToPage(url)
 die(errorMsg, ScriptName="", LineNumber="", ThisFunc="")
 {
    sendEmail(errorMsg, securityQuestionPage, "", "cameronbaustian+financebot@gmail.com")
-   fatalErrord("", ScriptName, LineNumber, ThisFunc, errorMsg)
+   fatalErrord("red line", ScriptName, LineNumber, ThisFunc, errorMsg)
 }
 
 ;some sites require a /real/ login, so we aren't able to do a
@@ -142,11 +147,23 @@ GhettoUrlDownloadToVar(url)
    Sleep, %C_ShortSleep%
 
    ;Send, {CTRLDOWN}uacw{CTRLUP}
-   Send, ^u
-   Send, ^u
-   Send, ^u
-   ;Sleep, %C_ShortSleep%
-   ForceWinFocus("Source", "Contains")
+
+   ;press the button to launch the new window. but sometimes it doesn't pick it up
+   count=0
+   Loop
+   {
+      count++
+      if ForceWinFocusIfExist("Source", "Contains")
+      {
+         if (count != 2)
+            debug("silent log green line", "found source page after # of tries:", count)
+         break
+      }
+      Send, ^u
+      Sleep, %C_ShortSleep%
+   }
+   Sleep, %C_ShortSleep%
+   Send, ^a
    Send, ^a
    Send, ^a
    Send, ^a
@@ -163,7 +180,8 @@ GhettoUrlDownloadToVar(url)
       count++
       if (Clipboard != null)
       {
-         debug("silent log", "clipboard is no longer null after # of tries:", count)
+         if (count != 1)
+            debug("silent log yellow line", "clipboard is no longer null after # of tries:", count)
          break
       }
       Sleep, %C_ShortSleep%
