@@ -17,16 +17,18 @@ if (bool == "true")
 {
    FileCopy, C:\code\bench\fl_bench.json.remote, C:\code\bench\fl_bench.json, 1
    FileCopy, C:\code\epms\cgi\epms_LIVE.json, C:\code\epms\cgi\epms_local.json, 1
+   message=LIVE SITE MODE
 }
 else
 {
    FileCopy, C:\code\bench\fl_bench.json.dev, C:\code\bench\fl_bench.json, 1
    FileCopy, C:\code\epms\cgi\epms_mydev.json, C:\code\epms\cgi\epms_local.json, 1
+   message=dev mode
 }
 
 file=C:\My Dropbox\Public\remotewidget-livesitemode.txt
 FileDelete, %file%
-FileAppend, `n%bool%, %file%
+FileAppend, `n%message%, %file%
 FileAppend, `nft, %file%
 
 ;debugBool(0=="0")

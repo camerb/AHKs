@@ -99,7 +99,7 @@ Loop %TotalRegExs%
          LineToPrint=%A_LoopReadLine%
       else
       {
-         if (Replace%i% == commandDeleteLine)
+         if InStr(Replace%i%, commandDeleteLine)
             continue
          ;debug(Replace%i%)
          ;debug(commandDeleteLine)

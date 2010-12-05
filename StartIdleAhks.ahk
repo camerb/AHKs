@@ -5,7 +5,7 @@
 if NOT IsVM()
 {
    RunAhk("RemoteWidget.ahk")
-   RunAhk("Intellisense.ahk")
+   RunAhk("IntelliSense2.ahk")
 }
 
 RunAhk("AutoHotkey.ahk")

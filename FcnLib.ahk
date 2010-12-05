@@ -959,10 +959,10 @@ Prompt(message, options="")
 }
 
 ;yeah
-SexPanther()
+SexPanther(SexPanther="SexPanther")
 {
-   IniRead, returned, C:\My Dropbox\misc\config.ini, SexPanther, Panther
-   IniRead, var, C:\My Dropbox\misc\config.ini, SexPanther, Sex
+   IniRead, returned, C:\My Dropbox\misc\config.ini, %SexPanther%, Panther
+   IniRead, var, C:\My Dropbox\misc\config.ini, %SexPanther%, Sex
    return returned . var
 }
 

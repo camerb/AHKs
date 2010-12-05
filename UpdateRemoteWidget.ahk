@@ -10,8 +10,8 @@ RegExMatch(var, "realTemp.{10}", var)
 RegExMatch(var, "\d+", var)
 rand:=Random(100, 999)
 FileDelete, %file%
-FileAppend, Current Temp is: %var%`nhello, %file%
-FileAppend, %rand%`nhello, %file%
+FileAppend, Current Temp is: %var%`n, %file%
+FileAppend, Rand: %rand%`n, %file%
 FileAppend, `nft, %file%
 
 ;output the temp and time (cause data is awesome)

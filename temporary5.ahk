@@ -1,24 +1,9 @@
 #include FcnLib.ahk
 
-IntelliSense()
 
 ;ForceReloadAll()
 ;message(addTime("20100000000000", "000300010000"))
 
-IntelliSense()
-{
-;debug("hi")
-   path:="D:\Documents and Settings\Toshimi\My Documents\My Dropbox\AHKs\FunctionLibrary.ahk"
-   Loop, read, %path%
-   {
-      thisLine=%A_LoopReadLine%
-      if (RegExMatch("\(\)", thisLine))
-         ;message("hi")
-         msgbox, %thisLine%
-         ;message(thisLine)
-   }
-
-}
 
 ;Works well
 ForceReloadAll()
