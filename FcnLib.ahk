@@ -417,12 +417,22 @@ CloseWindowGracefully(title, text="", xClickToClose="", yClickToClose="")
 
 ;TODO enable slashes or colons?
 ;Gets the current time (unique, increasing)
-CurrentTime(hyphenated=false)
+CurrentTime(hyphenated=false, options="")
 {
-   if (hyphenated)
+;use flags
+;   date time datetime
+;   separator
+;   ordering? YYYYMMDD or MMDDYYYY
+   if InStr(options, "slashdate")
+      FormatTime, returned,, MM/dd/yyyy
+   else if InStr(options, "hyphenated")
+      FormatTime, returned,, yyyy-MM-dd_HH-mm-ss
+   else if (hyphenated)
       FormatTime, returned,, yyyy-MM-dd_HH-mm-ss
    else
       FormatTime, returned,, yyyyMMddHHmmss
+
+   ;got forced into using this
    return returned
 }
 

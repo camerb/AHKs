@@ -10903,3 +10903,13 @@ ERROR: 2010-12-03_18-38-02 C:\My Dropbox\AHKs\temporary4.ahk
    
    unable to get past alternative login screen
 
+Debug: 2010-12-05_08-03-15 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20101205080300.ahk
+
+Debug: 2010-12-05_08-03-29 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+

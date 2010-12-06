@@ -94,7 +94,7 @@ Loop, Read, %ahk_dir%\Extras\Editors\Syntax\Commands.txt
 
 AppendIndex++
 I_Cmd%AppendIndex% = debug
-I_FullCmd%AppendIndex%:="debug() ;use this to output debug msgs"
+I_FullCmd%AppendIndex%=debug() `;use this to output debug msgs
 ;TODO read from FunctionLibrary here:
 ; Read command syntaxes:
 ;Loop, Read, %ahk_dir%\Extras\Editors\Syntax\Commands.txt
