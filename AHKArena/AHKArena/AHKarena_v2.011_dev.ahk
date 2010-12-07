@@ -5,35 +5,7 @@
 #include *i player2script.ahk
 Gui, color, 0xE5DDCF, 0xE5DDCF
 OnExit, ExitSub
-;----------------------------------
-CoordMode, Mouse, Screen
-SetBatchLines,-1
 
-SysGet, MonitorPrimary, MonitorPrimary
-SysGet, WA, MonitorWorkArea, %MonitorPrimary%
-WAWidth := WARight-WALeft
-WAHeight := WABottom-WATop
-
-Gui, 1: -Caption +E0x80000 +LastFound +AlwaysOnTop +ToolWindow +OwnmDialogs
-Gui, 1: Show, NA
-mhWnd := WinExist()
-
-mWidth := mHeight := 80
-mhbm := CreateDIBSection(mWidth, mHeight), mhdc := CreateCompatibleDC()
-mobm := SelectObject(mhdc, mhbm), mG := Gdip_GraphicsFromHDC(mhdc)
-
-Gdip_SetSmoothingMode(mG, 4)
-
-mFadeMax    := 0xff
-mDiaMax     := 60
-mDiaMin     := 6
-mDiaSteps   := 1
-mDiameter   := mDiaMin
-
-mAlphaSteps := mFadeMax//((mDiaMax-mDiaMin)/mDiaSteps)
-mAlpha      := mFadeMax
-mBaseColor  := 0xff0000
-;----------------------------------
 
 if 0 < 2
 	{
@@ -91,12 +63,6 @@ if 0 < 2
 player1 = %1%
 player2 = %2%
 
-; debugger
-DllCall("QueryPerformanceFrequency", "Int64 *", CounterFreq)
-  DllCall("QueryPerformanceCounter", "Int64 *", MLQPCBef)
-  VarSetCapacity(CurrLL, 81920)
-   ; ____________
-
 If (!pToken := Gdip_Startup()){
   MsgBox, 48, gdiplus error!, Gdiplus failed to start. Please ensure you have gdiplus on your system!
   ExitApp
@@ -123,6 +89,12 @@ gui, font, s12
 Gui, Add, Text, x526 y57 w90 h40 vwintext cLime bold center,
 ; Generated using SmartGUI Creator 4.0
 Gui, Show, x124 y78 h507 w640, AHK Arena
+
+w := 502
+h := 502
+frameMaster := Gdip_CreateBitmap(w, h), G_Master := Gdip_GraphicsFromImage(frameMaster)
+frameWorld := Gdip_CreateBitmap(w, h), G_World := Gdip_GraphicsFromImage(frameWorld)
+frameEffects := Gdip_CreateBitmap(w, h), G_Effects := Gdip_GraphicsFromImage(frameEffects)
 
 HWND := WinExist("A")                                       ; Get the HWND of our Window
 ; ++++++  GDI Stuff starts here +++++++++
@@ -154,7 +126,7 @@ G        := Gdip_GraphicsFromHDC(hdc_main)          ; Getting a Pointer to our b
    pPYellow				:= Gdip_CreatePen(0xffFFFF00, 2)
    pBLblue				:= Gdip_BrushCreateSolid(0xff3333FF)
 ; Now we draw on our Frame:
-Gdip_FillRectangle(G,pBWHITE,0,0,500,500)    ;white background
+Gdip_FillRectangle(G_Master,pBWHITE,0,0,500,500)    ;white background
 ; ++++++  GDI Stuff ends here +++++++++
 
 gosub, setup ;new game setup subroutine
@@ -203,9 +175,7 @@ return
 ;--------------------------------------------------------------------------------------------------
 
 refresh:
-LogLine("AA_Refresh start")
 AA_Refresh()
-LogLine("AA_Refresh finish")
 SetTimer, refresh, 600
 return
 
@@ -444,7 +414,6 @@ return
 AA_Move(Direction) ; See below for potential directions.
 {
 	global
-	LogLine("move start")
 	If (%currentunit%_move = 0)
 		return 0
 	If (%currentunit%_cooldown > 0)
@@ -494,24 +463,17 @@ AA_Move(Direction) ; See below for potential directions.
 	occupancycheck := AA_CheckOccupancy(movex, movey)
 	If (OccupancyCheck = 1)
 		return	5
-	Gdip_SetSmoothingMode(G, 1)   ; turn off aliasing
-   	Gdip_SetCompositingMode(G, 1) ; set to overdraw
-   	; delete previous graphic and redraw background 
-	Gdip_FillRectangle(G, pBWHITE, %currentunit%_posx, %currentunit%_posy, 19, 19)
-	Gdip_SetCompositingMode(G, 0) ; switch off overdraw
 	%currentunit%_posx += %xvalue%	
 	%currentunit%_posy += %yvalue%
 	AA_DrawUnit(currentunit) 
 	movecd := %currentunit%_move
-	%currentunit%_cooldown += 1+(5 - movecd)
-	LogLine("move finish")
+	%currentunit%_cooldown += (3 - movecd)
 	return
 }
 
 AA_Scan()
 {
 global
-	LogLine("scan start")
 mainloop = 0
 If (%currentunit%_scan = 0) ;check if scanning unit has scan function module
 	return 0
@@ -549,27 +511,25 @@ Loop 15 ;scan minerals routine
 scananimationx := %currentunit%_posx-scanrange
 scananimationy := %currentunit%_posy-scanrange
 scananimationwh := scanrange*2+20
-Gdip_SetSmoothingMode(G, 4)
-Gdip_FillEllipse(G,pBBLUESCAN, scananimationx, scananimationy, scananimationwh, scananimationwh)
+Gdip_SetSmoothingMode(G_Effects, 4)
+Gdip_FillEllipse(G_Effects,pBBLUESCAN, scananimationx, scananimationy, scananimationwh, scananimationwh)
 %currentunit%_cooldown += 1
 mainloop = 0
-BitBlt(hdc_WINDOW,0, 0, 502,502, hdc_main,0,0) ;position of the GDI Image in the GUI
-	LogLine("scan finish")
 return
 }
 
 AA_Refresh()
 {
 global
-	LogLine("refresh start")
 refreshloop = 0
-Gdip_FillRectangle(G,pBWHITE,0,0,500,500)    ;white background
+
+Gdip_FillRectangle(G_Master,pBWHITE,0,0,500,500)    ;white background
 drawvarY = 0
 drawvarX = 0
 Loop 25
 	{ 
-	Gdip_DrawLine(G, pPBLACK, drawvarY,0,drawvarY,500)
-	Gdip_DrawLine(G, pPBLACK, 0,drawvarX,500,drawvarX)    ;gridlines
+	Gdip_DrawLine(G_Master, pPBLACK, drawvarY,0,drawvarY,500)
+	Gdip_DrawLine(G_Master, pPBLACK, 0,drawvarX,500,drawvarX)    ;gridlines
 	drawvarY += 20
 	drawvarX += 20
 	}
@@ -588,29 +548,24 @@ Loop 15 ;draw minerals
 		minbrush = pBGREY55
 	Else if (munitvis = 1)
 		minbrush = pBGREEN55
-	Gdip_FillEllipse(G,%minbrush%, mindrawx, mindrawy, size, size)
+	Gdip_FillEllipse(G_Master,%minbrush%, mindrawx, mindrawy, size, size)
 	}
+Gdip_DrawImage(G_Master, frameWorld, 0, 0, 502, 502)
+Gdip_DrawImage(G_Master, frameEffects, 0, 0, 502, 502)
 
-StringSplit, unit, AllUnitlist, |
-refreshloop := unit0-1
-Loop %refreshloop% ;draw units
-	{
-	refreshunit := unit%a_index%
-	AA_DrawUnit(refreshunit)
-	}
+BitBlt(hdc_WINDOW,0, 0, 502,502, G_Master,0,0)
+    
 If (pause = 1)
 	{
 	msgbox, Press OK to unpause the game.
 	pause = 0
 	}
-		LogLine("refresh finish")
 return
 }
 	
 AA_Attack(Target) ; ("1_1_1", "2_1_1")
 {
 global
-	LogLine("attack start")
 If (%currentunit%_attack = 0) ;check if scanning unit has attack function module
 	return 0
 If (%currentunit%_cooldown > 0) ;check cooldown
@@ -642,22 +597,21 @@ If (xattackdistance <= attackrange) AND (yattackdistance <= attackrange) ;check 
 	attackstar6x := %target%_posx+5
 	attackstar6y := %target%_posy+15
 	Gdip_SetSmoothingMode(G, 4)
-	Gdip_DrawLine(G, pPYELLOW, attackanimationx1,attackanimationy1,attackanimationx2,attackanimationy2)
+	Gdip_DrawLine(G_Effects, pPYELLOW, attackanimationx1,attackanimationy1,attackanimationx2,attackanimationy2)
 	Loop 5
 		{
 		point2 := a_index+1
-		Gdip_DrawLine(G, pPRED, attackstar%a_index%x,attackstar%a_index%y,attackstar%point2%x,attackstar%point2%y)
+		Gdip_DrawLine(G_Effects, pPRED, attackstar%a_index%x,attackstar%a_index%y,attackstar%point2%x,attackstar%point2%y)
 		}
 	Font = Arial
 	textx := attackanimationx2+5
 	texty := attackanimationy2-10
 	Options = x%textx% y%texty% 0xffFF0000 s9
-	Gdip_TextToGraphics(G, "-1 hp", Options, Font)
+	Gdip_TextToGraphics(G_Effects, "-1 hp", Options, Font)
 	%currentunit%_cooldown += 1
 	StringGetPos, Position, currentunit, _
 	StringLeft, attackingplayer, currentunit, Position
 	mainloop = 0
-	BitBlt(hdc_WINDOW,0, 0, 502,502, hdc_main,0,0) ;position of the GDI Image in the GUI
 	If (%target%_hp < 1) ;If target destroyed
 		{
 		StringGetPos, Position, target, _
@@ -672,7 +626,7 @@ If (xattackdistance <= attackrange) AND (yattackdistance <= attackrange) ;check 
 				If (a_index = 2 or a_index = 4)
 					X%a_index% := a_loopfield+%target%_posy
 				}
-			Gdip_DrawLine(G, pPHotPink, x1,x2,x3,x4)
+			Gdip_DrawLine(G_Effects, pPHotPink, x1,x2,x3,x4)
 			}
 		StringReplace, AllUnitlist, AllUnitlist, %target%|,,All
 		%deadplayer%unitcount -= 1
@@ -694,20 +648,15 @@ If (xattackdistance <= attackrange) AND (yattackdistance <= attackrange) ;check 
 		%attackingplayer%kills += 1
 		%attackingplayer%totalkills += 1
 		}
-			LogLine("attack finish")
 	return
 	}
 Else
-	{
-		LogLine("attack finish")
 	return 2 ;If target is out of range return 2
-	}
 }
 
 AA_CheckOccupancy(potentialx, potentialy) ; (281, 281)
 {
 GLOBAL
-	LogLine("checkoccupancy start")
 if potentialx not between 0 and 500
 	return 1
 if potentialy not between 0 and 500
@@ -722,21 +671,16 @@ Loop %refreshloop%
 	xcheckdistance := abs(%checkunit%_posx - potentialx)
 	ycheckdistance := abs(%checkunit%_posy - potentialy)
 	IF (xcheckdistance < 20) AND (ycheckdistance < 20)
-		{
-		LogLine("checkoccupancy finish")
 		return 1
-		}
 	xcheckdistance := %checkunit%_posx - potentialx
 	ycheckdistance := %checkunit%_posy - potentialy
 	}
-		LogLine("checkoccupancy finish")
 return 0
 }
 
 AA_DrawUnit(unit)
 {
 GLOBAL
-LogLine("drawunit start")
 StringGetPos, Position, unit, _
 StringLeft, drawplayer, unit, Position
 If (%drawplayer% = 1)
@@ -746,14 +690,14 @@ If (%drawplayer% = 2)
 widthheight := %unit%_hp*2
 If widthheight > 20
 	widthheight = 19
-Gdip_SetSmoothingMode(G, 0)
-Gdip_FillRectangle(G,%playerbrush%,%unit%_posx,%unit%_posy,widthheight,widthheight)
-Gdip_FillRectangle(G,%playerbrush%55,%unit%_posx,%unit%_posy,19,19)
+Gdip_SetSmoothingMode(G_World, 0)
+Gdip_FillRectangle(G_World,%playerbrush%,%unit%_posx,%unit%_posy,widthheight,widthheight)
+Gdip_FillRectangle(G_World,%playerbrush%55,%unit%_posx,%unit%_posy,19,19)
 unitvis := %unit%_visible
 visx := %unit%_posx+12
 visy := %unit%_posy+2
 if (unitvis = 0)
-	Gdip_FillRectangle(G,PbBLACK,visx,visy,4,4)
+	Gdip_FillRectangle(G_World,PbBLACK,visx,visy,4,4)
 scansize := %unit%_scan
 If (scansize > 0)
 	{
@@ -761,7 +705,7 @@ If (scansize > 0)
 	scany := %unit%_posy+5
 	Gdip_SetSmoothingMode(G, 4)
 	fillarea := %unit%_scan*90
-	Gdip_FillPie(G, pBLblue, scanx, scany, 12, 12, 0, fillarea)
+	Gdip_FillPie(G_World, pBLblue, scanx, scany, 12, 12, 0, fillarea)
 	}
 buildsize := %unit%_build
 If (buildsize > 0)
@@ -778,10 +722,10 @@ If (buildsize > 0)
 	buildline5y := %unit%_posy+15
 	buildline6x := %unit%_posx+13
 	buildline6y := %unit%_posy+18
-	Gdip_DrawLine(G, pPDarkGreyTHICK, buildline1x, buildline1y, buildline2x, buildline2y)
-	Gdip_DrawLine(G, pPYellow3, buildline3x, buildline3y, buildline4x, buildline4y)
+	Gdip_DrawLine(G_World, pPDarkGreyTHICK, buildline1x, buildline1y, buildline2x, buildline2y)
+	Gdip_DrawLine(G_World, pPYellow3, buildline3x, buildline3y, buildline4x, buildline4y)
 	If (buildsize = 2)
-		Gdip_DrawLine(G, pPYellow3, buildline5x, buildline5y, buildline6x, buildline6y)
+		Gdip_DrawLine(G_World, pPYellow3, buildline5x, buildline5y, buildline6x, buildline6y)
 	}
 moverate := %unit%_move
 If (moverate > 0)
@@ -790,15 +734,15 @@ If (moverate > 0)
 	moveliney1 := %unit%_posy+9
 	movelinex2 := %unit%_posx+10
 	moveliney2 := %unit%_posy+19
-	Gdip_SetSmoothingMode(G, 0)
-	Gdip_DrawLine(G, pPGREY, movelinex1, moveliney1, movelinex2, moveliney2)
+	Gdip_SetSmoothingMode(G_World, 0)
+	Gdip_DrawLine(G_World, pPGREY, movelinex1, moveliney1, movelinex2, moveliney2)
 	}
 gatherrate := %unit%_gather
 If (gatherrate > 0)
 	{
 	If widthheight = 19
 		widthheight -= 1
-	Gdip_DrawRectangle(G, pPLGREEN, %unit%_posx, %unit%_posy, widthheight, widthheight)
+	Gdip_DrawRectangle(G_World, pPLGREEN, %unit%_posx, %unit%_posy, widthheight, widthheight)
 	}
 attacksize := %unit%_attack*5
 If (attacksize > 0)
@@ -814,58 +758,14 @@ If (attacksize > 0)
 	Attackpoly3x := %unit%_posx+15
 	Attackpoly3y := %unit%_posy+attacksize
 	Points := attackpoly1x . "," . attackpoly1y . "|" . attackpoly2x . "," . attackpoly2y . "|" . attackpoly3x . "," . attackpoly3y
-	Gdip_SetSmoothingMode(G, 4)
-	Gdip_FillPolygon(G, %attackbrush%, Points)
+	Gdip_SetSmoothingMode(G_World, 4)
+	Gdip_FillPolygon(G_World, %attackbrush%, Points)
 	}
-BitBlt(hdc_WINDOW,0, 0, 502,502, hdc_main,0,0) ;position of the GDI Image in the GUI
-  SetTimer,mouseRing,OFF
-   MX := %unit%_posx+3
-   MY := %unit%_posy+3
-   mDiameter := mDiaMin
-   mAlpha   := mFadeMax
-   SetTimer,mouseRing,7
-      mDiameter += mDiaSteps         ; update Diameter
-   GoSub, MouseRingErase          ; delete previous drawn ring
-   mPen:=Gdip_CreatePen(((mAlpha-=mAlphaSteps)<<24)+mBaseColor, 2)
-   Gdip_DrawEllipse(mG, mPen,1, 1,mDiameter-1,mDiameter-1)
-   Gdip_DeletePen(mPen)
-   UpdateLayeredWindow(mhWnd, mhdc, MX-mDiameter//2, MY-mDiameter//2, mDiameter+5, mDiameter+5)
-   if (mDiameter>=mDiaMax) {
-      GoSub, MouseRingDestroy
-   }
-   mouseRing:
-   mDiameter += mDiaSteps         ; update Diameter
-   GoSub, MouseRingErase          ; delete previous drawn ring
-   mPen:=Gdip_CreatePen(((mAlpha-=mAlphaSteps)<<24)+mBaseColor, 2)
-   Gdip_DrawEllipse(mG, mPen,1, 1,mDiameter-1,mDiameter-1)
-   Gdip_DeletePen(mPen)
-   UpdateLayeredWindow(mhWnd, mhdc, MX-mDiameter//2, MY-mDiameter//2, mDiameter+5, mDiameter+5)
-   if (mDiameter>=mDiaMax) {
-      GoSub, MouseRingDestroy
-   }
-return
-
-mouseRingDestroy:
-   SetTimer,mouseRing,Off
-   GoSub, MouseRingErase
-   mDiameter := mDiaMin, mAlpha := mFadeMax
-   UpdateLayeredWindow(mhWnd, mhdc, MX-mDiameter//2, MY-mDiameter//2, mDiameter+5, mDiameter+5)
-return
-
-mouseRingErase:
-   Gdip_SetCompositingMode(mG, 1)              ; set overdraw
-   mBrush := Gdip_BrushCreateSolid(0x00000000) ; fully transparent brush 'eraser'
-   Gdip_FillRectangle(mG, mBrush, 0, 0, mDiameter+10, mDiameter+10)
-   Gdip_DeleteBrush(mBrush)
-   Gdip_SetCompositingMode(mG, 0)              ; switch off overdraw
-return
-LogLine("drawunit finish")
 }
 
 AA_endturn()
 {
 GLOBAL
-LogLine("endturn start")
 StringSplit, unit, AllUnitlist, |
 cdloop := unit0-1
 Loop %cdloop%
@@ -885,7 +785,6 @@ IF (mineralcurrent < 10)
 	}
 If !%player1%_1_1_hp or !%player2%_1_2_hp
 	{
-	LogLine("end turn finish")
 	play = 0
 	finalturncount += turncount
 	turnaverage := finalturncount/gamenumber
@@ -925,14 +824,12 @@ If (stalemate = 80)
 stalematecheck1old := stalematecheck1new
 stalematecheck2old := stalematecheck2new
 Gui, Submit, NoHide
-LogLine("endturn finish")
 return
 }
 
 AA_SpawnMineral()
 {
 GLOBAL
-LogLine("spawn mineral start")
 Loop 15 ;this recycles the same 15 mineral numbers. selects a number 1-15 with a 0 value
 	{
 	If mineral%a_index%_value = 0
@@ -955,29 +852,20 @@ mineral%mineralcount%_posy := randomy
 mineral%mineralcount%_value := minval
 mineral%mineralcount%_visible := 0
 size := minval*4
-Gdip_FillEllipse(G,pBGREY55, randomx, randomy, size, size)
+Gdip_FillEllipse(G_Master,pBGREY55, randomx, randomy, size, size)
 ;mvisx := mineral%a_index%x
 ;mvisy := mineral%a_index%y
 ;Gdip_FillRectangle(G,PbBLACK,mvisx,mvisy,19,19)
-BitBlt(hdc_WINDOW,0, 0, 502,502, hdc_main,0,0) ;position of the GDI Image in the GUI
-LogLine("spawn mineral finish")
 RETURN
 }
 
 AA_Gather()
 {
 global
-LogLine("gather start")
 If (%currentunit%_gather = 0) ;check if scanning unit has gather function module
-	{
-	LogLine("gather finish")
 	return 0
-	}
 If (%currentunit%_cooldown > 0) ;check cooldown
-	{
-	LogLine("gather finish")
 	return 3
-	}
 Loop 15 
 	{
 	If mineral%a_index%_value >= 1 ;if a mineral has value > 1
@@ -989,10 +877,7 @@ Loop 15
 		If (xgatherdistance <= 20) AND (ygatherdistance <= 20) ;if gathering unit is within range, gather
 			{
 			If (%target%_visible = 0) ;check if target has been scanned yet
-				{
-				LogLine("gather finish")
 				return 4
-				}
 			;msgbox, mineral within range. commencing gather.
 			%target%_value -= 1
 			If (%target%_value = 0)
@@ -1007,26 +892,23 @@ Loop 15
 			gathercirclex := %target%_posx+7
 			gathercircley := %target%_posy+7
 			height := gather*4
-			Gdip_DrawLine(G, pPBLACK, gatheranimationx1,gatheranimationy1,gatheranimationx2,gatheranimationy2)
-			Gdip_FillEllipse(G,pBBLACK, gathercirclex, gathercircley, height, height)
+			Gdip_DrawLine(G_Effects, pPBLACK, gatheranimationx1,gatheranimationy1,gatheranimationx2,gatheranimationy2)
+			Gdip_FillEllipse(G_Effects,pBBLACK, gathercirclex, gathercircley, height, height)
 			%unit%_cooldown += 1
-			BitBlt(hdc_WINDOW,0, 0, 502,502, hdc_main,0,0) ;position of the GDI Image in the GUI
-			LogLine("gather finish")
 			return 1
 			}
 		}
 	}
-LogLine("gather finish")
 return 2 ;if no minerals available, return 2
 }
 
 AA_LoadUnits()
 {
 GLOBAL
-LogLine("load units start")
 loop %unitcount%
 	{
-	Sleep %SpeedSlider%
+	If (SpeedSlider > 1)
+		Sleep %SpeedSlider%
 	IF (a_index = 1)
 		StringSplit, loadunit, AllUnitlist, |
 	currentunit := loadunit%a_index%
@@ -1041,14 +923,12 @@ loop %unitcount%
 	StringLeft, player, currentunit, Position
 	%player%script()
 	}
-	LogLine("loadunits finish")
 return
 }
 
 FindNearest(Type)
 {
 GLOBAL
-LogLine("findnearest start")
 	;msgbox findnearest called for type %type%
 If (type = "enemy")
 	{
@@ -1076,7 +956,7 @@ If (type = "enemy")
 			;msgbox, new nearest enemy found! %checkunit%
 			}
 		}
-LogLine("findnearest finish finish")
+
 	Return nearestenemy
 	}
 IF (type = "mineral")
@@ -1099,7 +979,6 @@ IF (type = "mineral")
 			}
 		}
 	;msgbox, nearestmineral = %nearestmineral%
-	LogLine("findnearest finish")
 	return nearestmineral
 	}
 }
@@ -1107,25 +986,10 @@ IF (type = "mineral")
 GetTravelDirection(target)
 {
 GLOBAL
-LogLine("gettraveldirection start")
 xdistance := %target%_posx - %currentunit%_posx
 ydistance := %target%_posy - %currentunit%_posy
 xvalue := ((xDistance = 0) ? () : (((xDistance < 0) ? ("L") : ("R"))))
 yvalue := ((yDistance = 0) ? () : (((yDistance < 0) ? ("U") : ("D"))))
 Dir := xvalue . yvalue
-LogLine("gettraveldirection finish")
 return Dir
 }
-
-
-; ------
-; Debugging
-LogLine(Line) { ; http://www.autohotkey.com/forum/viewtopic.php?p=403831#403831
-  local LastTIL, Dif, ShortLine
-  DllCall("QueryPerformanceCounter", "Int64 *", LogLineQPC)
-  LastTIL := TimeInLoop
-  TimeInLoop := Round(((LogLineQPC-MLQPCBef) * 1000000) / CounterFreq)
-  Dif := (TimeInLoop - LastTIL)
-  CompleteLine := TimeInLoop "   " Dif "     "  Line "`n"
-  CurrLL .= CompleteLine
-  }

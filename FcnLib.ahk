@@ -1072,3 +1072,9 @@ IsVM(ComputerName="")
 
    return !!InStr(ComputerName, "VM")
 }
+
+;Reload the core scripts(as if we just restarted the pc)
+ForceReloadAll()
+{
+   Run, ForceReloadAll.exe
+}

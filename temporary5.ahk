@@ -5,12 +5,6 @@
 ;message(addTime("20100000000000", "000300010000"))
 
 
-;Works well
-ForceReloadAll()
-{
-   Run, ForceReloadAll.exe
-}
-
 addTime(time1, time2)
 {
 EnvAdd, time1, %time2%

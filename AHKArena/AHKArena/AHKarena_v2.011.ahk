@@ -466,7 +466,7 @@ AA_Move(Direction) ; See below for potential directions.
 	%currentunit%_posy += %yvalue%
 	AA_DrawUnit(currentunit) 
 	movecd := %currentunit%_move
-	%currentunit%_cooldown += (5 - movecd)
+	%currentunit%_cooldown += (3 - movecd)
 	return
 }
 

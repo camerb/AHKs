@@ -893,3 +893,118 @@ Debug: 2010-12-05_22-44-08 C:\My Dropbox\AHKs\temporary3.ahk
    temporary3.ahk
    What on earth, we didn't even see the usaa logo
 
+Debug: 2010-12-06_08-05-31 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_08-05-51 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_08-08-40 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+ERROR: 2010-12-06_08-08-47 C:\My Dropbox\AHKs\temporary3.ahk 
+   LOG ERRORD FATAL temporary3.ahk
+   59
+   UsaaLogin
+   didn't find logon button
+
+Debug: 2010-12-06_08-08-56 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_19-56-09 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+ERROR: 2010-12-06_19-56-18 C:\My Dropbox\AHKs\temporary3.ahk 
+   LOG ERRORD FATAL temporary3.ahk
+   69
+   UsaaLogin
+   didn't find logon button
+
+Debug: 2010-12-06_19-56-57 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_19-59-22 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_20-01-14 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_20-03-14 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_20-05-44 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_20-07-29 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_20-15-00 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_20-17-59 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_20-19-07 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_20-21-17 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_20-23-25 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+ERROR: 2010-12-06_20-23-59 C:\My Dropbox\AHKs\temporary3.ahk 
+   LOG ERRORD FATAL red line
+   temporary3.ahk
+   91
+   UsaaLogin
+   failed to recognize security question
+
+ERROR: 2010-12-06_20-24-00 C:\My Dropbox\AHKs\SendQueuedEmails.ahk 
+   LOG ERRORD
+   Function Name:	"AddAttachment"
+ERROR:		(0x800C000D)
+PROG:	CDO.Message.1
+DESC:	Unknown Error
+HELP:	,0
+
+ERROR2:	Member not found.
+	(0x80020003)
+
+Debug: 2010-12-06_22-27-02 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+

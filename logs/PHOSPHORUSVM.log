@@ -10913,3 +10913,76 @@ Debug: 2010-12-05_08-03-29 C:\My Dropbox\AHKs\temporary4.ahk
    temporary4.ahk
    What on earth, we didn't even see the usaa logo
 
+Debug: 2010-12-06_09-06-19 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_09-34-30 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20101205150206.ahk
+
+Debug: 2010-12-06_09-34-30 C:\My Dropbox\AHKs\Scheduled-20101205150206.ahk 
+   SILENT LOG Hello World!
+
+Debug: 2010-12-06_11-05-05 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+ERROR: 2010-12-06_11-05-32 C:\My Dropbox\AHKs\temporary3.ahk 
+   LOG ERRORD FATAL temporary3.ahk
+   58
+   UsaaLogin
+   didn't find logon button
+
+ERROR: 2010-12-06_12-42-35 C:\My Dropbox\AHKs\temporary4.ahk 
+   LOG ERRORD FATAL red line
+   
+   
+   
+   usaa.com is down
+
+ERROR: 2010-12-06_12-43-08 C:\My Dropbox\AHKs\temporary3.ahk 
+   LOG ERRORD FATAL red line
+   
+   
+   
+   usaa.com is down
+
+ERROR: 2010-12-06_12-46-05 C:\My Dropbox\AHKs\temporary4.ahk 
+   LOG ERRORD FATAL red line
+   
+   
+   
+   usaa.com is down
+
+Debug: 2010-12-06_12-47-00 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20101206124626.ahk
+
+Debug: 2010-12-06_12-47-02 C:\My Dropbox\AHKs\temporary4.ahk 
+   SILENT LOG yellow line
+   seems like usaa.com is down
+
+ERROR: 2010-12-06_12-47-03 C:\My Dropbox\AHKs\temporary4.ahk 
+   LOG ERRORD ClickIfImageSearch
+   images/usaa/GreenButtom.bmp
+   the aforementioned file does not exist
+
+Debug: 2010-12-06_12-47-23 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_12-49-41 C:\My Dropbox\AHKs\temporary4.ahk 
+   SILENT LOG yellow line
+   seems like usaa.com is down
+
+Debug: 2010-12-06_12-49-42 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+

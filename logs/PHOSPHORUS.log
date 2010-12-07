@@ -22,3 +22,95 @@ Debug: 2010-12-03_16-13-35 C:\My Dropbox\AHKs\CreateJiraIssue.ahk
    EPMS     Allow 5 digit bank account numbers for ACH at C:\code\Examples\JiraClient.pl line 7.
 
 
+Debug: 2010-12-06_17-43-54 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-00-45 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-01-20 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-09-07 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+ERROR: 2010-12-06_18-09-18 C:\My Dropbox\AHKs\temporary3.ahk 
+   LOG ERRORD FATAL temporary3.ahk
+   69
+   UsaaLogin
+   didn't find logon button
+
+Debug: 2010-12-06_18-19-35 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-20-36 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-21-34 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-22-26 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-22-32 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-24-03 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-24-10 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-25-32 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-25-37 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-26-51 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-26-55 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-06_18-28-11 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+ERROR: 2010-12-06_18-28-19 C:\My Dropbox\AHKs\temporary3.ahk 
+   LOG ERRORD FATAL temporary3.ahk
+   69
+   UsaaLogin
+   didn't find logon button
+

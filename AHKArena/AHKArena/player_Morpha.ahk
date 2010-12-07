@@ -6,9 +6,9 @@ morphaClass1:
 If (morphaResources > 3)
 	{
 	If (morphaClass2unitCount > 2)
-		AA_Build(201101, 3) ;if more than 2 workers, build an attacker
+		AA_Build(201102, 3) ;if more than 2 workers, build an attacker
 	Else ; 1move, 2build, 3scan, 4attack, 5gather, 6hp
-		AA_Build(202010, 2) ; otherwise, build a worker
+		AA_Build(201010, 2) ; otherwise, build a worker
 	}
 return
 
@@ -24,7 +24,6 @@ If AA_Gather() = 2
 If AA_Gather() = 4
 	AA_Scan()
 return
-
 
 morphaClass3:
 nearestenemy := FindNearest("enemy")
