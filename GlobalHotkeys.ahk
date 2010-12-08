@@ -281,8 +281,12 @@ if (titletext=="89.7 Power FM - Powered by ChristianNetcast.com - Opera" OR Powe
 }
 if (titletext=="")
    WinGetTitle, titletext, ahk_class QWidget
+if (titletext=="")
+   WinGetTitle, titletext, foobar2000
 if (titletext<>"")
 {
+   titletext:=RegExReplace(titletext, "\[foobar2000.*$")
+   titletext:=RegExReplace(titletext, " \[Indie.Rock Playlist.*?\]")
    titletext:=StringReplace(titletext, " - Last.fm - Opera")
    Debug(titletext)
 }

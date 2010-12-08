@@ -550,10 +550,10 @@ Loop 15 ;draw minerals
 		minbrush = pBGREEN55
 	Gdip_FillEllipse(G_Master,%minbrush%, mindrawx, mindrawy, size, size)
 	}
-Gdip_DrawImage(G_Master, frameWorld, 0, 0, 502, 502)
-Gdip_DrawImage(G_Master, frameEffects, 0, 0, 502, 502)
+Gdip_DrawImage(G, frameWorld, 0, 0, 502, 502)
+Gdip_DrawImage(G, frameEffects, 0, 0, 502, 502)
 
-BitBlt(hdc_WINDOW,0, 0, 502,502, G_Master,0,0)
+BitBlt(hdc_WINDOW,0, 0, 502,502, hdc_m,0,0)
     
 If (pause = 1)
 	{

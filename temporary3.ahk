@@ -51,13 +51,11 @@ SaveAccountTransactions(account, time)
    ClickIfImageSearch("images/usaa/GreenButton.bmp")
    LongSleep()
    Click
-   Sleep %C_ShortSleep%
+   Click
+   ShortSleep()
    Click
    Click
-   Click
-   Click
-   Click
-   Click
+   ShortSleep()
    Click
    Click
 

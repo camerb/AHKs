@@ -114,3 +114,177 @@ ERROR: 2010-12-06_18-28-19 C:\My Dropbox\AHKs\temporary3.ahk
    UsaaLogin
    didn't find logon button
 
+Debug: 2010-12-07_10-39-48 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+ERROR: 2010-12-07_10-40-46 C:\My Dropbox\AHKs\temporary3.ahk 
+   LOG ERRORD FATAL red line
+   temporary3.ahk
+   91
+   UsaaLogin
+   failed to recognize security question
+
+Debug: 2010-12-07_10-44-00 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-07_10-46-58 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-07_11-17-05 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-07_17-54-49 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-07_17-55-22 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   kids
+   
+
+Debug: 2010-12-07_17-55-36 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   kids
+   
+
+Debug: 2010-12-07_17-55-51 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   kids
+   
+
+Debug: 2010-12-07_17-55-51 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log grey line
+   2010-12-07_17-54-45,,,,
+
+ERROR: 2010-12-07_17-55-51 C:\My Dropbox\AHKs\temporary4.ahk 
+   LOG ERRORD FATAL red line
+   temporary4.ahk
+   27
+   
+   login attempt completely unsuccessful
+
+Debug: 2010-12-07_17-57-04 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log
+   temporary3.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-07_17-57-04 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-07_17-57-11 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-07_17-59-02 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-07_17-59-37 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   kids
+   
+
+Debug: 2010-12-07_17-59-54 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   kids
+   
+
+Debug: 2010-12-07_18-00-10 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   kids
+   
+
+Debug: 2010-12-07_18-00-10 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log grey line
+   2010-12-07_17-59-01,,,,
+
+ERROR: 2010-12-07_18-00-10 C:\My Dropbox\AHKs\temporary4.ahk 
+   LOG ERRORD FATAL red line
+   temporary4.ahk
+   27
+   
+   login attempt completely unsuccessful
+
+Debug: 2010-12-07_18-29-11 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-07_18-29-58 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   kids
+   
+
+Debug: 2010-12-07_18-30-14 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   kids
+   
+
+Debug: 2010-12-07_18-30-30 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   kids
+   
+
+Debug: 2010-12-07_18-30-31 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log grey line
+   2010-12-07_18-29-08,,,,
+
+ERROR: 2010-12-07_18-30-31 C:\My Dropbox\AHKs\temporary4.ahk 
+   LOG ERRORD FATAL red line
+   temporary4.ahk
+   27
+   
+   login attempt completely unsuccessful
+
+Debug: 2010-12-07_18-33-27 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-07_18-34-11 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   kids
+   
+
+Debug: 2010-12-07_18-34-47 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-07_18-35-49 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-07_18-36-08 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   kids
+   1934.29
+
+Debug: 2010-12-07_18-36-27 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log from getacctinfo
+   kids
+   868.34
+
+Debug: 2010-12-07_18-36-27 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log grey line
+   2010-12-07_18-34-46,1000.19,1934.29,868.34,2066.14
+
+Debug: 2010-12-07_18-36-35 C:\My Dropbox\AHKs\temporary4.ahk 
+   silent log
+   temporary4.ahk
+   What on earth, we didn't even see the usaa logo
+

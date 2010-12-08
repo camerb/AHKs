@@ -5,7 +5,7 @@
 AppsKey & r::
 
 ;save if gvim has it open (but reload no matter what)
-if ForceWinFocusIfExist("(.txt.*ahk|AHKs).*GVIM", "RegEx")
+if ForceWinFocusIfExist("(.txt.*ahk|AHKs|ahk).*GVIM", "RegEx")
 {
    Send, {ESC}{ESC}
    Send, {;}

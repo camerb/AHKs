@@ -28,3 +28,27 @@ if (SavingsBalance=="" and CheckingBalance=="" and CreditBalance=="")
 
 Sleep, %C_LongSleep%
 Reload
+
+GetAccountInfo(url)
+{
+   global C_VersionNum
+   global C_ShortSleep
+   global C_MedSleep
+   global C_LongSleep
+   ;force it to change the page, cause the title is the same for all accounts
+   GoToPage("http://dl.dropbox.com/u/789954/remotewidget.txt")
+   Sleep, %C_LongSleep%
+
+   ;get the text of the entire page
+   ;debug(url)
+   returned:=GhettoUrlDownloadToVar(url)
+
+   ;find the account balance that we are looking for
+   returned:=RegExReplace(returned, "(`r|`n)", " ")
+   RegExMatch(returned, "<th>(Current Balance).*?(</tr>)", returned)
+   RegExMatch(returned, "(\d*,*)*\d+\.\d+", returned)
+   returned:=RegExReplace(returned, ",", "")
+   debug("silent log from getacctinfo", C_VersionNum, returned)
+
+   return returned
+}

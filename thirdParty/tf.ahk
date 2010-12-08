@@ -1,24 +1,24 @@
 /*
 Name          : TF: Textfile & String Library for AutoHotkey - maintained by HugoV
-Version       : 3.2
-Updated       : 20 February 2010
+Version       : 3.3
+Updated       : 16 April 2010
 Documentation : http://www.autohotkey.net/~hugov/tf-lib.htm (needs to be updated for v3+)
 AHK Forum     : http://www.autohotkey.com/forum/viewtopic.php?p=307344#307344 (Also for examples)
-Credits       : http://www.autohotkey.net/~hugov/tf-lib.htm#Credits 
+Credits       : http://www.autohotkey.net/~hugov/tf-lib.htm#Credits
 History       : http://www.autohotkey.net/~hugov/tf-lib.htm#History
 
 Structure of most functions:
 
 TF_...(Text, other parameters)
 	{
-     ; get the basic data we need for further processing and returning the output: 
+     ; get the basic data we need for further processing and returning the output:
      TF_GetData(OW, Text, FileName)
-	 ; OW = 0 Copy inputfile 
+	 ; OW = 0 Copy inputfile
 	 ; OW = 1 Overwrite inputfile
 	 ; OW = 2 Return variable
 	 ; Text : either contents of file or the var that was passed on
 	 ; FileName : Used in case OW is 0 or 1 (=file), not used for OW=2 (variable)
-    
+
 	 ; Creates a matchlist for use in Loop below
 	 TF_MatchList:=_MakeMatchList(Text, StartLine, EndLine)
 
@@ -28,13 +28,13 @@ TF_...(Text, other parameters)
 			{
 			...
 			}
-		 Else 
+		 Else
 			{
 			...
 			}
 		}
 	 ; either copy or overwrite file or return variabla
-	 Return TF_ReturnOutPut(OW, OutPut, FileName, TrimTrailing, CreateNewFile) 
+	 Return TF_ReturnOutPut(OW, OutPut, FileName, TrimTrailing, CreateNewFile)
 	 ; OW 0 or 1 = file
 	 ; Output = new content of file or var to save to file or return
 	 ; FileName
@@ -45,15 +45,15 @@ TF_...(Text, other parameters)
 */
 
 TF_CountLines(Text)
-	{ 
- 	 TF_GetData(OW, Text, FileName)	 
+	{
+ 	 TF_GetData(OW, Text, FileName)
  	 StringReplace, Text, Text, `n, `n, UseErrorLevel
 	 Return ErrorLevel + 1
 	}
 
 TF_ReadLines(Text, StartLine = 1, EndLine = 0, Trailing = 0)
 	{
-	 TF_GetData(OW, Text, FileName)	 
+	 TF_GetData(OW, Text, FileName)
 	 TF_MatchList:=_MakeMatchList(Text, StartLine, EndLine) ; create MatchList
 	 Loop, Parse, Text, `n, `r
 		{
@@ -71,7 +71,7 @@ TF_ReplaceInLines(Text, StartLine = 1, EndLine = 0, SearchText = "", ReplaceText
 	{
  	 TF_GetData(OW, Text, FileName)
 	 IfNotInString, Text, %SearchText%
-	 	Return ; SearchText not in TextFile so return and do nothing
+	 	Return Text ; SearchText not in TextFile so return and do nothing, we have to return Text in case of a variable otherwise it would empty the variable contents bug fix 3.3
 	 TF_MatchList:=_MakeMatchList(Text, StartLine, EndLine) ; create MatchList
 	 Loop, Parse, Text, `n, `r
 	 	{
@@ -82,7 +82,7 @@ TF_ReplaceInLines(Text, StartLine = 1, EndLine = 0, SearchText = "", ReplaceText
 			}
 		 Else
 			OutPut .= A_LoopField "`n"
-    		}		
+    		}
 	 Return TF_ReturnOutPut(OW, OutPut, FileName)
 	}
 
@@ -90,7 +90,7 @@ TF_Replace(Text, SearchText, ReplaceText="")
 	{
 	 TF_GetData(OW, Text, FileName)
 	 IfNotInString, Text, %SearchText%
-	 	Return ; SearchText not in TextFile so return and do nothing
+	 	Return Text ; SearchText not in TextFile so return and do nothing, we have to return Text in case of a variable otherwise it would empty the variable contents bug fix 3.3
 	 Loop
 		{
 		 StringReplace, Text, Text, %SearchText%, %ReplaceText%, All
@@ -104,7 +104,7 @@ TF_RegExReplaceInLines(Text, StartLine = 1, EndLine = 0, NeedleRegEx = "", Repla
 	{
 	 TF_GetData(OW, Text, FileName)
 	 If (RegExMatch(Text, NeedleRegEx) < 1)
-	 	Return ; NeedleRegEx not in file or error, do nothing
+	 	Return Text ; SearchText not in TextFile so return and do nothing, we have to return Text in case of a variable otherwise it would empty the variable contents bug fix 3.3
 	 TF_MatchList:=_MakeMatchList(Text, StartLine, EndLine) ; create MatchList
 	 Loop, Parse, Text, `n, `r
 		{
@@ -123,7 +123,7 @@ TF_RegExReplace(Text, NeedleRegEx = "", Replacement = "")
 	{
 	 TF_GetData(OW, Text, FileName)
 	 If (RegExMatch(Text, NeedleRegEx) < 1)
-	 	Return ; NeedleRegEx not in file or error, do nothing
+	 	Return Text ; SearchText not in TextFile so return and do nothing, we have to return Text in case of a variable otherwise it would empty the variable contents bug fix 3.3
 	 Text := RegExReplace(Text, NeedleRegEx, Replacement)
  	 Return TF_ReturnOutPut(OW, Text, FileName, 0)
 	}
@@ -133,11 +133,11 @@ TF_RemoveLines(Text, StartLine = 1, EndLine = 0)
 	 TF_GetData(OW, Text, FileName)
 	 If (StartLine < 0) ; remove last X lines from file, endline parameter ignored
 	 	{
-	 	 StartLine:=TF_CountLines(Text) + StartLine + 1
+	 	 StartLine:=TF_CountLines(Text) + StartLine
 	 	 EndLine=0
 	 	}
 	 TF_MatchList:=_MakeMatchList(Text, StartLine, EndLine) ; create MatchList
-	 
+
 	 Loop, Parse, Text, `n, `r
 		{
         	 If A_Index in %TF_MatchList%
@@ -152,11 +152,11 @@ TF_RemoveBlankLines(Text, StartLine = 1, EndLine = 0)
 	{
 	 TF_GetData(OW, Text, FileName)
 	 If (RegExMatch(Text, "[\S]+?\r?\n?") < 1)
-	 	Return ; NeedleRegEx not in file or error, do nothing
+	 	Return Text ; No empty lines so return and do nothing, we have to return Text in case of a variable otherwise it would empty the variable contents bug fix 3.3
 	 TF_MatchList:=_MakeMatchList(Text, StartLine, EndLine) ; create MatchList
 	 Loop, Parse, Text, `n, `r
-		{ 
-		 	 If A_Index in %TF_MatchList%
+		{
+		 If A_Index in %TF_MatchList%
          	 	OutPut .= (RegExMatch(A_LoopField,"[\S]+?\r?\n?")) ? A_LoopField "`n" :
 	         Else
         		OutPut .= A_LoopField "`n"
@@ -182,7 +182,7 @@ TF_RemoveDuplicateLines(Text, StartLine = 1, Endline = 0, Consecutive = 0, CaseS
 				 If (A_LoopField <> PreviousLine) ; method one for consequtive duplicate lines
 					 Section2 .= A_LoopField "`n"
 				 PreviousLine:=A_LoopField
-				} 
+				}
 			 Else
 				{
 				 If !(InStr(SearchForSection2,"__bol__" . A_LoopField . "__eol__",CaseSensitive)) ; not found
@@ -190,7 +190,7 @@ TF_RemoveDuplicateLines(Text, StartLine = 1, Endline = 0, Consecutive = 0, CaseS
 				 	 SearchForSection2 .= "__bol__" A_LoopField "__eol__" ; this makes it unique otherwise it could be a partial match
 					 Section2 .= A_LoopField "`n"
 				 	}
-				}	 
+				}
 			}
 		 If (A_Index > EndLine)
 			Section3 .= A_LoopField "`n"
@@ -207,7 +207,7 @@ TF_InsertLine(Text, StartLine = 1, Endline = 0, InsertText = "")
 		{
          	 If A_Index in %TF_MatchList%
 			Output .= InsertText "`n" A_LoopField "`n"
-		 Else 
+		 Else
 			Output .= A_LoopField "`n"
 		}
 	 Return TF_ReturnOutPut(OW, OutPut, FileName)
@@ -220,8 +220,8 @@ TF_ReplaceLine(Text, StartLine = 1, Endline = 0, ReplaceText = "")
 	 Loop, Parse, Text, `n, `r
 		{
 		 If A_Index in %TF_MatchList%
-			Output .= ReplaceText "`n" 
-		 Else 
+			Output .= ReplaceText "`n"
+		 Else
 			Output .= A_LoopField "`n"
 		}
 	 Return TF_ReturnOutPut(OW, OutPut, FileName)
@@ -268,7 +268,7 @@ TF_TrimLeft(Text, StartLine = 1, EndLine = 0, Count = 1)
 			}
 		 Else
        		OutPut .= A_LoopField "`n"
-		}		
+		}
 	 Return TF_ReturnOutPut(OW, OutPut, FileName)
 	}
 
@@ -302,13 +302,13 @@ TF_AlignLeft(Text, StartLine = 1, EndLine = 0, Columns = 80, Padding = 0)
        	 If A_Index in %TF_MatchList%
 			{
 			 LoopField = %A_LoopField% ; Make use of AutoTrim, should be faster then a RegExReplace. Trims leading and trailing spaces!
-	       	 SpaceNum := Columns-StrLen(LoopField)-1 
+	       	 SpaceNum := Columns-StrLen(LoopField)-1
 	       	 If (SpaceNum > 0) and (Padding = 1) ; requires padding + keep padding
 	        	{
 				 Left:=TF_SetWidth(LoopField,Columns, 0) ; align left
 		         OutPut .= Left "`n"
         		}
-        	 Else 
+        	 Else
        			OutPut .= LoopField "`n"
 			}
          Else
@@ -337,7 +337,7 @@ TF_AlignCenter(Text, StartLine = 1, EndLine = 0, Columns = 80, Padding = 0)
 					}
 				 If (StrLen(LoopField) >= Columns)
 					{
-					 OutPut .= LoopField "`n" ; add as is 	
+					 OutPut .= LoopField "`n" ; add as is
 					 Continue
 					}
                  Centered:=TF_SetWidth(LoopField,Columns, 1) ; align center using set width
@@ -366,9 +366,9 @@ TF_AlignRight(Text, StartLine = 1, EndLine = 0, Columns = 80, Skip = 0)
 					 OutPut .= "`n"
 					 Continue
 					}
-				 If (StrLen(LoopField) >= Columns) 
+				 If (StrLen(LoopField) >= Columns)
 					{
-					 OutPut .= LoopField "`n" ; add as is 	
+					 OutPut .= LoopField "`n" ; add as is
 					 Continue
 					}
                  Right:=TF_SetWidth(LoopField,Columns, 2) ; align right using set width
@@ -397,7 +397,7 @@ TF_ConCat(FirstTextFile, SecondTextFile, OutputFile = "", Blanks = 0, FirstPadMa
 	 If (SecondPadMargin > 0)
 	         Loop, %SecondPadMargin%
 	 PaddingFile2 .= A_Space
-	 Text:=FirstTextFile		
+	 Text:=FirstTextFile
 	 	 TF_GetData(OW, Text, FileName)
 	 StringSplit, Str1Lines, Text, `n, `r
 	 Text:=SecondTextFile
@@ -454,7 +454,7 @@ TF_LineNumber(Text, Leading = 0, Restart = 0, Char = 0) ; Hugov / ribbet.1
 			{
 			 LineNumber := LineNumber Padlines ; add padding
 			 StringLeft, LineNumber, LineNumber, StrLen(Lines) ; remove excess padding
-			}         
+			}
 		 OutPut .= LineNumber A_Space A_LoopField "`n"
 		}
      Return TF_ReturnOutPut(OW, OutPut, FileName)
@@ -462,7 +462,7 @@ TF_LineNumber(Text, Leading = 0, Restart = 0, Char = 0) ; Hugov / ribbet.1
 
 ; skip = 1, skip shorter lines (e.g. lines shorter startcolumn position)
 TF_ColGet(Text, StartLine = 1, EndLine = 0, StartColumn = 1, EndColumn = 1, Skip = 0)
-	{ 
+	{
 	 TF_GetData(OW, Text, FileName)
 	 EndColumn:=(EndColumn+1)-StartColumn
 	 TF_MatchList:=_MakeMatchList(Text, StartLine, EndLine) ; create MatchList
@@ -473,7 +473,7 @@ TF_ColGet(Text, StartLine = 1, EndLine = 0, StartColumn = 1, EndColumn = 1, Skip
 		     StringMid, Section, A_LoopField, StartColumn, EndColumn
 			 If (Skip = 1) and (StrLen(A_LoopField) < StartColumn)
 		        Continue
-	         OutPut .= Section "`n"               
+	         OutPut .= Section "`n"
 			}
 		}
 	 Return TF_ReturnOutPut(OW, OutPut, FileName)
@@ -485,7 +485,7 @@ Based on:
 COLPUT.EXE & CUT.EXE, ftp://garbo.uwasa.fi/pc/ts/tsfltc22.zip
 */
 TF_ColPut(Text, Startline = 1, EndLine = 0, StartColumn = 1, InsertText = "", Skip = 0)
-	{ 
+	{
 	 TF_GetData(OW, Text, FileName)
 	 StartColumn--
 	 TF_MatchList:=_MakeMatchList(Text, StartLine, EndLine) ; create MatchList
@@ -566,26 +566,26 @@ TF_SplitFileByLines(Text, SplitAt, Prefix = "file", Extension = "txt", InFile = 
 	 LineCounter=1
 	 FileCounter=1
 	 Where:=SplitAt
-	 Method=1 
-	 ; 1 = default, splitat every X lines, 
-	 ; 2 = splitat: - rotating if applicable 
+	 Method=1
+	 ; 1 = default, splitat every X lines,
+	 ; 2 = splitat: - rotating if applicable
 	 ; 3 = splitat: specific lines comma separated
 	 TF_GetData(OW, Text, FileName)
-	 
+
 	 IfInString, SplitAt, `- ; method 2
 		{
 		 StringSplit, Split, SplitAt, `-
 		 Part=1
 		 Where:=Split%Part%
 		 Method=2
-		} 
+		}
 	 IfInString, SplitAt, `, ; method 3
 		{
 		 StringSplit, Split, SplitAt, `,
 		 Part=1
 		 Where:=Split%Part%
 		 Method=3
-		} 
+		}
 	 Loop, Parse, Text, `n, `r
 		{
 		 OutPut .= A_LoopField "`n"
@@ -596,7 +596,7 @@ TF_SplitFileByLines(Text, SplitAt, Prefix = "file", Extension = "txt", InFile = 
 				 StringReplace, CheckOutput, PreviousOutput, `n, , All
 				 StringReplace, CheckOutput, CheckOutput, `r, , All
 				 If (CheckOutput <> "") and (OW <> 2) ; skip empty files
-				   	 TF_ReturnOutPut(1, PreviousOutput, Prefix FileCounter "." Extension, 0, 1) 
+				   	 TF_ReturnOutPut(1, PreviousOutput, Prefix FileCounter "." Extension, 0, 1)
 				 If (CheckOutput <> "") and (OW = 2) ; skip empty files
 					 TF_SetGlobal(Prefix FileCounter,PreviousOutput)
          		 Output:=
@@ -606,7 +606,7 @@ TF_SplitFileByLines(Text, SplitAt, Prefix = "file", Extension = "txt", InFile = 
 			 StringReplace, CheckOutput, Output, `n, , All
 			 StringReplace, CheckOutput, CheckOutput, `r, , All
 			 If (CheckOutput <> "") and (OW <> 2) ; skip empty files
-                  		 TF_ReturnOutPut(1, Output, Prefix FileCounter "." Extension, 0, 1) 
+                  		 TF_ReturnOutPut(1, Output, Prefix FileCounter "." Extension, 0, 1)
 			 If (CheckOutput <> "") and (OW = 2) ; skip empty files
 				 TF_SetGlobal(Prefix FileCounter,Output)
 			 Output:=
@@ -617,16 +617,16 @@ TF_SplitFileByLines(Text, SplitAt, Prefix = "file", Extension = "txt", InFile = 
 			 StringReplace, CheckOutput, Output, `n, , All
 			 StringReplace, CheckOutput, CheckOutput, `r, , All
 			 If (CheckOutput <> "") and (OW <> 2) ; skip empty files
-                  		 TF_ReturnOutPut(1, Output, Prefix FileCounter "." Extension, 0, 1) 
+                  		 TF_ReturnOutPut(1, Output, Prefix FileCounter "." Extension, 0, 1)
 			 If (CheckOutput <> "") and (OW = 2) ; skip empty files
 				 TF_SetGlobal(Prefix FileCounter,Output)
 			 OutPut := A_LoopField "`n"
 			}
-	     If (Method <> 3)			
+	     If (Method <> 3)
              	LineCounter=0 ; reset
              FileCounter++ ; next file
 			 Part++
-			 If (Method = 2) ; 2 = splitat: - rotating if applicable 
+			 If (Method = 2) ; 2 = splitat: - rotating if applicable
 			 	{
 			 	 If (Part > Split0)
 			 	    {
@@ -649,12 +649,12 @@ TF_SplitFileByLines(Text, SplitAt, Prefix = "file", Extension = "txt", InFile = 
 	 StringReplace, CheckOutput, Output, `n, , All
 	 StringReplace, CheckOutput, CheckOutput, `r, , All
 	 If (CheckOutPut <> "") and (OW <> 2) ; skip empty files
-       	 TF_ReturnOutPut(1, Output, Prefix FileCounter "." Extension, 0, 1) 
+       	 TF_ReturnOutPut(1, Output, Prefix FileCounter "." Extension, 0, 1)
 	 If (CheckOutput <> "") and (OW = 2) ; skip empty files
 		{
 		 TF_SetGlobal(Prefix FileCounter,Output)
 		 TF_SetGlobal(Prefix . "0" , FileCounter)
-		} 
+		}
 	}
 
 ; TF_SplitFileByText("TestFile.txt", "button", "sfile_", "txt") ; split file at every line with button in it, can be regexp
@@ -679,7 +679,7 @@ TF_SplitFileByText(Text, SplitAt, Prefix = "file", Extension = "txt",  InFile = 
 				 StringReplace, CheckOutput, PreviousOutput, `n, , All
 				 StringReplace, CheckOutput, CheckOutput, `r, , All
 				 If (CheckOutput <> "") and (OW <> 2) ; skip empty files
-				   	 TF_ReturnOutPut(1, PreviousOutput, Prefix FileCounter "." Extension, 0, 1) 
+				   	 TF_ReturnOutPut(1, PreviousOutput, Prefix FileCounter "." Extension, 0, 1)
 				 If (CheckOutput <> "") and (OW = 2) ; skip empty files
 					 TF_SetGlobal(Prefix FileCounter,PreviousOutput)
 					Output:=
@@ -689,7 +689,7 @@ TF_SplitFileByText(Text, SplitAt, Prefix = "file", Extension = "txt",  InFile = 
 				 StringReplace, CheckOutput, Output, `n, , All
 				 StringReplace, CheckOutput, CheckOutput, `r, , All
 				 If (CheckOutput <> "") and (OW <> 2) ; skip empty files
-                  	 TF_ReturnOutPut(1, Output, Prefix FileCounter "." Extension, 0, 1) 
+                  	 TF_ReturnOutPut(1, Output, Prefix FileCounter "." Extension, 0, 1)
 				 If (CheckOutput <> "") and (OW = 2) ; skip empty files
 					 TF_SetGlobal(Prefix FileCounter,Output)
 				 Output:=
@@ -700,7 +700,7 @@ TF_SplitFileByText(Text, SplitAt, Prefix = "file", Extension = "txt",  InFile = 
 				 StringReplace, CheckOutput, Output, `n, , All
 				 StringReplace, CheckOutput, CheckOutput, `r, , All
 				 If (CheckOutput <> "") and (OW <> 2) ; skip empty files
-                  	 TF_ReturnOutPut(1, Output, Prefix FileCounter "." Extension, 0, 1) 
+                  	 TF_ReturnOutPut(1, Output, Prefix FileCounter "." Extension, 0, 1)
 				 If (CheckOutput <> "") and (OW = 2) ; skip empty files
 					 TF_SetGlobal(Prefix FileCounter,Output)
 				 OutPut := A_LoopField "`n"
@@ -715,12 +715,12 @@ TF_SplitFileByText(Text, SplitAt, Prefix = "file", Extension = "txt",  InFile = 
 	 StringReplace, CheckOutput, Output, `n, , All
 	 StringReplace, CheckOutput, CheckOutput, `r, , All
 	 If (CheckOutPut <> "") and (OW <> 2) ; skip empty files
-       	 TF_ReturnOutPut(1, Output, Prefix FileCounter "." Extension, 0, 1) 
+       	 TF_ReturnOutPut(1, Output, Prefix FileCounter "." Extension, 0, 1)
 	 If (CheckOutput <> "") and (OW = 2) ; skip empty files
 		{
 		 TF_SetGlobal(Prefix FileCounter,Output)
 		 TF_SetGlobal(Prefix . "0" , FileCounter)
-		} 
+		}
 	}
 
 
@@ -740,13 +740,13 @@ TF_Find(Text, StartLine = 1, EndLine = 0, SearchText = "", ReturnFirst = 1, Retu
 				 If (ReturnText = 0)
 					Lines .= A_Index "," ; line number
 				 Else If (ReturnText = 1)
-					Lines .= A_LoopField "`n" ; text of line 
+					Lines .= A_LoopField "`n" ; text of line
 				 Else If (ReturnText = 2)
 					Lines .= A_Index ": " A_LoopField "`n" ; add line number
 				 If (ReturnFirst = 1) ; only return first occurence
 					Break
-				}	
-		 	}	
+				}
+		 	}
 		}
 	 If (Lines <> "")
 		StringTrimRight, Lines, Lines, 1 ; trim trailing , or `n
@@ -797,7 +797,7 @@ Return
 ; By default, a new line is used as a separator between two text files
 ; !merged.txt deletes target file before starting to merge files
 
-TF_Merge(FileList, Separator = "`n", FileName = "merged.txt") 
+TF_Merge(FileList, Separator = "`n", FileName = "merged.txt")
 	{
 	 OW=0
 	 Loop, Parse, FileList, `n, `r
@@ -810,10 +810,11 @@ TF_Merge(FileList, Separator = "`n", FileName = "merged.txt")
 				Output .= Append2File Separator
 			}
 		}
+
 	 If (SubStr(FileName,1,1)="!") ; check if we want to delete the target file before we start
 		{
 		 FileName:=SubStr(FileName,2)
-		 OW=1	 
+		 OW=1
 		}
 	 Return TF_ReturnOutPut(OW, OutPut, FileName, 0, 1)
 	}
@@ -838,10 +839,10 @@ TF_Wrap(Text, Columns = 80, AllowBreak = 0, StartLine = 1, EndLine = 0)
 				}
 			 Else
 				OutPut .= A_LoopField "`n"
-			}	
+			}
 		  Else
 			 OutPut .= A_LoopField "`n"
-		}		
+		}
 	 Return TF_ReturnOutPut(OW, OutPut, FileName)
 	}
 
@@ -907,27 +908,27 @@ TF_Substract(File1, File2, PartialMatch = 0) {
 		 	StringReplace, Output, Output, %A_LoopField%, , All ; remove lines from file1 in file2
 		}
 	Else
-		{ 
+		{
 		 search:="m)^(.*)$"
 		 replace=__bol__$1__eol__
 		 Output:=RegExReplace(Output, search, replace)
 		 StringReplace, Output, Output, `n__eol__,__eol__ , All ; strange fix but seems to be needed.
 		 Loop, Parse, Str1, `n, `r
 		 	StringReplace, Output, Output, __bol__%A_LoopField%__eol__, , All ; remove lines from file1 in file2
-		}	
+		}
 	If (PartialMatch = 0)
 		{
 		  StringReplace, Output, Output, __bol__, , All
 		  StringReplace, Output, Output, __eol__, , All
 		}
-		
+
 	; Remove all blank lines from the text in a variable:
 	Loop
 	{
 	    StringReplace, Output, Output, `r`n`r`n, `r`n, UseErrorLevel
 	    if (ErrorLevel = 0) or (ErrorLevel = 1) ; No more replacements needed.
 	        break
-	}	
+	}
 	Return TF_ReturnOutPut(OW, OutPut, FileName, 0)
 }
 
@@ -936,7 +937,7 @@ TF_RangeReplace(Text, SearchTextBegin, SearchTextEnd, ReplaceText = "", CaseSens
 	{
 	 TF_GetData(OW, Text, FileName)
 	 IfNotInString, Text, %SearchText%
-	 	Return ; SearchTextBegin not in TextFile so return and do nothing
+	 	Return Text ; SearchTextBegin not in TextFile so return and do nothing, we have to return Text in case of a variable otherwise it would empty the variable contents bug fix 3.3
      	 Start = 0
      	 End = 0
      	 If (KeepBegin = 1)
@@ -951,7 +952,7 @@ TF_RangeReplace(Text, SearchTextBegin, SearchTextEnd, ReplaceText = "", CaseSens
       		Start=1
     	 If (SearchTextEnd = "")
       		End=2
-    
+
 	 Loop, Parse, Text, `n, `r
 	 	{
 		 If (End = 1) ; end has been found already, replacement made simply continue to add all lines
@@ -964,15 +965,15 @@ TF_RangeReplace(Text, SearchTextBegin, SearchTextEnd, ReplaceText = "", CaseSens
 		 	 If (InStr(A_LoopField,SearchTextBegin,CaseSensitive)) ; start has been found
 	 			{
 		 		 Start = 1
-		 		 KeepSection := SubStr(A_LoopField, 1, InStr(A_LoopField, SearchTextBegin)-1) 
-		 		 EndSection := SubStr(A_LoopField, InStr(A_LoopField, SearchTextBegin)-1) 
+		 		 KeepSection := SubStr(A_LoopField, 1, InStr(A_LoopField, SearchTextBegin)-1)
+		 		 EndSection := SubStr(A_LoopField, InStr(A_LoopField, SearchTextBegin)-1)
 		 		 ; check if SearchEndText is in second part of line
 		 		 If (InStr(EndSection,SearchTextEnd,CaseSensitive)) ; end found
 		 		 	{
 		 		 	 EndSection := ReplaceText KeepEnd SubStr(EndSection, InStr(EndSection, SearchTextEnd) + StrLen(SearchTextEnd) ) "`n"
-		 		 	 If (End <> 2)	
+		 		 	 If (End <> 2)
 		 		 	 	End=1
-		 		 	 If (End = 2)	
+		 		 	 If (End = 2)
 		 		 	 	EndSection=
 		 		 	}
 		 		 Else
@@ -980,7 +981,7 @@ TF_RangeReplace(Text, SearchTextBegin, SearchTextEnd, ReplaceText = "", CaseSens
 		 		 Output .= KeepSection KeepBegin EndSection
 				 Continue
 	 			}
-		 	 Else	
+		 	 Else
 		 		Output .= A_LoopField "`n" ; if not found yet simply add
 	         	}
 		 If (Start = 1) and (End <> 2) ; start has been found, now look for end if end isn't an empty string
@@ -991,8 +992,8 @@ TF_RangeReplace(Text, SearchTextBegin, SearchTextEnd, ReplaceText = "", CaseSens
 				 Output .= ReplaceText KeepEnd SubStr(A_LoopField, InStr(A_LoopField, SearchTextEnd) + StrLen(SearchTextEnd) ) "`n"
 			 	}
         		}
-		}   
-	 If (End = 2)	
+		}
+	 If (End = 2)
 	 	Output .= ReplaceText
 	 Return TF_ReturnOutPut(OW, OutPut, FileName)
 	}
@@ -1007,7 +1008,7 @@ TF_MakeFile(Text, Lines = 1, Columns = 1, Fill = " ")
 		Cols .= Fill
 	 Loop, % Lines
 		Output .= Cols "`n"
-	 Return TF_ReturnOutPut(OW, OutPut, Text, 1, 1)	
+	 Return TF_ReturnOutPut(OW, OutPut, Text, 1, 1)
 	}
 
 ; Convert tabs to spaces, shorthand for TF_ReplaceInLines
@@ -1044,7 +1045,7 @@ TF_Sort(Text, SortOptions = "", StartLine = 1, EndLine = 0) ; use the SORT optio
 	 	 Sort, ToSort, %SortOptions%
 	 	 OutPut .= ToSort
 	 	 OutPut .= TF_ReadLines(Text, EndLine+1) ; append last section
-	 	} 
+	 	}
 	 Return TF_ReturnOutPut(OW, OutPut, FileName)
 	}
 
@@ -1067,7 +1068,7 @@ TF_Tail(Text, Lines = 1, RemoveTrailing = 0, ReturnEmpty = 1)
 	   OutPut=
       }
     If (Neg = 1) ; get only one line!
-      { 
+      {
         Lines++
 		Output:=Text
         StringGetPos, Pos, Output, `n, R%Lines% ; These next two Lines by Tuncay see
@@ -1104,25 +1105,25 @@ TF(TextFile, CreateGlobalVar = "T") { ; read contents of file in output and %out
 	}
 
 ;----- Helper functions ----------------
-	
+
 TF_SetGlobal(var, content = "") ; helper function for TF_Split* to return array and not files, credits Tuncay :-)
 	{
      global
      %var% := content
 	}
-	
+
 ; HugoV, helper function to determine if VAR/TEXT or FILE is passed to TF
 ; Update 11 January 2010 (skip filecheck if `n in Text -> can't be file)
-TF_GetData(byref OW, byref Text, byref FileName) 
+TF_GetData(byref OW, byref Text, byref FileName)
 	{
 	OW=0 ; default setting: asume it is a file and create file_copy
 	IfNotInString, Text, `n ; it can be a file as the Text doesn't contact a newline character
 		{
-		 If (SubStr(Text,1,1)="!") ; first we check for "overwrite" 
+		 If (SubStr(Text,1,1)="!") ; first we check for "overwrite"
 			{
 			 Text:=SubStr(Text,2)
 			 OW=1 ; overwrite file (if it is a file)
-			} 
+			}
 		 IfNotExist, %Text% ; now we can check if the file exists, it doesn't so it is a var
 		 {
 		  If (OW=1) ; the variable started with a ! so we need to put it back because it is variable/text not a file
@@ -1130,7 +1131,7 @@ TF_GetData(byref OW, byref Text, byref FileName)
 		  OW=2 ; no file, so it is a var or Text passed on directly to TF
 		 }
 		}
-	Else ; there is a newline character in Text so it has to be a variable 
+	Else ; there is a newline character in Text so it has to be a variable
 		{
 		 OW=2
 		}
@@ -1147,27 +1148,27 @@ TF_GetData(byref OW, byref Text, byref FileName)
 		}
 	Return
 	}
-	
-	
+
+
 ; Skan
 ; http://www.autohotkey.com/forum/viewtopic.php?p=45880#45880
-; SetWidth() : SetWidth increases a String's length by adding spaces to it and aligns it Left/Center/Right. ( Requires Space() ) 
+; SetWidth() : SetWidth increases a String's length by adding spaces to it and aligns it Left/Center/Right. ( Requires Space() )
 
 TF_SetWidth(Text,Width,AlignText)
 	{
 	 If (AlignText!=0 and AlignText!=1 and AlignText!=2)
 		AlignText=0
-	 If AlignText=0         
+	 If AlignText=0
 		{
 		 RetStr= % (Text)TF_Space(Width)
 		 StringLeft, RetText, RetText, %Width%
 		}
-	 If AlignText=1         
+	 If AlignText=1
 		{
 		 Spaces:=(Width-(StrLen(Text)))
 		 RetStr= % TF_Space(Round(Spaces/2))(Text)TF_Space(Spaces-(Round(Spaces/2)))
 		}
-	 If AlignText=2         
+	 If AlignText=2
 		{
 		 RetStr= % TF_Space(Width)(Text)
 		 StringRight, RetStr, RetStr, %Width%
@@ -1184,7 +1185,7 @@ TF_Space(Width)
 	 Space=% Space Chr(32)
 	 Return Space
 	}
-	
+
 TF_ReturnOutPut(OW, Text, FileName, TrimTrailing = 1, CreateNewFile = 0) { ; HugoV
 	If (OW = 0) ; input was file, file_copy will be created, if it already exist file_copy will be overwritten
 		{
@@ -1192,10 +1193,10 @@ TF_ReturnOutPut(OW, Text, FileName, TrimTrailing = 1, CreateNewFile = 0) { ; Hug
 		 	{
 		 	 If (CreateNewFile = 1) ; CreateNewFile used for TF_SplitFileBy* and others
 				{
-				 OW = 1 
+				 OW = 1
 		 		 Goto CreateNewFile
 				}
-			 Else 
+			 Else
 				Return
 			}
 		 If (TrimTrailing = 1)
@@ -1209,8 +1210,8 @@ TF_ReturnOutPut(OW, Text, FileName, TrimTrailing = 1, CreateNewFile = 0) { ; Hug
 		 FileAppend, %Text%, % Dir "\" Name "_copy." Ext
 		 Return Errorlevel ? False : True
 		}
-	 CreateNewFile:	
-	 If (OW = 1) ; input was file, will be overwritten by output 
+	 CreateNewFile:
+	 If (OW = 1) ; input was file, will be overwritten by output
 		{
 		 IfNotExist, % FileName ; check if file Exist, if not return otherwise it would create an empty file. Thanks for the idea Murp|e
 		 	{
@@ -1228,7 +1229,7 @@ TF_ReturnOutPut(OW, Text, FileName, TrimTrailing = 1, CreateNewFile = 0) { ; Hug
 		 FileAppend, %Text%, % Dir "\" Name "." Ext
 		 Return Errorlevel ? False : True
 		}
-	If (OW = 2) ; input was var, return variable 
+	If (OW = 2) ; input was var, return variable
 		{
 		 If (TrimTrailing = 1)
 			StringTrimRight, Text, Text, 1 ; remove trailing `n
@@ -1253,36 +1254,36 @@ _MakeMatchList(Text, Start = 1, End = 0)
 	 )
 	 StringSplit, ErrorMessage, ErrorList, |
 	 Error = 0
-	 
+
  	 TF_MatchList= ; just to be sure
 	 If (Start = 0 or Start = "")
 		Start = 1
-		
+
 	 ; some basic error checking
-	 
+
 	 ; error: only digits - and + allowed
 	 If (RegExReplace(Start, "[ 0-9+\-\,]", "") <> "")
 		 Error = 1
-		 
+
 	 If (RegExReplace(End, "[0-9 ]", "") <> "")
 		 Error = 2
 
 	 ; error: only one + allowed
 	 If (TF_Count(Start,"+") > 1)
 		 Error = 3
-	 	
+
 	 If (Error > 0 )
 		{
 		 MsgBox, 48, TF Lib Error, % ErrorMessage%Error%
 		 ExitApp
 		}
-		
+
  	 ; Option #1
-	 ; StartLine has + character indicating startline + incremental processing. 
+	 ; StartLine has + character indicating startline + incremental processing.
 	 ; EndLine will be used
 	 ; Make TF_MatchList
- 
-	 IfInString, Start, `+ 
+
+	 IfInString, Start, `+
 		{
 		 If (End = 0 or End = "") ; determine number of lines
 			End:= TF_Count(Text, "`n") + 1
@@ -1295,7 +1296,7 @@ _MakeMatchList(Text, Start = 1, End = 0)
 	         	 TF_MatchList .= SectionLines1 ","
 			 Loop, %LoopSection%
 				{
-				 If (A_Index >= End) ; 
+				 If (A_Index >= End) ;
 					Break
 				 If (Counter = (SectionLines2-1)) ; counter is smaller than the incremental value so skip
 					{
@@ -1306,12 +1307,12 @@ _MakeMatchList(Text, Start = 1, End = 0)
 					Counter++
 				}
 			}
-		 StringTrimRight, TF_MatchList, TF_MatchList, 1 ; remove trailing , 
+		 StringTrimRight, TF_MatchList, TF_MatchList, 1 ; remove trailing ,
 		 Return TF_MatchList
 		}
 
 	 ; Option #2
-	 ; StartLine has - character indicating from-to, COULD be multiple sections. 
+	 ; StartLine has - character indicating from-to, COULD be multiple sections.
 	 ; EndLine will be ignored
 	 ; Make TF_MatchList
 
@@ -1332,7 +1333,7 @@ _MakeMatchList(Text, Start = 1, End = 0)
 		}
 
 	 ; Option #3
-	 ; StartLine has comma indicating multiple lines. 
+	 ; StartLine has comma indicating multiple lines.
 	 ; EndLine will be ignored
 	 IfInString, Start, `,
 		{
@@ -1341,14 +1342,14 @@ _MakeMatchList(Text, Start = 1, End = 0)
 		}
 
 	 ; Option #4
-	 ; parameters passed on as StartLine, EndLine. 
+	 ; parameters passed on as StartLine, EndLine.
 	 ; Make TF_MatchList from StartLine to EndLine
 
 	 If (End = 0 or End = "") ; determine number of lines
 			End:= TF_Count(Text, "`n") + 1
 	 LoopTimes:=End-Start
 	 Loop, %LoopTimes%
-		{	
+		{
 		 TF_MatchList .= (Start - 1 + A_Index) ","
 		}
 	 TF_MatchList .= End ","
