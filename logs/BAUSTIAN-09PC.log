@@ -1008,3 +1008,55 @@ Debug: 2010-12-06_22-27-02 C:\My Dropbox\AHKs\temporary3.ahk
    temporary3.ahk
    What on earth, we didn't even see the usaa logo
 
+Debug: 2010-12-08_07-55-58 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   923
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   BAUSTIAN-09PC
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-12-08_07-55-58 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   923
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   BAUSTIAN-09PC
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-12-08_07-56-10 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   GetOS
+   923
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   BAUSTIAN-09PC
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-12-08_22-28-07 C:\My Dropbox\AHKs\CreateJiraIssue.ahk 
+   log
+     
+
