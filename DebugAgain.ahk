@@ -169,7 +169,7 @@ IfWinActive, %ffWindow%
 Sleep, 500
 ;TODO maybe we could toggle this on and off easily like server refresh mode
 if NOT suppressPageReload
-   SendInput, {F5}
+   ;SendInput, {F5}
 
 Run, RefreshIfProblemLoadingPage.ahk
 

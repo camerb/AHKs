@@ -1,4 +1,5 @@
 #include FcnLib.ahk
+#NoTrayIcon
 
 file=C:\My Dropbox\Public\remotewidget.txt
 csv=C:\My Dropbox\Public\temps.csv
@@ -11,7 +12,8 @@ RegExMatch(var, "\d+", var)
 rand:=Random(100, 999)
 FileDelete, %file%
 FileAppend, Current Temp is: %var%`n, %file%
-FileAppend, Rand: %rand%`n, %file%
+;FileAppend, Rand: %rand%`n, %file%
+FileAppend, %time%`n, %file%
 FileAppend, ft, %file%
 
 ;output the temp and time (cause data is awesome)

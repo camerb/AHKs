@@ -4,6 +4,7 @@
 ; and get rid of the Capture Panel/AHK GUI combo that you see here
 
 #include FcnLib.ahk
+#NoTrayIcon
 
 ;Run, TestRemoteWidget.ahk
 guiTitle=%A_ScriptName% ahk_class AutoHotkeyGUI
@@ -27,10 +28,11 @@ Gui:
    Loop
    {
       entireMessage:=urldownloadtovar("http://dl.dropbox.com/u/789954/remotewidget.txt")
-      if (A_ComputerName=="PHOSPHORUS")
+      if (A_ComputerName == "PHOSPHORUS")
          entireMessage.=urldownloadtovar("http://dl.dropbox.com/u/789954/remotewidget-livesitemode.txt")
-      entireMessage.=GetGmailMessageCount(MelGmailUrl, "Melinda")
       entireMessage.=GetGmailMessageCount(CamGmailUrl, "Cameron")
+      if (A_ComputerName != "PHOSPHORUS")
+         entireMessage.=GetGmailMessageCount(MelGmailUrl, "Melinda")
       LV_Delete()
       Loop, parse, entireMessage, `r`n
       {

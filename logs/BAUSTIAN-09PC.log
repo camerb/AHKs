@@ -1060,3 +1060,13 @@ Debug: 2010-12-08_22-28-07 C:\My Dropbox\AHKs\CreateJiraIssue.ahk
    log
      
 
+Debug: 2010-12-09_21-16-01 C:\My Dropbox\AHKs\UsaaGetAccountCsvs.ahk 
+   silent log
+   UsaaGetAccountCsvs.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-09_21-18-06 C:\My Dropbox\AHKs\UsaaGetAccountCsvs.ahk 
+   silent log
+   UsaaGetAccountCsvs.ahk
+   What on earth, we didn't even see the usaa logo
+

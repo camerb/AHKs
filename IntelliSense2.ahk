@@ -1,4 +1,5 @@
 #include FcnLib.ahk
+#NoTrayIcon
 ;originally was in autohotkey install dir Extras/Scripts/IntelliSense.ahk
 
 ; IntelliSense -- by Rajat (requires XP/2k/NT)
