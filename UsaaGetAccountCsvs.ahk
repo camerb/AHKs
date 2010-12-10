@@ -1,11 +1,6 @@
 #include FcnLib.ahk
 #include C:\My Dropbox\ahk large files\usaalogin.ahk
 
-C_VersionNum=kids
-C_ShortSleep=100
-C_MedSleep=2000
-C_LongSleep=6000
-csvfile=C:\My Dropbox\ahk large files\DailyFinancial.csv
 time:=CurrentTime("hyphenated")
 date:=CurrentTime("", "slashdate")
 
@@ -16,13 +11,12 @@ SaveAccountTransactions("checking", time)
 SaveAccountTransactions("credit", time)
 
 WinClose
-Reload
 
 SaveAccountTransactions(account, time)
 {
    date:=CurrentTime("", "slashdate")
 
-   Sleep %C_LongSleep%
+   LongSleep()
    csvfilename=C:\My Dropbox\ahk large files\USAA_%Account%_%time%.csv
    GoToPage( UsaaUrl(account) )
 

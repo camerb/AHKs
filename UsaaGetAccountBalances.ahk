@@ -26,9 +26,6 @@ FileAppend, %csvline%`n, %csvfile%
 if (SavingsBalance=="" and CheckingBalance=="" and CreditBalance=="")
    die("login attempt completely unsuccessful", A_ScriptName, A_LineNumber, A_ThisFunc)
 
-Sleep, %C_LongSleep%
-Reload
-
 GetAccountInfo(url)
 {
    global C_VersionNum

@@ -288,3 +288,42 @@ Debug: 2010-12-07_18-36-35 C:\My Dropbox\AHKs\temporary4.ahk
    temporary4.ahk
    What on earth, we didn't even see the usaa logo
 
+Debug: 2010-12-10_03-14-32 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log
+   UsaaGetAccountBalances.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-10_03-15-12 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-10_03-15-24 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   found source page after # of tries:
+   3
+
+Debug: 2010-12-10_03-15-31 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1604.04
+
+Debug: 2010-12-10_03-15-45 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   found source page after # of tries:
+   3
+
+Debug: 2010-12-10_03-15-52 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   976.68
+
+Debug: 2010-12-10_03-15-52 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-10_03-14-30,1000.19,1604.04,976.68,1627.55
+
+Debug: 2010-12-10_03-19-43 C:\My Dropbox\AHKs\UsaaGetAccountCsvs.ahk 
+   silent log
+   UsaaGetAccountCsvs.ahk
+   What on earth, we didn't even see the usaa logo
+

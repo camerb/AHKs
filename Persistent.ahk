@@ -32,6 +32,10 @@ if (A_Hour==3 AND A_Min==2 AND Mod(A_Sec, 15)==0)
       SleepMinutes(1)
       RunAhkAndBabysit("UpdatePidginImStatus.ahk")
       SleepMinutes(1)
+      RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
+      SleepMinutes(5)
+      RunAhkAndBabysit("UsaaGetAccountCsvs.ahk")
+      SleepMinutes(5)
    }
 }
 ;}}}
