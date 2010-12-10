@@ -15,7 +15,7 @@ Run, C:\WINDOWS\system32\cmd.exe /c ""C:\Program Files\Git\bin\sh.exe" --login -
 
 Loop 4
 {
-   Sleep, 1000
+   Sleep, 5000
    ForceWinFocus(gitWindow, "Exact")
    thisLine:=line%A_Index%
    Send, %thisLine%{ENTER}
