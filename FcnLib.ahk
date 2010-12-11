@@ -1041,7 +1041,7 @@ UrlDownloadToVar(URL, Proxy="", ProxyBypass="")
      DllCall("lstrcpy", "str", buffer, "uint", &buffer)
      res = %res%%buffer%
    }
-   StringTrimRight, res, res, 2
+   ;StringTrimRight, res, res, 2
 
    DllCall("wininet\InternetCloseHandle",  "uint", iou)
    DllCall("wininet\InternetCloseHandle",  "uint", io_hInternet)

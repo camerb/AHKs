@@ -327,3 +327,84 @@ Debug: 2010-12-10_03-19-43 C:\My Dropbox\AHKs\UsaaGetAccountCsvs.ahk
    UsaaGetAccountCsvs.ahk
    What on earth, we didn't even see the usaa logo
 
+Debug: 2010-12-10_09-26-19 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   923
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-12-10_09-26-31 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   GetOS
+   923
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-12-10_15-19-59 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log
+   UsaaGetAccountBalances.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-10_15-21-10 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log
+   UsaaGetAccountBalances.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-10_15-21-52 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-10_15-22-05 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   found source page after # of tries:
+   5
+
+Debug: 2010-12-10_15-22-12 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1604.04
+
+Debug: 2010-12-10_15-22-26 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   found source page after # of tries:
+   3
+
+Debug: 2010-12-10_15-22-32 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   976.68
+
+Debug: 2010-12-10_15-22-32 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-10_15-21-09,1000.19,1604.04,976.68,1627.55
+
+Debug: 2010-12-11_03-14-33 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log
+   UsaaGetAccountBalances.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-11_03-19-41 C:\My Dropbox\AHKs\UsaaGetAccountCsvs.ahk 
+   silent log
+   UsaaGetAccountCsvs.ahk
+   What on earth, we didn't even see the usaa logo
+

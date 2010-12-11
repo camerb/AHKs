@@ -43,7 +43,7 @@ else if (project == "FL")
 {
    projTitle=American Bench
    projDir=C:\code\bench
-   projRun=perl -I ..\Mitsi\perl\trunk\lib script\fl_bench_server.pl -d
+   projRun=perl -MCarp::Always -I ..\Mitsi\perl\trunk\lib script\fl_bench_server.pl -d
    welcomeTabImage:="images\firebug\WelcomeTab.bmp"
 }
 else if (project == "TM")
@@ -56,7 +56,7 @@ else if (project == "TM")
 else if (debuggerCommand == "EPMS")
 {
    apacheServer:=true
-   projTitle=EPMS.*
+   projTitle=(Ellis Partners in Mystery Shopping|EPMS).*
 }
 else
 {
@@ -93,7 +93,9 @@ else
 ;{{{ Save files we were working with in Vim
 if ForceWinFocusIfExist("\\(strawberry|code|(i|I)netpub).*GVIM ahk_class Vim", "RegEx")
 {
-   SendInput, {Escape 6}{;}wa{Enter}
+   ;TODO flag for overwrite RO files in gvim
+   SendInput, {Escape 6}{;}wa{!}{Enter}
+   ;SendInput, {Escape 6}{;}wa{Enter}
 }
 ;}}}
 
@@ -167,9 +169,10 @@ IfWinActive, %ffWindow%
    Click(600, 600, "Control")
 
 Sleep, 500
+;ExitApp
 ;TODO maybe we could toggle this on and off easily like server refresh mode
 if NOT suppressPageReload
-   ;SendInput, {F5}
+   SendInput, {F5}
 
 Run, RefreshIfProblemLoadingPage.ahk
 

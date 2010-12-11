@@ -1070,3 +1070,25 @@ Debug: 2010-12-09_21-18-06 C:\My Dropbox\AHKs\UsaaGetAccountCsvs.ahk
    UsaaGetAccountCsvs.ahk
    What on earth, we didn't even see the usaa logo
 
+ERROR: 2010-12-10_08-12-33 C:\My Dropbox\AHKs\SendQueuedEmails.ahk 
+   LOG ERRORD
+   Function Name:	"AddAttachment"
+ERROR:		(0x800C000D)
+PROG:	CDO.Message.1
+DESC:	Unknown Error
+HELP:	,0
+
+ERROR2:	Member not found.
+	(0x80020003)
+
+ERROR: 2010-12-10_08-13-39 C:\My Dropbox\AHKs\SendQueuedEmails.ahk 
+   LOG ERRORD
+   Function Name:	"AddAttachment"
+ERROR:		(0x800C000D)
+PROG:	CDO.Message.1
+DESC:	Unknown Error
+HELP:	,0
+
+ERROR2:	Member not found.
+	(0x80020003)
+
