@@ -408,3 +408,13 @@ Debug: 2010-12-11_03-19-41 C:\My Dropbox\AHKs\UsaaGetAccountCsvs.ahk
    UsaaGetAccountCsvs.ahk
    What on earth, we didn't even see the usaa logo
 
+Debug: 2010-12-12_03-14-31 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log
+   UsaaGetAccountBalances.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-12_03-19-41 C:\My Dropbox\AHKs\UsaaGetAccountCsvs.ahk 
+   silent log
+   UsaaGetAccountCsvs.ahk
+   What on earth, we didn't even see the usaa logo
+

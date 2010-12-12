@@ -9,7 +9,7 @@ IfWinNotExist, Google Chrome
 Run, http://www.google.com/
 ForceWinFocus("Google Chrome", "Contains")
 Sleep, 1500
-Send, {ALT 6}
+Send, {ALT}
 Sleep, 1500
 Send, {ENTER}
 Sleep, 1500
