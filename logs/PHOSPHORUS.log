@@ -418,3 +418,227 @@ Debug: 2010-12-12_03-19-41 C:\My Dropbox\AHKs\UsaaGetAccountCsvs.ahk
    UsaaGetAccountCsvs.ahk
    What on earth, we didn't even see the usaa logo
 
+Debug: 2010-12-12_18-47-45 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20101212184736.ahk
+
+ERROR: 2010-12-12_18-47-45 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   LOG ERRORD silent
+   RunAhkAndBabysit
+   Scheduled-20101212184736.ahk
+   AHK file had an error...
+   OK
+Error: Call to nonexistent function.
+
+Specifically: 
+log("sch end")
+
+	Line#
+	1071: ComputerName := A_ComputerName
+	1073: Return,!!InStr(ComputerName, "VM")
+	1074: }
+	1078: {
+	1079: Run,ForceReloadAll.exe
+	1080: }
+	004: log("sch beg")  
+--->	005: RunAhk("usaagetaccountbalances.ahk")
+log("sch end")  
+	007: SelfDestruct()  
+	007: Exit
+
+The program will exit.
+
+   ... end of error msg
+
+Debug: 2010-12-12_18-50-30 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20101212185025.ahk
+
+ERROR: 2010-12-12_18-50-30 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   LOG ERRORD silent
+   RunAhkAndBabysit
+   Scheduled-20101212185025.ahk
+   AHK file had an error...
+   OK
+Error: Call to nonexistent function.
+
+Specifically: 
+debug("silent log")
+
+	Line#
+	1071: ComputerName := A_ComputerName
+	1073: Return,!!InStr(ComputerName, "VM")
+	1074: }
+	1078: {
+	1079: Run,ForceReloadAll.exe
+	1080: }
+	004: debug("silent log")  
+--->	005: runahk("usaagetaccountbalances.ahk")
+debug("silent log")  
+	007: SelfDestruct()  
+	007: Exit
+
+The program will exit.
+
+   ... end of error msg
+
+Debug: 2010-12-12_18-57-15 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20101212185704.ahk
+
+ERROR: 2010-12-12_18-57-15 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   LOG ERRORD silent
+   RunAhkAndBabysit
+   Scheduled-20101212185704.ahk
+   AHK file had an error...
+   OK
+Error: Call to nonexistent function.
+
+Specifically: 
+runahk("usaagetaccountbalances.ahk")
+debug("silent log green line")
+
+	Line#
+	1070: if (ComputerName=="")  
+	1071: ComputerName := A_ComputerName
+	1073: Return,!!InStr(ComputerName, "VM")
+	1074: }
+	1078: {
+	1079: Run,ForceReloadAll.exe
+	1080: }
+--->	005: debug("silent log yellow line")
+runahk("usaagetaccountbalances.ahk")
+debug("silent log green line")  
+	007: SelfDestruct()  
+	007: Exit
+
+The program will exit.
+
+   ... end of error msg
+
+Debug: 2010-12-12_19-02-00 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20101212190150.ahk
+
+ERROR: 2010-12-12_19-02-00 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   LOG ERRORD silent
+   RunAhkAndBabysit
+   Scheduled-20101212190150.ahk
+   AHK file had an error...
+   OK
+Error: Call to nonexistent function.
+
+Specifically: 
+RunAhkAndBabysit("usaagetaccountbalances.ahk")
+debug("silent log")
+
+	Line#
+	1070: if (ComputerName=="")  
+	1071: ComputerName := A_ComputerName
+	1073: Return,!!InStr(ComputerName, "VM")
+	1074: }
+	1078: {
+	1079: Run,ForceReloadAll.exe
+	1080: }
+--->	005: debug("silent log grey line")
+RunAhkAndBabysit("usaagetaccountbalances.ahk")
+debug("silent log")  
+	007: SelfDestruct()  
+	007: Exit
+
+The program will exit.
+
+   ... end of error msg
+
+Debug: 2010-12-12_19-03-45 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20101212190252.ahk
+
+Debug: 2010-12-12_19-03-46 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log
+   UsaaGetAccountBalances.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-12_19-10-15 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20101212191013.ahk
+
+Debug: 2010-12-12_19-10-16 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log
+   UsaaGetAccountBalances.ahk
+   What on earth, we didn't even see the usaa logo
+
+Debug: 2010-12-12_23-44-00 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20101212234346.ahk
+
+ERROR: 2010-12-12_23-44-15 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   LOG ERRORD FATAL UsaaGetAccountBalances.ahk
+   80
+   UsaaLogin
+   didn't find logon button
+
+ERROR: 2010-12-12_23-44-17 C:\My Dropbox\AHKs\UsaaGetAccountCsvs.ahk 
+   LOG ERRORD FATAL UsaaGetAccountCsvs.ahk
+   79
+   UsaaLogin
+   didn't find next button
+
+Debug: 2010-12-12_23-57-15 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20101212235205.ahk
+
+Debug: 2010-12-13_00-55-16 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   running scheduled ahk:
+   Scheduled-20101213005515.ahk
+
+ERROR: 2010-12-13_00-57-39 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   LOG ERRORD FATAL red line
+   UsaaGetAccountBalances.ahk
+   44
+   UsaaLogin
+   too hard to find login page
+   Speed Dial - Opera
+
+Debug: 2010-12-13_03-15-10 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-13_03-15-28 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1428.74
+
+Debug: 2010-12-13_03-15-43 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   found source page after # of tries:
+   3
+
+Debug: 2010-12-13_03-15-49 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1122.22
+
+Debug: 2010-12-13_03-15-50 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   13
+   22
+   70.967742
+   29.032258
+   15.813100
+   1581.31
+
+Debug: 2010-12-13_03-15-50 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-13_03-14-30,1000.19,1428.74,1122.22,1306.71,1581.31
+

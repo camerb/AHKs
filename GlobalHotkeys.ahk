@@ -69,8 +69,6 @@ Suspend
 return
 
 ;Run an AHK from the AHKs folder
-;TODO a dropdown menu that allows text input in AHK
-;TODO C# autocompleter field
 AppsKey & k::
 if NOT IsVM()
 {

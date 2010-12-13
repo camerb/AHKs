@@ -18,8 +18,16 @@ WinClose
 
 overallBalance := SavingsBalance + CheckingBalance - CreditBalance
 overallBalance := StringTrimRight(overallBalance, 4)
+FormatTime, currentDay, , dd
+daysThruBillingPeriod := mod( currentDay - 22 + 31, 31 )
+percentThru := daysThruBillingPeriod / 31 * 100
+percentLeft := 100 - percentThru
+spentPerPercent := CreditBalance / percentThru
+projectedCreditCardBill := CreditBalance + percentLeft * spentPerPercent
+projectedCreditCardBill := StringTrimRight(projectedCreditCardBill, 4)
+debug("silent log green line", currentDay, daysThruBillingPeriod, percentThru, percentLeft, spentPerPercent, projectedCreditCardBill)
 
-csvline:=ConcatWithSep(",", time, SavingsBalance, CheckingBalance, CreditBalance, overallBalance)
+csvline:=ConcatWithSep(",", time, SavingsBalance, CheckingBalance, CreditBalance, overallBalance, projectedCreditCardBill)
 debug("silent log grey line", csvline)
 FileAppend, %csvline%`n, %csvfile%
 

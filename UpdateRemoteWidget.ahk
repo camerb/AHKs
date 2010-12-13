@@ -14,7 +14,6 @@ FileDelete, %file%
 FileAppend, Current Temp is: %var%`n, %file%
 ;FileAppend, Rand: %rand%`n, %file%
 FileAppend, %time%`n, %file%
-FileAppend, ft, %file%
 
 ;output the temp and time (cause data is awesome)
 FileAppend, %time%`,%var%`n, %csv%

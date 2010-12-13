@@ -1092,3 +1092,212 @@ HELP:	,0
 ERROR2:	Member not found.
 	(0x80020003)
 
+Debug: 2010-12-12_23-08-42 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-12_23-09-01 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1428.74
+
+Debug: 2010-12-12_23-09-20 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   996.11
+
+Debug: 2010-12-12_23-09-20 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-12_23-08-01,1000.19,1428.74,996.11,1432.82
+
+Debug: 2010-12-12_23-30-26 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-12_23-30-45 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1428.74
+
+Debug: 2010-12-12_23-31-05 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   996.11
+
+Debug: 2010-12-12_23-31-05 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-12_23-29-39,1000.19,1428.74,996.11,1432.82
+
+Debug: 2010-12-12_23-31-51 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   
+
+Debug: 2010-12-12_23-32-09 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1428.74
+
+Debug: 2010-12-13_00-14-14 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-13_00-14-33 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1428.74
+
+Debug: 2010-12-13_00-14-52 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1122.22
+
+Debug: 2010-12-13_00-14-52 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-13_00-13-34,1000.19,1428.74,1122.22,1306.71
+
+Debug: 2010-12-13_00-35-13 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   found source page after # of tries:
+   3
+
+Debug: 2010-12-13_00-35-19 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-13_00-35-39 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1428.74
+
+Debug: 2010-12-13_00-35-58 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1122.22
+
+Debug: 2010-12-13_00-36-00 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-13_00-34-32,1000.19,1428.74,1122.22,1306.71
+
+Debug: 2010-12-13_00-37-33 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-13_00-37-52 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1428.74
+
+Debug: 2010-12-13_00-38-12 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1122.22
+
+Debug: 2010-12-13_00-38-12 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   13
+   12.903226
+   87.096774
+   86.972050
+   7574.985000
+
+Debug: 2010-12-13_00-38-12 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-13_00-36-46,1000.19,1428.74,1122.22,1306.71
+
+Debug: 2010-12-13_00-40-44 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log green line
+   13
+   4
+   12.903226
+   87.096774
+   
+   
+
+Debug: 2010-12-13_00-41-23 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log green line
+   13
+   0
+   0.000000
+   100.000000
+   
+   
+
+Debug: 2010-12-13_00-41-57 C:\My Dropbox\AHKs\temporary3.ahk 
+   silent log green line
+   13
+   22
+   70.967742
+   29.032258
+   
+   
+
+Debug: 2010-12-13_00-44-28 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-13_00-44-46 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1428.74
+
+Debug: 2010-12-13_00-45-05 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1122.22
+
+Debug: 2010-12-13_00-45-05 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   13
+   22
+   70.967742
+   29.032258
+   15.813100
+   459.090000
+
+Debug: 2010-12-13_00-45-05 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-13_00-43-37,1000.19,1428.74,1122.22,1306.71
+
+Debug: 2010-12-13_00-47-40 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1122.22
+
+Debug: 2010-12-13_00-47-40 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   13
+   22
+   70.967742
+   29.032258
+   15.813100
+   459.090000
+
+Debug: 2010-12-13_00-47-40 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-13_00-46-54,,,1122.22,
+
+Debug: 2010-12-13_00-50-29 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1122.22
+
+Debug: 2010-12-13_00-50-29 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   13
+   22
+   70.967742
+   29.032258
+   15.813100
+   1581.310000
+
+Debug: 2010-12-13_00-50-29 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-13_00-49-32,,,1122.22,,1581.310000
+

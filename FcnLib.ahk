@@ -9,10 +9,12 @@
 ;NOTE: they can be sorted by date or text description (with a sub-sort of date)
 ;TODO adjust image quality ;TODO change directory location ;TODO change image format
 #include thirdParty\ScreenCapture.ahk
-SaveScreenShot(descriptiveText="", directoryPath="C:\DataExchange\PrintScreen")
+SaveScreenShot(descriptiveText="", directoryPath="dropbox")
 {
    if (directoryPath="dropbox")
       directoryPath=C:\My Dropbox\ahk large files\screenshots\%A_ComputerName%
+   else if (directoryPath="local")
+      directoryPath=C:\DataExchange\PrintScreen
 
    FileCreateDir, %directoryPath%
    FormatTime FileNameText,, yyyyMMddHHmmss
