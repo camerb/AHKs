@@ -269,3 +269,7 @@ EPMS
 EPMS
 FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.info.Judge', item_id:3775 } );
 EPMS
+cmd 1: {C:\code\epms\script\mail}, 2: {perl send_template.pl}
+cmd 1: {C:\code\epms\script\survey}, 2: {perl queue_surveys.pl}
+cmd 1: {C:\code\epms\script\survey}, 2: {perl queue_surveys.pl}
+EPMS

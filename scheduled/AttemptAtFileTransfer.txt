@@ -1,7 +1,7 @@
 include FunctionLibrary.ahk
 
 fromPath=C:\inetpub\EPMS
-toPath=C:\My Dropbox\ahk large files\transferTo\BAUSTIAN-09PC\EPMS
+toPath=C:\My Dropbox\AHKs-GitExempt\transferTo\BAUSTIAN-09PC\EPMS
 FileCreateDir, %toPath%
 FileCopyDir, %fromPath%, %toPath%
 ;FileAppend, joe, joe.txt

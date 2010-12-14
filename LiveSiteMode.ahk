@@ -28,8 +28,7 @@ else
 
 file=C:\My Dropbox\Public\remotewidget-livesitemode.txt
 FileDelete, %file%
-FileAppend, `n%message%, %file%
-FileAppend, `nft, %file%
+FileAppend, %message%`n, %file%
 
 ;debugBool(0=="0")
 ;debugBool(1=="1")

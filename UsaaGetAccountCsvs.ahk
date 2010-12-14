@@ -1,23 +1,27 @@
 #include FcnLib.ahk
-#include C:\My Dropbox\ahk large files\usaalogin.ahk
+#include C:\My Dropbox\AHKs-GitExempt\usaalogin.ahk
+
+usaalogin()
 
 time:=CurrentTime("hyphenated")
 date:=CurrentTime("", "slashdate")
-
-usaalogin()
 
 SaveAccountTransactions("savings", time)
 SaveAccountTransactions("checking", time)
 SaveAccountTransactions("credit", time)
 
+;run refp for checking and savings
+
+ForceWinFocus("Opera")
 WinClose
+;end of the script
 
 SaveAccountTransactions(account, time)
 {
    date:=CurrentTime("", "slashdate")
 
    LongSleep()
-   csvfilename=C:\My Dropbox\ahk large files\USAA_%Account%_%time%.csv
+   csvfilename=C:\My Dropbox\AHKs-GitExempt\usaa_export\usaa_%Account%_%time%.csv
    GoToPage( UsaaUrl(account) )
 
    ForceWinFocus("USAA / My Accounts / Account Summary - Opera")

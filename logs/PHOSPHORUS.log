@@ -642,3 +642,63 @@ Debug: 2010-12-13_03-15-50 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk
    silent log grey line
    2010-12-13_03-14-30,1000.19,1428.74,1122.22,1306.71,1581.31
 
+Debug: 2010-12-13_15-06-33 C:\My Dropbox\AHKs\CaptureAhkImage.ahk 
+   silent log
+   GetOS
+   925
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-12-13_15-06-48 C:\My Dropbox\AHKs\AutoHotkey.ahk 
+   silent log
+   GetOS
+   925
+   Note: known errors here with detecting that Phosphorus is running Win7
+   A_ComputerName:
+   PHOSPHORUS
+   A_OSVERSIONNUM:
+   
+   A_OSVERSION:
+   WIN_XP
+   Checked using DLLCALL:
+   5
+   Checked using regread:
+   5.1
+
+Debug: 2010-12-14_03-15-20 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-14_03-15-45 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1428.74
+
+Debug: 2010-12-14_03-16-11 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1271.22
+
+Debug: 2010-12-14_03-16-11 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   14
+   23
+   74.193548
+   25.806452
+   17.133835
+   1713.38
+
+Debug: 2010-12-14_03-16-11 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-14_03-16-11,1000.19,1428.74,1271.22,1157.71,1713.38
+

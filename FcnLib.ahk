@@ -12,7 +12,7 @@
 SaveScreenShot(descriptiveText="", directoryPath="dropbox")
 {
    if (directoryPath="dropbox")
-      directoryPath=C:\My Dropbox\ahk large files\screenshots\%A_ComputerName%
+      directoryPath=C:\My Dropbox\AHKs-GitExempt\screenshots\%A_ComputerName%
    else if (directoryPath="local")
       directoryPath=C:\DataExchange\PrintScreen
 

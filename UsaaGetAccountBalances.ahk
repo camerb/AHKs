@@ -1,12 +1,5 @@
 #include FcnLib.ahk
-#include C:\My Dropbox\ahk large files\usaalogin.ahk
-
-C_VersionNum=kids
-C_ShortSleep=100
-C_MedSleep=2000
-C_LongSleep=6000
-csvfile=C:\My Dropbox\ahk large files\DailyFinancial.csv
-time:=CurrentTime("hyphenated")
+#include C:\My Dropbox\AHKs-GitExempt\usaalogin.ahk
 
 usaalogin()
 
@@ -14,7 +7,11 @@ SavingsBalance  := GetAccountInfo("https://www.usaa.com/inet/gas_bank/BkAccounts
 CheckingBalance := GetAccountInfo("https://www.usaa.com/inet/gas_bank/BkAccounts?target=AccountSummary&currentaccountkey=encrypted10bb142d9db5d12081af1bd8872ba833&CombinedView=TRUE")
 CreditBalance   := GetAccountInfo("https://www.usaa.com/inet/gas_bank/BkAccounts?target=AccountSummary&currentaccountkey=encryptedb15eff1c50e20965cf67cf785d4589cd0a8a39aafd4160dc&CombinedView=TRUE")
 
+;done with browser click-around, but we have to export to a file, still
 WinClose
+
+csvfile=C:\My Dropbox\AHKs-GitExempt\DailyFinancial.csv
+time:=CurrentTime("hyphenated")
 
 overallBalance := SavingsBalance + CheckingBalance - CreditBalance
 overallBalance := StringTrimRight(overallBalance, 4)
@@ -34,15 +31,13 @@ FileAppend, %csvline%`n, %csvfile%
 if (SavingsBalance=="" and CheckingBalance=="" and CreditBalance=="")
    die("login attempt completely unsuccessful", A_ScriptName, A_LineNumber, A_ThisFunc)
 
+;End of the script
+
 GetAccountInfo(url)
 {
-   global C_VersionNum
-   global C_ShortSleep
-   global C_MedSleep
-   global C_LongSleep
    ;force it to change the page, cause the title is the same for all accounts
    GoToPage("http://dl.dropbox.com/u/789954/remotewidget.txt")
-   Sleep, %C_LongSleep%
+   LongSleep()
 
    ;get the text of the entire page
    ;debug(url)
@@ -53,7 +48,7 @@ GetAccountInfo(url)
    RegExMatch(returned, "<th>(Current Balance).*?(</tr>)", returned)
    RegExMatch(returned, "(\d*,*)*\d+\.\d+", returned)
    returned:=RegExReplace(returned, ",", "")
-   debug("silent log from getacctinfo", C_VersionNum, returned)
+   debug("silent log from getacctinfo", VersionNum(), returned)
 
    return returned
 }

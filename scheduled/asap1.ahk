@@ -5,7 +5,7 @@
 FolderToCopy=C:\Documents and Settings\Baustian\Application Data\.minecraft
 DestinationComputer=PHOSPHORUS
 
-remotePath=C:\My Dropbox\ahk large files\transferTo
+remotePath=C:\My Dropbox\AHKs-GitExempt\transferTo
 
 FileCreateDir, %RemotePath%\%DestinationComputer%\%DateStamp%
 DateStamp := CurrentTime()

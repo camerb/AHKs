@@ -106,7 +106,7 @@ return
 ;Print Screen and Save to Disk (C:\DataExchange)
 ^PrintScreen:: SaveScreenShot("KeyPress")
 AppsKey & PrintScreen::
-path=C:\My Dropbox\ahk large files\screenshots\%A_ComputerName%
+path=C:\My Dropbox\AHKs-GitExempt\screenshots\%A_ComputerName%
 SaveScreenShot("KeyPress", path)
 return
 

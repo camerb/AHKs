@@ -1301,3 +1301,65 @@ Debug: 2010-12-13_00-50-29 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk
    silent log grey line
    2010-12-13_00-49-32,,,1122.22,,1581.310000
 
+Debug: 2010-12-13_22-34-04 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-13_22-34-30 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1428.74
+
+Debug: 2010-12-13_22-34-56 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1122.22
+
+Debug: 2010-12-13_22-34-56 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   13
+   22
+   70.967742
+   29.032258
+   15.813100
+   1581.31
+
+Debug: 2010-12-13_22-34-56 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-13_22-34-56,1000.19,1428.74,1122.22,1306.71,1581.31
+
+ERROR: 2010-12-14_00-02-02 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   LOG ERRORD FATAL UsaaGetAccountBalances.ahk
+   83
+   UsaaLogin
+   didn't find next button
+
+Debug: 2010-12-14_00-05-13 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-14_00-05-38 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1428.74
+
+Debug: 2010-12-14_00-06-03 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1271.22
+
+Debug: 2010-12-14_00-06-03 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   14
+   23
+   74.193548
+   25.806452
+   17.133835
+   1713.38
+
+Debug: 2010-12-14_00-06-03 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-14_00-06-03,1000.19,1428.74,1271.22,1157.71,1713.38
+

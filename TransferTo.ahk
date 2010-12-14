@@ -5,7 +5,7 @@ DestinationComputer := Prompt("What PC do you want to transfer it to?")
 ;FolderToCopy=C:\Music\Jonah33
 ;DestinationComputer=BAUSTIAN-09PC
 
-remotePath=C:\My Dropbox\ahk large files\transferTo
+remotePath=C:\My Dropbox\AHKs-GitExempt\transferTo
 
 FileCreateDir, %RemotePath%\%DestinationComputer%\%DateStamp%
 DateStamp := CurrentTime()

@@ -262,7 +262,7 @@ IfWinExist .* - (Update|Commit) - TortoiseSVN Finished! ahk_class #32770
 
 ;{{{ Check to see if there are files that need to be out of the dropbox (transferTo)
 ;TODO put all this crap into another ahk, so that persistent doesn't halt while we're babysitting other ahks
-Loop, C:\My Dropbox\ahk large files\transferTo\%A_ComputerName%\*.*, 2, 0
+Loop, C:\My Dropbox\AHKs-GitExempt\transferTo\%A_ComputerName%\*.*, 2, 0
 {
    localPath=C:\DataExchange\ReceivedFrom
    Sleep, 100
