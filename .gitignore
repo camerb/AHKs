@@ -1,5 +1,6 @@
 cgi/epms_local.json
 cgi/epms_mydev.json
 script/epms_workbench.pl
+logs
 *.swp
 *.swo
