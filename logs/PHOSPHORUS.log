@@ -702,3 +702,36 @@ Debug: 2010-12-14_03-16-11 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk
    silent log grey line
    2010-12-14_03-16-11,1000.19,1428.74,1271.22,1157.71,1713.38
 
+Debug: 2010-12-15_03-15-20 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1000.19
+
+Debug: 2010-12-15_03-15-44 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   2468.00
+
+Debug: 2010-12-15_03-16-02 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   found source page after # of tries:
+   3
+
+Debug: 2010-12-15_03-16-09 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log from getacctinfo
+   kids
+   1392.81
+
+Debug: 2010-12-15_03-16-09 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log green line
+   15
+   24
+   77.419355
+   22.580645
+   17.990463
+   1799.04
+
+Debug: 2010-12-15_03-16-09 C:\My Dropbox\AHKs\UsaaGetAccountBalances.ahk 
+   silent log grey line
+   2010-12-15_03-16-09,1000.19,2468.00,1392.81,2075.38,1799.04
+
