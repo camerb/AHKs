@@ -4,6 +4,8 @@ script/epms_workbench.pl
 logs
 screenshots
 transferTo
+gitExempt
+REFP
 usaa_export
 *.swp
 *.swo
