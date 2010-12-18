@@ -5,45 +5,60 @@ G_RetreatPosY=0
 
 AppsKey & ESC:: Suspend
 
-q::
-HonSend("{F1}")
-Sleep, 50
-HonSend("q")
-Sleep, 100
-HonClick()
-Sleep, 100
-HonSend("{ESC}")
+AppsKey & r:: Reload
+
+AppsKey & s::
+MouseGetPos, G_RetreatPosX, G_RetreatPosY
 return
 
-w::
+`::
+SendMode, Event
+MouseMove, G_RetreatPosX, G_RetreatPosY
+Click, right, G_RetreatPosX, G_RetreatPosY
 HonSend("{F1}")
 Sleep, 50
-HonSend("w")
-Sleep, 100
-HonClick()
-Sleep, 100
-HonSend("{ESC}")
+HonSend("!w")
 return
 
-e::
-HonSend("{F1}")
-Sleep, 50
-HonSend("e")
-Sleep, 100
-HonClick()
-Sleep, 100
-HonSend("{ESC}")
-return
+;q::
+;HonSend("{F1}")
+;Sleep, 50
+;HonSend("q")
+;Sleep, 100
+;HonClick()
+;Sleep, 100
+;HonSend("{ESC}")
+;return
 
-r::
-HonSend("{F1}")
-Sleep, 50
-HonSend("r")
-Sleep, 100
-HonClick()
-Sleep, 100
-HonSend("{ESC}")
-return
+;w::
+;HonSend("{F1}")
+;Sleep, 50
+;HonSend("w")
+;Sleep, 100
+;HonClick()
+;Sleep, 100
+;HonSend("{ESC}")
+;return
+
+;e::
+;HonSend("{F1}")
+;Sleep, 50
+;HonSend("e")
+;Sleep, 100
+;HonClick()
+;Sleep, 100
+;HonSend("{ESC}")
+;return
+
+;r::
+;HonSend("{F1}")
+;Sleep, 50
+;HonSend("r")
+;Sleep, 100
+;HonClick()
+;Sleep, 100
+;HonSend("{ESC}")
+;return
 
 z::
 HonSend("!q")
@@ -67,21 +82,6 @@ Sleep, 50
 HonSend("k")
 Sleep, 50
 HonSend("{enter}")
-return
-
-AppsKey & r:: Reload
-
-AppsKey & s::
-MouseGetPos, G_RetreatPosX, G_RetreatPosY
-return
-
-`::
-SendMode, Event
-MouseMove, G_RetreatPosX, G_RetreatPosY
-Click, right, G_RetreatPosX, G_RetreatPosY
-HonSend("{F1}")
-Sleep, 50
-HonSend("!w")
 return
 
 HonSend(text)
