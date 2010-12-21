@@ -10,3 +10,5 @@ Run, C:\My Dropbox\Programs\CLCL\CLCL.exe
 ;Openoffice
 ;Find and Run Robot
 ;Desktop Sidebar (ensure only one instance)
+if NOT IsVM()
+   Run, C:\Program Files (x86)\Desktop Sidebar\dsidebar.exe

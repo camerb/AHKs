@@ -1,8 +1,5 @@
 #include FcnLib.ahk
 
-;Turn the volume all the way down
-SoundSet, 0
-
 debug("Starting hotkey unit tests") ;{{{
 
 ;close all friggin pidgin windows so i don't spam them
@@ -14,23 +11,11 @@ TestIsMinimizedIsMaximized()
 TestForceWinFocusIfExist()
 TestSendViaClipboard()
 TestDebugBool()
-TestDirsEmptyForGit()
 ;TODO test InStr with case insensitivity
 
 debug("Tests have finished") ;}}}
 
-TestDirsEmptyForGit() ;{{{
-{
-   AssertDirEmptyForGit("C:\My Dropbox\AHKs\screenshots")
-   AssertDirEmptyForGit("C:\My Dropbox\AHKs\transferTo")
-}
-
-AssertDirEmptyForGit(dir)
-{
-   result := dirgetsize(dir)
-   if result
-      Errord("Failed Test:", A_ThisFunc, "Provided:", dir, "Expected:", 0, "Actual:", result)
-} ;}}}
+;#####################################################
 
 TestDebugBool() ;{{{
 {

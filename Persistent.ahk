@@ -8,6 +8,9 @@ SetTitleMatchMode, 1
 ;{{{Middle of the night unit tests, backups, and reload script
 if (A_Hour==3 AND A_Min==0)
 {
+   ;Turn the volume all the way down
+   SoundSet, 0
+
    SleepMinutes(1)
    debug("reloading script")
    ;let's try for something that is a bit stiffer
@@ -32,6 +35,14 @@ if (A_Hour==3 AND A_Min==2 AND Mod(A_Sec, 15)==0)
       SleepMinutes(1)
       RunAhkAndBabysit("UpdatePidginImStatus.ahk")
       SleepMinutes(1)
+      RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
+      SleepMinutes(5)
+      RunAhkAndBabysit("UsaaGetAccountCsvs.ahk")
+      SleepMinutes(5)
+   }
+   else if (A_ComputerName="PHOSPHORUSVM")
+   {
+      SleepMinutes(30)
       RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
       SleepMinutes(5)
       RunAhkAndBabysit("UsaaGetAccountCsvs.ahk")

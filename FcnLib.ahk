@@ -567,6 +567,25 @@ CloseDifficultApps()
       if NOT ErrorLevel
          ControlClick, &No
    }
+
+   while true
+   {
+      Process, Exist, chrome.exe
+      pid:=ERRORLEVEL
+      if NOT pid
+         break
+      PostMessage,0x111,65405,0,,ahk_pid %pid%
+      Process, WaitClose, %pid%, 1
+
+      ;if it exists
+      Process, Exist, %pid%
+      pid:=ERRORLEVEL
+      if pid
+      {
+         ;debug("closing")
+         Process, Close, %pid%
+      }
+   }
    Process, WaitClose, ssms.exe, 15
    Process, Close, ssms.exe
    Process, WaitClose, vmware-vmx.exe, 15
