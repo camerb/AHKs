@@ -275,3 +275,7 @@ cmd 1: {C:\code\epms\script\survey}, 2: {perl queue_surveys.pl}
 EPMS
 EPMS
 EPMS
+cmd 1: {C:\code\mitsi-scripts}, 2: {perl jira-status.pl}
+EPMS
+cmd 1: {C:\code\mitsi-scripts}, 2: {perl jira-status.pl}
+EPMS
