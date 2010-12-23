@@ -15,6 +15,7 @@ IniRead, sAttach, %file%, pendingEmail, attach
 IniRead, sTo, %file%, pendingEmail, to
 IniRead, sReplyTo, %file%, pendingEmail, replyto
 IniRead, sBody, %file%, pendingEmail, body
+sBody:=RegExReplace(sBody, "ZZZnewlineZZZ", "`n")
 
 item .= SexPanther()
 

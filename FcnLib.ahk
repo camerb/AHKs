@@ -792,6 +792,10 @@ sendEmail(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sReplyTo
    timestamp := CurrentTime()
    path=C:\DataExchange\SendEmail
    file=%path%\%timestamp%.txt
+   sBody:=RegExReplace(sBody, "(`r`n)", "ZZZnewlineZZZ")
+   sBody:=RegExReplace(sBody, "(`r|`n)", "ZZZnewlineZZZ")
+   ;sBody:=RegExReplace(sBody, "(`r|`n|`r`n)", "ZZZnewlineZZZ")
+   ;sBody:=RegExReplace(sBody, "(ZZZnewlineZZZ)+", "ZZZnewlineZZZ")
    FileCreateDir, %path%
    IniWrite, %sSubject%, %file%, pendingEmail, subject
    IniWrite, %sAttach%, %file%, pendingEmail, attach
