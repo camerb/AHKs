@@ -169,10 +169,10 @@ IfWinActive, %ffWindow%
    Click(600, 600, "Control")
 
 Sleep, 500
-;ExitApp
 ;TODO maybe we could toggle this on and off easily like server refresh mode
-if NOT suppressPageReload
-   SendInput, {F5}
+if suppressPageReload
+   ExitApp
+SendInput, {F5}
 
 Run, RefreshIfProblemLoadingPage.ahk
 

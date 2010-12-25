@@ -1,4 +1,3 @@
-WinWait, , 
-IfWinNotActive, , , WinActivate, , 
-WinWaitActive, , 
-Send, `
+#include FcnLib.ahk
+
+

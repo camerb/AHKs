@@ -40,6 +40,7 @@ SleepSeconds(seconds)
 OptionalDebug(options="", millionParams="...really, lots of params, like 15..")
 {
    global A_Debug
+   global A_Log
    if ( InStr(options, "Debug") || A_Debug )
       return true
    if ( InStr(options, "Log") || A_Log )
@@ -781,6 +782,8 @@ RunAhkAndBabysit(filename)
    }
 }
 
+;TODO make an options param for wait and babysit?
+;can you even wait and babysit at the same time?
 RunAhk(ahkFilename, params="")
 {
    command=AutoHotkey.exe %ahkFilename% %params%

@@ -11,43 +11,23 @@ if (A_Hour==3 AND A_Min==0)
    ;Turn the volume all the way down
    SoundSet, 0
 
-   SleepMinutes(1)
+   SleepMinutes(2)
    debug("reloading script")
    ;let's try for something that is a bit stiffer
    Run, ForceReloadAll.exe
 }
-if (A_Hour==3 AND A_Min==2 AND Mod(A_Sec, 15)==0)
+if (A_Hour==3 AND A_Min==5)
 {
-   RunAhkAndBabysit("UnitTests.ahk")
-   SleepMinutes(10)
-   if (A_ComputerName="BAUSTIAN-09PC")
-   {
-      Run, SaveChromeBookmarks.ahk
-      SleepMinutes(1)
-      Run, CreateDropboxBackup.ahk
-      SleepMinutes(10)
-      Run, PushToGit.ahk
-      SleepMinutes(3)
-   }
-   else if (A_ComputerName="PHOSPHORUS")
-   {
-      RunAhkAndBabysit("RestartFirefox.ahk")
-      SleepMinutes(1)
-      RunAhkAndBabysit("UpdatePidginImStatus.ahk")
-      SleepMinutes(1)
-      RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
-      SleepMinutes(5)
-      RunAhkAndBabysit("UsaaGetAccountCsvs.ahk")
-      SleepMinutes(5)
-   }
-   else if (A_ComputerName="PHOSPHORUSVM")
-   {
-      SleepMinutes(30)
-      RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
-      SleepMinutes(5)
-      RunAhkAndBabysit("UsaaGetAccountCsvs.ahk")
-      SleepMinutes(5)
-   }
+   RunAhk("NightlyAhks.ahk")
+   SleepMinutes(2)
+}
+;}}}
+
+;{{{Send Jira Status Workmorrow for the Tea Meeting Minutes
+if (A_Hour=14 AND A_Min=0 AND A_Sec=0)
+{
+   RunAhk("SendJiraWorkmorrowEmail.ahk")
+   SleepSeconds(2)
 }
 ;}}}
 
