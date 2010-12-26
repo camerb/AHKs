@@ -22,10 +22,10 @@ percentLeft := 100 - percentThru
 spentPerPercent := CreditBalance / percentThru
 projectedCreditCardBill := CreditBalance + percentLeft * spentPerPercent
 projectedCreditCardBill := StringTrimRight(projectedCreditCardBill, 4)
-debug("silent log green line", currentDay, daysThruBillingPeriod, percentThru, percentLeft, spentPerPercent, projectedCreditCardBill)
+;debug("silent log green line", currentDay, daysThruBillingPeriod, percentThru, percentLeft, spentPerPercent, projectedCreditCardBill)
 
 csvline:=ConcatWithSep(",", time, SavingsBalance, CheckingBalance, CreditBalance, overallBalance, projectedCreditCardBill)
-debug("silent log grey line", csvline)
+;debug("silent log grey line", csvline)
 FileAppend, %csvline%`n, %csvfile%
 
 if (SavingsBalance=="" and CheckingBalance=="" and CreditBalance=="")
@@ -48,7 +48,7 @@ GetAccountInfo(url)
    RegExMatch(returned, "<th>(Current Balance).*?(</tr>)", returned)
    RegExMatch(returned, "(\d*,*)*\d+\.\d+", returned)
    returned:=RegExReplace(returned, ",", "")
-   debug("silent log from getacctinfo", VersionNum(), returned)
+   ;debug("silent log from getacctinfo", VersionNum(), returned)
 
    return returned
 }

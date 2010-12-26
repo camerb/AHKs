@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-debug("log", "starting nightly scripts")
+debug("log grey line", "starting nightly scripts")
 
 RunAhkAndBabysit("UnitTests.ahk")
 SleepMinutes(10)
@@ -33,4 +33,4 @@ else if (A_ComputerName="PHOSPHORUSVM")
    SleepMinutes(5)
 }
 
-debug("log", "finished nightly scripts")
+debug("log grey line", "finished nightly scripts")
