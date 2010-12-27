@@ -26,8 +26,11 @@ if (A_Hour==3 AND A_Min==5)
 ;{{{Send Jira Status Workmorrow for the Tea Meeting Minutes
 if (A_Hour=14 AND A_Min=0 AND A_Sec=0)
 {
-   RunAhk("SendJiraWorkmorrowEmail.ahk")
-   SleepSeconds(2)
+   if (A_ComputerName="PHOSPHORUS")
+   {
+      RunAhk("SendJiraWorkmorrowEmail.ahk")
+      SleepSeconds(2)
+   }
 }
 ;}}}
 
