@@ -118,6 +118,7 @@ if refreshServerMode
       SendInput, ^c
 
       dd:=WaitForImageSearch("images\cmd\Prompt(dir).bmp")
+      ;dd:=WaitForImageSearch("images\cmd\Prompt(dir)lc.bmp")
       if NOT dd
          return
       dd:=WaitForImageSearch("images\cmd\Prompt(arrow).bmp")

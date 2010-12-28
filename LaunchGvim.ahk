@@ -1,7 +1,11 @@
 #include FcnLib.ahk
 
 if (A_ComputerName <> "BAUSTIAN-09PC")
+{
+   ;TODO put this into a function??? fatalIfNotThisPC()
+   debug(A_ScriptName, A_ComputerName, "this script isn't designed to run on this pc")
    ExitApp
+}
 
 ;TODO check if GVIM window already exists?
 
