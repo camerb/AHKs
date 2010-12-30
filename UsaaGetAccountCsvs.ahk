@@ -15,6 +15,7 @@ SaveAccountTransactions("credit", time)
 ForceWinFocus("Opera")
 WinClose
 ;end of the script
+ExitApp
 
 SaveAccountTransactions(account, time)
 {
@@ -43,10 +44,16 @@ SaveAccountTransactions(account, time)
    SendRaw, %date%
    MedSleep()
    Send, {TAB 2}
+   MedSleep()
    Send, {DOWN 2}
+   MedSleep()
 
    ;click on export button
-   ClickIfImageSearch("images/usaa/GreenButton.bmp")
+         ;if NOT ClickIfImageSearch("images/usaa/GreenButton2.bmp")
+   if NOT ClickIfImageSearch("images/usaa/ExportButton.bmp")
+      if NOT ClickIfImageSearch("images/usaa/GreenButton.bmp")
+         die("hmm, didn't see a green button", A_ScriptName, A_LineNumber, A_ThisFunc)
+
    LongSleep()
    Click
    Click

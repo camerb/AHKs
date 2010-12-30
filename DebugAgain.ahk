@@ -2,6 +2,9 @@
 
 ;A_Debug:=true
 
+if (A_ComputerName <> "PHOSPHORUS")
+   ExitApp
+
 ;{{{ Get all of the debugger commands from the file
 ;We'll execute the last command from the file
 Loop, read, DebuggerCommands.txt

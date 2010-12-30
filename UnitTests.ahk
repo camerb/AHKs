@@ -4,7 +4,8 @@ debug("Starting hotkey unit tests") ;{{{
 
 ;close all friggin pidgin windows so i don't spam them
 Loop 10
-   WinClose, ahk_class gdkWindowToplevel
+   Process, Close, pidgin.exe
+   ;WinClose, ahk_class gdkWindowToplevel
 
 TestDirExist()
 TestIsMinimizedIsMaximized()
