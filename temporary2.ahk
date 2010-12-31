@@ -16,8 +16,8 @@ re ="C:\My Dropbox\ahk-REFP\regex-financial-checking.txt"
 out="C:\My Dropbox\AHKs-GitExempt\USAA_checking_2010-12-24_08-03-41-category.csv"
 
 in ="C:\My Dropbox\Mgmt-IDs-Merge.csv"
-re ="C:\My Dropbox\ahk-REFP\regex1.txt"
-out="C:\My Dropbox\Mgmt-IDs-Merge7.bat"
+re ="C:\My Dropbox\ahk-REFP\regex2.txt"
+out="C:\My Dropbox\Mgmt-IDs-Merge8-propcleanup.bat"
 
 params:=concatWithSep(" ", in, re, out)
 ;params:=in

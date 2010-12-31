@@ -13,4 +13,4 @@ if (A_ComputerName = "PHOSPHORUS")
    subj=Minutes for %date%
    ;debug(subj)
    SendEmail(subj, returned)
-)
+}
