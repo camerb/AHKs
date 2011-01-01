@@ -109,7 +109,7 @@ return
 ;Print Screen and Save to Disk (C:\DataExchange)
 ^PrintScreen:: SaveScreenShot("KeyPress")
 AppsKey & PrintScreen::
-path=C:\My Dropbox\AHKs-GitExempt\screenshots\%A_ComputerName%
+path=C:\My Dropbox\AHKs\gitExempt\screenshots\%A_ComputerName%
 SaveScreenShot("KeyPress", path)
 return
 
@@ -243,7 +243,7 @@ AppsKey & b::
 SetTitleMatchMode, 2
 WinGetTitle, titletext, Last.fm
 InputBox, inputtext, User, Whose account should we remove this artist from?
-logPath=%A_WorkingDir%\logs
+logPath=C:\My Dropbox\Public\logs
 FileCreateDir, %logPath%
 FileAppend, %titletext%`n%inputtext%`n`n, %logPath%\removeartist.log
 return

@@ -9,4 +9,4 @@ Sleep, 100
 ForceWinFocus("RecordMacro.ahk (c:\My Dropbox\AHKs) - GVIM")
 MouseClick, left,  863,  284
 Sleep, 100
-ForceWinFocus("out1.txt (C:\My Dropbox\ahk-REFP) - GVIM")
+ForceWinFocus("out1.txt (C:\My Dropbox\AHKs\REFP) - GVIM")

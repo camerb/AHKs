@@ -304,3 +304,5 @@ cmd 1: {C:\code\epms\script}, 2: {perl user_auth_expression_new.pl 1796 1345 179
 cmd 1: {"C:\My Dropbox"}, 2: {Mgmt-IDs-Merge7.bat}
 cmd 1: {"C:\My Dropbox"}, 2: {Mgmt-IDs-Merge7.bat > C:\report.txt}
 cmd 1: {"C:\My Dropbox"}, 2: {Mgmt-IDs-Merge7.bat > C:\code\report.txt}
+cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
+EPMS

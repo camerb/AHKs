@@ -70,26 +70,7 @@ if (Mod(A_Min, 15)==0 && A_Sec==0)
 ;{{{Check to see if we scheduled an ahk from the cloud
 if (Mod(A_Sec, 15)==0)
 {
-   if (A_ComputerName="PHOSPHORUS")
-   {
-      joe:=urlDownloadToVar("http://www.autohotkey.net/~cameronbaustian/text.txt")
-      last:=urlDownloadToVar("http://dl.dropbox.com/u/789954/text.txt")
-      ;debug("",joe)
-
-      if (joe != last)
-      {
-         ;debug("silent log", "new version detected... going to run it")
-         FileDelete, C:\My Dropbox\Public\text.txt
-         FileAppend, %joe%, C:\My Dropbox\Public\text.txt
-         timestamp := CurrentTime()
-         FileAppend, %joe%, C:\My Dropbox\AHKs\scheduled\phosphorus\%timestamp%.ahk
-      }
-
-      ;also, i should consider the option of making the logs files stored in the public dropbox folder so i can get to it from the cloud pc
-      ; there shouldn't be any personal info in there, should there?
-
-      ;need a fcn that gives local dropbox folder location and remote dropbox folder location
-   }
+;moved it back to development cause it's not ready for primetime
 }
 ;}}}
 
@@ -282,7 +263,7 @@ IfWinExist .* - (Update|Commit) - TortoiseSVN Finished! ahk_class #32770
 
 ;{{{ Check to see if there are files that need to be out of the dropbox (transferTo)
 ;TODO put all this crap into another ahk, so that persistent doesn't halt while we're babysitting other ahks
-Loop, C:\My Dropbox\AHKs-GitExempt\transferTo\%A_ComputerName%\*.*, 2, 0
+Loop, C:\My Dropbox\AHKs\gitExempt\transferTo\%A_ComputerName%\*.*, 2, 0
 {
    localPath=C:\DataExchange\ReceivedFrom
    Sleep, 100

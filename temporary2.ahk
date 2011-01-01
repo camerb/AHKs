@@ -7,16 +7,16 @@
 ;libFile="C:\My Dropbox\Android\sd\Documents\Financial\USAA Accounts\usaa_credit-2010-11-18.csv"
 libFile="C:\My Dropbox\Android\sd\Documents\Financial\USAA Accounts\usaa_credit-2010-11-18.csv"
 
-in ="C:\My Dropbox\AHKs-GitExempt\USAA_credit_2010-12-09_21-15-59.csv"
-re ="C:\My Dropbox\ahk-REFP\regex-financial.txt"
-out="C:\My Dropbox\AHKs-GitExempt\USAA_credit_2010-12-09_21-15-59-category.csv"
+in ="C:\My Dropbox\AHKs\gitExempt\USAA_credit_2010-12-09_21-15-59.csv"
+re ="C:\My Dropbox\AHKs\REFP\regex-financial.txt"
+out="C:\My Dropbox\AHKs\gitExempt\USAA_credit_2010-12-09_21-15-59-category.csv"
 
-in ="C:\My Dropbox\AHKs-GitExempt\USAA_checking_2010-12-24_08-03-41.csv"
-re ="C:\My Dropbox\ahk-REFP\regex-financial-checking.txt"
-out="C:\My Dropbox\AHKs-GitExempt\USAA_checking_2010-12-24_08-03-41-category.csv"
+in ="C:\My Dropbox\AHKs\gitExempt\USAA_checking_2010-12-24_08-03-41.csv"
+re ="C:\My Dropbox\AHKs\REFP\regex-financial-checking.txt"
+out="C:\My Dropbox\AHKs\gitExempt\USAA_checking_2010-12-24_08-03-41-category.csv"
 
 in ="C:\My Dropbox\Mgmt-IDs-Merge.csv"
-re ="C:\My Dropbox\ahk-REFP\regex2.txt"
+re ="C:\My Dropbox\AHKs\REFP\regex2.txt"
 out="C:\My Dropbox\Mgmt-IDs-Merge8-propcleanup.bat"
 
 params:=concatWithSep(" ", in, re, out)

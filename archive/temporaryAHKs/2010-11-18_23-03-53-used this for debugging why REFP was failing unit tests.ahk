@@ -1,7 +1,7 @@
 #include FcnLib.ahk
    RunWait, RegExFileProcessor.ahk
 
-path=C:\My Dropbox\ahk-REFP\
+path=C:\My Dropbox\AHKs\REFP\
 outfile=%path%out1.txt
 assertoutfile=%path%out2.txt
 

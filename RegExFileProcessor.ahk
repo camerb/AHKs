@@ -12,7 +12,7 @@ infile=%1%
 refile=%2%
 outfile=%3%
 
-path=C:\My Dropbox\ahk-REFP\
+path=C:\My Dropbox\AHKs\REFP\
 if (infile=="")
    infile=%path%in1.txt
 ;else
@@ -28,7 +28,7 @@ if (outfile=="")
 tempfile=%path%temp1.txt
 
 ;TODO ensure that the folder to outfile exists
-;TODO prepend the ahk-REFP path onto the front of the path - this is done, but is it done well?
+;TODO prepend the AHKs\REFP path onto the front of the path - this is done, but is it done well?
 
 ;TODO usage warning
 ;  either return text or errord (does return send text to the cmd?)

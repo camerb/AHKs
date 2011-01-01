@@ -8,7 +8,7 @@ assert("auiop`nquiop`nzuiop", "(quiop)`n$1#suppresscrlf", "auiop`nquiopzuiop", "
 
 assert(incontents, recontents, outcontents, description)
 {
-   path=C:\My Dropbox\ahk-REFP\
+   path=C:\My Dropbox\AHKs\REFP\
    infile=%path%in1.txt
    refile=%path%regex1.txt
    outfile=%path%out1.txt

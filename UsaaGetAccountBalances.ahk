@@ -1,5 +1,5 @@
 #include FcnLib.ahk
-#include C:\My Dropbox\AHKs-GitExempt\usaalogin.ahk
+#include C:\My Dropbox\AHKs\gitExempt\usaalogin.ahk
 
 usaalogin()
 
@@ -10,7 +10,7 @@ CreditBalance   := GetAccountInfo("https://www.usaa.com/inet/gas_bank/BkAccounts
 ;done with browser click-around, but we have to export to a file, still
 WinClose
 
-csvfile=C:\My Dropbox\AHKs-GitExempt\DailyFinancial.csv
+csvfile=C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv
 time:=CurrentTime("hyphenated")
 
 overallBalance := SavingsBalance + CheckingBalance - CreditBalance

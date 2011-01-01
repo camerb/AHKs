@@ -5,7 +5,7 @@ MouseClick, left,  1022,  785
 Sleep, 100
 MouseClick, left,  997,  273
 Sleep, 100
-WinWait, out1.txt (C:\My Dropbox\ahk-REFP) - GVIM, 
-IfWinNotActive, out1.txt (C:\My Dropbox\ahk-REFP) - GVIM, , WinActivate, out1.txt (C:\My Dropbox\ahk-REFP) - GVIM, 
-WinWaitActive, out1.txt (C:\My Dropbox\ahk-REFP) - GVIM, 
+WinWait, out1.txt (C:\My Dropbox\AHKs\REFP) - GVIM, 
+IfWinNotActive, out1.txt (C:\My Dropbox\AHKs\REFP) - GVIM, , WinActivate, out1.txt (C:\My Dropbox\AHKs\REFP) - GVIM, 
+WinWaitActive, out1.txt (C:\My Dropbox\AHKs\REFP) - GVIM, 
 Send, `

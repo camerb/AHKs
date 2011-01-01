@@ -37,12 +37,12 @@ Sleep, 100
 WinClose, AutoScriptWriter II - ( by Larry Keys ) ahk_class ASW_Dev_01,
 Sleep, 100
 
-path="C:\My Dropbox\ahk-REFP\
+path="C:\My Dropbox\AHKs\REFP\
 infile=%path%in1.txt"
 refile2=%path%regex-rawmacro.txt"
 outfile=%path%out1.txt"
 
-FileCopy, %A_WorkingDir%\temporary.ahk, C:\My Dropbox\ahk-REFP\in1.txt, 1
+FileCopy, %A_WorkingDir%\temporary.ahk, C:\My Dropbox\AHKs\REFP\in1.txt, 1
 Sleep, 100
 
 params := concatWithSep(" ", infile, refile2, outfile)
@@ -51,6 +51,6 @@ Sleep, 200
 
 ;TODO allow an option for putting Sleep 100 on every other line
 time:=CurrentTime("hyphenated")
-FileCopy, C:\My Dropbox\ahk-REFP\out1.txt, %A_WorkingDir%\temporary.ahk, 1
+FileCopy, C:\My Dropbox\AHKs\REFP\out1.txt, %A_WorkingDir%\temporary.ahk, 1
 FileCopy, %A_WorkingDir%\temporary.ahk, %A_WorkingDir%\archive\temporaryAHKs\%time%.ahk, 1
 return

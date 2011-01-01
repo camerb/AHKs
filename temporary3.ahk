@@ -1,7 +1,7 @@
 #include FcnLib.ahk
 #include ThirdParty/json.ahk
 
-path=C:\My Dropbox\ahk-REFP\
+path=C:\My Dropbox\AHKs\REFP\
 infile=%path%out1.txt
 expectedTransFile=%path%expectedTransactions.txt
 projectionCsv=%path%financialProjection.csv

@@ -6,8 +6,8 @@ return
 
 Persist:
 
-;remotePath=C:\My Dropbox\AHKs-GitExempt\transferTo
-Loop, C:\My Dropbox\AHKs-GitExempt\transferTo\%A_ComputerName%\*.*, 2, 0
+;remotePath=C:\My Dropbox\AHKs\gitExempt\transferTo
+Loop, C:\My Dropbox\AHKs\gitExempt\transferTo\%A_ComputerName%\*.*, 2, 0
 {
    localPath=C:\DataExchange\ReceivedFrom
    Sleep, 100
