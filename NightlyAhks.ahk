@@ -23,6 +23,8 @@ else if (A_ComputerName="PHOSPHORUS")
    SleepMinutes(5)
    RunAhkAndBabysit("UsaaGetAccountCsvs.ahk")
    SleepMinutes(5)
+   RunAhkAndBabysit("MintGetAccountCsvs.ahk")
+   SleepMinutes(5)
 }
 else if (A_ComputerName="PHOSPHORUSVM")
 {
