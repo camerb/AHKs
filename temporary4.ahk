@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-
+joe:=starttimer()
    ;if (A_ComputerName="PHOSPHORUS")
    {
       last:=urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhk.txt")
@@ -26,11 +26,17 @@
       FileAppend, %codefile%, C:\codeout.txt
       FileAppend, %last%, C:\lastout.txt
 
+      stripExpr:="[^a-zA-Z0-9 \n]"
+      stripExpr:="\n+"
+      replExpr:="`n"
+      codefilestripped:=RegExReplace(codefile, stripExpr, replExpr)
+      lastfilestripped:=RegExReplace(last, stripExpr, replExpr)
 
-      if (codefile != last)
+
+      if (codefilestripped != lastfilestripped)
       {
-         debug("silent log", "new version detected... going to run it")
-         examineStrs(codefile, last)
+         delog("new version detected... going to run it")
+         ;examineStrs(codefilestripped, lastfilestripped)
          FileDelete, C:\My Dropbox\Public\latestCloudAhk.txt
          FileAppend, %codefile%, C:\My Dropbox\Public\latestCloudAhk.txt
          timestamp := CurrentTime()
@@ -42,8 +48,9 @@
 
       ;TODO need a fcn that gives local dropbox folder location and remote dropbox folder location
    }
+debug(elapsedtime(joe))
 
-
+ESC:: ExitApp
 
 examineStrs(str1, str2)
 {
