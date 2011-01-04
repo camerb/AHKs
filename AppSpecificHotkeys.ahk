@@ -43,8 +43,11 @@ if title contains perl
 }
 else
 {
-   MouseClick, right, 100, 100
-   Send, {DOWN 4}{ENTER}
+   MouseClick, right, 13, 13
+   Sleep 100
+   Send, {UP 3}{RIGHT}{DOWN 3}
+   Sleep 100
+   Send, {ENTER}
    Sleep 100
    Send, {ENTER}
 }

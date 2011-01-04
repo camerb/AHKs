@@ -185,6 +185,20 @@ Run, RefreshIfProblemLoadingPage.ahk
 ;WaitForImageSearch("images\firebug\WelcomeScreen.bmp")
 
 ;{{{ Refresh if we're using firefox
+if ForceWinFocusIfExist("Ellis Partners in Mystery Shopping: Customer Interface - Mozilla Firefox", "Exact")
+{
+   ;This section is for testing out EPMS Customer Interface (Survey Graphing)
+   Click(13,13)
+   if ClickIfImageSearch("images\firebug\phosphorusAddress.bmp", "Control") || ClickIfImageSearch("images\firebug\phosphorusAddressHighlighted.bmp", "Control")
+      ClickIfImageSearch("images\firebug\reloadButton.bmp")
+   SleepSeconds(8)
+   Click(173, 352, "Control")
+   Sleep, 500
+   Click(173, 376, "Control")
+   Sleep, 500
+   Click(173, 385, "Control")
+   ExitApp
+}
 if ForceWinFocusIfExist(ffWindow, "RegEx")
 {
    ForceWinFocus(ffWindow, "RegEx")
@@ -226,6 +240,7 @@ else if ForceWinFocusIfExist("Mozilla Firefox", "Exact")
       }
    }
 }
+
 ;}}}
 
 ;{{{ Refresh if we're using IE

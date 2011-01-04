@@ -1106,3 +1106,15 @@ ForceReloadAll()
 {
    Run, ForceReloadAll.exe
 }
+
+;TESTME
+ZeroPad(number, length)
+{
+   Loop length
+      padding .= "0"
+   length *= -1
+   length++
+
+   returned := substr(padding . number, length)
+   return returned
+}

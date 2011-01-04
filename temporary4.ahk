@@ -1,6 +1,32 @@
 #include FcnLib.ahk
 
-joe:=starttimer()
+while true
+{
+   CheckTheCloud()
+   SleepSeconds(15)
+}
+
+ESC:: ExitApp
+
+examineStrs(str1, str2)
+{
+   debug(strlen(str1), strlen(str2))
+
+   chars := strlen(str2)
+   loop %chars%
+   {
+      char1:=substr(str1, A_Index, 1)
+      char2:=substr(str2, A_Index, 1)
+      equal:= substr(str1, A_Index, 1) == substr(str2, A_Index, 1)
+      debug("silent log", char1, char2, equal, asc(char1), asc(char2) )
+
+      ;debug( substr(str1, A_Index, 1), substr(str2, A_Index, 1) )
+   }
+}
+
+checkTheCloud()
+{
+   joe:=starttimer()
    ;if (A_ComputerName="PHOSPHORUS")
    {
       last:=urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhk.txt")
@@ -36,7 +62,7 @@ joe:=starttimer()
       if (codefilestripped != lastfilestripped)
       {
          delog("new version detected... going to run it")
-         ;examineStrs(codefilestripped, lastfilestripped)
+         examineStrs(codefilestripped, lastfilestripped)
          FileDelete, C:\My Dropbox\Public\latestCloudAhk.txt
          FileAppend, %codefile%, C:\My Dropbox\Public\latestCloudAhk.txt
          timestamp := CurrentTime()
@@ -48,22 +74,15 @@ joe:=starttimer()
 
       ;TODO need a fcn that gives local dropbox folder location and remote dropbox folder location
    }
-debug(elapsedtime(joe))
+   AddToTrace(elapsedtime(joe))
+}
 
-ESC:: ExitApp
-
-examineStrs(str1, str2)
+AddToTrace(var)
 {
-   debug(strlen(str1), strlen(str2))
 
-   chars := strlen(str2)
-   loop %chars%
-   {
-      ;char1:=substr(str1, A_Index, 1)
-      ;char2:=substr(str2, A_Index, 1)
-      ;equal:= substr(str1, A_Index, 1) == substr(str2, A_Index, 1)
-      ;debug( char1, char2, equal )
+}
 
-      debug( substr(str1, A_Index, 1), substr(str2, A_Index, 1) )
-   }
+DeleteTraceFile()
+{
+
 }
