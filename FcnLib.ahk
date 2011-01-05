@@ -619,15 +619,24 @@ CloseDifficultAppsAllScreens()
 
 ;WRITEME
 ;Creates the parent dir if necessary
+;TODO if path is a directory, this ensures that that dir exists
 EnsureDirExists(path)
 {
    ;if path is a file, this ensures that the parent dir exists
-   ;if path is a directory, this ensures that that dir exists
+   dir:=ParentDir(path)
    ;simply: this ensures that the entire specified dir structure exists
 
 ;figure out if it is a file or dir
 ;split off filename if applicable
-   ;FileCreateDir,
+   FileCreateDir, %dir%
+}
+
+ParentDir(fileOrFolder)
+{
+   if (StringRight(fileOrFolder, 1) == "\")
+      fileOrFolder:= StringTrimRight(fileOrFolder, 1)
+   RegexMatch(fileOrFolder, "^.*\\", returned)
+   return returned
 }
 
 ;Returns if the directory exists

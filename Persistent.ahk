@@ -98,7 +98,9 @@ if (Mod(A_Sec, 15)==0)
          FileDelete, %A_LoopFileFullPath%
          if (status == "error") {
             time:=CurrentTime("hyphenated")
-            FileMove, %tempahk%, error-%time%-%tempahk%, 1
+            path=C:\My Dropbox\Public\ahkerrors\
+            FileCreateDir, %path%
+            FileMove, %tempahk%, %path%%time%-%tempahk%.txt, 1
          }
          ;wait for the scheduled ahk to finish running and self-destruct
          ;since this is the persistent file, we don't want more than one

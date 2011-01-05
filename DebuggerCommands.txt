@@ -307,3 +307,6 @@ cmd 1: {"C:\My Dropbox"}, 2: {Mgmt-IDs-Merge7.bat > C:\code\report.txt}
 cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
 EPMS
 cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
+cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl bounce_importer.pl}
+EPMS
