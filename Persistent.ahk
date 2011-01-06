@@ -34,6 +34,17 @@ if (A_Hour=14 AND A_Min=0 AND A_Sec=0)
 }
 ;}}}
 
+;{{{Send Morning AHK Status Briefing
+if (A_Hour=6 AND A_Min=0 AND A_Sec=0)
+{
+   if (A_ComputerName="PHOSPHORUS")
+   {
+      RunAhk("MorningStatus-SendMessage.ahk")
+      SleepSeconds(2)
+   }
+}
+;}}}
+
 ;{{{Routine email reminders
 if (A_Hour=13 AND A_Min=30 AND A_Sec=0)
 {

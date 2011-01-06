@@ -2,6 +2,8 @@
 
 debug("log grey line", "starting nightly scripts")
 
+RunAhkAndBabysit("MorningStatus-GatherData.ahk")
+SleepMinutes(1)
 RunAhkAndBabysit("UnitTests.ahk")
 SleepMinutes(10)
 if (A_ComputerName="BAUSTIAN-09PC")

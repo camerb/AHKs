@@ -22,3 +22,18 @@ CloseAllTabs()
       Sleep, 100
    }
 }
+
+GoToPage(url)
+{
+   ForceWinFocus("ahk_class (OperaWindowClass|OpWindow)", "RegEx")
+   Send, !d
+   Sleep, 100
+   Send, %url%
+   oldTitle:=WinGetActiveTitle()
+   Send, {ENTER}
+   WinWaitActiveTitleChange(oldTitle)
+   ;ShortSleep()
+   Sleep, 500
+   ;TODO change this back to a long sleep if that broke anything
+}
+

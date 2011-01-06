@@ -1127,3 +1127,79 @@ ZeroPad(number, length)
    returned := substr(padding . number, length)
    return returned
 }
+
+;WRITEME
+IsDirFileOrIndeterminate(path)
+{
+;DirExist()
+;FileExist()
+
+;if it doesn't exist, then all we can do is make a guess
+;if it ends with a slash it has got to be a dir
+
+;if it has a one two or three letter extension, it is probably a file
+
+}
+
+AddToTrace(var, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t10="", t11="", t12="", t13="", t14="", t15="")
+{
+   Loop 15
+      var .= " " . t%A_Index%
+   FileAppendLine(var, "C:\My Dropbox\Public\trace.txt")
+}
+
+DeleteTraceFile()
+{
+   FileDelete("C:\My Dropbox\Public\trace.txt")
+}
+
+FileAppend(text, file)
+{
+   EnsureDirExists(file)
+   FileAppend, %text%, %file%
+}
+
+FileAppendLine(text, file)
+{
+   text.="`n"
+   return FileAppend(text, file)
+}
+
+FileCopy(source, dest, options="")
+{
+   if InStr(options, "overwrite")
+      overwrite=1
+   if NOT FileExist(source)
+      fatalErrord("file doesn't exist")
+   EnsureDirExists(dest)
+
+   FileCopy, %source%, %dest%, %overwrite%
+}
+
+FileDelete(file)
+{
+   ;should we even bother returning an error if the file is already gone? i think not... maybe TODO log it
+   if NOT FileExist(file)
+      return
+
+   FileDelete, %file%
+}
+
+FileMove(source, dest, options="")
+{
+   if InStr(options, "overwrite")
+      overwrite=1
+   if NOT FileExist(source)
+      fatalErrord("file doesn't exist")
+   EnsureDirExists(dest)
+
+   FileCopy, %source%, %dest%, %overwrite%
+}
+
+;TODO runwait
+;RegEx File Processor
+REFP(inFile, regExFile, outFile)
+{
+   params:=concatWithSep(" ", inFile, regExFile, outFile)
+   RunAhk("RegExFileProcessor.ahk", params)
+}

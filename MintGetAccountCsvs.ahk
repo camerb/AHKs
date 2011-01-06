@@ -4,7 +4,24 @@
 
 mintlogin()
 
-;new development goes here
+GoToPage("https://wwws.mint.com/transaction.event")
+
+MedSleep()
+Click(45, 145)
+Send, {PGDN 50}
+MedSleep()
+ClickIfImageSearch("images\mint\exportAllTransactions.bmp")
+
+LongSleep()
+if NOT ForceWinFocusIfExist("Save As", "Exact")
+   Send, {ENTER}
+LongSleep()
+ForceWinFocus("Save As", "Exact")
+time:=CurrentTime("hyphenated")
+csvfilename=C:\My Dropbox\AHKs\gitExempt\mint_export\%time%.csv
+Send, %csvfilename%
+Sleep, 100
+Send, {ENTER}
 
 ;close the window
 LongSleep()
@@ -14,15 +31,10 @@ mintLogin()
 {
    RunOpera()
    CloseAllTabs()
-   LongSleep()
+   MedSleep()
 
-   GoToPage("https://wwws.mint.com/login.event?task=L&messageId=5&country=US")
-   ;ForceWinFocus("ahk_class (OperaWindowClass|OpWindow)", "RegEx")
-   ;MedSleep()
-   ;Send, !d
-   ;Sleep, 100
-   ;Send, usaa.com{ENTER}
-   LongSleep()
+   GoToPage("https://wwws.mint.com/login.event")
+   MedSleep()
 
    joe:=SexPanther()
    Send, cameronbaustian@gmail.com
@@ -33,9 +45,10 @@ mintLogin()
    ShortSleep()
    ClickIfImageSearch("images\mint\LoginButton.bmp")
 
-   LongSleep()
+   MedSleep()
    theTitle := WinGetActiveTitle()
-   Clipboard:=theTitle
    if (theTitle != "Mint.com > Overview - Opera")
       die("when i logged into mint, the title was not as expected", A_ScriptName, A_LineNumber, A_ThisFunc, theTitle)
 }
+
+`:: ExitApp

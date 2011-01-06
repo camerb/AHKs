@@ -26,7 +26,8 @@ projectedCreditCardBill := StringTrimRight(projectedCreditCardBill, 4)
 
 csvline:=ConcatWithSep(",", time, SavingsBalance, CheckingBalance, CreditBalance, overallBalance, projectedCreditCardBill)
 ;debug("silent log grey line", csvline)
-FileAppend, %csvline%`n, %csvfile%
+FileAppendLine(csvline, csvfile)
+FileAppendLine(csvline, "gitExempt\morning_status\finance.txt")
 
 if (SavingsBalance=="" and CheckingBalance=="" and CreditBalance=="")
    die("login attempt completely unsuccessful", A_ScriptName, A_LineNumber, A_ThisFunc)

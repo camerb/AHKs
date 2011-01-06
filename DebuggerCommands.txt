@@ -310,3 +310,5 @@ cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
 cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl bounce_importer.pl}
 EPMS
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl bounce_importer.pl}
+cmd 1: {C:\code\epms\script\mail}, 2: {perl send_template.pl}
