@@ -12,7 +12,8 @@ while true
 
 examineStrs(str1, str2)
 {
-   debug(strlen(str1), strlen(str2))
+   ;debug(strlen(str1), strlen(str2))
+   AddToTrace(strlen(str1), strlen(str2))
 
    chars := strlen(str2)
    loop %chars%
@@ -28,14 +29,19 @@ examineStrs(str1, str2)
 
 checkTheCloud()
 {
+   dry_run := true
    EntireAlgTimer:=starttimer()
    ;if (A_ComputerName="PHOSPHORUS")
    {
-      last:=urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhk.txt")
-      originalReq:=last
-      ;FileRead, last, C:\My Dropbox\Public\latestCloudAhk.txt
+      ;while true
+      ;{
+      ;TODO detect duplicate divs... if so, make the req again
       codefile:=urlDownloadToVar("http://sites.google.com/site/ahkcoedz/remoteahk")
+      last:=urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhk.txt")
+      ;}
+
       originalCode:=codefile
+      originalReq:=last
 
       ;give us just the section that we want
       codefile:=RegExReplace(codefile, "(`r|`n)", "ZZZnewlineZZZ")
@@ -70,13 +76,14 @@ checkTheCloud()
          examineStrs(codefilestripped, lastfilestripped)
 
          time:=CurrentTime("hyphenated")
-         FileAppend, %originalCode%, C:\My Dropbox\Public\ahkerrors\cloudahk\%time%-original.ahk
+         FileAppend, %originalCode%, C:\My Dropbox\Public\ahkerrors\cloudahk\%time%-original.html
          FileAppend, %codefile%, C:\My Dropbox\Public\ahkerrors\cloudahk\%time%-processed.ahk
 
          FileDelete, C:\My Dropbox\Public\latestCloudAhk.txt
          FileAppend, %codefile%, C:\My Dropbox\Public\latestCloudAhk.txt
          timestamp := CurrentTime()
-         FileAppend, %codefile%, C:\My Dropbox\AHKs\scheduled\phosphorus\%timestamp%.ahk
+         if NOT dry_run
+            FileAppend, %codefile%, C:\My Dropbox\AHKs\scheduled\phosphorus\%timestamp%.ahk
 
          ;need to sleep and let dropbox load the new version of the file to the server
          ;TODO 20 s was not enough (sheesh)... should we ping the hell out of it to see if it has changed?

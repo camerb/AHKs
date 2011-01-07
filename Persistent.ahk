@@ -131,11 +131,14 @@ CloseTrayTip("There are unused icons on your desktop")
 ;{{{ Miscellaneous stuff, done the new way
 if (Mod(A_Sec, 5)==0)
 {
+   CustomTitleMatchMode("Contains")
    IfWinActive, Gmail
    {
       ClickIfImageSearch("images\gmail\ReconnectWidget7.bmp",  "Control")
       ClickIfImageSearch("images\gmail\ReconnectWidgetXP.bmp", "Control")
+      ;ClickIfImageSearch("images\gmail\ReconnectWidgetXP2.bmp", "Control")
    }
+   CustomTitleMatchMode("Default")
 }
 ;}}}
 
@@ -156,6 +159,8 @@ Process, Close, DivXUpdate.exe
 ;{{{ Old legacy stuff for closing unwanted windows
 
 SetTitleMatchMode 2
+
+WinClose, Error, An instance of Pidgin is already running
 
 ;This is for foobar at work
 ;IfWinExist, Playback error

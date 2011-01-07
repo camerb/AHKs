@@ -19,8 +19,13 @@ in ="C:\My Dropbox\Mgmt-IDs-Merge.csv"
 re ="C:\My Dropbox\AHKs\REFP\regex2.txt"
 out="C:\My Dropbox\Mgmt-IDs-Merge8-propcleanup.bat"
 
-params:=concatWithSep(" ", in, re, out)
+in ="C:\My Dropbox\AHKs\gitExempt\mint_export\2011-01-06_03-29-31.csv"
+re ="C:\My Dropbox\AHKs\REFP\regex-mint.txt"
+out="C:\My Dropbox\Mgmt-IDs-Merge8-propcleanup.bat"
+
+;REFP(in, re, out)
+REFP(in, re, "")
 ;params:=in
-RunAhk("RegExFileProcessor.ahk", params)
+;RunAhk("RegExFileProcessor.ahk", params)
 ;RunAhk("RemoteWidget.ahk")
 ;RunAhk("Intellisense2.ahk")

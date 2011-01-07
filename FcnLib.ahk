@@ -963,13 +963,12 @@ GetOS()
    return %A_OSVersion%
 }
 
+;Gets size of the entire directory in bytes
 DirGetSize(dirPath)
 {
-   ;SetBatchLines, -1  ; Make the operation run at maximum speed.
    FolderSize = 0
    Loop, %dirPath%\*.*, , 1
       FolderSize += %A_LoopFileSize%
-   ;SetBatchLines, 10ms
    return %FolderSize%
 }
 

@@ -16,6 +16,8 @@ RunOpera()
 CloseAllTabs()
 {
    ForceWinFocus("ahk_class (OperaWindowClass|OpWindow)", "RegEx")
+   Send, ^w
+   Sleep, 100
    while (WinGetActiveTitle() != "Speed Dial - Opera")
    {
       Send, ^w
