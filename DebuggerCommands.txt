@@ -316,3 +316,4 @@ EPMS
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl bounce_importer.pl}
 cmd 1: {C:\code\epms\script\mail}, 2: {perl send_template.pl}
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl bounce_importer.pl}
+FL.fn.createWindow('FL.ui.form.Judge', 999);

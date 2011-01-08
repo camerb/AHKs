@@ -5,8 +5,8 @@
 mintlogin()
 
 GoToPage("https://wwws.mint.com/transaction.event")
+LongSleep()
 
-MedSleep()
 Click(45, 145)
 Send, {PGDN 50}
 MedSleep()
@@ -26,6 +26,7 @@ Send, {ENTER}
 ;close the window
 LongSleep()
 WinClose
+ExitApp
 
 mintLogin()
 {
@@ -34,7 +35,7 @@ mintLogin()
    MedSleep()
 
    GoToPage("https://wwws.mint.com/login.event")
-   MedSleep()
+   LongSleep()
 
    joe:=SexPanther()
    Send, cameronbaustian@gmail.com
