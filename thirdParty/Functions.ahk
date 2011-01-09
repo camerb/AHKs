@@ -5,6 +5,8 @@
 	License: http://www.autohotkey.net/~Titan/license.txt
 */
 
+;note that some of these functions have been changed from Titan's original file so that they are consistent with the original functionality of the command it mimics from AHK
+
 Functions() {
 	Return, true
 }
@@ -116,7 +118,7 @@ GuiControlGet(Subcommand = "", ControlID = "", Param4 = "") {
 ImageSearch(ByRef OutputVarX, ByRef OutputVarY, X1, Y1, X2, Y2, ImageFile) {
 	ImageSearch, OutputVarX, OutputVarY, %X1%, %Y1%, %X2%, %Y2%, %ImageFile%
 }
-IniRead(Filename, Section, Key, Default = "") {
+IniRead(Filename, Section, Key, Default = "ERROR") {
 	IniRead, v, %Filename%, %Section%, %Key%, %Default%
 	Return, v
 }
@@ -148,7 +150,7 @@ RegRead(RootKey, SubKey, ValueName = "") {
 }
 Run(Target, WorkingDir = "", Mode = "") {
 	Run, %Target%, %WorkingDir%, %Mode%, %v%
-	Return, v	
+	Return, v
 }
 SoundGet(ComponentType = "", ControlType = "", DeviceNumber = "") {
 	SoundGet, v, %ComponentType%, %ControlType%, %DeviceNumber%
