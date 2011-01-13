@@ -317,3 +317,7 @@ cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl bounce_importer.pl}
 cmd 1: {C:\code\epms\script\mail}, 2: {perl send_template.pl}
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl bounce_importer.pl}
 FL.fn.createWindow('FL.ui.form.Judge', 999);
+FL.fn.createWindow('FL.ui.form.Judge', 10492);
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
+cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl realpage_prospect_survey_import.pl 5 1064313 "C:\Downloads\fwdfwreportsfromos\edwardsProspectFUWorksheet.csv"}

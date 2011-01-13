@@ -209,6 +209,12 @@ MouseMoveIfImageSearch(filename)
 ;If you see the image, click it
 ClickIfImageSearch(filename, clickOptions="left Mouse")
 {
+   ;TODO make this look a little more like:
+   ;if NOT VerifyFileExist(A_ThisFunc, filename)
+      ;return false
+   ;if ErrordIfFileNotExist(A_ThisFunc, filename)
+      ;return false
+
    if NOT FileExist(filename)
    {
       errord(A_ThisFunc, filename, "the aforementioned file does not exist")
