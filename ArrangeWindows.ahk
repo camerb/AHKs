@@ -1,9 +1,13 @@
 #include FcnLib.ahk
 
-verticalSplit=677
+bottomRightX:=A_ScreenWidth
+bottomRightY=1040
+
+verticalSplit=797
 horizontalSplit=588
 
-rightWidth:=1680-verticalSplit
+bottomLeftHeight:=bottomRightY-horizontalSplit
+rightWidth:=bottomRightX-verticalSplit
 
 if (A_ComputerName = "PHOSPHORUS")
 {
@@ -15,16 +19,16 @@ if (A_ComputerName = "PHOSPHORUS")
    WinRestore, Administrator: Command Prompt ahk_class ConsoleWindowClass
    WinRestore, ahk_class gdkWindowToplevel
 
-   WinMove, Ext Designer ahk_class QWidget, , %verticalSplit%, 0, %rightWidth%, 1010
-   WinMove, GVIM ahk_class Vim, , %verticalSplit%, 0, %rightWidth%, 1010
+   WinMove, Ext Designer ahk_class QWidget, , %verticalSplit%, 0, %rightWidth%, %bottomRightY%
+   WinMove, GVIM ahk_class Vim, , %verticalSplit%, 0, %rightWidth%, %bottomRightY%
    WinMove, C:\Windows\system32\cmd.exe ahk_class ConsoleWindowClass, , 0, 0, %verticalSplit%, %horizontalSplit%
    WinMove, Administrator: Command Prompt ahk_class ConsoleWindowClass, , 0, 0, %verticalSplit%, %horizontalSplit%
    WinMove, MINGW32 ahk_class ConsoleWindowClass, , 0, 0, %verticalSplit%, %horizontalSplit%
    WinMove, Git Console2 ahk_class Console_2_Main, , 0, 0, %verticalSplit%, %horizontalSplit%
    WinMove, BareTail ahk_class TMainWindow, , 0, 0, %verticalSplit%, %horizontalSplit%
-   WinMove, ahk_class gdkWindowToplevel, , 0, %horizontalSplit%, %verticalSplit%, 424
-   WinMove, Irssi ahk_class PuTTY, , 0, %horizontalSplit%, %verticalSplit%, 424
-   WinMove, PhosphorusVM - VMware Player ahk_class VMPlayerFrame, , 1758, 0, 1298, 1024
+   WinMove, ahk_class gdkWindowToplevel, , 0, %horizontalSplit%, %verticalSplit%, %bottomLeftHeight%
+   WinMove, Irssi ahk_class PuTTY, , 0, %horizontalSplit%, %verticalSplit%, %bottomLeftHeight%
+   WinMove, PhosphorusVM - VMware Player ahk_class VMPlayerFrame, , 2000, 0, 1298, 1024
 
    IfWinExist, PhosphorusVM - VMware Player ahk_class VMPlayerFrame
    {
