@@ -17,8 +17,8 @@ if NOT ForceWinFocusIfExist("Save As", "Exact")
    Send, {ENTER}
 LongSleep()
 ForceWinFocus("Save As", "Exact")
-time:=CurrentTime("hyphenated")
-csvfilename=C:\My Dropbox\AHKs\gitExempt\mint_export\%time%.csv
+date:=CurrentTime("hyphendate")
+csvfilename=C:\My Dropbox\AHKs\gitExempt\mint_export\%date%.csv
 Send, %csvfilename%
 Sleep, 100
 Send, {ENTER}

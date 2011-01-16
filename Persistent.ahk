@@ -11,6 +11,10 @@ if (A_Hour==3 AND A_Min==0)
    ;Turn the volume all the way down
    SoundSet, 0
 
+   ;unmute the volume for consistency
+   SoundSet, 1, , mute
+   SoundSet, +1, , mute
+
    SleepMinutes(2)
    debug("reloading script")
    ;let's try for something that is a bit stiffer

@@ -21,7 +21,6 @@ out="C:\My Dropbox\Mgmt-IDs-Merge8-propcleanup.bat"
 
 in ="C:\My Dropbox\AHKs\gitExempt\mint_export\2011-01-06_03-29-31.csv"
 re ="C:\My Dropbox\AHKs\REFP\regex-mint.txt"
-out="C:\My Dropbox\Mgmt-IDs-Merge8-propcleanup.bat"
 
 ;REFP(in, re, out)
 REFP(in, re, "")

@@ -432,10 +432,23 @@ CurrentTime(hyphenated=false, options="")
 ;   date time datetime
 ;   separator
 ;   ordering? YYYYMMDD or MMDDYYYY
+   if InStr(hyphenated, "hyphen")
+      hyphen:=true
+   if InStr(hyphenated, "slash")
+      slash:=true
+   if InStr(hyphenated, "colons")
+      colon:=true
+   if InStr(hyphenated, "date")
+      date:=true
+   if InStr(hyphenated, "time")
+      time:=true
+
    if InStr(options, "slashdate")
       FormatTime, returned,, MM/dd/yyyy
    else if InStr(options, "hyphenated")
       FormatTime, returned,, yyyy-MM-dd_HH-mm-ss
+   else if InStr(hyphenated, "hyphendate")
+      FormatTime, returned,, yyyy-MM-dd
    else if (hyphenated)
       FormatTime, returned,, yyyy-MM-dd_HH-mm-ss
    else
