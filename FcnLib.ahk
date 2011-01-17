@@ -1218,6 +1218,43 @@ FileMove(source, dest, options="")
 ;RegEx File Processor
 REFP(inFile, regExFile, outFile)
 {
+   quote="
+   infile    := EnsureEndsWith(infile, quote)
+   infile    := EnsureStartsWith(infile, quote)
+   regExfile := EnsureEndsWith(regExfile, quote)
+   regExfile := EnsureStartsWith(regExfile, quote)
+   outfile   := EnsureEndsWith(outfile, quote)
+   outfile   := EnsureStartsWith(outfile, quote)
+
    params:=concatWithSep(" ", inFile, regExFile, outFile)
    RunAhk("RegExFileProcessor.ahk", params)
+}
+
+;Ensure that the string given ends with a given char
+EnsureEndsWith(string, char)
+{
+   if ( StringRight(string, strlen(char)) <> char )
+      string .= char
+
+   return string
+}
+
+;Ensure that the string given starts with a given char
+EnsureStartsWith(string, char)
+{
+   if ( StringLeft(string, strlen(char)) <> char )
+      string := char . string
+
+   return string
+}
+
+;Instead of actually muting, lets just turn the volume all the way down
+SpiffyMute()
+{
+   ;Turn the volume all the way down
+   SoundSet, 0
+
+   ;unmute the volume for consistency
+   SoundSet, 1, , mute
+   SoundSet, +1, , mute
 }

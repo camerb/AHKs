@@ -8,12 +8,7 @@ SetTitleMatchMode, 1
 ;{{{Middle of the night unit tests, backups, and reload script
 if (A_Hour==3 AND A_Min==0)
 {
-   ;Turn the volume all the way down
-   SoundSet, 0
-
-   ;unmute the volume for consistency
-   SoundSet, 1, , mute
-   SoundSet, +1, , mute
+   SpiffyMute()
 
    SleepMinutes(2)
    debug("reloading script")
