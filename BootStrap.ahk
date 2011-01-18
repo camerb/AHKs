@@ -7,8 +7,8 @@ RunAhk("StartIdleAhks.ahk")
 ;apps that should run on all my computers
 Run, C:\My Dropbox\Programs\CLCL\CLCL.exe
 ;Dropbox
-;Openoffice
+;Openoffice launcher
 ;Find and Run Robot
 ;Desktop Sidebar (ensure only one instance)
 if NOT IsVM()
-   Run, C:\Program Files (x86)\Desktop Sidebar\dsidebar.exe
+   RunProgram("C:\Program Files\Desktop Sidebar\dsidebar.exe")

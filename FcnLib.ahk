@@ -818,6 +818,36 @@ RunAhk(ahkFilename, params="")
    Run %command%
 }
 
+;Run file from program files folder
+;FIXME Yes, this is crap, but someday it should be in ini files and use some logic
+;and also try the dropbox\programs folder
+;maybe we could have an "ensure one instance" option
+RunProgram(path)
+{
+   if FileExist(path)
+   {
+      Run, %path%
+      return
+   }
+
+   path := StringReplace(path, "\Program Files (x86)\", "\Program Files\")
+
+   if FileExist(path)
+   {
+      Run, %path%
+      return
+   }
+
+   path := StringReplace(path, "\Program Files\", "\Program Files (x86)\")
+
+   if FileExist(path)
+   {
+      Run, %path%
+      return
+   }
+   delog("tried run program", "could not find the directory or one like it", "app might not be installed, or the path might not be pointed at the program files dir")
+}
+
 sendEmail(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sReplyTo="cameronbaustian+bot@gmail.com")
 {
    timestamp := CurrentTime()
