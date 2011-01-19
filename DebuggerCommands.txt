@@ -338,3 +338,7 @@ cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl realpage_prospect_survey
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl realpage_prospect_survey_import.pl 11 1120764 "C:\Downloads\fwdfwreportsfromos\edwardsProspectFUWorksheet.csv"}
 cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
 EPMS
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl pinnacle.pl pinnacle_2011-01.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl pinnacle.pl C:\import_files\pinnacle_2011-01.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\import_files\home_2011-01.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl pinnacle2744.pl C:\import_files\pinnacle_2011-01.csv > C:\code\report.txt}

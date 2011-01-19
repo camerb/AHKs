@@ -4,6 +4,8 @@ debug("log grey line", "starting nightly scripts")
 
 RunAhkAndBabysit("MorningStatus-GatherData.ahk")
 SleepMinutes(1)
+RunAhkAndBabysit("CopyVimSettings.ahk")
+SleepMinutes(1)
 RunAhkAndBabysit("UnitTests.ahk")
 SleepMinutes(10)
 if (A_ComputerName="BAUSTIAN-09PC")
@@ -27,6 +29,8 @@ else if (A_ComputerName="PHOSPHORUS")
    SleepMinutes(5)
    RunAhkAndBabysit("MintGetAccountCsvs.ahk")
    SleepMinutes(5)
+   RunAhkAndBabysit("CreateFinancialPieChart.ahk")
+   SleepMinutes(15)
 }
 else if (A_ComputerName="PHOSPHORUSVM")
 {

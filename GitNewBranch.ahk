@@ -3,7 +3,7 @@
 ;make a new branch in git
 ForceWinFocus("MINGW32", "Contains")
 newBranchName:=Prompt("Give a name for the new branch")
-if NOT currentBranchName
+if NOT newBranchName
    ExitApp
 
 ForceWinFocus("MINGW32", "Contains")

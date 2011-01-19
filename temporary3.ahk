@@ -5,8 +5,8 @@ path=C:\My Dropbox\AHKs\REFP\
 infile=%path%out1.txt
 expectedTransFile=%path%expectedTransactions.txt
 projectionCsv=%path%financialProjection.csv
-currentMonth=12
-currentYear=2010
+currentMonth=01
+currentYear=2011
 
 ;Read in all of the expected transactions
 Loop, Read, %expectedTransFile%
