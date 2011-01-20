@@ -146,8 +146,7 @@ if (Mod(A_Sec, 5)==0)
 thewintitle=NetWorx Notification ahk_class TTimedMessageForm
 IfWinExist, %thewintitle%
 {
-   WinMove, 3070, 0
-   ;WinMove, 3195, 918
+   WinMove, 3564, 0
 }
 ;}}}
 
