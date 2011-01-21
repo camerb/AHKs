@@ -12,7 +12,6 @@ out=C:\My Dropbox\AHKs\gitExempt\mint_export\%date%-processed.csv
 
 REFP(in, re, out)
 ;ExitApp
-SleepMinutes(1)
 
 outFileBase=C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%
 infile:=out
@@ -37,13 +36,11 @@ re =C:\My Dropbox\AHKs\REFP\regex-financial-credit.txt
 out=C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-credit-processed.csv
 REFP(in, re, out)
 
-SleepMinutes(2)
 in =C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-checking.csv
 re =C:\My Dropbox\AHKs\REFP\regex-financial-checking.txt
 out=C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-checking-processed.csv
 REFP(in, re, out)
 
-SleepMinutes(2)
 ;==============BELOW THIS WORKS
 in =C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-credit-processed.csv
 out=C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-credit-graph

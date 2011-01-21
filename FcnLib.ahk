@@ -812,10 +812,13 @@ RunAhkAndBabysit(filename)
 
 ;TODO make an options param for wait and babysit?
 ;can you even wait and babysit at the same time?
-RunAhk(ahkFilename, params="")
+RunAhk(ahkFilename, params="", options="")
 {
    command=AutoHotkey.exe %ahkFilename% %params%
-   Run %command%
+   if InStr(options, "wait")
+      RunWait %command%
+   else
+      Run %command%
 }
 
 ;Run file from program files folder
@@ -1257,7 +1260,7 @@ REFP(inFile="in1.txt", regExFile="regex1.txt", outFile="out1.txt")
    outfile   := EnsureStartsWith(outfile, quote)
 
    params:=concatWithSep(" ", inFile, regExFile, outFile)
-   RunAhk("RegExFileProcessor.ahk", params)
+   RunAhk("RegExFileProcessor.ahk", params, "wait")
 }
 
 ;Ensure that the string given ends with a given char
