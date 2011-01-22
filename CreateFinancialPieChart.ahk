@@ -10,6 +10,9 @@ in =C:\My Dropbox\AHKs\gitExempt\mint_export\%date%.csv
 re =C:\My Dropbox\AHKs\REFP\regex-mint.txt
 out=C:\My Dropbox\AHKs\gitExempt\mint_export\%date%-processed.csv
 
+if NOT FileExist(in)
+   fatalErrord("the infile for creating the pie chart doesn't exist, cannot continue", A_ScriptName)
+
 REFP(in, re, out)
 ;ExitApp
 

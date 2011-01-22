@@ -56,7 +56,7 @@ GetGmailMessageCount(url, prettyName)
    RegExMatch(gmailPage, "<fullcount>(\d+)</fullcount>", gmailPage)
    RegExMatch(gmailPage, "\d+", number)
 
-   if (number == 0)
+   if (number == 0 || number == "")
       return ""
    returned=%prettyName% has %number% new emails`n
    return returned

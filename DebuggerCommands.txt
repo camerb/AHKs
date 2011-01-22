@@ -349,3 +349,11 @@ cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl realpage_household_surve
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl realpage_household_survey_import.pl  "http://dl.dropbox.com/u/789954/CarmelValleyHousehold.xml"}
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl realpage_household_survey_import.pl 10 "http://dl.dropbox.com/u/789954/CarmelValleyHousehold.xml"}
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl realpage_household_survey_import.pl 10 "http://dl.dropbox.com/u/789954/EdwardsMillHouseholdreport.xml"}
+EPMS
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl riverstone.pl C:\import_files\riverstone_prop_2011-01.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl riverstone.pl C:\import_files\riverstone_prop_2011-01.txt > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl avalonbay.pl C:\import_files\avalonbay_2011-01.csv > C:\code\report.txt}
+EPMS
+EPMS
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl avalonbay.pl C:\import_files\avalonbay_2011-01.csv > C:\code\report.txt}
+EPMS

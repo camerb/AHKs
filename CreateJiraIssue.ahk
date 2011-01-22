@@ -8,4 +8,4 @@ project:=Prompt("What project is that issue connected to?`n`n" . title)
 
 var=perl C:\code\Examples\JiraClient.pl `"%project%`" `"%title%`"
 ;debug(CmdRet_RunReturn("perl C:\code\Examples\JiraClient.pl `"FLB`" `"Testing JIRA`:`:Client`""))
-debug("log", CmdRet_RunReturn(var))
+debug("", CmdRet_RunReturn(var))

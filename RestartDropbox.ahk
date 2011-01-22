@@ -4,4 +4,4 @@
 
 Process, Close, Dropbox.exe
 SleepSeconds(5)
-RunProgram("C:\Documents and Settings\Baustian\Application Data\Dropbox\bin\Dropbox.exe")
+RunProgram(A_AppData . "\Dropbox\bin\Dropbox.exe")
