@@ -44,7 +44,7 @@ else if (firstFour == "perl")
 }
 else if (project == "FL")
 {
-   suppressPageReload:=true
+   ;suppressPageReload:=true
    projTitle=American Bench
    projDir=C:\code\bench
    projRun=perl -MCarp::Always -I ..\Mitsi\perl\trunk\lib script\fl_bench_server.pl -d

@@ -36,7 +36,7 @@ else if (A_ComputerName="PHOSPHORUS")
 }
 else if (A_ComputerName="PHOSPHORUSVM")
 {
-   RunAhkAndBabysit("DeleteDropboxCruft")
+   RunAhkAndBabysit("DeleteDropboxCruft.ahk")
    SleepMinutes(30)
    ;RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
    SleepMinutes(5)
@@ -46,5 +46,14 @@ else if (A_ComputerName="PHOSPHORUSVM")
 
 RunAhkAndBabysit("StartIdleAhks.ahk")
 SleepMinutes(1)
+
+;only run these on the work pc
+if (A_ComputerName="PHOSPHORUS")
+{
+   ;this needs a little bit of click-around time
+   RunAhk("LaunchPidgin.ahk")
+   SleepSeconds(30)
+}
+
 
 debug("log grey line", "finished nightly scripts")

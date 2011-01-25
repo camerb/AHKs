@@ -27,12 +27,7 @@ Gui:
    WinMove, %guiTitle%, , , , 200, 200
    Loop
    {
-      entireMessage:=urldownloadtovar("http://dl.dropbox.com/u/789954/remotewidget.txt")
-      if (A_ComputerName == "PHOSPHORUS")
-         entireMessage.=urldownloadtovar("http://dl.dropbox.com/u/789954/remotewidget-livesitemode.txt")
-      entireMessage.=GetGmailMessageCount(CamGmailUrl, "Cameron")
-      if (A_ComputerName != "PHOSPHORUS")
-         entireMessage.=GetGmailMessageCount(MelGmailUrl, "Melinda")
+      entireMessage:=GetWidgetText()
       LV_Delete()
       Loop, parse, entireMessage, `r`n
       {
@@ -43,12 +38,18 @@ Gui:
    }
 Return
 
-;TODO do i really want to do this? -- scope!!!
 ;didn't really need to make this a function
 ; but it was getting a bit congested up there
-;GetWidgetText()
-;{
-;}
+GetWidgetText()
+{
+   returned.=urldownloadtovar("http://dl.dropbox.com/u/789954/remotewidget.txt")
+   if (A_ComputerName == "PHOSPHORUS")
+      returned.=urldownloadtovar("http://dl.dropbox.com/u/789954/remotewidget-livesitemode.txt")
+   returned.=GetGmailMessageCount(CamGmailUrl, "Cameron")
+   if (A_ComputerName != "PHOSPHORUS")
+      returned.=GetGmailMessageCount(MelGmailUrl, "Melinda")
+   return returned
+}
 
 GetGmailMessageCount(url, prettyName)
 {

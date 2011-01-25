@@ -8,12 +8,4 @@ if NOT IsVM()
    RunAhk("IntelliSense2.ahk")
 }
 
-;only run these on the work pc
-if (A_ComputerName="PHOSPHORUS")
-{
-   ;this needs a little bit of click-around time
-   RunAhk("LaunchPidgin.ahk")
-   SleepSeconds(30)
-}
-
 RunAhk("AutoHotkey.ahk")

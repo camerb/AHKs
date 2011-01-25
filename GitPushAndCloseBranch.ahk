@@ -10,3 +10,6 @@ ForceWinFocus("MINGW32", "Contains")
 Send, git status{ENTER}
 Send, git push origin %currentBranchName%{ENTER}
 Send, git branch -m %currentBranchName% pushed/%currentBranchName%{ENTER}
+
+message=The branch origin/%currentBranchName% is ready to move live
+SendEmail("Branch to merge", message, "", "nathan@mitsi.com", "cameronbaustian@gmail.com")

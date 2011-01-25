@@ -357,3 +357,6 @@ EPMS
 EPMS
 cmd 1: {C:\code\epms\script\property_importers}, 2: {perl avalonbay.pl C:\import_files\avalonbay_2011-01.csv > C:\code\report.txt}
 EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
+cmd 1: {C:\code\bench\script\db_scripts}, 2: {perl fix_html_empty_char.pl}
+EPMS

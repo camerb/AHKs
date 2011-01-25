@@ -1249,7 +1249,7 @@ FileMove(source, dest, options="")
 
 ;TODO runwait
 ;RegEx File Processor
-REFP(inFile="in1.txt", regExFile="regex1.txt", outFile="out1.txt")
+REFP(inFile="REFP/in1.txt", regExFile="REFP/regex1.txt", outFile="REFP/out1.txt")
 {
    quote="
    infile    := EnsureEndsWith(infile, quote)
