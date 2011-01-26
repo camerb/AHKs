@@ -1152,7 +1152,7 @@ ConcatWithSep(separator, text0, text1, text2="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", te
    return returned
 }
 
-;figure out if this computer is a VM
+;figure out if this computer is a VM, if no name is passed, it assumes the local machine
 IsVM(ComputerName="")
 {
    if (ComputerName=="")

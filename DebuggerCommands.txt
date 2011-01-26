@@ -360,3 +360,13 @@ EPMS
 FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
 cmd 1: {C:\code\bench\script\db_scripts}, 2: {perl fix_html_empty_char.pl}
 EPMS
+EPMS
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl lincoln.pl}
+cmd 1: {C:\code\epms\script\mail}, 2: {perl send_template.pl}
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl lincoln.pl}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl lincoln.pl}
+cmd 1: {C:\code\epms\script\mail}, 2: {perl send_template.pl}
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl lincoln.pl}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl lincoln.pl}
+cmd 1: {C:\code\epms\script\mail}, 2: {perl send_template.pl}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl lincoln.pl}

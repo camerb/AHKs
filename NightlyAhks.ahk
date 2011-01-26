@@ -4,12 +4,17 @@ debug("log grey line", "starting nightly scripts")
 
 RunAhkAndBabysit("MorningStatus-GatherData.ahk")
 SleepMinutes(1)
-RunAhkAndBabysit("CopyVimSettings.ahk")
-SleepMinutes(1)
 RunAhkAndBabysit("RestartDropbox.ahk")
 SleepMinutes(1)
 RunAhkAndBabysit("UnitTests.ahk")
 SleepMinutes(10)
+
+if NOT IsVM()
+{
+   RunAhkAndBabysit("CopyVimSettings.ahk")
+   SleepMinutes(1)
+}
+
 if (A_ComputerName="BAUSTIAN-09PC")
 {
    RunAhk("SaveChromeBookmarks.ahk")
@@ -21,6 +26,8 @@ if (A_ComputerName="BAUSTIAN-09PC")
 }
 else if (A_ComputerName="PHOSPHORUS")
 {
+   RunAhkAndBabysit("UpdatePerlPackages.ahk")
+   SleepMinutes(1)
    RunAhkAndBabysit("RestartFirefox.ahk")
    SleepMinutes(1)
    RunAhkAndBabysit("UpdatePidginImStatus.ahk")
@@ -47,7 +54,7 @@ else if (A_ComputerName="PHOSPHORUSVM")
 RunAhkAndBabysit("StartIdleAhks.ahk")
 SleepMinutes(1)
 
-;only run these on the work pc
+;only run these on the work pc to start things back up again
 if (A_ComputerName="PHOSPHORUS")
 {
    ;this needs a little bit of click-around time
