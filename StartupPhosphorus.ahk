@@ -24,10 +24,6 @@ Send, ^!2
 ForceWinFocus("GVIM", "Contains")
 Send, ^!2
 
-ForceWinFocus("ahk_class gdkWindowToplevel")
-Sleep, 100
-Send, ^!a
-
 ForceWinFocus("BareTail", "Contains")
 Send, ^!a
 
@@ -55,7 +51,9 @@ Send, {;}
 Send, BookmarkToRoot ahks{ENTER}
 
 debug("Launching Irssi")
+;SleepSeconds(1)
 RunWait, LaunchIrssi.ahk
+;SleepSeconds(1)
 
 ForceWinFocus("ahk_class VMPlayerFrame")
 file=images\vmware\phosphorusVmButton.bmp
@@ -88,6 +86,10 @@ Send, ^!a
 
 debug("Launching Pidgin")
 RunWait, LaunchPidgin.ahk
+
+ForceWinFocus("ahk_class gdkWindowToplevel")
+Sleep, 100
+Send, ^!a
 
 debug("Running ArrangeWindows script for all screens")
 Loop 5
