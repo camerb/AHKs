@@ -7,12 +7,18 @@ vkA7sc169 Browser_Forward  ;(not on home kybd)
 vkAEsc12E ;vol down;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;vkADsc120 ;messenger;;;;
 vkADsc120 ;mute;;;;;;;;;;;;;;;; COLLISIONS ;;;;;;;;;;;;vkAEsc12E ;webcam;;;;;;;
 vkAFsc130 ;vol up;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;vkAFsc130 ;mute;;;;;;;;;
+                                                       vkADsc120 ;mute?????
 vkB3sc122 ;play/pause                                  vkB5sc16D Launch_Media
 vkACsc132 ;web/home                                    vkACsc132 ;my home
 vkAAsc165 Browser_Search                               vkAAsc165 Browser_Search
 vkB4sc16C Launch_Mail                                  vkB4sc16C Launch_Mail
 
 */
+
+;somehow this is the same key at work and home... not understanding why (maybe after reformat)
+SC120::
+SpiffyMute()
+return
 
 ;Kill the AppsKey menu & act like a modifier
 AppsKey:: return

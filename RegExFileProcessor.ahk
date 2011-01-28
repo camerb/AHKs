@@ -1,5 +1,11 @@
 #include FcnLib.ahk
 
+;global commandSuppressCrlf
+;global commandDelMatch
+;global commandNewLine
+;global commandTab
+;global commandSpace
+
 debugCmd=#debug
 commandSuppressCrlf=#suppresscrlf
 commandNewLine=#newline
@@ -83,52 +89,73 @@ Loop %TotalRegExs%
    i=%A_Index%
    Loop, read, %tempfile%
       totalTempLines:=A_Index
+debug()
 
    Loop, read, %tempfile%
    {
       suppressCrlf:=false
       thisTempLineNum:=A_Index
       ;debug("line nums", thistemplinenum, totaltemplines)
-      if (thisTempLineNum == totalTempLines) ;if we're on the last line
-      {
-         ;debug("suppressing", thistemplinenum, totaltemplines)
-         suppressCrlf:=true
-      }
 
+      ;if we're on the last line, suppress the crlf
+      if (thisTempLineNum == totalTempLines)
+         suppressCrlf:=true
+
+      ;determine if this line is a match
       if NOT RegExMatch(A_LoopReadLine, Needle%i%)
          LineToPrint=%A_LoopReadLine%
       else
       {
-         if InStr(Replace%i%, commandDeleteLine)
+         thisReplace := Replace%i%
+         thisNeedle := Needle%i%
+
+         if InStr(thisReplace, commandDeleteLine)
             continue
-         ;debug(Replace%i%)
+         if InStr(thisReplace, commandSuppressCrlf)
+            suppressCrlf:=true
+
+         ;debug(thisReplace)
          ;debug(commandDeleteLine)
 
-         thisReplace:=replace%i%
          ;strip the commands out of the needle and replace strings
+         ;debug(thisneedle, thisreplace)
+         thisReplace:=StripCommands(thisReplace)
+         thisNeedle :=StripCommands(thisNeedle)
          thisReplace:=StringReplace(thisReplace, commandSuppressCrlf)
          thisReplace:=StringReplace(thisReplace, commandDelMatch)
-         thisReplace:=StringReplace(thisReplace, commandNewLine, "`n", 1)
-         thisReplace:=StringReplace(thisReplace, commandTab, "`t")
-         thisReplace:=StringReplace(thisReplace, commandSpace, " ")
+         ;debug(thisneedle, thisreplace)
 
+         ;thisReplace:=StringReplace(thisReplace, commandNewLine, "`n", 1)
+         ;thisReplace:=StringReplace(thisReplace, commandTab, "`t")
+         ;thisReplace:=StringReplace(thisReplace, commandSpace, " ")
 
-         LineToPrint:=RegExReplace(A_LoopReadLine, Needle%i%, thisReplace)
-         if InStr(Replace%i%, commandSuppressCrlf)
-         {
-            ;debug("saw suppress command")
-            suppressCrlf:=true
-         }
+         ;perform the replacement now
+         LineToPrint:=RegExReplace(A_LoopReadLine, thisNeedle, thisReplace)
       }
 
       if NOT suppressCrlf
-      {
-         ;debug("not suppressed")
          LineToPrint.="`n"
-      }
+
       FileAppend, %LineToPrint%, %outfile%
 
       ;debug(i, replace%i%, thisreplace, A_LoopReadLine, Needle%i%)
    }
 }
 
+StripCommands(string)
+{
+   global commandSuppressCrlf
+   global commandDelMatch
+   global commandNewLine
+   global commandTab
+   global commandSpace
+   commandTab=#tab
+
+   ;string:=StringReplace(string, commandSuppressCrlf)
+   ;string:=StringReplace(string, commandDelMatch)
+   string:=StringReplace(string, commandNewLine, "`n", 1)
+   string:=StringReplace(string, commandTab, "`t")
+   string:=StringReplace(string, commandSpace, " ")
+
+   return string
+}

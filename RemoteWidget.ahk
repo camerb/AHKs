@@ -42,6 +42,9 @@ Return
 ; but it was getting a bit congested up there
 GetWidgetText()
 {
+   global CamGmailUrl
+   global MelGmailUrl
+
    returned.=urldownloadtovar("http://dl.dropbox.com/u/789954/remotewidget.txt")
    if (A_ComputerName == "PHOSPHORUS")
       returned.=urldownloadtovar("http://dl.dropbox.com/u/789954/remotewidget-livesitemode.txt")
@@ -56,6 +59,7 @@ GetGmailMessageCount(url, prettyName)
    gmailPage:=urldownloadtovar(url)
    RegExMatch(gmailPage, "<fullcount>(\d+)</fullcount>", gmailPage)
    RegExMatch(gmailPage, "\d+", number)
+   ;number := getXmlElementContents(gmailPage, "fullcount")
 
    if (number == 0 || number == "")
       return ""

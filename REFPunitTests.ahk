@@ -4,7 +4,11 @@
 ;assert("asdf", "asdf`nuiop", "uiop", "simple match")
 ;assert("turkey, duck, chicken", "^(.{3}).* (.*),.*(.{2})$`n$1$2$3", "turducken", "replace with subselect")
 ;assert("asdf`nqsdf`nzsdf", "sdf`nuiop", "auiop`nquiop`nzuiop", "multiline")
-assert("auiop`nquiop`nzuiop", "(quiop)`n$1#suppresscrlf", "auiop`nquiopzuiop", "multiline, suppressCRLF")
+;assert("auiop`nquiop`nzuiop", "(quiop)`n$1#suppresscrlf", "auiop`nquiopzuiop", "multiline, suppressCRLF")
+;assert("hi`njoe`nalfred", "joe`n#delline", "hi`nalfred", "using #delline command")
+
+;assert("hi`njoe`nalfred", "joe`n#elimRowsThatDontMatch", "joe", "using #elimRowsThatDontMatch command")
+assert("1`t2`t3", "#tab`n,", "1,2,3", "convert tsv to csv using #tab")
 
 assert(incontents, recontents, outcontents, description)
 {

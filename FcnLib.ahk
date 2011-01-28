@@ -1291,3 +1291,12 @@ SpiffyMute()
    SoundSet, 1, , mute
    SoundSet, +1, , mute
 }
+
+;TESTME might not work in all situations
+;TODO enable path of xml element instead, like: html.head.title
+getXmlElementContents(xmlPage, nameOfXmlElement)
+{
+   needle=^.*<%nameOfXmlElement%>(.*)</%nameOfXmlElement%>.*$
+   returned := RegExReplace(xmlPage, needle, "$1")
+   return returned
+}
