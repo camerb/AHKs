@@ -183,12 +183,24 @@ else
 {
    InputBox, bookmark, Choose Station, Choose which station you'd like to play
 
+   if (InStr(bookmark, "NPR"))
+   {
+      Run, C:\My Dropbox\Programs\npr.m3u
+      ForceWinFocus("Windows Media Player")
+      WinMinimize, Windows Media Player
+      SleepSeconds(10)
+      WinClose, Windows Media Player
+      return
+   }
+
    if (InStr(bookmark, "Power"))
    {
       Run, http://www.christiannetcast.com/listen/dynamicasx.asp?station=897power-fm
       return
    }
 
+   ;Ok, all other possibilities have been taken care of,
+   ;this has got to be a webpage that we are going to launch
    IfWinNotExist, ahk_class OperaWindowClass
    {
       operaPath:=ProgramFilesDir("\Opera\opera.exe")

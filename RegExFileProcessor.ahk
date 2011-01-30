@@ -89,7 +89,6 @@ Loop %TotalRegExs%
    i=%A_Index%
    Loop, read, %tempfile%
       totalTempLines:=A_Index
-debug()
 
    Loop, read, %tempfile%
    {
