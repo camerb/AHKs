@@ -1,6 +1,8 @@
-Run, "C:\Program Files (x86)\DOSBox-0.73\dosbox.exe"
+#include FcnLib.ahk
+
+RunProgram("C:\Program Files\DOSBox-0.74\dosbox.exe")
 Sleep 3000
-text=mount a "C:\Users\Baustian\Documents\My Dropbox\Programs\AIRBUCKS"
+text=mount a "C:\My Dropbox\Programs\AIRBUCKS"
 Send, %text%
 Sleep 100
 Send, {ENTER}
@@ -14,3 +16,6 @@ Send, {ENTER}
 
 Loop 30
    Send, ^{F12}
+
+SleepSeconds(1)
+debug("use CTRL+F10 to toggle mouse control to outside apps", "hit alt-enter for fullscreen")

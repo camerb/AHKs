@@ -823,8 +823,8 @@ RunAhk(ahkFilename, params="", options="")
 
 ;Run file from program files folder
 ;FIXME Yes, this is crap, but someday it should be in ini files and use some logic
-;and also try the dropbox\programs folder
-;maybe we could have an "ensure one instance" option
+;TODO and also try the dropbox\programs folder
+;TODO maybe we could have an "ensure one instance" option
 RunProgram(path)
 {
    if FileExist(path)
@@ -1300,3 +1300,5 @@ getXmlElementContents(xmlPage, nameOfXmlElement)
    returned := RegExReplace(xmlPage, needle, "$1")
    return returned
 }
+
+

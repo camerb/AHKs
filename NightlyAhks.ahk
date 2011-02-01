@@ -40,6 +40,8 @@ else if (A_ComputerName="PHOSPHORUS")
    SleepMinutes(5)
    RunAhkAndBabysit("CreateFinancialPieChart.ahk")
    SleepMinutes(15)
+   RunAhkAndBabysit("UsaaCheckingBalanceProjection.ahk")
+   SleepMinutes(1)
 }
 else if (A_ComputerName="PHOSPHORUSVM")
 {
