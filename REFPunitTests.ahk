@@ -1,16 +1,24 @@
 #include FcnLib.ahk
 
-;assert("asdf", "jkl`nuiop", "asdf", "no matches")
-;assert("asdf", "asdf`nuiop", "uiop", "simple match")
-;assert("turkey, duck, chicken", "^(.{3}).* (.*),.*(.{2})$`n$1$2$3", "turducken", "replace with subselect")
-;assert("asdf`nqsdf`nzsdf", "sdf`nuiop", "auiop`nquiop`nzuiop", "multiline")
-;assert("auiop`nquiop`nzuiop", "(quiop)`n$1#suppresscrlf", "auiop`nquiopzuiop", "multiline, suppressCRLF")
-;assert("hi`njoe`nalfred", "joe`n#delline", "hi`nalfred", "using #delline command")
+param=%1%
 
-;assert("hi`njoe`nalfred", "joe`n#elimRowsThatDontMatch", "joe", "using #elimRowsThatDontMatch command")
+;completed features
+assert("asdf", "jkl`nuiop", "asdf", "no matches")
+assert("asdf", "asdf`nuiop", "uiop", "simple match")
+assert("turkey, duck, chicken", "^(.{3}).* (.*),.*(.{2})$`n$1$2$3", "turducken", "replace with subselect")
+assert("asdf`nqsdf`nzsdf", "sdf`nuiop", "auiop`nquiop`nzuiop", "multiline")
+assert("auiop`nquiop`nzuiop", "(quiop)`n$1#suppresscrlf", "auiop`nquiopzuiop", "multiline, suppressCRLF")
+assert("hi`njoe`nalfred", "joe`n#delline", "hi`nalfred", "using #delline command")
 assert("1`t2`t3", "#tab`n,", "1,2,3", "convert tsv to csv using #tab")
 
-assert(incontents, recontents, outcontents, description)
+if (param == "completedFeaturesOnly")
+   ExitApp
+
+;unit tests for features that aren't finished yet
+;TODO haven't even put the command in yet
+assert("hi`njoe`nalfred", "joe`n#elimRowsThatDontMatch", "joe", "using #elimRowsThatDontMatch command")
+
+assert(inContents, reContents, outContents, description)
 {
    path=C:\My Dropbox\AHKs\REFP\
    infile=%path%in1.txt

@@ -32,7 +32,8 @@ FileAppendLine(csvline, "gitExempt\morning_status\finance.txt")
 if (SavingsBalance=="" and CheckingBalance=="" and CreditBalance=="")
    die("login attempt completely unsuccessful", A_ScriptName, A_LineNumber, A_ThisFunc)
 
-;End of the script
+ExitApp
+;the end of the script
 
 GetAccountInfo(url)
 {

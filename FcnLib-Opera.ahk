@@ -2,7 +2,6 @@
 
 RunOpera()
 {
-   ;Run opera
    oldPath=C:\Program Files\Opera\opera.exe
    newPath=C:\Program Files (x86)\Opera\opera.exe
    if FileExist(oldPath)
@@ -23,6 +22,8 @@ CloseAllTabs()
       Send, ^w
       Sleep, 100
    }
+   if (WinGetActiveTitle() == "Downloads - Opera")
+      Send, ^w
 }
 
 GoToPage(url)

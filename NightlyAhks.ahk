@@ -6,6 +6,8 @@ RunAhkAndBabysit("MorningStatus-GatherData.ahk")
 SleepMinutes(1)
 RunAhkAndBabysit("RestartDropbox.ahk")
 SleepMinutes(1)
+RunAhk("REFPunitTests.ahk", "completedFeaturesOnly")
+SleepMinutes(5)
 RunAhkAndBabysit("UnitTests.ahk")
 SleepMinutes(10)
 

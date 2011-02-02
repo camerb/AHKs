@@ -6,7 +6,7 @@
 ;global commandTab
 ;global commandSpace
 
-debugCmd=#debug
+commandDebug=#debug
 commandSuppressCrlf=#suppresscrlf
 commandNewLine=#newline
 commandDeleteLine=#delline
@@ -66,30 +66,58 @@ if NOT FileExist(tempfile)
 FileDelete, %outfile%
 FileDelete, %tempfile%
 
+;read in all of the regexs
+i=1
 Loop
 {
-   ReplaceLineNo:=A_Index*2
+   ;i:=A_Index
+   ReplaceLineNo:=i*2
    NeedleLineNo:=ReplaceLineNo-1
-   FileReadLine, Needle%A_Index%, %refile%, %NeedleLineNo%
+   FileReadLine, Needle%i%, %refile%, %NeedleLineNo%
    if ErrorLevel
       break
-   FileReadLine, Replace%A_Index%, %refile%, %ReplaceLineNo%
+   FileReadLine, Replace%i%, %refile%, %ReplaceLineNo%
    if ErrorLevel
       break
+   if (Replace%i% == commandDebug OR Needle%i% == commandDebug)
+      break
+
+   if (Replace%i% = "#elimRowsThatDontMatch")
+   {
+      thisTempNeedle:=Needle%i%
+      Needle%i% =^
+      Replace%i%=ZZZ
+      i++
+      Needle%i% =^(ZZZ\d+,.*%thisTempNeedle%.*)$
+      Replace%i%=AAA$1
+      i++
+      Needle%i% =^ZZZ.*$
+      Replace%i%=#suppresscrlf
+      i++
+      Needle%i% =^AAAZZZ
+      Replace%i%=#delmatch
+      i++
+   }
+
    ;MsgBox, 4, , Line #%A_Index% is "%line%".  Continue?
-   if (Replace%A_Index% == debugCmd OR Needle%A_Index% == debugCmd)
-      break
-   TotalRegExs++
+   TotalRegExs:=i
+   i++
 }
 
+;Get the temp file ready, we'll use it for processing during each loop iter
 FileCopy, %infile%, %tempfile%, 1
+
+;Process the file using each regex, one by one
 Loop %TotalRegExs%
 {
    FileMove, %outfile%, %tempFile%, 1
    i=%A_Index%
+
+   ;TODO put this into a fcn? GetTotalLinesinFile(tempFile)
    Loop, read, %tempfile%
       totalTempLines:=A_Index
 
+   ;process each line from the temp file
    Loop, read, %tempfile%
    {
       suppressCrlf:=false
@@ -100,14 +128,16 @@ Loop %TotalRegExs%
       if (thisTempLineNum == totalTempLines)
          suppressCrlf:=true
 
+      thisReplace := Replace%i%
+      thisNeedle := Needle%i%
+
+      thisNeedle :=StripCommands(thisNeedle)
+
       ;determine if this line is a match
-      if NOT RegExMatch(A_LoopReadLine, Needle%i%)
+      if NOT RegExMatch(A_LoopReadLine, thisNeedle)
          LineToPrint=%A_LoopReadLine%
       else
       {
-         thisReplace := Replace%i%
-         thisNeedle := Needle%i%
-
          if InStr(thisReplace, commandDeleteLine)
             continue
          if InStr(thisReplace, commandSuppressCrlf)
@@ -119,14 +149,9 @@ Loop %TotalRegExs%
          ;strip the commands out of the needle and replace strings
          ;debug(thisneedle, thisreplace)
          thisReplace:=StripCommands(thisReplace)
-         thisNeedle :=StripCommands(thisNeedle)
          thisReplace:=StringReplace(thisReplace, commandSuppressCrlf)
          thisReplace:=StringReplace(thisReplace, commandDelMatch)
          ;debug(thisneedle, thisreplace)
-
-         ;thisReplace:=StringReplace(thisReplace, commandNewLine, "`n", 1)
-         ;thisReplace:=StringReplace(thisReplace, commandTab, "`t")
-         ;thisReplace:=StringReplace(thisReplace, commandSpace, " ")
 
          ;perform the replacement now
          LineToPrint:=RegExReplace(A_LoopReadLine, thisNeedle, thisReplace)
@@ -141,6 +166,9 @@ Loop %TotalRegExs%
    }
 }
 
+ExitApp
+;end of the script
+
 StripCommands(string)
 {
    global commandSuppressCrlf
@@ -148,10 +176,7 @@ StripCommands(string)
    global commandNewLine
    global commandTab
    global commandSpace
-   commandTab=#tab
 
-   ;string:=StringReplace(string, commandSuppressCrlf)
-   ;string:=StringReplace(string, commandDelMatch)
    string:=StringReplace(string, commandNewLine, "`n", 1)
    string:=StringReplace(string, commandTab, "`t")
    string:=StringReplace(string, commandSpace, " ")
