@@ -88,14 +88,14 @@ Loop
       Needle%i% =^
       Replace%i%=ZZZ
       i++
-      Needle%i% =^(ZZZ\d+,.*%thisTempNeedle%.*)$
+      Needle%i% =^(ZZZ.*%thisTempNeedle%.*)$
       Replace%i%=AAA$1
       i++
       Needle%i% =^ZZZ.*$
       Replace%i%=#suppresscrlf
       i++
       Needle%i% =^AAAZZZ
-      Replace%i%=#delmatch
+      Replace%i%=
       i++
    }
 
@@ -110,8 +110,10 @@ FileCopy, %infile%, %tempfile%, 1
 ;Process the file using each regex, one by one
 Loop %TotalRegExs%
 {
-   FileMove, %outfile%, %tempFile%, 1
    i=%A_Index%
+   FileMove, %outfile%, %tempFile%, 1
+
+   AddToTrace(needle%i%, replace%i%)
 
    ;TODO put this into a fcn? GetTotalLinesinFile(tempFile)
    Loop, read, %tempfile%

@@ -10,13 +10,12 @@ assert("asdf`nqsdf`nzsdf", "sdf`nuiop", "auiop`nquiop`nzuiop", "multiline")
 assert("auiop`nquiop`nzuiop", "(quiop)`n$1#suppresscrlf", "auiop`nquiopzuiop", "multiline, suppressCRLF")
 assert("hi`njoe`nalfred", "joe`n#delline", "hi`nalfred", "using #delline command")
 assert("1`t2`t3", "#tab`n,", "1,2,3", "convert tsv to csv using #tab")
+assert("hi`njoe`nalfred", "joe`n#elimRowsThatDontMatch", "joe", "using #elimRowsThatDontMatch command")
 
 if (param == "completedFeaturesOnly")
    ExitApp
 
 ;unit tests for features that aren't finished yet
-;TODO haven't even put the command in yet
-assert("hi`njoe`nalfred", "joe`n#elimRowsThatDontMatch", "joe", "using #elimRowsThatDontMatch command")
 
 assert(inContents, reContents, outContents, description)
 {

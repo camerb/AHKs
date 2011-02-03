@@ -2,12 +2,17 @@
 
 SetTitleMatchMode, 2
 
-Run, C:\Windows\system32\cmd.exe
-;WinWait, cmd.exe
+if (A_ComputerName = "PHOSPHORUS")
+   Send, #4
+else
+   Run, C:\Windows\system32\cmd.exe
+
+CustomTitleMatchMode("RegEx")
+WinWaitActive, (Administrator. Command Prompt|cmd.exe)
+CustomTitleMatchMode("Default")
 Sleep, 500
 SendInput, cd "C:\My Dropbox\Programs\irssi\"{ENTER}
 SendInput, irssi.bat{ENTER}
 Sleep, 500
 WinClose, irssi.bat
 
-;TODO auto sign into channels? or how can i set that up in irssi?

@@ -556,6 +556,9 @@ IsMaximized(title="", text="")
 ;Closes open applications that usually are difficult for windows to shut down (preps for a restart)
 CloseDifficultApps()
 {
+   if ForceWinFocusIfExist("Irssi ahk_class PuTTY")
+      Send, /quit{ENTER}
+
    if ForceWinFocusIfExist("ahk_class VMPlayerFrame")
       Send, {ALT}fx
 
@@ -606,12 +609,6 @@ CloseDifficultApps()
          Process, Close, %pid%
       }
    }
-   Process, WaitClose, ssms.exe, 15
-   Process, Close, ssms.exe
-   Process, WaitClose, vmware-vmx.exe, 15
-   Process, Close, vmware-vmx.exe
-   Process, WaitClose, vmplayer.exe, 15
-   Process, Close, vmplayer.exe
 }
 
 CloseDifficultAppsAllScreens()
@@ -625,6 +622,13 @@ CloseDifficultAppsAllScreens()
       CloseDifficultApps()
       Send, {BROWSER_FORWARD}
    }
+
+   Process, WaitClose, ssms.exe, 15
+   Process, Close, ssms.exe
+   Process, WaitClose, vmware-vmx.exe, 15
+   Process, Close, vmware-vmx.exe
+   Process, WaitClose, vmplayer.exe, 15
+   Process, Close, vmplayer.exe
 }
 
 ;WRITEME

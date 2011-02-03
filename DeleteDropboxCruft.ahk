@@ -13,3 +13,5 @@ Loop, %folderPattern%, 2, 1
 {
    FileRemoveDir, %A_LoopFileFullPath%, 1
 }
+
+
