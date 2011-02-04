@@ -79,7 +79,8 @@ return
 
 ;Run an AHK from the AHKs folder
 AppsKey & k::
-if NOT IsVM()
+Process, Exist, FindAndRunRobot.exe
+if ErrorLevel
 {
    ;use Find and Run Robot, if possible
    Send, {PAUSE}

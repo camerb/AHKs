@@ -35,12 +35,12 @@ checkTheCloud()
    EntireAlgTimer:=starttimer()
    ;if (A_ComputerName="PHOSPHORUS")
    {
+      codefile:=urlDownloadToVar("http://sites.google.com/site/ahkcoedz/remoteahk")
+      last:=urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhk.txt")
       ;while true
       ;{
       ;TODO detect duplicate divs... if so, make the req again
       ;TODO or we could make the req 5 times in a row. if all five weren't identical, we can make the req again
-      codefile:=urlDownloadToVar("http://sites.google.com/site/ahkcoedz/remoteahk")
-      last:=urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhk.txt")
       ;}
 
       originalCode:=codefile

@@ -3,6 +3,8 @@
 SetTitleMatchMode, 2
 
 if (A_ComputerName = "PHOSPHORUS")
+   ;if you already have a console open, this will end up closing that console at the end
+   ;so this works for startup, but not after startup
    Send, #4
 else
    Run, C:\Windows\system32\cmd.exe

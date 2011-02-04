@@ -8,7 +8,6 @@ Run, "C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
 Run, "C:\Program Files (x86)\PostgreSQL\8.4\bin\pgAdmin3.exe"
 Run, "C:\Program Files (x86)\foobar2000\foobar2000.exe"
 Run, "C:\My Dropbox\Programs\baretail.exe"
-Run, "C:\Program Files (x86)\VMware\VMware Player\vmplayer.exe"
 
 ;Sleep, 15000
 
@@ -77,12 +76,18 @@ Send, BookmarkToRoot ahks{ENTER}
 debug("Launching Irssi")
 RunWait, LaunchIrssi.ahk
 
+RunAhk("LaunchVM.ahk")
 ForceWinFocus("ahk_class VMPlayerFrame")
-file=images\vmware\phosphorusVmButton.bmp
-WaitForImageSearch(file)
-ClickIfImageSearch(file)
-Click
+SleepSeconds(2)
+ForceWinFocus("ahk_class VMPlayerFrame")
 Send, ^!5
+
+;ForceWinFocus("ahk_class VMPlayerFrame")
+;file=images\vmware\phosphorusVmButton.bmp
+;WaitForImageSearch(file)
+;ClickIfImageSearch(file)
+;Click
+;Send, ^!5
 
 Sleep, 10000
 

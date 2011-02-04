@@ -560,7 +560,11 @@ CloseDifficultApps()
       Send, /quit{ENTER}
 
    if ForceWinFocusIfExist("ahk_class VMPlayerFrame")
+   {
+      Sleep, 500
+      ForceWinFocus("ahk_class VMPlayerFrame")
       Send, {ALT}fx
+   }
 
    while true
    {
@@ -629,6 +633,7 @@ CloseDifficultAppsAllScreens()
    Process, Close, vmware-vmx.exe
    Process, WaitClose, vmplayer.exe, 15
    Process, Close, vmplayer.exe
+   Process, Close, FindAndRunRobot.exe
 }
 
 ;WRITEME
