@@ -18,7 +18,7 @@ currentYear=2011
 
 infile=C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-checking.csv
 expectedTransFile=%path%expectedTransactions.txt
-projectionCsv=%path%financialProjection.csv
+projectionCsv=C:\My Dropbox\AHKs\gitExempt\financialProjection.csv
 ;projectionCsv=%path%out1.txt
 
 if NOT FileExist(infile)

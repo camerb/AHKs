@@ -35,13 +35,8 @@ checkTheCloud()
    EntireAlgTimer:=starttimer()
    ;if (A_ComputerName="PHOSPHORUS")
    {
-      codefile:=urlDownloadToVar("http://sites.google.com/site/ahkcoedz/remoteahk")
       last:=urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhk.txt")
-      ;while true
-      ;{
-      ;TODO detect duplicate divs... if so, make the req again
-      ;TODO or we could make the req 5 times in a row. if all five weren't identical, we can make the req again
-      ;}
+      codefile:=GetRemoteAHK_wErrorChecking()
 
       originalCode:=codefile
       originalReq:=last
@@ -76,7 +71,7 @@ checkTheCloud()
       if (codefilestripped != lastfilestripped)
       {
          delog("new version detected... going to run it")
-         examineStrs(codefilestripped, lastfilestripped)
+         ;examineStrs(codefilestripped, lastfilestripped)
 
          time:=CurrentTime("hyphenated")
          FileAppend, %originalCode%, C:\My Dropbox\Public\ahkerrors\cloudahk\%time%-original.html
@@ -93,10 +88,55 @@ checkTheCloud()
          dropboxUploadTimer:=starttimer()
          while (originalReq == urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhk.txt"))
             SleepSeconds(1)
-         AddToTrace("Took this long for dropbox to upload:",elapsedtime(dropboxUploadTimer))
+         ;AddToTrace("Took this long for dropbox to upload:",elapsedtime(dropboxUploadTimer))
       }
 
       ;TODO need a fcn that gives local dropbox folder location and remote dropbox folder location
    }
-   AddToTrace("Elapsed Time:",elapsedtime(EntireAlgTimer))
+   ;AddToTrace("Elapsed Time:",elapsedtime(EntireAlgTimer))
+}
+
+GetRemoteAHK_wErrorChecking()
+{
+   ;TODO detect duplicate divs... if so, make the req again
+   ;TODO or we could make the req 5 times in a row. if all five weren't identical, we can make the req again
+      ;if (codefile == urlDownloadToVar("http://sites.google.com/site/ahkcoedz/remoteahk"))
+   while true
+   {
+      ;one := urlDownloadToVar("http://sites.google.com/site/ahkcoedz/remoteahk")
+      ;two := urlDownloadToVar("http://sites.google.com/site/ahkcoedz/remoteahk")
+      ;if (strlen(one) == strlen(two))
+         ;AddToTrace("they are equal")
+      ;else
+         ;AddToTrace("they weren't equal")
+
+      ;sleep 1000
+
+      if (strlen(codefile) == strlen(ReqRemoteAhk()))
+      {
+         ;AddToTrace("they were equal at least once")
+         equalCount++
+         if equalCount >= 3
+         {
+            AddToTrace(strlen(codefile))
+            if (strlen(codefile) <> 15872)
+               delog("orange line", "warning: the length of the codefile wasn't 15872, it was", strlen(codefile))
+            ;AddToTrace("success, they were equal five times")
+            return codefile
+         }
+      }
+      else
+      {
+         codefile:=ReqRemoteAhk()
+         equalCount=0
+         ;AddToTrace("they weren't equal")
+      }
+   }
+}
+
+ReqRemoteAHK()
+{
+   returned := urlDownloadToVar("http://sites.google.com/site/ahkcoedz/remoteahk")
+   ;AddToTrace(strlen(returned))
+   return returned
 }

@@ -386,3 +386,7 @@ cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl realpage_household_surve
 cmd 1: {C:\code\bench\script\db_scripts}, 2: {perl fix_html_empty_char.pl}
 cmd 1: {C:\code\epms\script\property_importers}, 2: {perl lincoln.pl}
 EPMS
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl concord_resident_survey.pl "C:\import_files\concord resident survey.txt"}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl concord_resident_survey.pl "C:\import_files\concord resident data.txt"}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl concord_resident_survey.pl "C:\import_files\concord prospect data.txt"}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl concord_resident_survey.pl "C:\import_files\concord resident data.txt"}
