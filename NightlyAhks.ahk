@@ -30,6 +30,8 @@ else if (A_ComputerName="PHOSPHORUS")
 {
    RunAhkAndBabysit("UpdatePerlPackages.ahk")
    SleepMinutes(1)
+   RunAhk("AddAhkTask.ahk", "copyTasksToFcnLib")
+   SleepMinutes(1)
    RunAhkAndBabysit("RestartFirefox.ahk")
    SleepMinutes(1)
    RunAhkAndBabysit("UpdatePidginImStatus.ahk")
@@ -50,8 +52,6 @@ else if (A_ComputerName="PHOSPHORUSVM")
    RunAhkAndBabysit("DeleteDropboxCruft.ahk")
    SleepMinutes(30)
    ;RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
-   SleepMinutes(5)
-   ;RunAhkAndBabysit("UsaaGetAccountCsvs.ahk")
    SleepMinutes(5)
 }
 

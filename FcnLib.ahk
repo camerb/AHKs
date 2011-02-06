@@ -1221,7 +1221,7 @@ FileAppend(text, file)
 
 FileAppendLine(text, file)
 {
-   text.="`n"
+   text.="`r`n"
    return FileAppend(text, file)
 }
 
@@ -1238,7 +1238,7 @@ FileCopy(source, dest, options="")
 
 FileDelete(file)
 {
-   ;should we even bother returning an error if the file is already gone? i think not... maybe TODO log it
+   ;nothing is wrong if the file is already gone
    if NOT FileExist(file)
       return
 
@@ -1309,5 +1309,10 @@ getXmlElementContents(xmlPage, nameOfXmlElement)
    returned := RegExReplace(xmlPage, needle, "$1")
    return returned
 }
+
+
+
+;WRITEME make function for getting remote and local path of dropbox public folder
+
 
 
