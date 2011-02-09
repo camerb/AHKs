@@ -1318,3 +1318,8 @@ getXmlElementContents(xmlPage, nameOfXmlElement)
 
 
 
+
+
+
+;WRITEME make jira workmorrow post to dropbox public url, not an email
+

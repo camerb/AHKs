@@ -25,6 +25,22 @@ if (A_ComputerName="BAUSTIAN-09PC")
    SleepMinutes(10)
    RunAhk("PushToGit.ahk")
    SleepMinutes(3)
+
+   ;tasks that should be performed on phosphorus
+   ;unless if the screen is not accessible
+   ;  (last logged in via VPN and Windows logged physCompy out)
+   ;  we can tell this if a screenshot saved is only half size
+   ;  or possibly just check A_ScreenWidth
+   RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
+   SleepMinutes(5)
+   ;RunAhkAndBabysit("UsaaGetAccountCsvs.ahk")
+   SleepMinutes(5)
+   RunAhkAndBabysit("MintGetAccountCsvs.ahk")
+   SleepMinutes(5)
+   RunAhkAndBabysit("CreateFinancialPieChart.ahk")
+   SleepMinutes(15)
+   RunAhkAndBabysit("UsaaCheckingBalanceProjection.ahk")
+   SleepMinutes(1)
 }
 else if (A_ComputerName="PHOSPHORUS")
 {
@@ -35,16 +51,6 @@ else if (A_ComputerName="PHOSPHORUS")
    RunAhkAndBabysit("RestartFirefox.ahk")
    SleepMinutes(1)
    RunAhkAndBabysit("UpdatePidginImStatus.ahk")
-   SleepMinutes(1)
-   RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
-   SleepMinutes(5)
-   ;RunAhkAndBabysit("UsaaGetAccountCsvs.ahk")
-   SleepMinutes(5)
-   RunAhkAndBabysit("MintGetAccountCsvs.ahk")
-   SleepMinutes(5)
-   RunAhkAndBabysit("CreateFinancialPieChart.ahk")
-   SleepMinutes(15)
-   RunAhkAndBabysit("UsaaCheckingBalanceProjection.ahk")
    SleepMinutes(1)
 }
 else if (A_ComputerName="PHOSPHORUSVM")
@@ -65,6 +71,5 @@ if (A_ComputerName="PHOSPHORUS")
    RunAhk("LaunchPidgin.ahk")
    SleepSeconds(30)
 }
-
 
 debug("log grey line", "finished nightly scripts")

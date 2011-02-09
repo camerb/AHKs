@@ -199,6 +199,8 @@ if ForceWinFocusIfExist("Ellis Partners in Mystery Shopping: Customer Interface 
    Click(173, 376, "Control")
    Sleep, 500
    Click(173, 385, "Control")
+   Sleep, 500
+   Click(260, 280, "Control")
    ExitApp
 }
 if ForceWinFocusIfExist(ffWindow, "RegEx")

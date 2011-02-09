@@ -6,8 +6,11 @@ SoundSet, 30
 
 WinWaitActive, , NR2003
 Sleep, 100
+WaitForImageSearch("images/smsLobby/NascarSimWorld.bmp")
+ClickIfImageSearch("images/smsLobby/NascarSimWorld.bmp")
+Sleep, 100
 MouseClick, left,  502,  79
 Send, race
+Sleep, 100
 
-ClickIfImageSearch("images/smsLobby/NascarSimWorld.bmp")
 Click(935, 110)

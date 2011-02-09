@@ -6,11 +6,11 @@ Persist:
 SetTitleMatchMode, 1
 
 ;{{{Middle of the night unit tests, backups, and reload script
-if (A_Hour==3 AND A_Min==0)
+if (A_Hour==3 AND A_Min==2)
 {
    SpiffyMute()
 
-   SleepMinutes(2)
+   SleepSeconds(5)
    debug("reloading script")
    ;let's try for something that is a bit stiffer
    Run, ForceReloadAll.exe
@@ -18,7 +18,6 @@ if (A_Hour==3 AND A_Min==0)
 if (A_Hour==3 AND A_Min==5)
 {
    RunAhk("NightlyAhks.ahk")
-   SleepMinutes(2)
 }
 ;}}}
 
