@@ -1323,3 +1323,6 @@ getXmlElementContents(xmlPage, nameOfXmlElement)
 
 ;WRITEME make jira workmorrow post to dropbox public url, not an email
 
+
+;WRITEME hotkey that moves windows to 10, 10 so that I can see them while VPNed (some are trapped on the other screen)
+

@@ -34,4 +34,5 @@ while true
 ;}
 
 ;debug("about to run main ahk files again")
-RunAhk("StartIdleAhks.ahk")
+;RunAhk("""C:\My Dropbox\AHKs\StartIdleAhks.ahk""", )
+Run, C:\My Dropbox\AHKs\StartIdleAhks.ahk, C:\My Dropbox\AHKs

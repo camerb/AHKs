@@ -1,0 +1,155 @@
++ added
+* changed
+- deleted
+! bug fixed
+
+v1.1.8 - 2011-02-09
+    + Passing in a CSV or TSV/TXT file via the commandline is now supported. 
+      (Thanks, camerb)
+
+v1.1.7 - 2011-02-09
+    ! Fixed a small graphical glitch with the enable filter checkbox.
+
+v1.1.6 - 2011-02-04
+    * Changed how the clipboard-copy delimiter information is entered.  Please
+      use the help button to see how the tokens work.  If you had spaces or tabs
+      in your string, you will have to change it.
+
+v1.1.5 - 2011-02-02
+    + Snap DB is now Unicode capable.  Notes:
+        # This version is supported by WinXP and up.  Older operating systems
+          will need to use the SnapDB_ANSI.exe file instead.
+        # Database files are read and written in UTF-8 format.
+    + Added Ctrl-Shift-O hotkey for opening the Options dialog.
+    * Changed the clipboard-copy delimiter to allow more than just one
+      character.  (Thanks, Winkie)
+    ! Fixed GUI glitches with Add/Update/Insert and Options dialogs.  (Thanks,
+      Winkie)
+
+v1.1.4 - 2011-02-01
+    * Improved the matching logic when using the 'Run' buttons.  (Thanks,
+      Winkie)
+
+v1.1.3 - 2011-02-01
+    + Added 'Run' and 'Clipboard' buttons to the Add/Update/Insert dialog.  The
+      'Run' feature will attempt to execute data that meet the following
+      criteria:
+        # A file or folder e.g.: c:\path\to\my.exe, c:\path\to\image.png
+        # A URI/URL with "://" in it e.g. http://www.site.com
+        # 'mailto:' links e.g. mailto:skwire@dcmembers.com
+    + Added row-copying capabilities.  You can set a custom delimiter to use
+      under Options.  There are three ways to invoke this feature:
+        # Edit menu.
+        # Ctrl-C hotkey.
+        # Toolbar button.
+    + Added Ctrl-V hotkey to paste in a tab-delimited block.  This will allow
+      you to copy rows with Ctrl-C and paste them in directly so long as you
+      have 'Tab' set for the delimiter to use when copying rows (under Options).
+    + Added 'Duplicate record' toolbar button.  (Thanks, Winkie)
+    + Added "Sum columns" feature and toolbar button.  This feature will attempt
+      to sum any columns containing numbers.  It will ADD two extra
+      lines/records at the end of the list with the totals.  YOU are
+      responsilble for deleting these lines or keeping them by saving.  If
+      present, these new lines/records are considered in the next invocation of
+      the 'Sum columns' feature.  In other words, Snap DB has no idea if those
+      records are totals or regular data.  (Thanks, Beth UK)
+    * Add/Update/Insert fields will now appear in the same order as the columns.
+      (Thanks, Winkie)
+    * Changed 'Options' toolbar icon.
+    ! Duplicating a record now sets modified state to true.
+    ! If you closed out of an Update window, you could no longer insert records.
+    ! Stale data was kept after closing out of an Add/Update/Insert window. 
+      (Thanks, Winkie)
+    ! Filter drop-down list no longer resets when updating records, only when
+      adding or deleting a column.  (Thanks, alexsan01)
+
+v1.1.2 - 2011-01-28
+    + Column orders are now saved per database.
+    + "Convert row data to header names" added to the Edit menu.  This is useful
+      after importing a CSV file.
+    + Added custom CSV delimiter option under the Options dialog.  (Thanks,
+      DeVamp)
+    + Added "Import" toolbar button.
+    + Added "Options" toolbar button.
+    + CSV exports should be more adherent to the CSV standard with regards to
+      double-quotes and commas within the data bits.
+    + The column order for CSV exports didn't match up with the listview column
+      order.  (Thanks, bob99)
+    + Closing and saving a Snap DB database while in filter mode, and with a
+      modified database, would result in Snap DB erroneously saving the filtered
+      data view instead of the full, changed database.  (Thanks, TalksToPCs)
+
+v1.1.1 - 2011-01-14
+    + Added an "Edit record" menu item.  Also, the F2 hotkey will invoke this.
+      (Thanks, Nikita)
+    + Added a "Duplicate record" menu item.  Also, the F5 hotkey will invoke
+      this. (Thanks, TalksToPCs)
+
+v1.0.9 - 2011-01-12
+    + Added "Append column" toolbar button.
+    * Due to some screwy listview bugs, I changed the "Insert column
+      before/after" menu items to a single "Append column" item.  This will add
+      a column to the end of your current columns.  Once added, simply drag the
+      column to the position you want.
+
+v1.0.8 - 2011-01-12
+    + Dropping CSV & TSV/TXT files on the list now works.  (Thanks, Stoic Joker)
+    + Double-clicking a "non-row" area in the listview will trigger the "Add
+      Record" dialog.  This is the area below the last record in the list. 
+      (Thanks, Beth UK)
+    + Added a "Sum column" option to the listview header menu.  This will
+      attempt to sum any numbers found in the column, display the total and
+      offer to copy the total to the user's clipboard.  (Thanks, Beth UK)
+    * Improved the CSV/TSV/TXT import to automatically add new columns if
+      needed. This applies to the pasting in of tab-delimited data as well.
+
+v1.0.7 - 2011-01-12
+    + Made the add/update/insert button default when adding a record so you can
+      press Enter instead of having to click it.  (Thanks, Nikita)
+
+v1.0.6 - 2011-01-11
+    + The listview font face, style and color are now configurable under the
+      'View > Options' dialog.
+    + Made the "Load last database" feature an option under View > Options.
+    + Option to keep a .bak backup after saving a database.  (Thanks, mouser)
+
+v1.0.5 - 2011-01-10
+    * Made Snap DB's save routine more robust and fault-tolerant.  (Thanks,
+      mouser)
+    * You can now pass .snp files to the SnapDB.exe and it will load them.
+    * Snap DB now allows multiple instances of the viewer to run.
+    + If the Last_File value is invalid, SnapDB will still automatically load
+      the first .snp file found in the the SnapDB.exe folder.  (Thanks
+      alexsan01)
+
+v1.0.4 - 2011-01-10
+    + Added an extra choice in the Filter dropdown called "Any column."  This
+      will allow you filter using a string that matches any column.
+    + Added ability to save chosen filter per-database.  This means, to make use
+      of this feature, you will need to set the filter and then save the
+      database file on each database you wish to use this on.  (Thanks,
+      alexsan01)
+    + Added ctrl-f hotkey to toggle Filter mode.  (Thanks, mouser)
+    + Added View > Filter mode menu option.
+
+v1.0.3 - 2011-01-07
+    + Added tab-delimited text file import.
+    + Added CSV file import.
+    + Added ability to paste in tab-delimited data directly from the "Edit"
+      menu.
+    ! Last saved file didn't work from the "Recent" menu.
+
+v1.0.2 - 2010-12-28
+    + Last loaded database is automatically loaded after application startup.
+    + Snap DB will automatically load an .snp file if both of the following are
+      true:
+        1) No config.ini file is present.
+        2) There is a .snp file in the same folder as the SnapDB.exe file.
+    + This allows you to bundle the SnapDB.exe file and a .snp database file
+      together for easy viewing.  (Thanks, mouser) 
+
+v1.0.1 - 2010-12-28
+    ! Fixed toolbar glyph issue under Windows 7.  (Thanks, mouser)
+
+v1.0.0 - 2010-12-26
+    + First release.

@@ -16,6 +16,7 @@ Loop, read, DebuggerCommands.txt
 ;{{{ Set some variables depending upon what mode we are in (project, refresh server, live/not)
 ;find out if we are in the mode to refresh the server
 refreshServerMode:=GetKeyState("ScrollLock", "T")=="D"
+refreshServerMode:=true
 
 ;find out if we're in live site mode
 FileRead, filecontents, C:\code\bench\fl_bench.json
@@ -189,17 +190,22 @@ Run, RefreshIfProblemLoadingPage.ahk
 ;{{{ Refresh if we're using firefox
 if ForceWinFocusIfExist("Ellis Partners in Mystery Shopping: Customer Interface - Mozilla Firefox", "Exact")
 {
-   ;This section is for testing out EPMS Customer Interface (Survey Graphing)
-   Click(13,13)
-   if ClickIfImageSearch("images\firebug\phosphorusAddress.bmp", "Control") || ClickIfImageSearch("images\firebug\phosphorusAddressHighlighted.bmp", "Control")
+   ;This section is for testing out EPMS Customer Interface (Initially for Survey Graphing / Reporting)
+   Sleep, 500
+   Click(50,13)
+   SysGet, MonitorCount, MonitorCount
+   if (MonitorCount = 1)
       ClickIfImageSearch("images\firebug\reloadButton.bmp")
-   SleepSeconds(8)
+   if (MonitorCount = 2)
+      if ClickIfImageSearch("images\firebug\phosphorusAddress.bmp", "Control") || ClickIfImageSearch("images\firebug\phosphorusAddressHighlighted.bmp", "Control")
+         ClickIfImageSearch("images\firebug\reloadButton.bmp")
+   SleepSeconds(7)
    Click(173, 352, "Control")
-   Sleep, 500
+   Sleep, 700
    Click(173, 376, "Control")
-   Sleep, 500
+   Sleep, 700
    Click(173, 385, "Control")
-   Sleep, 500
+   Sleep, 700
    Click(260, 280, "Control")
    ExitApp
 }

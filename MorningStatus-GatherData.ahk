@@ -15,7 +15,8 @@ if (A_ComputerName = "PHOSPHORUS")
    message=Dropbox: %dropboxSize% of 3 GB used
    FileAppendLine(message, filename)
 
-   message=The screen width on Phos is %A_ScreenWidth%. If less than 2000, the compy is probably locked from a recent VPN access.
+   SysGet, MonitorCount, MonitorCount
+   message=The monitor count on Phos is %MonitorCount%
    FileAppendLine(message, filename)
 }
 
