@@ -2,6 +2,8 @@
 
 A_Debug:=true
 
+;TODO exitapp if we are re-logging in (instead of booting up)
+
 ;Run, %windir%\system32\cmd.exe
 Run, "C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
 ;Run, "C:\Program Files (x86)\Opera\opera.exe"
@@ -34,30 +36,6 @@ Send, ^!a
 ;SendInput, http://www.last.fm/listen/user/cameronbaustian/personal{ENTER}
 ;Sleep, 100
 ;WinMinimize
-
-debug("ensuring sidebar is in correct location")
-WinGetPos, xPos, no, no, winHeight, ahk_class SideBarWndv10
-;debug(xpos, winheight)
-if (xPos < 2500)
-{
-   ;debug()
-   WinActivate, ahk_class SideBarWndv10
-   Click(20, winHeight - 20, "Right")
-   Sleep, 100
-   Send, {DOWN 2}{ENTER}
-
-   WinWaitActive, Options
-   ;ForceWinFocus("Options")
-   MouseClick, left,  95,  41
-   Sleep, 100
-   MouseClick, left,  390,  249
-   Sleep, 100
-   MouseClick, left,  401,  279
-   Sleep, 100
-   MouseClick, left,  239,  553
-   Sleep, 100
-   ;debug()
-}
 
 ForceWinFocus("pgAdmin III ahk_class wxWindowClassNR", "Contains")
 Sleep, 100
@@ -117,6 +95,30 @@ RunWait, LaunchPidgin.ahk
 ForceWinFocus("ahk_class gdkWindowToplevel")
 Sleep, 100
 Send, ^!a
+
+debug("ensuring sidebar is in correct location")
+WinGetPos, xPos, no, no, winHeight, ahk_class SideBarWndv10
+;debug(xpos, winheight)
+if (xPos < 2500)
+{
+   ;debug()
+   WinActivate, ahk_class SideBarWndv10
+   Click(20, winHeight - 20, "Right")
+   Sleep, 100
+   Send, {DOWN 2}{ENTER}
+
+   WinWaitActive, Options
+   ;ForceWinFocus("Options")
+   MouseClick, left,  95,  41
+   Sleep, 100
+   MouseClick, left,  390,  249
+   Sleep, 100
+   MouseClick, left,  401,  279
+   Sleep, 100
+   MouseClick, left,  239,  553
+   Sleep, 100
+   ;debug()
+}
 
 debug("Running ArrangeWindows script for all screens")
 Loop 5

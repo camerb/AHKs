@@ -394,3 +394,7 @@ cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl concord_resident_survey.
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl concord_prospect_survey.pl "C:\import_files\concord prospect data.txt"}
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl concord_resident_survey.pl "C:\import_files\concord resident data.txt"}
 EPMS
+cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
+cmd 1: {C:\code\epms\script\survey}, 2: {perl generate_correct_propids.pl}
+cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
+EPMS

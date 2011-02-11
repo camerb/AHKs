@@ -1326,3 +1326,5 @@ getXmlElementContents(xmlPage, nameOfXmlElement)
 
 ;WRITEME hotkey that moves windows to 10, 10 so that I can see them while VPNed (some are trapped on the other screen)
 
+
+

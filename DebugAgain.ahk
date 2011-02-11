@@ -15,8 +15,12 @@ Loop, read, DebuggerCommands.txt
 
 ;{{{ Set some variables depending upon what mode we are in (project, refresh server, live/not)
 ;find out if we are in the mode to refresh the server
+SysGet, MonitorCount, MonitorCount
 refreshServerMode:=GetKeyState("ScrollLock", "T")=="D"
-refreshServerMode:=true
+
+;if we're VPNing, we don't have access to the keyboard, so just always refresh the server
+if (MonitorCount = 1)
+   refreshServerMode:=true
 
 ;find out if we're in live site mode
 FileRead, filecontents, C:\code\bench\fl_bench.json
@@ -72,7 +76,6 @@ else
 
 allWindow=Forms|Parts|Bench|Server|EPMS|Home|xds|phosphorus
 ffWindow=%projTitle% - Mozilla Firefox ahk_class MozillaUIWindowClass
-;ffWindow=ahk_class MozillaUIWindowClass
 ieWindow=%projTitle% - Windows Internet Explorer ahk_class IEFrame
 ;}}}
 
@@ -193,7 +196,6 @@ if ForceWinFocusIfExist("Ellis Partners in Mystery Shopping: Customer Interface 
    ;This section is for testing out EPMS Customer Interface (Initially for Survey Graphing / Reporting)
    Sleep, 500
    Click(50,13)
-   SysGet, MonitorCount, MonitorCount
    if (MonitorCount = 1)
       ClickIfImageSearch("images\firebug\reloadButton.bmp")
    if (MonitorCount = 2)

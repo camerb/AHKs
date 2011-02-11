@@ -11,6 +11,7 @@ Click(45, 145)
 Send, {PGDN 50}
 MedSleep()
 ClickIfImageSearch("images\mint\exportAllTransactions.bmp")
+ClickIfImageSearch("images\mint\exportAllTransactionsXP.bmp")
 
 LongSleep()
 if NOT ForceWinFocusIfExist("Save As", "Exact")
@@ -25,7 +26,10 @@ Send, {ENTER}
 
 ;close the window
 LongSleep()
-WinClose
+LongSleep()
+LongSleep()
+CustomTitleMatchMode("RegEx")
+WinClose, Mint.com.*Opera
 ExitApp
 
 mintLogin()
