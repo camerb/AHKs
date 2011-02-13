@@ -12,9 +12,9 @@ if ForceWinFocusIfExist("out1.*OpenOffice.org", "RegEx")
 A_Quote="
 date := currenttime("hyphendate")
 path=C:\My Dropbox\AHKs\REFP\
-currentMonth=01
-currentMonthNoZero=1
-currentYear=2011
+currentMonth:=CurrentTime("MM")
+currentMonthNoZero:=CurrentTime("M")
+currentYear:=CurrentTime("yyyy")
 
 infile=C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-checking.csv
 expectedTransFile=%path%expectedTransactions.txt

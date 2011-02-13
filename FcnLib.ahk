@@ -426,31 +426,43 @@ CloseWindowGracefully(title, text="", xClickToClose="", yClickToClose="")
 
 ;TODO enable slashes or colons?
 ;Gets the current time (unique, increasing)
-CurrentTime(hyphenated=false, options="")
+; pass in a FormatTime-style string to customize your format
+; or use one of the custom styles already thought up like hyphendate and slashdate
+CurrentTime(options="")
 {
 ;use flags
 ;   date time datetime
 ;   separator
 ;   ordering? YYYYMMDD or MMDDYYYY
-   if InStr(hyphenated, "hyphen")
+   if InStr(options, "hyphen")
       hyphen:=true
-   if InStr(hyphenated, "slash")
+   if InStr(options, "slash")
       slash:=true
-   if InStr(hyphenated, "colons")
+   if InStr(options, "colons")
       colon:=true
-   if InStr(hyphenated, "date")
+   if InStr(options, "date")
       date:=true
-   if InStr(hyphenated, "time")
+   if InStr(options, "time")
+      time:=true
+   if InStr(options, "zeropad")
+      zeropad:=true
+   if InStr(options, "year")
+      month:=true
+   if InStr(options, "month")
       time:=true
 
    if InStr(options, "slashdate")
       FormatTime, returned,, MM/dd/yyyy
    else if InStr(options, "hyphenated")
       FormatTime, returned,, yyyy-MM-dd_HH-mm-ss
-   else if InStr(hyphenated, "hyphendate")
+   else if InStr(options, "hyphendate")
       FormatTime, returned,, yyyy-MM-dd
-   else if (hyphenated)
-      FormatTime, returned,, yyyy-MM-dd_HH-mm-ss
+   else if InStr(options, "month")
+      FormatTime, returned,, MM
+   else if InStr(options, "year")
+      FormatTime, returned,, yyyy
+   else if options
+      FormatTime, returned,, %options%
    else
       FormatTime, returned,, yyyyMMddHHmmss
 
@@ -1327,4 +1339,7 @@ getXmlElementContents(xmlPage, nameOfXmlElement)
 ;WRITEME hotkey that moves windows to 10, 10 so that I can see them while VPNed (some are trapped on the other screen)
 
 
+
+
+;WRITEME split csv processing out of the create pie chart macro
 

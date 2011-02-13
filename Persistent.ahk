@@ -78,9 +78,94 @@ if (Mod(A_Min, 15)==0 && A_Sec==0)
 ;}}}
 
 ;{{{Check to see if we scheduled an ahk from the cloud
-if (Mod(A_Sec, 15)==0)
+if (Mod(A_Sec, 15)==0) ; AND A_ComputerName = "PHOSPHORUS")
 {
-;not ready for primetime
+   dry_run := false
+   EntireAlgTimer:=starttimer()
+
+   ;last:=urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhk.txt")
+   ;lastVersion:=urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhkVersion.txt")
+   ;codefile:=GetRemoteAHK_wErrorChecking()
+   ;while true
+   ;{
+      codefile:=urlDownloadToVar("http://sites.google.com/site/ahkcoedz/remoteahk")
+      version:=RegExReplace(codefile, "(`r|`n)", "ZZZnewlineZZZ")
+      RegExMatch(version, "\#version.*?\#version", version)
+      version:=RegExReplace(version, "\#version", "")
+      version:=RegExReplace(version, " ", "")
+      if ((NOT version) OR strlen(version) > 10)
+      {
+         ;delog("yellow line", "the version name/number seems incorrect", version)
+      }
+      else if (version != urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhkVersion.txt"))
+      {
+         delog("purple line", "detected a change in version number", lastversion, version)
+
+         FileDelete("C:\My Dropbox\Public\latestCloudAhkVersion.txt")
+         FileAppend(version, "C:\My Dropbox\Public\latestCloudAhkVersion.txt")
+
+   delog("broke out of loop")
+
+   originalCode:=codefile
+   ;originalReq:=last
+
+   ;give us just the section that we want
+   codefile:=RegExReplace(codefile, "(`r|`n)", "ZZZnewlineZZZ")
+   RegExMatch(codefile, "sites-layout-name-one-column.*?tbody...table", codefile)
+   codefile:=RegExReplace(codefile, "ZZZnewlineZZZ", "`n`n`n")
+
+   ;get rid of some of the html
+   codefile:=RegExReplace(codefile, "\<div.*?\>", "`n")
+   codefile:=RegExReplace(codefile, "\<.*?\>", "")
+   codefile:=RegExReplace(codefile, "^.*?\>", "")
+   codefile:=RegExReplace(codefile, "\<.*?$", "")
+   codefile:=StringReplace(codefile, chr(194), "", "All")
+   codefile:=StringReplace(codefile, chr(160), "", "All")
+
+   ;odd that this shows up (they put it in multiple spots)
+   codefile:=RegExReplace(codefile, "remoteahk\n", "")
+
+   ;translate from html to regular
+   codefile:=RegExReplace(codefile, "&lt;", "<")
+   codefile:=RegExReplace(codefile, "&gt;", ">")
+
+   ;codefile:=StringReplace(codefile, chr(194), "", "All")
+   ;last:=StringReplace(last, chr(194), "", "All")
+
+   codefile:=RegExReplace(codefile, "(`r|`n|`r`n)", "`n")
+   last:=RegExReplace(last, "(`r|`n|`r`n)", "`n")
+   codefile:=RegExReplace(codefile, "`n+", "`n")
+   ;debug(codefile, "zzz", last)
+   ;errord("nolog", codefile)
+
+   stripExpr:="[^!@#$%^&*(){}a-zA-Z0-9 \r\n]"
+   stripExpr:="\n+"
+   replExpr:="`n"
+   codefile:=RegExReplace(codefile, stripExpr, replExpr)
+   ;lastfilestripped:=RegExReplace(last, stripExpr, replExpr)
+
+   delog("done with transformations")
+
+   ;examineStrs(codefilestripped, lastfilestripped)
+
+   ;time:=CurrentTime("hyphenated")
+   ;FileAppend, %originalCode%, C:\My Dropbox\Public\ahkerrors\cloudahk\%time%-original.html
+   ;FileAppend, %codefile%, C:\My Dropbox\Public\ahkerrors\cloudahk\%time%-processed.ahk
+
+   ;FileDelete, C:\My Dropbox\Public\latestCloudAhk.txt
+   ;FileAppend, %codefile%, C:\My Dropbox\Public\latestCloudAhk.txt
+   timestamp := CurrentTime()
+   filename=C:\My Dropbox\AHKs\scheduled\%A_ComputerName%\%timestamp%.ahk
+   if NOT dry_run
+      FileAppend, %codefile%, %filename%
+   RunAhkAndBabysit(filename)
+   Sleep, 2000
+   FileDelete(filename)
+
+   }
+   ;TODO need a fcn that gives local dropbox folder location and remote dropbox folder location
+
+   ;delog("Elapsed Time:",elapsedtime(EntireAlgTimer))
 }
 ;}}}
 

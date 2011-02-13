@@ -14,7 +14,7 @@ returned .= "5 days:`n" . CmdRet_RunReturn( command . " -5d" ) . "`n`n"
 ;debug(returned)
 ;ExitApp
 
-date:=CurrentTime("", "slashdate")
+date:=CurrentTime("slashdate")
 subj=Minutes for %date%
 ;debug(subj)
 SendEmail(subj, returned)

@@ -31,6 +31,7 @@ if (A_ComputerName="BAUSTIAN-09PC")
    ;  (last logged in via VPN and Windows logged physCompy out)
    ;  we can tell this if a screenshot saved is only half size
    ;  or possibly just check A_ScreenWidth
+   ;if A_ComputerName = LeadCompy()
    RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
    SleepMinutes(5)
    ;RunAhkAndBabysit("UsaaGetAccountCsvs.ahk")

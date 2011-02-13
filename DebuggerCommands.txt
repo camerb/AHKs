@@ -398,3 +398,5 @@ cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
 cmd 1: {C:\code\epms\script\survey}, 2: {perl generate_correct_propids.pl}
 cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
 EPMS
+EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );

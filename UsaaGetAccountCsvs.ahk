@@ -4,7 +4,7 @@
 usaalogin()
 
 time:=CurrentTime("hyphenated")
-date:=CurrentTime("", "slashdate")
+date:=CurrentTime("slashdate")
 
 SaveAccountTransactions("savings", time)
 SaveAccountTransactions("checking", time)
@@ -19,7 +19,7 @@ ExitApp
 
 SaveAccountTransactions(account, time)
 {
-   date:=CurrentTime("", "slashdate")
+   date:=CurrentTime("slashdate")
 
    LongSleep()
    csvfilename=C:\My Dropbox\AHKs\gitExempt\usaa_export\usaa_%Account%_%time%.csv

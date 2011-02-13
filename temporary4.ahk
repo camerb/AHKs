@@ -3,7 +3,7 @@
 ;try to run a cloud ahk
 
 ;DeleteTraceFile()
-delog("grey line    restarted cloud checker")
+addtotrace("grey line    restarted cloud checker")
 
 while true
 {
@@ -32,7 +32,7 @@ examineStrs(str1, str2)
 
 checkTheCloud()
 {
-   dry_run := true
+   dry_run := false
    EntireAlgTimer:=starttimer()
 
    last:=urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhk.txt")
@@ -40,25 +40,25 @@ checkTheCloud()
    ;codefile:=GetRemoteAHK_wErrorChecking()
    while true
    {
-      codefile:=ReqRemoteAHK()
+      codefile:=urlDownloadToVar("http://sites.google.com/site/ahkcoedz/remoteahk")
       version:=RegExReplace(codefile, "(`r|`n)", "ZZZnewlineZZZ")
       RegExMatch(version, "\#version.*?\#version", version)
       version:=RegExReplace(version, "\#version", "")
       version:=RegExReplace(version, " ", "")
-      ;AddToTrace(version)
       if ((NOT version) OR strlen(version) > 10)
       {
-         delog("yellow line", "the version name/number seems incorrect", version)
+         ;AddToTrace("yellow line", "the version name/number seems incorrect", version)
       }
       else if (version != urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhkVersion.txt"))
       {
-         delog("purple line", "detected a change in version number", lastversion, version)
+         AddToTrace("purple line", "detected a change in version number", lastversion, version)
 
          FileDelete("C:\My Dropbox\Public\latestCloudAhkVersion.txt")
          FileAppend(version, "C:\My Dropbox\Public\latestCloudAhkVersion.txt")
-         ;break;someday when this seems to work
+         break ;someday when this seems to work
       }
    }
+   addtotrace("broke out of loop")
 
    originalCode:=codefile
    originalReq:=last
@@ -90,9 +90,11 @@ checkTheCloud()
    codefilestripped:=RegExReplace(codefile, stripExpr, replExpr)
    lastfilestripped:=RegExReplace(last, stripExpr, replExpr)
 
-   if (codefilestripped != lastfilestripped)
-   {
-      delog("new version detected... going to run it")
+   addtotrace("done with transformations")
+
+   ;if (codefilestripped != lastfilestripped)
+   ;{
+      addtotrace("new version detected... going to run it")
       ;examineStrs(codefilestripped, lastfilestripped)
 
       time:=CurrentTime("hyphenated")
@@ -103,7 +105,7 @@ checkTheCloud()
       FileAppend, %codefile%, C:\My Dropbox\Public\latestCloudAhk.txt
       timestamp := CurrentTime()
       if NOT dry_run
-         FileAppend, %codefile%, C:\My Dropbox\AHKs\scheduled\phosphorus\%timestamp%.ahk
+         FileAppend, %codefile%, C:\My Dropbox\AHKs\scheduled\%A_ComputerName%\%timestamp%.ahk
 
       ;need to sleep and let dropbox load the new version of the file to the server
       ;TODO 20 s was not enough (sheesh)... should we ping the hell out of it to see if it has changed?
@@ -111,7 +113,7 @@ checkTheCloud()
       while (originalReq == urlDownloadToVar("http://dl.dropbox.com/u/789954/latestCloudAhk.txt"))
          SleepSeconds(1)
       ;AddToTrace("Took this long for dropbox to upload:",elapsedtime(dropboxUploadTimer))
-   }
+   ;}
 
    ;TODO need a fcn that gives local dropbox folder location and remote dropbox folder location
 
@@ -143,7 +145,7 @@ GetRemoteAHK_wErrorChecking()
          {
             AddToTrace(strlen(codefile))
             if (strlen(codefile) <> 15872)
-               delog("orange line", "warning: the length of the codefile wasn't 15872, it was", strlen(codefile))
+               addtotrace("orange line", "warning: the length of the codefile wasn't 15872, it was", strlen(codefile))
             ;AddToTrace("success, they were equal five times")
             return codefile
          }

@@ -22,6 +22,11 @@ refreshServerMode:=GetKeyState("ScrollLock", "T")=="D"
 if (MonitorCount = 1)
    refreshServerMode:=true
 
+;TODO make this so we can switch between :wa and :wa!
+;force save in gvim
+;if blah
+   ;gvimForceSaveMode:=true
+
 ;find out if we're in live site mode
 FileRead, filecontents, C:\code\bench\fl_bench.json
 if InStr(filecontents, "argon")
@@ -103,8 +108,8 @@ else
 if ForceWinFocusIfExist("\\(strawberry|code|(i|I)netpub).*GVIM ahk_class Vim", "RegEx")
 {
    ;TODO flag for overwrite RO files in gvim
-   SendInput, {Escape 6}{;}wa{!}{Enter}
-   ;SendInput, {Escape 6}{;}wa{Enter}
+   ;SendInput, {Escape 6}{;}wa{!}{Enter}
+   SendInput, {Escape 6}{;}wa{Enter}
 }
 ;}}}
 
