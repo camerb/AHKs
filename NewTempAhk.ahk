@@ -1,6 +1,5 @@
 #include FcnLib.ahk
 
-;IsFileEqual(1, 2)
 loop 9
 {
    file=temporary%A_Index%.ahk
@@ -17,5 +16,5 @@ if ForceWinFocusIfExist("(AHKs|No Name).*GVIM", "RegEx")
    Send, {ESC 6}
    Send, ^wl
    Send, {;}
-   SendInput, split %file%{ENTER}
+   SendInput, split %file%{ENTER}{F2 2}
 }

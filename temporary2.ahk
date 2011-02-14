@@ -1,6 +1,8 @@
 #include FcnLib.ahk
 #include thirdParty/Functions.ahk
 
+;trying to make my own json parser function
+
 ;DeleteTraceFile()
 
 ;param=%1%

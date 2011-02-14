@@ -1,5 +1,7 @@
 #include FcnLib.ahk
 
+;RunProgram("DesktopSidebar") - using a smart ini
+
 ;trying to make a function like:
 ;LaunchProgram(appName)
 ;{

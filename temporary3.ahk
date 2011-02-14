@@ -1,5 +1,7 @@
 #include FcnLib.ahk
 
+;check cloud ahk once... don't loop, don't run
+
 
       codefile:=urlDownloadToVar("http://sites.google.com/site/ahkcoedz/remoteahk")
 
