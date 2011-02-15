@@ -2,6 +2,8 @@
 
 bottomRightX:=A_ScreenWidth
 bottomRightY=1040
+;ahk_class Shell_TrayWnd
+;the top pixel of that window
 
 verticalSplit=797
 horizontalSplit=588
@@ -29,6 +31,22 @@ if (A_ComputerName = "PHOSPHORUS")
    WinMove, ahk_class gdkWindowToplevel, , 0, %horizontalSplit%, %verticalSplit%, %bottomLeftHeight%
    WinMove, Irssi ahk_class PuTTY, , 0, %horizontalSplit%, %verticalSplit%, %bottomLeftHeight%
    WinMove, PhosphorusVM - VMware Player ahk_class VMPlayerFrame, , 2000, 0, 1298, 1024
+
+   if ForceWinFocusIfExist("Google Chrome")
+   {
+      Send, ^!{RIGHT}
+      Send, ^!{NUMPAD2}
+      Send, ^!{NUMPAD5}
+      Send, ^!1
+   }
+
+   if ForceWinFocusIfExist("Mozilla Firefox")
+   {
+      Send, ^!{RIGHT}
+      Send, ^!{NUMPAD2}
+      Send, ^!{NUMPAD5}
+      Send, ^!2
+   }
 
    IfWinExist, PhosphorusVM - VMware Player ahk_class VMPlayerFrame
    {

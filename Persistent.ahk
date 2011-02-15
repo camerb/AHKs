@@ -78,6 +78,7 @@ if (Mod(A_Min, 15)==0 && A_Sec==0)
 ;}}}
 
 ;{{{Check to see if we scheduled an ahk from the cloud
+if 0
 if (Mod(A_Sec, 15)==0) ; AND A_ComputerName = "PHOSPHORUS")
 {
    dry_run := false
