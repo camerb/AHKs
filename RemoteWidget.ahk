@@ -45,13 +45,40 @@ GetWidgetText()
    global CamGmailUrl
    global MelGmailUrl
 
-   returned.=urldownloadtovar("http://dl.dropbox.com/u/789954/remotewidget.txt")
+   returned.=urldownloadtovarcheck500("http://dl.dropbox.com/u/789954/remotewidget.txt")
    if (A_ComputerName == "PHOSPHORUS")
-      returned.=urldownloadtovar("http://dl.dropbox.com/u/789954/remotewidget-livesitemode.txt")
+      returned.=urldownloadtovarcheck500("http://dl.dropbox.com/u/789954/remotewidget-livesitemode.txt")
    returned.=GetGmailMessageCount(CamGmailUrl, "Cameron")
    if (A_ComputerName != "PHOSPHORUS")
       returned.=GetGmailMessageCount(MelGmailUrl, "Melinda")
    return returned
+}
+
+UrlDownloadToVarCheck500(url)
+{
+   errorMsg:="Dropbox - 500"
+   page:=urldownloadtovar(url)
+   title:=page
+   RegExMatch(title, "<title>.*?</title>", title)
+   title := StringTrimLeft(title, 7)
+   title := StringTrimRight(title, 8)
+   if (strlen(page) > 100)
+   {
+      AddToTrace("green line", "found a failure to test")
+      if (title <> errorMsg)
+         AddToTrace("red line", "title of the 500 error page was not as expected", title, "`n", page)
+      ;AddToTrace(page)
+   }
+   ;title := errorMsg
+   ;while (title == errorMsg)
+   ;{
+      ;page:=urldownloadtovar(url)
+      ;title:=page
+      ;RegExMatch(title, "<title>.*?</title>", title)
+      ;title := StringTrimLeft(title, 7)
+      ;title := StringTrimRight(title, 8)
+   ;}
+   return page
 }
 
 GetGmailMessageCount(url, prettyName)

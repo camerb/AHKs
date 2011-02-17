@@ -11,10 +11,14 @@ returned .= "3 days:`n" . CmdRet_RunReturn( command . " -3d" ) . "`n`n"
 returned .= "4 days:`n" . CmdRet_RunReturn( command . " -4d" ) . "`n`n"
 returned .= "5 days:`n" . CmdRet_RunReturn( command . " -5d" ) . "`n`n"
 
-;debug(returned)
-;ExitApp
-
 date:=CurrentTime("slashdate")
 subj=Minutes for %date%
-;debug(subj)
 SendEmail(subj, returned)
+
+;file=C:\My Dropbox\Public\JiraWorkmorrow.html
+;fileContents=<html><head><title>%subj%</title></head><body>%returned%</body></html>
+
+file=C:\My Dropbox\Public\JiraWorkmorrow.txt
+fileContents=%subj%`n%returned%
+FileDelete(file)
+FileAppend(fileContents, file)

@@ -7,16 +7,18 @@ infile=%path%in1.txt
 refile=%path%regex1.txt
 outfile=%path%out1.txt
 
-Gui, Add, Text,, Please enter your name:
-Gui, Add, Edit, r10 vInFileContents
-Gui, Add, Edit, r10 vReFileContents
-Gui, Add, Edit, r10 vOut ReadOnly
+Gui, Add, Text,, Incoming:
+Gui, Add, Edit, r10 w500 vInFileContents
+Gui, Add, Text,, RegEx file:
+Gui, Add, Edit, r10 w500 vReFileContents
+Gui, Add, Text,, Output:
+Gui, Add, Edit, r10 w500 vOut ReadOnly
 Gui, Add, Button, Default, Run
 Gui, Show
 return
 
 ButtonRun:
-Gui, Submit
+Gui, Submit, NoHide
 FileDelete, %infile%
 FileDelete, %refile%
 FileDelete, %outfile%
@@ -28,7 +30,7 @@ outFileContents:=FileRead(outfile)
 ;debug(inFileContents, reFileContents, outFileContents)
 GuiControl, Text, Edit3, %outFileContents%
 
-Gui, Show
+;Gui, Show
 
 ;ExitApp
 return

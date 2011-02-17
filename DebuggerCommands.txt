@@ -401,3 +401,11 @@ EPMS
 EPMS
 FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.filtergrid.Judges' } );
 EPMS
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl lincoln.pl}
+EPMS
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl lincoln.pl}
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl lincoln.pl}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl lincoln.pl}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\import_files\home_2011-02.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\import_files\props\home_2011-02.csv > C:\code\report.txt}
+EPMS

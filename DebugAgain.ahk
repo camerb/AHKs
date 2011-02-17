@@ -22,6 +22,9 @@ refreshServerMode:=GetKeyState("ScrollLock", "T")=="D"
 if (MonitorCount = 1)
    refreshServerMode:=true
 
+;DbicDebugMode:=true
+;EpmsDebugMode:=true
+
 ;TODO make this so we can switch between :wa and :wa!
 ;force save in gvim
 ;if blah
@@ -71,7 +74,7 @@ else if (project == "TM")
 else if (debuggerCommand == "EPMS")
 {
    apacheServer:=true
-   projTitle=(Ellis Partners in Mystery Shopping|EPMS).*
+   projTitle=Ellis Partners in Mystery Shopping|EPMS|Survey Detailed Reporting
 }
 else
 {
@@ -79,9 +82,9 @@ else
    ExitApp
 }
 
-allWindow=Forms|Parts|Bench|Server|EPMS|Home|xds|phosphorus
-ffWindow=%projTitle% - Mozilla Firefox ahk_class MozillaUIWindowClass
-ieWindow=%projTitle% - Windows Internet Explorer ahk_class IEFrame
+allWindow=Forms|Parts|Bench|Server|EPMS|Home|xds|phosphorus|Ellis Partners in Mystery Shopping|Survey Detailed Reporting
+ffWindow=(%projTitle%).* - Mozilla Firefox ahk_class MozillaUIWindowClass
+ieWindow=(%projTitle%).* - Windows Internet Explorer ahk_class IEFrame
 ;}}}
 
 ;{{{ Copy the correct project config over
@@ -140,6 +143,10 @@ if refreshServerMode
          return
       SendInput, {esc}cls{ENTER}
       SendInput, {esc}cd C:{ENTER}
+      if EpmsDebugMode
+         SendInput, set EPMS_UPTO=trace{ENTER}
+      else
+         SendInput, set EPMS_UPTO={ENTER}
       SendInput, cd %projDir%{ENTER}
       SendInput, %projRun%{ENTER}
       dd:=WaitForImageSearch("images\cmd\PerlServerIsRunning.bmp")
@@ -200,12 +207,13 @@ if ForceWinFocusIfExist("Ellis Partners in Mystery Shopping: Customer Interface 
 {
    ;This section is for testing out EPMS Customer Interface (Initially for Survey Graphing / Reporting)
    Sleep, 500
-   Click(50,13)
-   if (MonitorCount = 1)
-      ClickIfImageSearch("images\firebug\reloadButton.bmp")
-   if (MonitorCount = 2)
-      if ClickIfImageSearch("images\firebug\phosphorusAddress.bmp", "Control") || ClickIfImageSearch("images\firebug\phosphorusAddressHighlighted.bmp", "Control")
-         ClickIfImageSearch("images\firebug\reloadButton.bmp")
+   ;Click(50,13)
+   Click(105,65)
+   ;if (MonitorCount = 1)
+      ;ClickIfImageSearch("images\firebug\reloadButton.bmp")
+   ;if (MonitorCount = 2)
+      ;if ClickIfImageSearch("images\firebug\phosphorusAddress.bmp", "Control") || ClickIfImageSearch("images\firebug\phosphorusAddressHighlighted.bmp", "Control")
+         ;ClickIfImageSearch("images\firebug\reloadButton.bmp")
    SleepSeconds(7)
    Click(173, 352, "Control")
    Sleep, 700
