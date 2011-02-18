@@ -9,8 +9,13 @@
 ;NOTE: they can be sorted by date or text description (with a sub-sort of date)
 ;TODO adjust image quality ;TODO change directory location ;TODO change image format
 #include thirdParty\ScreenCapture.ahk
-SaveScreenShot(descriptiveText="", directoryPath="dropbox")
+SaveScreenShot(descriptiveText="", directoryPath="dropbox", options="")
 {
+   captureArea=0
+   if InStr(options, "activeWindow")
+      captureArea=1
+
+   ; OR directoryPath="")
    if (directoryPath="dropbox")
       directoryPath=C:\My Dropbox\AHKs\gitExempt\screenshots\%A_ComputerName%
    else if (directoryPath="local")
@@ -19,7 +24,7 @@ SaveScreenShot(descriptiveText="", directoryPath="dropbox")
    FileCreateDir, %directoryPath%
    FormatTime FileNameText,, yyyyMMddHHmmss
    fullfilename = %directoryPath%\%descriptiveText%%FileNameText%.bmp
-   CaptureScreen(0,true,fullfilename)
+   CaptureScreen(captureArea,true,fullfilename)
 }
 
 ;Sleeps for a specified number of minutes
@@ -529,7 +534,13 @@ StartTimer()
 ElapsedTime(StartTime)
 {
    returned := A_TickCount - StartTime
+   AddToTrace(A_tickcount, startime)
    return returned
+
+;DllCall("QueryPerformanceCounter", "Int64 *", CounterBefore)
+;Sleep 1000
+;DllCall("QueryPerformanceCounter", "Int64 *", CounterAfter)
+;MsgBox % "Elapsed QPC time is " . CounterAfter - CounterBefore
 }
 
 ;TODO write
@@ -1342,6 +1353,8 @@ getXmlElementContents(xmlPage, nameOfXmlElement)
 
 
 ;WRITEME split csv processing out of the create pie chart macro
+
+
 
 
 

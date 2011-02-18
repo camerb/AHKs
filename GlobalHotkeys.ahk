@@ -105,20 +105,16 @@ return
 
 AppsKey & e::
 message:=prompt("Please enter your message for Melinda:")
-;debug("before")
 if (message=="")
    return
-;debug("after")
-;SendEmail("IM", message, "", "cameronbaustian+testing@gmail.com", "cameronbaustian+im@gmail.com")
 SendEmail("IM", message, "", "mbaustian@nbsdefaultservices.com", "cameronbaustian+im@gmail.com")
 return
 
-;Print Screen and Save to Disk (C:\DataExchange)
+;Print Screen and Save to Disk
 ^PrintScreen:: SaveScreenShot("KeyPress")
-AppsKey & PrintScreen::
-path=C:\My Dropbox\AHKs\gitExempt\screenshots\%A_ComputerName%
-SaveScreenShot("KeyPress", path)
-return
+!PrintScreen:: SaveScreenShot("KeyPress", "dropbox", "activeWindow")
+AppsKey & PrintScreen:: SaveScreenShot("KeyPress")
+
 
 ;Insert Date / Time Hotstrings
 :*:]0d:: ; With leading zeros and no slashes
