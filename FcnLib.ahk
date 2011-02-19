@@ -533,14 +533,10 @@ StartTimer()
 ;Provides the elapsed time since StartTimer() was called
 ElapsedTime(StartTime)
 {
+   if (StartTime = "")
+      Errord("You didn't pass a valid StartTime in to the ElapsedTime() function.", "Be sure to use StartTimer() to get the start time.")
    returned := A_TickCount - StartTime
-   AddToTrace(A_tickcount, startime)
    return returned
-
-;DllCall("QueryPerformanceCounter", "Int64 *", CounterBefore)
-;Sleep 1000
-;DllCall("QueryPerformanceCounter", "Int64 *", CounterAfter)
-;MsgBox % "Elapsed QPC time is " . CounterAfter - CounterBefore
 }
 
 ;TODO write
@@ -1353,6 +1349,8 @@ getXmlElementContents(xmlPage, nameOfXmlElement)
 
 
 ;WRITEME split csv processing out of the create pie chart macro
+
+
 
 
 

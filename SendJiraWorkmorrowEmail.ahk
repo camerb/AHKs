@@ -13,7 +13,7 @@ returned .= "5 days:`n" . CmdRet_RunReturn( command . " -5d" ) . "`n`n"
 
 date:=CurrentTime("slashdate")
 subj=Minutes for %date%
-SendEmail(subj, returned)
+;SendEmail(subj, returned)
 
 ;file=C:\My Dropbox\Public\JiraWorkmorrow.html
 ;fileContents=<html><head><title>%subj%</title></head><body>%returned%</body></html>

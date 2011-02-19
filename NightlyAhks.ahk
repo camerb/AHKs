@@ -2,6 +2,8 @@
 
 debug("log grey line", "starting nightly scripts")
 
+RunAhkAndBabysit("MintTouch.ahk")
+SleepMinutes(1)
 RunAhkAndBabysit("MorningStatus-GatherData.ahk")
 SleepMinutes(1)
 RunAhkAndBabysit("RestartDropbox.ahk")
@@ -19,11 +21,11 @@ if NOT IsVM()
 
 if (A_ComputerName="BAUSTIAN-09PC")
 {
-   RunAhk("SaveChromeBookmarks.ahk")
+   RunAhkAndBabysit("SaveChromeBookmarks.ahk")
    SleepMinutes(1)
-   RunAhk("CreateDropboxBackup.ahk")
+   RunAhkAndBabysit("CreateDropboxBackup.ahk")
    SleepMinutes(10)
-   RunAhk("PushToGit.ahk")
+   RunAhkAndBabysit("PushToGit.ahk")
    SleepMinutes(3)
 
    ;tasks that should be performed on phosphorus
@@ -69,8 +71,11 @@ SleepMinutes(1)
 if (A_ComputerName="PHOSPHORUS")
 {
    ;this needs a little bit of click-around time
-   RunAhk("LaunchPidgin.ahk")
+   RunAhkAndBabysit("LaunchPidgin.ahk")
    SleepSeconds(30)
 }
+
+RunAhkAndBabysit("MoveMouseAcrossEntireScreen.ahk")
+SleepMinutes(30)
 
 debug("log grey line", "finished nightly scripts")
