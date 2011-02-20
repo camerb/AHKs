@@ -16,4 +16,5 @@ MouseMove, %Width%, %A_Index%
 ;Sleep, 50
 }
 
+ExitApp
 `:: ExitApp
