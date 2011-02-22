@@ -20,7 +20,6 @@ if ( GetOS() == "WIN_7" )
    Click(186, 69)
 
 
-   ;KeyWait, AppsKey, U
    KeyWait, ``, D
    Send, ^+x
    Sleep, 100
@@ -30,6 +29,12 @@ if ( GetOS() == "WIN_7" )
    ForceWinFocus("Save As")
    time:=CurrentTime()
    path=C:\DataExchange\InstantAhkImage
+   if RegExMatch(description, "(images)\/(.*?)\/(.*?)$", MatchVar)
+   {
+      path=C:\My Dropbox\AHKs\images\%MatchVar2%
+      description=%MatchVar3%
+      time:=""
+   }
    FileCreateDir, %path%
    SendInput, %path%\%time%%description%.bmp
    Sleep, 100
@@ -70,6 +75,12 @@ else if ( GetOS() == "WIN_XP" )
    ForceWinFocus("Save As")
    time:=CurrentTime()
    path=C:\DataExchange\InstantAhkImage
+   if RegExMatch(description, "(images)\/(.*?)\/(.*?)$", MatchVar)
+   {
+      path=C:\My Dropbox\AHKs\images\%MatchVar2%
+      description=%MatchVar3%
+      time:=""
+   }
    FileCreateDir, %path%
    ForceWinFocus("Save As")
    SendInput, %path%\%time%%description%.bmp
@@ -79,7 +90,7 @@ else if ( GetOS() == "WIN_XP" )
    Sleep, 100
    WinClose, ahk_class MSPaintApp
 }
-else
-{
-   fatalErrord("looks like this OS is unsupported", "GetOS()", GetOS(), "A_ComputerName", A_ComputerName)
-}
+;else
+;{
+   ;fatalErrord("looks like this OS is unsupported", "GetOS()", GetOS(), "A_ComputerName", A_ComputerName)
+;}

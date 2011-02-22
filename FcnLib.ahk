@@ -5,9 +5,9 @@
 ;Takes a screenshot and saves it to the specified path
 ;Useful for debugging macros afterward
 ;Includes an optional text parameter that will allow you to
-;begin the filename with a relevant text description
-;NOTE: they can be sorted by date or text description (with a sub-sort of date)
-;TODO adjust image quality ;TODO change directory location ;TODO change image format
+;begin the filename with a relevant text description, and
+;end it with a timestamp
+;TODO adjust image quality ;TODO change image format
 #include thirdParty\ScreenCapture.ahk
 SaveScreenShot(descriptiveText="", directoryPath="dropbox", options="")
 {
@@ -1349,6 +1349,8 @@ getXmlElementContents(xmlPage, nameOfXmlElement)
 
 
 ;WRITEME split csv processing out of the create pie chart macro
+
+
 
 
 

@@ -28,7 +28,7 @@ if (A_Hour=14 AND A_Min=0 AND A_Sec=0)
    if (A_ComputerName="PHOSPHORUS")
       if A_WDay BETWEEN 2 AND 6
       {
-         RunAhk("SendJiraWorkmorrowEmail.ahk")
+         RunAhk("JiraWorkmorrow.ahk")
          SleepSeconds(2)
       }
 }

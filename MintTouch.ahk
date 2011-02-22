@@ -7,10 +7,8 @@
 
 mintlogin()
 
-;LongSleep()
+;WaitForImageSearch("images/mint/UpdateAccountsButton.bmp")
+ClickIfImageSearch("images/mint/UpdateAccountsButton.bmp")
 
-;CustomTitleMatchMode("RegEx")
-;WinClose, Mint.com.*Opera
 ExitApp
-
 `:: ExitApp
