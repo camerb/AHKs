@@ -65,14 +65,14 @@ Sleep, 2000
 ForceWinFocus("OpenOffice")
 Send, {RIGHT 9}
 
-DeleteTraceFile()
+;DeleteTraceFile()
 Loop, read, REFP\credit-categories.txt
 {
    category := A_LoopReadLine
    thisLine=%category%`t=SUMIF(G2:G5001`;"=%category%"`;D2:D5001)`r`n
    GraphCells .= thisLine
 }
-AddToTrace(GraphCells)
+;AddToTrace(GraphCells)
 
 Clipboard := GraphCells
 Sleep, 2000
@@ -85,6 +85,7 @@ Send, {ENTER}
 ;Make the graph
 ForceWinFocus("OpenOffice")
 Send !ia{TAB}{DOWN 2}{TAB 5}{ENTER}
-Sleep, 1000
+Sleep, 6000
 SaveScreenShot("FinancialChart")
+Sleep, 6000
 Send, ^s!{F4}

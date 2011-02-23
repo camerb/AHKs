@@ -7,8 +7,10 @@
 
 mintlogin()
 
-;WaitForImageSearch("images/mint/UpdateAccountsButton.bmp")
+WaitForImageSearch("images/mint/UpdateAccountsButton.bmp")
+Sleep, 500
 ClickIfImageSearch("images/mint/UpdateAccountsButton.bmp")
+Click
 
 ExitApp
 `:: ExitApp

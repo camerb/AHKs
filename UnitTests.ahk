@@ -184,3 +184,19 @@ AssertSendViaClipboard(before, var, description)
    FileDelete, %fileExpected%
    FileDelete, %fileResult%
 } ;}}}
+
+TestGetXmlElement() ;{{{
+{
+   AssertGetXmlElement("5", "joe", "<joe>5</joe>", "simple test")
+   AssertGetXmlElement("5", "joe", "sgdsafd<joe>5</joe>dsfsfdafds", "remove excess on ends")
+   AssertGetXmlElement("asdf", "joe", "<joe>asdf</joe>", "multiple characters retreived")
+   AssertGetXmlElement("5", "html.head.title", "<html><head><title>5</title></head></html>", "navigate through multiple emements")
+}
+
+;TODO finish this
+AssertGetXmlElement(assert, path, xml, description)
+{
+   result:=GetXmlElement(xml, path)
+   if (result<>assert)
+      Errord("Failed Test:", A_ThisFunc, description, path, xml)
+} ;}}}

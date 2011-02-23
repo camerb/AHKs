@@ -54,33 +54,6 @@ GetWidgetText()
    return returned
 }
 
-UrlDownloadToVarCheck500(url)
-{
-   errorMsg:="Dropbox - 500"
-   page:=urldownloadtovar(url)
-   title:=page
-   RegExMatch(title, "<title>.*?</title>", title)
-   title := StringTrimLeft(title, 7)
-   title := StringTrimRight(title, 8)
-   if (strlen(page) > 100)
-   {
-      AddToTrace("green line", "found a failure to test")
-      if (title <> errorMsg)
-         AddToTrace("red line", "title of the 500 error page was not as expected", title, "`n", page)
-      ;AddToTrace(page)
-   }
-   ;title := errorMsg
-   ;while (title == errorMsg)
-   ;{
-      ;page:=urldownloadtovar(url)
-      ;title:=page
-      ;RegExMatch(title, "<title>.*?</title>", title)
-      ;title := StringTrimLeft(title, 7)
-      ;title := StringTrimRight(title, 8)
-   ;}
-   return page
-}
-
 GetGmailMessageCount(url, prettyName)
 {
    gmailPage:=urldownloadtovar(url)
@@ -92,4 +65,36 @@ GetGmailMessageCount(url, prettyName)
       return ""
    returned=%prettyName% has %number% new emails`n
    return returned
+}
+
+UrlDownloadToVarCheck500(url)
+{
+   errorMsg:="Dropbox - 500"
+   title := errorMsg
+
+   while (title == errorMsg)
+   {
+      page:=urldownloadtovar(url)
+      title:=GetXmlElement(page, "title")
+      ;title:=page
+      ;RegExMatch(title, "<title>.*?</title>", title)
+      ;title := StringTrimLeft(title, 7)
+      ;title := StringTrimRight(title, 8)
+   }
+
+   return page
+}
+
+GetXmlElement(xml, path)
+{
+   elementName:=path
+   regex=<%elementName%>(.*)</%elementName%>
+
+   RegExMatch(xml, regex, xml)
+   ;errord("nolog", xml1)
+   xml := StringTrimLeft(xml, strlen(path)+2)
+   xml := StringTrimRight(xml, strlen(path)+3)
+   ;msgbox
+
+   return xml
 }

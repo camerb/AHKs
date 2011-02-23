@@ -2,8 +2,14 @@
 
 debug("log grey line", "starting nightly scripts")
 
-RunAhkAndBabysit("MintTouch.ahk")
-SleepMinutes(1)
+if NOT IsVM()
+{
+   RunAhkAndBabysit("MintTouch.ahk")
+   SleepMinutes(1)
+   RunAhkAndBabysit("CopyVimSettings.ahk")
+   SleepMinutes(1)
+}
+
 RunAhkAndBabysit("MorningStatus-GatherData.ahk")
 SleepMinutes(1)
 RunAhkAndBabysit("RestartDropbox.ahk")
@@ -12,12 +18,6 @@ RunAhk("REFPunitTests.ahk", "completedFeaturesOnly")
 SleepMinutes(5)
 RunAhkAndBabysit("UnitTests.ahk")
 SleepMinutes(10)
-
-if NOT IsVM()
-{
-   RunAhkAndBabysit("CopyVimSettings.ahk")
-   SleepMinutes(1)
-}
 
 if (A_ComputerName="BAUSTIAN-09PC")
 {

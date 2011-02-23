@@ -22,6 +22,8 @@ percentLeft := 100 - percentThru
 spentPerPercent := CreditBalance / percentThru
 projectedCreditCardBill := CreditBalance + percentLeft * spentPerPercent
 projectedCreditCardBill := StringTrimRight(projectedCreditCardBill, 4)
+if (currentDay == 22)
+   projectedCreditCardBill := CreditBalance
 ;debug("silent log green line", currentDay, daysThruBillingPeriod, percentThru, percentLeft, spentPerPercent, projectedCreditCardBill)
 
 csvline:=ConcatWithSep(",", time, SavingsBalance, CheckingBalance, CreditBalance, overallBalance, projectedCreditCardBill)

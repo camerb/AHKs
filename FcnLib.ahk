@@ -739,6 +739,13 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
       errordMode := true
       displayTime = 20
    }
+   ;TODO screenshot mode for debug() fcn
+   ;if (InStr(textOrOptions, "screenshot"))
+   ;{
+      ;savescreenshot()
+      ;append filename to the end of the debug message
+   ;}
+   ;TODO email/text error mode for debug() fcn
 
    ;put together the message
    if (errordMode)
@@ -1349,6 +1356,8 @@ getXmlElementContents(xmlPage, nameOfXmlElement)
 
 
 ;WRITEME split csv processing out of the create pie chart macro
+
+
 
 
 
