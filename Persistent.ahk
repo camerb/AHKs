@@ -15,10 +15,10 @@ if (A_Hour==3 AND A_Min==2)
    ;let's try for something that is a bit stiffer
    Run, ForceReloadAll.exe
 }
-if (A_Hour==3 AND A_Min==5 AND A_Sec==0)
+if (A_Hour==3 AND A_Min==5)
 {
    RunAhk("NightlyAhks.ahk")
-   SleepSeconds(5)
+   SleepMinutes(2)
 }
 ;}}}
 

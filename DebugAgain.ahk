@@ -1,6 +1,7 @@
 #include FcnLib.ahk
 
 ;A_Debug:=true
+;suppressPageReload:=true
 
 if (A_ComputerName <> "PHOSPHORUS")
    ExitApp
@@ -121,7 +122,8 @@ if refreshServerMode
    {
       Run, "C:\Program Files (x86)\Apache Software Foundation\Apache2.2\bin\httpd.exe" -w -n "Apache2.2" -k restart
       WinWaitActive, httpd.exe
-      WinWaitNotActive, httpd.exe
+      WinMinimize, httpd.exe
+      WinWaitClose, httpd.exe
    }
    else
    {
