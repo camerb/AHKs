@@ -21,7 +21,8 @@ SpiffyMute()
 return
 
 ;Kill the AppsKey menu & act like a modifier
-AppsKey:: return
+;;;;;;;;;AppsKey:: return
+AppsKey:: Send, {AppsKey}
 ;if (in use appskey to launch temp hotkey mode)
    ;Run, temporary.ahk
 ;return

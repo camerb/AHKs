@@ -1329,13 +1329,26 @@ SpiffyMute()
 
 ;TESTME might not work in all situations
 ;TODO enable path of xml element instead, like: html.head.title
-getXmlElementContents(xmlPage, nameOfXmlElement)
+getXmlElementContents1(xmlPage, nameOfXmlElement)
 {
    needle=^.*<%nameOfXmlElement%>(.*)</%nameOfXmlElement%>.*$
    returned := RegExReplace(xmlPage, needle, "$1")
    return returned
 }
 
+GetXmlElement(xml, path)
+{
+   elementName:=path
+   regex=<%elementName%>(.*)</%elementName%>
+
+   RegExMatch(xml, regex, xml)
+   ;errord("nolog", xml1)
+   xml := StringTrimLeft(xml, strlen(path)+2)
+   xml := StringTrimRight(xml, strlen(path)+3)
+   ;msgbox
+
+   return xml
+}
 
 
 ;WRITEME make function for getting remote and local path of dropbox public folder
@@ -1380,4 +1393,7 @@ getXmlElementContents(xmlPage, nameOfXmlElement)
 
 
 
+
+
+;WRITEME make monthly financial charts (rather than three-month)
 
