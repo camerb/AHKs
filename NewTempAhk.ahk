@@ -13,6 +13,7 @@ loop 9
 
 if ForceWinFocusIfExist("(AHKs|No Name).*GVIM", "RegEx")
 {
+   ;TODO use F2 to manipulate Nerdtree, not ^w
    Send, {ESC 6}
    Send, ^wl
    Send, {;}
