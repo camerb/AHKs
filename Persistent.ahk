@@ -256,6 +256,11 @@ IfWinExist, Connection to server argon.lan.mitsi.com lost. ahk_class #32770, Clo
    ControlClick, &Yes
 }
 
+IfWinExist, Security Warning ahk_class #32770, Do you want to view only the webpage content that was delivered securely?
+{
+   ControlClick, &No
+}
+
 CustomTitleMatchMode("Contains")
 WinClose, pgAdmin III ahk_class #32770, server closed the connection unexpectedly
 CustomTitleMatchMode("Default")

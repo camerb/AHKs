@@ -11,8 +11,11 @@ FileAppendLine(message, filename)
 if (A_ComputerName = "PHOSPHORUS")
 {
    size:=dirgetsize("C:\My Dropbox\")
-   dropboxSize := size/(1024*3)
-   message=Dropbox: %dropboxSize% of 3 GB used
+   d := 1024 * 3
+   dropboxSize := size / (1024 * 3)
+   dropboxSize := size / d
+   dropboxSize2 := size/1000000000
+   message=Dropbox: %dropboxSize% %dropboxSize2% of 3 GB used
    FileAppendLine(message, filename)
 
    SysGet, MonitorCount, MonitorCount
