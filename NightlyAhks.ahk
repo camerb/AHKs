@@ -59,7 +59,7 @@ else if (A_ComputerName="PHOSPHORUS")
 else if (A_ComputerName="PHOSPHORUSVM")
 {
    RunAhkAndBabysit("DeleteDropboxCruft.ahk")
-   SleepMinutes(30)
+   ;SleepMinutes(30)
    ;RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
    SleepMinutes(5)
 }
@@ -76,6 +76,7 @@ if (A_ComputerName="PHOSPHORUS")
 }
 
 RunAhkAndBabysit("MoveMouseAcrossEntireScreen.ahk")
-SleepMinutes(30)
+SleepMinutes(2)
+;SleepMinutes(30)
 
 debug("log grey line", "finished nightly scripts")
