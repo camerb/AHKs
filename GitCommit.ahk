@@ -10,18 +10,21 @@ Send, git add -p{ENTER}
 ;TODO perhaps we should ask about the commit message at first,
 ;then say: "does this change relate to 'fixed invalid email'?"
 ; doing that may make my commit messages awesome and frequent
+commitMessage := prompt("Specify a commit message:")
 
-loop
+Loop
 {
-   ret := prompt("Would you like to include this item in the commit?`nOr, you can specify a commit message")
+   ret := prompt("Commit Message: " . commitMessage . "`nWould you like to include this item in the commit?")
    ForceWinFocus("MINGW32", "Contains")
-   if ret == ""
+   if (ret == "")
       ExitApp
-   else if strlen(ret) == 1
+   else if (ret == "f")
+      break
+   else if (strlen(ret) == 1)
       Send, %ret%{ENTER}
    else
       break
 }
 
 ForceWinFocus("MINGW32", "Contains")
-SendInput, git ci -m"%ret%"{ENTER}
+SendInput, git ci -m"%commitMessage%"{ENTER}

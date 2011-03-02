@@ -41,7 +41,7 @@ SleepSeconds(seconds)
 
 ;Determines whether or not we should show debug msgs
 ;TODO add a logging mode?
-;not yet finished
+;not yet finished, just throwing around some ideas
 OptionalDebug(options="", millionParams="...really, lots of params, like 15..")
 {
    global A_Debug
@@ -522,14 +522,13 @@ CurrentlyAfter(time)
 
 }
 
-;TODO test
 ;Starts a timer--to be used in conjunction with ElapsedTime()
 StartTimer()
 {
    return A_TickCount
 }
 
-;TODO test ;TODO rename to StopTimer?
+;TODO rename to StopTimer?
 ;Provides the elapsed time since StartTimer() was called
 ElapsedTime(StartTime)
 {
@@ -1223,7 +1222,7 @@ IsDirFileOrIndeterminate(path)
 ;if it doesn't exist, then all we can do is make a guess
 ;if it ends with a slash it has got to be a dir
 
-;if it has a one two or three letter extension, it is probably a file
+;if it has a one two or three or four letter extension, it is probably a file
 
 }
 
@@ -1350,56 +1349,21 @@ GetXmlElement(xml, path)
    return xml
 }
 
+fatalIfNotThisPc(computerName)
+{
+   if (A_ComputerName <> computerName)
+   {
+      debug(A_ScriptName, A_ComputerName, "this script isn't designed to run on this pc", "it is only designed to run on the following pc", computerName)
+      ExitApp
+   }
+}
 
 ;WRITEME make function for getting remote and local path of dropbox public folder
-
-
-
-
-
-
-
-
-;WRITEME make jira workmorrow post to dropbox public url, not an email
-
-
 ;WRITEME hotkey that moves windows to 10, 10 so that I can see them while VPNed (some are trapped on the other screen)
-
-
-
-
 ;WRITEME split csv processing out of the create pie chart macro
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ;WRITEME make monthly financial charts (rather than three-month)
 
 
-
-
-
-
+;WRITEME parse and display TODO and WRITEME items from FcnLib
+;WRITEME try to run MintTouch once an hour on the VM
 

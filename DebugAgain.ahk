@@ -271,35 +271,48 @@ else if ForceWinFocusIfExist("Mozilla Firefox", "Exact")
 ;{{{ Refresh if we're using IE
 if ForceWinFocusIfExist(ieWindow, "RegEx")
 {
-   if (DebuggerCommand == "EPMS")
-      ExitApp
+   ;if (DebuggerCommand == "EPMS")
+      ;ExitApp
 
-   WaitForImageSearch(welcomeTabImage)
+   ;WaitForImageSearch(welcomeTabImage)
 
-   Sleep, 100
-   IfWinNotActive, , Developer Tools Tabs ,
-      SendInput, {F12}
-   Sleep, 100
-   IfWinNotActive, , Developer Tools Tabs ,
-      SendInput, {F12}
-   Sleep, 100
-   ClickIfImageSearch("images\ieDebug\ScriptTab.bmp")
-   ClickIfImageSearch("images\ieDebug\MultiLineModeButton.bmp")
-   if (ClickIfImageSearch("images\ieDebug\StopDebuggingButton.bmp"))
-      SendInput, ^p
+   ;Sleep, 100
+   ;IfWinNotActive, , Developer Tools Tabs ,
+      ;SendInput, {F12}
+   ;Sleep, 100
+   ;IfWinNotActive, , Developer Tools Tabs ,
+      ;SendInput, {F12}
+   ;Sleep, 100
+   ;ClickIfImageSearch("images\ieDebug\ScriptTab.bmp")
+   ;ClickIfImageSearch("images\ieDebug\MultiLineModeButton.bmp")
+      ;SendInput, ^p
 
-   Sleep, 100
-   ClickIfImageSearch("images\ieDebug\ScriptTextbox.bmp")
-   Sleep, 100
+   ;Sleep, 100
+   ;ClickIfImageSearch("images\ieDebug\ScriptTextbox.bmp")
+   ;Sleep, 100
 
-   ;Send, %DebuggerCommand%
-   ;SendInput, %DebuggerCommand%
-   SendViaClipboard(DebuggerCommand)
-   Sleep, 100
-   ClickIfImageSearch("images\ieDebug\RunScriptButton.bmp")
-   return
-   SendInput, {F12}
+   ;;Send, %DebuggerCommand%
+   ;;SendInput, %DebuggerCommand%
+   ;SendViaClipboard(DebuggerCommand)
+   ;Sleep, 100
+   ;ClickIfImageSearch("images\ieDebug\RunScriptButton.bmp")
+   ;;return
+   ;SendInput, {F12}
 
-   ExitApp
+   ;;ExitApp
 }
+Sleep, 4000
+if ForceWinFocusIfExist("Ellis Partners in Mystery Shopping: Customer Interface - Windows Internet Explorer", "Exact")
+{
+   MouseClick, left,  58,  308
+   Sleep, 700
+   MouseClick, left,  81,  330
+   Sleep, 700
+   MouseClick, left,  92,  348
+   Sleep, 700
+   MouseClick, left,  257,  240
+   Sleep, 700
+   MouseClick, left,  827,  507
+}
+
 ;}}}
