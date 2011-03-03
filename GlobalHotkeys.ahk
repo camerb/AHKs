@@ -250,6 +250,7 @@ else
 ;http://66.228.115.186/listen/player.asp?station=897power-fm&
 ;http://www.christiannetcast.com/listen/dynamicasx.asp?station=kvtt-fm2
 }
+Send, ^!5
 ;WinMinimize
 ;WinHide
 return

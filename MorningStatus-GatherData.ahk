@@ -15,8 +15,8 @@ if (A_ComputerName = "PHOSPHORUS")
    message=Dropbox: %dropboxSize% of 3 GB used
    FileAppendLine(message, filename)
 
-   SysGet, MonitorCount, MonitorCount
-   message=The monitor count on Phos is %MonitorCount%
-   FileAppendLine(message, filename)
+   ;SysGet, MonitorCount, MonitorCount
+   ;message=The monitor count on Phos is %MonitorCount%
+   ;FileAppendLine(message, filename)
 }
 

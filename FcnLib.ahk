@@ -1104,7 +1104,8 @@ DirectoryScan(directoryToScan, reportFilePath)
    time:=CurrentTime("hyphenated")
    timer:=StartTimer()
    count=0
-   Loop, %directoryToScan%, 1, 1
+   directoryToScan := EnsureEndsWith(directoryToScan, "\")
+   Loop, %directoryToScan%*, 1, 1
    {
       FileAppend, %A_LoopFileFullPath%`n, %reportFilePath%
       count++
@@ -1328,23 +1329,29 @@ SpiffyMute()
 
 ;TESTME might not work in all situations
 ;TODO enable path of xml element instead, like: html.head.title
-getXmlElementContents1(xmlPage, nameOfXmlElement)
-{
-   needle=^.*<%nameOfXmlElement%>(.*)</%nameOfXmlElement%>.*$
-   returned := RegExReplace(xmlPage, needle, "$1")
-   return returned
-}
+;getXmlElementContents1(xmlPage, nameOfXmlElement)
+;{
+   ;needle=^.*<%nameOfXmlElement%>(.*)</%nameOfXmlElement%>.*$
+   ;returned := RegExReplace(xmlPage, needle, "$1")
+   ;return returned
+;}
 
+;allows easy access to the contents of XML elements
 GetXmlElement(xml, path)
 {
-   elementName:=path
-   regex=<%elementName%>(.*)</%elementName%>
+   Loop, parse, path, .,
+   {
+      elementName:=A_LoopField
+      debug(elementname)
 
-   RegExMatch(xml, regex, xml)
-   ;errord("nolog", xml1)
-   xml := StringTrimLeft(xml, strlen(path)+2)
-   xml := StringTrimRight(xml, strlen(path)+3)
-   ;msgbox
+      regex=<%elementName%>(.*)</%elementName%>
+
+      RegExMatch(xml, regex, xml)
+      ;TODO switch to use xml1, instead of parsing stuff out
+      ;errord("nolog", xml1)
+      xml := StringTrimLeft(xml, strlen(elementName)+2)
+      xml := StringTrimRight(xml, strlen(elementName)+3)
+   }
 
    return xml
 }
@@ -1366,4 +1373,6 @@ fatalIfNotThisPc(computerName)
 
 ;WRITEME parse and display TODO and WRITEME items from FcnLib
 ;WRITEME try to run MintTouch once an hour on the VM
+
+
 

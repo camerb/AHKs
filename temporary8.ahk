@@ -3,13 +3,13 @@
 ;RunProgram("DesktopSidebar") - using a smart ini
 
 ;trying to make a function like:
-;LaunchProgram(appName)
+;RunProgram(appName)
 ;{
 
 ;}
 
 ;usage:
-;LaunchProgram("opera")
+;RunProgram("opera")
 ; or pidgin or ie or chrome or whatever
 
 DeleteTraceFile()
@@ -27,6 +27,15 @@ debug(FileGetLocation("ProgramFiles"))
 AddToTrace(FileRead(ini))
 SleepSeconds(1)
 ExitApp
+
+RunProgram(appName)
+{
+   ;this is a bad idea, FileGetLocation will never be reused
+   path := FileGetLocation()
+   if NOT path
+      return
+   Run, %path%
+}
 
 FileGetLocation()
 {

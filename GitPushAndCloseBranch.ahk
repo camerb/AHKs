@@ -1,5 +1,9 @@
 #include FcnLib.ahk
 
+;this is how to tell what the name of the current branch is
+currentBranchFromFile := FileRead("C:\code\epms\.git\HEAD")
+debug(currentBranchFromFile)
+
 ;push and close that branch
 ForceWinFocus("MINGW32", "Contains")
 currentBranchName:=Prompt("What is the name of the current branch?")

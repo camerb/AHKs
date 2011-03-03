@@ -2,6 +2,9 @@
 
 ;A_Debug:=true
 ;suppressPageReload:=true
+;DbicDebugMode:=true
+EpmsDebugMode:=true
+
 
 if (A_ComputerName <> "PHOSPHORUS")
    ExitApp

@@ -12,6 +12,7 @@ TestIsMinimizedIsMaximized()
 TestForceWinFocusIfExist()
 TestSendViaClipboard()
 TestDebugBool()
+TestGetXmlElement()
 ;TODO test InStr with case insensitivity
 
 debug("Tests have finished") ;}}}

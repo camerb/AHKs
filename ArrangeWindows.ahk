@@ -13,6 +13,14 @@ rightWidth:=bottomRightX-verticalSplit
 
 if (A_ComputerName = "PHOSPHORUS")
 {
+   SysGet, MonitorCount, MonitorCount
+   if (MonitorCount == 1)
+   {
+      WinGet, hwnd, ID, A
+      WinMove, ahk_id %hwnd%, , 10, 10
+      ExitApp
+   }
+
    SetTitleMatchMode, 2
 
    WinClose, Buddy List ahk_class gdkWindowToplevel
