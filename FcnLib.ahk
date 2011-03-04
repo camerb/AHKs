@@ -1337,13 +1337,12 @@ SpiffyMute()
 ;}
 
 ;allows easy access to the contents of XML elements
-GetXmlElement(xml, path)
+;path will travel through the XML heirarchy, like: html.head.title
+GetXmlElement(xml, pathToElement)
 {
-   Loop, parse, path, .,
+   Loop, parse, pathToElement, .,
    {
       elementName:=A_LoopField
-      debug(elementname)
-
       regex=<%elementName%>(.*)</%elementName%>
 
       RegExMatch(xml, regex, xml)
@@ -1373,6 +1372,8 @@ fatalIfNotThisPc(computerName)
 
 ;WRITEME parse and display TODO and WRITEME items from FcnLib
 ;WRITEME try to run MintTouch once an hour on the VM
+
+
 
 
 

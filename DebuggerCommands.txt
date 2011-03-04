@@ -427,3 +427,8 @@ cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl riverstone_resident.pl "
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl riverstone_prospect.pl "C:\import_files\survey\riverstone_pros_20110301.txt"}
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl riverstone_resident.pl "C:\import_files\survey\riverstone_res_20110301.txt"}
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl riverstone_prospect.pl "C:\import_files\survey\riverstone_pros_20110301.txt"}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl riverstone_resident.pl "C:\import_files\survey\riverstone_res_20110301.txt"}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl riverstone_prospect.pl "C:\import_files\survey\riverstone_pros_20110301.txt"}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl riverstone_resident.pl "C:\import_files\survey\riverstone_res_20110301.txt"}
+cmd 1: {C:\code\epms\script\survey}, 2: {perl queue_surveys.pl"}
+cmd 1: {C:\code\epms\script\survey}, 2: {perl generate_correct_propids.pl}
