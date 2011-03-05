@@ -178,6 +178,11 @@ WinClose, Error, An instance of Pidgin is already running
 ;IfWinExist, Playback error
    ;WinClose
 
+IfWinActive, Disconnect Terminal Services Session ahk_class #32770
+{
+   Send, {ENTER}
+}
+
 IfWinExist, Connection to server argon.lan.mitsi.com lost. ahk_class #32770, Close server browser? If you abort, the object browser will not show accurate data.
 {
    ControlClick, &Yes
