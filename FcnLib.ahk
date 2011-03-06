@@ -861,6 +861,8 @@ RunAhk(ahkFilename, params="", options="")
 ;TODO maybe we could have an "ensure one instance" option
 RunProgram(path)
 {
+   ini=gitExempt\folderinfo.ini
+
    if FileExist(path)
    {
       Run, %path%
@@ -868,7 +870,6 @@ RunProgram(path)
    }
 
    path := StringReplace(path, "\Program Files (x86)\", "\Program Files\")
-
    if FileExist(path)
    {
       Run, %path%
@@ -876,12 +877,25 @@ RunProgram(path)
    }
 
    path := StringReplace(path, "\Program Files\", "\Program Files (x86)\")
-
    if FileExist(path)
    {
       Run, %path%
       return
    }
+
+   ;at this point, we have tried all of the valid paths we can think of
+   ; this is either an invalid path, just a filename, or a nickname of something we already know of
+   appName := path
+   path=
+
+   ;look up the filename that corresponds to this nickname
+   appFilename := IniRead(ini, "NICKNAMES", appName)
+   ;debug(appFilename)
+
+   ;look up the path specific to this PC
+   path := IniRead(ini, A_ComputerName, appFilename)
+   ;debug(path)
+
    delog("tried run program", "could not find the directory or one like it", "app might not be installed, or the path might not be pointed at the program files dir")
 }
 
@@ -1372,6 +1386,8 @@ fatalIfNotThisPc(computerName)
 
 ;WRITEME parse and display TODO and WRITEME items from FcnLib
 ;WRITEME try to run MintTouch once an hour on the VM
+
+
 
 
 
