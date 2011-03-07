@@ -24,6 +24,22 @@ projectionCsv=C:\My Dropbox\AHKs\gitExempt\financialProjection.csv
 if NOT FileExist(infile)
    fatalErrord("the infile for creating the financial projection doesn't exist, cannot continue", A_ScriptName)
 
+;get the current balance of the checking account
+Loop, Read, gitExempt/DailyFinancial.csv
+{
+   Loop, parse, A_LoopReadLine, CSV
+   {
+      if (A_Index == 3)
+         currentCheckingBalance=%A_LoopField%
+      if (A_Index == 6)
+         projectedCreditCardBill=%A_LoopField%
+      ;put this in the expected file using an REFP
+   }
+}
+
+;TODO put this in the expected file using an REFP
+;projectedCreditCardBill=%A_LoopField%
+
 ;Read in all of the expected transactions
 Loop, Read, %expectedTransFile%
 {
@@ -64,16 +80,6 @@ Loop, Read, %infile%
          ;TODO mark it as found, mark historyTrans as expected?
          reTrans%i%found:=true
       }
-   }
-}
-
-;get the current balance of the checking account
-Loop, Read, gitExempt/DailyFinancial.csv
-{
-   Loop, parse, A_LoopReadLine, CSV
-   {
-      if (A_Index == 3)
-         currentCheckingBalance=%A_LoopField%
    }
 }
 
