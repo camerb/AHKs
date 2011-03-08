@@ -4,6 +4,11 @@
 
 mintLogin()
 {
+   RunAhk("HyperCamRecord.ahk")
+   SleepSeconds(10)
+
+   ;Loop
+   ;{
    RunOpera()
    CloseAllTabs()
    MedSleep()
@@ -21,8 +26,14 @@ mintLogin()
    ClickIfImageSearch("images\mint\LoginButton.bmp")
 
    mainPageTitle=Mint.com > Overview - Opera
+   CustomTitleMatchMode("Exact")
    WinWaitActive, %mainPageTitle%, , 60
+   SleepSeconds(5)
 
-   if (WinGetActiveTitle() != mainPageTitle)
-      die("when i logged into mint, the title was not as expected", A_ScriptName, A_LineNumber, A_ThisFunc, theTitle)
+   if (WinGetActiveTitle() == mainPageTitle)
+      return
+   ;if (count > 5)
+      die("when i logged into mint, the title was not as expected", A_ScriptName, A_LineNumber, A_ThisFunc, WinGetActiveTitle())
+   count++
+   ;}
 }

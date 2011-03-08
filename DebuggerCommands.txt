@@ -436,3 +436,10 @@ cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl riverstone_resident.pl "
 EPMS
 cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
 EPMS
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl riverstone.pl C:\import_files\riverstone_prop_2011-03.txt > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl riverstone.pl C:\import_files\prop\riverstone_2011-03.txt > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl riverstone.pl C:\import_files\props\riverstone_2011-03.txt > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl avalonbay.pl C:\import_files\props\avalonbay_2011-03.txt > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl milestone.pl C:\import_files\props\milestone_2011-03.txt > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl milestone.pl C:\import_files\props\milestone_2011-03.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script}, 2: {perl user_auth_expression_new.pl}

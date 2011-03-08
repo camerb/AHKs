@@ -37,8 +37,13 @@ Loop, Read, gitExempt/DailyFinancial.csv
    }
 }
 
-;TODO put this in the expected file using an REFP
+;TODO put this in the expected file using an REFP ;finished but not sure if it works
 ;projectedCreditCardBill=%A_LoopField%
+refpLine=ZZZccPaymentEstimateZZZ`n%projectedCreditCardBill%
+reFile=%path%regex-expectedTxns.txt
+expectedTransTpl=%path%expectedTransactions-tpl.txt
+FileAppend(refpLine, "REFP\regex-expectedTxns.txt")
+REFP(expectedTransTpl, reFile, expectedTransFile)
 
 ;Read in all of the expected transactions
 Loop, Read, %expectedTransFile%
