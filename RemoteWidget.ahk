@@ -69,12 +69,10 @@ GetGmailMessageCount(url, prettyName)
 
 UrlDownloadToVarCheck500(url)
 {
-   ;TODO allow RegEx of Error Message Titles
-   errorMsg:="Dropbox - 5xx"
    errorMsg:="Dropbox - 500"
    title := errorMsg
 
-   while (title == errorMsg)
+   while (RegExMatch(title, "^Dropbox - (500|5xx)$"))
    {
       page:=urldownloadtovar(url)
       title:=GetXmlElement(page, "title")

@@ -1,5 +1,6 @@
 #include FcnLib.ahk
 #include ThirdParty/json.ahk
+#include ThirdParty/tf.ahk
 
 DeleteTraceFile()
 
@@ -39,11 +40,14 @@ Loop, Read, gitExempt/DailyFinancial.csv
 
 ;TODO put this in the expected file using an REFP ;finished but not sure if it works
 ;projectedCreditCardBill=%A_LoopField%
-refpLine=ZZZccPaymentEstimateZZZ`n%projectedCreditCardBill%
+refpLine=ZZZccPaymentEstimateZZZ`n%projectedCreditCardBill%`nZZZccPaymentEstimateZZZ`n`n
 reFile=%path%regex-expectedTxns.txt
 expectedTransTpl=%path%expectedTransactions-tpl.txt
-FileAppend(refpLine, "REFP\regex-expectedTxns.txt")
-REFP(expectedTransTpl, reFile, expectedTransFile)
+;FileAppend(refpLine, "REFP\regex-expectedTxns.txt")
+;REFP(expectedTransTpl, reFile, expectedTransFile)
+
+FileCopy(expectedTransTpl, expectedTransFile, "overwrite")
+TF_Replace("!"expectedTransFile, "ZZZccPaymentEstimateZZZ", projectedCreditCardBill)
 
 ;Read in all of the expected transactions
 Loop, Read, %expectedTransFile%
@@ -122,7 +126,7 @@ Loop, %reTransCount%
 }
 
 ;lets add two more months on there
-Loop 3
+Loop 6
 {
    currentMonth++
    Loop, %reTransCount%

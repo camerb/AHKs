@@ -104,13 +104,6 @@ if NOT FileExist(filename)
 Run %filename%
 return
 
-AppsKey & e::
-message:=prompt("Please enter your message for Melinda:")
-if (message=="")
-   return
-SendEmail("IM", message, "", "mbaustian@nbsdefaultservices.com", "cameronbaustian+im@gmail.com")
-return
-
 ;Print Screen and Save to Disk
 ^PrintScreen:: SaveScreenShot("KeyPress")
 !PrintScreen:: SaveScreenShot("KeyPress", "dropbox", "activeWindow")
