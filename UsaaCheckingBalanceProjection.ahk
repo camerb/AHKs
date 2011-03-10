@@ -125,7 +125,7 @@ Loop, %reTransCount%
    }
 }
 
-;lets add two more months on there
+;lets add 5 more months on there (originally this was 2 more)
 Loop 6
 {
    currentMonth++

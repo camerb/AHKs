@@ -1090,8 +1090,9 @@ GetFolderName(FullPath)
    return returned
 }
 
-;TODO also need a combobox prompt
+;TODO also need a combobox prompt: provide option1|option2|option3
 ;TODO need to handle if the user hit cancel or the 'x' - "USER_CANCELLED"
+;TODO default text in textbox
 ;Displays a standard prompt to the user
 ;if "folder" is specified in options, the prompt will be a folder chooser
 Prompt(message, options="")
@@ -1341,17 +1342,9 @@ SpiffyMute()
    SoundSet, +1, , mute
 }
 
-;TESTME might not work in all situations
-;TODO enable path of xml element instead, like: html.head.title
-;getXmlElementContents1(xmlPage, nameOfXmlElement)
-;{
-   ;needle=^.*<%nameOfXmlElement%>(.*)</%nameOfXmlElement%>.*$
-   ;returned := RegExReplace(xmlPage, needle, "$1")
-   ;return returned
-;}
-
 ;allows easy access to the contents of XML elements
 ;path will travel through the XML heirarchy, like: html.head.title
+;note that this does not enforce proper traversal of the xml tree
 GetXmlElement(xml, pathToElement)
 {
    Loop, parse, pathToElement, .,
@@ -1386,6 +1379,8 @@ fatalIfNotThisPc(computerName)
 
 ;WRITEME parse and display TODO and WRITEME items from FcnLib
 ;WRITEME try to run MintTouch once an hour on the VM
+
+
 
 
 

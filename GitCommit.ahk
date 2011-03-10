@@ -4,7 +4,9 @@
 
 ForceWinFocus("MINGW32", "Contains")
 Send, clear{ENTER}
+Send, git add --all{ENTER}
 Send, git status{ENTER}
+Send, git add --all{ENTER}
 Send, git add -p{ENTER}
 
 ;TODO perhaps we should ask about the commit message at first,

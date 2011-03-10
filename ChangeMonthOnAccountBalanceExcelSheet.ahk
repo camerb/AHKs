@@ -9,7 +9,6 @@
    StringTrimLeft, date, date, 2
    StringTrimRight, date, date, 4
    date=03%date%2011
-   ;debug(date)
    Send, %date%{UP}
 return
 

@@ -3,7 +3,7 @@
 ForceWinFocus("Ellis Partners in Mystery Shopping: Customer Interface - Mozilla Firefox")
 MouseClick, left,  64,  351
 Sleep, 100
-MouseClick, left,  71,  405
+MouseClick, left,  71,  462
 Sleep, 100
 MouseClick, left,  1566,  304
 Sleep, 100

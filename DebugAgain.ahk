@@ -217,14 +217,18 @@ if ForceWinFocusIfExist("Ellis Partners in Mystery Shopping: Customer Interface 
    ;if (MonitorCount = 2)
       ;if ClickIfImageSearch("images\firebug\phosphorusAddress.bmp", "Control") || ClickIfImageSearch("images\firebug\phosphorusAddressHighlighted.bmp", "Control")
          ;ClickIfImageSearch("images\firebug\reloadButton.bmp")
-   SleepSeconds(7)
+   SleepSeconds(9)
    Click(173, 352, "Control")
    Sleep, 700
-   Click(173, 376, "Control")
-   Sleep, 700
-   Click(173, 385, "Control")
-   Sleep, 700
-   Click(260, 280, "Control")
+   Click(71, 405, "Control")
+   ;Sleep, 700
+   ;MouseClick, left,  1566,  304
+   ;Sleep, 700
+   ;Send, 01/01/2010
+   ;MouseClick, left,  1570,  352
+   ;Sleep, 700
+   ;Send, 03/03/2011
+   ;MouseClick, left,  1705,  323
    ExitApp
 }
 if ForceWinFocusIfExist(ffWindow, "RegEx")
