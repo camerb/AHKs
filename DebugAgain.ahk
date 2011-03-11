@@ -210,14 +210,12 @@ if ForceWinFocusIfExist("Ellis Partners in Mystery Shopping: Customer Interface 
 {
    ;This section is for testing out EPMS Customer Interface (Initially for Survey Graphing / Reporting)
    Sleep, 500
-   ;Click(50,13)
    Click(105,65)
-   ;if (MonitorCount = 1)
-      ;ClickIfImageSearch("images\firebug\reloadButton.bmp")
-   ;if (MonitorCount = 2)
-      ;if ClickIfImageSearch("images\firebug\phosphorusAddress.bmp", "Control") || ClickIfImageSearch("images\firebug\phosphorusAddressHighlighted.bmp", "Control")
-         ;ClickIfImageSearch("images\firebug\reloadButton.bmp")
-   SleepSeconds(9)
+
+   ;SleepSeconds(9)
+   SleepSeconds(2)
+   WaitForImageSearch("images/firebug/EllisLogo.bmp")
+   SleepSeconds(2)
    Click(173, 352, "Control")
    Sleep, 700
    Click(71, 405, "Control")
