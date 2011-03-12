@@ -16,8 +16,8 @@ Run, "C:\My Dropbox\Programs\baretail.exe"
 Run, "C:\Program Files (x86)\Vim\vim72\gvim.exe"
 ForceWinFocus("GVIM", "Contains")
 Send, {F2}
-Send, {;}
-Send, BookmarkToRoot code{ENTER}
+Send, ^w{RIGHT}{;}q{ENTER}
+Send, {;}BookmarkToRoot code{ENTER}
 
 ForceWinFocus("Mozilla Firefox")
 Send, ^!2
@@ -48,8 +48,8 @@ Send, ^!3
 Run, "C:\Program Files (x86)\Vim\vim72\gvim.exe"
 ForceWinFocus("GVIM", "Contains")
 Send, {F2}
-Send, {;}
-Send, BookmarkToRoot ahks{ENTER}
+Send, ^w{RIGHT}{;}q{ENTER}
+Send, {;}BookmarkToRoot ahks{ENTER}
 
 debug("Launching Irssi")
 RunWait, LaunchIrssi.ahk
@@ -92,9 +92,10 @@ Send, ^!a
 debug("Launching Pidgin")
 RunWait, LaunchPidgin.ahk
 
-ForceWinFocus("ahk_class gdkWindowToplevel")
-Sleep, 100
-Send, ^!a
+;ForceWinFocus("ahk_class gdkWindowToplevel")
+;Sleep, 100
+;Send, ^!a
+;NOTE I commented this line because it is already being shown on all screens in the launch pidgin script
 
 debug("ensuring sidebar is in correct location")
 WinGetPos, xPos, no, no, winHeight, ahk_class SideBarWndv10
@@ -103,6 +104,7 @@ if (xPos < 2500)
 {
    ;debug()
    WinActivate, ahk_class SideBarWndv10
+   ;TODO figure out a way to ensure that the sidebar is actually responding to WinActivate
    Click(20, winHeight - 20, "Right")
    Sleep, 100
    Send, {DOWN 2}{ENTER}

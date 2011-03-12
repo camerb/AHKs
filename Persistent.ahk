@@ -183,6 +183,19 @@ IfWinActive, Disconnect Terminal Services Session ahk_class #32770
    Send, {ENTER}
 }
 
+IfWinExist, Firefox Add-on Updates ahk_class MozillaDialogClass
+{
+   ;ForceWinFocus("Firefox Add-on Updates ahk_class MozillaDialogClass")
+   ;Sleep, 10
+   ;SendInput, !i
+
+   ;FIXME this should work!!!
+   ControlSend, MozillaWindowClass1, !i, Firefox Add-on Updates ahk_class MozillaDialogClass
+   Sleep, 100
+   errord("nolog", "just attempted to prod along firefox update window: did it work?", A_LineNumber, A_ScriptName)
+   SleepSeconds(60)
+}
+
 IfWinExist, Connection to server argon.lan.mitsi.com lost. ahk_class #32770, Close server browser? If you abort, the object browser will not show accurate data.
 {
    ControlClick, &Yes

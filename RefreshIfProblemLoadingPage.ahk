@@ -25,6 +25,9 @@ while true
       Send, {ENTER}
    }
 
+   ;FIXME gosh! why doesn't searching for images in firebug work anymore?
+   ClickIfImageSearch("images/firebug/continueButton.bmp")
+
    Sleep, 100
    if (CurrentlyAfter(TimeToExit))
       exit
