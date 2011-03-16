@@ -40,6 +40,10 @@ if (A_ComputerName = "PHOSPHORUS")
    WinMove, Irssi ahk_class PuTTY, , 0, %horizontalSplit%, %verticalSplit%, %bottomLeftHeight%
    WinMove, PhosphorusVM - VMware Player ahk_class VMPlayerFrame, , 2000, 0, 1298, 1024
 
+   ;do this early, so VirtuaWin has time to move the window to the other desktop
+   if ForceWinFocusIfExist("PhosphorusVM - VMware Player ahk_class VMPlayerFrame", "Exact")
+      Send, ^!5
+
    if ForceWinFocusIfExist("Google Chrome")
    {
       WinMove, Google Chrome, , 1920, 0, 1765, 1081

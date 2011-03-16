@@ -79,10 +79,12 @@ if (Mod(A_Min, 15)==0 && A_Sec==0)
 ;}}}
 
 ;{{{Check to see if we scheduled an ahk from the cloud
+if 0
 if (Mod(A_Sec, 15)==0)
 {
    if (A_ComputerName="PHOSPHORUS")
    {
+      ;TODO perhaps we can write the same text in the top and bottom of the file as a sort of checksum
       joe:=urlDownloadToVar("http://www.autohotkey.net/~cameronbaustian/text.txt")
       last:=urlDownloadToVar("http://dl.dropbox.com/u/789954/text.txt")
 

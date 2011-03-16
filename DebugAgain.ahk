@@ -182,7 +182,7 @@ if ForceWinFocusIfExist("Ext Designer ahk_class QWidget", "Contains")
 ;}}}
 
 ;FIXME this entire section is so wrong...
-;TODO need to change this section so that first we're figuring out what browser we're debugging with. Maybe this will suck because I'm using WinSplitRevolution and windows will exist, but it will be impossible to activate them. I had a feeling of that in the beginning, so that was why I decided to just use WinActivate. But it's a little bit annoying, having browser windows jump one in front of the other (I'd like to coin the term "ADHD-AHK").
+;TODO need to change this section so that first we're figuring out what browser we're debugging with. Maybe this will suck because I'm using VirtuaWin and windows will exist, but it will be impossible to activate them. I had a feeling of that in the beginning, so that was why I decided to just use WinActivate. But it's a little bit annoying, having browser windows jump one in front of the other (I'd like to coin the term "ADHD-AHK").
 SetTitleMatchMode, RegEx
 ;WinActivate, .*(%allWindow%).* - Google Chrome
 WinActivate, .*(%allWindow%).* - Windows Internet Explorer ahk_class IEFrame

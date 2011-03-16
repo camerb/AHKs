@@ -17,7 +17,7 @@ SleepMinutes(1)
 RunAhk("REFPunitTests.ahk", "completedFeaturesOnly")
 SleepMinutes(5)
 RunAhkAndBabysit("UnitTests.ahk")
-SleepMinutes(10)
+SleepMinutes(15)
 
 if (A_ComputerName="BAUSTIAN-09PC")
 {
