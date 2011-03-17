@@ -1,13 +1,14 @@
 #include FcnLib.ahk
 
-;A_Debug:=true
-suppressPageReload:=true
-;DbicDebugMode:=true
-EpmsDebugMode:=true
+fatalIfNotThisPc("PHOSPHORUS")
 
-
-if (A_ComputerName <> "PHOSPHORUS")
-   ExitApp
+;{{{ Get all of the debugger commands from the file
+ini:="gitExempt/global.ini"
+A_Debug            := IniRead(ini, A_ScriptName, "A_Debug")
+suppressPageReload := IniRead(ini, A_ScriptName, "suppressPageReload")
+dbicDebugMode      := IniRead(ini, A_ScriptName, "dbicDebugMode")
+epmsDebugMode      := IniRead(ini, A_ScriptName, "epmsDebugMode")
+;}}}
 
 ;{{{ Get all of the debugger commands from the file
 ;We'll execute the last command from the file
@@ -197,6 +198,7 @@ Sleep, 500
 ;TODO maybe we could toggle this on and off easily like server refresh mode
 if suppressPageReload
    ExitApp
+SendInput, {F8}
 SendInput, {F5}
 
 Run, RefreshIfProblemLoadingPage.ahk

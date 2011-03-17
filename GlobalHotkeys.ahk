@@ -67,8 +67,8 @@ AppsKey & j:: Run, CreateJiraIssue.ahk
 ;PrintScreen, Crop and Save
 AppsKey & c:: Run, CaptureAhkImage.ahk
 
-;Show our AHK post-it notes
-AppsKey & p:: Run, PostItNotes.ahk
+;Show our AHK post-it notes (question mark key)
+AppsKey & /:: Run, PostItNotes.ahk
 
 ;Suspend hotkeys for 10 seconds
 ;so user can use a key combo that is normally overridden

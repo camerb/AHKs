@@ -6,6 +6,7 @@
 */
 
 ;note that some of these functions have been changed from Titan's original file so that they are consistent with the original functionality of the command it mimics from AHK
+;also note that some of these have been deleted because I have changed those functions significantly
 
 Functions() {
 	Return, true
