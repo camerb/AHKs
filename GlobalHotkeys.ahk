@@ -174,6 +174,10 @@ else
 {
    InputBox, bookmark, Choose Station, Choose which station you'd like to play
 
+   ;default station
+   if (bookmark == "")
+      bookmark:="last"
+
    if (InStr(bookmark, "NPR"))
    {
       Run, C:\My Dropbox\Programs\npr.m3u
