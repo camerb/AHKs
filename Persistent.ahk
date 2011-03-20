@@ -46,6 +46,16 @@ if (A_Hour=6 AND A_Min=0 AND A_Sec=0)
 ;}}}
 
 ;{{{Routine email reminders
+if (A_Hour=11 AND A_Min=05 AND A_Sec=0)
+{
+   if (A_ComputerName="PHOSPHORUS")
+      if A_WDay BETWEEN 2 AND 6
+      {
+         ThreadedMsgbox("Time for lunch")
+         SleepSeconds(2)
+      }
+}
+
 if (A_Hour=13 AND A_Min=30 AND A_Sec=0)
 {
    if (A_ComputerName="PHOSPHORUS")

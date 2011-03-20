@@ -1,6 +1,7 @@
 #SingleInstance Force
 
 #include thirdParty\Functions.ahk
+#include FcnLib-Rewrites.ahk
 
 ;Takes a screenshot and saves it to the specified path
 ;Useful for debugging macros afterward
@@ -1371,42 +1372,22 @@ fatalIfNotThisPc(computerName)
    }
 }
 
+;this is a candidate for merging with debug()
+;but first options "threaded" "timeToWait=untilPressOkButton" and "hideDebugInfo" need to be implemented
+;but right now I think it is different enough
+ThreadedMsgbox(message)
+{
+   message="%message%"
+   RunAhk("ThreadedMsgbox.ahk", message)
+}
+
 ;WRITEME make function for getting remote and local path of dropbox public folder
-;WRITEME hotkey that moves windows to 10, 10 so that I can see them while VPNed (some are trapped on the other screen)
 ;WRITEME split csv processing out of the create pie chart macro
 ;WRITEME make monthly financial charts (rather than three-month)
 
 
 ;WRITEME parse and display TODO and WRITEME items from FcnLib
 ;WRITEME try to run MintTouch once an hour on the VM
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

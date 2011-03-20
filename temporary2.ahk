@@ -1,82 +1,99 @@
 #include FcnLib.ahk
+#include thirdParty/CmdRet.ahk
 
+;recieve emails macro
 
-; ================== program start up====================================
-sleep, 5000
-; set unique value for these variables
-old_prog = StartUp
-old_win = StartUp
+;first, check the rss/xml page to see if there are new messages
+joe:=SexPanther()
+BotGmailUrl=https://cameronbaustianbot:%joe%@gmail.google.com/gmail/feed/atom
+ini=C:\DataExchange\BotEmail\Received.ini
 
-; set location and header row for the output file
-filename =C:\My Dropbox\Public\trace.txt
-titlerow = StartTime%a_tab%EndTime%a_tab%UserName%a_tab%ProgramName%a_tab%WindowTitle`r`n
+while (GetGmailMessageCount(BotGmailUrl, "Bot") == "")
+   SleepSeconds(3)
 
-; set initial start time
-FormatTime, StartTime_a,,MM/dd/yy
-FormatTime, StartTime_b,,hh:mm:ss tt
-StartTime := StartTime_a . a_space . StartTime_b
+;then, save all the recent emails to the hard drive
+command="C:\Program Files\GmailBackup\gmail-backup.exe" backup "C:\DataExchange\BotEmail\Received" cameronbaustianbot@gmail.com %joe% 20110301 20110328
+ret:=CmdRet_RunReturn(command)
+;delog(ret)
 
-; ======================= check to see if window has changed ====================
-GetActiveWindow:
-
-WinGet, program_name, ProcessName, A
-WinGetActiveTitle, Window_name
-
-
-if (old_prog = program_name) and (old_win = Window_name)
-; no change, check again after 5 seconds
+;processing the backup that just came in
+Loop, C:\DataExchange\BotEmail\Received\*.eml
 {
-   sleep, 5000
-   gosub, GetActiveWindow
+   if (IniRead(ini, "default", A_LoopFileName) == "ERROR")
+   {
+      examineEmail(A_LoopFileFullPath)
+      IniWrite(ini, "default", A_LoopFileName, "true")
+   }
 }
 
-
-if (old_prog <> program_name) or (old_win <> Window_name)
-; A change has occured
+examineEmail(emailFile)
 {
-   ; set end time
-   FormatTime, EndTime_a,,MM/dd/yy
-   FormatTime, EndTime_b,,hh:mm:ss tt
-   EndTime := EndTime_a . a_space . EndTime_b
-
-   ; save values for output file
-   datarow = %StartTime%%a_tab%%EndTime%%a_tab%%A_UserName%%a_tab%%program_name%%a_tab%%Window_name%`r`n
-   gosub, SaveData
+   findingSubject:=true
+   Loop, read, %emailFile%
+   {
+      thisLine:=A_LoopReadLine
+      if processingMessage
+      {
+         if (thisLine == boundary)
+         {
+            ;success, finished
+            debug(subjectLine, emailContents)
+            break
+         }
+         else if NOT firstLineHasBeenRead
+            firstLineHasBeenRead:=true
+         else
+            emailContents .= thisLine . "`n"
+      }
+      else if findingStart
+      {
+         if (thisLine == boundary)
+            processingMessage:=true
+      }
+      else if lookingForMarker
+      {
+         if RegExMatch(thisLine, "Content-Type.*boundary=(.*)$", result)
+         {
+            boundary := "--" . result1
+            findingStart:=true
+         }
+         else if (thisLine == "From: Bot Baustian <cameronbaustianbot@gmail.com>")
+            break
+      }
+      else if findingSubject
+      {
+         if RegExMatch(thisLine, "Subject\: (.*)$", result)
+         {
+            subjectLine:=result1
+            lookingForMarker:=true
+         }
+      }
+   }
 }
 
-; ============================= save data output ===================
-SaveData:
+GetGmailMessageCount(url, prettyName)
+{
+   gmailPage:=urldownloadtovar(url)
+   RegExMatch(gmailPage, "<fullcount>(\d+)</fullcount>", gmailPage)
+   RegExMatch(gmailPage, "\d+", number)
+   ;number := getXmlElement(gmailPage, "fullcount")
 
-IfExist,%filename%
-; if file already exists, append to current file
+   if (number == 0 || number == "")
+      return ""
+   returned=%prettyName% has %number% new emails`n
+   return returned
+}
+
+UrlDownloadToVarCheck500(url)
+{
+   errorMsg:="Dropbox - 500"
+   title := errorMsg
+
+   while (RegExMatch(title, "^Dropbox - (500|5xx)$"))
    {
-   ; save to existing file
-   FileAppend, %datarow%, %filename%
-   gosub,ResetVariables
+      page:=urldownloadtovar(url)
+      title:=GetXmlElement(page, "title")
    }
 
-Ifnotexist,%filename%
-; if file does not exist, create new file
-   {
-   ; create new file and save record
-   FileAppend, %titlerow%, %filename%
-   FileAppend, %datarow%, %filename%
-   gosub,ResetVariables
-   }
-
-
-; ===================== reset variables =====================
-ResetVariables:
-
-   ;replace old names with active names.  These will be used for the next comparison
-   old_prog = %program_name%
-   old_win = %Window_name%
-
-   ; set next start time
-   FormatTime, StartTime_a,,MM/dd/yy
-   FormatTime, StartTime_b,,hh:mm:ss tt
-   StartTime := StartTime_a . a_space . StartTime_b
-
-gosub, GetActiveWindow
-
-
+   return page
+}

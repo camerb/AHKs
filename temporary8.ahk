@@ -66,22 +66,6 @@ IniDelete(file, section, key="")
 }
 
 ;TESTME
-IniWrite(file, section, key, value)
-{
-   ;TODO put this in the read write and delete fcns
-   global A_IniFile
-   if (file == "")
-      file:=A_IniFile
-   if (file == "")
-      fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no filename was provided for writing the ini to")
-   if (section == "")
-      section:="default"
-
-   IniWrite, %value%, %file%, %section%, %key%
-   ;TODO test if the file is there
-}
-
-;TESTME
 ;IniRead(file, section, key)
 ;{
    ;;TODO put this in the read write and delete fcns
