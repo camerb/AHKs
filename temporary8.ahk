@@ -57,14 +57,6 @@ FileGetLocation()
 ;then scan the entire program files folder
 }
 
-IniDelete(file, section, key="")
-{
-   if (key == "")
-      IniDelete, %file%, %section%
-   else
-      IniDelete, %file%, %section%, %key%
-}
-
 ;TESTME
 ;IniRead(file, section, key)
 ;{

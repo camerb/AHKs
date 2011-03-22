@@ -93,7 +93,8 @@ Loop, Read, %infile%
 }
 
 ;start the financial projection file
-csvLine := concatWithSep(",", "Date", "Credit", "Debit", "Description", "Balance")
+createdDate=Created On %date%
+csvLine := concatWithSep(",", "Date", "Credit", "Debit", "Description", "Balance", createdDate)
 FileDelete(projectionCsv)
 FileAppendLine(csvline, projectionCsv)
 FileAppendLine("12/12/1999,,,," . currentCheckingBalance, projectionCsv)

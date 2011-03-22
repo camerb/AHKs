@@ -19,5 +19,18 @@ IniWrite(file, section, key, value)
 
    IniWrite, %value%, %file%, %section%, %key%
    ;TODO test if the file is there
+   ;if NOT FileExist(file)
+   ;   return "error"
+}
+
+IniDelete(file, section, key="")
+{
+   ;if NOT FileExist(file)
+   ;   return "error"
+
+   if (key == "")
+      IniDelete, %file%, %section%
+   else
+      IniDelete, %file%, %section%, %key%
 }
 

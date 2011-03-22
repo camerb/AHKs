@@ -89,23 +89,22 @@ if (Mod(A_Min, 15)==0 && A_Sec==0)
 ;}}}
 
 ;{{{Check to see if we scheduled an ahk from the cloud
-if 0
 if (Mod(A_Sec, 15)==0)
 {
    if (A_ComputerName="PHOSPHORUS")
    {
-      ;TODO perhaps we can write the same text in the top and bottom of the file as a sort of checksum
-      joe:=urlDownloadToVar("http://www.autohotkey.net/~cameronbaustian/text.txt")
-      last:=urlDownloadToVar("http://dl.dropbox.com/u/789954/text.txt")
+      ghetto:=SexPanther()
+      BotGmailUrl=https://cameronbaustianbot:%ghetto%@gmail.google.com/gmail/feed/atom
 
-      if (joe != last)
-      {
-         debug("silent log", "new version detected... going to run it")
-         FileDelete, C:\My Dropbox\Public\text.txt
-         FileAppend, %joe%, C:\My Dropbox\Public\text.txt
-         timestamp := CurrentTime()
-         FileAppend, %joe%, C:\My Dropbox\AHKs\scheduled\phosphorus\%timestamp%.ahk
-      }
+      gmailPage:=urldownloadtovar(BotGmailUrl)
+      RegExMatch(gmailPage, "<fullcount>(\d+)</fullcount>", gmailPage)
+      RegExMatch(gmailPage, "\d+", number)
+
+      if (number == 0 || number == "")
+         number == ""
+
+      if (number != "")
+         RunAhk("ProcessBotEmails.ahk")
    }
 }
 ;}}}
