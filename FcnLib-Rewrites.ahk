@@ -4,6 +4,53 @@
 
 ;This library contains those functions that reproduce functionality in AHK_basic, but which have significant differences in usage and/or side effects. The differences in functionality in these functions were found to be preferable over the functionality of the commands as they are in plain AHK
 
+;{{{ File Manipulation Functions
+FileAppend(text, file)
+{
+   EnsureDirExists(file)
+   FileAppend, %text%, %file%
+}
+
+FileAppendLine(text, file)
+{
+   text.="`r`n"
+   return FileAppend(text, file)
+}
+
+FileCopy(source, dest, options="")
+{
+   if InStr(options, "overwrite")
+      overwrite=1
+   if NOT FileExist(source)
+      fatalErrord("file doesn't exist")
+   EnsureDirExists(dest)
+
+   FileCopy, %source%, %dest%, %overwrite%
+}
+
+FileDelete(file)
+{
+   ;nothing is wrong if the file is already gone
+   if NOT FileExist(file)
+      return
+
+   FileDelete, %file%
+}
+
+FileMove(source, dest, options="")
+{
+   if InStr(options, "overwrite")
+      overwrite=1
+   if NOT FileExist(source)
+      fatalErrord("file doesn't exist")
+   EnsureDirExists(dest)
+
+   FileCopy, %source%, %dest%, %overwrite%
+}
+
+;}}}
+
+;{{{ INI Functions
 
 ;TESTME
 IniWrite(file, section, key, value)
@@ -34,3 +81,9 @@ IniDelete(file, section, key="")
       IniDelete, %file%, %section%, %key%
 }
 
+IniRead(Filename, Section, Key, Default = "ERROR") {
+	IniRead, v, %Filename%, %Section%, %Key%, %Default%
+	Return, v
+}
+
+;}}}

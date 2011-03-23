@@ -632,6 +632,9 @@ CloseDifficultApps()
          Process, Close, %pid%
       }
    }
+
+   ;close the stupid thing that comes with ZoneAlarm
+   Process, Close, ForceField.exe
 }
 
 CloseDifficultAppsAllScreens()
@@ -1255,49 +1258,6 @@ DeleteTraceFile()
    FileDelete("C:\My Dropbox\Public\trace.txt")
 }
 
-FileAppend(text, file)
-{
-   EnsureDirExists(file)
-   FileAppend, %text%, %file%
-}
-
-FileAppendLine(text, file)
-{
-   text.="`r`n"
-   return FileAppend(text, file)
-}
-
-FileCopy(source, dest, options="")
-{
-   if InStr(options, "overwrite")
-      overwrite=1
-   if NOT FileExist(source)
-      fatalErrord("file doesn't exist")
-   EnsureDirExists(dest)
-
-   FileCopy, %source%, %dest%, %overwrite%
-}
-
-FileDelete(file)
-{
-   ;nothing is wrong if the file is already gone
-   if NOT FileExist(file)
-      return
-
-   FileDelete, %file%
-}
-
-FileMove(source, dest, options="")
-{
-   if InStr(options, "overwrite")
-      overwrite=1
-   if NOT FileExist(source)
-      fatalErrord("file doesn't exist")
-   EnsureDirExists(dest)
-
-   FileCopy, %source%, %dest%, %overwrite%
-}
-
 ;TODO runwait
 ;RegEx File Processor
 REFP(inFile="REFP/in1.txt", regExFile="REFP/regex1.txt", outFile="REFP/out1.txt")
@@ -1396,4 +1356,7 @@ ThreadedMsgbox(message)
 
 
 
+
+
+;WRITEME macro that updates melinda's resume daily
 

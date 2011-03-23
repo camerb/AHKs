@@ -119,10 +119,6 @@ GuiControlGet(Subcommand = "", ControlID = "", Param4 = "") {
 ImageSearch(ByRef OutputVarX, ByRef OutputVarY, X1, Y1, X2, Y2, ImageFile) {
 	ImageSearch, OutputVarX, OutputVarY, %X1%, %Y1%, %X2%, %Y2%, %ImageFile%
 }
-IniRead(Filename, Section, Key, Default = "ERROR") {
-	IniRead, v, %Filename%, %Section%, %Key%, %Default%
-	Return, v
-}
 Input(Options = "", EndKeys = "", MatchList = "") {
 	Input, v, %Options%, %EndKeys%, %MatchList%
 	Return, v

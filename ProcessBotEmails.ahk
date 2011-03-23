@@ -18,23 +18,28 @@ if (number == 0 || number == "")
 if (number != "")
 {
    ;then, save all the recent emails to the hard drive
-   today:=CurrentTime()
-   twoDaysAgo:=dt
-   twoDaysAgo += -2, days
-   twoDaysAgo := FormatTime(twoDaysAgo, "yyyyMMdd")
-   today := FormatTime(today, "yyyyMMdd")
+   end:=CurrentTime()
+   start:=end
+   end += -2, days
+   start += 1, days
+   start := FormatTime(start, "yyyyMMdd")
+   end := FormatTime(end, "yyyyMMdd")
 
-   command="C:\Program Files\GmailBackup\gmail-backup.exe" backup "C:\DataExchange\BotEmail\Received" cameronbaustianbot@gmail.com %joe% %twoDaysAgo% %today%
+   exePath="C:\Program Files (x86)\GmailBackup\gmail-backup.exe"
+   ;exePath="C:\Program Files\GmailBackup\gmail-backup.exe"
+   command=%exePath% backup "C:\DataExchange\BotEmail\Received" cameronbaustianbot@gmail.com %joe% %start% %end%
    ret:=CmdRet_RunReturn(command)
    ;delog(ret)
+   ;debug(command)
 
    ;processing the backup that just came in
    Loop, C:\DataExchange\BotEmail\Received\*.eml
    {
       if (IniRead(ini, "default", A_LoopFileName) == "ERROR")
       {
-         examineEmail(A_LoopFileFullPath)
          IniWrite(ini, "default", A_LoopFileName, "true")
+         Sleep, 100
+         examineEmail(A_LoopFileFullPath)
       }
    }
 }
@@ -50,7 +55,7 @@ examineEmail(emailFile)
          if (thisLine == boundary)
          {
             ;success, finished
-            debug(subjectLine, emailContents)
+            processSingleEmail(subjectLine, emailContents)
             break
          }
          else if NOT firstLineHasBeenRead
@@ -96,3 +101,8 @@ examineEmail(emailFile)
    ;returned=%prettyName% has %number% new emails`n
    ;return returned
 ;}
+
+ProcessSingleEmail(emailSubject, emailMessage)
+{
+   delog(emailSubject, emailMessage)
+}

@@ -1,5 +1,7 @@
 #include FcnLib.ahk
 
+RunWait, ChangeLogitechWheelMode.ahk
+
 Process, Close, dsidebar.exe
 RunProgram("C:\Program Files\SMS_Lobby\SMSLobby.exe")
 SoundSet, 30

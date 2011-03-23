@@ -88,7 +88,7 @@ else
 }
 
 allWindow=Forms|Parts|Bench|Server|EPMS|Home|xds|phosphorus|Ellis Partners in Mystery Shopping|Survey Detailed Reporting
-ffWindow=(%projTitle%).* - Mozilla Firefox ahk_class MozillaUIWindowClass
+ffWindow=(%projTitle%).* - Mozilla Firefox ahk_class MozillaWindowClass
 ieWindow=(%projTitle%).* - Windows Internet Explorer ahk_class IEFrame
 ;}}}
 
@@ -187,7 +187,7 @@ if ForceWinFocusIfExist("Ext Designer ahk_class QWidget", "Contains")
 SetTitleMatchMode, RegEx
 ;WinActivate, .*(%allWindow%).* - Google Chrome
 WinActivate, .*(%allWindow%).* - Windows Internet Explorer ahk_class IEFrame
-WinActivate, .*(%allWindow%|Problem loading page).* - Mozilla Firefox ahk_class MozillaUIWindowClass
+WinActivate, .*(%allWindow%|Problem loading page).* - Mozilla Firefox ahk_class MozillaWindowClass
 
 IfWinActive, %ieWindow%
    Click, 600, 600
@@ -198,6 +198,7 @@ Sleep, 500
 ;TODO maybe we could toggle this on and off easily like server refresh mode
 if suppressPageReload
    ExitApp
+WinActivate, .*(%allWindow%|Problem loading page).* - Mozilla Firefox ahk_class MozillaWindowClass
 SendInput, {F8}
 SendInput, {F5}
 

@@ -101,9 +101,9 @@ if (Mod(A_Sec, 15)==0)
       RegExMatch(gmailPage, "\d+", number)
 
       if (number == 0 || number == "")
-         number == ""
+         number:=""
 
-      if (number != "")
+      if (number)
          RunAhk("ProcessBotEmails.ahk")
    }
 }
