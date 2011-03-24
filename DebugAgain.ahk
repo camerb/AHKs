@@ -213,23 +213,15 @@ if ForceWinFocusIfExist("Ellis Partners in Mystery Shopping: Customer Interface 
 {
    ;This section is for testing out EPMS Customer Interface (Initially for Survey Graphing / Reporting)
    Sleep, 500
-   Click(105,65)
+   ;Click(1279,52)
 
-   ;SleepSeconds(9)
    SleepSeconds(2)
    WaitForImageSearch("images/firebug/EllisLogo.bmp")
    SleepSeconds(2)
-   Click(173, 352, "Control")
+   Click(72, 308, "Control")
    Sleep, 700
-   Click(71, 405, "Control")
+   Click(72, 359, "Control")
    ;Sleep, 700
-   ;MouseClick, left,  1566,  304
-   ;Sleep, 700
-   ;Send, 01/01/2010
-   ;MouseClick, left,  1570,  352
-   ;Sleep, 700
-   ;Send, 03/03/2011
-   ;MouseClick, left,  1705,  323
    ExitApp
 }
 if ForceWinFocusIfExist(ffWindow, "RegEx")

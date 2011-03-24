@@ -1255,10 +1255,11 @@ AddToTrace(var, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t
 
 DeleteTraceFile()
 {
+   ;TODO instead of deleting the old trace file
+   ;lets archive it and create a new file real quick
    FileDelete("C:\My Dropbox\Public\trace.txt")
 }
 
-;TODO runwait
 ;RegEx File Processor
 REFP(inFile="REFP/in1.txt", regExFile="REFP/regex1.txt", outFile="REFP/out1.txt")
 {
@@ -1306,6 +1307,8 @@ SpiffyMute()
 ;allows easy access to the contents of XML elements
 ;path will travel through the XML heirarchy, like: html.head.title
 ;note that this does not enforce proper traversal of the xml tree
+;TODO allow for attributes to be present in the XML element we are searching for
+;TODO allow for searching through XML arrays
 GetXmlElement(xml, pathToElement)
 {
    Loop, parse, pathToElement, .,
@@ -1359,4 +1362,6 @@ ThreadedMsgbox(message)
 
 
 ;WRITEME macro that updates melinda's resume daily
+
+
 

@@ -22,7 +22,11 @@ percentLeft := 100 - percentThru
 spentPerPercent := CreditBalance / percentThru
 projectedCreditCardBill := CreditBalance + percentLeft * spentPerPercent
 projectedCreditCardBill := StringTrimRight(projectedCreditCardBill, 4)
+
+;fix the projection if something odd is going on (like if the bill hasn't been paid yet)
 if (currentDay == 22)
+   projectedCreditCardBill := CreditBalance
+if (projectedCreditCardBill > 5000)
    projectedCreditCardBill := CreditBalance
 
 ;output this stuff to a file
