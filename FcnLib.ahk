@@ -1365,3 +1365,6 @@ ThreadedMsgbox(message)
 
 
 
+
+;WRITEME close specified jira issue (and log work beforehand, too)
+

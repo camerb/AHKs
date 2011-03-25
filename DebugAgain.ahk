@@ -79,7 +79,7 @@ else if (project == "TM")
 else if (debuggerCommand == "EPMS")
 {
    apacheServer:=true
-   projTitle=Ellis Partners in Mystery Shopping|EPMS|Survey Detailed Reporting
+   projTitle=Ellis Partners in Mystery Shopping|EPMS|Survey Detailed Reporting|Net Promoter Score
 }
 else
 {
@@ -87,7 +87,7 @@ else
    ExitApp
 }
 
-allWindow=Forms|Parts|Bench|Server|EPMS|Home|xds|phosphorus|Ellis Partners in Mystery Shopping|Survey Detailed Reporting
+allWindow=Forms|Parts|Bench|Server|EPMS|Home|xds|phosphorus|Ellis Partners in Mystery Shopping|Survey Detailed Reporting|Net Promoter Score
 ffWindow=(%projTitle%).* - Mozilla Firefox ahk_class MozillaWindowClass
 ieWindow=(%projTitle%).* - Windows Internet Explorer ahk_class IEFrame
 ;}}}
