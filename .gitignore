@@ -4,6 +4,7 @@ script/epms_workbench.pl
 logs
 screenshots
 transferTo
+temp
 gitExempt
 REFP
 usaa_export

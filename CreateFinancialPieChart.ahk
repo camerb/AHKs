@@ -1,11 +1,14 @@
 #include FcnLib.ahk
 
+;this should probably be split into three scripts
+
 ;DeleteTraceFile()
 
 date := currenttime("hyphendate")
 ;date=2011-01-16
 ;date=2011-01-18
 
+;TODO split into: processMintExport
 in =C:\My Dropbox\AHKs\gitExempt\mint_export\%date%.csv
 re =C:\My Dropbox\AHKs\REFP\regex-mint.txt
 out=C:\My Dropbox\AHKs\gitExempt\mint_export\%date%-processed.csv
@@ -19,21 +22,23 @@ REFP(in, re, out)
 outFileBase=C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%
 infile:=out
 
-Loop, read, %out%
+;TODO split into: separateMintExport
+Loop, read, %infile%
 {
    line:=A_LoopReadLine
-   if InStr(line, "PLATINUM MASTERCARD")
+   if RegExMatch(line, "PLATINUM MASTERCARD.$")
       FileAppendLine(line, outFileBase . "-credit.csv")
-   else if InStr(line, "FOUR STAR CHECKING")
+   else if RegExMatch(line, "FOUR STAR CHECKING")
       FileAppendLine(line, outFileBase . "-checking.csv")
-   else if InStr(line, "USAA SAVINGS")
+   else if RegExMatch(line, "USAA SAVINGS")
       FileAppendLine(line, outFileBase . "-savings.csv")
-   else if InStr(line, "CHASE PREMIER CHECKING")
+   else if RegExMatch(line, "CHASE PREMIER CHECKING")
       FileAppendLine(line, outFileBase . "-chasechecking.csv")
    ;else
       ;AddToTrace(line)
 }
 
+;TODO split into: preProcessForPieChart
 in =C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-credit.csv
 re =C:\My Dropbox\AHKs\REFP\regex-financial-credit.txt
 out=C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-credit-processed.csv

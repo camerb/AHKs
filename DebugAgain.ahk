@@ -79,7 +79,7 @@ else if (project == "TM")
 else if (debuggerCommand == "EPMS")
 {
    apacheServer:=true
-   projTitle=Ellis Partners in Mystery Shopping|EPMS|Survey Detailed Reporting|Net Promoter Score
+   projTitle=Ellis Partners in Mystery Shopping|EPMS|Survey Detailed Reporting|Net Promoter Score|Personality Trait
 }
 else
 {
@@ -87,7 +87,7 @@ else
    ExitApp
 }
 
-allWindow=Forms|Parts|Bench|Server|EPMS|Home|xds|phosphorus|Ellis Partners in Mystery Shopping|Survey Detailed Reporting|Net Promoter Score
+allWindow=Forms|Parts|Bench|Server|EPMS|Home|xds|phosphorus|Ellis Partners in Mystery Shopping|Survey Detailed Reporting|Net Promoter Score|Personality Trait
 ffWindow=(%projTitle%).* - Mozilla Firefox ahk_class MozillaWindowClass
 ieWindow=(%projTitle%).* - Windows Internet Explorer ahk_class IEFrame
 ;}}}
@@ -199,8 +199,10 @@ Sleep, 500
 if suppressPageReload
    ExitApp
 WinActivate, .*(%allWindow%|Problem loading page).* - Mozilla Firefox ahk_class MozillaWindowClass
-SendInput, {F8}
+IfWinActive, %ffWindow%
+   SendInput, {F8}
 SendInput, {F5}
+
 
 Run, RefreshIfProblemLoadingPage.ahk
 

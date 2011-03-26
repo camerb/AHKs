@@ -12,7 +12,7 @@ ForceWinFocus("MINGW32", "Contains")
 Send, git status{ENTER}
 
 ;push and close that branch
-decision:=Prompt("Do you actually want to Pull and Push?`nPress y if you do")
+decision:=Prompt("Do you actually want to Pull and Push?`nPress n if the status is not clean (observe the git window now)`nPress y if you do")
 if (decision <> "y")
    ExitApp
 

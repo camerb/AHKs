@@ -4,6 +4,7 @@
 
 DeleteTraceFile()
 
+;close old windows, if they are still open for some reason
 if ForceWinFocusIfExist("out1.*OpenOffice.org", "RegEx")
 {
    Sleep, 200

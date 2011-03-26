@@ -5,6 +5,13 @@ return
 Persist:
 SetTitleMatchMode, 1
 
+;{{{ Kill Dropbox in light of the virus outbreak at work
+if isVM()
+   Process, Close, Dropbox.exe
+if (A_ComputerName="PHOSPHORUS")
+   Process, Close, Dropbox.exe
+;}}}
+
 ;{{{Middle of the night unit tests, backups, and reload script
 if (A_Hour==3 AND A_Min==2)
 {
