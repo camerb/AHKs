@@ -900,7 +900,7 @@ RunProgram(path)
    path := IniRead(ini, A_ComputerName, appFilename)
    ;debug(path)
 
-   delog("tried run program", "could not find the directory or one like it", "app might not be installed, or the path might not be pointed at the program files dir")
+   delog("tried run program", path, A_ScriptName, A_LineNumber, A_ThisFunc, "could not find the directory or one like it", "app might not be installed, or the path might not be pointed at the program files dir")
 }
 
 sendEmail(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sReplyTo="cameronbaustian+bot@gmail.com")
@@ -1224,13 +1224,18 @@ ForceReloadAll()
 ;TESTME
 ZeroPad(number, length)
 {
-   Loop length
-      padding .= "0"
-   length *= -1
-   length++
+   ;Loop length
+      ;padding .= "0"
+   ;length *= -1
+   ;length++
 
-   returned := substr(padding . number, length)
-   return returned
+   ;returned := substr(padding . number, length)
+   ;return returned
+
+   while (strlen(number) < length)
+      number := "0" . number
+
+   return number
 }
 
 ;WRITEME

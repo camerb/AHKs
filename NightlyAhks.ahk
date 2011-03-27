@@ -44,6 +44,8 @@ if (A_ComputerName="BAUSTIAN-09PC")
    SleepMinutes(15)
    RunAhkAndBabysit("UsaaCheckingBalanceProjection.ahk")
    SleepMinutes(1)
+   RunAhkAndBabysit("GetSentryBalances.ahk")
+   SleepMinutes(5)
 }
 else if (A_ComputerName="PHOSPHORUS")
 {
@@ -72,7 +74,7 @@ if (A_ComputerName="PHOSPHORUS")
 {
    ;this needs a little bit of click-around time
    RunAhkAndBabysit("LaunchPidgin.ahk")
-   SleepSeconds(30)
+   SleepMinutes(1)
 }
 
 RunAhkAndBabysit("MoveMouseAcrossEntireScreen.ahk")

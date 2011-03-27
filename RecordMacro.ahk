@@ -1,56 +1,84 @@
 #include FcnLib.ahk
 
-runPath:=ProgramFilesDir("\AutoHotkey\AutoScriptWriter\AutoScriptWriter.exe")
-Run, %runPath%
-Send {SHIFTUP}{CTRLUP}{AppsKey Up}
-ForceWinFocus("AutoScriptWriter II - ( by Larry Keys ) ahk_class ASW_Dev_01", "Exact")
+time:=CurrentTime("hyphenated")
+tempFile=%A_WorkingDir%\temp\raw_recorded.ahk
+finalFile=%A_WorkingDir%\temporary.ahk
+archiveFile=%A_WorkingDir%\archive\temporaryAHKs\%time%.ahk
+
+aswWindow=AutoScriptWriter II - ( by Larry Keys ) ahk_class ASW_Dev_01
+saveWindow=Save AutoHotkey Script
+
+RunProgram("C:\Program Files\AutoHotkey\AutoScriptWriter\AutoScriptWriter.exe")
+
+Send {SHIFT UP}{ALT UP}{CTRL UP}{APPSKEY UP}
+ForceWinFocus(aswWindow, "Exact")
 
 ;TODO Sometimes it doesn't detect that we pressed it (need to detect this better)
-Sleep 100
-ControlClick, X56 Y55
-Sleep 500
-ControlClick, X56 Y55
+;Sleep 100
+;ControlClick, X56 Y55
+;Sleep 500
+;ControlClick, X56 Y55
+
+;this is attempt at the better detection
+while (WinGetHeight(aswWindow) > 70)
+{
+   ControlClick, X56 Y55
+   Sleep 100
+}
 
 ;Wait for the appskey to be pressed (to end recording)
 KeyWait, ``, D
 ForceWinFocus("AutoScriptWriter II - ( by Larry Keys ) ahk_class ASW_Dev_01", "Exact")
-ControlClick, X66 Y27
+;ControlClick, X66 Y27
+
+;this is attempt at the better detection
+while (WinGetHeight(aswWindow) < 70)
+{
+   ControlClick, X66 Y27
+   Sleep 100
+}
 
 ;Save as temporary.ahk and close
-ForceWinFocus("AutoScriptWriter II - ( by Larry Keys ) ahk_class ASW_Dev_01", "Exact")
-while true
+ForceWinFocus(aswWindow, "Exact")
+while NOT ForceWinFocusIfExist(SaveWindow)
 {
    ControlClick, X19 Y305
-   Sleep, 500
-   IfWinExist, Save AutoHotkey Script
-      break
-   Sleep, 500 ;is this one really necessary?
+   Sleep, 100 ;is this one really necessary?
 }
-ForceWinFocus("Save AutoHotkey Script")
-ControlClick, X228 Y339
-Sleep, 100
+ForceWinFocus(SaveWindow)
 Send, ^a
-Sleep, 100
-SendInput, %A_WorkingDir%\temporary.ahk{ENTER}
-;ControlClick, X471 Y409
-Sleep, 100
-WinClose, AutoScriptWriter II - ( by Larry Keys ) ahk_class ASW_Dev_01,
-Sleep, 100
+ss()
+ForceWinFocus(SaveWindow)
+SendInput, %tempFile%
+ss()
+SendInput, {ENTER}
+ss()
+WinClose, %aswWindow%
+ss()
 
-path="C:\My Dropbox\AHKs\REFP\
-infile=%path%in1.txt"
-refile2=%path%regex-rawmacro.txt"
-outfile=%path%out1.txt"
+path=C:\My Dropbox\AHKs\REFP\
+infile=%path%in1.txt
+refile2=%path%regex-rawmacro.txt
+outfile=%path%out1.txt
 
-FileCopy, %A_WorkingDir%\temporary.ahk, C:\My Dropbox\AHKs\REFP\in1.txt, 1
-Sleep, 100
+;FileCopy(tempFile, inFile, "overwrite")
+ss()
 
-params := concatWithSep(" ", infile, refile2, outfile)
-RunAhk("RegExFileProcessor.ahk", params)
-Sleep, 200
+;REFP(infile, refile2, outfile)
+REFP(tempFile, refile2, finalFile)
+SleepSeconds(1)
 
-;TODO allow an option for putting Sleep 100 on every other line
-time:=CurrentTime("hyphenated")
-FileCopy, C:\My Dropbox\AHKs\REFP\out1.txt, %A_WorkingDir%\temporary.ahk, 1
-FileCopy, %A_WorkingDir%\temporary.ahk, %A_WorkingDir%\archive\temporaryAHKs\%time%.ahk, 1
+;TODO allow an option for putting a short sleep on every other line
+FileCopy(finalFile, archiveFile, "overwrite")
 return
+
+ss()
+{
+   Sleep, 100
+}
+
+WinGetHeight(wintitle)
+{
+   WinGetPos, no, no, no, returned, %wintitle%
+   return returned
+}

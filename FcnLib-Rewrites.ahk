@@ -9,6 +9,7 @@ FileAppend(text, file)
 {
    EnsureDirExists(file)
    FileAppend, %text%, %file%
+   ;TODO should we ensure that the file exists?
 }
 
 FileAppendLine(text, file)
@@ -22,7 +23,7 @@ FileCopy(source, dest, options="")
    if InStr(options, "overwrite")
       overwrite=1
    if NOT FileExist(source)
-      fatalErrord("file doesn't exist")
+      fatalErrord("file doesn't exist", source, A_ThisFunc, A_LineNumber)
    EnsureDirExists(dest)
 
    FileCopy, %source%, %dest%, %overwrite%
@@ -42,10 +43,10 @@ FileMove(source, dest, options="")
    if InStr(options, "overwrite")
       overwrite=1
    if NOT FileExist(source)
-      fatalErrord("file doesn't exist")
+      fatalErrord("file doesn't exist", source, A_ThisFunc, A_LineNumber)
    EnsureDirExists(dest)
 
-   FileCopy, %source%, %dest%, %overwrite%
+   FileMove, %source%, %dest%, %overwrite%
 }
 
 ;}}}

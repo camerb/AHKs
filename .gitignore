@@ -8,5 +8,7 @@ temp
 gitExempt
 REFP
 usaa_export
+temporary*.ahk
+archive/temporaryAHKs
 *.swp
 *.swo
