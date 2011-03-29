@@ -22,9 +22,9 @@ v7:=GetAccountUnitPrice(summary, "Foreign Growth Account J - Janus Aspen Oversea
 total:=GetAccountUnitPrice(summary, "Total\:")
 
 csvLine:=concatWithSep(",", time, v1,v2,v3,v4,v5,v6,v7)
-FileAppend(csvLine, pricesFile)
+FileAppendLine(csvLine, pricesFile)
 csvLine:=concatWithSep(",", time, total)
-FileAppend(csvLine, totalsFile)
+FileAppendLine(csvLine, totalsFile)
 
 GetAccountUnitPrice(pageText, accountName)
 {
