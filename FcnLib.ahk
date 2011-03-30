@@ -1373,3 +1373,7 @@ ThreadedMsgbox(message)
 
 ;WRITEME close specified jira issue (and log work beforehand, too)
 
+;WRITEME parse the following pages and put them in the morning status
+;perhaps i can have updates of my points position, rather than having to look it up
+;http://www.racepointsmanager.com/pm4/league/1564/standings/series/4
+;http://www.racepointsmanager.com/pm4/league/1564/standings/series/8
