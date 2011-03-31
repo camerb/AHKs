@@ -866,6 +866,7 @@ RunAhk(ahkFilename, params="", options="")
 RunProgram(path)
 {
    ini=gitExempt\folderinfo.ini
+   originalPath:=path
 
    if FileExist(path)
    {
@@ -900,7 +901,7 @@ RunProgram(path)
    path := IniRead(ini, A_ComputerName, appFilename)
    ;debug(path)
 
-   delog("tried run program", path, A_ScriptName, A_LineNumber, A_ThisFunc, "could not find the directory or one like it", "app might not be installed, or the path might not be pointed at the program files dir")
+   delog("tried run program", originalPath, A_ScriptName, A_LineNumber, A_ThisFunc, "could not find the directory or one like it", "app might not be installed, or the path might not be pointed at the program files dir")
 }
 
 sendEmail(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sReplyTo="cameronbaustian+bot@gmail.com")
@@ -1347,6 +1348,12 @@ ThreadedMsgbox(message)
 {
    message="%message%"
    RunAhk("ThreadedMsgbox.ahk", message)
+}
+
+;tells the name of the lead computer
+LeadComputer()
+{
+   return "BAUSTIAN-09PC"
 }
 
 ;WRITEME make function for getting remote and local path of dropbox public folder

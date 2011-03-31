@@ -2,6 +2,9 @@
 
 debug("log grey line", "starting nightly scripts")
 
+if (A_ComputerName = LeadComputer())
+   DeleteTraceFile()
+
 if NOT IsVM()
 {
    RunAhkAndBabysit("MintTouch.ahk")
@@ -27,7 +30,10 @@ if (A_ComputerName="BAUSTIAN-09PC")
    SleepMinutes(10)
    RunAhkAndBabysit("PushToGit.ahk")
    SleepMinutes(3)
+}
 
+if (A_ComputerName = LeadComputer())
+{
    ;tasks that should be performed on phosphorus
    ;unless if the screen is not accessible
    ;  (last logged in via VPN and Windows logged physCompy out)
@@ -37,13 +43,15 @@ if (A_ComputerName="BAUSTIAN-09PC")
    RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
    SleepMinutes(5)
    ;RunAhkAndBabysit("UsaaGetAccountCsvs.ahk")
-   SleepMinutes(5)
+   ;SleepMinutes(5)
    RunAhkAndBabysit("MintGetAccountCsvs.ahk")
    SleepMinutes(5)
-   RunAhkAndBabysit("CreateFinancialPieChart.ahk")
-   SleepMinutes(15)
+   RunAhkAndBabysit("ProcessMintExport.ahk")
+   SleepMinutes(5)
    RunAhkAndBabysit("UsaaCheckingBalanceProjection.ahk")
    SleepMinutes(1)
+   ;RunAhkAndBabysit("CreateFinancialPieChart.ahk")
+   ;SleepMinutes(15)
    RunAhkAndBabysit("GetSentryBalances.ahk")
    SleepMinutes(5)
 }

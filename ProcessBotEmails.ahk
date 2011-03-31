@@ -89,20 +89,14 @@ examineEmail(emailFile)
    }
 }
 
-;GetGmailMessageCount(url, prettyName)
-;{
-   ;gmailPage:=urldownloadtovar(url)
-   ;RegExMatch(gmailPage, "<fullcount>(\d+)</fullcount>", gmailPage)
-   ;RegExMatch(gmailPage, "\d+", number)
-   ;;number := getXmlElement(gmailPage, "fullcount")
-
-   ;if (number == 0 || number == "")
-      ;return ""
-   ;returned=%prettyName% has %number% new emails`n
-   ;return returned
-;}
-
 ProcessSingleEmail(emailSubject, emailMessage)
 {
    delog(emailSubject, emailMessage)
+   if InStr(emailSubject, "Scheduled AHK")
+   {
+      timestamp:=CurrentTime()
+      filename=scheduled/%A_ComputerName%/%timestamp%.ahk
+      FileAppendLine(emailMessage, filename)
+      ;TODO send it to an archive file as well
+   }
 }

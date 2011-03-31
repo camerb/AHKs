@@ -2,7 +2,7 @@
 #include ThirdParty/json.ahk
 #include ThirdParty/tf.ahk
 
-DeleteTraceFile()
+;DeleteTraceFile()
 
 ;close old windows, if they are still open for some reason
 if ForceWinFocusIfExist("out1.*OpenOffice.org", "RegEx")
@@ -80,7 +80,7 @@ Loop, Read, %expectedTransFile%
 Loop, Read, %infile%
 {
    historyLine=%A_LoopReadLine%
-      AddToTrace(historyLine)
+      ;AddToTrace(historyLine)
    Loop, %reTransCount%
    {
       i=%A_Index%
