@@ -12,6 +12,8 @@ if NOT ForceWinFocusIfExist("[Participant Summary] - Opera", "Exact")
    ExitApp
 
 summary:=GhettoUrlDownloadToVar("https://sentryins.com/acctbal.aspx?VIEWMODE=I&LINK=50")
+summary:=RegExReplace(summary, "(`r|`n)", " ")
+
 v1:=GetAccountUnitPrice(summary, "Diversified Income Account D -T.Rowe Price Spectrum Income Fund")
 v2:=GetAccountUnitPrice(summary, "2045 Target Retirement LE - Sentry 2045 Target Retirement Portfolio")
 v3:=GetAccountUnitPrice(summary, "Mid-Cap Growth Account I N - T Rowe Price Mid-Cap Growth Fund")
@@ -25,10 +27,11 @@ csvLine:=concatWithSep(",", time, v1,v2,v3,v4,v5,v6,v7)
 FileAppendLine(csvLine, pricesFile)
 csvLine:=concatWithSep(",", time, total)
 FileAppendLine(csvLine, totalsFile)
+text=Sentry 401k Balance: %total%
+FileAppendLine(text, "gitExempt\morning_status\finance-401k.txt")
 
 GetAccountUnitPrice(pageText, accountName)
 {
-   pageText:=RegExReplace(pageText, "(`r|`n)", " ")
    reNeedle=%accountName%(.*?)tr
    RegExMatch(pageText, reNeedle, block)
    RegExMatch(block1, "<td.*>\$([0-9.]*?)</td", block)
