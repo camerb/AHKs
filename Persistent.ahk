@@ -187,6 +187,7 @@ Process, Close, DivXUpdate.exe
 ;}}}
 
 ;{{{ Old legacy stuff for closing unwanted windows
+WinClose, Access Violation, While processing graphics data an exception occurred
 
 SetTitleMatchMode 2
 
