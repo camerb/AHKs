@@ -11,7 +11,7 @@ Run, C:\My Dropbox\Programs\CLCL\CLCL.exe
 if NOT IsVM()
 {
    RunProgram("C:\Program Files\Desktop Sidebar\dsidebar.exe")
-   RunProgram("C:\Program Files (x86)\WinSplit Revolution2\WinSplit.exe")
+   RunProgram("C:\Program Files (x86)\WinSplit Revolution\WinSplit.exe")
 }
 ;Openoffice launcher
 ;Find and Run Robot

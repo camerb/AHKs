@@ -192,15 +192,14 @@ WinClose, Access Violation, While processing graphics data an exception occurred
 SetTitleMatchMode 2
 
 WinClose, Error, An instance of Pidgin is already running
+WinClose, WinSplit message, Impossible to install hooks
 
 ;This is for foobar at work
 ;IfWinExist, Playback error
    ;WinClose
 
 IfWinActive, Disconnect Terminal Services Session ahk_class #32770
-{
    Send, {ENTER}
-}
 
 IfWinExist, Firefox Add-on Updates ahk_class MozillaDialogClass
 {
@@ -216,14 +215,10 @@ IfWinExist, Firefox Add-on Updates ahk_class MozillaDialogClass
 }
 
 IfWinExist, Connection to server argon.lan.mitsi.com lost. ahk_class #32770, Close server browser? If you abort, the object browser will not show accurate data.
-{
    ControlClick, &Yes
-}
 
 IfWinExist, Security Warning ahk_class #32770, Do you want to view only the webpage content that was delivered securely?
-{
    ControlClick, &No
-}
 
 CustomTitleMatchMode("Contains")
 WinClose, pgAdmin III ahk_class #32770, server closed the connection unexpectedly
@@ -261,9 +256,7 @@ IfWinExist, %titleofwin%
 
 ;Temporary solution, close the pestering dialog since i'm using the trial
 IfWinActive, Balsamiq Mockups For Desktop - * New Mockup ahk_class ApolloRuntimeContentWindow
-{
    ClickIfImageSearch("images\balsamiq\TrialDialog.bmp")
-}
 
 ;Skip confirmation dialog about switching to high contrast
 IfWinExist, High Contrast ahk_class NativeHWNDHost
@@ -276,9 +269,7 @@ IfWinExist, High Contrast ahk_class NativeHWNDHost
 titleofwin = Popular ScreenSavers!!
 SetTitleMatchMode 2
 IfWinExist, %titleofwin%
-{
    WinClose
-}
 
 ;Pesky pop up for netflix... but don't close the main site!
 ;WinClose, Netflix - Google Chrome

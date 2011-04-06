@@ -1,6 +1,7 @@
 #include FcnLib.ahk
 
 RunWait, ChangeLogitechWheelMode.ahk
+RunWait, LaunchTeamspeak.ahk
 
 Process, Close, FindAndRunRobot.exe
 Process, Close, dsidebar.exe
