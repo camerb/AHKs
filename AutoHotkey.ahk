@@ -1,6 +1,6 @@
 SetTitleMatchMode, RegEx
 
-;Script thatItems that continually run, such as closing annoying popup windows that come up all the time
+;Items that continually run, such as closing annoying popup windows that come up all the time
 #include Persistent.ahk
 
 ;Hotkeys

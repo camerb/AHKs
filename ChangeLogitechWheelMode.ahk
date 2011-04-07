@@ -1,7 +1,5 @@
 #include FcnLib.ahk
 
-;RunWait, HideSkSync.ahk
-
 ;Tell the logitech profiler to go into NR2003 mode so that I don't have combined pedals
 Run, "C:\Program Files\Logitech\Profiler\LWEmon.exe"
 ForceWinFocus("Logitech Profiler")
