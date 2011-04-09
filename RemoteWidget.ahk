@@ -13,7 +13,7 @@ CamGmailUrl=https://cameronbaustian:%joe%@gmail.google.com/gmail/feed/atom
 joe:=SexPanther("melinda")
 MelGmailUrl=https://melindabaustian:%joe%@gmail.google.com/gmail/feed/atom
 
-Gui:
+;Gui:
    Gui, +ToolWindow -Caption
    Gui, Color, , 000022
    Gui, font, s7 cCCCCEE,
@@ -51,7 +51,7 @@ Gui:
          SleepSeconds(1)
       }
    }
-Return
+;Return
 
 ;didn't really need to make this a function
 ; but it was getting a bit congested up there
