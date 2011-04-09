@@ -5,11 +5,11 @@ A_Debug:=true
 ;TODO exitapp if we are re-logging in (instead of booting up)
 
 ;Run, %windir%\system32\cmd.exe
-Run, "C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
 ;Run, "C:\Program Files (x86)\Opera\opera.exe"
-Run, "C:\Program Files (x86)\PostgreSQL\8.4\bin\pgAdmin3.exe"
-Run, "C:\Program Files (x86)\foobar2000\foobar2000.exe"
-Run, "C:\My Dropbox\Programs\baretail.exe"
+RunProgram("C:\Program Files (x86)\Mozilla Firefox\firefox.exe")
+RunProgram("C:\Program Files (x86)\PostgreSQL\8.4\bin\pgAdmin3.exe")
+RunProgram("C:\Program Files (x86)\foobar2000\foobar2000.exe")
+RunProgram("C:\My Dropbox\Programs\BareTail\baretail.exe")
 
 ;Sleep, 15000
 
@@ -97,30 +97,8 @@ RunWait, LaunchPidgin.ahk
 ;Send, ^!a
 ;NOTE I commented this line because it is already being shown on all screens in the launch pidgin script
 
-debug("ensuring sidebar is in correct location")
-WinGetPos, xPos, no, no, winHeight, ahk_class SideBarWndv10
-;debug(xpos, winheight)
-if (xPos < 2500)
-{
-   ;debug()
-   WinActivate, ahk_class SideBarWndv10
-   ;TODO figure out a way to ensure that the sidebar is actually responding to WinActivate
-   Click(20, winHeight - 20, "Right")
-   Sleep, 100
-   Send, {DOWN 2}{ENTER}
-
-   WinWaitActive, Options
-   ;ForceWinFocus("Options")
-   MouseClick, left,  95,  41
-   Sleep, 100
-   MouseClick, left,  390,  249
-   Sleep, 100
-   MouseClick, left,  401,  279
-   Sleep, 100
-   MouseClick, left,  239,  553
-   Sleep, 100
-   ;debug()
-}
+if desktopSidebarNeedsRelocating()
+   moveDesktopSidebar()
 
 debug("Running ArrangeWindows script for all screens")
 Loop 5
@@ -136,4 +114,48 @@ SetNumLockState, On
 SetScrollLockState, On
 SetCapsLockState, Off
 
+while desktopSidebarNeedsRelocating()
+{
+   moveDesktopSidebar()
+   SleepSeconds(1)
+}
+
 debug("All finished with the boot AHK")
+ExitApp
+
+desktopSidebarNeedsRelocating()
+{
+   debug("checking desktop sidebar position")
+   WinGetPos, xPos, no, no, winHeight, ahk_class SideBarWndv10
+   ;debug(xpos, winheight)
+   if (xPos < 2500)
+      return true
+   return false
+}
+
+moveDesktopSidebar()
+{
+   debug("moving desktop sidebar")
+   WinActivate, ahk_class SideBarWndv10
+   ;TODO figure out a way to ensure that the sidebar is actually responding to WinActivate
+   Click(20, winHeight - 20, "Right")
+   Sleep, 100
+   Send, {DOWN 2}{ENTER}
+
+   WinWaitActive, Options, , 10
+   if NOT errorLevel
+   {
+      ;messWithOptionsForDesktopSidebar()
+      WinWaitActive, Options
+      ;ForceWinFocus("Options")
+      Click(95,  41)
+      Sleep, 100
+      Click(390,  249)
+      Sleep, 100
+      Click(401,  279)
+      Sleep, 100
+      Click(239,  553)
+      Sleep, 100
+      ;debug()
+   }
+}

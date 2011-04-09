@@ -2,7 +2,12 @@
 
 fatalIfNotThisPc("PHOSPHORUS")
 
-;{{{ Get all of the debugger commands from the file
+;{{{ Switch to random windows and bring them to debugging position
+WinMinimize, ahk_class gdkWindowToplevel
+ForceWinFocusIfExist("BareTail")
+;}}}
+
+;{{{ Get all of our settings
 ini:="gitExempt/global.ini"
 A_Debug            := IniRead(ini, A_ScriptName, "A_Debug")
 suppressPageReload := IniRead(ini, A_ScriptName, "suppressPageReload")
@@ -79,7 +84,7 @@ else if (project == "TM")
 else if (debuggerCommand == "EPMS")
 {
    apacheServer:=true
-   projTitle=Ellis Partners in Mystery Shopping|EPMS|Survey Detailed Reporting|Net Promoter Score|Personality Trait
+   projTitle=Ellis Partners in Mystery Shopping|EPMS|Survey Detailed Reporting|Net Promoter Score|Personality Trait|Buying Stage
 }
 else
 {
@@ -87,7 +92,7 @@ else
    ExitApp
 }
 
-allWindow=Forms|Parts|Bench|Server|EPMS|Home|xds|phosphorus|Ellis Partners in Mystery Shopping|Survey Detailed Reporting|Net Promoter Score|Personality Trait
+allWindow=Forms|Parts|Bench|Server|EPMS|Home|xds|phosphorus|Ellis Partners in Mystery Shopping|Survey Detailed Reporting|Net Promoter Score|Personality Trait|Buying Stage
 ffWindow=(%projTitle%).* - Mozilla Firefox ahk_class MozillaWindowClass
 ieWindow=(%projTitle%).* - Windows Internet Explorer ahk_class IEFrame
 ;}}}

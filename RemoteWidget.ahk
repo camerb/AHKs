@@ -27,14 +27,29 @@ Gui:
    WinMove, %guiTitle%, , , , 200, 200
    Loop
    {
+      lastEntireMessage:=entireMessage
       entireMessage:=GetWidgetText()
-      LV_Delete()
-      Loop, parse, entireMessage, `r`n
+
+      ;if a change in the text has taken place, repaint
+      ;(else: don't bother cause it flickers)
+      if (entireMessage <> lastEntireMessage)
       {
-         if NOT A_LoopField == ""
-            LV_Add("", A_LoopField)
+         LV_Delete()
+         Loop, parse, entireMessage, `r`n
+         {
+            if NOT A_LoopField == ""
+               LV_Add("", A_LoopField)
+         }
       }
-      SleepSeconds(30)
+
+      ;wait between updates, unless if currently messing with gmail in browser
+      ;  this will make it more accurate if we're reading emails right now
+      Loop 30
+      {
+         if InStr(WinGetActiveTitle(), "Gmail")
+            break
+         SleepSeconds(1)
+      }
    }
 Return
 

@@ -78,6 +78,7 @@ Sleep, 10000
 Suspend
 return
 
+;TODO start FARR if it exists but isn't running
 ;Run an AHK from the AHKs folder
 AppsKey & k::
 Process, Exist, FindAndRunRobot.exe
@@ -133,6 +134,7 @@ return
 ;Play pause button on work keyboard
 SC122::
 Launch_Media::
+Run, PlayPauseMusic.ahk
 return
 
 ;Record the artist name in the log so we can remove them from the last.fm library later

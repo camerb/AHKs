@@ -12,8 +12,11 @@ if (param <> "copyTasksToFcnLib")
 }
 else
 {
-   tasks := FileRead(tempFile)
-   FileAppendLine("", libFile)
-   FileAppendLine(tasks, libFile)
-   FileDelete(tempFile)
+   if FileExist(tempfile)
+   {
+      tasks := FileRead(tempFile)
+      FileAppendLine("", libFile)
+      FileAppendLine(tasks, libFile)
+      FileDelete(tempFile)
+   }
 }

@@ -576,7 +576,7 @@ IsMaximized(title="", text="")
 CloseDifficultApps()
 {
    if ForceWinFocusIfExist("Irssi ahk_class PuTTY")
-      Send, /quit{ENTER}
+      Send, /quit Ragequit{ENTER}
 
    if ForceWinFocusIfExist("ahk_class VMPlayerFrame")
    {
@@ -863,18 +863,13 @@ RunAhk(ahkFilename, params="", options="")
 ;FIXME Yes, this is crap, but someday it should be in ini files and use some logic
 ;TODO and also try the dropbox\programs folder
 ;TODO maybe we could have an "ensure one instance" option
-RunProgram(pathOrAppFilenameOrAppNickname)
+RunProgram(path)
 {
    ini=gitExempt\folderinfo.ini
-   path:=pathOrAppFilenameOrAppNickname
-   if RegExMatch(path, ".\:\\.*\\(.*)", match)
-      appFilename:=match1
 
    if FileExist(path)
    {
       Run, %path%
-      if appFilename
-         IniWrite(ini, A_ComputerName, appFilename, Path)
       return
    }
 
@@ -882,8 +877,6 @@ RunProgram(pathOrAppFilenameOrAppNickname)
    if FileExist(path)
    {
       Run, %path%
-      if appFilename
-         IniWrite(ini, A_ComputerName, appFilename, Path)
       return
    }
 
@@ -891,8 +884,6 @@ RunProgram(pathOrAppFilenameOrAppNickname)
    if FileExist(path)
    {
       Run, %path%
-      if appFilename
-         IniWrite(ini, A_ComputerName, appFilename, Path)
       return
    }
 
@@ -907,11 +898,9 @@ RunProgram(pathOrAppFilenameOrAppNickname)
 
    ;look up the path specific to this PC
    path := IniRead(ini, A_ComputerName, appFilename)
-   Run, %path%
-   if appFilename
-      IniWrite(ini, A_ComputerName, appFilename, Path)
+   ;debug(path)
 
-   delog("tried run program", pathOrAppFilenameOrAppNickname, A_ScriptName, A_LineNumber, A_ThisFunc, "could not find the directory or one like it", "app might not be installed, or the path might not be pointed at the program files dir")
+   delog("tried run program", "could not find the directory or one like it", "app might not be installed, or the path might not be pointed at the program files dir")
 }
 
 sendEmail(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sReplyTo="cameronbaustian+bot@gmail.com")
@@ -1235,18 +1224,13 @@ ForceReloadAll()
 ;TESTME
 ZeroPad(number, length)
 {
-   ;Loop length
-      ;padding .= "0"
-   ;length *= -1
-   ;length++
+   Loop length
+      padding .= "0"
+   length *= -1
+   length++
 
-   ;returned := substr(padding . number, length)
-   ;return returned
-
-   while (strlen(number) < length)
-      number := "0" . number
-
-   return number
+   returned := substr(padding . number, length)
+   return returned
 }
 
 ;WRITEME
@@ -1360,16 +1344,30 @@ ThreadedMsgbox(message)
    RunAhk("ThreadedMsgbox.ahk", message)
 }
 
-;tells the name of the lead computer
-LeadComputer()
+MultiWinWait(successWin, successWinText, failureWin, failureWinText)
 {
-   return "BAUSTIAN-09PC"
+   while true
+   {
+      IfWinActive, %successWin%, %successWinText%
+         return "SUCCESS"
+
+      IfWinActive, %failureWin%, %failureWinText%
+         return "FAILURE"
+
+      Sleep 50
+   }
+}
+
+ClickButton(button)
+{
+   ControlClick, %button%
 }
 
 ;WRITEME make function for getting remote and local path of dropbox public folder
 ;WRITEME split csv processing out of the create pie chart macro
 ;WRITEME make monthly financial charts (rather than three-month)
-
+;TODO error if Click() is outside the bounds of the window
+;TODO error if Click() is control-clicking on a button that is not in the visible window text
 
 ;WRITEME parse and display TODO and WRITEME items from FcnLib
 ;WRITEME try to run MintTouch once an hour on the VM
@@ -1390,7 +1388,36 @@ LeadComputer()
 
 ;WRITEME close specified jira issue (and log work beforehand, too)
 
-;WRITEME parse the following pages and put them in the morning status
-;perhaps i can have updates of my points position, rather than having to look it up
-;http://www.racepointsmanager.com/pm4/league/1564/standings/series/4
-;http://www.racepointsmanager.com/pm4/league/1564/standings/series/8
+
+
+
+
+
+
+
+
+
+
+
+;WRITEME abort startup ahk if already started up (after VPNed)
+;WRITEME remotewidget should refrain from doing a repaint if the text didn't change
+
+
+;WRITEME RunDailyTask("HH:MM:SS", "PHOSPHORUS", "asdf.ahk", "params") ;need to make sure it calls SleepSeconds(2) at the end of it
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -62,6 +62,8 @@ IniWrite(file, section, key, value)
       file:=A_IniFile
    if (file == "")
       fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no filename was provided for writing the ini to")
+   if (key == "")
+      fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no key was provided for writing the ini value to")
    if (section == "")
       section:="default"
 
@@ -82,9 +84,12 @@ IniDelete(file, section, key="")
       IniDelete, %file%, %section%, %key%
 }
 
-IniRead(Filename, Section, Key, Default = "ERROR") {
-	IniRead, v, %Filename%, %Section%, %Key%, %Default%
-	Return, v
+IniRead(file, section, key, Default = "ERROR")
+{
+   if (key == "")
+      fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no key was provided for reading the ini value from")
+   IniRead, value, %file%, %section%, %key%, %Default%
+   Return, value
 }
 
 ;}}}

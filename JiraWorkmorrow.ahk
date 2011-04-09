@@ -1,8 +1,19 @@
 #include FcnLib.ahk
 #include ThirdParty/CmdRet.ahk
 
+param=%1%
+
 if (A_ComputerName <> "PHOSPHORUS")
    ExitApp
+
+date:=CurrentTime("slashdate")
+subj=Minutes for %date%
+
+if (param = "reminder")
+{
+   subj:="Update your jira tasks (completed and workmorrow)"
+   returned.="http://jira.mitsi.com/`nMessage sent by bot`n`n"
+}
 
 command=perl C:\code\mtsi-scripts\jira-status.pl
 returned .= "Auto:  `n" . CmdRet_RunReturn( command . "    " ) . "`n`n"
@@ -11,9 +22,7 @@ returned .= "3 days:`n" . CmdRet_RunReturn( command . " -3d" ) . "`n`n"
 returned .= "4 days:`n" . CmdRet_RunReturn( command . " -4d" ) . "`n`n"
 returned .= "5 days:`n" . CmdRet_RunReturn( command . " -5d" ) . "`n`n"
 
-date:=CurrentTime("slashdate")
-subj=Minutes for %date%
-;SendEmail(subj, returned)
+SendEmail(subj, returned)
 
 ;file=C:\My Dropbox\Public\JiraWorkmorrow.html
 ;fileContents=<html><head><title>%subj%</title></head><body>%returned%</body></html>

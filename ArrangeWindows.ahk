@@ -49,18 +49,12 @@ if (A_ComputerName = "PHOSPHORUS")
       WinMove, Google Chrome, , 1920, 0, 1765, 1081
       Sleep, 10
       WinMove, Google Chrome, , 1920, 0, 1765, 1080
-      ;Send, ^!{RIGHT}
-      ;Send, ^!{NUMPAD2}
-      ;Send, ^!{NUMPAD5}
       Send, ^!1
    }
 
    if ForceWinFocusIfExist("Mozilla Firefox")
    {
-      WinMove, Mozilla Firefox, , 1920, 0, 1765, 1080
-      ;Send, ^!{RIGHT}
-      ;Send, ^!{NUMPAD2}
-      ;Send, ^!{NUMPAD5}
+      Send, ^!{PGUP}
       Send, ^!2
    }
 

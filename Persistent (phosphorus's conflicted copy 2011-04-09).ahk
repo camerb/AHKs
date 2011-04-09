@@ -10,7 +10,8 @@ SetTitleMatchMode, 1
    ;Process, Close, Dropbox.exe
 ;if (A_ComputerName="PHOSPHORUS")
    ;Process, Close, Dropbox.exe
-;Process, Close, msseces.exe
+;if (A_ComputerName="PHOSPHORUS")
+   ;Process, Close, msseces.exe
 ;}}}
 
 ;{{{Middle of the night unit tests, backups, and reload script
@@ -31,21 +32,28 @@ if (A_Hour==3 AND A_Min==5)
 ;}}}
 
 ;{{{Send Jira Status Workmorrow for the Tea Meeting Minutes
-if (A_Hour=14 AND A_Min=0 AND A_Sec=0)
+if (A_ComputerName="PHOSPHORUS")
 {
-   if (A_ComputerName="PHOSPHORUS")
-      if A_WDay BETWEEN 2 AND 6
+   if A_WDay BETWEEN 2 AND 6
+   {
+      if (A_Hour=13 AND A_Min=30 AND A_Sec=0)
+      {
+         RunAhk("JiraWorkmorrow.ahk", "reminder")
+         SleepSeconds(2)
+      }
+      if (A_Hour=14 AND A_Min=0 AND A_Sec=0)
       {
          RunAhk("JiraWorkmorrow.ahk")
          SleepSeconds(2)
       }
+   }
 }
 ;}}}
 
 ;{{{Send Morning AHK Status Briefing
 if (A_Hour=6 AND A_Min=0 AND A_Sec=0)
 {
-   if (A_ComputerName="BAUSTIAN-09PC")
+   if (A_ComputerName="PHOSPHORUS")
    {
       RunAhk("MorningStatus-SendMessage.ahk")
       SleepSeconds(2)
@@ -62,13 +70,6 @@ if (A_Hour=11 AND A_Min=05 AND A_Sec=0)
          ThreadedMsgbox("Time for lunch")
          SleepSeconds(2)
       }
-}
-
-if (A_Hour=13 AND A_Min=30 AND A_Sec=0)
-{
-   if (A_ComputerName="PHOSPHORUS")
-      if A_WDay BETWEEN 2 AND 6
-         sendEmail("Update your jira tasks (completed and workmorrow)", "http://jira.mitsi.com`n`nMessage sent by bot")
 }
 
 if (A_Hour=14 AND A_Min=50 AND A_Sec=0)
@@ -188,12 +189,10 @@ Process, Close, DivXUpdate.exe
 ;}}}
 
 ;{{{ Old legacy stuff for closing unwanted windows
-WinClose, Access Violation, While processing graphics data an exception occurred
 
 SetTitleMatchMode 2
 
 WinClose, Error, An instance of Pidgin is already running
-WinClose, WinSplit message, Impossible to install hooks
 
 ;This is for foobar at work
 ;IfWinExist, Playback error
@@ -202,9 +201,6 @@ WinClose, WinSplit message, Impossible to install hooks
 IfWinActive, Disconnect Terminal Services Session ahk_class #32770
 {
    Send, {ENTER}
-
-   ;Kill Astaro if we just disconnected from RDP on the VPN
-   Process, Close, openvpn-gui.exe
 }
 
 IfWinExist, Firefox Add-on Updates ahk_class MozillaDialogClass
@@ -221,10 +217,14 @@ IfWinExist, Firefox Add-on Updates ahk_class MozillaDialogClass
 }
 
 IfWinExist, Connection to server argon.lan.mitsi.com lost. ahk_class #32770, Close server browser? If you abort, the object browser will not show accurate data.
+{
    ControlClick, &Yes
+}
 
 IfWinExist, Security Warning ahk_class #32770, Do you want to view only the webpage content that was delivered securely?
+{
    ControlClick, &No
+}
 
 CustomTitleMatchMode("Contains")
 WinClose, pgAdmin III ahk_class #32770, server closed the connection unexpectedly
@@ -262,7 +262,9 @@ IfWinExist, %titleofwin%
 
 ;Temporary solution, close the pestering dialog since i'm using the trial
 IfWinActive, Balsamiq Mockups For Desktop - * New Mockup ahk_class ApolloRuntimeContentWindow
+{
    ClickIfImageSearch("images\balsamiq\TrialDialog.bmp")
+}
 
 ;Skip confirmation dialog about switching to high contrast
 IfWinExist, High Contrast ahk_class NativeHWNDHost
@@ -275,7 +277,9 @@ IfWinExist, High Contrast ahk_class NativeHWNDHost
 titleofwin = Popular ScreenSavers!!
 SetTitleMatchMode 2
 IfWinExist, %titleofwin%
+{
    WinClose
+}
 
 ;Pesky pop up for netflix... but don't close the main site!
 ;WinClose, Netflix - Google Chrome

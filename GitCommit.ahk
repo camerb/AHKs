@@ -3,10 +3,10 @@
 ;make a commit in git
 
 ForceWinFocus("MINGW32", "Contains")
-Send, clear{ENTER}
-;Send, git add --all{ENTER} ;need something that will only stage new files
-Send, git status{ENTER}
-Send, git add -p{ENTER}
+SendInput, clear{ENTER}
+;SendInput, git add --all{ENTER} ;need something that will only stage new files
+SendInput, git status{ENTER}
+SendInput, git add -p{ENTER}
 
 ;TODO perhaps we should ask about the commit message at first,
 ;then say: "does this change relate to 'fixed invalid email'?"
@@ -22,10 +22,13 @@ Loop
    else if (ret == "f")
       break
    else if (strlen(ret) == 1)
-      Send, %ret%{ENTER}
+      SendInput, %ret%{ENTER}
    else
       break
 }
+
+if NOT commitMessage
+   ExitApp
 
 ForceWinFocus("MINGW32", "Contains")
 SendInput, git ci -m"%commitMessage%"{ENTER}
