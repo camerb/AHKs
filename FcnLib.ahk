@@ -907,9 +907,17 @@ RunProgram(pathOrAppFilenameOrAppNickname)
 
    ;look up the path specific to this PC
    path := IniRead(ini, A_ComputerName, appFilename)
-   Run, %path%
-   if appFilename
-      IniWrite(ini, A_ComputerName, appFilename, Path)
+   if FileExist(path)
+   {
+      Run, %path%
+      if appFilename
+         IniWrite(ini, A_ComputerName, appFilename, Path)
+      return
+   }
+
+   ;TODO guess based on the path specified for other computers
+   ;this fcn is getting big... maybe we should ghetto-thread this with a runwait.
+   ;that way we can have many functions in that analysis file
 
    delog("tried run program", pathOrAppFilenameOrAppNickname, A_ScriptName, A_LineNumber, A_ThisFunc, "could not find the directory or one like it", "app might not be installed, or the path might not be pointed at the program files dir")
 }
