@@ -188,12 +188,22 @@ Process, Close, DivXUpdate.exe
 ;}}}
 
 ;{{{ Old legacy stuff for closing unwanted windows
+;N64 emulator error
 WinClose, Access Violation, While processing graphics data an exception occurred
 
 SetTitleMatchMode 2
 
+;Descriptive error messages
 WinClose, Error, An instance of Pidgin is already running
 WinClose, WinSplit message, Impossible to install hooks
+
+IfWinExist, Find and Run Robot ahk_class TMessageForm, OK
+{
+   WinActivate
+   SaveScreenshot("FARR-MessageThatWeClosed")
+   Sleep, 10
+   Send, {ENTER}
+}
 
 ;This is for foobar at work
 ;IfWinExist, Playback error
@@ -201,24 +211,26 @@ WinClose, WinSplit message, Impossible to install hooks
 
 IfWinActive, Disconnect Terminal Services Session ahk_class #32770
 {
+   ;Disconnect RDP automatically
    Send, {ENTER}
 
    ;Kill Astaro if we just disconnected from RDP on the VPN
    Process, Close, openvpn-gui.exe
 }
 
-IfWinExist, Firefox Add-on Updates ahk_class MozillaDialogClass
-{
-   ;ForceWinFocus("Firefox Add-on Updates ahk_class MozillaDialogClass")
-   ;Sleep, 10
-   ;SendInput, !i
+;FF4 has fewer prompts now
+;IfWinExist, Firefox Add-on Updates ahk_class MozillaDialogClass
+;{
+   ;;ForceWinFocus("Firefox Add-on Updates ahk_class MozillaDialogClass")
+   ;;Sleep, 10
+   ;;SendInput, !i
 
-   ;FIXME this should work!!!
-   ControlSend, MozillaWindowClass1, !i, Firefox Add-on Updates ahk_class MozillaDialogClass
-   Sleep, 100
-   errord("nolog", "just attempted to prod along firefox update window: did it work?", A_LineNumber, A_ScriptName)
-   SleepSeconds(60)
-}
+   ;;FIXME this should work!!!
+   ;ControlSend, MozillaWindowClass1, !i, Firefox Add-on Updates ahk_class MozillaDialogClass
+   ;Sleep, 100
+   ;errord("nolog", "just attempted to prod along firefox update window: did it work?", A_LineNumber, A_ScriptName)
+   ;SleepSeconds(60)
+;}
 
 IfWinExist, Connection to server argon.lan.mitsi.com lost. ahk_class #32770, Close server browser? If you abort, the object browser will not show accurate data.
    ControlClick, &Yes
@@ -237,39 +249,9 @@ WinClose, Windows Script Host, 'Ext' is undefined
 ;Come on, i already know my Win XP isn't pirated
 WinClose, Windows Genuine Advantage Notifications - Installation Wizard
 
-;Close stupid popups from Google Desktop Sidebar
-titleofwin = Google Desktop Sidebar
-textofwin1 = Weather may be busy, or it may have stopped responding
-textofwin2 = The data for the following gadget could not be loaded.
-textofwin3 = One or more of the following gadget(s) raised an exception
-IfWinExist, %titleofwin%
-{
-   SaveScreenShot("GDS1before")
-   Sleep 500
-   WinClose, %titleofwin%, %textofwin1%,
-   WinClose, %titleofwin%, %textofwin2%,
-   IfWinExist, %titleofwin%, %textofwin3%,
-   {
-      ;for some reason ctrlclick did not work
-      WinActivate, %titleofwin%
-      MouseClick, left, 410, 192
-   }
-   IfWinExist, %titleofwin%,
-      ControlClick, %titleofwin%,  X410 Y192
-   Sleep 500
-   SaveScreenShot("GDS2after")
-}
-
 ;Temporary solution, close the pestering dialog since i'm using the trial
 IfWinActive, Balsamiq Mockups For Desktop - * New Mockup ahk_class ApolloRuntimeContentWindow
    ClickIfImageSearch("images\balsamiq\TrialDialog.bmp")
-
-;Skip confirmation dialog about switching to high contrast
-IfWinExist, High Contrast ahk_class NativeHWNDHost
-{
-   ForceWinFocus("High Contrast ahk_class NativeHWNDHost")
-   Send, {ENTER}
-}
 
 ;Annoying Popups
 titleofwin = Popular ScreenSavers!!
