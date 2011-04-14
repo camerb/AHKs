@@ -12,5 +12,8 @@ Sleep, 500
 ClickIfImageSearch("images/mint/UpdateAccountsButton.bmp")
 Click
 
+SleepMinutes(2)
+Process, Close, opera.exe
+
 ExitApp
 `:: ExitApp

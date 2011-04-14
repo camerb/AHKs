@@ -98,12 +98,8 @@ createdDate=Created On %date%
 csvLine := concatWithSep(",", "Date", "Credit", "Debit", "Description", "Balance", createdDate)
 FileDelete(projectionCsv)
 FileAppendLine(csvline, projectionCsv)
-FileAppendLine("12/12/1999,,,," . currentCheckingBalance, projectionCsv)
+FileAppendLine("1999-12-12,,,," . currentCheckingBalance, projectionCsv)
 linecount=1
-
-;TODO get current balance
-;concatWithSep(",",
-;FileAppend, %csvline%, %projectionCsv%
 
 ;lets show which transactions we are still expecting (didn't see it yet)
 Loop, %reTransCount%
@@ -114,7 +110,7 @@ Loop, %reTransCount%
       ;debug("didn't find", reTrans%i%)
       ;TODO write to projection csv
 
-      date := concatWithSep("/", currentMonth, reTrans%i%date, currentYear)
+      date := concatWithSep("-", currentYear, currentMonth, reTrans%i%date)
       creditCell :=     reTrans%i%isCredit ? reTrans%i%amount : ""
       debitCell  := NOT reTrans%i%isCredit ? reTrans%i%amount : ""
       reasonCell := a_quote . reTrans%i%title . a_quote
@@ -127,14 +123,21 @@ Loop, %reTransCount%
    }
 }
 
+;TODO save to a var instead, then sort it
+;TODO put all this common code with the date computation and stuff into a function
+;TODO make the datemath real and use a std timestamp, then print it in the var as hyphendate
+;TODO deal with printing the equation column when it is printed to the file (so it doesn't get messed up in the sort)
+;TODO add in the expected transactions that are not monthly (one-time, yearly)
+;TODO
+
 ;lets add 5 more months on there (originally this was 2 more)
 Loop 6
 {
-   currentMonth++
+   currentMonth := ZeroPad(++currentMonth, 2)
    Loop, %reTransCount%
    {
       i=%A_Index%
-      date := concatWithSep("/", currentMonth, reTrans%i%date, currentYear)
+      date := concatWithSep("-", currentYear, currentMonth, reTrans%i%date)
       creditCell :=     reTrans%i%isCredit ? reTrans%i%amount : ""
       debitCell  := NOT reTrans%i%isCredit ? reTrans%i%amount : ""
       reasonCell := a_quote . reTrans%i%title . a_quote
@@ -148,6 +151,9 @@ Loop 6
 }
 
 ExitApp
+
+;TODO use SnapDB to view this
+;TODO only view when no params have been passed in (debugMode -- whenever we run it from FARR)
 
 Run, scalc.exe "%projectionCsv%"
 ForceWinFocus("Text Import")
@@ -159,11 +165,3 @@ ForceWinFocus("OpenOffice")
 
 ExitApp
 `:: ExitApp
-
-;myJson(var, key, value="EMPTY")
-;{
-   ;if (value == "EMPTY")
-      ;return json(var, key)
-   ;json(var, key, value)
-   ;;sucks! there seems to be no nice way to set the element (only change existing elements)
-;}

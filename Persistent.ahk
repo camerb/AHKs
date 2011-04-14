@@ -10,7 +10,8 @@ SetTitleMatchMode, 1
    ;Process, Close, Dropbox.exe
 ;if (A_ComputerName="PHOSPHORUS")
    ;Process, Close, Dropbox.exe
-;Process, Close, msseces.exe
+;if (A_ComputerName="PHOSPHORUS")
+   ;Process, Close, msseces.exe
 ;}}}
 
 ;{{{Middle of the night unit tests, backups, and reload script
@@ -31,21 +32,28 @@ if (A_Hour==3 AND A_Min==5)
 ;}}}
 
 ;{{{Send Jira Status Workmorrow for the Tea Meeting Minutes
-if (A_Hour=14 AND A_Min=0 AND A_Sec=0)
+if (A_ComputerName="PHOSPHORUS")
 {
-   if (A_ComputerName="PHOSPHORUS")
-      if A_WDay BETWEEN 2 AND 6
+   if A_WDay BETWEEN 2 AND 6
+   {
+      if (A_Hour=13 AND A_Min=30 AND A_Sec=0)
+      {
+         RunAhk("JiraWorkmorrow.ahk", "reminder")
+         SleepSeconds(2)
+      }
+      if (A_Hour=14 AND A_Min=0 AND A_Sec=0)
       {
          RunAhk("JiraWorkmorrow.ahk")
          SleepSeconds(2)
       }
+   }
 }
 ;}}}
 
 ;{{{Send Morning AHK Status Briefing
 if (A_Hour=6 AND A_Min=0 AND A_Sec=0)
 {
-   if (A_ComputerName="BAUSTIAN-09PC")
+   if (A_ComputerName="PHOSPHORUS")
    {
       RunAhk("MorningStatus-SendMessage.ahk")
       SleepSeconds(2)
@@ -60,6 +68,26 @@ if (A_Hour=11 AND A_Min=05 AND A_Sec=0)
       if A_WDay BETWEEN 2 AND 6
       {
          ThreadedMsgbox("Time for lunch")
+         SleepSeconds(2)
+      }
+}
+
+if (A_Hour=11 AND A_Min=15 AND A_Sec=0)
+{
+   if (A_ComputerName="PHOSPHORUS")
+      if A_WDay BETWEEN 2 AND 6
+      {
+         ThreadedMsgbox("Really now, it is time for lunch!")
+         SleepSeconds(2)
+      }
+}
+
+if (A_Hour=15 AND A_Min=15 AND A_Sec=0)
+{
+   if (A_ComputerName="PHOSPHORUS")
+      if A_WDay BETWEEN 2 AND 6
+      {
+         sendEmail("Snacktime", "Message sent by bot")
          SleepSeconds(2)
       }
 }

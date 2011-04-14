@@ -22,7 +22,7 @@ MelGmailUrl=https://melindabaustian:%joe%@gmail.google.com/gmail/feed/atom
    ;Gui, font, , Arial
    ;Gui, font, , Consolas
    Gui, Margin, 0, 0
-   Gui, Add, ListView, r20 w147 -Hdr, Text
+   Gui, Add, ListView, r20 w149 -Hdr, Text
    Gui, Show
    WinMove, %guiTitle%, , , , 200, 200
    Loop

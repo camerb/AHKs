@@ -15,3 +15,6 @@ if NOT IsVM()
    RunProgram("C:\Program Files\FindAndRunRobot\FindAndRunRobot.exe")
 }
 ;Openoffice launcher
+
+if (GetOS() = "WIN_7")
+   RunProgram("C:\My Dropbox\Programs\Aura Beta 2\Aura.exe")

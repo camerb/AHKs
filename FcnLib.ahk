@@ -576,7 +576,7 @@ IsMaximized(title="", text="")
 CloseDifficultApps()
 {
    if ForceWinFocusIfExist("Irssi ahk_class PuTTY")
-      Send, /quit{ENTER}
+      Send, /quit Ragequit{ENTER}
 
    if ForceWinFocusIfExist("ahk_class VMPlayerFrame")
    {
@@ -1374,28 +1374,40 @@ LeadComputer()
    return "BAUSTIAN-09PC"
 }
 
+MultiWinWait(successWin, successWinText, failureWin, failureWinText)
+{
+   while true
+   {
+      IfWinActive, %successWin%, %successWinText%
+         return "SUCCESS"
+
+      IfWinActive, %failureWin%, %failureWinText%
+         return "FAILURE"
+
+      Sleep 50
+   }
+}
+
+ClickButton(button)
+{
+   ControlClick, %button%
+}
+
 ;WRITEME make function for getting remote and local path of dropbox public folder
 ;WRITEME split csv processing out of the create pie chart macro
 ;WRITEME make monthly financial charts (rather than three-month)
 
+;TODO error if Click() is outside the bounds of the window
+;TODO error if Click() is control-clicking on a button that is not in the visible window text
 
 ;WRITEME parse and display TODO and WRITEME items from FcnLib
 ;WRITEME try to run MintTouch once an hour on the VM
-
-
-
-
-
-
-
-
-
-
 ;WRITEME macro that updates melinda's resume daily
-
-
-
-
+;WRITEME close specified jira issue (and log work beforehand, too)
+;WRITEME abort startup ahk if already started up (after VPNed)
+;WRITEME remotewidget should refrain from doing a repaint if the text didn't change
+;WRITEME RunDailyTask("HH:MM:SS", "PHOSPHORUS", "asdf.ahk", "params") ;need to make sure it calls SleepSeconds(2) at the end of it
+;WRITEME macro that updates melinda's resume daily
 ;WRITEME close specified jira issue (and log work beforehand, too)
 
 ;WRITEME parse the following pages and put them in the morning status

@@ -9,7 +9,7 @@ while true
    ;debug(pid)
    ;Sleep, 1000
    PostMessage,0x111,65405,0,,ahk_pid %pid%
-   Process, WaitClose, %pid%, 1
+   ;Process, WaitClose, %pid%, 1
 
    ;if it exists
    Process, Exist, %pid%

@@ -11,6 +11,8 @@ CheckingBalance := GetAccountInfo("https://www.usaa.com/inet/gas_bank/BkAccounts
 CreditBalance   := GetAccountInfo("https://www.usaa.com/inet/gas_bank/BkAccounts?target=AccountSummary&currentaccountkey=encryptedb15eff1c50e20965cf67cf785d4589cd0a8a39aafd4160dc&CombinedView=TRUE")
 
 WinClose
+SleepSeconds(2)
+Process, Close, opera.exe
 
 ;do some math and get the projected CC bill
 overallBalance := SavingsBalance + CheckingBalance - CreditBalance

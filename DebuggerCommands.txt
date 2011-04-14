@@ -463,3 +463,8 @@ cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
 EPMS
 cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
 EPMS
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl milestone.pl C:\import_files\props\milestone_2011-04.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl home.pl C:\import_files\props\home_2011-04.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\import_files\props\home_2011-04.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl homeproperties.pl C:\import_files\empl\home_2011-04.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\import_files\props\home_2011-04.csv > C:\code\report.txt}
