@@ -1,16 +1,24 @@
 #include FcnLib.ahk
 
 ss()
-ForceWinFocus("RecordMacro.ahk (c:\My Dropbox\AHKs) - GVIM")
-Click(517, 228, "left")
+ForceWinFocus("[#EPMS-2213] Fix broken graph on Personality page - Mitsi JIRA - Google Chrome")
+Click(374, 717, "left")
 ss()
-ForceWinFocus("temporary9.ahk (C:\My Dropbox\AHKs) - GVIM")
-Click(499, 393, "left")
+ForceWinFocus("RecordMacro.ahk (C:\My Dropbox\AHKs) - GVIM1")
+Click(798, 613, "left")
 ss()
-ForceWinFocus("RecordMacro.ahk (c:\My Dropbox\AHKs) - GVIM")
-Click(500, 831, "left")
+ForceWinFocus("AutoScriptWriter II - ( by Larry Keys )")
+Click(519, 7, "left")
 ss()
-ForceWinFocus("SentryLogin.ahk (C:\My Dropbox\AHKs\gitExempt) - GVIM")
+ForceWinFocus("RecordMacro.ahk (C:\My Dropbox\AHKs) - GVIM1")
+Click(755, 533, "left")
+ss()
+ForceWinFocus("error.log (2.0 MB) - BareTail")
+Click(618, 398, "left")
+ss()
+ForceWinFocus("Melinda Baustian")
+Click(504, 260, "left")
+ss()
 
 ESC::ExitApp
 `::ExitApp

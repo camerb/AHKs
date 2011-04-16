@@ -898,20 +898,27 @@ RunProgram(pathOrAppFilenameOrAppNickname)
 
    ;at this point, we have tried all of the valid paths we can think of
    ; this is either an invalid path, just a filename, or a nickname of something we already know of
-   appName := path
+   appName := pathOrAppFilenameOrAppNickname
    path=
 
    ;look up the filename that corresponds to this nickname
    appFilename := IniRead(ini, "NICKNAMES", appName)
-   ;debug(appFilename)
+
+   ;it turns out that our assumption that the item passed in is an app nickname is wrong
+   ; it is probably a filename
+   if (appFilename == "ERROR")
+   {
+      appFilename:=pathOrAppFilenameOrAppNickname
+      appName=
+   }
 
    ;look up the path specific to this PC
    path := IniRead(ini, A_ComputerName, appFilename)
    if FileExist(path)
    {
       Run, %path%
-      if appFilename
-         IniWrite(ini, A_ComputerName, appFilename, Path)
+      ;if appFilename
+         ;IniWrite(ini, A_ComputerName, appFilename, Path)
       return
    }
 

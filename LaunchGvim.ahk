@@ -2,7 +2,14 @@
 
 fatalIfNotThisPC("BAUSTIAN-09PC")
 
+Process, Exist, WinSplit.exe
+if NOT ErrorLevel
+   RunProgram("WinSplit.exe")
+
 ;TODO check if GVIM window already exists?
+;Process, Exist, gvim.exe
+;if ErrorLevel
+   ;ExitApp
 
 Run, C:\My Dropbox\Programs\Vim\vim72\gvim.exe, C:\My Dropbox\AHKs
 ;debug(A_WorkingDir)

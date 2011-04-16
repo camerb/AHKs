@@ -30,6 +30,10 @@ FileAppendLine(csvLine, totalsFile)
 text=Sentry 401k Balance: %total%
 FileAppendLine(text, "gitExempt\morning_status\finance-401k.txt")
 
+WinClose, Opera
+SleepSeconds(5)
+Process, Close, opera.exe
+
 GetAccountUnitPrice(pageText, accountName)
 {
    reNeedle=%accountName%(.*?)tr

@@ -90,3 +90,6 @@ SleepMinutes(2)
 ;SleepMinutes(30)
 
 debug("log grey line", "finished nightly scripts")
+
+;TODO function
+;fcn(waitTimeInMinutes, ahkToRun, params)

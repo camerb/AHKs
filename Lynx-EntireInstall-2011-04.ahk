@@ -5,12 +5,13 @@ if (A_ScreenWidth > 1280)
 else
    debug("Starting Lynx Server Installation`n`nPress ESC at any time to cancel.")
 
-#Include Lynx-0-PrepForInstall.ahk
-#Include Lynx-1-ActivePerl.ahk
-#Include Lynx-2-InstallSQL.ahk
-#Include Lynx-3-ConfigureSQL.ahk
-#Include Lynx-4-Apache.ahk
-#Include Lynx-5-TTS.ahk
+#Include Lynx-0-ConfigureComputer.ahk
+#Include Lynx-1-PrepForInstall.ahk
+#Include Lynx-2-ActivePerl.ahk
+#Include Lynx-3-InstallSQL.ahk
+#Include Lynx-4-ConfigureSQL.ahk
+#Include Lynx-5-Apache.ahk
+#Include Lynx-6-TTS.ahk
 MsgBox, Finished with Lynx Server Install
 
 #include Lynx-FcnLib.ahk

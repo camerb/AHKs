@@ -381,7 +381,22 @@ Loop, C:\My Dropbox\AHKs\gitExempt\transferTo\%A_ComputerName%\*.*, 2, 0
 }
 ;}}}
 
+;{{{ archive import reports for EPMS
+if (A_ComputerName = "PHOSPHORUS" and Mod(A_Sec, 5)==0)
+{
+   archivePath=C:\import_files\archive\importReports\
+   report=C:\code\report.txt
 
-;end of CloseWarnings subroutine
+   FileGetTime, timestamp, %report%
+   timestamp := FormatTime(timestamp, "yyyy-MM-dd_HH-mm-ss")
+
+   archiveFile=%archivePath%%timestamp%.txt
+   if NOT FileExist(archiveFile)
+      FileCopy(report, archiveFile)
+}
+;}}}
+
+
+;end of Persist subroutine
 return
 

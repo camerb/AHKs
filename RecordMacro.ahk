@@ -13,12 +13,6 @@ RunProgram("C:\Program Files\AutoHotkey\AutoScriptWriter\AutoScriptWriter.exe")
 Send {SHIFT UP}{ALT UP}{CTRL UP}{APPSKEY UP}
 ForceWinFocus(aswWindow, "Exact")
 
-;TODO Sometimes it doesn't detect that we pressed it (need to detect this better)
-;Sleep 100
-;ControlClick, X56 Y55
-;Sleep 500
-;ControlClick, X56 Y55
-
 ;this is attempt at the better detection
 while (WinGetHeight(aswWindow) > 70)
 {
@@ -28,8 +22,8 @@ while (WinGetHeight(aswWindow) > 70)
 
 ;Wait for the appskey to be pressed (to end recording)
 KeyWait, ``, D
+FileDelete(tempFile)
 ForceWinFocus("AutoScriptWriter II - ( by Larry Keys ) ahk_class ASW_Dev_01", "Exact")
-;ControlClick, X66 Y27
 
 ;this is attempt at the better detection
 while (WinGetHeight(aswWindow) < 70)
@@ -40,19 +34,35 @@ while (WinGetHeight(aswWindow) < 70)
 
 ;Save as temporary.ahk and close
 ForceWinFocus(aswWindow, "Exact")
+WinMove, 10, 10
+ss()
 while NOT ForceWinFocusIfExist(SaveWindow)
 {
+   WinMove, 10, 10
    ControlClick, X19 Y305
-   Sleep, 100 ;is this one really necessary?
+   Sleep, 900 ;is this one really necessary?
 }
-ForceWinFocus(SaveWindow)
-Send, ^a
+if NOT (WinGetActiveTitle() == saveWindow)
+   fatalErrord("the save window didn't activate correctly", A_ScriptName, A_LineNumber)
 ss()
-ForceWinFocus(SaveWindow)
+SendInput, ^a
+ss()
 SendInput, %tempFile%
 ss()
 SendInput, {ENTER}
 ss()
+sleepseconds(1)
+while ForceWinFocusIfExist(SaveWindow)
+   WinClose, %SaveWindow%
+Loop 10
+{
+   if FileExist(tempFile)
+      break
+   ss()
+}
+
+if NOT FileExist(tempFile)
+   fatalErrord("the script file was not saved properly", A_ScriptName, A_LineNumber)
 WinClose, %aswWindow%
 ss()
 
