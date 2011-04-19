@@ -39,38 +39,42 @@ if (A_ComputerName = LeadComputer())
    ;  (last logged in via VPN and Windows logged physCompy out)
    ;  we can tell this if a screenshot saved is only half size
    ;  or possibly just check A_ScreenWidth
-   ;if A_ComputerName = LeadCompy()
-   RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
-   SleepMinutes(5)
-   ;RunAhkAndBabysit("UsaaGetAccountCsvs.ahk")
-   ;SleepMinutes(5)
+
+   hypercam()
+   RunAhkAndBabysit("GetSentryBalances.ahk")
+   SleepMinutes(7)
+   hypercam()
    RunAhkAndBabysit("MintGetAccountCsvs.ahk")
-   SleepMinutes(5)
+   SleepMinutes(7)
+   hypercam()
    RunAhkAndBabysit("ProcessMintExport.ahk")
-   SleepMinutes(5)
+   SleepMinutes(7)
+   hypercam()
+   RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
+   SleepMinutes(7)
+
    RunAhkAndBabysit("UsaaCheckingBalanceProjection.ahk")
    SleepMinutes(1)
    ;RunAhkAndBabysit("CreateFinancialPieChart.ahk")
    ;SleepMinutes(15)
-   RunAhkAndBabysit("GetSentryBalances.ahk")
-   SleepMinutes(5)
 }
-else if (A_ComputerName="PHOSPHORUS")
+
+if (A_ComputerName="PHOSPHORUS")
 {
    RunAhkAndBabysit("UpdatePerlPackages.ahk")
    SleepMinutes(1)
    RunAhk("AddAhkTask.ahk", "copyTasksToFcnLib")
    SleepMinutes(1)
-   RunAhkAndBabysit("RestartFirefox.ahk")
-   SleepMinutes(1)
+   ;looks like FF4 doesn't need a nightly restart (no longer a RAM hog)
+   ;RunAhkAndBabysit("RestartFirefox.ahk")
+   ;SleepMinutes(1)
    RunAhkAndBabysit("UpdatePidginImStatus.ahk")
    SleepMinutes(1)
 }
-else if (A_ComputerName="PHOSPHORUSVM")
+
+if (A_ComputerName="PHOSPHORUSVM")
 {
    RunAhkAndBabysit("DeleteDropboxCruft.ahk")
-   ;SleepMinutes(30)
-   ;RunAhkAndBabysit("UsaaGetAccountBalances.ahk")
    SleepMinutes(5)
 }
 
@@ -90,6 +94,13 @@ SleepMinutes(2)
 ;SleepMinutes(30)
 
 debug("log grey line", "finished nightly scripts")
+ExitApp
 
 ;TODO function
 ;fcn(waitTimeInMinutes, ahkToRun, params)
+
+hypercam()
+{
+   RunAhk("HyperCamRecord.ahk")
+   SleepSeconds(10)
+}

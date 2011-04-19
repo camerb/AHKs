@@ -7,8 +7,7 @@ totalSpace:=freespace/1024
 message=%totalspace% GB free on %A_ComputerName%
 FileAppendLine(message, filename)
 
-;TODO if leadCompy()
-if (A_ComputerName = "PHOSPHORUS")
+if (A_ComputerName = LeadComputer())
 {
    size:=dirgetsize("C:\My Dropbox\")
    dropboxSize := size / (1024 ** 3)

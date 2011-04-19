@@ -75,6 +75,65 @@ RestartService(serviceName)
    ShortSleep()
 }
 
+GhettoCmdRet_RunReturn(command, workingDir="", options="")
+{
+   if InStr(options, "extraGhettoForHighAuth")
+   {
+      SleepSend("{LWIN}")
+      SleepSend("Command Prompt")
+      SleepSend("{ENTER}")
+   }
+   else
+      Run, cmd.exe
+
+   ForceWinFocus("(cmd.exe|Command Prompt)", "RegEx")
+
+   if workingDir
+   {
+      SleepSend("cd " . workingDir)
+      SleepSend("{ENTER}")
+   }
+
+   SleepSend(command)
+   SleepSend("{ENTER}")
+
+   ;TODO should we make something that will close the cmd window at the end?
+   ;SleepSend("Y{ENTER}")
+   ;SleepSeconds(2)
+   ;WinClose
+}
+
+autologin(options)
+{
+   SleepSend("#r")
+   ForceWinFocus("Run")
+   SleepSend("control userpasswords2{ENTER}")
+   SleepSend("!e")
+   SleepClick(260, 480)
+   
+   if InStr(options, "enable")
+   {
+      ForceWinFocus("Automatically Log On")
+      SleepSend("!p")
+      SleepSend("Password1!")
+      SleepSend("!c")
+      SleepSend("Password1!")
+      SleepClick(290, 200)
+   }
+}
+
+InstallTTS()
+{
+   WinWaitActive, , &Next
+   SleepSend("!n")
+   WinWaitActive, , &Yes
+   SleepSend("!y")
+   WinWaitActive, , &Next
+   SleepSend("!n")
+   WinWaitActive, , InstallShield Wizard Complete
+   SleepClick(360, 350)
+}
+
 ShortSleep()
 {
    SleepSeconds(1)

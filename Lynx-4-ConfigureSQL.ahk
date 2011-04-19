@@ -1,5 +1,3 @@
-#include FcnLib.ahk
-
 Run, C:\Windows\SysWOW64\mmc.exe /32 c:\Windows\SysWOW64\SQLServerManager10.msc
 
 ForceWinFocus("Sql Server Configuration Manager")
@@ -91,7 +89,6 @@ WinClose
 
 FileCopyDir, C:\LynxCD\Server 7.11\inetpub, c:\inetpub, 1
 
-#include thirdparty/cmdret.ahk
 ret := CmdRet_RunReturn("perl C:\inetpub\wwwroot\cgi\banner.plx", "C:\inetpub\wwwroot\cgi\")
 if NOT InStr(ret, "Location: /banner/banner.gif")
    fatalErrord("the banner.plx file did not run correctly")

@@ -1,5 +1,3 @@
-#include FcnLib.ahk
-
 Run, C:\LynxCD\Server 7.11\Setup\apache_2.2.8-win32-x86-openssl-0.9.8g.msi
 
 SleepSeconds(1)

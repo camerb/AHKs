@@ -1,7 +1,3 @@
-#include FcnLib.ahk
-
-;debug("yo2")
-
 Run, C:\LynxCD\Server 7.11\Setup\ActivePerl-5.8.9.827-MSWin32-x86-291969.msi
 
 ForceWinFocus("ActivePerl 5.8.9 Build 827 Setup ahk_class MsiDialogCloseClass")
@@ -30,6 +26,5 @@ SleepSeconds(1)
 Click(255, 286)
 SleepSeconds(1)
 Send, !f
-;WinWaitClose, ActivePerl
 
 

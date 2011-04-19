@@ -1,5 +1,3 @@
-#include FcnLib.ahk
-
 Run, C:\LynxCD\Server 7.11\Setup\en_sql_server_2008_r2_express_with_management_tools_x64.exe
 
 successWinText=New installation or add features to an existing installation

@@ -1,6 +1,3 @@
-#include FcnLib.ahk
-
-#include thirdParty\CmdRet.ahk
 ret := CmdRet_Runreturn("sc config AudioSrv start= auto")
 if NOT InStr(ret, "SUCCESS")
    MsgBox, %ret%
@@ -25,11 +22,3 @@ SleepSend("!n")
 SleepSend("!n")
 WinWaitActive, , Setup has finished installing
 SleepSend("!f")
-
-ret := CmdRet_RunReturn("perl checkdb.plx", "C:\inetpub\wwwroot\cgi\")
-;if NOT InStr(ret, "Finished with 0 errors")
-   ;MsgBox, %ret%
-
-ret := CmdRet_RunReturn("perl start-MSG-service.pl installall", "C:\inetpub\wwwroot\cgi\")
-if NOT InStr(ret, "Finished with 0 errors")
-   MsgBox, %ret%

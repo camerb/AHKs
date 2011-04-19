@@ -1,5 +1,3 @@
-#include FcnLib.ahk
-
 ;Copy install files to the hard drive
 FileCopyDir, \LynxCD\, C:\LynxCD\, 1
 

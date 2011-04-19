@@ -1,29 +1,16 @@
-#include FcnLib.ahk
-
-LynxCompyName:="LynxGuide-R410"
-
-if NOT (A_ComputerName = LynxCompyName)
-{
-   ;set computer name
-
-   command=netdom.exe renamecomputer %A_ComputerName% /newname:%LynxCompyName% /userd:LAN\administrator /passwordd:Password1! /usero:administrator /passwordo:Password1! /reboot:5
-   joe:= CmdRet_RunReturn(command)
-   debug(joe)
-}
-
-;install IIS (clickin' around)
-
+;set computer name
+command=netdom.exe renamecomputer %A_ComputerName% /newname:%LynxCompyName%
+;/userd:LAN\administrator /passwordd:Password1! /usero:administrator /passwordo:Password1! /reboot:2
+GhettoCmdRet_RunReturn(command)
+SleepSend("Y{ENTER}")
+SleepSeconds(2)
+WinClose
 
 ;turn off firewall
-;SleepSend("#r")
-;ForceWinFocus("Run")
-;SleepSend("control firewall.cpl")
-
-;turn on windows updates
-;SleepSend("#r")
-;ForceWinFocus("Run")
-;SleepSend("control wuaucpl.cpl")
-
-;install lynx messenger (cmd)
-
-
+Run, C:\windows\system32\firewall.cpl
+SleepClick(95, 175)
+SleepClick(284, 247)
+SleepClick(284, 382)
+SleepClick(680, 650)
+SleepSeconds(1)
+WinClose, Windows Firewall

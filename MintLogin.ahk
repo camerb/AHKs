@@ -4,9 +4,6 @@
 
 mintLogin()
 {
-   RunAhk("HyperCamRecord.ahk")
-   SleepSeconds(10)
-
    ;Loop
    ;{
    RunOpera()
