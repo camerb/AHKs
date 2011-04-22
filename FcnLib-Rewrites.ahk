@@ -93,3 +93,25 @@ IniRead(file, section, key, Default = "ERROR")
 }
 
 ;}}}
+
+;{{{ Process Manipulation
+
+GetPID(exeName)
+{
+   Process, Exist, %exeName%
+   return ERRORLEVEL
+}
+
+ProcessExist(exeName)
+{
+   Process, Exist, %exeName%
+   return !!ERRORLEVEL
+}
+
+ProcessClose(exeName)
+{
+   Process, Close, %exeName%
+}
+
+;}}}
+

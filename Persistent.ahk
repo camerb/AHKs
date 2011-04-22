@@ -61,6 +61,17 @@ if (A_Hour=6 AND A_Min=0 AND A_Sec=0)
 }
 ;}}}
 
+;{{{Try refreshing mint each hour on vm
+if (A_Min=15 AND A_Sec=0)
+{
+   if (A_ComputerName="PHOSPHORUSVM")
+   {
+      RunAhkAndBabysit("MintTouch.ahk")
+      SleepSeconds(2)
+   }
+}
+;}}}
+
 ;{{{Routine email reminders
 if (A_Hour=11 AND A_Min=05 AND A_Sec=0)
 {
@@ -119,6 +130,22 @@ if (Mod(A_Min, 15)==0 && A_Sec==0)
    if (A_ComputerName="PHOSPHORUS")
    {
       Run, UpdateRemoteWidget.ahk
+      sleepseconds(2)
+   }
+}
+;}}}
+
+;{{{Monitor FF4 RAM usage
+if (Mod(A_Min, 15)==0 && A_Sec==35)
+{
+   if (A_ComputerName="PHOSPHORUS")
+   {
+      time:=currenttime("hyphenated")
+      pid:=getpid("firefox.exe")
+      ram:=GetRamUsage(pid)
+      cpu:=GetCpuUsage(pid)
+      csvLine := ConcatWithSep(",", time, pid, ram, cpu)
+      FileAppendLine(csvLine, "gitExempt/phosFFstats.csv")
       sleepseconds(2)
    }
 }
@@ -224,6 +251,8 @@ SetTitleMatchMode 2
 ;Descriptive error messages
 WinClose, Error, An instance of Pidgin is already running
 WinClose, WinSplit message, Impossible to install hooks
+WinClose, VMware Player, The virtual machine is busy
+WinClose, Google Chrome, The program can't start because nspr4.dll is missing from your computer
 
 IfWinExist, Find and Run Robot ahk_class TMessageForm, OK
 {
@@ -231,6 +260,7 @@ IfWinExist, Find and Run Robot ahk_class TMessageForm, OK
    SaveScreenshot("FARR-MessageThatWeClosed")
    Sleep, 10
    Send, {ENTER}
+   Sleep, 500
 }
 
 ;This is for foobar at work
@@ -245,6 +275,9 @@ IfWinActive, Disconnect Terminal Services Session ahk_class #32770
    ;Kill Astaro if we just disconnected from RDP on the VPN
    Process, Close, openvpn-gui.exe
 }
+
+IfWinActive, Remote Desktop Connection, Do you want to connect despite these certificate errors?
+   Send, !y
 
 ;FF4 has fewer prompts now
 ;IfWinExist, Firefox Add-on Updates ahk_class MozillaDialogClass
@@ -322,6 +355,8 @@ IfWinExist, %titleofwin%
 ;}}}
 
 ;{{{ Close windows that have been open for a while (they are "abandoned")
+;dangit... this isn't used anymore since we switched to Git
+;TODO perhaps this approach can be used for telling last.fm to resume listening
 SetTitleMatchMode, RegEx
 IfWinExist .* - (Update|Commit) - TortoiseSVN Finished! ahk_class #32770
 {

@@ -27,8 +27,10 @@ Loop
       break
 }
 
+ForceWinFocus("MINGW32", "Contains")
+SendInput, q{ENTER}
+
 if NOT commitMessage
    ExitApp
 
-ForceWinFocus("MINGW32", "Contains")
 SendInput, git ci -m"%commitMessage%"{ENTER}

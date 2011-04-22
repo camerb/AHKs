@@ -11,6 +11,6 @@ Run, C:\windows\system32\firewall.cpl
 SleepClick(95, 175)
 SleepClick(284, 247)
 SleepClick(284, 382)
-SleepClick(680, 650)
+SleepClick(570, 570)
 SleepSeconds(1)
 WinClose, Windows Firewall

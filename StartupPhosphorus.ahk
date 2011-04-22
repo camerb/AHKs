@@ -120,6 +120,16 @@ while desktopSidebarNeedsRelocating()
    SleepSeconds(1)
 }
 
+debug("checking if we need to restore chrome tabs")
+if ( ForceWinFocusIfExist("New Tab - Google Chrome")
+   AND IsYellowPixel(686, 87)
+   AND IsYellowPixel(686, 110)
+   AND IsYellowPixel(1649, 87)
+   AND IsYellowPixel(1649, 110) )
+{
+   Click(1700, 100, "Control")
+}
+
 debug("All finished with the boot AHK")
 ExitApp
 
@@ -136,7 +146,8 @@ desktopSidebarNeedsRelocating()
 moveDesktopSidebar()
 {
    debug("moving desktop sidebar")
-   WinActivate, ahk_class SideBarWndv10
+   ;DSTBDTT ;WinActivate, ahk_class SideBarWndv10
+   ForceWinFocus("ahk_class SideBarWndv10")
    ;TODO figure out a way to ensure that the sidebar is actually responding to WinActivate
    Click(20, winHeight - 20, "Right")
    Sleep, 100
@@ -158,4 +169,11 @@ moveDesktopSidebar()
       Sleep, 100
       ;debug()
    }
+}
+
+;TODO... make this more generalized (for google chrome restore bar)
+IsYellowPixel(xCoord, yCoord)
+{
+   hexColor := PixelGetColor(xCoord, yCoord, "RGB")
+   return !! RegExMatch(hexColor, "0x(F).(F|E).(B|A|9).")
 }

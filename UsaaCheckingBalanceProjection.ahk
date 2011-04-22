@@ -13,14 +13,14 @@ if ForceWinFocusIfExist("out1.*OpenOffice.org", "RegEx")
 
 A_Quote="
 date := currenttime("hyphendate")
-path=C:\My Dropbox\AHKs\REFP\
+path=C:\My Dropbox\AHKs\gitExempt\
 currentMonth:=CurrentTime("MM")
 currentMonthNoZero:=CurrentTime("M")
 currentYear:=CurrentTime("yyyy")
 
-infile=C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-checking.csv
+infile=%path%usaa_export\%date%-checking.csv
 expectedTransFile=%path%expectedTransactions.txt
-projectionCsv=C:\My Dropbox\AHKs\gitExempt\financialProjection.csv
+projectionCsv=%path%financialProjection.csv
 ;projectionCsv=%path%out1.txt
 
 if NOT FileExist(infile)
@@ -39,14 +39,8 @@ Loop, Read, gitExempt/DailyFinancial.csv
    }
 }
 
-;TODO put this in the expected file using an REFP ;finished but not sure if it works
-;projectedCreditCardBill=%A_LoopField%
-refpLine=ZZZccPaymentEstimateZZZ`n%projectedCreditCardBill%`nZZZccPaymentEstimateZZZ`n`n
-reFile=%path%regex-expectedTxns.txt
+;put this in the expected file using an REFP
 expectedTransTpl=%path%expectedTransactions-tpl.txt
-;FileAppend(refpLine, "REFP\regex-expectedTxns.txt")
-;REFP(expectedTransTpl, reFile, expectedTransFile)
-
 FileCopy(expectedTransTpl, expectedTransFile, "overwrite")
 TF_Replace("!"expectedTransFile, "ZZZccPaymentEstimateZZZ", projectedCreditCardBill)
 

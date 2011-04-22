@@ -1,5 +1,6 @@
 #include FcnLib.ahk
 
+;check folder for duplicate files
 
 deletetracefile()
 

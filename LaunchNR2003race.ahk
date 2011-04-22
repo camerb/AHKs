@@ -1,9 +1,9 @@
 #include FcnLib.ahk
 
-;ChangeLogitechWheelMode()
+ChangeLogitechWheelMode()
 
 ;close junk that we don't want running during the race
-;Process, Close, FindAndRunRobot.exe
+Process, Close, FindAndRunRobot.exe
 Process, Close, dsidebar.exe
 SoundSet, 30
 

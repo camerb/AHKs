@@ -81,8 +81,10 @@ return
 ;TODO start FARR if it exists but isn't running
 ;Run an AHK from the AHKs folder
 AppsKey & k::
-Process, Exist, FindAndRunRobot.exe
-if ErrorLevel
+if NOT ProcessExist("FindAndRunRobot.exe") and NOT IsVM()
+   RunProgram("FindAndRunRobot.exe")
+
+if ProcessExist("FindAndRunRobot.exe")
 {
    ;use Find and Run Robot, if possible
    Send, {PAUSE}
@@ -91,9 +93,7 @@ if ErrorLevel
 InputBox, filename, AHK Filename, Please enter the filename of the AHK to run:
 
 ;if they forgot to add ".ahk", then add it
-StringRight, fileExtension, filename, 4
-if (fileExtension <> ".ahk")
-   filename.=".ahk"
+filename := EnsureEndsWith(filename, ".ahk")
 
 ;if it doesn't exist, get rid of spaces and check again
 if NOT FileExist(filename)
@@ -162,11 +162,13 @@ vk90sc045:: Send, {Ctrl Down}{Alt}{Ctrl Up}
 AppsKey & SC122::
 AppsKey & Launch_Media::
 SetTitleMatchMode, RegEx
-WinGetTitle, titletext, (Last.fm|Power FM)
+DetectHiddenWindows, On
+titletext := WinGetTitle("(Last.fm|Power FM)")
+DetectHiddenWindows, Off
+
 PowerIsStreamingInWMP:=WinExist("Windows Media Player")
 if (titletext=="89.7 Power FM - Powered by ChristianNetcast.com - Opera" OR PowerIsStreamingInWMP)
 {
-   filename=C:\DataExchange\urltempfile.txt
    playlist:=UrlDownloadToVar("http://on-air.897powerfm.com/")
 
    playlist:=RegExReplace(playlist, "(`r|`n)", " ")
@@ -201,37 +203,4 @@ AppsKey & m:: Run, RecordMacro.ahk
 ;     except for the exit part, maybe... but I don't think that even makes sense
 
 ;;Test to see if the Google Desktop errors are being detected
-;^+d::
-;titleofwin = Google Desktop Sidebar
-;textofwin3 = One or more of the following gadget(s) raised an exception
-;SetTitleMatchMode 1
-;IfWinExist, %titleofwin%
-;{
-	;IfWinExist, %titleofwin%, %textofwin3%,
-	;{
-		;WinActivate, %titleofwin%
-		;MouseClick, left, 410, 192
-	;}
-	;;MsgBox, Window Detected
-;}
-;Else
-;{
-	;MsgBox, Couldn't find it
-;}
-;return
-
-;^#g::
-;IfWinExist ahk_class _GD_Sidebar
-;{
-	;;this doesn't work
-	;WinClose ahk_class _GD_Sidebar
-	;;ahk_class _GD_Mon
-	;;MsgBox Closing Google Desktop
-;}
-;Else
-;{
-	;Run "C:\Program Files\Google\Google Desktop Search\GoogleDesktop.exe" /sidebar
-	;;MsgBox Google Desktop not open ... opening now
-;}
-;return
 

@@ -48,6 +48,8 @@ FileRead, filecontents, C:\code\epms\cgi\epms_local.json
 if InStr(filecontents, "prozac")
    LiveSiteMode:=true
 
+epmsTitles=Ellis Partners in Mystery Shopping|EPMS|Survey Detailed Reporting|Net Promoter Score|Personality Trait|Buying Stage|Zone of Success|Decision Driver|Customer Loyalty Score
+
 ;find out what project we're on
 StringLeft, project, debuggerCommand, 2
 StringLeft, firstFour, debuggerCommand, 4
@@ -84,7 +86,7 @@ else if (project == "TM")
 else if (debuggerCommand == "EPMS")
 {
    apacheServer:=true
-   projTitle=Ellis Partners in Mystery Shopping|EPMS|Survey Detailed Reporting|Net Promoter Score|Personality Trait|Buying Stage|Zone of Success|Decision Driver
+   projTitle := epmsTitles
 }
 else
 {
@@ -92,7 +94,7 @@ else
    ExitApp
 }
 
-allWindow=Forms|Parts|Bench|Server|EPMS|Home|xds|phosphorus|Ellis Partners in Mystery Shopping|Survey Detailed Reporting|Net Promoter Score|Personality Trait|Buying Stage|Zone of Success|Decision Driver
+allWindow=Forms|Parts|Bench|Server|Home|xds|phosphorus|%epmsTitles%
 ffWindow=(%projTitle%).* - Mozilla Firefox ahk_class MozillaWindowClass
 ieWindow=(%projTitle%).* - Windows Internet Explorer ahk_class IEFrame
 ;}}}

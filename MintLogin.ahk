@@ -20,7 +20,13 @@ mintLogin()
    ShortSleep()
    Send, %joe%
    ShortSleep()
-   ClickIfImageSearch("images\mint\LoginButton.bmp")
+   ;ClickIfImageSearch("images\mint\LoginButton.bmp")
+   ShortSleep()
+   Send, {TAB}
+   ShortSleep()
+   Send, {TAB}
+   ShortSleep()
+   Send, {ENTER}
 
    mainPageTitle=Mint.com > Overview - Opera
    CustomTitleMatchMode("Exact")

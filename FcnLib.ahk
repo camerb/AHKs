@@ -989,8 +989,13 @@ GetProcesses()
    return l
 }
 
-GetCpuUsage( PID )
+GetCpuUsage( ProcNameOrPid )
 {
+   Process, Exist, %ProcNameOrPid%
+   pid := Errorlevel
+   if NOT pid
+      pid := ProcNameOrPid
+
    Static oldKrnlTime, oldUserTime
    Static newKrnlTime, newUserTime
 
@@ -1002,6 +1007,31 @@ GetCpuUsage( PID )
 
    DllCall("CloseHandle", "Uint", hProc)
    Return Round( (newKrnlTime-oldKrnlTime + newUserTime-oldUserTime)/10000000 * 100 ,2)
+}
+
+GetRamUsage(ProcNameOrPid, Units="K") {
+   Process, Exist, %ProcNameOrPid%
+   pid := Errorlevel
+   if NOT pid
+      pid := ProcNameOrPid
+
+   ; get process handle
+   hProcess := DllCall( "OpenProcess", UInt, 0x10|0x400, Int, false, UInt, pid )
+
+   ; get memory info
+   PROCESS_MEMORY_COUNTERS_EX := VarSetCapacity(memCounters, 44, 0)
+   DllCall( "psapi.dll\GetProcessMemoryInfo", UInt, hProcess, UInt, &memCounters, UInt, PROCESS_MEMORY_COUNTERS_EX )
+   DllCall( "CloseHandle", UInt, hProcess )
+
+   SetFormat, Float, 0.0 ; round up K
+
+   PrivateBytes := NumGet(memCounters, 40, "UInt")
+   if (Units == "B")
+      return PrivateBytes
+   if (Units == "K")
+      Return PrivateBytes / 1024
+   if (Units == "M")
+      Return PrivateBytes / 1024 / 1024
 }
 
 ;Returns whether or not two files are equal
@@ -1244,7 +1274,7 @@ IsVM(ComputerName="")
 ;Reload the core scripts(as if we just restarted the pc)
 ForceReloadAll()
 {
-   Run, ForceReloadAll.exe
+   RunWait, ForceReloadAll.exe
 }
 
 ;TESTME
@@ -1397,7 +1427,19 @@ MultiWinWait(successWin, successWinText, failureWin, failureWinText)
 
 ClickButton(button)
 {
+   ;TODO figure out if the button is visible in the wintext
+   ;TODO hit the alt key for the button, if it has that & in the name (more reliable)
    ControlClick, %button%
+}
+
+AddDatetime(datetime, numberToAdd, unitsOfNumberToAdd)
+{
+   ;TODO verify that datetime is a datetime
+   ;TODO unhyphenate datetime if necessary
+   ;TODO verify that number to add is a number
+   ;TODO standardize naming of the units (m, mins, min, minute, minutes)
+   datetime := %numberToAdd%, %unitsOfNumberToAdd%
+   return datetime
 }
 
 ;WRITEME make function for getting remote and local path of dropbox public folder
@@ -1418,6 +1460,4 @@ ClickButton(button)
 ;WRITEME close specified jira issue (and log work beforehand, too)
 
 ;WRITEME parse the following pages and put them in the morning status
-;perhaps i can have updates of my points position, rather than having to look it up
-;http://www.racepointsmanager.com/pm4/league/1564/standings/series/4
-;http://www.racepointsmanager.com/pm4/league/1564/standings/series/8
+;perhaps i can have updates of my points position, rather than having to look it up ;use blazin pedals site

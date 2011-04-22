@@ -1,21 +1,25 @@
 #include FcnLib.ahk
 
 SetTitleMatchMode, RegEx
-WinGetTitle, titletext, ahk_class OperaWindowClass
+DetectHiddenWindows, On
+
+titletext := WinGetTitle("ahk_class OperaWindowClass")
 Process, Exist, foobar2000.exe
 FoobarPID := ERRORLEVEL
+Process, Exist, opera.exe
+OperaPID := ERRORLEVEL
+
 PowerIsStreamingInWMP:=WinExist("Windows Media Player")
 if (titletext=="106.1 KISS FM - Opera" or titletext=="Mix 102.9 Stream - Opera"
       or titletext=="89.7 Power FM - Powered by ChristianNetcast.com - Opera"
       or titletext=="http://www.christiannetcast.com/listen/dynamicasx.asp?station=kvtt-fm2 - Opera"
       or InStr(titletext, "Last.fm"))
 {
-   ;debug("i saw a media window")
    ;Stop music
-   ;WinShow, ahk_class OperaWindowClass
    ForceWinFocus(titletext, "Contains")
-   ;Send, !d
+   Sleep, 100
    SendInput, !dhttp://www.google.com/{enter}
+   Sleep, 100
 }
 else if (PowerIsStreamingInWMP)
 {
