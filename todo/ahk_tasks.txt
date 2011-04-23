@@ -1,0 +1,1 @@
+;WRITEME make a way to ensure that runwaits end eventually (tick on tick off)(use in nightly ahks). this would write an ini which has info about what script was started, then we can delete the ini when the script finishes. run a checker manually (or on an interval) to see if any inis have been orphaned (means that it was in an inf loop and it was terminated).

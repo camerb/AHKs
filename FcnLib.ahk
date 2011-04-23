@@ -676,8 +676,8 @@ EnsureDirExists(path)
    dir:=ParentDir(path)
    ;simply: this ensures that the entire specified dir structure exists
 
-;figure out if it is a file or dir
-;split off filename if applicable
+   ;figure out if it is a file or dir
+   ;split off filename if applicable
    FileCreateDir, %dir%
 }
 
@@ -859,74 +859,15 @@ RunAhk(ahkFilename, params="", options="")
       Run %command%
 }
 
-;Run file from program files folder
-;FIXME Yes, this is crap, but someday it should be in ini files and use some logic
-;TODO and also try the dropbox\programs folder
+;Run a program (specify nickname or exe name)
 ;TODO maybe we could have an "ensure one instance" option
 RunProgram(pathOrAppFilenameOrAppNickname)
 {
-   ini=gitExempt\folderinfo.ini
-   path:=pathOrAppFilenameOrAppNickname
-   if RegExMatch(path, ".\:\\.*\\(.*)", match)
-      appFilename:=match1
-
-   if FileExist(path)
-   {
-      Run, %path%
-      if appFilename
-         IniWrite(ini, A_ComputerName, appFilename, Path)
-      return
-   }
-
-   path := StringReplace(path, "\Program Files (x86)\", "\Program Files\")
-   if FileExist(path)
-   {
-      Run, %path%
-      if appFilename
-         IniWrite(ini, A_ComputerName, appFilename, Path)
-      return
-   }
-
-   path := StringReplace(path, "\Program Files\", "\Program Files (x86)\")
-   if FileExist(path)
-   {
-      Run, %path%
-      if appFilename
-         IniWrite(ini, A_ComputerName, appFilename, Path)
-      return
-   }
-
-   ;at this point, we have tried all of the valid paths we can think of
-   ; this is either an invalid path, just a filename, or a nickname of something we already know of
-   appName := pathOrAppFilenameOrAppNickname
-   path=
-
-   ;look up the filename that corresponds to this nickname
-   appFilename := IniRead(ini, "NICKNAMES", appName)
-
-   ;it turns out that our assumption that the item passed in is an app nickname is wrong
-   ; it is probably a filename
-   if (appFilename == "ERROR")
-   {
-      appFilename:=pathOrAppFilenameOrAppNickname
-      appName=
-   }
-
-   ;look up the path specific to this PC
-   path := IniRead(ini, A_ComputerName, appFilename)
-   if FileExist(path)
-   {
-      Run, %path%
-      ;if appFilename
-         ;IniWrite(ini, A_ComputerName, appFilename, Path)
-      return
-   }
-
-   ;TODO guess based on the path specified for other computers
-   ;this fcn is getting big... maybe we should ghetto-thread this with a runwait.
-   ;that way we can have many functions in that analysis file
-
-   delog("tried run program", pathOrAppFilenameOrAppNickname, A_ScriptName, A_LineNumber, A_ThisFunc, "could not find the directory or one like it", "app might not be installed, or the path might not be pointed at the program files dir")
+   quote="
+   params:=pathOrAppFilenameOrAppNickname
+   params    := EnsureEndsWith(params, quote)
+   params    := EnsureStartsWith(params, quote)
+   RunAhk("FindAndRunProgram.ahk", params, "wait")
 }
 
 sendEmail(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sReplyTo="cameronbaustian+bot@gmail.com")
@@ -1053,7 +994,7 @@ WaitFileExist(filename)
    }
 }
 
-;TESTME (seemed to work well in previous context: scheduled ahks)
+;TESTME (seemed to work well in previous context: de-queueing scheduled ahks)
 WaitFileNotExist(filename)
 {
    while (FileExist(filename))
@@ -1438,7 +1379,7 @@ AddDatetime(datetime, numberToAdd, unitsOfNumberToAdd)
    ;TODO unhyphenate datetime if necessary
    ;TODO verify that number to add is a number
    ;TODO standardize naming of the units (m, mins, min, minute, minutes)
-   datetime := %numberToAdd%, %unitsOfNumberToAdd%
+   datetime += %numberToAdd%, %unitsOfNumberToAdd%
    return datetime
 }
 

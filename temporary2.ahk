@@ -1,5 +1,6 @@
 #include FcnLib.ahk
 
+;checking if last.fm window is no longer playing and needs to be restarted
 
 lastFmWindow=Last.fm - Opera ahk_class OperaWindowClass
 
@@ -7,9 +8,7 @@ CustomTitleMatchMode("RegEx")
 DetectHiddenWindows, On
 
 now := CurrentTime()
-futureTime := now
-futureTime += 8, minutes
-;futureTime := AddDatetime(now, 8, "minute")
+futureTime := AddDatetime(now, 8, "minutes")
 titletext := WinGetTitle(lastFmWindow)
 debug(titletext, now, futureTime)
 

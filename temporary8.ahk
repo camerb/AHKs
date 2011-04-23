@@ -1,17 +1,14 @@
 #include FcnLib.ahk
 
-RunProgram("DesktopSidebar")
-ExitApp
-
 ;trying to make a function like:
 ;RunProgram(appName)
-;{
-
-;}
-
 ;usage:
 ;RunProgram("opera")
 ; or pidgin or ie or chrome or whatever
+
+RunProgram("Opera")
+ExitApp
+
 
 ;DeleteTraceFile()
 ;AddToTrace(CurrentTime("hyphenated"))
@@ -72,10 +69,3 @@ FileGetLocation()
    ;IniRead, value, %file%, %section%, %key%
    ;return value
 ;}
-
-;TESTME
-FileCreate(text, file)
-{
-   FileDelete(file)
-   FileAppend(text, file)
-}

@@ -49,6 +49,12 @@ FileMove(source, dest, options="")
    FileMove, %source%, %dest%, %overwrite%
 }
 
+FileCreate(text, file)
+{
+   FileDelete(file)
+   FileAppend(text, file)
+}
+
 ;}}}
 
 ;{{{ INI Functions

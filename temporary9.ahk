@@ -1,9 +1,6 @@
 #include FcnLib.ahk
-;#include FcnLib-Opera.ahk
-;#include gitExempt/MonsterLogin.ahk
+#include FcnLib-Opera.ahk
+#include gitExempt/MonsterLogin.ahk
 
-;MonsterLogin()
+MonsterLogin()
 
-ram:=GetRamUsage("firefox.exe")
-cpu:=GetCpuUsage("firefox.exe")
-debug(ram, cpu)
