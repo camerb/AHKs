@@ -72,6 +72,17 @@ if (A_Min=15 AND A_Sec=0)
 }
 ;}}}
 
+;{{{Download carset for nr2003 just before the race
+if (A_WDay=5 AND A_Hour=18 AND A_Min=0 AND A_Sec=0)
+{
+   if (A_ComputerName="BAUSTIAN-09PC")
+   {
+      RunAhkAndBabysit("SaveNR2003cars.ahk")
+      SleepSeconds(2)
+   }
+}
+;}}}
+
 ;{{{Routine email reminders
 if (A_Hour=11 AND A_Min=05 AND A_Sec=0)
 {
@@ -152,9 +163,9 @@ if (Mod(A_Min, 15)==0 && A_Sec==35)
 ;}}}
 
 ;{{{Check to see if we scheduled an ahk from the cloud
-if (Mod(A_Sec, 15)==0)
+if (Mod(A_Sec, 5)==0)
 {
-   if (A_ComputerName="PHOSPHORUS")
+   if (A_ComputerName="BAUSTIAN-09PC")
    {
       ghetto:=SexPanther()
       BotGmailUrl=https://cameronbaustianbot:%ghetto%@gmail.google.com/gmail/feed/atom
@@ -167,7 +178,11 @@ if (Mod(A_Sec, 15)==0)
          number:=""
 
       if (number)
-         RunAhk("ProcessBotEmails.ahk")
+      {
+         RunAhkAndBabysit("ProcessBotEmails.ahk")
+         SleepSeconds(20)
+         ;maybe we should sleep more like 60 secs
+      }
    }
 }
 ;}}}
@@ -175,6 +190,10 @@ if (Mod(A_Sec, 15)==0)
 ;{{{Run scheduled AHKs
 if (Mod(A_Sec, 15)==0)
 {
+   asapAhk=%A_WorkingDir%\scheduled\%A_ComputerName%\asap.ahk
+   asapTxt=%A_WorkingDir%\scheduled\%A_ComputerName%\asap.txt
+   if FileExist(asapTxt)
+      FileMove(asapTxt, asapAhk, "overwrite")
    ;TODO put all this crap into another ahk, so that persistent doesn't halt while we're babysitting other ahks
    Loop, %A_WorkingDir%\scheduled\%A_ComputerName%\*.ahk
    {
@@ -252,6 +271,7 @@ SetTitleMatchMode 2
 WinClose, Error, An instance of Pidgin is already running
 WinClose, WinSplit message, Impossible to install hooks
 WinClose, VMware Player, The virtual machine is busy
+WinClose, VMware Player, internal error
 WinClose, Google Chrome, The program can't start because nspr4.dll is missing from your computer
 
 IfWinExist, Find and Run Robot ahk_class TMessageForm, OK

@@ -18,15 +18,14 @@ if (number == 0 || number == "")
 if (number != "")
 {
    ;then, save all the recent emails to the hard drive
-   end:=CurrentTime()
-   start:=end
-   end += -2, days
-   start += 1, days
+   end   := AddDatetime(CurrentTime(), 1, "days")
+   start := AddDatetime(CurrentTime(), -2, "days")
    start := FormatTime(start, "yyyyMMdd")
    end := FormatTime(end, "yyyyMMdd")
 
-   exePath="C:\Program Files (x86)\GmailBackup\gmail-backup.exe"
-   ;exePath="C:\Program Files\GmailBackup\gmail-backup.exe"
+   ;TODO find a way to use RunProgram and pass in params, and specify to use CmdRet to run the program
+   ;exePath="C:\Program Files (x86)\GmailBackup\gmail-backup.exe"
+   exePath="C:\Program Files\GmailBackup\gmail-backup.exe"
    command=%exePath% backup "C:\DataExchange\BotEmail\Received" cameronbaustianbot@gmail.com %joe% %start% %end%
    ret:=CmdRet_RunReturn(command)
    ;delog(ret)
@@ -44,9 +43,21 @@ if (number != "")
    }
 }
 
+;TODO rewrite this whole friggin thing!!! email formats are just plain inconsistent
 examineEmail(emailFile)
 {
-   findingSubject:=true
+   ;get the first boundary and the first subject
+   Loop, read, %emailFile%
+   {
+      thisLine:=A_LoopReadLine
+      if NOT boundary AND RegExMatch(thisLine, "Content-Type.*boundary=(.*)$", result)
+         boundary := "--" . result1
+      if NOT subjectLine AND RegExMatch(thisLine, "Subject\: (.*)$", result)
+         subjectLine:=result1
+   }
+
+   ;get the email message
+   debug(boundary, subjectLine)
    Loop, read, %emailFile%
    {
       thisLine:=A_LoopReadLine
@@ -55,8 +66,10 @@ examineEmail(emailFile)
          if (thisLine == boundary)
          {
             ;success, finished
+            ;errord("nolog", "finished processing email", emailfile)
             processSingleEmail(subjectLine, emailContents)
-            break
+            ;break
+            return
          }
          else if NOT firstLineHasBeenRead
             firstLineHasBeenRead:=true
@@ -76,7 +89,7 @@ examineEmail(emailFile)
             findingStart:=true
          }
          else if (thisLine == "From: Bot Baustian <cameronbaustianbot@gmail.com>")
-            break
+            return
       }
       else if findingSubject
       {
@@ -87,16 +100,27 @@ examineEmail(emailFile)
          }
       }
    }
+   ;FIXME haxor I was trying to avoid regexes, but I may need to use them after all
+   emailContents .= thisLine . "`n"
+   ;errord("nolog", "died before finishing processing email", subjectLine, emailContents)
+   processSingleEmail(subjectLine, emailContents)
 }
 
 ProcessSingleEmail(emailSubject, emailMessage)
 {
-   delog(emailSubject, emailMessage)
+   ;delog("blue line", emailSubject, emailMessage)
+   ;errord("nolog", emailSubject, emailMessage)
    if InStr(emailSubject, "Scheduled AHK")
    {
+      ;delog("yellow line", "saw a sched ahk")
       timestamp:=CurrentTime()
       filename=scheduled/%A_ComputerName%/%timestamp%.ahk
+      archiveFile=archive/cloudAHKs/%timestamp%-%A_ComputerName%.ahk
+      FileAppendLine("#include FcnLib.ahk", filename)
+      FileAppendLine("DeleteTraceFile()", filename)
+      FileAppendLine("AddToTrace(""running scheduled ahk from the cloud"")", filename)
       FileAppendLine(emailMessage, filename)
+      FileCopy(filename, archiveFile)
       ;TODO send it to an archive file as well
    }
 }

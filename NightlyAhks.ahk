@@ -20,6 +20,7 @@ if (A_ComputerName = LeadComputer())
 if NOT IsVM()
 {
    RunThisNightlyAhk(1, "CopyVimSettings.ahk")
+   RunThisNightlyAhk(1, "UpdateAdobeAcrobatReader.ahk")
 }
 
 ;RunThisNightlyAhk(1, "MorningStatus-GatherData.ahk")
@@ -27,7 +28,6 @@ RunThisNightlyAhk(1, "MorningStatus.ahk", "GatherData")
 RunThisNightlyAhk(1, "RestartDropbox.ahk")
 RunThisNightlyAhk(5, "REFPunitTests.ahk", "completedFeaturesOnly")
 RunThisNightlyAhk(15, "UnitTests.ahk")
-RunThisNightlyAhk(1, "UpdateAdobeAcrobatReader.ahk")
 
 if (A_ComputerName="BAUSTIAN-09PC")
 {

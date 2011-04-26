@@ -105,20 +105,33 @@ GhettoCmdRet_RunReturn(command, workingDir="", options="")
 
 autologin(options)
 {
-   SleepSend("#r")
-   ForceWinFocus("Run")
-   SleepSend("control userpasswords2{ENTER}")
-   SleepSend("!e")
-   SleepClick(260, 480)
-   
    if InStr(options, "enable")
    {
-      ForceWinFocus("Automatically Log On")
-      SleepSend("!p")
+      Run, "E:\LynxCD\Server 7.11\installAssist\autologon.exe"
+      ForceWinFocus("Autologon")
+      SleepSend("{TAB}")
+      SleepSend("Administrator")
+      SleepSend("{TAB}")
+      SleepSend(A_ComputerName)
+      SleepSend("{TAB}")
       SleepSend("Password1!")
-      SleepSend("!c")
-      SleepSend("Password1!")
-      SleepClick(290, 200)
+      SleepSend("{TAB}")
+      SleepSend("{ENTER}")
+      SleepSend("{ENTER}")
+
+   }
+   else if InStr(options, "disable")
+   {
+      Run, "E:\LynxCD\Server 7.11\installAssist\autologon.exe"
+      ForceWinFocus("Autologon")
+      Loop 5
+         SleepSend("{TAB}")
+      SleepSend("{ENTER}")
+      SleepSend("{ENTER}")
+   }
+   else
+   {
+      debug("did you misspell the options for autologin?")
    }
 }
 

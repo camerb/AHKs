@@ -632,9 +632,6 @@ CloseDifficultApps()
          Process, Close, %pid%
       }
    }
-
-   ;close the stupid thing that comes with ZoneAlarm
-   Process, Close, ForceField.exe
 }
 
 CloseDifficultAppsAllScreens()
@@ -656,6 +653,10 @@ CloseDifficultAppsAllScreens()
    Process, WaitClose, vmplayer.exe, 15
    Process, Close, vmplayer.exe
    Process, Close, FindAndRunRobot.exe
+   ;Process, Close, dsidebar.exe
+
+   ;close the stupid thing that comes with ZoneAlarm
+   Process, Close, ForceField.exe
 }
 
 ;WRITEME
@@ -877,8 +878,6 @@ sendEmail(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sReplyTo
    file=%path%\%timestamp%.txt
    sBody:=RegExReplace(sBody, "(`r`n)", "ZZZnewlineZZZ")
    sBody:=RegExReplace(sBody, "(`r|`n)", "ZZZnewlineZZZ")
-   ;sBody:=RegExReplace(sBody, "(`r|`n|`r`n)", "ZZZnewlineZZZ")
-   ;sBody:=RegExReplace(sBody, "(ZZZnewlineZZZ)+", "ZZZnewlineZZZ")
    FileCreateDir, %path%
    IniWrite, %sSubject%, %file%, pendingEmail, subject
    IniWrite, %sAttach%, %file%, pendingEmail, attach
@@ -1402,3 +1401,6 @@ AddDatetime(datetime, numberToAdd, unitsOfNumberToAdd)
 
 ;WRITEME parse the following pages and put them in the morning status
 ;perhaps i can have updates of my points position, rather than having to look it up ;use blazin pedals site
+
+;WRITEME make a way to ensure that runwaits end eventually (tick on tick off)(use in nightly ahks). this would write an ini which has info about what script was started, then we can delete the ini when the script finishes. run a checker manually (or on an interval) to see if any inis have been orphaned (means that it was in an inf loop and it was terminated).
+

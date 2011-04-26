@@ -20,6 +20,7 @@ FileAppendLine(text, file)
 
 FileCopy(source, dest, options="")
 {
+   EnsureDirExists(dest)
    if InStr(options, "overwrite")
       overwrite=1
    if NOT FileExist(source)

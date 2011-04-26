@@ -7,11 +7,10 @@ if NOT InStr(ret, "SUCCESS")
    MsgBox, %ret%
 
 ;install lynx messenger (cmd)
-;TODO waiting on cmd from jason
+command=msiexec.exe /I "C:\LynxCD\Server 7.11\setup\LynxMessengerV4_06.msi" INSTALLDIR="C:\Program Files\LynxMessenger\" SERVERURL=localhost GROUPNAME=Popup PCNAME=Server /quiet
+ret := CmdRet_RunReturn(command)
 
 ret := CmdRet_RunReturn("perl checkdb.plx", "C:\inetpub\wwwroot\cgi\")
-;if NOT InStr(ret, "Finished with 0 errors")
-   ;MsgBox, %ret%
 
 ret := CmdRet_RunReturn("perl start-MSG-service.pl installall", "C:\inetpub\wwwroot\cgi\")
 if NOT InStr(ret, "Finished with 0 errors")

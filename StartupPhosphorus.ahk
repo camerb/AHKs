@@ -6,25 +6,24 @@ A_Debug:=true
 
 ;Run, %windir%\system32\cmd.exe
 ;Run, "C:\Program Files (x86)\Opera\opera.exe"
-RunProgram("C:\Program Files (x86)\Mozilla Firefox\firefox.exe")
-RunProgram("C:\Program Files (x86)\PostgreSQL\8.4\bin\pgAdmin3.exe")
 RunProgram("C:\Program Files (x86)\foobar2000\foobar2000.exe")
-RunProgram("C:\My Dropbox\Programs\BareTail\baretail.exe")
 
 ;Sleep, 15000
 
-Run, "C:\Program Files (x86)\Vim\vim72\gvim.exe"
+RunProgram("C:\Program Files (x86)\Vim\vim72\gvim.exe")
 ForceWinFocus("GVIM", "Contains")
 Send, {F2}
 Send, ^w{RIGHT}{;}q{ENTER}
 Send, {;}BookmarkToRoot code{ENTER}
 
+RunProgram("C:\Program Files (x86)\Mozilla Firefox\firefox.exe")
 ForceWinFocus("Mozilla Firefox")
 Send, ^!2
 
 ForceWinFocus("GVIM", "Contains")
 Send, ^!2
 
+RunProgram("C:\My Dropbox\Programs\BareTail\baretail.exe")
 ForceWinFocus("BareTail", "Contains")
 Send, ^!a
 
@@ -37,6 +36,7 @@ Send, ^!a
 ;Sleep, 100
 ;WinMinimize
 
+RunProgram("C:\Program Files (x86)\PostgreSQL\8.4\bin\pgAdmin3.exe")
 ForceWinFocus("pgAdmin III ahk_class wxWindowClassNR", "Contains")
 Sleep, 100
 Send, ^!{NUMPAD6}
@@ -72,23 +72,24 @@ Sleep, 10000
 ;delay these til the os has started up fully
 debug("starting quirky programs")
 Send, #1
-Send, #2
+;Send, #2
 Send, #3
-Run, "C:\Program Files (x86)\Pidgin\pidgin.exe"
-Send, #4
-Send, #5
 
+Send, #4
 ForceWinFocus("Administrator: Command Prompt", "Exact")
 Send, ^!a
 
 ForceWinFocus("Irssi", "Contains")
 Send, ^!a
 
+;git gui
+Send, #5
 ForceWinFocus("MINGW32 ahk_class ConsoleWindowClass", "Contains")
 Send, cd C:/code/epms{ENTER}
 Send, git status{ENTER}
 Send, ^!a
 
+RunProgram("C:\Program Files (x86)\Pidgin\pidgin.exe")
 debug("Launching Pidgin")
 RunWait, LaunchPidgin.ahk
 
@@ -149,7 +150,10 @@ moveDesktopSidebar()
    ;DSTBDTT ;WinActivate, ahk_class SideBarWndv10
    ForceWinFocus("ahk_class SideBarWndv10")
    ;TODO figure out a way to ensure that the sidebar is actually responding to WinActivate
-   Click(20, winHeight - 20, "Right")
+   Sleep, 100
+   SendInput, {AppsKey}
+   ;MouseMove, 20, winHeight - 20
+   ;Click(20, winHeight - 20, "Right")
    Sleep, 100
    Send, {DOWN 2}{ENTER}
 
