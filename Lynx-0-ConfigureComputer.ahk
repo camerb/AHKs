@@ -1,9 +1,9 @@
 ;set computer name
-;command=netdom.exe renamecomputer %A_ComputerName% /newname:%LynxCompyName%
-;GhettoCmdRet_RunReturn(command)
-;SleepSend("Y{ENTER}")
-;SleepSeconds(2)
-;WinClose
+command=netdom.exe renamecomputer %A_ComputerName% /newname:%LynxCompyName%
+GhettoCmdRet_RunReturn(command)
+SleepSend("Y{ENTER}")
+SleepSeconds(2)
+WinClose
 
 ;turn off firewall
 Run, C:\windows\system32\firewall.cpl

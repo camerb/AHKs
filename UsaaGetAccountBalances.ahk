@@ -1,70 +1,76 @@
 #include FcnLib.ahk
 #include C:\My Dropbox\AHKs\gitExempt\usaalogin.ahk
 
+ini=C:\My Dropbox\AHKs\gitExempt\financial.ini
 csvfile=C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv
 time:=CurrentTime("hyphenated")
 
 usaalogin()
 
-SavingsBalance  := GetAccountInfo("https://www.usaa.com/inet/gas_bank/BkAccounts?target=AccountSummary&currentaccountkey=encrypted10bb142d9db5d1209462ee637b61c599&CombinedView=TRUE")
-CheckingBalance := GetAccountInfo("https://www.usaa.com/inet/gas_bank/BkAccounts?target=AccountSummary&currentaccountkey=encrypted10bb142d9db5d12081af1bd8872ba833&CombinedView=TRUE")
-CreditBalance   := GetAccountInfo("https://www.usaa.com/inet/gas_bank/BkAccounts?target=AccountSummary&currentaccountkey=encryptedb15eff1c50e20965749b3338ceff1d4379e5098d18308caa&CombinedView=TRUE")
+SavingsBalance  := GetAccountInfo("encrypted10bb142d9db5d1209462ee637b61c599")
+CheckingBalance := GetAccountInfo("encrypted10bb142d9db5d12081af1bd8872ba833")
+CameronBalance  := GetAccountInfo("encryptedb15eff1c50e20965749b3338ceff1d4379e5098d18308caa")
+MelindaBalance  := GetAccountInfo("encryptedb15eff1c50e209657b4e04143ceb8bdd5e1587891b30192c")
 
 WinClose
 SleepSeconds(2)
 Process, Close, opera.exe
 
-;do some math and get the projected CC bill
-overallBalance := SavingsBalance + CheckingBalance - CreditBalance
+overallBalance := SavingsBalance + CheckingBalance - CameronBalance - MelindaBalance
 overallBalance := StringTrimRight(overallBalance, 4)
-FormatTime, currentDay, , dd
-daysThruBillingPeriod := mod( currentDay - 22 + 31, 31 )
-percentThru := daysThruBillingPeriod / 31 * 100
-percentLeft := 100 - percentThru
-spentPerPercent := CreditBalance / percentThru
-projectedCreditCardBill := CreditBalance + percentLeft * spentPerPercent
-projectedCreditCardBill := StringTrimRight(projectedCreditCardBill, 4)
 
-;fix the projection if something odd is going on (like if the bill hasn't been paid yet)
-if (currentDay == 22)
-   projectedCreditCardBill := CreditBalance
-if (projectedCreditCardBill > 5000)
-   projectedCreditCardBill := CreditBalance
+CameronProjection:=GetCreditCardProjection(CameronBalance, 22)
+MelindaProjection:=GetCreditCardProjection(MelindaBalance, 12)
 
 ;output this stuff to a file
-csvline:=ConcatWithSep(",", time, SavingsBalance, CheckingBalance, CreditBalance, overallBalance, projectedCreditCardBill)
+csvline:=ConcatWithSep(",", time, SavingsBalance, CheckingBalance, "", overallBalance, "", CameronBalance, CameronProjection, MelindaBalance, MelindaProjection)
 FileAppendLine(csvline, csvfile)
+
+;output to ini for fast lookup
+IniWrite(ini, "", "FinancesDateUpdated", time)
+IniWrite(ini, "", "SavingsBalance", SavingsBalance)
+IniWrite(ini, "", "CheckingBalance", CheckingBalance)
+IniWrite(ini, "", "CameronBalance", CameronBalance)
+IniWrite(ini, "", "MelindaBalance", MelindaBalance)
+IniWrite(ini, "", "OverallBalance", OverallBalance)
+IniWrite(ini, "", "CameronProjection", CameronProjection)
+IniWrite(ini, "", "MelindaProjection", MelindaProjection)
 
 MorningStatusAppend("Date", time)
 MorningStatusAppend("Savings", SavingsBalance)
 MorningStatusAppend("Checking", CheckingBalance)
-MorningStatusAppend("Credit", CreditBalance)
-MorningStatusAppend("Overall", overallBalance)
-MorningStatusAppend("Projected Credit Bill", projectedCreditCardBill)
-
-if (SavingsBalance=="" and CheckingBalance=="" and CreditBalance=="")
-   die("login attempt completely unsuccessful", A_ScriptName, A_LineNumber, A_ThisFunc)
+MorningStatusAppend("CameronCC", CameronBalance)
+MorningStatusAppend("MelindaCC", MelindaBalance)
+MorningStatusAppend("Overall", OverallBalance)
+MorningStatusAppend("CameronProjection", CameronProjection)
+MorningStatusAppend("MelindaProjection", MelindaProjection)
 
 ExitApp
 ;the end of the script
 
-GetAccountInfo(url)
+GetAccountInfo(key)
 {
-   ;force it to change the page, cause the title is the same for all accounts
-   GoToPage("http://dl.dropbox.com/u/789954/remotewidget.txt")
-   LongSleep()
+   url=https://www.usaa.com/inet/gas_bank/BkAccounts?target=AccountSummary&currentaccountkey=%key%&CombinedView=TRUE
 
-   ;get the text of the entire page
-   ;debug(url)
-   returned:=GhettoUrlDownloadToVar(url)
+   ;ensure returned value is not blank
+   ;validating with regex to ensure we have a
+   while NOT RegExMatch(returned, "\d+\.\d\d")
+   {
+      ;force it to change the page, cause the title is the same for all accounts
+      GoToPage("http://dl.dropbox.com/u/789954/remotewidget.txt")
+      LongSleep()
 
-   ;find the account balance that we are looking for
-   returned:=RegExReplace(returned, "(`r|`n)", " ")
-   RegExMatch(returned, "<th>(Current Balance).*?(</tr>)", returned)
-   RegExMatch(returned, "(\d*,*)*\d+\.\d+", returned)
-   returned:=RegExReplace(returned, ",", "")
-   ;debug("silent log from getacctinfo", VersionNum(), returned)
+      ;get the text of the entire page
+      ;debug(url)
+      returned:=GhettoUrlDownloadToVar(url)
 
+      ;find the account balance that we are looking for
+      returned:=RegExReplace(returned, "(`r|`n)", " ")
+      RegExMatch(returned, "<th>(Current Balance).*?(</tr>)", returned)
+      RegExMatch(returned, "(\d*,*)*\d+\.\d+", returned)
+      returned:=RegExReplace(returned, ",", "")
+      ;debug("silent log from getacctinfo", VersionNum(), returned)
+   }
    return returned
 }
 
@@ -72,4 +78,24 @@ MorningStatusAppend(header, item)
 {
    text=%header%: %item%
    FileAppendLine(text, "gitExempt\morning_status\finance.txt")
+}
+
+GetCreditCardProjection(currentCreditBalance, endOfBillingCycle)
+{
+   ;do some math and get the projected CC bill
+   FormatTime, currentDay, , dd
+   daysThruBillingPeriod := mod( currentDay - endOfBillingCycle + 31, 31 )
+   percentThru := daysThruBillingPeriod / 31 * 100
+   percentLeft := 100 - percentThru
+   spentPerPercent := currentCreditBalance / percentThru
+   projectedCreditCardBill := currentCreditBalance + percentLeft * spentPerPercent
+   projectedCreditCardBill := StringTrimRight(projectedCreditCardBill, 4)
+
+   ;fix the projection if something odd is going on (like if the bill hasn't been paid yet)
+   if (currentDay == endOfBillingCycle)
+      projectedCreditCardBill := currentCreditBalance
+   if (projectedCreditCardBill > 5000)
+      projectedCreditCardBill := currentCreditBalance
+
+   return projectedCreditCardBill
 }

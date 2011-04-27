@@ -27,7 +27,11 @@ if (A_ComputerName = "PHOSPHORUS")
 
    WinRestore, GVIM ahk_class Vim
    WinRestore, Administrator: Command Prompt ahk_class ConsoleWindowClass
+
+   ;if gdk minimized
    WinRestore, ahk_class gdkWindowToplevel
+   ;maybe just winactivate, not just forcewinfocus
+   WinActivate, Irssi ahk_class PuTTY
 
    WinMove, Ext Designer ahk_class QWidget, , %verticalSplit%, 0, %rightWidth%, %bottomRightY%
    WinMove, GVIM ahk_class Vim, , %verticalSplit%, 0, %rightWidth%, %bottomRightY%
@@ -78,7 +82,6 @@ if (A_ComputerName = "PHOSPHORUS")
 
       BlockInput, Off
    }
-
 }
 
 if (A_ComputerName = "BAUSTIAN-09PC")

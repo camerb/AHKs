@@ -1,6 +1,9 @@
 ;install IIS (clickin' around)
 GhettoCmdRet_RunReturn("%SystemRoot%\system32\ServerManager.msc", "", "extraGhettoForHighAuth")
 ForceWinFocus("Server Manager")
+SleepSeconds(20)
+ForceWinFocus("Server Manager")
+;TESTME verify that this block works correctly... seems like it ends up in the winwaitactive block below
 SleepClick(20, 400)
 SleepSend("{LEFT 10}")
 SleepSend("{RIGHT}")
@@ -11,6 +14,8 @@ SleepClick(845, 226)
 SleepSend("{PGDN 50}")
 
 SleepClick(253, 152)
+;TESTME end of block to test
+
 WinWaitActive, , &Add Required Role Services
 SleepSend("!a")
 WinWaitActive, , SMTP Server supports the transfer of e-mail messages

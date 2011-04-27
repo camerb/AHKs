@@ -1,5 +1,6 @@
 ;Copy install files to the hard drive
-FileCopyDir, \LynxCD\, C:\LynxCD\, 1
+source:=DriveLetter() . ":\LynxCD\"
+FileCopyDir, %source%, C:\LynxCD\, 1
 
 ;Increase the screen resolution as much as possible
 ForceWinFocus("Program Manager ahk_class Progman")

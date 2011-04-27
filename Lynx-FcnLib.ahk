@@ -105,14 +105,16 @@ GhettoCmdRet_RunReturn(command, workingDir="", options="")
 
 autologin(options)
 {
+   drive := DriveLetter()
+   path="%drive%:\LynxCD\Server 7.11\installAssist\autologon.exe"
    if InStr(options, "enable")
    {
-      Run, "E:\LynxCD\Server 7.11\installAssist\autologon.exe"
+      Run, %path% /accepteula
       ForceWinFocus("Autologon")
       SleepSend("{TAB}")
       SleepSend("Administrator")
       SleepSend("{TAB}")
-      SleepSend(A_ComputerName)
+      SleepSend("LynxGuide-R410")
       SleepSend("{TAB}")
       SleepSend("Password1!")
       SleepSend("{TAB}")
@@ -122,7 +124,7 @@ autologin(options)
    }
    else if InStr(options, "disable")
    {
-      Run, "E:\LynxCD\Server 7.11\installAssist\autologon.exe"
+      Run, %path% /accepteula
       ForceWinFocus("Autologon")
       Loop 5
          SleepSend("{TAB}")
@@ -145,6 +147,12 @@ InstallTTS()
    SleepSend("!n")
    WinWaitActive, , InstallShield Wizard Complete
    SleepClick(360, 350)
+}
+
+DriveLetter()
+{
+   StringLeft, returned, A_ScriptFullPath, 1
+   return returned
 }
 
 ShortSleep()

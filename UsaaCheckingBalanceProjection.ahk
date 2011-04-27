@@ -26,23 +26,15 @@ projectionCsv=%path%financialProjection.csv
 if NOT FileExist(infile)
    fatalErrord("the infile for creating the financial projection doesn't exist, cannot continue", A_ScriptName)
 
-;get the current balance of the checking account
-Loop, Read, gitExempt/DailyFinancial.csv
-{
-   Loop, parse, A_LoopReadLine, CSV
-   {
-      if (A_Index == 3)
-         currentCheckingBalance=%A_LoopField%
-      if (A_Index == 6)
-         projectedCreditCardBill=%A_LoopField%
-      ;put this in the expected file using an REFP
-   }
-}
+ini=gitExempt/financial.ini
+CameronProjection := IniRead(ini, "", "CameronProjection")
+MelindaProjection := IniRead(ini, "", "MelindaProjection")
 
 ;put this in the expected file using an REFP
 expectedTransTpl=%path%expectedTransactions-tpl.txt
 FileCopy(expectedTransTpl, expectedTransFile, "overwrite")
-TF_Replace("!"expectedTransFile, "ZZZccPaymentEstimateZZZ", projectedCreditCardBill)
+TF_Replace("!"expectedTransFile, "ZZZccCameronPaymentEstimateZZZ", CameronProjection)
+TF_Replace("!"expectedTransFile, "ZZZccMelindaPaymentEstimateZZZ", MelindaProjection)
 
 ;Read in all of the expected transactions
 Loop, Read, %expectedTransFile%

@@ -1,9 +1,9 @@
 #include FcnLib.ahk
 
-Run, "C:\Program Files (x86)\Pidgin\pidgin.exe"
+RunProgram("C:\Program Files (x86)\Pidgin\pidgin.exe")
 while NOT ForceWinFocusIfExist("Buddy List ahk_class gdkWindowToplevel")
 {
-   Run, "C:\Program Files (x86)\Pidgin\pidgin.exe"
+   RunProgram("C:\Program Files (x86)\Pidgin\pidgin.exe")
    Sleep, 100
    count++
    if (count > 20)
@@ -11,8 +11,8 @@ while NOT ForceWinFocusIfExist("Buddy List ahk_class gdkWindowToplevel")
 }
 
 ForceWinFocus("Buddy List ahk_class gdkWindowToplevel")
-
-Click(30, 1030, "Click")
+WinGetPos, no, no, width, height
+Click(width/2, height-20, "Click")
 
 Send, ^a
 Sleep, 100

@@ -1,4 +1,19 @@
 #include FcnLib.ahk
+#include FcnLib-Opera.ahk
+
+params=%1%
+
+if InStr(params, "resumeLastFm")
+{
+   url=http://www.last.fm/listen/user/cameronbaustian/personal
+   ForceWinFocus("Opera")
+   SendInput, !d
+   Sleep, 100
+   SendInput, %url%{ENTER}
+   Sleep, 100
+   Send, ^!5
+   ExitApp
+}
 
 SetTitleMatchMode, RegEx
 DetectHiddenWindows, On

@@ -147,8 +147,10 @@ desktopSidebarNeedsRelocating()
 moveDesktopSidebar()
 {
    debug("moving desktop sidebar")
+
    ;DSTBDTT ;WinActivate, ahk_class SideBarWndv10
    ForceWinFocus("ahk_class SideBarWndv10")
+
    ;TODO figure out a way to ensure that the sidebar is actually responding to WinActivate
    Sleep, 100
    SendInput, {AppsKey}

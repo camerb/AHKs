@@ -1,50 +1,56 @@
 #include FcnLib.ahk
 
-
+;TODO we should probably just put everything in the mint path and we should probably make it global
+path=C:\My Dropbox\AHKs\gitExempt\usaa_export\
+mintpath=C:\My Dropbox\AHKs\gitExempt\mint_export\
 date := currenttime("hyphendate")
-;date=2011-01-16
-;date=2011-01-18
 
-;TODO split into: processMintExport
-
-in =C:\My Dropbox\AHKs\gitExempt\mint_export\%date%.csv
+;fix debit vs credit (use minus sign)
+in =%mintpath%%date%.csv
 re =C:\My Dropbox\AHKs\REFP\regex-mint.txt
-out=C:\My Dropbox\AHKs\gitExempt\mint_export\%date%-processed.csv
+out=%mintpath%%date%-processed.csv
 
 if NOT FileExist(in)
    fatalErrord("the infile for creating the pie chart doesn't exist, cannot continue", A_ScriptName)
 
 REFP(in, re, out)
-;ExitApp
 
-outFileBase=C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%
+outFileBase=%path%%date%
 infile:=out
 
-;TODO split into: separateMintExport
 ;split into separate files
 Loop, read, %infile%
 {
    line:=A_LoopReadLine
    if RegExMatch(line, "PLATINUM MASTERCARD.$")
       FileAppendLine(line, outFileBase . "-credit.csv")
+   else if RegExMatch(line, "CAMERON MASTERCARD.$")
+      FileAppendLine(line, outFileBase . "-cameroncredit.csv")
+   else if RegExMatch(line, "MELINDA MASTERCARD.$")
+      FileAppendLine(line, outFileBase . "-melindacredit.csv")
    else if RegExMatch(line, "FOUR STAR CHECKING")
       FileAppendLine(line, outFileBase . "-checking.csv")
    else if RegExMatch(line, "USAA SAVINGS")
       FileAppendLine(line, outFileBase . "-savings.csv")
    else if RegExMatch(line, "CHASE PREMIER CHECKING")
       FileAppendLine(line, outFileBase . "-chasechecking.csv")
-   ;else
+   else
+      nonMatchCount++
       ;AddToTrace(line)
 }
 
-;TODO split into: preProcessForPieChart
+if (nonMatchCount > 1)
+   errord("orange line", "looks like there are multiple records that do not correspond to an account, you should remedy this soon to keep your financial projections accurate", A_ScriptName, A_LineNumber)
+
 ;make categories for the pie chart
-in =C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-credit.csv
-re =C:\My Dropbox\AHKs\REFP\regex-financial-credit.txt
-out=C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-credit-processed.csv
+;in =%path%%date%-credit.csv
+;re =C:\My Dropbox\AHKs\REFP\regex-financial-credit.txt
+;out=%path%%date%-credit-processed.csv
+;REFP(in, re, out)
+
+in =%path%%date%-checking.csv
+re =C:\My Dropbox\AHKs\REFP\regex-financial-checking.txt
+out=%path%%date%-checking-processed.csv
 REFP(in, re, out)
 
-in =C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-checking.csv
-re =C:\My Dropbox\AHKs\REFP\regex-financial-checking.txt
-out=C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-checking-processed.csv
-REFP(in, re, out)
+

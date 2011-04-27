@@ -1,11 +1,5 @@
 #include FcnLib.ahk
 
-;global commandSuppressCrlf
-;global commandDelMatch
-;global commandNewLine
-;global commandTab
-;global commandSpace
-
 commandDebug=#debug
 commandSuppressCrlf=#suppresscrlf
 commandNewLine=#newline
@@ -113,7 +107,7 @@ Loop %TotalRegExs%
    i=%A_Index%
    FileMove, %outfile%, %tempFile%, 1
 
-   AddToTrace(needle%i%, replace%i%)
+   ;AddToTrace(needle%i%, replace%i%)
 
    ;TODO put this into a fcn? GetTotalLinesinFile(tempFile)
    Loop, read, %tempfile%

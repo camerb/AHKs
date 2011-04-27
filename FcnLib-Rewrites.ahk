@@ -1,4 +1,4 @@
-#include FcnLib.ahk
+;#include FcnLib.ahk
 
 ;FcnLib-Rewrites.ahk by camerb
 

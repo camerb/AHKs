@@ -19,7 +19,7 @@ if (A_Hour==3 AND A_Min==2)
 {
    SpiffyMute()
 
-   SleepSeconds(5)
+   SleepSeconds(10)
    debug("reloading script")
    ;let's try for something that is a bit stiffer
    Run, ForceReloadAll.exe
@@ -393,6 +393,51 @@ IfWinExist .* - (Update|Commit) - TortoiseSVN Finished! ahk_class #32770
       TimeToExitWindow:=""
    }
 }
+;}}}
+
+;{{{ Keep Last.fm music running
+if (Mod(A_Sec, 30)==0)
+{
+   lastFmWindow=Last.fm - Opera ahk_class OperaWindowClass
+
+   CustomTitleMatchMode("RegEx")
+   DetectHiddenWindows, On
+
+   IfWinExist, %lastFmWindow%
+   {
+      ;now := CurrentTime()
+      ;futureTimeCheckLastFmWindow := AddDatetime(now, 1, "minutes")
+      titletext := WinGetTitle(lastFmWindow)
+
+      if (OldTitleTextFromLastFmWindow == titleText)
+      {
+         if CurrentlyAfter(futureTimeCheckLastFmWindow)
+         {
+            ;refresh lastfm window
+            ;WinShow, %lastFmWindow%
+            RunAhk("PlayPauseMusic.ahk", "resumeLastFm")
+            now := CurrentTime()
+            futureTimeCheckLastFmWindow := AddDatetime(now, 8, "minutes")
+            ;WinHide, %lastFmWindow%
+         }
+      }
+      else
+      {
+         ;debug("new track")
+         OldTitleTextFromLastFmWindow:=titleText
+         now := CurrentTime()
+         futureTimeCheckLastFmWindow := AddDatetime(now, 8, "minutes")
+      }
+   }
+   else
+   {
+      OldTitleTextFromLastFmWindow:=""
+      futureTimeCheckLastFmWindow:=""
+   }
+}
+
+DetectHiddenWindows, Off
+CustomTitleMatchMode("Default")
 ;}}}
 
 ;{{{ Check to see if there are files that need to be out of the dropbox (transferTo)

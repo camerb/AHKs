@@ -1,2 +1,0 @@
-;WRITEME make widget that will display the latest warnings and debug info (like baretail, but open all the time)
-;WRITEME use autologin to make a script that closes out the VPN connection gracefully

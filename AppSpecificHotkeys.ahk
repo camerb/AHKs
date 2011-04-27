@@ -1,3 +1,4 @@
+;{{{ Confluence
 #IfWinActive Confluence ahk_class Chrome_WindowImpl_0
 ^s::
 #IfWinActive Confluence ahk_class Chrome_WidgetWin_0
@@ -14,7 +15,9 @@ ClickIfImageSearch("images\confluence\ConfluenceOverwriteButton.bmp", "Control")
 ClickIfImageSearch("images\confluence\ConfluenceOverwriteButtonXP.bmp", "Control")
 return
 #IfWinActive ;End Confluence
+;}}}
 
+;{{{ JIRA
 #IfWinActive JIRA ahk_class Chrome_WindowImpl_0
 !s::
 #IfWinActive JIRA ahk_class Chrome_WidgetWin_0
@@ -23,7 +26,9 @@ Send, {PGDN 4}
 ClickIfImageSearch("images\jira\UpdateButton.bmp", "Control")
 return
 #IfWinActive ;end jira
+;}}}
 
+;{{{ Cmd console
 /*
 ;FIXME Seems that this never happens (so copy/paste doesn't work in cmd prompt (admin mode)
 ;NOTE seems to happen all the time now... going to disable this
@@ -62,7 +67,9 @@ return
 PGUP:: SendInput, {WHEELUP 10}
 PGDN:: SendInput, {WHEELDOWN 10}
 #IfWinActive ;End ahk_class ConsoleWindowClass
+;}}}
 
+;{{{ pgAdmin
 #IfWinActive pgAdmin III ahk_class wxWindowClassNR
 d::
 Loop 10
@@ -98,7 +105,9 @@ SendInput ^{Home}
 SendInput ^+{End}
 return
 #IfWinActive ;end Restore Database ahk_class #32770
+;}}}
 
+;{{{ Window Spy
 #IfWinActive Active Window Info \(Shift-Alt-Tab to freeze display\) ahk_class AU3Reveal
 ;Select All
 ^a::
@@ -106,7 +115,9 @@ SendInput ^{Home}
 SendInput ^+{End}
 return
 #IfWinActive ;end Active Window Info (Shift-Alt-Tab to freeze display) ahk_class AU3Reveal
+;}}}
 
+;{{{ ScriptWriter
 #IfWinActive AutoScriptWriter II - \( by Larry Keys \)
 ;Select All
 ^a::
@@ -114,7 +125,9 @@ SendInput ^{Home}
 SendInput ^+{End}
 return
 #IfWinActive ;end AutoScriptWriter II - ( by Larry Keys )
+;}}}
 
+;{{{ Perforce
 #IfWinActive .*Perforce P4Merge ahk_class QWidget
 ;Previous diff
 ^UP:: Send, ^1
@@ -122,6 +135,7 @@ return
 ;Next diff
 ^DOWN:: Send, ^2
 #IfWinActive ;end Perforce P4Merge ahk_class QWidget
+;}}}
 
 ;{{{ Hotkeys to make svn commits easier
 #IfWinActive .*\..* - TortoiseMerge
@@ -199,40 +213,49 @@ return
 person := Prompt("Who would you like to IM?")
 if (person=="") return
 
-if (InStr(person, "mel"))
+;TODO putting emails in would be the fastest way, but I don't want to put a mapping in the code
+;TODO maybe we could scan the pidgin folder and find the mapping in an ini?
+if InStr(person, "mel")
    person=Melinda
-if (InStr(person, "nat"))
+if InStr(person, "nat")
    person=Nathan Dyck
+if InStr(person, "c4")
+   person=c-4
+   ;person=absinthe.10.6@gmail.com
 
 ForceWinFocus("ahk_class gdkWindowToplevel")
 SendInput, ^m
 WinWaitActive, Pidgin
 SendInput, %person%
+
+;FIXME ugly
 Sleep, 1000
+
 SendInput, {DOWN}{ENTER 2}
 return
 #IfWinActive
 ;}}}
 
+;{{{ Vim
 #IfWinActive ahk_class Vim
+
+;remap undo
 ^z::
 Send, {ESC 6}u
 return
 
-;^v::
-;SendMode, Play
-;Click(100, 100, "Right Control")
-;ClickIfImageSearch("images\vim\MenuPaste.bmp")
-;Sleep, 100
-;ClickIfImageSearch("images\vim\MenuPaste.bmp")
-;SendMode, Event
-;return
 #IfWinActive ;end Vim
+;}}}
 
+;{{{ Irssi
 #IfWinActive Irssi ahk_class PuTTY
-^g:: Run, %Clipboard%
+^g::
+Run, %Clipboard%
+return
 #IfWinActive
+;}}}
 
+;{{{ SSMS
 #IfWinActive Microsoft SQL Server Management Studio ahk_class wndclass_desked_gsk
 ^n::
 if ClickIfImageSearch("images\ssms\DropdownDefaultSelected.bmp")
@@ -251,7 +274,9 @@ if ClickIfImageSearch("images\ssms\DropdownDefaultSelected.bmp")
 }
 return
 #IfWinActive
+;}}}
 
+;{{{ MSPaint
 #IfWinActive ahk_class MSPaintApp
 NumpadMult::
 if (GetOS() == "WIN_7")
@@ -274,3 +299,4 @@ else
    Send, ^{PGUP}
 return
 #IfWinActive
+;}}}
