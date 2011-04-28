@@ -838,6 +838,8 @@ RunAhkAndBabysit(filename)
    SetTitleMatchMode, RegEx
 
    Run, %filename%
+
+   ;TODO move this to persistent
    WinWait, %filename%, (The program will exit|The previous version will remain in effect), 10
    sawErrorWindow := NOT ERRORLEVEL
    if sawErrorWindow

@@ -20,7 +20,6 @@ FileAppendLine(text, file)
 
 FileCopy(source, dest, options="")
 {
-   EnsureDirExists(dest)
    if InStr(options, "overwrite")
       overwrite=1
    if NOT FileExist(source)
@@ -82,8 +81,15 @@ IniWrite(file, section, key, value)
 
 IniDelete(file, section, key="")
 {
-   ;if NOT FileExist(file)
-   ;   return "error"
+   global A_IniFile
+   if (file == "")
+      file:=A_IniFile
+   if (file == "")
+      fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no filename was provided for deleting the ini value from")
+   if (key == "")
+      fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no key was provided for deleting the ini value from")
+   if (section == "")
+      section:="default"
 
    if (key == "")
       IniDelete, %file%, %section%
@@ -93,8 +99,15 @@ IniDelete(file, section, key="")
 
 IniRead(file, section, key, Default = "ERROR")
 {
+   global A_IniFile
+   if (file == "")
+      file:=A_IniFile
+   if (file == "")
+      fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no filename was provided for reading the ini value from")
    if (key == "")
       fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no key was provided for reading the ini value from")
+   if (section == "")
+      section:="default"
    IniRead, value, %file%, %section%, %key%, %Default%
    Return, value
 }

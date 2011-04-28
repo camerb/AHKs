@@ -57,8 +57,7 @@ GetAccountInfo(key)
    while NOT RegExMatch(returned, "\d+\.\d\d")
    {
       ;force it to change the page, cause the title is the same for all accounts
-      GoToPage("http://dl.dropbox.com/u/789954/remotewidget.txt")
-      LongSleep()
+      GoToPage("http://dl.dropbox.com/u/789954/KnownTitle.html")
 
       ;get the text of the entire page
       ;debug(url)

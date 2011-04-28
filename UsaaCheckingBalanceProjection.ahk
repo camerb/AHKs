@@ -29,6 +29,10 @@ if NOT FileExist(infile)
 ini=gitExempt/financial.ini
 CameronProjection := IniRead(ini, "", "CameronProjection")
 MelindaProjection := IniRead(ini, "", "MelindaProjection")
+currentCheckingBalance := IniRead(ini, "", "CheckingBalance")
+;debug(CameronProjection, MelindaProjection)
+;debug(fileexist(ini))
+;debug(fileexist("joe"))
 
 ;put this in the expected file using an REFP
 expectedTransTpl=%path%expectedTransactions-tpl.txt

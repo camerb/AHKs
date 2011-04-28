@@ -88,6 +88,13 @@ ExitApp
 
 RunThisNightlyAhk(waitTimeInMinutes, ahkToRun, params="")
 {
+   currentTime:=currentTime("hyphenated")
+   IniWrite("gitExempt/global.ini", "EnsureGracefulEnding", ahkToRun, currentTime)
+
+   ;TODO put this in a separate script, do not compile (2 new ahks total)
+   ;TODO write to ini, runwait, delete from ini
+   ;TODO morning status sender will check to see if any ini records remain
+   ;TODO another ahk will sit there to babysit, or perhaps we can put that in persistent
    if params
       RunAhk(ahkToRun, params)
    else
