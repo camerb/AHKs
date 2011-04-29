@@ -1,8 +1,7 @@
 #include FcnLib.ahk
 
-RunThisNightlyAhk(3, "PushToGit.ahk")
-
-RunThisNightlyAhk(1, "CopyVimSettings.ahk")
+;RunThisNightlyAhk(3, "PushToGit.ahk")
+;RunThisNightlyAhk(1, "CopyVimSettings.ahk")
 RunThisNightlyAhk(1, "SyntaxError.ahk")
 
 

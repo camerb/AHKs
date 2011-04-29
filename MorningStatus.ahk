@@ -2,7 +2,7 @@
 
 params:=%1%
 
-if InStr(params, "SendMessage")
+if InStr(params, "GatherData")
 {
    filename=gitExempt\morning_status\%A_ComputerName%.txt
 

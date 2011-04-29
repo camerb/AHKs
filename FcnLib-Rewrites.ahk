@@ -86,8 +86,8 @@ IniDelete(file, section, key="")
       file:=A_IniFile
    if (file == "")
       fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no filename was provided for deleting the ini value from")
-   if (key == "")
-      fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no key was provided for deleting the ini value from")
+   ;if (key == "")
+      ;fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no key was provided for deleting the ini value from")
    if (section == "")
       section:="default"
 

@@ -14,6 +14,10 @@ if NOT A_IsCompiled
 
 debug("log grey line", "starting nightly scripts")
 
+;delete the entire section of the ini
+ini=gitExempt/%A_ComputerName%.ini
+IniDelete(ini, "RunAhkAndBabysit.ahk")
+
 if (A_ComputerName = LeadComputer())
    DeleteTraceFile()
 
@@ -83,6 +87,17 @@ if (A_ComputerName="PHOSPHORUS")
 
 RunThisNightlyAhk(2, "MoveMouseAcrossEntireScreen.ahk")
 
+;make a list of all the ahks that didn't end gracefully
+Loop, C:\My Dropbox\AHKs
+{
+   time:=IniRead(ini, "RunAhkAndBabysit.ahk", A_LoopFileName)
+   if (time <> "ERROR")
+   {
+      MorningStatusAppend(A_LoopFileName, time)
+      IniDelete(ini, "RunAhkAndBabysit.ahk", A_LoopFileName)
+   }
+}
+
 debug("log grey line", "finished nightly scripts")
 ExitApp
 
@@ -99,7 +114,7 @@ RunThisNightlyAhk(waitTimeInMinutes, ahkToRun, params="")
    ;params := EnsureStartsWith(params, quote)
    ;params := EnsureEndsWith(params, quote)
 
-   command=AutoHotkey.exe RunAhkAndBabysit.ahk "%ahkFilename%" "%params%" "wait"
+   command=AutoHotkey.exe RunAhkAndBabysit.ahk "%ahkToRun%" "%params%" "wait"
    ;if InStr(options, "wait")
       ;RunWait %command%
    ;else
@@ -116,4 +131,11 @@ hypercam()
       RunAhk("HyperCamRecord.ahk")
       SleepSeconds(10)
    }
+}
+
+MorningStatusAppend(ahk, time)
+{
+   text=AHK failed to end gracefully on %A_ComputerName%: %ahk% (Started at %time%)
+   file=gitExempt\morning_status\%A_ComputerName%.txt
+   FileAppendLine(text, file)
 }
