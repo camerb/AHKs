@@ -1,3 +1,5 @@
+SleepSeconds(20)
+
 Run, C:\Windows\SysWOW64\mmc.exe /32 c:\Windows\SysWOW64\SQLServerManager10.msc
 
 ForceWinFocus("Sql Server Configuration Manager")

@@ -13,7 +13,10 @@ ExitApp
 LaunchRace(ip, pass)
 {
    RunProgram("C:\Papyrus\NASCAR Racing 2003 Season\NR2003.exe")
-   SleepSeconds(5)
+
+   SleepSeconds(15)
+   ;wait until full screen
+
    Click(481, 888, "left")
    Click(692, 489, "left")
    ss()

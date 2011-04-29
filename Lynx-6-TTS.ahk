@@ -1,6 +1,9 @@
 ret := CmdRet_Runreturn("sc config AudioSrv start= auto")
 if NOT InStr(ret, "SUCCESS")
    MsgBox, %ret%
+ShortSleep()
+CmdRet_RunReturn("net start AudioSrv")
+ShortSleep()
 
 Run, C:\LynxCD\Server 7.11\Text2Speech\SIIG\setup.exe
 WinWaitActive, , Welcome to the InstallShield Wizard

@@ -6,6 +6,7 @@ FileCopyDir, %source%, C:\LynxCD\, 1
 ForceWinFocus("Program Manager ahk_class Progman")
 SleepSend("{AppsKey}c")
 
+;note that this is Run > "control desk.cpl"
 ForceWinFocus("Screen Resolution ahk_class CabinetWClass")
 SleepSend("!r{UP 50}{ENTER}")
 SleepSend("!a")
