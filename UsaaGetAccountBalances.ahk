@@ -36,6 +36,7 @@ IniWrite(ini, "", "OverallBalance", OverallBalance)
 IniWrite(ini, "", "CameronProjection", CameronProjection)
 IniWrite(ini, "", "MelindaProjection", MelindaProjection)
 
+FileDelete("gitExempt\morning_status\finance.txt")
 MorningStatusAppend("Date", time)
 MorningStatusAppend("Savings", SavingsBalance)
 MorningStatusAppend("Checking", CheckingBalance)

@@ -85,10 +85,11 @@ if (A_ComputerName="PHOSPHORUS")
    RunThisNightlyAhk(1, "LaunchPidgin.ahk")
 }
 
-RunThisNightlyAhk(2, "MoveMouseAcrossEntireScreen.ahk")
+;RunThisNightlyAhk(2, "MoveMouseAcrossEntireScreen.ahk")
+RunWait, MoveMouseAcrossEntireScreen.ahk
 
 ;make a list of all the ahks that didn't end gracefully
-Loop, C:\My Dropbox\AHKs
+Loop, C:\My Dropbox\AHKs\*.ahk
 {
    time:=IniRead(ini, "RunAhkAndBabysit.ahk", A_LoopFileName)
    if (time <> "ERROR")

@@ -66,7 +66,7 @@ SleepClick(77,  137, "right")
 SleepClick(146,  177)
 ForceWinFocus("Attach Databases")
 SleepClick(493,  305)
-ForceWinFocus("Locate Database Files - LYNXGUIDE-R410")
+ForceWinFocus("Locate Database Files", "Contains")
 SleepClick(355,  291)
 SleepClick(199,  546)
 SleepSend(dest1)
@@ -90,6 +90,8 @@ ForceWinFocus("SysWOW64")
 WinClose
 
 FileCopyDir, C:\LynxCD\Server 7.11\inetpub, c:\inetpub, 1
+
+SleepSeconds(20)
 
 ret := CmdRet_RunReturn("perl C:\inetpub\wwwroot\cgi\banner.plx", "C:\inetpub\wwwroot\cgi\")
 if NOT InStr(ret, "Location: /banner/banner.gif")

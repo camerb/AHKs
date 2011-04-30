@@ -22,14 +22,6 @@ FileCopy("C:\LynxCD\Server 7.11\Desktop\Log On Admin.url", "C:\Users\Administrat
 FileCopy("C:\LynxCD\Server 7.11\Desktop\Log On Security Account.url", "C:\Users\Administrator\Desktop\Log On Security Account.url")
 FileCopy("C:\LynxCD\Server 7.11\Desktop\Log On Test Account.url", "C:\Users\Administrator\Desktop\Log On Test Account.url")
 
-;stop and disable W3SVC service (WWW Pub Service)
-ShortSleep()
-CmdRet_RunReturn("net stop W3SVC")
-ShortSleep()
-ret := CmdRet_Runreturn("sc config W3SVC start= disabled")
-if NOT InStr(ret, "SUCCESS")
-   MsgBox, %ret%
-
 ;install lynx messenger (cmd)
 command=msiexec.exe /I "C:\LynxCD\Server 7.11\setup\LynxMessengerV4_06.msi" INSTALLDIR="C:\Program Files\LynxMessenger\" SERVERURL=localhost GROUPNAME=Popup PCNAME=Server /quiet
 ret := CmdRet_RunReturn(command)

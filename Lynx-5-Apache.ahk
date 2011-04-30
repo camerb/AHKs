@@ -1,5 +1,16 @@
-Run, C:\LynxCD\Server 7.11\Setup\apache_2.2.8-win32-x86-openssl-0.9.8g.msi
+;stop and disable W3SVC service (WWW Pub Service)
+ShortSleep()
+CmdRet_RunReturn("net stop W3SVC")
+ShortSleep()
+ret := CmdRet_Runreturn("sc config W3SVC start= disabled")
+if NOT InStr(ret, "SUCCESS")
+   MsgBox, %ret%
 
+SleepSeconds(9)
+Run, C:\LynxCD\Server 7.11\Setup\apache_2.2.8-win32-x86-openssl-0.9.8g.msi
+SleepSeconds(9)
+
+;ForceWinFocus("Apache")
 SleepSeconds(1)
 SleepSend("!n")
 SleepSend("!a")

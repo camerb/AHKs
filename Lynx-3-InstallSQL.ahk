@@ -60,7 +60,7 @@ Send, !a
 
 ForceWinFocus("Select Users or Groups")
 SleepSend("!e")
-SleepSend("LYNXGUIDE-R410\Administrators")
+SleepSend(A_ComputerName . "\Administrators")
 SleepSeconds(1)
 Click(325, 222)
 

@@ -21,14 +21,10 @@ startupShortcut=%A_StartupCommon%\ahkLink.lnk
    ;debug("Resuming Lynx Server Installation`n`nPress ESC at any time to cancel.")
    FileDelete(startupShortcut)
    ;autologin("disable")
-   #Include Lynx-1-PrepForInstall.ahk
-   SleepSeconds(20)
-   #Include Lynx-2-ActivePerl.ahk
-   SleepSeconds(20)
-   #Include Lynx-3-InstallSQL.ahk
-   SleepSeconds(20)
-   #Include Lynx-4-ConfigureSQL.ahk
-   SleepSeconds(20)
+   ;#Include Lynx-1-PrepForInstall.ahk
+   ;#Include Lynx-2-ActivePerl.ahk
+   ;#Include Lynx-3-InstallSQL.ahk
+   ;#Include Lynx-4-ConfigureSQL.ahk
    #Include Lynx-5-Apache.ahk
    SleepSeconds(20)
    #Include Lynx-6-TTS.ahk

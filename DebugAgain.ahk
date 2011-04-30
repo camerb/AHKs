@@ -3,7 +3,8 @@
 fatalIfNotThisPc("PHOSPHORUS")
 
 ;{{{ Switch to random windows and bring them to debugging position
-WinMinimize, ahk_class gdkWindowToplevel
+;WinMinimize, ahk_class gdkWindowToplevel
+ForceWinFocusIfExist("ahk_class gdkWindowToplevel")
 ForceWinFocusIfExist("BareTail")
 ;}}}
 
