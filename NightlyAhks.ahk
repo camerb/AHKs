@@ -1,5 +1,7 @@
 #include FcnLib.ahk
 
+;{{{script
+
 ;run the compiled version, no matter what
 if NOT A_IsCompiled
 {
@@ -101,7 +103,9 @@ Loop, C:\My Dropbox\AHKs\*.ahk
 
 debug("log grey line", "finished nightly scripts")
 ExitApp
+;}}}
 
+;{{{ functions
 RunThisNightlyAhk(waitTimeInMinutes, ahkToRun, params="")
 {
    ;TODO put this in a separate script, do not compile (2 new ahks total)
@@ -137,6 +141,8 @@ hypercam()
 MorningStatusAppend(ahk, time)
 {
    text=AHK failed to end gracefully on %A_ComputerName%: %ahk% (Started at %time%)
-   file=gitExempt\morning_status\%A_ComputerName%.txt
+   file=gitExempt\morning_status\graceful-%A_ComputerName%.txt
    FileAppendLine(text, file)
 }
+;}}}
+
