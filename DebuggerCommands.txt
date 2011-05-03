@@ -470,3 +470,5 @@ cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl homeproperties.pl C:\i
 cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\import_files\props\home_2011-04.csv > C:\code\report.txt}
 cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\import_files\props\home_2011-04.csv > C:\code\report.txt}
 EPMS
+FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.EditCourts' } );
+EPMS

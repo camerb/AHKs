@@ -54,11 +54,12 @@ Send, {;}BookmarkToRoot ahks{ENTER}
 debug("Launching Irssi")
 RunWait, LaunchIrssi.ahk
 
-RunAhk("LaunchVM.ahk")
-ForceWinFocus("ahk_class VMPlayerFrame")
-SleepSeconds(2)
-ForceWinFocus("ahk_class VMPlayerFrame")
-Send, ^!5
+;killing this because it beeps
+;RunAhk("LaunchVM.ahk")
+;ForceWinFocus("ahk_class VMPlayerFrame")
+;SleepSeconds(2)
+;ForceWinFocus("ahk_class VMPlayerFrame")
+;Send, ^!5
 
 ;ForceWinFocus("ahk_class VMPlayerFrame")
 ;file=images\vmware\phosphorusVmButton.bmp

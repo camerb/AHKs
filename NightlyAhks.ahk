@@ -11,6 +11,11 @@ if NOT A_IsCompiled
       RunWait, Ahk2exe.exe /in "%A_ScriptFullPath%"
    Sleep, 500
    Run, NightlyAhks.exe
+   ;WinWait, , EXE corrupted, 10
+   ;if ErrorLevel
+
+      ;debug("corrupted")
+      ;;WinClose
    ExitApp
 }
 
@@ -26,7 +31,8 @@ if (A_ComputerName = LeadComputer())
 if NOT IsVM()
 {
    RunThisNightlyAhk(1, "CopyVimSettings.ahk")
-   RunThisNightlyAhk(1, "UpdateAdobeAcrobatReader.ahk")
+   hypercam()
+   RunThisNightlyAhk(7, "UpdateAdobeAcrobatReader.ahk")
 }
 
 ;RunThisNightlyAhk(1, "MorningStatus-GatherData.ahk")
@@ -37,7 +43,8 @@ RunThisNightlyAhk(15, "UnitTests.ahk")
 
 if (A_ComputerName="BAUSTIAN-09PC")
 {
-   RunThisNightlyAhk(1, "SaveChromeBookmarks.ahk")
+   hypercam()
+   RunThisNightlyAhk(7, "SaveChromeBookmarks.ahk")
    RunThisNightlyAhk(10, "CreateDropboxBackup.ahk")
    RunThisNightlyAhk(3, "PushToGit.ahk")
 }
