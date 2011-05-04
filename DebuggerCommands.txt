@@ -472,3 +472,4 @@ cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\i
 EPMS
 FL.globals.mainpanel.addOrSwitchTo({ xtype:'FL.ui.grid.EditCourts' } );
 EPMS
+cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
