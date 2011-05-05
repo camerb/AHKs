@@ -1,6 +1,7 @@
 #SingleInstance Force
 
 #include thirdParty\Functions.ahk
+#include thirdParty\Cycle.ahk
 #include FcnLib-Rewrites.ahk
 
 ;Takes a screenshot and saves it to the specified path

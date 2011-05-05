@@ -10,7 +10,7 @@ if NOT A_IsCompiled
    if (timestampAhk > timestampExe)
       RunWait, Ahk2exe.exe /in "%A_ScriptFullPath%"
    Sleep, 500
-   Run, NightlyAhks.exe
+   Run, NightlyAhks.exe, , UseErrorLevel
    ;WinWait, , EXE corrupted, 10
    ;if ErrorLevel
 
@@ -21,7 +21,7 @@ if NOT A_IsCompiled
 
 debug("log grey line", "starting nightly scripts")
 
-;delete the entire section of the ini
+;delete the entire section of the ini for unfinished scripts
 ini=gitExempt/%A_ComputerName%.ini
 IniDelete(ini, "RunAhkAndBabysit.ahk")
 
@@ -35,6 +35,7 @@ if NOT IsVM()
    RunThisNightlyAhk(7, "UpdateAdobeAcrobatReader.ahk")
 }
 
+RunThisNightlyAhk(2, "MintTouch.ahk")
 ;RunThisNightlyAhk(1, "MorningStatus-GatherData.ahk")
 RunThisNightlyAhk(1, "MorningStatus.ahk", "GatherData")
 RunThisNightlyAhk(1, "RestartDropbox.ahk")

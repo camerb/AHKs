@@ -197,10 +197,8 @@ return
 AppsKey & q:: Run, temporary.ahk
 AppsKey & m:: Run, RecordMacro.ahk
 
-;TODO something that would remap or create a new set of hotkeys...
-;     like a new AHK that will open up, then exit on another hotkey command
-;===later note: I think I already did that (ResaveTemporary.ahk)
-;     except for the exit part, maybe... but I don't think that even makes sense
-
-;;Test to see if the Google Desktop errors are being detected
-
+#e::
+RunProgram("C:\Program Files\EF Commander Free\EFCWT.EXE")
+WinWait, EFLogo
+WinClose
+return

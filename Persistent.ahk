@@ -62,7 +62,7 @@ if (A_Hour=6 AND A_Min=0 AND A_Sec=0)
 ;}}}
 
 ;{{{Try refreshing mint each hour on vm
-if (A_Min=15 AND A_Sec=0)
+if (A_Min=15 AND A_Sec=0 AND A_Hour<>3 AND A_Hour<>4)
 {
    if (A_ComputerName="PHOSPHORUSVM")
    {
