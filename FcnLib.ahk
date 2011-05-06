@@ -1411,3 +1411,6 @@ AddDatetime(datetime, numberToAdd, unitsOfNumberToAdd)
 ;WRITEME make widget that will display the latest warnings and debug info (like baretail, but open all the time)
 ;WRITEME use autologin to make a script that closes out the VPN connection gracefully
 
+
+;WRITEME WinClose(text, title, options) that allows match modes, and also allows the "Gentle" option described in the docs (PostMessage)
+

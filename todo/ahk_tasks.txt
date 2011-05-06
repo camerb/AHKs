@@ -1,1 +1,0 @@
-;WRITEME WinClose(text, title, options) that allows match modes, and also allows the "Gentle" option described in the docs (PostMessage)

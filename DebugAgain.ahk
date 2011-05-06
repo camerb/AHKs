@@ -24,6 +24,11 @@ Loop, read, DebuggerCommands.txt
 }
 ;}}}
 
+;{{{ Process aliases
+if RegExMatch(DebuggerCommand, "i)EPMS.workbench")
+   DebuggerCommand=cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
+;}}}
+
 ;{{{ Set some variables depending upon what mode we are in (project, refresh server, live/not)
 ;find out if we are in the mode to refresh the server
 SysGet, MonitorCount, MonitorCount

@@ -2,7 +2,9 @@
 
 ;make a commit in git
 
+;maybe we need to make all of this prep stuff into a function
 ForceWinFocus("MINGW32", "Contains")
+SendInput, q{ENTER}
 SendInput, clear{ENTER}
 ;SendInput, git add --all{ENTER} ;need something that will only stage new files
 SendInput, git status{ENTER}

@@ -6,6 +6,7 @@ params=%1%
 if InStr(params, "resumeLastFm")
 {
    url=http://www.last.fm/listen/user/cameronbaustian/personal
+   WinShow, Opera
    ForceWinFocus("Opera")
    SendInput, !d
    Sleep, 100

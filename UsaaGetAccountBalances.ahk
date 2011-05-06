@@ -1,9 +1,25 @@
 #include FcnLib.ahk
+#include FcnLib-Opera.ahk
+#include MintLogin.ahk
 #include C:\My Dropbox\AHKs\gitExempt\usaalogin.ahk
 
 ini=C:\My Dropbox\AHKs\gitExempt\financial.ini
 csvfile=C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv
 time:=CurrentTime("hyphenated")
+
+;get mint net worth
+while NOT NetWorth
+{
+   mintlogin()
+
+   GoToPage("http://dl.dropbox.com/u/789954/KnownTitle.html")
+   page:=GhettoUrlDownloadToVar("https://wwws.mint.com/overview.event")
+   LongSleep()
+
+   page:=RegExReplace(page, "(`r|`n)", " ")
+   RegExMatch(page, "<li class..net-worth.><span class..balance.>..(\d{2}).(\d{3}.\d{2})</span>Net Worth</li>", match)
+   netWorth=-%match1%%match2%
+}
 
 usaalogin()
 
@@ -23,11 +39,12 @@ CameronProjection:=GetCreditCardProjection(CameronBalance, 22)
 MelindaProjection:=GetCreditCardProjection(MelindaBalance, 12)
 
 ;output this stuff to a file
-csvline:=ConcatWithSep(",", time, SavingsBalance, CheckingBalance, "", overallBalance, "", CameronBalance, CameronProjection, MelindaBalance, MelindaProjection)
+csvline:=ConcatWithSep(",", time, SavingsBalance, CheckingBalance, "", overallBalance, "", CameronBalance, CameronProjection, MelindaBalance, MelindaProjection, NetWorth)
 FileAppendLine(csvline, csvfile)
 
 ;output to ini for fast lookup
 IniWrite(ini, "", "FinancesDateUpdated", time)
+IniWrite(ini, "", "NetWorth", NetWorth)
 IniWrite(ini, "", "SavingsBalance", SavingsBalance)
 IniWrite(ini, "", "CheckingBalance", CheckingBalance)
 IniWrite(ini, "", "CameronBalance", CameronBalance)
@@ -38,10 +55,11 @@ IniWrite(ini, "", "MelindaProjection", MelindaProjection)
 
 FileDelete("gitExempt\morning_status\finance.txt")
 MorningStatusAppend("Date", time)
+MorningStatusAppend("NetWorth", NetWorth)
 MorningStatusAppend("Savings", SavingsBalance)
 MorningStatusAppend("Checking", CheckingBalance)
-MorningStatusAppend("CameronCC", CameronBalance)
-MorningStatusAppend("MelindaCC", MelindaBalance)
+MorningStatusAppend("CameronBalance", CameronBalance)
+MorningStatusAppend("MelindaBalance", MelindaBalance)
 MorningStatusAppend("Overall", OverallBalance)
 MorningStatusAppend("CameronProjection", CameronProjection)
 MorningStatusAppend("MelindaProjection", MelindaProjection)
