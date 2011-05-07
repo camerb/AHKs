@@ -1,19 +1,17 @@
 #include FcnLib.ahk
 
+;close all ahks, as forcefully as needed
+
+addtotrace("restarted script - grey line")
+timer:=starttimer()
+
 DetectHiddenWindows On  ; Allows a script's hidden main window to be detected.
 SetTitleMatchMode 2  ; Avoids the need to specify the full path of the file below.
 ;WinClose RemoteWidget.ahk - AutoHotkey  ; Update this to reflect the script's name (case sensitive).
 
 ;Close as many as gracefully as we can
-WinGet, id, LIST, - AutoHotkey
-Loop, %id%
-{
-   thisID:=id%A_Index%
-   ahkIdStr=ahk_id %thisID%
-   title:=wingettitle(ahkIdStr)
-   if NOT InStr(title, A_ScriptName)
-      WinClose, %ahkIdStr%
-}
+CloseAllAhkProcesses("gracefully")
+;CloseAllAhkProcesses("forcefully")
 
 ;it couldn't be closed gracefully, we need to kill it
 while true
@@ -46,6 +44,33 @@ while true
     ;}
 ;}
 
+totaltime:=elapsedtime(timer)
+addtotrace("Time it took for processes to close:", totaltime)
+
 ;debug("about to run main ahk files again")
 ;RunAhk("""C:\My Dropbox\AHKs\StartIdleAhks.ahk""", )
 Run, C:\My Dropbox\AHKs\StartIdleAhks.ahk, C:\My Dropbox\AHKs
+
+CloseAllAhkProcesses(options)
+{
+   WinGet, id, LIST, - AutoHotkey
+   Loop, %id%
+   {
+      thisID:=id%A_Index%
+      ahkIdStr=ahk_id %thisID%
+      title:=wingettitle(ahkIdStr)
+      regexmatch(title, "([A-Za-z0-9]*\.ahk)", smalltitle)
+      addtotrace("wintitle:", smalltitle)
+      pid := WinGet("pid", ahkIdStr)
+      addtotrace("pid:", pid)
+      if NOT InStr(title, A_ScriptName)
+         WinClose, %ahkIdStr%
+   }
+}
+
+;doesn't work, but this would be nice
+;addvartotrace(varName)
+;{
+   ;global
+   ;addtotrace(varName, %varName%)
+;}

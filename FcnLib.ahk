@@ -1254,6 +1254,7 @@ AddToTrace(var, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t
 {
    Loop 15
       var .= " " . t%A_Index%
+   var = %var%
    FileAppendLine(var, "C:\My Dropbox\Public\trace.txt")
 }
 

@@ -201,4 +201,5 @@ AppsKey & m:: Run, RecordMacro.ahk
 RunProgram("C:\Program Files\EF Commander Free\EFCWT.EXE")
 WinWait, EFLogo
 WinClose
+ForceWinFocus("EF Commander Free")
 return

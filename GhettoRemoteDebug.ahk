@@ -1,5 +1,7 @@
 #include FcnLib.ahk
 
+;note that this is remote debugging perl... i always seem to forget that
+
 source=C:\My Dropbox\workbench_temp_call_record.pl
 dest=C:\code\EPMS\script\misc_importers\workbench_temp_call_record.pl
 FileCopy, %source%, %dest%, 1
