@@ -1,23 +1,9 @@
 #include FcnLib.ahk
+#include thirdParty/todWulff.ahk
 
+;Paste a url, rather than lots of text
 
-Run, http://paste.scsys.co.uk/
+;TODO parse the paste and figure out if it's ahk, perl, js, ini, diff or whatever
+url := Paste2(Clipboard, "Paste from camerb")
+SendViaClipboard(url)
 
-ForceWinFocus("pasting to magnet_web - Google Chrome", "Exact")
-Click(686,  559, "Left Control")
-Sleep, 100
-Send, {CTRLDOWN}v{CTRLUP}
-Sleep, 100
-Click(72,  825, "Left Control")
-Click(72,  805, "Left Control")
-Click(72,  785, "Left Control")
-
-ForceWinFocus("Your paste.* - Google Chrome", "RegEx")
-Click(292,  135, "Left Control")
-Click(292,  115, "Left Control")
-Click(292,  95, "Left Control")
-
-ForceWinFocus("magnet_web paste from Someone at .* - Google Chrome", "RegEx")
-Send, !d
-Send, ^c
-Send, ^w

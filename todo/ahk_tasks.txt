@@ -1,3 +1,0 @@
-;WRITEME archive log files monthly, archive trace file nightly
-;WRITEME use TodWulff lib for url shortening
-;WRITEME use TodWulff lib for pastebin stuff

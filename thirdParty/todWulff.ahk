@@ -1,4 +1,7 @@
 #include FcnLib.ahk
+#include thirdParty/httpQuery.ahk
+;#include thirdParty/httpQueryInfo.ahk
+#include thirdParty/infogulchEncodings.ahk
 
 ;lib that TodWulff posted in the channel randomly. And I am forever grateful
 
@@ -8,11 +11,12 @@
     requires uriswap (search the forums)
 */
 
-Paste2(Paste_Content="", Paste_Description="")	{
+Paste2(Paste_Content, Paste_Description="", Paste_Language="text")	{
 	if (Paste_Content="") {
         return "Paste to Paste2.org not affected - null Paste Contents"
 		}
-    Paste_Description := uriSwap(Paste_Description, 3)
+    ;FIXME camerb commented this out because he couldn't find the correct lib
+    ;Paste_Description := uriSwap(Paste_Description, 3)
 
     ; =========== Paste_Content := uriSwap(Paste_Content, 3) <-- inlined below...
 	f := A_FormatInteger
@@ -36,7 +40,7 @@ Paste2(Paste_Content="", Paste_Description="")	{
 	; fileappend, %Paste_Content%, resources/Paste_Content_postencode.txt  ; debug shite
 
     URL  := "http://paste2.org/new-paste"
-    POST := "lang=text"
+    POST := "lang="   . Paste_Language
          .  "&description="   . Paste_Description
          .  "&code="          . Paste_Content
          .  "&parent=0"
@@ -51,7 +55,7 @@ Paste2(Paste_Content="", Paste_Description="")	{
 		}
     Result_url := "http://paste2.org/p/" . Match1
 
-	return %  ShortURL(Result_url)	;%
+	return %Result_url%
 	}
 
 ;------------------------------------------------------------------------------------------
@@ -151,7 +155,7 @@ jmp_Enc_Uri(uri) {
 Goo_gl(url) {
 	global
 	url = %url%
-	enc_url := Enc_Uri(url)
+        enc_url := Enc_Uri(url)
 	httpAgent := "toolbar"
 	httpQueryOps := "storeHeader"
 	httpQuery(html, "http://goo.gl/api/url?url=" . enc_url, " ")

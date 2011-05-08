@@ -1398,7 +1398,6 @@ AddDatetime(datetime, numberToAdd, unitsOfNumberToAdd)
 ;WRITEME macro that updates melinda's resume daily
 ;WRITEME close specified jira issue (and log work beforehand, too)
 ;WRITEME abort startup ahk if already started up (after VPNed)
-;WRITEME remotewidget should refrain from doing a repaint if the text didn't change
 ;WRITEME RunDailyTask("HH:MM:SS", "PHOSPHORUS", "asdf.ahk", "params") ;need to make sure it calls SleepSeconds(2) at the end of it
 ;WRITEME macro that updates melinda's resume daily
 ;WRITEME close specified jira issue (and log work beforehand, too)
@@ -1414,4 +1413,9 @@ AddDatetime(datetime, numberToAdd, unitsOfNumberToAdd)
 
 
 ;WRITEME WinClose(text, title, options) that allows match modes, and also allows the "Gentle" option described in the docs (PostMessage)
+
+
+;WRITEME archive log files monthly, archive trace file nightly
+;WRITEME use TodWulff lib for url shortening
+;WRITEME use TodWulff lib for pastebin stuff
 
