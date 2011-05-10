@@ -218,6 +218,7 @@ SendInput, {F5}
 
 
 Run, RefreshIfProblemLoadingPage.ahk
+Run, AutoDownloadFirefoxPrompts.ahk
 
 ;WaitForImageSearch("images\firebug\WelcomeTabCruddy.bmp")
 ;WaitForImageSearch("images\firebug\WelcomeTab.bmp")

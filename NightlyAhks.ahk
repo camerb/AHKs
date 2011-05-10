@@ -39,6 +39,7 @@ RunThisNightlyAhk(2, "MintTouch.ahk")
 ;RunThisNightlyAhk(1, "MorningStatus-GatherData.ahk")
 RunThisNightlyAhk(1, "MorningStatus.ahk", "GatherData")
 RunThisNightlyAhk(1, "RestartDropbox.ahk")
+RunThisNightlyAhk(1, "InfiniteLoop.ahk")
 RunThisNightlyAhk(5, "REFPunitTests.ahk", "completedFeaturesOnly")
 RunThisNightlyAhk(15, "UnitTests.ahk")
 
