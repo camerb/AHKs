@@ -138,7 +138,6 @@ ForceWinFocusIfExist(titleofwin, options="")
 ;Closes the window if it exists, then returns true if it actually did exist in the first place
 CloseWin(titleofwin, options="")
 {
-   returned:=false
    CustomTitleMatchMode(options)
 
    global A_Debug
@@ -1218,6 +1217,19 @@ IsVM(ComputerName="")
 ForceReloadAll()
 {
    RunWait, ForceReloadAll.exe
+   ;CloseAllAhks("", "StartIdleAhks.ahk")
+}
+
+;Closes all ahks as gracefully as possible
+CloseAllAhks(excludeRegEx="", startAhkAfter="")
+{
+   excludeRegEx   := EnsureEndsWith(excludeRegEx, quote)
+   excludeRegEx   := EnsureStartsWith(excludeRegEx, quote)
+   startAhkAfter   := EnsureEndsWith(startAhkAfter, quote)
+   startAhkAfter   := EnsureStartsWith(startAhkAfter, quote)
+
+   params:=concatWithSep(" ", excludeRegEx, startAhkAfter)
+   RunAhk("CloseAllAhks.ahk", params, "wait")
 }
 
 ;TESTME

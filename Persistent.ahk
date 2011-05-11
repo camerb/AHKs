@@ -5,13 +5,20 @@ return
 Persist:
 SetTitleMatchMode, 1
 
-;{{{ Kill Dropbox in light of the virus outbreak at work
-;if isVM()
-   ;Process, Close, Dropbox.exe
-;if (A_ComputerName="PHOSPHORUS")
-   ;Process, Close, Dropbox.exe
-;if (A_ComputerName="PHOSPHORUS")
-   ;Process, Close, msseces.exe
+;{{{debugging how long it takes for an iteration through the #Persistent stuff
+if NOT timer
+{
+   AddToTrace("restarted script", A_ScriptName, "grey line")
+   maxTotalTime := 0
+   timer:=starttimer()
+}
+totaltime:=elapsedtime(timer)
+if (totalTime > maxTotalTime)
+{
+   maxTotalTime := totalTime
+   addtotrace("Max time it took for one iteration:", maxTotalTime, CurrentTime("hyphenated"), A_ComputerName)
+}
+timer:=starttimer()
 ;}}}
 
 ;{{{Middle of the night unit tests, backups, and reload script
@@ -22,7 +29,8 @@ if (A_Hour==3 AND A_Min==2)
    SleepSeconds(10)
    debug("reloading script")
    ;let's try for something that is a bit stiffer
-   Run, ForceReloadAll.exe
+   ;Run, ForceReloadAll.exe
+   CloseAllAhks()
 }
 if (A_Hour==3 AND A_Min==5)
 {

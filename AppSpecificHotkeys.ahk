@@ -205,7 +205,7 @@ return
 #IfWinActive
 ;}}}
 
-;{{{ Easily start a new IM
+;{{{Pidgin Easily start a new IM
 #IfWinActive ahk_class gdkWindowToplevel
 ;only if it doesn't contain "Buddy List"
 ;#IfWinActive Buddy List ahk_class gdkWindowToplevel
@@ -228,10 +228,13 @@ SendInput, ^m
 WinWaitActive, Pidgin
 SendInput, %person%
 
-;FIXME ugly
+;FIXME ugly, and did I mention: ugly
 Sleep, 1000
 
 SendInput, {DOWN}{ENTER 2}
+return
+^w::
+;don't kill chat windows accidentally with hotkeys
 return
 #IfWinActive
 ;}}}

@@ -9,7 +9,7 @@ timeToQuit:=AddDatetime(CurrentTime(), 4, "minutes")
 
 Loop
 {
-   ForceWinFocusIfExist("Adobe Reader Updater")
+   if ForceWinFocusIfExist("Adobe Reader Updater")
    {
       wintext := WinGetText()
 
