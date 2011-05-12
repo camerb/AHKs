@@ -7,11 +7,8 @@ Run, "C:\Program Files (x86)\Pidgin\pidgin.exe"
 
 joinIrc("ahk")
 joinIrc("ahk-social")
-
-ForceWinFocus("Buddy List")
-Send, ^m
-ForceWinFocus("Pidgin")
-Send, frigg{ENTER}
+joinIrc("dbix-class")
+startGchat("frigg")
 
 ForceWinFocus("frigg")
 Send, ^!a
@@ -28,6 +25,21 @@ joinIrc(channel)
    ;ControlSend, , {ALT DOWN}c{ALT UP}, Join a Chat
    Click(460, 100)
    Click(165, 115)
+   ss()
    SendRaw, #%channel%
    Send, {ENTER}
+}
+
+startGchat(user)
+{
+   ForceWinFocus("Buddy List")
+   Send, ^m
+   ForceWinFocus("Pidgin")
+   ss()
+   Send, %user%{ENTER}
+}
+
+ss()
+{
+sleep 200
 }
