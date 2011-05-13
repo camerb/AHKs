@@ -23,8 +23,13 @@ joinIrc(channel)
    Send, ^c
    ForceWinFocus("Join a Chat")
    ;ControlSend, , {ALT DOWN}c{ALT UP}, Join a Chat
+   ss()
    Click(460, 100)
-   Click(165, 115)
+   ss()
+   if (channel == "dbix-class")
+      Click(165, 137)
+   else
+      Click(165, 115)
    ss()
    SendRaw, #%channel%
    Send, {ENTER}
@@ -41,5 +46,5 @@ startGchat(user)
 
 ss()
 {
-sleep 200
+   sleep 200
 }

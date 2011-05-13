@@ -233,8 +233,13 @@ Sleep, 1000
 
 SendInput, {DOWN}{ENTER 2}
 return
+
 ^w::
 ;don't kill chat windows accidentally with hotkeys
+return
+
+^v::
+;don't paste into irc or gchat - experiment to see the habits i have with pidgin
 return
 #IfWinActive
 ;}}}

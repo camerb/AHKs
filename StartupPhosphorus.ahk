@@ -55,18 +55,18 @@ Send, {;}BookmarkToRoot ahks{ENTER}
 ;RunWait, LaunchIrssi.ahk
 
 ;killing this because it beeps
-;RunAhk("LaunchVM.ahk")
-;ForceWinFocus("ahk_class VMPlayerFrame")
-;SleepSeconds(2)
-;ForceWinFocus("ahk_class VMPlayerFrame")
-;Send, ^!5
+RunAhk("LaunchVM.ahk")
+ForceWinFocus("ahk_class VMPlayerFrame")
+SleepSeconds(2)
+ForceWinFocus("ahk_class VMPlayerFrame")
+Send, ^!5
 
-;ForceWinFocus("ahk_class VMPlayerFrame")
-;file=images\vmware\phosphorusVmButton.bmp
-;WaitForImageSearch(file)
-;ClickIfImageSearch(file)
-;Click
-;Send, ^!5
+ForceWinFocus("ahk_class VMPlayerFrame")
+file=images\vmware\phosphorusVmButton.bmp
+WaitForImageSearch(file)
+ClickIfImageSearch(file)
+Click
+Send, ^!5
 
 Sleep, 10000
 
@@ -80,8 +80,8 @@ Send, #4
 ForceWinFocus("Administrator: Command Prompt", "Exact")
 Send, ^!a
 
-ForceWinFocus("Irssi", "Contains")
-Send, ^!a
+;ForceWinFocus("Irssi", "Contains")
+;Send, ^!a
 
 ;git gui
 Send, #5

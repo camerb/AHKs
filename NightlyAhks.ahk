@@ -2,18 +2,6 @@
 
 ;{{{script
 
-;;run the compiled version, no matter what
-;if NOT A_IsCompiled
-;{
-   ;FileGetTime, timestampAhk, NightlyAhks.ahk
-   ;FileGetTime, timestampExe, NightlyAhks.exe
-   ;if (timestampAhk > timestampExe)
-      ;RunWait, Ahk2exe.exe /in "%A_ScriptFullPath%"
-   ;Sleep, 500
-   ;Run, NightlyAhks.exe, , UseErrorLevel
-   ;ExitApp
-;}
-
 debug("log grey line", "starting nightly scripts")
 
 ;delete the entire section of the ini for unfinished scripts
@@ -31,7 +19,6 @@ if NOT IsVM()
 }
 
 RunThisNightlyAhk(2, "MintTouch.ahk")
-;RunThisNightlyAhk(1, "MorningStatus-GatherData.ahk")
 RunThisNightlyAhk(1, "MorningStatus.ahk", "GatherData")
 RunThisNightlyAhk(1, "RestartDropbox.ahk")
 RunThisNightlyAhk(1, "InfiniteLoop.ahk")

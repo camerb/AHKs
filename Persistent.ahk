@@ -26,10 +26,13 @@ if (A_Hour==3 AND A_Min==2)
 {
    SpiffyMute()
 
-   SleepSeconds(10)
    debug("reloading script")
+   SleepSeconds(10)
+
    ;let's try for something that is a bit stiffer
    ;Run, ForceReloadAll.exe
+
+   ;lets close all ahks as gently as possible
    CloseAllAhks()
 }
 if (A_Hour==3 AND A_Min==5)
@@ -63,7 +66,7 @@ if (A_Hour=6 AND A_Min=0 AND A_Sec=0)
 {
    if (A_ComputerName="PHOSPHORUS")
    {
-      RunAhk("MorningStatus-SendMessage.ahk")
+      RunAhk("MorningStatus.ahk", "SendMessage")
       SleepSeconds(2)
    }
 }
@@ -507,6 +510,17 @@ if (A_ComputerName = "PHOSPHORUS" and Mod(A_Sec, 5)==0)
 {
    archivePath=C:\import_files\archive\importReports\
    report=C:\code\report.txt
+
+   FileGetTime, timestamp, %report%
+   timestamp := FormatTime(timestamp, "yyyy-MM-dd_HH-mm-ss")
+
+   archiveFile=%archivePath%%timestamp%.txt
+   if NOT FileExist(archiveFile)
+      FileCopy(report, archiveFile)
+
+   ;copypasta: also archive epms_workbench
+   archivePath=C:\import_files\archive\epms_workbench\
+   report=C:\code\epms\script\epms_workbench.pl
 
    FileGetTime, timestamp, %report%
    timestamp := FormatTime(timestamp, "yyyy-MM-dd_HH-mm-ss")
