@@ -653,7 +653,8 @@ CloseDifficultAppsAllScreens()
    Process, WaitClose, vmplayer.exe, 15
    Process, Close, vmplayer.exe
    Process, Close, FindAndRunRobot.exe
-   ;Process, Close, dsidebar.exe
+   Process, Close, dsidebar.exe
+   Process, Close, hpupdate.exe
 
    ;close the stupid thing that comes with ZoneAlarm
    Process, Close, ForceField.exe
