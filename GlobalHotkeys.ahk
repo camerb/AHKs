@@ -157,6 +157,7 @@ vk5Dsc15D:: Send, {Ctrl Down}{Alt}{Ctrl Up}
 vk90sc045:: Send, {Ctrl Down}{Alt}{Ctrl Up}
 */
 
+#include thirdparty/notify.ahk
 ;FIXME the code flow here is kinda crappy
 ;Show the current track from last.fm
 AppsKey & SC122::
@@ -178,7 +179,7 @@ if (titletext=="89.7 Power FM - Powered by ChristianNetcast.com - Opera" OR Powe
    outputVar:=RegExReplace(outputVar, "<.*?>", "")
    outputVar:=RegExReplace(outputVar, " +", " ")
 
-   debug(outputVar)
+   notify("", outputVar, 5)
    return
 }
 if (titletext=="")
@@ -190,7 +191,7 @@ if (titletext<>"")
    titletext:=RegExReplace(titletext, "\[foobar2000.*$")
    titletext:=RegExReplace(titletext, " \[Indie.Rock Playlist.*?\]")
    titletext:=StringReplace(titletext, " - Last.fm - Opera")
-   Debug(titletext)
+   notify("", titletext, 5)
 }
 return
 
