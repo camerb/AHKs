@@ -1060,7 +1060,10 @@ GetOS()
 {
    dllresult:=(DllCall("GetVersion") & 0xFF)
    RegRead, vista7, HKLM, SOFTWARE\Microsoft\Windows NT\CurrentVersion, CurrentVersion
-   debug("silent log", A_ThisFunc, A_LineNumber, "Note: known errors here with detecting that Phosphorus is running Win7","A_ComputerName:", A_ComputerName, "A_OSVERSIONNUM:", A_OSVERSIONNUM, "A_OSVERSION:", A_OSVERSION, "Checked using DLLCALL:", dllresult, "Checked using regread:", vista7)
+
+   ;yeah... i know it's a problem, no reason to keep filling up the logs with it anymore
+   ;debug("silent log", A_ThisFunc, A_LineNumber, "Note: known errors here with detecting that Phosphorus is running Win7","A_ComputerName:", A_ComputerName, "A_OSVERSIONNUM:", A_OSVERSIONNUM, "A_OSVERSION:", A_OSVERSION, "Checked using DLLCALL:", dllresult, "Checked using regread:", vista7)
+
    if ( A_ComputerName == "PHOSPHORUS" )
       return "WIN_7"
    return %A_OSVersion%

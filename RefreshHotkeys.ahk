@@ -1,5 +1,6 @@
 ;Reload WorksInProgress.ahk (generally if something went wrong in the normal hotkey--single instances for hotkeys)
-^+!#r:: Run, ForceReloadAll.exe
+^+!#r:: CloseAllAhks()
+;Run, ForceReloadAll.exe
 
 ;Standard reload hotkey
 AppsKey & r::

@@ -1,6 +1,9 @@
 #include FcnLib.ahk
+#include ThirdParty/Notify.ahk
 
 A_Debug:=true
+
+notify("Starting the boot AHK")
 
 ;TODO exitapp if we are re-logging in (instead of booting up)
 
@@ -71,7 +74,7 @@ Send, ^!5
 Sleep, 10000
 
 ;delay these til the os has started up fully
-debug("starting quirky programs")
+notify("starting quirky programs")
 Send, #1
 ;Send, #2
 Send, #3
@@ -91,7 +94,7 @@ Send, git status{ENTER}
 Send, ^!a
 
 RunProgram("C:\Program Files (x86)\Pidgin\pidgin.exe")
-debug("Launching Pidgin")
+notify("Launching Pidgin")
 RunWait, LaunchPidgin.ahk
 
 ;ForceWinFocus("ahk_class gdkWindowToplevel")
@@ -102,7 +105,7 @@ RunWait, LaunchPidgin.ahk
 if desktopSidebarNeedsRelocating()
    moveDesktopSidebar()
 
-debug("Running ArrangeWindows script for all screens")
+notify("Running ArrangeWindows script for all screens")
 Loop 5
 {
    RunWait, ArrangeWindows.ahk
@@ -122,7 +125,7 @@ while desktopSidebarNeedsRelocating()
    SleepSeconds(1)
 }
 
-debug("checking if we need to restore chrome tabs")
+notify("checking if we need to restore chrome tabs")
 if ( ForceWinFocusIfExist("New Tab - Google Chrome")
    AND IsYellowPixel(686, 87)
    AND IsYellowPixel(686, 110)
@@ -132,7 +135,7 @@ if ( ForceWinFocusIfExist("New Tab - Google Chrome")
    Click(1700, 100, "Control")
 }
 
-debug("All finished with the boot AHK")
+notify("All finished with the boot AHK")
 ExitApp
 
 desktopSidebarNeedsRelocating()
