@@ -1435,3 +1435,8 @@ AddDatetime(datetime, numberToAdd, unitsOfNumberToAdd)
 ;WRITEME use TodWulff lib for url shortening
 ;WRITEME use TodWulff lib for pastebin stuff
 
+
+;WRITEME improve queueing of the three types of queued ahks
+;WRITEME fix GetOS() - run cmd prompt on startup and get version and save it
+;WRITEME fix the 3 types of queued AHKs - nightly, scheduled, and persistent-timed - figure out what the specs really are for each category and why they are different
+

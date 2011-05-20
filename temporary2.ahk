@@ -1,12 +1,46 @@
 #include FcnLib.ahk
 #include thirdparty/notify.ahk
 
-;notify("yo", "ma", 3)
-;notify("yo1", "ma2", 3)
-;notify("asdfg", "ma2", 3)
-;sleepseconds(5)
-;notify("asdgf", "erty", 3)
-;notify("", "erty", 3)
 
-Loop 20
-   notify("asdf", "erty", 10)
+SetTitleMatchMode, Slow
+Loop
+{
+   WinGetText, Var, ahk_class Notepad
+   If RegExMatch(Var,"m)frogs (\d{1,2,3})", match)
+   {
+      notify("yes")
+      if match1 between 0 and 500
+      {
+                        gui, 1:
+                        Gui, 1: -Caption +ToolWindow +0x00FF00 +LastFound
+                        Gui, 1: Show, x200 y200 w200 h200, Gui1
+         if match1 between 0 and 100
+            Gui, 1:Color, red
+         if match1 between 101 and 500
+            Gui, 1:Color, green
+         Break
+         return
+      }
+   }
+   else
+      notify("no")
+   sleepseconds(1)
+   ;exitapp
+}
+
+
+;loop
+	;{
+		;SetTitleMatchMode, Slow
+		;WinGetText, Var, ahk_class Notepad
+		;RegExMatch(Var,"iS)frogs (?:100|\d\d|\d)")      ;find frogs 0 to 100
+                ;If RegExMatch(Var,"iS)frogs ?(?:100|\d\d|\d)")  ;find frogs 0 to 100
+		;{
+			;gui, 1:
+			;Gui, 1: -Caption +ToolWindow +0x00FF00 +LastFound
+			;Gui, 1: Show, x200 y200 w200 h200, Gui1
+			;Gui, 1:Color, red
+			;Break
+			;return
+		;}
+	;}

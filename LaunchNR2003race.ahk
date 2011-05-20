@@ -7,6 +7,7 @@ Process, Close, FindAndRunRobot.exe
 Process, Close, dsidebar.exe
 SoundSet, 30
 
+RunAhk("NR2003hotkeys.ahk")
 LaunchRace("68.195.69.18", "pedalsdown")
 ExitApp
 

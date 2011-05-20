@@ -80,6 +80,7 @@ Loop, Read, %infile%
          ;TODO mark it as found, mark historyTrans as expected?
          reTrans%i%found:=true
       }
+      ;debug(reTrans%i%, "", historyLine)
    }
 }
 

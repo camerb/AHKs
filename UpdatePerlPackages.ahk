@@ -6,4 +6,4 @@ Send, cpan-outdated | cpanm{ENTER}
 Send, ^!5
 
 ;Then when the title changes back we're good to go
-;TODO perhaps we should hide the window, then exit the window when the taks is finished
+;TODO perhaps we should hide the window, then exit the window when the task is finished
