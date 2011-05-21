@@ -41,4 +41,8 @@ Loop, %reTransCount%
    }
 }
 
-debug(credits, debits, "", "The projected maximum amount for the credit card bill is", credits-debits)
+ini=gitExempt/financial.ini
+CameronProjection := IniRead(ini, "", "CameronProjection")
+MelindaProjection := IniRead(ini, "", "MelindaProjection")
+
+debug("ERRORD NOLOG", "", "The projected maximum amount for the credit card bill is", credits-debits, "", "Current projection of monthly change:", credits-debits-CameronProjection-MelindaProjection)

@@ -204,3 +204,13 @@ WinWait, EFLogo
 WinClose
 ForceWinFocus("EF Commander Free")
 return
+
+;----- Run Code From Clipboard - from tidbit, but modified alot
+~^Lwin::
+file=%A_ScriptDir%\cliprun.ahk
+ahk=#include FcnLib.ahk`n`n%Clipboard%`n`n`n`n ~esc::ExitApp
+FileDelete(file)
+FileAppend(ahk, file)
+RunAhk(file)
+Sleep 2000
+Return

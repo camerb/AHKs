@@ -141,6 +141,9 @@ Loop 6
    }
 }
 
+;remove the generated file to reduce confusion
+FileDelete(expectedTransFile)
+
 ExitApp
 
 ;TODO use SnapDB to view this
