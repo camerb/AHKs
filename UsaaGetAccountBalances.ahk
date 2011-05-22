@@ -92,12 +92,6 @@ GetAccountInfo(key)
    return returned
 }
 
-MorningStatusAppend(header, item)
-{
-   text=%header%: %item%
-   FileAppendLine(text, "gitExempt\morning_status\finance.txt")
-}
-
 GetCreditCardProjection(currentCreditBalance, endOfBillingCycle)
 {
    ;do some math and get the projected CC bill

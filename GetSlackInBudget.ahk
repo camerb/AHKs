@@ -1,4 +1,5 @@
 #include FcnLib.ahk
+#include C:\My Dropbox\AHKs\gitExempt\usaalogin.ahk
 
 ;find out what the amount of slack in the expected transactions is
 ;assume that this will serve as the maximum credit card bill amount
@@ -32,17 +33,21 @@ Loop, %reTransCount%
 {
    i=%A_Index%
    if (reTrans%i%isCredit)
-   {
       credits += reTrans%i%amount
-   }
    else
-   {
       debits += reTrans%i%amount
-   }
 }
 
 ini=gitExempt/financial.ini
 CameronProjection := IniRead(ini, "", "CameronProjection")
 MelindaProjection := IniRead(ini, "", "MelindaProjection")
 
-debug("ERRORD NOLOG", "", "The projected maximum amount for the credit card bill is", credits-debits, "", "Current projection of monthly change:", credits-debits-CameronProjection-MelindaProjection)
+MaximumCreditBill := Format(credits-debits, "Dollar")
+MonthlyDelta := Format(credits-debits-CameronProjection-MelindaProjection, "Dollar")
+
+IniWrite(ini, "", "MaximumCreditBill", MaximumCreditBill)
+IniWrite(ini, "", "MonthlyDelta", MonthlyDelta)
+MorningStatusAppend("MaximumCreditBill", MaximumCreditBill)
+MorningStatusAppend("MonthlyDelta", MonthlyDelta)
+
+debug("ERRORD NOLOG", "", "The projected maximum amount for the credit card bill is", MaximumCreditBill, "", "Current projection of monthly change:", MonthlyDelta)

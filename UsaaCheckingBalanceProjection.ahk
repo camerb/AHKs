@@ -89,7 +89,8 @@ createdDate=Created On %date%
 csvLine := concatWithSep(",", "Date", "Credit", "Debit", "Description", "Balance", createdDate)
 FileDelete(projectionCsv)
 FileAppendLine(csvline, projectionCsv)
-FileAppendLine("1999-12-12,,,," . currentCheckingBalance, projectionCsv)
+currentCheckingBalanceLine := "1999-12-12,,,," . currentCheckingBalance
+FileAppendLine(currentCheckingBalanceLine, projectionCsv)
 linecount=1
 
 ;lets show which transactions we are still expecting (didn't see it yet)
@@ -119,7 +120,6 @@ Loop, %reTransCount%
 ;TODO make the datemath real and use a std timestamp, then print it in the var as hyphendate
 ;TODO deal with printing the equation column when it is printed to the file (so it doesn't get messed up in the sort)
 ;TODO add in the expected transactions that are not monthly (one-time, yearly)
-;TODO
 
 ;lets add 5 more months on there (originally this was 2 more)
 Loop 6

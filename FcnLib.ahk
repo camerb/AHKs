@@ -1271,14 +1271,18 @@ AddToTrace(var, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t
    Loop 15
       var .= " " . t%A_Index%
    var = %var%
-   FileAppendLine(var, "C:\My Dropbox\Public\trace.txt")
+   FileAppendLine(var, "C:\My Dropbox\Public\logs\trace.txt")
 }
 
 DeleteTraceFile()
 {
-   ;TODO instead of deleting the old trace file
    ;lets archive it and create a new file real quick
-   FileDelete("C:\My Dropbox\Public\trace.txt")
+   timestamp:=CurrentTime("hyphenated")
+   archiveFile=C:\My Dropbox\AHKs\gitExempt\logs\traceArchive\%timestamp%.log
+   traceFile=C:\My Dropbox\Public\logs\trace.txt
+
+   FileMove(traceFile, archiveFile)
+   FileAppendLine("TRACE!!!", traceFile)
 }
 
 ;RegEx File Processor
@@ -1402,6 +1406,20 @@ AddDatetime(datetime, numberToAdd, unitsOfNumberToAdd)
    return datetime
 }
 
+Format(value, options)
+{
+   if ( InStr(options, "Dollar") OR InStr(options, "Money") )
+   {
+      RegExMatch(value, "(-{0,1})\${0,1}(-{0,1}\d*\.{0,1}\d{1,2})", match)
+      return match1 . match2
+      ;TODO allow values like $100 and $100.1... and 100 and 100.1
+      ;if RegExMatch(value, "(-{0,1})\${0,1}(-{0,1}\d*.\d{2})", match)
+         ;return match1 . match2
+      ;else
+         ;Errord("This value doesn't appear to be the correct type", A_ScriptName, A_LineNumber, A_ThisFunc, value, options)
+   }
+}
+
 ;WRITEME make function for getting remote and local path of dropbox public folder
 ;WRITEME split csv processing out of the create pie chart macro
 ;WRITEME make monthly financial charts (rather than three-month)
@@ -1433,10 +1451,11 @@ AddDatetime(datetime, numberToAdd, unitsOfNumberToAdd)
 
 ;WRITEME archive log files monthly, archive trace file nightly
 ;WRITEME use TodWulff lib for url shortening
-;WRITEME use TodWulff lib for pastebin stuff
-
 
 ;WRITEME improve queueing of the three types of queued ahks
 ;WRITEME fix GetOS() - run cmd prompt on startup and get version and save it
 ;WRITEME fix the 3 types of queued AHKs - nightly, scheduled, and persistent-timed - figure out what the specs really are for each category and why they are different
+
+
+;WRITEME FIXME issues where infiniteloop.ahk is run during nightly, but doesn't show as "unfinished" the next morning
 
