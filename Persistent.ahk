@@ -6,19 +6,19 @@ Persist:
 SetTitleMatchMode, 1
 
 ;{{{debugging how long it takes for an iteration through the #Persistent stuff
-if NOT timer
-{
-   AddToTrace("restarted script", A_ScriptName, "grey line")
-   maxTotalTime := 0
-   timer:=starttimer()
-}
-totaltime:=elapsedtime(timer)
-if (totalTime > maxTotalTime)
-{
-   maxTotalTime := totalTime
-   addtotrace("Max time it took for one iteration:", maxTotalTime, CurrentTime("hyphenated"), A_ComputerName)
-}
-timer:=starttimer()
+;if NOT timer
+;{
+   ;AddToTrace("restarted script", A_ScriptName, "grey line")
+   ;maxTotalTime := 0
+   ;timer:=starttimer()
+;}
+;totaltime:=elapsedtime(timer)
+;if (totalTime > maxTotalTime)
+;{
+   ;maxTotalTime := totalTime
+   ;addtotrace("Max time it took for one iteration:", maxTotalTime, CurrentTime("hyphenated"), A_ComputerName)
+;}
+;timer:=starttimer()
 ;}}}
 
 ;{{{Middle of the night unit tests, backups, and reload script

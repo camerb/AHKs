@@ -1459,3 +1459,7 @@ Format(value, options)
 
 ;WRITEME FIXME issues where infiniteloop.ahk is run during nightly, but doesn't show as "unfinished" the next morning
 
+
+;WRITEME fileappendlinecsv
+;WRITEME formatdollar()
+

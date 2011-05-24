@@ -1,2 +1,0 @@
-;WRITEME fileappendlinecsv
-;WRITEME formatdollar()
