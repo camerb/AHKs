@@ -54,9 +54,6 @@ Send, {F2}
 Send, ^w{RIGHT}{;}q{ENTER}
 Send, {;}BookmarkToRoot ahks{ENTER}
 
-;debug("Launching Irssi")
-;RunWait, LaunchIrssi.ahk
-
 ;killing this because it beeps
 RunAhk("LaunchVM.ahk")
 ForceWinFocus("ahk_class VMPlayerFrame")

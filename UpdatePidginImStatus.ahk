@@ -6,7 +6,7 @@ while NOT ForceWinFocusIfExist("Buddy List ahk_class gdkWindowToplevel")
    RunProgram("C:\Program Files (x86)\Pidgin\pidgin.exe")
    Sleep, 100
    count++
-   if (count > 20)
+   if (count > 1000)
       fatalErrord("silent log", "the pidgin window never activated", A_ScriptName, A_LineNumber)
 }
 
