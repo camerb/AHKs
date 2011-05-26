@@ -13,4 +13,10 @@ Send, {TAB}%joe%{ENTER}
 LongSleep()
 LongSleep()
 
-https://www.att.com/olam/gotoUsageSummary.olamexecute?reportActionEvent=A_UMD_CURRENT_USAGE_SUMMARY
+GoToPage("known")
+page := GhettoUrlDownloadToVar("https://www.att.com/olam/gotoUsageSummary.olamexecute?reportActionEvent=A_UMD_CURRENT_USAGE_SUMMARY")
+page := RemoveLineEndings(page)
+RegExMatch(page, "CAMERON.*?DATA.*?([0-9.]+).*?MB", match)
+addtotrace(match)
+addtotrace(match1)
+

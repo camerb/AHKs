@@ -7,11 +7,12 @@ if InStr(params, "resumeLastFm")
 {
    Process, Close, opera.exe
    SleepSeconds(10)
+   BlockInput, On
    RunOpera()
    url=http://www.last.fm/listen/user/cameronbaustian/personal
    WinShow, Opera
 
-   ;replacement
+   ;recent replacement
    GoToPage(url)
    ;ForceWinFocus("Opera")
    ;SendInput, !d
@@ -20,6 +21,7 @@ if InStr(params, "resumeLastFm")
    ;Sleep, 100
 
    Send, ^!5
+   BlockInput, Off
    ExitApp
 }
 

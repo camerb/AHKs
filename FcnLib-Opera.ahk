@@ -1,5 +1,6 @@
 #include FcnLib.ahk
 
+;replace with runprogram("opera")?
 RunOpera()
 {
    oldPath=C:\Program Files\Opera\opera.exe
@@ -28,6 +29,9 @@ CloseAllTabs()
 
 GoToPage(url)
 {
+   if (url = "known")
+      url=http://dl.dropbox.com/u/789954/KnownTitle.html
+
    ForceWinFocus("ahk_class (OperaWindowClass|OpWindow)", "RegEx")
    Send, !d
    Sleep, 100
@@ -35,9 +39,7 @@ GoToPage(url)
    oldTitle:=WinGetActiveTitle()
    Send, {ENTER}
    WinWaitActiveTitleChange(oldTitle)
-   ;ShortSleep()
    Sleep, 500
-   ;TODO change this back to a long sleep if that broke anything
 }
 
 ;Wait until the title of the active window changes
@@ -48,6 +50,7 @@ WinWaitActiveTitleChange(oldTitle="")
    ;this is less reliable, but if we don't have the title, we'll just do the best we can
    if (oldTitle == "")
       WinGetActiveTitle, oldTitle
+
    ;loop until the window title changes
    Loop
    {

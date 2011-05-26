@@ -1,9 +1,16 @@
 #include FcnLib.ahk
 
-;TODO this doesn't always seem to be enough.
-;maybe we should make a RunWaitOpen() fcn so that it runs the app, then waits to see if the app opens up
-;  if the app doesn't open a window, then it tries to do the run command again
-Run, "C:\Program Files (x86)\Pidgin\pidgin.exe"
+;copypasta from UpdatePidginImStatus.ahk ... should there be a pidgin lib?
+RunProgram("C:\Program Files (x86)\Pidgin\pidgin.exe")
+while NOT ForceWinFocusIfExist("Buddy List ahk_class gdkWindowToplevel")
+{
+   RunProgram("C:\Program Files (x86)\Pidgin\pidgin.exe")
+   Sleep, 100
+   count++
+   if (count > 1000)
+      fatalErrord("silent log", "the pidgin window never activated", A_ScriptName, A_LineNumber)
+}
+SleepSeconds(10)
 
 joinIrc("ahk")
 joinIrc("ahk-social")

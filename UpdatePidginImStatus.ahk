@@ -9,6 +9,7 @@ while NOT ForceWinFocusIfExist("Buddy List ahk_class gdkWindowToplevel")
    if (count > 1000)
       fatalErrord("silent log", "the pidgin window never activated", A_ScriptName, A_LineNumber)
 }
+SleepSeconds(10)
 
 ForceWinFocus("Buddy List ahk_class gdkWindowToplevel")
 WinGetPos, no, no, width, height
