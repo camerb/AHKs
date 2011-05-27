@@ -1438,14 +1438,8 @@ Format(value, options)
 
 ;WRITEME parse the following pages and put them in the morning status
 ;perhaps i can have updates of my points position, rather than having to look it up ;use blazin pedals site
-
-;WRITEME make a way to ensure that runwaits end eventually (tick on tick off)(use in nightly ahks). this would write an ini which has info about what script was started, then we can delete the ini when the script finishes. run a checker manually (or on an interval) to see if any inis have been orphaned (means that it was in an inf loop and it was terminated).
-
-
 ;WRITEME make widget that will display the latest warnings and debug info (like baretail, but open all the time)
 ;WRITEME use autologin to make a script that closes out the VPN connection gracefully
-
-
 ;WRITEME WinClose(text, title, options) that allows match modes, and also allows the "Gentle" option described in the docs (PostMessage)
 
 

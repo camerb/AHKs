@@ -2,6 +2,10 @@
 #include FcnLib-Opera.ahk
 #include C:\My Dropbox\AHKs\gitExempt\usaalogin.ahk
 
+ini=C:\My Dropbox\AHKs\gitExempt\datausage.ini
+csvfile=C:\My Dropbox\AHKs\gitExempt\datausage.csv
+time:=CurrentTime("hyphenated")
+
 RunOpera()
 CloseAllTabs()
 MedSleep()
@@ -16,7 +20,25 @@ LongSleep()
 GoToPage("known")
 page := GhettoUrlDownloadToVar("https://www.att.com/olam/gotoUsageSummary.olamexecute?reportActionEvent=A_UMD_CURRENT_USAGE_SUMMARY")
 page := RemoveLineEndings(page)
-RegExMatch(page, "CAMERON.*?DATA.*?([0-9.]+).*?MB", match)
-addtotrace(match)
-addtotrace(match1)
+CameronDataUsage := GetDataUsage(page, "CAMERON")
+NoraDataUsage := GetDataUsage(page, "NORA")
+
+;ReportNightlyStats(NoraDataUsage, heading, csvFile, varNameForIni)
+;ReportNightlyStats(CameronDataUsage, heading, csvFile, varNameForIni)
+csvline:=ConcatWithSep(",", time, CameronDataUsage, NoraDataUsage)
+FileAppendLine(csvline, csvfile)
+
+GetDataUsage(page, name)
+{
+   needle=megabytes.*?%name%.*?A_UMD_DATA_DETAILS.*?([0-9]+\.[0-9]+).*?MB.*?of 200.*?MB
+   RegExMatch(page, needle, match)
+   return match1
+}
+
+;TODO we could come up with the var name by getting rid of spaces
+;TODO this should do INI, CSV, and MorningStatus all at once
+ReportNightlyStats(value, heading, csvFile, varNameForIni)
+{
+
+}
 
