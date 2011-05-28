@@ -12,7 +12,7 @@ MedSleep()
 GoToPage("https://www.att.com/olam/loginAction.olamexecute?customerType=W")
 joe:=SexPanther("att")
 LongSleep()
-Send, {TAB 2}9723429639
+Send, 9723429639
 Send, {TAB}%joe%{ENTER}
 LongSleep()
 LongSleep()

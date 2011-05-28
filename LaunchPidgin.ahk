@@ -33,7 +33,7 @@ joinIrc(channel)
    ss()
    Click(460, 100)
    ss()
-   if (channel == "dbix-class")
+   if (channel != "dbix-class")
       Click(165, 137)
    else
       Click(165, 115)

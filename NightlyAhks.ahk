@@ -41,6 +41,7 @@ if (A_ComputerName = LeadComputer())
    ;  we can tell this if a screenshot saved is only half size
    ;  or possibly just check A_ScreenWidth
 
+   RunThisNightlyAhk(2, "GetPhoneDataUsage.ahk")
    hypercam()
    RunThisNightlyAhk(7, "GetSentryBalances.ahk")
    hypercam()
@@ -63,6 +64,7 @@ if (A_ComputerName="PHOSPHORUS")
    ;RunAhkAndBabysit("RestartFirefox.ahk")
    ;SleepMinutes(1)
    RunThisNightlyAhk(1, "UpdatePidginImStatus.ahk")
+   RunThisNightlyAhk(1, "GitRefreshRemote.ahk")
 }
 
 if (A_ComputerName="PHOSPHORUSVM")
@@ -70,17 +72,18 @@ if (A_ComputerName="PHOSPHORUSVM")
    RunThisNightlyAhk(5, "DeleteDropboxCruft.ahk")
 }
 
+;===done with nightly tasks... lets start things back up again
 RunThisNightlyAhk(1, "StartIdleAhks.ahk")
 
-;only run these on the work pc to start things back up again
+RunThisNightlyAhk(2, "MoveMouseAcrossEntireScreen.ahk")
+;RunWait, MoveMouseAcrossEntireScreen.ahk
+
 if (A_ComputerName="PHOSPHORUS")
 {
    ;this needs a little bit of click-around time
-   RunThisNightlyAhk(1, "LaunchPidgin.ahk")
+   RunThisNightlyAhk(2, "LaunchPidgin.ahk")
+   RunThisNightlyAhk(2, "LaunchPidgin.ahk")
 }
-
-;RunThisNightlyAhk(2, "MoveMouseAcrossEntireScreen.ahk")
-RunWait, MoveMouseAcrossEntireScreen.ahk
 
 ;make a list of all the ahks that didn't end gracefully
 Loop, C:\My Dropbox\AHKs\*.ahk

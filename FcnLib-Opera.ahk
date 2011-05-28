@@ -10,7 +10,14 @@ RunOpera()
    else if FileExist(newPath)
       Run, %newPath%
 
+   ;TODO kill users command
    ForceWinFocus("ahk_class (OperaWindowClass|OpWindow)", "RegEx")
+
+   if ForceWinFocusIfExist("Welcome to Opera ahk_class (OperaWindowClass|OpWindow)", "RegEx")
+   {
+      Send, {ENTER}
+      ForceWinFocus("ahk_class (OperaWindowClass|OpWindow)", "RegEx")
+   }
 }
 
 CloseAllTabs()

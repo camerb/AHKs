@@ -1,6 +1,7 @@
 #SingleInstance Force
 
 #include thirdParty\Functions.ahk
+;#include thirdParty\Notify.ahk ;this causes windows to be open forever
 #include thirdParty\Cycle.ahk
 #include FcnLib-Rewrites.ahk
 
@@ -1418,6 +1419,59 @@ Format(value, options)
       ;else
          ;Errord("This value doesn't appear to be the correct type", A_ScriptName, A_LineNumber, A_ThisFunc, value, options)
    }
+}
+
+InStrCount(String, Needle)
+{
+   StringReplace, String, String, %Needle%, , UseErrorLevel
+   return ErrorLevel
+}
+
+;by Berban originally
+RegExMatchCount(Count_String, Count_Needle, Count_Type="", Count_SubPattern="")
+;{
+   ;Global
+   ;Local f := 0, n := 0, Output := 0
+   ;If (Type = "") {
+      ;StringReplace, String, String, %Needle%, , UseErrorLevel
+      ;n := ErrorLevel
+   ;} Else {
+      ;While (f := RegExMatch(String, Needle, Output, f + StrLen(Output))) {
+         ;n++
+         ;If Type
+            ;%Type%%n% := Output%SubPattern%
+      ;}
+      ;If Type
+         ;%Type% := n
+   ;}
+   ;Return n
+;}
+{
+   Global
+   Count_n = 0
+   If (Count_Type = "") {
+      Count_g := StrLen(Count_Needle)
+      Loop {
+         Count_f := InStr(Count_String, Count_Needle) - 1
+         If (Count_f = -1)
+            Break
+         Count_n++
+         StringTrimLeft, Count_String, Count_String, % Count_f + Count_g
+      }
+   } Else {
+      Loop {
+         Count_f := RegExMatch(Count_String, Count_Needle, Count_Output) - 1
+         If (Count_f = -1)
+            Break
+         Count_n++
+         If Count_Type
+            %Count_Type%%Count_n% := Count_Output%Count_SubPattern%
+         StringTrimLeft, Count_String, Count_String, % Count_f + StrLen(Count_Output)
+      }
+      If Count_Type
+         %Count_Type% := Count_n
+   }
+   Return Count_n
 }
 
 ;WRITEME make function for getting remote and local path of dropbox public folder

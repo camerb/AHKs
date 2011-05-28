@@ -3,8 +3,9 @@ ShortSleep()
 CmdRet_RunReturn("net stop W3SVC")
 ShortSleep()
 ret := CmdRet_Runreturn("sc config W3SVC start= disabled")
-if NOT InStr(ret, "SUCCESS")
-   MsgBox, %ret%
+;DO NOT check for success... (it may not have been installed in the first place)
+;if NOT InStr(ret, "SUCCESS")
+   ;MsgBox, %ret%
 
 SleepSeconds(9)
 Run, C:\LynxCD\Server 7.11\Setup\apache_2.2.8-win32-x86-openssl-0.9.8g.msi

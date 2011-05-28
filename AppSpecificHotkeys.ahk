@@ -69,6 +69,15 @@ PGDN:: SendInput, {WHEELDOWN 10}
 #IfWinActive ;End ahk_class ConsoleWindowClass
 ;}}}
 
+;{{{ Git
+;#IfWinActive MINGW32
+/*
+PGUP:: SendInput, {WHEELUP 10}
+PGDN:: SendInput, {WHEELDOWN 10}
+*/
+;#IfWinActive ;End ahk_class ConsoleWindowClass
+;}}}
+
 ;{{{ pgAdmin
 #IfWinActive pgAdmin III ahk_class wxWindowClassNR
 d::

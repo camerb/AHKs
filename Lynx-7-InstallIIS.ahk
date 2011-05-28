@@ -37,6 +37,14 @@ SleepSend("!i")
 WinWaitActive, , Installation succeeded
 SleepSend("!o")
 
+;stop and disable W3SVC service (WWW Pub Service)
+ShortSleep()
+CmdRet_RunReturn("net stop W3SVC")
+ShortSleep()
+ret := CmdRet_Runreturn("sc config W3SVC start= disabled")
+if NOT InStr(ret, "SUCCESS")
+   MsgBox, %ret%
+
 WinClose, Server Manager
 
 ForceWinFocus("(cmd.exe|Command Prompt)", "RegEx")
