@@ -33,7 +33,9 @@ joinIrc(channel)
    ss()
    Click(460, 100)
    ss()
-   if (channel != "dbix-class")
+
+   ;sometimes i have to change this between != and == (that option changes locations in the dropdown)
+   if (channel == "dbix-class")
       Click(165, 137)
    else
       Click(165, 115)

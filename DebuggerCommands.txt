@@ -493,3 +493,13 @@ EPMS
 cmd 1: {C:\code\epms\script\exporters\shop}, 2: {perl greystar.pl }
 cmd 1: {C:\code\epms\script\exporters\shop}, 2: {perl greystar.pl }
 EPMS
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl lincoln_prospect.pl "C:\import_files\survey\lincoln_prospects_2011-06.txt"}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl lincoln_prospect.pl "C:\import_files\survey\lincoln_prospects_2011-06.csv"}
+EPMS workbench
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl lincoln_prospect.pl "C:\import_files\survey\lincoln_prospects_2011-06.csv"}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl lincoln_resident.pl "C:\import_files\survey\lincoln_residents_2011-06.csv"}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl lincoln_resident.pl "C:\import_files\survey\lincoln_residents_2011-06.csv" > c:\code\report.txt}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl lincoln_prospect.pl "C:\import_files\survey\lincoln_prospects_2011-06.csv" > c:\code\report.txt}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl lincoln_resident.pl "C:\import_files\survey\lincoln_residents_2011-06.csv" > c:\code\report.txt}
+cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl lincoln_prospect.pl "C:\import_files\survey\lincoln_prospects_2011-06.csv" > c:\code\report.txt}
+EPMS workbench
