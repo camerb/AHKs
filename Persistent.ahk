@@ -307,6 +307,9 @@ IfWinActive, Disconnect Terminal Services Session ahk_class #32770
    Process, Close, openvpn-gui.exe
 }
 
+IfWinActive, , This will disconnect your Remote Desktop Services session
+   Send, {ENTER}
+
 IfWinActive, Remote Desktop Connection, Do you want to connect despite these certificate errors?
    Send, !y
 

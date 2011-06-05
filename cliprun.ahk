@@ -1,16 +1,8 @@
 #include FcnLib.ahk
 
-#IfWinActive ahk_class Notepad
-$F5:: 
-;Calling Excel shortcut
-send {F5} 
-return
-#IfWinActive
+I faxed it in yesterday.
 
-;hotkey for applications that aren't excel
-$F5:: 
-msgbox NOOO!! 
-return 
+Sent from my iPhone
 
 
 
