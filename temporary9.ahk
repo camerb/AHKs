@@ -1,11 +1,15 @@
 #include FcnLib.ahk
-#include thirdparty/notify.ahk
+#include thirdParty/COM.ahk
 
-;why on earth doesn't this work???
+;show the jayski page in IE for 5 seconds
 
+COM_Init()
+pwb := COM_CreateObject("InternetExplorer.Application")
+COM_Invoke(pwb , "Visible=", "True")
+;COM_Invoke(pwb, "Navigate", "javascript: alert('Hello World!')")
 
-Loop, C:\code\epms\, 2, 1
-{
-   if InStr(A_LoopFileFullPath, "C:\")
-      addtotrace(A_LoopFileFullPath)
-}
+url:="http://www.jayski.com"
+COM_Invoke(pwb, "Navigate", url)
+SleepSeconds(5)
+COM_Invoke(pwb, "Quit")
+COM_Term()

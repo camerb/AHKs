@@ -41,7 +41,14 @@ AppsKey & 6::  Run, temporary6.ahk
 AppsKey & 7::  Run, temporary7.ahk
 AppsKey & 8::  Run, temporary8.ahk
 AppsKey & 9::  Run, temporary9.ahk
-AppsKey & 0::  Run, ResaveTemporary.ahk
+AppsKey & 0::  debug("use the - key instead")
+AppsKey & -::  Run, ResaveTemporary.ahk
+AppsKey & =::  Run, NewTempAhk.ahk
+/*
+AppsKey & 0::  Run, temporary.ahk
+;or, this could be a way to run an ironahk script
+;or, we could add another modifier so that IronAHK is launched using a separate modifier
+*/
 
 ;Egg Timer
 AppsKey & t:: Run, EggTimer.ahk

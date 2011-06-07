@@ -508,3 +508,9 @@ EPMS workbench
 cmd 1: {C:\code\epms\script\survey}, 2: {perl queue_surveys.pl}
 EPMS
 EPMS workbench
+cmd 1: {C:\code\epms\script}, 2: {perl user_auth_expression_new.pl 698 973 698}
+EPMS
+EPMS workbench
+EPMS workbench
+cmd 1: {C:\code\epms\script\survey}, 2: {perl queue_surveys.pl}
+EPMS

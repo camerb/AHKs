@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-;replace with runprogram("opera")?
+;a more specialized version of runprogram("opera")?
 RunOpera()
 {
    oldPath=C:\Program Files\Opera\opera.exe
@@ -12,6 +12,12 @@ RunOpera()
 
    ;TODO kill users command
    ForceWinFocus("ahk_class (OperaWindowClass|OpWindow)", "RegEx")
+
+   if ForceWinFocusIfExist("Cannot start Opera")
+   {
+      while ProcessExist("opera.exe")
+         ProcessClose("opera.exe")
+   }
 
    if ForceWinFocusIfExist("Welcome to Opera ahk_class (OperaWindowClass|OpWindow)", "RegEx")
    {
