@@ -1,8 +1,6 @@
 #include FcnLib.ahk
 
-I faxed it in yesterday.
-
-Sent from my iPhone
+ProcessClose("foobar2000.exe")
 
 
 
