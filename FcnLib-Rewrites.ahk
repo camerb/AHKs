@@ -133,5 +133,14 @@ ProcessClose(exeName)
    Process, Close, %exeName%
 }
 
+ProcessCloseAll(exeName)
+{
+   while ProcessExist(exeName)
+   {
+      ProcessClose(exeName)
+      Sleep, 10
+   }
+}
+
 ;}}}
 

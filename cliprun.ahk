@@ -1,6 +1,9 @@
 #include FcnLib.ahk
 
-ProcessClose("foobar2000.exe")
+timer:=StartTimer()
+DoSomeExperimentalThing()
+totalTime:=ElapsedTime(timer)
+msgbox % totalTime
 
 
 

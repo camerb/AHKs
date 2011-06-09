@@ -48,6 +48,7 @@ AppsKey & =::  Run, NewTempAhk.ahk
 AppsKey & 0::  Run, temporary.ahk
 ;or, this could be a way to run an ironahk script
 ;or, we could add another modifier so that IronAHK is launched using a separate modifier
+;or, we could save the file that we are currently working on and use Apps0 as a launcher for that ahk
 */
 
 ;Egg Timer
