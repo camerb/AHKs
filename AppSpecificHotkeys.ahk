@@ -317,3 +317,12 @@ else
 return
 #IfWinActive
 ;}}}
+
+;{{{EPMS stuff for Melinda
+#IfWinActive EPMS Shop
+;#IfWinActive Mozilla Firefox
+^+e::
+SendInput, {CTRL UP}{SHIFT UP}Based on the Leasing Professional's presentation, would you have leased this apartment? Why or Why Not? Please answer based on the presentation only, not on the apartment or community.
+return
+#IfWinActive
+;}}}

@@ -1,9 +1,6 @@
 #include FcnLib.ahk
 
-timer:=StartTimer()
-DoSomeExperimentalThing()
-totalTime:=ElapsedTime(timer)
-msgbox % totalTime
+ProcessCloseAll("firefox.exe")
 
 
 

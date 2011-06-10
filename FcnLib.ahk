@@ -3,6 +3,7 @@
 #include thirdParty\Functions.ahk
 ;#include thirdParty\Notify.ahk ;this causes windows to be open forever
 #include thirdParty\Cycle.ahk
+#include thirdParty\Format4Csv.ahk
 #include FcnLib-Rewrites.ahk
 
 ;Takes a screenshot and saves it to the specified path
