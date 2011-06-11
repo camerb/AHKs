@@ -95,5 +95,5 @@ SleepSeconds(20)
 
 ret := CmdRet_RunReturn("perl C:\inetpub\wwwroot\cgi\banner.plx", "C:\inetpub\wwwroot\cgi\")
 if NOT InStr(ret, "Location: /banner/banner.gif")
-   fatalErrord("the banner.plx file did not run correctly")
+   fatalErrord("the banner.plx file did not run correctly, instead it returned:", ret)
 
