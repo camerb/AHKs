@@ -42,7 +42,7 @@ MelindaProjection:=GetCreditCardProjection(MelindaBalance, 12)
 csvline:=ConcatWithSep(",", time, SavingsBalance, CheckingBalance, "", overallBalance, "", CameronBalance, CameronProjection, MelindaBalance, MelindaProjection, NetWorth)
 FileAppendLine(csvline, csvfile)
 
-;output to ini for fast lookup
+;output to ini for easy lookup
 IniWrite(ini, "", "FinancesDateUpdated", time)
 IniWrite(ini, "", "NetWorth", NetWorth)
 IniWrite(ini, "", "SavingsBalance", SavingsBalance)

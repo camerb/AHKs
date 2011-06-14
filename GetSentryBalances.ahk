@@ -38,6 +38,6 @@ GetAccountUnitPrice(pageText, accountName)
 {
    reNeedle=%accountName%(.*?)tr
    RegExMatch(pageText, reNeedle, block)
-   RegExMatch(block1, "<td.*>\$([0-9.]*?)</td", block)
+   RegExMatch(block1, "<td.*>\$([0-9,.]*?)</td", block)
    return block1
 }
