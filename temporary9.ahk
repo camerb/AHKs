@@ -14,10 +14,10 @@ COM_Invoke(pwb, "Navigate", url)
 WaitIEReady(pwb)
 COM_Invoke(pwb, "document.all.j_username.value", "macnmel17")
 COM_Invoke(pwb, "document.all.j_password.value", SexPanther())
-SleepSeconds(1)
+Sleep, 200
 ;COM_Invoke(pwb, "document.getElementsByTagName[input].item[11].click")
 Send, {ENTER}
-SleepSeconds(1)
+Sleep, 200
 Send, {ENTER}
 WaitIEReady(pwb)
 text := COM_Invoke(pwb, "document.documentElement.innerText")
@@ -32,4 +32,5 @@ WaitIEReady(pwb)
 {
    While, COM_Invoke( pwb, "ReadyState" ) <> 4
       Sleep, 10
+   SleepSeconds(1)
 }
