@@ -90,7 +90,10 @@ Send, cd C:/code/epms{ENTER}
 Send, git status{ENTER}
 Send, ^!a
 
-RunProgram("C:\Program Files (x86)\Pidgin\pidgin.exe")
+notify("Launching SSMS")
+RunWait, LaunchSSMS.ahk
+
+;RunProgram("C:\Program Files (x86)\Pidgin\pidgin.exe")
 notify("Launching Pidgin")
 RunWait, LaunchPidgin.ahk
 
