@@ -1,4 +1,5 @@
 #include FcnLib.ahk
+#include thirdParty/CmdRet.ahk
 
 fatalIfNotThisPc("PHOSPHORUS")
 
@@ -135,6 +136,14 @@ if ForceWinFocusIfExist("\\(strawberry|code|(i|I)netpub).*GVIM ahk_class Vim", "
 ;{{{ Restart the server, if desired
 if refreshServerMode
 {
+   ;plack server
+   ProcessClose("perl.exe") ;TODO close all?
+   ProcessClose("perl.exe") ;TODO close all?
+   ProcessClose("perl.exe") ;TODO close all?
+   ProcessClose("perl.exe") ;TODO close all?
+   Sleep, 100
+   CmdRet_RunReturn("plackup psgi/dispatch.psgi -p 3001", "C:/code/epms/script")
+
    if apacheServer
    {
       Run, "C:\Program Files (x86)\Apache Software Foundation\Apache2.2\bin\httpd.exe" -w -n "Apache2.2" -k restart

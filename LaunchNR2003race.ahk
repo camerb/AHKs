@@ -8,7 +8,8 @@ Process, Close, dsidebar.exe
 SoundSet, 30
 
 RunAhk("NR2003hotkeys.ahk")
-LaunchRace("68.195.69.18", "pedalsdown")
+;LaunchRace("68.195.69.18", "pedalsdown")
+LaunchRaceViaRLM()
 ExitApp
 
 LaunchRace(ip, pass)
@@ -34,7 +35,7 @@ LaunchRace(ip, pass)
    Click(1615, 1054, "left")
 }
 
-LaunchRaceFromSmsLobby()
+LaunchRaceViaSmsLobby()
 {
    RunProgram("C:\Program Files\SMS_Lobby\SMSLobby.exe")
 
@@ -48,6 +49,19 @@ LaunchRaceFromSmsLobby()
    Sleep, 100
 
    Click(935, 110)
+}
+
+LaunchRaceViaRLM()
+{
+   ProcessClose("RLMArena.exe")
+   RunProgram("C:\Program Files\RLM Arena 4.2\RLMArena.exe")
+   WinWaitActive, , Enter your username and password for your RaceLM league.
+   ss()
+   Send, {TAB 3}{ENTER}
+   ss()
+   WinWaitActive, , Select League
+   ss()
+   Send, {TAB 2}{DOWN}
 }
 
 ChangeLogitechWheelMode()
@@ -90,5 +104,5 @@ LaunchTeamspeak()
 
 ss()
 {
-Sleep, 100
+sleep, 1000
 }

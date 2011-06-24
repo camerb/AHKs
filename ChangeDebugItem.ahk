@@ -8,12 +8,6 @@ Loop, read, %filename%
    if A_LoopReadLine
       Options=%A_LoopReadLine%|%Options%
 }
-;Options:=RegExReplace(Options, "^.*?\|", "$1|")
-;debug(Options)
-;maybe we can set the first option as default? someday?
-;Options=|%Options%
-;Options=Red||Green|Blue
-;Options:=RegExReplace(Options, "\|+", "|")
 
 Gui, Add, ComboBox, vDebuggerCommand w600, %Options%
 Gui, Add, Button, default, OK  ; The label ButtonOK (if it exists) will be run when the button is pressed.
