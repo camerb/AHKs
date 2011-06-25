@@ -92,8 +92,12 @@ else if (project == "TM")
 }
 else if (debuggerCommand == "EPMS")
 {
-   apacheServer:=true
+   ;apacheServer:=true
+   plackServer:=true
    projTitle := epmsTitles
+   projDir=C:/code/epms/script
+   projRun=plackup psgi/dispatch.psgi -p 3001
+      ;CmdRet_RunReturn("plackup psgi/dispatch.psgi -p 3001", "C:/code/epms/script")
 }
 else
 {
@@ -136,14 +140,6 @@ if ForceWinFocusIfExist("\\(strawberry|code|(i|I)netpub).*GVIM ahk_class Vim", "
 ;{{{ Restart the server, if desired
 if refreshServerMode
 {
-   ;plack server
-   ProcessClose("perl.exe") ;TODO close all?
-   ProcessClose("perl.exe") ;TODO close all?
-   ProcessClose("perl.exe") ;TODO close all?
-   ProcessClose("perl.exe") ;TODO close all?
-   Sleep, 100
-   CmdRet_RunReturn("plackup psgi/dispatch.psgi -p 3001", "C:/code/epms/script")
-
    if apacheServer
    {
       Run, "C:\Program Files (x86)\Apache Software Foundation\Apache2.2\bin\httpd.exe" -w -n "Apache2.2" -k restart
@@ -151,13 +147,25 @@ if refreshServerMode
       WinMinimize, httpd.exe
       WinWaitClose, httpd.exe
    }
+   else if plackServer
+   {
+      ProcessClose("perl.exe") ;TODO close all?
+      ProcessClose("perl.exe") ;TODO close all?
+      ProcessClose("perl.exe") ;TODO close all?
+      ProcessClose("perl.exe") ;TODO close all?
+      Sleep, 100
+      FileAppendLine("grey line - restarted plack server", "C:/code/epms_logs/plack.log")
+      ;CmdRet_RunReturn("plackup psgi/dispatch.psgi -p 3001", "C:/code/epms/script")
+      ForceWinFocusCmd()
+      SendInput, {esc}cls{ENTER}
+      SendInput, {esc}cd C:{ENTER}
+      SendInput, cd %projDir%{ENTER}
+      SendInput, %projRun%{ENTER}
+      ForceWinFocusIfExist("BareTail")
+   }
    else
    {
-      ;TODO change this to one regex that excludes MINGW32
-      if NOT ForceWinFocusIfExist("_server.pl ahk_class ConsoleWindowClass", "Contains")
-         if NOT ForceWinFocusIfExist("Administrator: Command Prompt ahk_class ConsoleWindowClass", "Exact")
-            if NOT ForceWinFocusIfExist("ahk_class ConsoleWindowClass", "Exact")
-               ForceWinFocusIfExist("cmd.exe", "Contains")
+      ForceWinFocusCmd()
       SendInput, ^c
 
       dd:=WaitForImageSearch("images\cmd\Prompt(dir).bmp")
@@ -341,3 +349,14 @@ if ForceWinFocusIfExist("Ellis Partners in Mystery Shopping: Customer Interface 
 }
 
 ;}}}
+
+ExitApp
+
+ForceWinFocusCmd()
+{
+   ;TODO change this to one regex that excludes MINGW32
+   if NOT ForceWinFocusIfExist("_server.pl ahk_class ConsoleWindowClass", "Contains")
+      if NOT ForceWinFocusIfExist("Administrator: Command Prompt ahk_class ConsoleWindowClass", "Exact")
+         if NOT ForceWinFocusIfExist("ahk_class ConsoleWindowClass", "Exact")
+            ForceWinFocusIfExist("cmd.exe", "Contains")
+}

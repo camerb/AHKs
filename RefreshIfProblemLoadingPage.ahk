@@ -3,7 +3,7 @@
 TimeToExit:=CurrentTimePlus(20)
 while true
 {
-   if ForceWinFocusIfExist("(Problem loading page|404 Not Found) - Mozilla Firefox ahk_class MozillaUIWindowClass", "RegEx")
+   if ForceWinFocusIfExist("(Problem loading page|404 Not Found|503 Service Temporarily Unavailable) - Mozilla Firefox ahk_class MozillaUIWindowClass", "RegEx")
    {
       Send, {F5}
       Sleep, 5000

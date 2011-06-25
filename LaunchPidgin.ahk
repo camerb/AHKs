@@ -12,16 +12,20 @@ while NOT ForceWinFocusIfExist("Buddy List ahk_class gdkWindowToplevel")
 }
 SleepSeconds(10)
 
-joinIrc("ahk")
-joinIrc("ahk-social")
-joinIrc("dbix-class")
-startGchat("frigg")
+;joinIrc("ahk")
+;joinIrc("ahk-social")
+;joinIrc("dbix-class")
+;startGchat("frigg")
 
-ForceWinFocus("frigg")
-Send, ^!a
+;ForceWinFocus("frigg")
+;Send, ^!a
 
 ForceWinFocus("Buddy List")
 WinClose
+
+ForceWinFocus("ahk_class gdkWindowToplevel")
+Send, ^!a
+
 ExitApp
 
 joinIrc(channel)
