@@ -14,7 +14,7 @@ if (A_ComputerName = LeadComputer())
 if NOT IsVM()
 {
    RunThisNightlyAhk(1, "CopyVimSettings.ahk")
-   hypercam()
+   ;hypercam()
    RunThisNightlyAhk(7, "UpdateAdobeAcrobatReader.ahk")
 }
 
@@ -27,7 +27,7 @@ RunThisNightlyAhk(15, "UnitTests.ahk")
 
 if (A_ComputerName="BAUSTIAN-09PC")
 {
-   hypercam()
+   ;hypercam()
    RunThisNightlyAhk(7, "SaveChromeBookmarks.ahk")
    RunThisNightlyAhk(10, "CreateDropboxBackup.ahk")
    RunThisNightlyAhk(3, "PushToGit.ahk")
@@ -42,11 +42,11 @@ if (A_ComputerName = LeadComputer())
    ;  or possibly just check A_ScreenWidth
 
    RunThisNightlyAhk(2, "GetPhoneDataUsage.ahk")
-   hypercam()
+   ;hypercam()
    RunThisNightlyAhk(7, "GetSentryBalances.ahk")
-   hypercam()
+   ;hypercam()
    RunThisNightlyAhk(7, "MintGetAccountCsvs.ahk")
-   hypercam()
+   ;hypercam()
    RunThisNightlyAhk(7, "UsaaGetAccountBalances.ahk")
    RunThisNightlyAhk(2, "GetSlackInBudget.ahk")
    RunThisNightlyAhk(2, "ProcessMintExport.ahk")
