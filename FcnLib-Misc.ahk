@@ -10,3 +10,20 @@ GitGetCurrentBranchName()
    branchNameFromFile:=branchName1
    return branchNameFromFile
 }
+
+GitGetIssueNumber(currentBranchName)
+{
+   RegExMatch(currentBranchName, "(\w+-\d+)", match)
+   return match1
+}
+
+;WRITEME
+GitGetIssueTitle()
+{
+   command=perl C:\code\mtsi-scripts\jira-issue-title.pl %issueNumber%
+   issueTitle := CmdRet_RunReturn( command )
+   ;TODO validation to ensure there are no exceptions from Jira
+   if InStr(message, "exception")
+      fatalErrord("", 
+   return issueTitle
+}

@@ -1,25 +1,14 @@
 #include FcnLib.ahk
+#include FcnLib-Misc.ahk
 #include ThirdParty/CmdRet.ahk
 
-;see if we can get the branch name from the file
-branchNameFromFile := FileRead("C:\code\epms\.git\HEAD")
-RegExMatch(branchNameFromFile, "heads\/(.*)\n", branchName)
-branchNameFromFile:=branchName1
-currentBranchName:=branchNameFromFile
+currentBranchName := GitGetCurrentBranchName()
 
 if InStr(currentBranchName, "pushed")
-{
    fatalErrord("", currentBranchName, "This branch has already been pushed to origin")
-}
 
-;push and close that branch
-;ForceWinFocus("MINGW32", "Contains")
-;currentBranchName:=Prompt("What is the name of the current branch?`nPress y if it is: " . branchNameFromFile)
-;if NOT currentBranchName
-   ;ExitApp
-
-;if (currentBranchName = "y")
-   ;currentBranchName:=branchNameFromFile
+if NOT RegExMatch(currentBranchName, "(EPMS|FLB|SM)")
+   fatalErrord("", currentBranchName, "It looks like this branch is not part of a recognized project")
 
 ForceWinFocus("MINGW32", "Contains")
 Send, git status{ENTER}
@@ -27,12 +16,17 @@ Send, git push origin %currentBranchName%{ENTER}
 Send, git branch -m %currentBranchName% pushed/%currentBranchName%{ENTER}
 
 message=The branch origin/%currentBranchName% is ready to move live`n`n
+
 RegExMatch(currentBranchName, "(\w+-\d+)", match)
 issueNumber := match1
 
 command=perl C:\code\mtsi-scripts\jira-issue-title.pl %issueNumber%
-message .= CmdRet_RunReturn( command )
+issueTitle := CmdRet_RunReturn( command )
+message .= issueTitle
 ;debug(message)
+
+if InStr(message, "exception")
+   message := Prompt("The message that will be sent to Nathan is as follows, it looks like it contains an exception, so please revise it:`n`n" . message)
 
 SleepSeconds(15)
 SendEmail("Branch to merge", message, "", "nathan@mitsi.com", "cameronbaustian@gmail.com")
