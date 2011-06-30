@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-ProcessClose("Chrome.exe")
+http://slickdeals.net/forums/showthread.php?t=3020919
 
 
 

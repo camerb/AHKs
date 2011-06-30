@@ -1092,6 +1092,7 @@ RepairPath(FullPath)
 ;Gets the deepest child's folder name
 GetFolderName(FullPath)
 {
+
    returned := FullPath
    returned := RepairPath(returned)
    returned := RegExReplace(returned, "^.*(\\|\/)")
@@ -1122,7 +1123,8 @@ SexPanther(SexPanther="SexPanther")
 }
 
 ;Make a report file of all the files that match the given pattern in the specified directory
-DirectoryScan(directoryToScan, reportFilePath)
+;NOTE that you need to include a wildcard at the end!
+DirectoryScan(directoryToScan, reportFilePath="C:/My Dropbox/Public/logs/trace.txt")
 {
    time:=CurrentTime("hyphenated")
    timer:=StartTimer()
