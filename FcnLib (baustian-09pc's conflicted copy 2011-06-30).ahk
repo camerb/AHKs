@@ -46,15 +46,15 @@ SleepSeconds(seconds)
 ;Determines whether or not we should show debug msgs
 ;TODO add a logging mode?
 ;not yet finished, just throwing around some ideas
-;OptionalDebug(options="", millionParams="...really, lots of params, like 15..")
-OptionalDebug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text3="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text4="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text5="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text6="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text7="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text8="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text9="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text10="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text11="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text12="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text13="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text14="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text15="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ")
+OptionalDebug(options="", millionParams="...really, lots of params, like 15..")
 {
    global A_Debug
    global A_Log
    if ( InStr(options, "Debug") || A_Debug )
-      debug(textOrOptions, text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15)
+      return true
    if ( InStr(options, "Log") || A_Log )
-      delog(textOrOptions, text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15)
+      return true
+   return false
 }
 
 CustomTitleMatchMode(options="")
@@ -85,7 +85,10 @@ ForceWinFocus(titleofwin, options="")
    returned:=false
    CustomTitleMatchMode(options)
 
-   OptionalDebug(options, titleofwin)
+   ;TODO would like to see these three lines look more like optionalDebug(options, titleofwin)
+   global A_Debug
+   if ( InStr(options, "Debug") || A_Debug )
+      debug(titleofwin)
 
    Loop
    {
@@ -115,7 +118,9 @@ ForceWinFocusIfExist(titleofwin, options="")
    returned:=false
    CustomTitleMatchMode(options)
 
-   OptionalDebug(options, titleofwin)
+   global A_Debug
+   if ( InStr(options, "Debug") || A_Debug )
+      debug(titleofwin)
 
    IfWinExist, %titleofwin%,
    {
@@ -137,7 +142,9 @@ CloseWin(titleofwin, options="")
 {
    CustomTitleMatchMode(options)
 
-   OptionalDebug(options, titleofwin)
+   global A_Debug
+   if ( InStr(options, "Debug") || A_Debug )
+      debug(titleofwin)
 
    IfWinExist, %titleofwin%,
    {
@@ -232,7 +239,7 @@ ClickIfImageSearch(filename, clickOptions="left Mouse")
 }
 
 ;Wait until a certain image appears
-WaitForImageSearch(filename, variation=0, timeToWait=20, sleepTime=20) ;TODO option to exit ahk if image was not found
+WaitForImageSearch(filename, variation=0, timeToWait=20, sleepTime=20) ;TODO option to exit ahk if not found
 {
    if NOT FileExist(filename)
    {
@@ -322,7 +329,7 @@ DebugBool(bool)
       msg:="This variable may be undef or an empty string"
    else
       msg:=bool
-   ;Debug(msg) ;this must go before we put it into debug (endless recursion?)
+   Debug(msg) ;this must go before we put it into debug (endless recursion?)
    return msg
 }
 
@@ -570,6 +577,8 @@ IsMaximized(title="", text="")
 ;Closes open applications that usually are difficult for windows to shut down (preps for a restart)
 CloseDifficultApps()
 {
+   ProcessClose("hpupdate.exe")
+
    if ForceWinFocusIfExist("Irssi ahk_class PuTTY")
       Send, /quit Ragequit{ENTER}
 
@@ -763,7 +772,7 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
       ;TODO if the one before has a colon at the end, then just add a space instead of a newline
       if (text%A_Index% == "ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ")
          break
-      messageText.="`n   " . DebugBool( text%A_Index% )
+      messageText.="`n   " . text%A_Index%
    }
    messageText.="`n`n"
 

@@ -25,7 +25,7 @@ if ( GetOS() == "WIN_7" )
    Sleep, 100
    Send, ^s
    WinWait, Save As
-   InputBox, description, Image Description, Provide a short description of the image
+   description := Prompt("Provide a short description of the image (or something like 'images/appName/description')")
    ForceWinFocus("Save As")
    time:=CurrentTime()
    path=C:\DataExchange\InstantAhkImage
@@ -71,7 +71,7 @@ else if ( GetOS() == "WIN_XP" )
 
    Send, ^s
    WinWait, Save As
-   InputBox, description, Image Description, Provide a short description of the image
+   description := Prompt("Provide a short description of the image (or something like 'images/appName/description')")
    ForceWinFocus("Save As")
    time:=CurrentTime()
    path=C:\DataExchange\InstantAhkImage
