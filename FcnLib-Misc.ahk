@@ -24,6 +24,6 @@ GitGetIssueTitle()
    issueTitle := CmdRet_RunReturn( command )
    ;TODO validation to ensure there are no exceptions from Jira
    if InStr(message, "exception")
-      fatalErrord("", 
+      fatalErrord("", "an exception occurred when getting the title of the issue from jira")
    return issueTitle
 }

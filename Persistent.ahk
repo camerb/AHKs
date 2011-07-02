@@ -21,8 +21,6 @@ SetTitleMatchMode, 1
 ;timer:=starttimer()
 ;}}}
 
-ProcessClose("pidgin.exe")
-
 ;{{{Middle of the night unit tests, backups, and reload script
 if (A_Hour==3 AND A_Min==2)
 {

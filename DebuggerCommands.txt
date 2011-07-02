@@ -536,3 +536,7 @@ cmd 1: {C:\code\epms\script\property_importers}, 2: {perl colonial.pl C:\import_
 cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl colonial.pl C:\import_files\empl\colonial_2011-06.csv > C:\code\report.txt}
 cmd 1: {C:\code\epms\script\survey_importers}, 2: {perl lincoln_resident.pl "C:\import_files\survey\lincoln_residents_2011-06-21.csv" > c:\code\report.txt}
 EPMS
+cmd 1: {C:\code\epms\script}, 2: {perl user_auth_expression_new.pl 3022 1357 3022}
+EPMS
+EPMS workbench
+EPMS

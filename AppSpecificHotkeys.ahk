@@ -42,7 +42,7 @@ return
 ;#IfWinActive C:\Windows\system32\cmd.exe ahk_class ConsoleWindowClass
 ^c::
 WinGetActiveTitle, title
-if title contains perl
+if RegExMatch(title, "(perl|plackup)")
 {
    Send, ^c
 }
