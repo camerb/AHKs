@@ -570,6 +570,8 @@ IsMaximized(title="", text="")
 ;Closes open applications that usually are difficult for windows to shut down (preps for a restart)
 CloseDifficultApps()
 {
+   ProcessClose("hpupdate.exe")
+
    if ForceWinFocusIfExist("Irssi ahk_class PuTTY")
       Send, /quit Ragequit{ENTER}
 

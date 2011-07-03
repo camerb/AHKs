@@ -36,10 +36,3 @@ GetDataUsage(page, name)
    return match1
 }
 
-;TODO we could come up with the var name by getting rid of spaces
-;TODO this should do INI, CSV, and MorningStatus all at once
-ReportNightlyStats(value, heading, csvFile, varNameForIni)
-{
-
-}
-
