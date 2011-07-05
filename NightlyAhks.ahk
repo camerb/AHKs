@@ -8,6 +8,7 @@ debug("log grey line", "starting nightly scripts")
 ini=gitExempt/%A_ComputerName%.ini
 IniDelete(ini, "RunAhkAndBabysit.ahk")
 
+;archive the trace file nightly
 if (A_ComputerName = LeadComputer())
    DeleteTraceFile()
 
@@ -48,8 +49,8 @@ if (A_ComputerName = LeadComputer())
    RunThisNightlyAhk(7, "MintGetAccountCsvs.ahk")
    ;hypercam()
    RunThisNightlyAhk(7, "UsaaGetAccountBalances.ahk")
-   ;hypercam()
-   RunThisNightlyAhk(7, "UsaaGetAccountBalances-IE.ahk")
+   RunThisNightlyAhk(4, "UsaaGetAccountBalances-IE.ahk")
+   RunThisNightlyAhk(4, "GetMintNetWorth.ahk")
    RunThisNightlyAhk(2, "GetSlackInBudget.ahk")
    RunThisNightlyAhk(2, "ProcessMintExport.ahk")
 
@@ -77,8 +78,7 @@ if (A_ComputerName="PHOSPHORUSVM")
 ;===done with nightly tasks... lets start things back up again
 RunThisNightlyAhk(1, "StartIdleAhks.ahk")
 
-RunThisNightlyAhk(2, "MoveMouseAcrossEntireScreen.ahk")
-;RunWait, MoveMouseAcrossEntireScreen.ahk
+;RunThisNightlyAhk(2, "MoveMouseAcrossEntireScreen.ahk")
 
 if (A_ComputerName="PHOSPHORUS")
 {

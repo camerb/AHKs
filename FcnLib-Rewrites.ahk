@@ -112,6 +112,21 @@ IniRead(file, section, key, Default = "ERROR")
    Return, value
 }
 
+;ok, these two aren't actually rewrites of things that are core
+; but these functions probably should have been core
+#include thirdParty/ini.ahk
+IniListAllSections(file)
+{
+   content := FileRead(file)
+   return ini_getAllSectionNames(content)
+}
+
+IniListAllKeys(file, section="") ;defaults to all sections
+{
+   content := FileRead(file)
+   return ini_getAllKeyNames(content, section)
+}
+
 ;}}}
 
 ;{{{ Process Manipulation
@@ -138,7 +153,7 @@ ProcessCloseAll(exeName)
    while ProcessExist(exeName)
    {
       ProcessClose(exeName)
-      Sleep, 10
+      Sleep, 100
    }
 }
 
