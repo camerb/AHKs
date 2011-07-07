@@ -21,6 +21,10 @@ joe:=StringLower(joe)
 SendRaw, % joe
 ;Send, {UP 5}{DOWN}{ENTER}
 Send, {ENTER}
+ss()
+
+ForceWinFocus("Microsoft SQL Server Management Studio")
+Send, ^!3
 
 ss()
 {

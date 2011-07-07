@@ -9,36 +9,7 @@ csvfile=C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv
 time:=CurrentTime("hyphenated")
 
 RunIECOM()
-
-while NOT NetWorth
-{
-   GoToPageCOM("https://wwws.mint.com/login.event")
-   COM_Invoke(pwb, "document.all.form-login-username.value", "cameronbaustian@gmail.com")
-   COM_Invoke(pwb, "document.all.form-login-password.value", SexPanther())
-   COM_Invoke(item308:=COM_Invoke(all2:=COM_Invoke(document:=COM_Invoke(pwb,"Document"),"All"),"Item",308),"click")
-   WaitIEReady()
-
-   page:=GetPageSource("https://wwws.mint.com/overview.event")
-
-   page:=RegExReplace(page, "(`r|`n)", " ")
-   RegExMatch(page, "<li class..net-worth.><span class..balance.>..(\d{2}).(\d{3}.\d{2})</span>Net Worth</li>", match)
-   netWorth=-%match1%%match2%
-}
-
-GoToPageCOM("http://www.usaa.com")
-COM_Invoke(pwb, "document.all.j_username.value", "macnmel17")
-COM_Invoke(pwb, "document.all.j_password.value", SexPanther())
-COM_Invoke(pwb, "document.all.login.click")
-WaitIEReady()
-
-;sleepseconds(3)
-;COM_Invoke(item723:=COM_Invoke(all2:=COM_Invoke(document:=COM_Invoke(pwb,"Document"),"All"),"Item",669),"value", sexpanther("pin"))
-;COM_Invoke(item308:=COM_Invoke(all2:=COM_Invoke(document:=COM_Invoke(pwb,"Document"),"All"),"Item",667),"click")
-sleepseconds(15)
-sse(sexpanther("pin"))
-COM_Invoke(pwb, "document.all.pin.value", SexPanther("pin"))
-
-WaitIEReady()
+UsaaLoginCOM()
 
 SavingsBalance  := GetAccountInfoCOM("encrypted10bb142d9db5d1209462ee637b61c599")
 CheckingBalance := GetAccountInfoCOM("encrypted10bb142d9db5d12081af1bd8872ba833")
@@ -73,25 +44,6 @@ ReportNightlyStats("financial", "MelindaProjection",   MelindaProjection)
 
 ExitApp
 ;the end of the script
-
-WaitIEReady()
-{
-   global pwb
-   SleepSeconds(1)
-   While, COM_Invoke( pwb, "ReadyState" ) <> 4
-      Sleep, 10
-   SleepSeconds(1)
-   ;OptionalDebug("page is loaded")
-}
-
-;send, sleep, enter
-sse(text="")
-{
-Sleep, 200
-Send, %text%
-Sleep, 200
-Send, {ENTER}
-}
 
 GetAccountInfoCOM(key)
 {
@@ -132,13 +84,6 @@ GetCreditCardProjection(currentCreditBalance, endOfBillingCycle)
    return projectedCreditCardBill
 }
 
-FormatDollar(amount)
-{
-   RegExMatch(amount, "(\d|,)*\.\d\d", returned)
-   returned:=RegExReplace(returned, ",", "")
-   return returned
-}
-
 ;TODO we could come up with the var name by getting rid of spaces
 ;TODO this should do INI, CSV, and MorningStatus all at once
 ;thinking that CSV would be stupid to do at the same time
@@ -147,29 +92,4 @@ ReportNightlyStats(iniFile, varNameForIni, number)
    ini=C:\My Dropbox\AHKs\gitExempt\%iniFile%.ini
    IniWrite(ini, "", varNameForIni, number)
    MorningStatusAppend(varNameForIni, number)
-}
-
-GoToPageCOM(url)
-{
-   global pwb
-   COM_Invoke(pwb, "Navigate", url)
-   WaitIEReady()
-}
-
-GetPageSource(url)
-{
-   global pwb
-   GoToPageCOM(url)
-   returned := COM_Invoke(pwb, "document.documentElement.innerHTML")
-   return returned
-}
-
-RunIECOM()
-{
-   global pwb
-   COM_Init()
-   pwb := COM_CreateObject("InternetExplorer.Application")
-   COM_Invoke(pwb , "Visible=", "True")
-   ;COM_Invoke(pwb, "Navigate", "javascript: alert('Hello World!')")
-   ;WaitIEReady()
 }

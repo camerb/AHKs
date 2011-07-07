@@ -571,6 +571,7 @@ IsMaximized(title="", text="")
 CloseDifficultApps()
 {
    ProcessClose("hpupdate.exe")
+   ProcessClose("DesktopWeather.exe")
 
    if ForceWinFocusIfExist("Irssi ahk_class PuTTY")
       Send, /quit Ragequit{ENTER}
@@ -792,12 +793,15 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
       else
          msgbox, , %messageTitle%, %messageText%, %displayTime%
    }
+
+   return textOrOptions
 }
 
 errord(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text3="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text4="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text5="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text6="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text7="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text8="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text9="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text10="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text11="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text12="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text13="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text14="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text15="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ")
 {
    textOrOptions=LOG ERRORD %textOrOptions%
    debug(textOrOptions, text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15)
+   return textOrOptions
 }
 
 fatalErrord(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text3="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text4="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text5="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text6="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text7="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text8="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text9="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text10="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text11="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text12="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text13="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text14="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text15="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ")
@@ -811,6 +815,7 @@ delog(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
 {
    textOrOptions=SILENT LOG %textOrOptions%
    debug(textOrOptions, text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15)
+   return textOrOptions
 }
 
 SelfDestruct()
@@ -818,7 +823,7 @@ SelfDestruct()
    filename=SelfDestruct.ahk
    ;TODO TESTME filename=%A_ScriptFullPath%
    FileDelete, %filename%
-   ;TODO the self destruct macro could have a loop and check if the file exists (pointless?)
+   ;TODO the self destruct macro could have a loop and check if the file exists (pointless?) -- later thought: actually, that will go into FileAppend()
    FileAppend, Sleep 100`nFileDelete`, %A_ScriptFullPath%, %filename%
    Run, %filename%
    Exit
@@ -837,7 +842,8 @@ RunAhkAndBabysit(filename)
 
    Run, %filename%
 
-   ;TODO move this to persistent
+   ;TODO move this to persistent - but if we move this to persistent, we won't be able to return if there was an error...
+   ;  if we really wanted to return error state, maybe we could do UseErrorLevel, but i think that only applies to EXEs, not sure (prob won't catch AHK compile errors)
    WinWait, %filename%, (The program will exit|The previous version will remain in effect), 10
    sawErrorWindow := NOT ERRORLEVEL
    if sawErrorWindow
@@ -1472,6 +1478,50 @@ RegExMatchCount(Count_String, Count_Needle, Count_Type="", Count_SubPattern="")
    Return Count_n
 }
 
+;have an option to leave markers where the line endings were? ZZZnewlineZZZ
+RemoveLineEndings(page)
+{
+   return RegExReplace(page, "(`r|`n)", " ")
+}
+
+FormatDollar(amount)
+{
+   RegExMatch(amount, "(\d|,)*\.\d\d", returned)
+   returned:=RegExReplace(returned, ",", "")
+   return returned
+}
+
+MorningStatusAppend(header, item)
+{
+   text=%header%: %item%
+   FileAppendLine(text, "gitExempt\morning_status\finance.txt")
+}
+
+;TODO maybe we should save this all in an ini and have an option to prompt if the file isn't found if A_Debug (and save it in the ini automatically)
+GetPath(file)
+{
+   if (file == "NightlyStats.ini")
+      return "C:\My Dropbox\AHKs\gitExempt\NightlyStats.ini"
+   else if (file == "DailyFinancial.csv")
+      return "C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv"
+   errord("orange line", "tried to GetPath() for an unknown file", file)
+   return ""
+}
+
+CommandPromptCopy()
+{
+   ;might not want to do this if it is already active
+   ForceWinFocus("ahk_class ConsoleWindowClass")
+
+   MouseClick, right, 13, 13
+   Sleep 100
+   Send, {UP 3}{RIGHT}{DOWN 3}
+   Sleep 100
+   Send, {ENTER}
+   Sleep 100
+   Send, {ENTER}
+}
+
 ;WRITEME make function for getting remote and local path of dropbox public folder
 ;WRITEME split csv processing out of the create pie chart macro
 ;WRITEME make monthly financial charts (rather than three-month)
@@ -1499,9 +1549,9 @@ RegExMatchCount(Count_String, Count_Needle, Count_Type="", Count_SubPattern="")
 ;WRITEME use TodWulff lib for url shortening
 
 ;WRITEME improve queueing of the three types of queued ahks
-;WRITEME fix GetOS() - run cmd prompt on startup and get version and save it
 ;WRITEME fix the 3 types of queued AHKs - nightly, scheduled, and persistent-timed - figure out what the specs really are for each category and why they are different
 
+;WRITEME fix GetOS() - run cmd prompt on startup and get version and save it
 
 ;WRITEME FIXME issues where infiniteloop.ahk is run during nightly, but doesn't show as "unfinished" the next morning
 

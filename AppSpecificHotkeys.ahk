@@ -43,19 +43,9 @@ return
 ^c::
 WinGetActiveTitle, title
 if RegExMatch(title, "(perl|plackup)")
-{
    Send, ^c
-}
 else
-{
-   MouseClick, right, 13, 13
-   Sleep 100
-   Send, {UP 3}{RIGHT}{DOWN 3}
-   Sleep 100
-   Send, {ENTER}
-   Sleep 100
-   Send, {ENTER}
-}
+   CommandPromptCopy()
 return
 
 ^v::

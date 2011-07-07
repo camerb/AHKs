@@ -84,7 +84,6 @@ if (A_ComputerName="PHOSPHORUS")
 {
    ;this needs a little bit of click-around time
    RunThisNightlyAhk(2, "LaunchPidgin.ahk")
-   RunThisNightlyAhk(2, "LaunchPidgin.ahk")
 }
 
 ;make a list of all the ahks that didn't end gracefully
@@ -93,7 +92,9 @@ Loop, C:\My Dropbox\AHKs\*.ahk
    time:=IniRead(ini, "RunAhkAndBabysit.ahk", A_LoopFileName)
    if (time <> "ERROR")
    {
-      MorningStatusAppend(A_LoopFileName, time)
+      text=AHK failed to end gracefully on %A_ComputerName%: %A_LoopFileName% (Started at %time%)
+      file=gitExempt\morning_status\graceful-%A_ComputerName%.txt
+      FileAppendLine(text, file)
       IniDelete(ini, "RunAhkAndBabysit.ahk", A_LoopFileName)
    }
 }
@@ -136,13 +137,6 @@ hypercam()
       RunAhk("HyperCamRecord.ahk")
       SleepSeconds(10)
    }
-}
-
-MorningStatusAppend(ahk, time)
-{
-   text=AHK failed to end gracefully on %A_ComputerName%: %ahk% (Started at %time%)
-   file=gitExempt\morning_status\graceful-%A_ComputerName%.txt
-   FileAppendLine(text, file)
 }
 ;}}}
 

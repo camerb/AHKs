@@ -1,4 +1,5 @@
 #include FcnLib.ahk
+#include FcnLib-Misc.ahk
 
 ;make a commit in git
 
@@ -35,4 +36,8 @@ SendInput, q{ENTER}
 if NOT commitMessage
    ExitApp
 
-SendInput, git ci -m"%commitMessage%"{ENTER}
+currentBranchName := GitGetCurrentBranchName()
+issueNumber := GitGetIssueNumber(currentBranchName)
+issueTitle := RemoveLineEndings(GitGetIssueTitle(issueNumber))
+
+SendInput, git ci -m"%issueNumber% - %issueTitle% - %commitMessage%"{ENTER}

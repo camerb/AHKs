@@ -1,0 +1,2 @@
+;WRITEME method to test compile each ahk function lib individually and return if it compiles successfully (well, run it, not compile to exe)
+;WRITEME make a function so i can use gocr easily

@@ -1,8 +1,9 @@
 #include FcnLib.ahk
+#include thirdParty/Anchor.ahk
 
 /*
 Name:     Find Me
-Version:  1.5 (Thu May 12, 2011)
+Version:  1.6 (Wed July 06, 2011)
 Author:     tidbit
 Description: Find all matching text/phrases inside of files of a sepecified directory.
 
@@ -29,8 +30,10 @@ gui, +Default +Resize +minsize
 Gui, Add, Edit, x6 y10 w190 h20 vseldir, %A_desktop%
 Gui, Add, Button, xp+192 y10 w58 h20 vseldirbtn gbrowse, Browse
 
-Gui, Add, Text, x6 yp+22 w60 h20 , Extensions:
-Gui, Add, Edit, xp+62 yp w188 h20 vexts gext, txt`,ahk`,htm`,html
+Gui, Add, Radio, x6 y+2   w80  h20 vextmode +Checked cblue, Extensions:
+Gui, Add, Radio, x6 y+2   w80  h20 cred, Ignore:
+Gui, Add, Edit, x+2 yp-22 w168 h20 vexts  gext, txt`,ahk`,htm`,html
+Gui, Add, Edit, xp y+2    w168 h20 vXexts gext, bmp`,gif`,jpg`,png`,svg`,tif`,mid`,mp3`,wav`,wma`,avi`,flv`,mov`,mp4`,mpg`,swf`,vob`,wmv`,app`,exe`,msi`,pif`,vb`,wsf
 
 Gui, Add, Text, x6 yp+22 w60 h20 , Find:
 Gui, Add, Edit, xp+62 yp w108 h20 vword, Regex is Enabled. Case Insensitive
@@ -64,6 +67,7 @@ Guisize:
 	Anchor("seldirbtn", "x")
 
 	Anchor("exts", "w")
+	Anchor("Xexts", "w")
 
 	Anchor("word", "w")
 	Anchor("wordhelp", "x")
@@ -112,7 +116,7 @@ replace:
 
 		SB_SetText("Replacing in: " file, 1, 0)
 
-		TF_RegExReplaceInLines("!" file, line, line, word, replace)
+		TF_RegExReplaceInLines("!" file, line, line, "i)" word, replace)
 	}
 
 	SB_SetText("Awaiting Action.", 1, 0)
@@ -146,7 +150,7 @@ listview:
 			Return
 		run, %filetorun%
 	}
-	If (A_GuiEvent = "ColClick") 
+	If (A_GuiEvent = "ColClick")
 		LV_SortArrow(hListView, A_EventInfo)
 Return
 
@@ -157,7 +161,7 @@ search:
 
 	If (RegExMatch(seldir, "^\s*$"))
 		Return
-		
+
 
 	if (SubStr(seldir, 1, 1)=="*")
 	{
@@ -166,17 +170,34 @@ search:
 	}
 	Else
 		recurseMode:=0
-	
+
 	LV_Delete()
 	selall:=0
 	flist:=""
+	max:=0
 	Loop,%seldir%\*.*, 0, %recurseMode%
 	{
-		If A_LoopFileExt in %exts%
+	ToolTip %extmode%
+		if (extmode==1)
 		{
-			max:=A_Index
-			flist.=A_LoopFileFullPath "`n"
-			SB_SetText("Counting files: "A_Index, 1, 0)
+			If A_LoopFileExt in %exts%
+			{
+				max+=1
+				flist.=A_LoopFileFullPath "`n"
+				SB_SetText("Counting files: "A_Index, 1, 0)
+			}
+		}
+
+		If (extmode==2)
+		{
+			If A_LoopFileExt in %Xexts%
+				Continue
+			Else
+			{
+				max+=1
+				flist.=A_LoopFileFullPath "`n"
+				SB_SetText("Counting files: "A_Index, 1, 0)
+			}
 		}
 		Continue
 	}
@@ -186,16 +207,16 @@ search:
 	{
 		If (getkeystate("esc","p"))
 			Break
-					
+
 		filepath:=A_LoopField
 		SplitPath, filepath, fileName
 		SB_SetText("file: "A_Index "/" max " -- " fileName, 1, 0)
-		
+
 		FileRead, filetext, %filepath%
 		filetext:=unHTM(filetext)
 		If (!RegExMatch(filetext, "i`n)" word))
 			Continue
-		
+
 		loop, parse, filetext, `n, `r
 		{
 				If (getkeystate("esc","p"))
@@ -211,7 +232,7 @@ search:
 			LV_ModifyCol(4, "AutoHdr", "Sample: (" LV_GetCount() ")")
 		}
 	}
-		
+
 	LV_ModifyCol(1, "Auto")
 	LV_ModifyCol(4, "Auto")
 	SB_SetText("Awaiting Action.", 1, 0)
@@ -340,37 +361,37 @@ ConvertEntities(HTML)
  Return, HTML
 }
 
-; thanks Solar! http://www.autohotkey.com/forum/viewtopic.php?t=69642 
-; h = ListView handle 
-; c = 1 based index of the column 
-; d = Optional direction to set the arrow. "asc" or "up". "desc" or "down". 
-LV_SortArrow(h, c, d="") { 
-   static ptr, ptrSize, lvColumn, LVM_GETCOLUMN, LVM_SETCOLUMN 
-   if (!ptr) { 
-      ptr := A_PtrSize ? "ptr" : "uint", PtrSize := A_PtrSize ? A_PtrSize : 4 
-      ,LVM_GETCOLUMN := A_IsUnicode ? 4191 : 4121, LVM_SETCOLUMN := A_IsUnicode ? 4192 : 4122 
-      ,VarSetCapacity(lvColumn, PtrSize + 4), NumPut(1, lvColumn, 0, "uint") 
-   } 
-   c -= 1, DllCall("SendMessage", ptr, h, "uint", LVM_GETCOLUMN, "uint", c, ptr, &lvColumn) 
-   if ((fmt := NumGet(lvColumn, 4, "int")) & 1024) { 
-      if (d && d = "asc" || d = "up") 
-         Return 
-      NumPut(fmt & ~1024 | 512, lvColumn, 4, "int") 
-   } else if (fmt & 512) { 
-      if (d && d = "desc" || d = "down") 
-         Return 
-      NumPut(fmt & ~512 | 1024, lvColumn, 4, "int") 
-   } else { 
-      Loop % DllCall("SendMessage", ptr, DllCall("SendMessage", ptr, h, "uint", 4127), "uint", 4608) { 
-         if ((i := A_Index - 1) = c) 
-            Continue 
-         DllCall("SendMessage", ptr, h, "uint", LVM_GETCOLUMN, "uint", i, ptr, &lvColumn) 
-         ,NumPut(NumGet(lvColumn, 4, "int") & ~1536, lvColumn, 4, "int") 
-         ,DllCall("SendMessage", ptr, h, "uint", LVM_SETCOLUMN, "uint", i, ptr, &lvColumn) 
-      } 
-      NumPut(fmt | ((d && d = "desc" || d = "down") ? 512 : 1024), lvColumn, 4, "int") 
-   } 
-   return DllCall("SendMessage", ptr, h, "uint", LVM_SETCOLUMN, "uint", c, ptr, &lvColumn) 
+; thanks Solar! http://www.autohotkey.com/forum/viewtopic.php?t=69642
+; h = ListView handle
+; c = 1 based index of the column
+; d = Optional direction to set the arrow. "asc" or "up". "desc" or "down".
+LV_SortArrow(h, c, d="") {
+   static ptr, ptrSize, lvColumn, LVM_GETCOLUMN, LVM_SETCOLUMN
+   if (!ptr) {
+      ptr := A_PtrSize ? "ptr" : "uint", PtrSize := A_PtrSize ? A_PtrSize : 4
+      ,LVM_GETCOLUMN := A_IsUnicode ? 4191 : 4121, LVM_SETCOLUMN := A_IsUnicode ? 4192 : 4122
+      ,VarSetCapacity(lvColumn, PtrSize + 4), NumPut(1, lvColumn, 0, "uint")
+   }
+   c -= 1, DllCall("SendMessage", ptr, h, "uint", LVM_GETCOLUMN, "uint", c, ptr, &lvColumn)
+   if ((fmt := NumGet(lvColumn, 4, "int")) & 1024) {
+      if (d && d = "asc" || d = "up")
+         Return
+      NumPut(fmt & ~1024 | 512, lvColumn, 4, "int")
+   } else if (fmt & 512) {
+      if (d && d = "desc" || d = "down")
+         Return
+      NumPut(fmt & ~512 | 1024, lvColumn, 4, "int")
+   } else {
+      Loop % DllCall("SendMessage", ptr, DllCall("SendMessage", ptr, h, "uint", 4127), "uint", 4608) {
+         if ((i := A_Index - 1) = c)
+            Continue
+         DllCall("SendMessage", ptr, h, "uint", LVM_GETCOLUMN, "uint", i, ptr, &lvColumn)
+         ,NumPut(NumGet(lvColumn, 4, "int") & ~1536, lvColumn, 4, "int")
+         ,DllCall("SendMessage", ptr, h, "uint", LVM_SETCOLUMN, "uint", i, ptr, &lvColumn)
+      }
+      NumPut(fmt | ((d && d = "desc" || d = "down") ? 512 : 1024), lvColumn, 4, "int")
+   }
+   return DllCall("SendMessage", ptr, h, "uint", LVM_SETCOLUMN, "uint", c, ptr, &lvColumn)
 }
 
 
@@ -402,23 +423,23 @@ TF_RegExReplaceInLines(Text, StartLine = 1, EndLine = 0, NeedleRegEx = "", Repla
 		}
 	 Return TF_ReturnOutPut(OW, OutPut, FileName)
 	}
-	
-	
+
+
 TF_Count(String, Char)
 	{
 	StringReplace, String, String, %Char%,, UseErrorLevel
 	Return ErrorLevel
 	}
-	
+
 
 TF_GetData(byref OW, byref Text, byref FileName) ; HugoV, helper function to determine if VAR/TEXT or FILE is passed to TF
 	{
 	OW=0 ; default setting: asume it is a file and create file_copy
-    If (SubStr(Text,1,1)="!") ; first we check for "overwrite" 
+    If (SubStr(Text,1,1)="!") ; first we check for "overwrite"
 		{
 		 Text:=SubStr(Text,2)
 		 OW=1 ; overwrite file (if it is a file)
-		} 
+		}
     IfNotExist, %Text% ; now we can check if the file exists, it doesn't so it is a var
 		 {
 		  If (OW=1) ; the variable started with a ! so we need to put it back because it is variable/text not a file
@@ -435,7 +456,7 @@ TF_GetData(byref OW, byref Text, byref FileName) ; HugoV, helper function to det
 	Return
 	}
 
-	
+
 	TF_ReturnOutPut(OW, Text, FileName, TrimTrailing = 1, CreateNewFile = 0) { ; HugoV
 	If (OW = 0) ; input was file, file_copy will be created, if it already exist file_copy will be overwritten
 		{
@@ -443,10 +464,10 @@ TF_GetData(byref OW, byref Text, byref FileName) ; HugoV, helper function to det
 		 	{
 		 	 If (CreateNewFile = 1) ; CreateNewFile used for TF_SplitFileBy* and others
 				{
-				 OW = 1 
+				 OW = 1
 		 		 Goto CreateNewFile
 				}
-			 Else 
+			 Else
 				Return
 			}
 		 If (TrimTrailing = 1)
@@ -460,8 +481,8 @@ TF_GetData(byref OW, byref Text, byref FileName) ; HugoV, helper function to det
 		 FileAppend, %Text%, % Dir "\" Name "_copy." Ext
 		 Return Errorlevel ? False : True
 		}
-	 CreateNewFile:	
-	 If (OW = 1) ; input was file, will be overwritten by output 
+	 CreateNewFile:
+	 If (OW = 1) ; input was file, will be overwritten by output
 		{
 		 IfNotExist, % FileName ; check if file Exist, if not return otherwise it would create an empty file. Thanks for the idea Murp|e
 		 	{
@@ -479,15 +500,15 @@ TF_GetData(byref OW, byref Text, byref FileName) ; HugoV, helper function to det
 		 FileAppend, %Text%, % Dir "\" Name "." Ext
 		 Return Errorlevel ? False : True
 		}
-	If (OW = 2) ; input was var, return variable 
+	If (OW = 2) ; input was var, return variable
 		{
 		 If (TrimTrailing = 1)
 			StringTrimRight, Text, Text, 1 ; remove trailing `n
 		 Return Text
 		}
 	}
-	
-	
+
+
 _MakeMatchList(Text, Start = 1, End = 0)
 	{
 	ErrorList=
@@ -498,36 +519,36 @@ _MakeMatchList(Text, Start = 1, End = 0)
 	 )
 	 StringSplit, ErrorMessage, ErrorList, |
 	 Error = 0
-	 
+
  	 TF_MatchList= ; just to be sure
 	 If (Start = 0 or Start = "")
 		Start = 1
-		
+
 	 ; some basic error checking
-	 
+
 	 ; error: only digits - and + allowed
 	 If (RegExReplace(Start, "[ 0-9+\-\,]", "") <> "")
 		 Error = 1
-		 
+
 	 If (RegExReplace(End, "[0-9 ]", "") <> "")
 		 Error = 2
 
 	 ; error: only one + allowed
 	 If (TF_Count(Start,"+") > 1)
 		 Error = 3
-	 	
+
 	 If (Error > 0 )
 		{
 		 MsgBox, 48, TF Lib Error, % ErrorMessage%Error%
 		 ExitApp
 		}
-		
+
  	 ; Option #1
-	 ; StartLine has + character indicating startline + incremental processing. 
+	 ; StartLine has + character indicating startline + incremental processing.
 	 ; EndLine will be used
 	 ; Make TF_MatchList
- 
-	 IfInString, Start, `+ 
+
+	 IfInString, Start, `+
 		{
 		 If (End = 0 or End = "") ; determine number of lines
 			End:= TF_Count(Text, "`n") + 1
@@ -540,7 +561,7 @@ _MakeMatchList(Text, Start = 1, End = 0)
 	         	 TF_MatchList .= SectionLines1 ","
 			 Loop, %LoopSection%
 				{
-				 If (A_Index >= End) ; 
+				 If (A_Index >= End) ;
 					Break
 				 If (Counter = (SectionLines2-1)) ; counter is smaller than the incremental value so skip
 					{
@@ -551,12 +572,12 @@ _MakeMatchList(Text, Start = 1, End = 0)
 					Counter++
 				}
 			}
-		 StringTrimRight, TF_MatchList, TF_MatchList, 1 ; remove trailing , 
+		 StringTrimRight, TF_MatchList, TF_MatchList, 1 ; remove trailing ,
 		 Return TF_MatchList
 		}
 
 	 ; Option #2
-	 ; StartLine has - character indicating from-to, COULD be multiple sections. 
+	 ; StartLine has - character indicating from-to, COULD be multiple sections.
 	 ; EndLine will be ignored
 	 ; Make TF_MatchList
 
@@ -577,7 +598,7 @@ _MakeMatchList(Text, Start = 1, End = 0)
 		}
 
 	 ; Option #3
-	 ; StartLine has comma indicating multiple lines. 
+	 ; StartLine has comma indicating multiple lines.
 	 ; EndLine will be ignored
 	 IfInString, Start, `,
 		{
@@ -586,14 +607,14 @@ _MakeMatchList(Text, Start = 1, End = 0)
 		}
 
 	 ; Option #4
-	 ; parameters passed on as StartLine, EndLine. 
+	 ; parameters passed on as StartLine, EndLine.
 	 ; Make TF_MatchList from StartLine to EndLine
 
 	 If (End = 0 or End = "") ; determine number of lines
 			End:= TF_Count(Text, "`n") + 1
 	 LoopTimes:=End-Start
 	 Loop, %LoopTimes%
-		{	
+		{
 		 TF_MatchList .= (Start - 1 + A_Index) ","
 		}
 	 TF_MatchList .= End ","
@@ -613,7 +634,3 @@ _MakeMatchList(Text, Start = 1, End = 0)
 GuiClose:
 ExitApp
 #IfWinActive
-
-
-
- ~esc::ExitApp
