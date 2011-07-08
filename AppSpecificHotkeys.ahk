@@ -247,9 +247,10 @@ return
 #IfWinActive ahk_class Vim
 
 ;remap undo
-^z::
-Send, {ESC 6}u
-return
+^z:: Send, {ESC 6}u
+
+;stop me from changing the color scheme accidentally
+F8::return
 
 #IfWinActive ;end Vim
 ;}}}

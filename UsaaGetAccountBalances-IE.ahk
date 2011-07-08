@@ -32,15 +32,13 @@ FileAppendLine(csvline, csvfile)
 ;prep morning status file
 FileDelete("gitExempt\morning_status\finance.txt")
 
-ReportNightlyStats("financial", "FinancesDateUpdated", time)
-ReportNightlyStats("financial", "NetWorth",            NetWorth)
-ReportNightlyStats("financial", "SavingsBalance",      SavingsBalance)
-ReportNightlyStats("financial", "CheckingBalance",     CheckingBalance)
-ReportNightlyStats("financial", "CameronBalance",      CameronBalance)
-ReportNightlyStats("financial", "MelindaBalance",      MelindaBalance)
-ReportNightlyStats("financial", "OverallBalance",      OverallBalance)
-ReportNightlyStats("financial", "CameronProjection",   CameronProjection)
-ReportNightlyStats("financial", "MelindaProjection",   MelindaProjection)
+NightlyStats("SavingsBalance",    SavingsBalance)
+NightlyStats("CheckingBalance",   CheckingBalance)
+NightlyStats("CameronBalance",    CameronBalance)
+NightlyStats("MelindaBalance",    MelindaBalance)
+NightlyStats("OverallBalance",    OverallBalance)
+NightlyStats("CameronProjection", CameronProjection)
+NightlyStats("MelindaProjection", MelindaProjection)
 
 ExitApp
 ;the end of the script
@@ -82,14 +80,4 @@ GetCreditCardProjection(currentCreditBalance, endOfBillingCycle)
       projectedCreditCardBill := currentCreditBalance
 
    return projectedCreditCardBill
-}
-
-;TODO we could come up with the var name by getting rid of spaces
-;TODO this should do INI, CSV, and MorningStatus all at once
-;thinking that CSV would be stupid to do at the same time
-ReportNightlyStats(iniFile, varNameForIni, number)
-{
-   ini=C:\My Dropbox\AHKs\gitExempt\%iniFile%.ini
-   IniWrite(ini, "", varNameForIni, number)
-   MorningStatusAppend(varNameForIni, number)
 }

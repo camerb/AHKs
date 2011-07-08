@@ -26,7 +26,7 @@ WinClose
 SleepSeconds(2)
 ProcessCloseAll("opera.exe")
 
-NightlyReportStats("NetWorth", NetWorth)
+NightlyStats("NetWorth", NetWorth)
 
 ExitApp
 ;the end of the script

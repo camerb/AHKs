@@ -31,17 +31,3 @@ GitGetIssueTitle(issueNumber)
    }
    return returned
 }
-
-;write all this info out to the ini, csv and morning status email
-NightlyReportStats(title, data)
-{
-   if ((NOT title) OR (NOT data))
-      return
-
-   ini=GetPath("NightlyStats.ini")
-   date:=CurrentTime("hyphendate")
-   ;csvfile=C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv
-
-   IniWrite(ini, date, title, data)
-   MorningStatusAppend(title, data)
-}

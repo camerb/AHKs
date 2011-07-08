@@ -1504,6 +1504,8 @@ GetPath(file)
       return "C:\My Dropbox\AHKs\gitExempt\NightlyStats.ini"
    else if (file == "DailyFinancial.csv")
       return "C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv"
+   else if (file == "trace" OR file == "trace.txt")
+      return "C:\My Dropbox\Public\logs\trace.txt"
    errord("orange line", "tried to GetPath() for an unknown file", file)
    return ""
 }
@@ -1520,6 +1522,30 @@ CommandPromptCopy()
    Send, {ENTER}
    Sleep 100
    Send, {ENTER}
+}
+
+;maybe this should be moved to a nightly lib?
+;write all this info out to the ini, csv and morning status email
+;;;TODO we could come up with the var name by getting rid of spaces
+;;;TODO this should do INI, CSV, and MorningStatus all at once
+;;;thinking that CSV would be stupid to do at the same time
+NightlyStats(title, data)
+{
+   ;debug()
+   if ((NOT title) OR (NOT data))
+      return
+
+   ;debug("before getting vars")
+   ini:=GetPath("NightlyStats.ini")
+   date:=CurrentTime("hyphendate")
+   ;csvfile=C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv
+
+   ;debug("before ini write", ini)
+   IniWrite(ini, date, title, data)
+   MorningStatusAppend(title, data)
+   ;if fileexist(ini)
+      ;debug("the file exists")
+   ;debug("end")
 }
 
 ;WRITEME make function for getting remote and local path of dropbox public folder
@@ -1558,4 +1584,8 @@ CommandPromptCopy()
 
 ;WRITEME fileappendlinecsv
 ;WRITEME formatdollar()
+
+
+;WRITEME method to test compile each ahk function lib individually and return if it compiles successfully (well, run it, not compile to exe)
+;WRITEME make a function so i can use gocr easily
 

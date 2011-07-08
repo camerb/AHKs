@@ -75,8 +75,11 @@ IniWrite(file, section, key, value)
 
    IniWrite, %value%, %file%, %section%, %key%
    ;TODO test if the file is there
-   ;if NOT FileExist(file)
-   ;   return "error"
+   if NOT FileExist(file)
+   {
+      errord("wrote to ini file, but it doesn't exist", file)
+      return "error"
+   }
 }
 
 IniDelete(file, section, key="")
