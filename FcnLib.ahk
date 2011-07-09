@@ -1502,8 +1502,10 @@ GetPath(file)
 {
    if (file == "NightlyStats.ini")
       return "C:\My Dropbox\AHKs\gitExempt\NightlyStats.ini"
-   else if (file == "DailyFinancial.csv")
+   else if (file == "DailyFinancial.csv") ;deprecated
       return "C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv"
+   else if (file == "FinancialPast.csv")
+      return "C:\My Dropbox\AHKs\gitExempt\FinancialPast.csv"
    else if (file == "trace" OR file == "trace.txt")
       return "C:\My Dropbox\Public\logs\trace.txt"
    errord("orange line", "tried to GetPath() for an unknown file", file)
@@ -1531,21 +1533,14 @@ CommandPromptCopy()
 ;;;thinking that CSV would be stupid to do at the same time
 NightlyStats(title, data)
 {
-   ;debug()
-   if ((NOT title) OR (NOT data))
+   if (title == "" OR data == "")
       return
 
-   ;debug("before getting vars")
    ini:=GetPath("NightlyStats.ini")
    date:=CurrentTime("hyphendate")
-   ;csvfile=C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv
 
-   ;debug("before ini write", ini)
    IniWrite(ini, date, title, data)
    MorningStatusAppend(title, data)
-   ;if fileexist(ini)
-      ;debug("the file exists")
-   ;debug("end")
 }
 
 ;WRITEME make function for getting remote and local path of dropbox public folder
@@ -1588,4 +1583,7 @@ NightlyStats(title, data)
 
 ;WRITEME method to test compile each ahk function lib individually and return if it compiles successfully (well, run it, not compile to exe)
 ;WRITEME make a function so i can use gocr easily
+
+
+;WRITEME experiment with a log file using ini (or a trace file)
 

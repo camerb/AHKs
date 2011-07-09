@@ -2,11 +2,13 @@
 #include thirdParty/COM.ahk
 #include C:\My Dropbox\AHKs\gitExempt\usaalogin.ahk
 
+SetBatchLines, 300ms
+
 ;Awesome use of COM to log in to usaa
 
 ini=C:\My Dropbox\AHKs\gitExempt\financial.ini
 csvfile=C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv
-time:=CurrentTime("hyphenated")
+;time:=CurrentTime("hyphenated")
 
 RunIECOM()
 UsaaLoginCOM()
@@ -20,7 +22,7 @@ COM_Invoke(pwb, "Quit")
 COM_Term()
 
 overallBalance := SavingsBalance + CheckingBalance - CameronBalance - MelindaBalance
-overallBalance := StringTrimRight(overallBalance, 4)
+overallBalance := FormatDollar(overallBalance)
 
 CameronProjection:=GetCreditCardProjection(CameronBalance, 22)
 MelindaProjection:=GetCreditCardProjection(MelindaBalance, 12)
@@ -39,6 +41,7 @@ NightlyStats("MelindaBalance",    MelindaBalance)
 NightlyStats("OverallBalance",    OverallBalance)
 NightlyStats("CameronProjection", CameronProjection)
 NightlyStats("MelindaProjection", MelindaProjection)
+NightlyStats("SuccessfulRun", CurrentTime("hyphenated"))
 
 ExitApp
 ;the end of the script

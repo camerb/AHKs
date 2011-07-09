@@ -34,8 +34,8 @@ while ((NOT CameronDataUsage) OR (NOT NoraDataUsage))
    ProcessCloseAll("opera.exe")
 }
 
-;ReportNightlyStats(NoraDataUsage, heading, csvFile, varNameForIni)
-;ReportNightlyStats(CameronDataUsage, heading, csvFile, varNameForIni)
+NightlyStats("NoraDataUsage", NoraDataUsage)
+NightlyStats("CameronDataUsage", CameronDataUsage)
 csvline:=ConcatWithSep(",", time, CameronDataUsage, NoraDataUsage)
 FileAppendLine(csvline, csvfile)
 

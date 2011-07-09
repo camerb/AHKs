@@ -285,6 +285,10 @@ WinClose, VMware Player, The virtual machine is busy
 WinClose, VMware Player, internal error
 WinClose, Google Chrome, The program can't start because nspr4.dll is missing from your computer
 
+IfWinExist, TGitCache, error
+   if ForceWinFocusIfExist("TGitCache")
+      Send, !x
+
 IfWinExist, Find and Run Robot ahk_class TMessageForm, OK
 {
    WinActivate
