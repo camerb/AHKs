@@ -1587,3 +1587,8 @@ NightlyStats(title, data)
 
 ;WRITEME experiment with a log file using ini (or a trace file)
 
+
+;WRITEME make FinancialProjection.csv work with new NightlyStats.ini
+;WRITEME process old DailyFinancial.csv data into NightlyStats.ini
+;WRITEME generate Financial.csv from NightlyStats.ini (nightly script)
+
