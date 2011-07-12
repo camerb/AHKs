@@ -41,14 +41,27 @@ AppsKey & 6::  Run, temporary6.ahk
 AppsKey & 7::  Run, temporary7.ahk
 AppsKey & 8::  Run, temporary8.ahk
 AppsKey & 9::  Run, temporary9.ahk
-AppsKey & 0::  debug("use the - key instead")
 AppsKey & -::  Run, ResaveTemporary.ahk
 AppsKey & =::  Run, NewTempAhk.ahk
+
+AppsKey & 0::
+GetKeyState, controlState, Control
+if (controlState == "D")
+{
+   ActiveFile := Prompt("Which file would you like to work on?")
+   ActiveFile := EnsureEndsWith(ActiveFile, ".ahk")
+   command=Run, %ActiveFile%
+   FileDelete("temporary0.ahk")
+   FileAppend(command, "temporary0.ahk")
+}
+else
+   Run, temporary0.ahk
+return
 /*
 AppsKey & 0::  Run, temporary.ahk
 ;or, this could be a way to run an ironahk script
 ;or, we could add another modifier so that IronAHK is launched using a separate modifier
-;or, we could save the file that we are currently working on and use Apps0 as a launcher for that ahk
+;or, we could save the file that we are currently working on and use Apps0 as a launcher for that ahk - currently the path I'm using
 */
 
 ;Egg Timer
@@ -121,7 +134,7 @@ AppsKey & PrintScreen:: SaveScreenShot("KeyPress")
 
 ;Insert Date / Time Hotstrings
 :*:]0d:: ; With leading zeros and no slashes
-FormatTime CurrentDateTime,, MMddyyyy
+ FormatTime CurrentDateTime,, MMddyyyy
 SendInput %CurrentDateTime%
 return
 

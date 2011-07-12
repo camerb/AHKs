@@ -2,8 +2,7 @@
 #include FcnLib-Rewrites.ahk
 
 ini:=GetPath("NightlyStats.ini")
-;csv:=GetPath("FinancialPast.csv")
-csv:=GetPath("trace")
+csv:=GetPath("FinancialPast.csv")
 date:=CurrentTime("hyphendate")
 CreateCSV(ini, csv, "SavingsBalance,CheckingBalance,CameronBalance,MelindaBalance,OverallBalance")
 

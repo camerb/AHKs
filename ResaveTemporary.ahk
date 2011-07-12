@@ -24,8 +24,10 @@ if (mode="archive" || mode="a")
    }
 
    destnumber:=CurrentTime("hyphenated")
-   source=%beg%%sourcenumber%%end%
-   dest=%A_WorkingDir%\archive\temporaryAHKs\%destnumber%-%descr%%end%
+   source=%beg%%sourcenumber%
+   dest=%A_WorkingDir%\archive\temporaryAHKs\%destnumber%-%descr%
+   source := EnsureEndsWith(source, ".ahk")
+   dest := EnsureEndsWith(dest, ".ahk")
 }
 else if (mode="remap" || mode="r")
 {
@@ -43,8 +45,10 @@ else if (mode="remap" || mode="r")
       return
    }
 
-   source=%beg%%sourcenumber%%end%
-   dest=%beg%%destnumber%%end%
+   source=%beg%%sourcenumber%
+   dest=%beg%%destnumber%
+   source := EnsureEndsWith(source, ".ahk")
+   dest := EnsureEndsWith(dest, ".ahk")
 }
 else if (mode="permanent" || mode="p")
 {
@@ -56,8 +60,10 @@ else if (mode="permanent" || mode="p")
    InputBox, destnumber, Destination File, What should the new file be named?
    ;FIXME if ErrorLevel return ;if user hit cancel
 
-   source=%beg%%sourcenumber%%end%
-   dest=%destnumber%%end%
+   source=%beg%%sourcenumber%
+   dest=%destnumber%
+   source := EnsureEndsWith(source, ".ahk")
+   dest := EnsureEndsWith(dest, ".ahk")
 }
 
 FileCopy, %source%, %dest%, true

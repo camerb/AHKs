@@ -309,6 +309,15 @@ return
 #IfWinActive
 ;}}}
 
+;{{{ Windows Live Movie Maker
+#IfWinActive Windows Live Movie Maker
+NUMPADDIV::
+Click(452, 44, "left")
+Click(452, 76, "left")
+return
+#IfWinActive
+;}}}
+
 ;{{{EPMS stuff for Melinda
 #IfWinActive EPMS Shop
 ;#IfWinActive Mozilla Firefox
