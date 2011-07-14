@@ -35,7 +35,7 @@ FoobarPID := ERRORLEVEL
 Process, Exist, opera.exe
 OperaPID := ERRORLEVEL
 
-PowerIsStreamingInWMP:=WinExist("Windows Media Player")
+;PowerIsStreamingInWMP:=WinExist("Windows Media Player") ;FIXME this seems buggy
 if (titletext=="106.1 KISS FM - Opera" or titletext=="Mix 102.9 Stream - Opera"
       or titletext=="89.7 Power FM - Powered by ChristianNetcast.com - Opera"
       or titletext=="http://www.christiannetcast.com/listen/dynamicasx.asp?station=kvtt-fm2 - Opera"
@@ -47,10 +47,6 @@ if (titletext=="106.1 KISS FM - Opera" or titletext=="Mix 102.9 Stream - Opera"
    SendInput, !dhttp://www.google.com/{enter}
    Sleep, 100
 }
-else if (PowerIsStreamingInWMP)
-{
-   WinClose, Windows Media Player
-}
 else if (FoobarPID)
 {
    SetTitleMatchMode, 2
@@ -58,14 +54,22 @@ else if (FoobarPID)
    WinRestore, foobar2000
    if ForceWinFocusIfExist("^foobar2000", "RegEx")
    {
+      Sleep, 100
       ;this will play
       Send, {ALT}pl
    }
    if ForceWinFocusIfExist("^.+foobar2000", "RegEx")
    {
+      Sleep, 100
       ;this will stop it
       Send, {ALT}ps
    }
+}
+else if (PowerIsStreamingInWMP)
+{
+   ;WinClose, Windows Media Player
+
+   ProcessCloseAll("wmplayer.exe")
 }
 else
 {
@@ -150,3 +154,4 @@ else
 Send, ^!5
 ;WinMinimize
 ;WinHide
+SleepSeconds(120)

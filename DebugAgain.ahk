@@ -149,6 +149,7 @@ if refreshServerMode
    }
    else if plackServer
    {
+      ProcessCloseAll("perl.exe")
       ProcessClose("perl.exe") ;TODO close all?
       ProcessClose("perl.exe") ;TODO close all?
       ProcessClose("perl.exe") ;TODO close all?
@@ -167,6 +168,8 @@ if refreshServerMode
    {
       ForceWinFocusCmd()
       SendInput, ^c
+      SendInput, ^c
+      SendInput, Y{ENTER}
 
       dd:=WaitForImageSearch("images\cmd\Prompt(dir).bmp")
       ;dd:=WaitForImageSearch("images\cmd\Prompt(dir)lc.bmp")

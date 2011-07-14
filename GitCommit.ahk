@@ -40,4 +40,7 @@ currentBranchName := GitGetCurrentBranchName()
 issueNumber := GitGetIssueNumber(currentBranchName)
 issueTitle := RemoveLineEndings(GitGetIssueTitle(issueNumber))
 
-SendInput, git ci -m"%issueNumber% - %issueTitle% - %commitMessage%"{ENTER}
+fullCommitMessage=%issueNumber% - %issueTitle% - %commitMessage%
+fullCommitMessage := StringReplace(fullCommitMessage, """", "'")
+
+SendInput, git ci -m"%fullCommitMessage%"{ENTER}

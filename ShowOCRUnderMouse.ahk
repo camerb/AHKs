@@ -3,28 +3,28 @@
 
 SetBatchlines, -1
 
-#Include GDIplusWrapper.ahk
+#Include thirdParty/GDIplusWrapper.ahk
 
-Msgbox, 52, OCR Info,
-(
-  This script will show the current text under mouse
+;Msgbox, 52, OCR Info,
+;(
+  ;This script will show the current text under mouse
 
-  It uses:
-  - GDIplusWrapper.ahk (by PhiLho)
-  `t Converts screen portion to jpg
-  - djpeg.exe
-  `t Converts jpg to pnm
-  - gocr.exe
-  `t OCRs the pnm file
-  - cmdret.dll/cmdstub.exe
-  `t Gets the result from gocr.exe
-  `t (since gocr.exe is a 16-bit program, cmdret.dll needs the cmdstub.exe)
+  ;It uses:
+  ;- GDIplusWrapper.ahk (by PhiLho)
+  ;`t Converts screen portion to jpg
+  ;- djpeg.exe
+  ;`t Converts jpg to pnm
+  ;- gocr.exe
+  ;`t OCRs the pnm file
+  ;- cmdret.dll/cmdstub.exe
+  ;`t Gets the result from gocr.exe
+  ;`t (since gocr.exe is a 16-bit program, cmdret.dll needs the cmdstub.exe)
 
-  When the script is running, you can press the Escape key anytime to exit
+  ;When the script is running, you can press the Escape key anytime to exit
 
-  Do you want to run the script?
-)
-IfMsgBox, No, Goto, ExitMe
+  ;Do you want to run the script?
+;)
+;IfMsgBox, No, Goto, ExitMe
 
 fileNameDestJ = ResultImage.jpg
 CoordMode, Mouse, Screen

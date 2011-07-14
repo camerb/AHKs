@@ -543,3 +543,13 @@ EPMS
 cmd 1: {C:\code\epms\script\property_importers}, 2: {perl riverstone.pl C:\import_files\prop\riverstone_2011-07.txt > C:\code\report.txt}
 EPMS
 cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl riverstone.pl > C:\code\report.txt}
+EPMS
+EPMS
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl bozzuto.pl > C:\code\report.txt}
+EPMS
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl bozzuto.pl > C:\code\report.txt}
+EPMS
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl bozzuto.pl > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl bozzuto.pl > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl bozzuto.pl > C:\code\report.txt}
+EPMS
