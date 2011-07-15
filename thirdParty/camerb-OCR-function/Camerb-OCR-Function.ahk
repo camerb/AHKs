@@ -1,146 +1,108 @@
-#Persistent
+/**
+ * OCR library by camerb
+ *
+ * This OCR lib provides an easy way to check a part of the screen for machine-readable text. You should note that OCR isn't a perfect technology, and will frequently make mistakes, but it can give you a general idea of what text is in a given area. For example, a common mistake that this OCR function makes is that it frequently interprets slashes, lowercase L, lowercase I, and the number 1 interchangably. Results can also vary greatly based upon where the outer bounds of the area to scan are placed.
+
+ Future plans include a function that will check if a given string is displayed within the given coordinates on the screen.
+
+With inspiration from: http://www.autohotkey.com/forum/viewtopic.php?p=93526#93526
+ *
+ *
+*/
+
 #SingleInstance force
-;http://www.autohotkey.com/forum/viewtopic.php?p=93526#93526
 
 SetBatchlines, -1
 
 #Include GDIplusWrapper.ahk
 #Include FcnLib.ahk
-#Include thirdParty/CMDret.ahk
+#Include CMDret.ahk
 
-;Msgbox, 52, OCR Info,
-;(
-  ;This script will show the current text under mouse
-
-  ;It uses:
-  ;- GDIplusWrapper.ahk (by PhiLho)
-  ;`t Converts screen portion to jpg
-  ;- djpeg.exe
-  ;`t Converts jpg to pnm
-  ;- gocr.exe
-  ;`t OCRs the pnm file
-  ;- cmdret.dll/cmdstub.exe
-  ;`t Gets the result from gocr.exe
-  ;`t (since gocr.exe is a 16-bit program, cmdret.dll needs the cmdstub.exe)
-
-  ;When the script is running, you can press the Escape key anytime to exit
-
-  ;Do you want to run the script?
-;)
-;IfMsgBox, No, Goto, ExitMe
-
-fileNameDestJ = ResultImage.jpg
 CoordMode, Mouse, Screen
-InfoWinTitle = OCR Info
-CustomColor = 000000
 
-;Gui, +AlwaysOnTop +LastFound +ToolWindow
-;Gui, Color, %CustomColor%
-;Gui, -Caption
-;Gui, Add, Edit, x2 y24 w100 h20 vRes,
-;Gui, Show, w104 h46, %InfoWinTitle%
-WinSet, Region, 0-0 104-0 104-46 0-46 0-0 2-2 102-2 102-22 2-22 2-2, %InfoWinTitle%
-
-SetTimer, GetTextUnderMouse, 100
-
-Return
-
-GetTextUnderMouse:
-  SetTimer, GetTextUnderMouse, Off
-  GetOcr()
-  SetTimer, GetTextUnderMouse, On
-Return
-
-GetOcr()
+Loop
 {
-  global #GDIplus_mimeType_JPG
-  global #EncoderQuality
+   MouseGetPos, mouseX, mouseY
+   widthToScan=100
+   heightToScan=20
+   topLeftX := mouseX - (widthToScan / 2)
+   topLeftY := mouseY - (heightToScan / 2)
+   ;if (topLeftX < 0)
+      ;topLeftX=0
+   ;if (topLeftY < 0)
+      ;topLeftY=0
 
-  ;AddToTrace("`n")
-fileNameDestJ = ResultImage.jpg
-InfoWinTitle = OCR Info
-CustomColor = 000000
-  MouseGetPos, thisX, thisY
-
-  If (GDIplus_Start() != 0)
-  	Goto GDIplusError
-
-  If (GDIplus_CaptureScreenRectangle(bitmap, thisX-50, thisY-10, 100, 20) != 0)
-  	Goto GDIplusError
-
-#GDIplus_mimeType_JPG = image/jpeg
-  If (GDIplus_GetEncoderCLSID(jpgEncoder, #GDIplus_mimeType_JPG) != 0)
-  	Goto GDIplusError
-;addtotrace("green line")
-
-  GDIplus_InitEncoderParameters(jpegEncoderParams, 1)
-  jpegQuality = 100
-
-  If (GDIplus_AddEncoderParameter(jpegEncoderParams, #EncoderQuality, jpegQuality) != 0)
-  	Goto GDIplusError
-
-  If (GDIplus_SaveImage(bitmap, fileNameDestJ, jpgEncoder, jpegEncoderParams) != 0)
-  	Goto GDIplusError
-  ; Wait for jpg
-  Loop,
-  {
-    IfExist, %fileNameDestJ%
-      Break
-  }
-
-  CMDs =
-  (LTrim Join
-    djpeg.exe -pnm -grayscale %fileNameDestJ% in.pnm
-    ,cmdstub.exe gocr.exe -i in.pnm
-  )
-
-  Loop, parse, CMDs, `,
-  {
-  	CMD = %A_LoopField%
-  	NULL =
-  	CMDin = ""
-  	CMDout =
-  	CMDerr =
-  	Ret := RunWaitEx(CMD, NULL, CMDin, CMDout, CMDerr)
-;addtotrace("orange line", CMDout, CMDerr)
-  }
-  ;debug(CMDs)
-
-  joe:=CmdRet_RunReturn("gocr.exe -i in.pnm")
-  addtotrace(joe)
-
-  ;AddToTrace(result, "blue line")
-  StringReplace, result, cmdout, `r`n, , A
-
-;addtotrace("orange line", fileexist("in.pnm"), fileexist(filenamedestj))
-
-  ; Cleanup
-  FileDelete, in.pnm
-  FileDelete, %fileNameDestJ%
-  return %result%
+   joe := GetOcr(topLeftX, topLeftY, widthToScan, heightToScan)
+   addtotrace(joe)
+   ;addtotrace("blue line")
 }
+ExitApp ;end of script (obviously this never really exits)
 
-RunWaitEx(CMD, CMDdir, CMDin, ByRef CMDout, ByRef CMDerr)
+Esc:: ExitApp
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+GetOcr(topLeftX, topLeftY, widthToScan, heightToScan, isDebugMode=false)
 {
-  VarSetCapacity(CMDOut, 100000)
-  VarSetCapacity(CMDerr, 100000)
-  RetVal := DllCall("cmdret.dll\RunWEx", "str", CMD, "str", CMDdir, "str", CMDin, "str", CMDout, "str", CMDerr)
-  Return, %RetVal%
+   ;stupid globals that we have to get from the GDIp wrapper class
+   ;(why aren't these in a "get" function?)
+   global #GDIplus_mimeType_JPG
+   global #EncoderQuality
+   ;addtotrace("hi start")
+
+   fileNameDestJ = ResultImage.jpg
+   jpegQuality = 100
+
+   ;create the jpg file
+   If ( (GDIplus_Start() != 0)
+         OR (GDIplus_CaptureScreenRectangle(bitmap, topLeftX, topLeftY, widthToScan, heightToScan) != 0)
+         OR (GDIplus_GetEncoderCLSID(jpgEncoder, #GDIplus_mimeType_JPG) != 0)
+         OR (GDIplus_InitEncoderParameters(jpegEncoderParams, 1) != 0)
+         OR (GDIplus_AddEncoderParameter(jpegEncoderParams, #EncoderQuality, jpegQuality) != 0)
+         OR (GDIplus_SaveImage(bitmap, fileNameDestJ, jpgEncoder, jpegEncoderParams) != 0) )
+   {
+      if isDebugMode
+         return GDIplus Test, Error in %#GDIplus_lastError% (at %step%)
+      else
+         return ""
+   }
+
+   ; Wait for jpg file to exist
+   Loop
+   {
+      IfExist, %fileNameDestJ%
+         Break
+   }
+
+   ;convert the jpg file to pnm
+   convertCmd=djpeg.exe -pnm -grayscale %fileNameDestJ% in.pnm
+   CmdRet_RunReturn(convertCmd)
+
+   ;run the OCR
+   CMDout := CmdRet_RunReturn("gocr.exe -i in.pnm")
+
+   ;not sure that I really want this...
+   StringReplace, result, cmdout, `r`n, , A
+
+   ;suppress warnings from GOCR (we don't care, give us nothing)
+   if InStr(result, "NOT NORMAL")
+      gocrError:=true
+   if InStr(result, "strong rotation angle detected")
+      gocrError:=true
+   if InStr(result, "# no boxes found - stopped") ;multiple warnings show up with this somewhere in the string
+      gocrError:=true
+
+   if gocrError
+   {
+      if NOT isDebugMode
+         result=
+   }
+
+   ; Cleanup
+   FileDelete, in.pnm
+   FileDelete, %fileNameDestJ%
+   ;addtotrace("hi end")
+   return %result%
 }
-
-GDIplusError:
-      addtotrace("red line")
-	If (#GDIplus_lastError != "")
-		MsgBox 16, GDIplus Test, Error in %#GDIplus_lastError% (at %step%)
-GDIplusEnd:
-	GDIplus_FreeImage(bitmap)
-	GDIplus_Stop()
-Return
-
-Esc::
-GuiEscape:
-ExitMe:
-  Gosub, GDIplusEnd
-  FileDelete, in.pnm
-  FileDelete, %fileNameDestJ%
-ExitApp

@@ -202,9 +202,12 @@ search:
 		Continue
 	}
 	sort, flist, R
+        addtotrace(flist)
+                addtotrace("green line")
 
 	Loop, parse, flist, `n, `r
 	{
+                      addtotrace("yellow line")
 		If (getkeystate("esc","p"))
 			Break
 
@@ -232,6 +235,7 @@ search:
 			LV_ModifyCol(4, "AutoHdr", "Sample: (" LV_GetCount() ")")
 		}
 	}
+                addtotrace("red line")
 
 	LV_ModifyCol(1, "Auto")
 	LV_ModifyCol(4, "Auto")
