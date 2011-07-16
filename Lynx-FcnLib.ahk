@@ -140,6 +140,7 @@ autologin(options)
 InstallTTS()
 {
    WinWaitActive, , &Next
+   SleepSeconds(5)
    SleepSend("!n")
    WinWaitActive, , &Yes
    SleepSend("!y")

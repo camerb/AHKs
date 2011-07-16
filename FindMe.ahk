@@ -100,9 +100,6 @@ replace:
 	Loop % LV_GetCount()
 	{
 
-		If (getkeystate("esc","p"))
-			Break
-
 		SendMessage, 4140, A_index - 1, 0xF000, SysListView321  ; 4140 is LVM_GETITEMSTATE.  0xF000 is LVIS_STATEIMAGEMASK.
 		isChecked := (ErrorLevel >> 12) - 1
 		; isChecked := LV_GetNext(iteration, "Checked")
@@ -202,15 +199,9 @@ search:
 		Continue
 	}
 	sort, flist, R
-        addtotrace(flist)
-                addtotrace("green line")
 
-	Loop, parse, flist, `n, `r
+	Loop, parse, flist, `n
 	{
-                      addtotrace("yellow line")
-		If (getkeystate("esc","p"))
-			Break
-
 		filepath:=A_LoopField
 		SplitPath, filepath, fileName
 		SB_SetText("file: "A_Index "/" max " -- " fileName, 1, 0)
@@ -222,8 +213,6 @@ search:
 
 		loop, parse, filetext, `n, `r
 		{
-				If (getkeystate("esc","p"))
-					Break
 
 			If (pos:=RegExMatch(A_LoopField, "i`n)" word))
 			{
@@ -234,8 +223,8 @@ search:
 			}
 			LV_ModifyCol(4, "AutoHdr", "Sample: (" LV_GetCount() ")")
 		}
+
 	}
-                addtotrace("red line")
 
 	LV_ModifyCol(1, "Auto")
 	LV_ModifyCol(4, "Auto")

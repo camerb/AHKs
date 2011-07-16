@@ -1,22 +1,3 @@
-;change the desktop image
-FileCopy("C:\LynxCD\Server 7.11\Setup\New Lynx Screen.jpg", "C:\Users\Administrator\Pictures\LynxBackground.jpg")
-SleepSend("#r")
-SleepSend("control panel{ENTER}")
-SleepSend("change desktop background{ENTER}")
-SleepClick(74, 105)
-SleepSend("!b")
-ForceWinFocus("Browse For Folder")
-SleepClick(75, 131)
-Loop 8
-   SleepSend("{DOWN}")
-SleepSend("{ENTER}")
-SleepClick(163, 250)
-SleepSend("{ENTER}")
-SleepSeconds(1)
-
-ForceWinFocus("Control Panel")
-WinClose
-
 ;make the shortcuts on the desktop
 FileCopy("C:\LynxCD\Server 7.11\Desktop\Log On Admin.url", "C:\Users\Administrator\Desktop\Log On Admin.url")
 FileCopy("C:\LynxCD\Server 7.11\Desktop\Log On Security Account.url", "C:\Users\Administrator\Desktop\Log On Security Account.url")
@@ -52,3 +33,23 @@ ForceWinFocus(".SMTP Virtual Server .1. Properties", "Regex")
 SleepClick(120, 420)
 ForceWinFocus("IIS")
 WinClose
+
+;change the desktop image
+FileCopy("C:\LynxCD\Server 7.11\Setup\New Lynx Screen.jpg", "C:\Users\Administrator\Pictures\LynxBackground.jpg")
+SleepSend("#r")
+SleepSend("control panel{ENTER}")
+SleepSend("change desktop background{ENTER}")
+SleepClick(74, 105)
+SleepSend("!b")
+ForceWinFocus("Browse For Folder")
+SleepClick(75, 131)
+Loop 8
+   SleepSend("{DOWN}")
+SleepSend("{ENTER}")
+SleepClick(163, 250)
+SleepSend("{ENTER}")
+SleepSeconds(1)
+
+ForceWinFocus("Control Panel")
+WinClose
+
