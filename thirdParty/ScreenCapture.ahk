@@ -88,27 +88,30 @@ CaptureScreen(aRect = 0, bCursor = False, sFile = "", nQuality = "")
 
 CaptureCursor(hDC, nL, nT)
 {
-	VarSetCapacity(mi, 20, 0)
-	mi := Chr(20)
+	VarSetCapacity(mi, 20, 0), mi := Chr(20)
 	DllCall("GetCursorInfo", "Uint", &mi)
 	bShow   := NumGet(mi, 4)
 	hCursor := NumGet(mi, 8)
 	xCursor := NumGet(mi,12)
 	yCursor := NumGet(mi,16)
 
+	If	bShow && hCursor:=DllCall("CopyIcon", "Uint", hCursor)
+	{
 	VarSetCapacity(ni, 20, 0)
 	DllCall("GetIconInfo", "Uint", hCursor, "Uint", &ni)
+	bIcon    := NumGet(ni, 0)
 	xHotspot := NumGet(ni, 4)
 	yHotspot := NumGet(ni, 8)
 	hBMMask  := NumGet(ni,12)
 	hBMColor := NumGet(ni,16)
 
-	If	bShow
-		DllCall("DrawIcon", "Uint", hDC, "int", xCursor - xHotspot - nL, "int", yCursor - yHotspot - nT, "Uint", hCursor)
+	DllCall("DrawIcon", "Uint", hDC, "int", xCursor - xHotspot - nL, "int", yCursor - yHotspot - nT, "Uint", hCursor)
+	DllCall("DestroyIcon", "Uint", hCursor)
 	If	hBMMask
-		DllCall("DeleteObject", "Uint", hBMMask)
+	DllCall("DeleteObject", "Uint", hBMMask)
 	If	hBMColor
-		DllCall("DeleteObject", "Uint", hBMColor)
+	DllCall("DeleteObject", "Uint", hBMColor)
+	}
 }
 
 Zoomer(hBM, nW, nH, znW, znH)

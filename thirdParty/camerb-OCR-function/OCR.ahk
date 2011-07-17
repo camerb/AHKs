@@ -1,6 +1,6 @@
 /**
  *   OCR library by camerb
- *   v0.9 - 2011-07-15
+ *   v0.91 - 2011-07-15
  *
  * This OCR lib provides an easy way to check a part of the screen for
  * machine-readable text. You should note that OCR isn't a perfect technology,
@@ -13,12 +13,17 @@
  * Future plans include a function that will check if a given string is
  * displayed within the given coordinates on the screen.
  *
+ * Home thread: http://www.autohotkey.com/forum/viewtopic.php?t=74227
  * With inspiration from: http://www.autohotkey.com/forum/viewtopic.php?p=93526#93526
 */
 
 
-#Include GDIplusWrapper.ahk
+;#Include ScreenCapture.ahk
+;#Include thirdParty/sc.ahk
+;#Include GDIplusWrapper.ahk
+#Include thirdParty/GDIp.ahk
 #Include CMDret.ahk
+#Include FcnLib.ahk
 
 
 GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, isDebugMode=false)
@@ -34,20 +39,50 @@ GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, isDebugMode=false)
    fileNameDestJ = ResultImage.jpg
    jpegQuality = 100
 
-   ;create the jpg file
-   If ( (GDIplus_Start() != 0)
-         OR (GDIplus_CaptureScreenRectangle(bitmap, topLeftX, topLeftY, widthToScan, heightToScan) != 0)
-         OR (GDIplus_GetEncoderCLSID(jpgEncoder, #GDIplus_mimeType_JPG) != 0)
-         OR (GDIplus_InitEncoderParameters(jpegEncoderParams, 1) != 0)
-         OR (GDIplus_AddEncoderParameter(jpegEncoderParams, #EncoderQuality, jpegQuality) != 0)
-         OR (GDIplus_SaveImage(bitmap, fileNameDestJ, jpgEncoder, jpegEncoderParams) != 0) )
-   {
-      SetBatchlines, %prevBatchLines%
-      if isDebugMode
-         return GDIplus Test, Error in %#GDIplus_lastError% (at %step%)
-      else
-         return ""
-   }
+   ;right  := topLeftX + widthToScan
+   ;bottom := topLeftY + heightToScan
+   ;coords=%topLeftX%, %topLeftY%, %right%, %bottom%
+   ;CaptureScreen(coords, false, fileNameDestJ, 100)
+   ;sc_CaptureScreen()
+;addtotrace("green line")
+   pToken:=Gdip_Startup()
+   pBitmap:=Gdip_BitmapFromScreen(topLeftX "|" topLeftY "|" widthToScan "|" heightToScan)
+   Gdip_SaveBitmapToFile(pBitmap, fileNameDestJ, 100)
+   Gdip_Shutdown(pToken)
+
+   while NOT FileExist(fileNameDestJ)
+      Sleep, 10
+;addtotrace("yellow line")
+
+   ;coords, false, "C:\My Dropbox\AHKs\thirdParty\camerb-OCR-function\ResultImage.jpg", 100)
+;addtotrace(jpgEncoder)
+   ;;create the jpg file
+   ;If ( GDIplus_Start() != 0)
+;addtotrace("green line")
+   ;if (GDIplus_CaptureScreenRectangle(bitmap, topLeftX, topLeftY, widthToScan, heightToScan) != 0)
+;addtotrace("yellow line")
+   ;if (GDIplus_GetEncoderCLSID(jpgEncoder, #GDIplus_mimeType_JPG) != 0)
+;addtotrace("orange line")
+   ;if (GDIplus_InitEncoderParameters(jpegEncoderParams, 1) != 0)
+;addtotrace("red line")
+   ;if (GDIplus_AddEncoderParameter(jpegEncoderParams, #EncoderQuality, jpegQuality) != 0)
+;addtotrace("blue line")
+   ;if (GDIplus_SaveImage(bitmap, fileNameDestJ, jpgEncoder, jpegEncoderParams) != 0)
+;addtotrace("purple line")
+
+   ;If ( (GDIplus_Start() != 0)
+         ;OR (GDIplus_CaptureScreenRectangle(bitmap, topLeftX, topLeftY, widthToScan, heightToScan) != 0)
+         ;OR (GDIplus_GetEncoderCLSID(jpgEncoder, #GDIplus_mimeType_JPG) != 0)
+         ;OR (GDIplus_InitEncoderParameters(jpegEncoderParams, 1) != 0)
+         ;OR (GDIplus_AddEncoderParameter(jpegEncoderParams, #EncoderQuality, jpegQuality) != 0)
+         ;OR (GDIplus_SaveImage(bitmap, fileNameDestJ, jpgEncoder, jpegEncoderParams) != 0) )
+   ;{
+      ;SetBatchlines, %prevBatchLines%
+      ;;if isDebugMode
+         ;return GDIplus Test, Error in %#GDIplus_lastError% (at %step%)
+      ;;else
+         ;;return ""
+   ;}
 
    ; Wait for jpg file to exist
    Loop
@@ -55,6 +90,7 @@ GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, isDebugMode=false)
       IfExist, %fileNameDestJ%
          Break
    }
+addtotrace("orange line")
 
    ;convert the jpg file to pnm
    convertCmd=djpeg.exe -pnm -grayscale %fileNameDestJ% in.pnm
@@ -79,6 +115,7 @@ GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, isDebugMode=false)
          result=
    }
 
+
    ; Cleanup
    FileDelete, in.pnm
    FileDelete, %fileNameDestJ%
@@ -86,3 +123,18 @@ GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, isDebugMode=false)
 
    return %result%
 }
+
+;CaptureScreen2(nl, nt, nw, nh)
+;{
+  ;nl:=100
+  ;nt:=100
+  ;nw:=200
+  ;nh:=200
+  ;pToken:=Gdip_Startup()
+  ;pBitmap:=Gdip_BitmapFromScreen(nL "|" nT "|" nW "|" nH)
+  ;Gdip_SaveBitmapToFile(pBitmap, "ResultImage.jpg")
+  ;Gdip_Shutdown(pToken)
+
+  ;while NOT FileExist("ResultImage.jpg")
+     ;Sleep, 10
+;}

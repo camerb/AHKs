@@ -28,9 +28,11 @@ Loop
    WinMove, OcrPreviewWindow, , % topLeftX+2, % topLeftY-2
 
    ;NOTE: this is where the magical OCR function is called
-   magicalText := GetOCR(topLeftX, topLeftY, widthToScan, heightToScan)
+   timer:=starttimer()
+   magicalText := GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, "true")
+   joe:=elapsedTime(timer)
 
-   liveMessage=Here is the text that GetOCR() found near your mouse:`n%magicalText%`n`nPress ESC at any time to exit
+   liveMessage=Here is the text that GetOCR() found near your mouse:`n%magicalText%`n`nPress ESC at any time to exit   %joe%
    ToolTip, %liveMessage%
    Sleep, 100
 }
