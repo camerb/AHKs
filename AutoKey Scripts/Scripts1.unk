@@ -1,0 +1,226 @@
+[
+    {
+        "usageCount": 0, 
+        "omitTrigger": false, 
+        "prompt": false, 
+        "description": "First phrase", 
+        "abbreviation": {
+            "ignoreCase": false, 
+            "wordChars": "[\\w]", 
+            "immediate": false, 
+            "abbreviation": null, 
+            "backspace": true, 
+            "triggerInside": false
+        }, 
+        "hotkey": {
+            "hotKey": null, 
+            "modifiers": []
+        }, 
+        "phrase": "Test phrase number one!", 
+        "modes": [
+            2
+        ], 
+        "showInTrayMenu": false, 
+        "matchCase": false, 
+        "filter": ".* - gedit", 
+        "type": "phrase", 
+        "sendMode": "kb"
+    }, 
+    {
+        "usageCount": 0, 
+        "omitTrigger": false, 
+        "prompt": false, 
+        "description": "Third phrase", 
+        "abbreviation": {
+            "ignoreCase": false, 
+            "wordChars": "[\\w]", 
+            "immediate": false, 
+            "abbreviation": null, 
+            "backspace": true, 
+            "triggerInside": false
+        }, 
+        "hotkey": {
+            "hotKey": null, 
+            "modifiers": []
+        }, 
+        "phrase": "Test phrase number three!", 
+        "modes": [], 
+        "showInTrayMenu": false, 
+        "matchCase": false, 
+        "filter": null, 
+        "type": "phrase", 
+        "sendMode": "kb"
+    }, 
+    {
+        "usageCount": 0, 
+        "omitTrigger": false, 
+        "prompt": false, 
+        "description": "joe joe", 
+        "abbreviation": {
+            "ignoreCase": false, 
+            "wordChars": "[\\w]", 
+            "immediate": false, 
+            "abbreviation": null, 
+            "backspace": true, 
+            "triggerInside": false
+        }, 
+        "hotkey": {
+            "hotKey": null, 
+            "modifiers": []
+        }, 
+        "phrase": "Test phrase number two!", 
+        "modes": [], 
+        "showInTrayMenu": false, 
+        "matchCase": false, 
+        "filter": null, 
+        "type": "phrase", 
+        "sendMode": "kb"
+    }, 
+    {
+        "folders": [], 
+        "usageCount": 2, 
+        "modes": [], 
+        "abbreviation": {
+            "ignoreCase": false, 
+            "wordChars": "[\\w]", 
+            "immediate": false, 
+            "abbreviation": null, 
+            "backspace": true, 
+            "triggerInside": false
+        }, 
+        "title": "Sample Scripts", 
+        "hotkey": {
+            "hotKey": null, 
+            "modifiers": []
+        }, 
+        "items": [
+            {
+                "usageCount": 2, 
+                "omitTrigger": false, 
+                "code": "output = system.exec_command(\"date\")\nkeyboard.send_keys(output)", 
+                "prompt": false, 
+                "description": "Insert Date", 
+                "abbreviation": {
+                    "ignoreCase": false, 
+                    "wordChars": "[\\w]", 
+                    "immediate": false, 
+                    "abbreviation": null, 
+                    "backspace": true, 
+                    "triggerInside": false
+                }, 
+                "hotkey": {
+                    "hotKey": "d", 
+                    "modifiers": [
+                        "<ctrl>"
+                    ]
+                }, 
+                "modes": [
+                    3
+                ], 
+                "showInTrayMenu": false, 
+                "filter": null, 
+                "type": "script", 
+                "store": {}
+            }, 
+            {
+                "usageCount": 0, 
+                "omitTrigger": false, 
+                "code": "choices = [\"something\", \"something else\", \"a third thing\"]\n\nretCode, choice = dialog.list_menu(choices)\nif retCode == 0:\n    keyboard.send_keys(\"You chose \" + choice)", 
+                "prompt": false, 
+                "description": "List Menu", 
+                "abbreviation": {
+                    "ignoreCase": false, 
+                    "wordChars": "[\\w]", 
+                    "immediate": false, 
+                    "abbreviation": null, 
+                    "backspace": true, 
+                    "triggerInside": false
+                }, 
+                "hotkey": {
+                    "hotKey": null, 
+                    "modifiers": []
+                }, 
+                "modes": [], 
+                "showInTrayMenu": false, 
+                "filter": null, 
+                "type": "script", 
+                "store": {}
+            }, 
+            {
+                "usageCount": 0, 
+                "omitTrigger": false, 
+                "code": "text = clipboard.get_selection()\nkeyboard.send_key(\"<delete>\")\nkeyboard.send_keys(\"The text %s was here previously\" % text)", 
+                "prompt": false, 
+                "description": "Selection Test", 
+                "abbreviation": {
+                    "ignoreCase": false, 
+                    "wordChars": "[\\w]", 
+                    "immediate": false, 
+                    "abbreviation": null, 
+                    "backspace": true, 
+                    "triggerInside": false
+                }, 
+                "hotkey": {
+                    "hotKey": null, 
+                    "modifiers": []
+                }, 
+                "modes": [], 
+                "showInTrayMenu": false, 
+                "filter": null, 
+                "type": "script", 
+                "store": {}
+            }, 
+            {
+                "usageCount": 0, 
+                "omitTrigger": false, 
+                "code": "import time\ntime.sleep(0.25)\ncontents = clipboard.get_selection()\nretCode, abbr = dialog.input_dialog(\"New Abbreviation\", \"Choose an abbreviation for the new phrase\")\nif retCode == 0:\n    if len(contents) > 20:\n        title = contents[0:17] + \"...\"\n    else:\n        title = contents\n    folder = engine.get_folder(\"My Phrases\")\n    engine.create_abbreviation(folder, title, abbr, contents)", 
+                "prompt": false, 
+                "description": "Abbreviation from selection", 
+                "abbreviation": {
+                    "ignoreCase": false, 
+                    "wordChars": "[\\w]", 
+                    "immediate": false, 
+                    "abbreviation": null, 
+                    "backspace": true, 
+                    "triggerInside": false
+                }, 
+                "hotkey": {
+                    "hotKey": null, 
+                    "modifiers": []
+                }, 
+                "modes": [], 
+                "showInTrayMenu": false, 
+                "filter": null, 
+                "type": "script", 
+                "store": {}
+            }, 
+            {
+                "usageCount": 0, 
+                "omitTrigger": false, 
+                "code": "import time\ntime.sleep(0.25)\ncontents = clipboard.get_selection()\nif len(contents) > 20:\n    title = contents[0:17] + \"...\"\nelse:\n    title = contents\nfolder = engine.get_folder(\"My Phrases\")\nengine.create_phrase(folder, title, contents)", 
+                "prompt": false, 
+                "description": "Phrase from selection", 
+                "abbreviation": {
+                    "ignoreCase": false, 
+                    "wordChars": "[\\w]", 
+                    "immediate": false, 
+                    "abbreviation": null, 
+                    "backspace": true, 
+                    "triggerInside": false
+                }, 
+                "hotkey": {
+                    "hotKey": null, 
+                    "modifiers": []
+                }, 
+                "modes": [], 
+                "showInTrayMenu": false, 
+                "filter": null, 
+                "type": "script", 
+                "store": {}
+            }
+        ], 
+        "filter": null, 
+        "type": "folder", 
+        "showInTrayMenu": false
+    }
+]

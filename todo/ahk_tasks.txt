@@ -1,1 +1,0 @@
-;WRITEME experiment with AHK_L

@@ -1591,3 +1591,6 @@ NightlyStats(title, data)
 ;WRITEME process old DailyFinancial.csv data into NightlyStats.ini
 ;WRITEME generate Financial.csv from NightlyStats.ini (nightly script)
 
+
+;WRITEME experiment with AHK_L
+
