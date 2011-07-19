@@ -42,5 +42,7 @@ issueTitle := RemoveLineEndings(GitGetIssueTitle(issueNumber))
 
 fullCommitMessage=%issueNumber% - %issueTitle% - %commitMessage%
 fullCommitMessage := StringReplace(fullCommitMessage, """", "'")
+fullCommitMessage := RegExReplace(fullCommitMessage, " +", " ")
 
+ForceWinFocus("MINGW32", "Contains")
 SendInput, git ci -m"%fullCommitMessage%"{ENTER}

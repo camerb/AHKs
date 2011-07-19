@@ -245,60 +245,62 @@ Run, AutoDownloadFirefoxPrompts.ahk
 ;WaitForImageSearch("images\firebug\WelcomeScreen.bmp")
 
 ;{{{ Refresh if we're using firefox
-if ForceWinFocusIfExist("Ellis Partners in Mystery Shopping: Customer Interface - Mozilla Firefox", "Exact")
+if InStr( GetURLbar("firefox"), "phosphorus.lan.mitsi.com"  )
 {
-   ;This section is for testing out EPMS Customer Interface (Initially for Survey Graphing / Reporting)
-   Sleep, 500
-   ;Click(1279,52)
+   if ForceWinFocusIfExist("Ellis Partners in Mystery Shopping: Customer Interface - Mozilla Firefox", "Exact")
+   {
+      ;This section is for testing out EPMS Customer Interface (Initially for Survey Graphing / Reporting)
+      Sleep, 500
+      ;Click(1279,52)
 
-   SleepSeconds(2)
-   WaitForImageSearch("images/firebug/EllisLogo.bmp")
-   SleepSeconds(2)
-   Click(72, 308, "Control")
-   Sleep, 700
-   Click(72, 359, "Control")
-   ;Sleep, 700
-   ExitApp
-}
-if ForceWinFocusIfExist(ffWindow, "RegEx")
-{
-   ForceWinFocus(ffWindow, "RegEx")
-   ClickIfImageSearch("images\firebug\ConsoleTab.bmp", "Control")
-
-   if (DebuggerCommand == "EPMS")
+      SleepSeconds(2)
+      WaitForImageSearch("images/firebug/EllisLogo.bmp")
+      SleepSeconds(2)
+      Click(72, 308, "Control")
+      Sleep, 700
+      Click(72, 359, "Control")
+      ;Sleep, 700
       ExitApp
+   }
+   if ForceWinFocusIfExist(ffWindow, "RegEx")
+   {
+      ForceWinFocus(ffWindow, "RegEx")
+      ClickIfImageSearch("images\firebug\ConsoleTab.bmp", "Control")
 
-   ForceWinFocus(ffWindow, "RegEx")
-   if (welcomeTabImage)
-      WaitForImageSearch(welcomeTabImage)
+      if (DebuggerCommand == "EPMS")
+         ExitApp
 
-   WaitForImageSearch("images\firebug\LoadedRoles.bmp")
-   WaitForImageSearch("images\firebug\LoadedWelcome.bmp")
+      ForceWinFocus(ffWindow, "RegEx")
+      if (welcomeTabImage)
+         WaitForImageSearch(welcomeTabImage)
 
-   ForceWinFocus(ffWindow, "RegEx")
-   ClickIfImageSearch("images\firebug\ClearTypedText.bmp", "Control")
+      WaitForImageSearch("images\firebug\LoadedRoles.bmp")
+      WaitForImageSearch("images\firebug\LoadedWelcome.bmp")
 
-   ClickIfImageSearch("images\firebug\SelectCommandWindow.bmp", "Control")
+      ForceWinFocus(ffWindow, "RegEx")
+      ClickIfImageSearch("images\firebug\ClearTypedText.bmp", "Control")
 
-   ;Send, %DebuggerCommand%
-   ;SendInput, %DebuggerCommand%
-   if ( StrLen(DebuggerCommand) > 4 )
-      SendViaClipboard(DebuggerCommand)
-   ClickIfImageSearch("images\firebug\RunTypedText.bmp", "Control")
+      ClickIfImageSearch("images\firebug\SelectCommandWindow.bmp", "Control")
 
-   ExitApp
-}
-else if ForceWinFocusIfExist("Mozilla Firefox", "Exact")
-{
+      ;Send, %DebuggerCommand%
+      ;SendInput, %DebuggerCommand%
+      if ( StrLen(DebuggerCommand) > 4 )
+         SendViaClipboard(DebuggerCommand)
+      ClickIfImageSearch("images\firebug\RunTypedText.bmp", "Control")
+
+      ExitApp
+   }
+   ForceWinFocusIfExist("Mozilla Firefox", "Contains")
    if (DebuggerCommand == "EPMS")
    {
       Click(500,500)
-      if ClickIfImageSearch("images\firebug\phosphorusAddress.bmp", "Control") || ClickIfImageSearch("images\firebug\phosphorusAddressHighlighted.bmp", "Control")
-      {
+      ;if InStr( GetURLbar("firefox"), "phosphorus.lan.mitsi.com"  )
+      ;{
          ;ClickIfImageSearch("images\firebug\reloadButton.bmp", "Control")
-         ClickIfImageSearch("images\firebug\reloadButton.bmp")
-         ;Send, {F5}
-      }
+         ;ClickIfImageSearch("images\firebug\reloadButton.bmp") ;I think this doesn't work for this version of ff
+         Send, {F5}
+         ;Send, ^{F5}
+      ;}
    }
 }
 
@@ -355,6 +357,7 @@ if ForceWinFocusIfExist("Ellis Partners in Mystery Shopping: Customer Interface 
 
 ExitApp
 
+;{{{ Dumb functions to help out
 ForceWinFocusCmd()
 {
    ;TODO change this to one regex that excludes MINGW32
@@ -364,3 +367,4 @@ ForceWinFocusCmd()
             if NOT ForceWinFocusIfExist("ahk_class ConsoleWindowClass", "Exact")
                ForceWinFocusIfExist("cmd.exe", "Contains")
 }
+;}}}

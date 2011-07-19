@@ -1542,6 +1542,44 @@ NightlyStats(title, data)
    MorningStatusAppend(title, data)
 }
 
+;FIXME
+;NOTE I hate the way this syntax looks
+isPlusOrMinus(cneterNumber, numbertocompare, plusOrMinus)
+{
+   if (number)
+   return num
+}
+
+#include thirdParty/DDE/DDEML.ahk
+GetURLbar(sServer)
+{
+   ;sServer := "firefox"   ; iexplore, opera
+   sTopic  := "WWW_GetWindowInfo"
+   sItem   := "0xFFFFFFFF"
+
+   idInst  := DdeInitialize()
+
+   hServer := DdeCreateStringHandle(idInst, sServer)
+   hTopic  := DdeCreateStringHandle(idInst, sTopic )
+   hItem   := DdeCreateStringHandle(idInst, sItem  )
+
+   hConv := DdeConnect(idInst, hServer, hTopic)
+   hData := DdeClientTransaction(0x20B0, hConv, hItem)   ; XTYP_REQUEST
+   sData := DdeAccessData(hData)
+
+   DdeFreeStringHandle(idInst, hServer)
+   DdeFreeStringHandle(idInst, hTopic )
+   DdeFreeStringHandle(idInst, hItem  )
+
+   DdeUnaccessData(hData)
+   DdeFreeDataHandle(hData)
+   DdeDisconnect(hConv)
+   DdeUninitialize(idInst)
+
+   ;MsgBox, % sData
+   return sData
+}
+
 ;WRITEME make function for getting remote and local path of dropbox public folder
 ;WRITEME split csv processing out of the create pie chart macro
 ;WRITEME make monthly financial charts (rather than three-month)
@@ -1562,7 +1600,7 @@ NightlyStats(title, data)
 ;perhaps i can have updates of my points position, rather than having to look it up ;use blazin pedals site
 ;WRITEME make widget that will display the latest warnings and debug info (like baretail, but open all the time)
 ;WRITEME use autologin to make a script that closes out the VPN connection gracefully
-;WRITEME WinClose(text, title, options) that allows match modes, and also allows the "Gentle" option described in the docs (PostMessage)
+   ;WRITEME WinClose(text, title, options) that allows match modes, and also allows the "Gentle" option described in the docs (PostMessage)
 
 
 ;WRITEME archive log files monthly, archive trace file nightly

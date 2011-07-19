@@ -3,15 +3,17 @@
 
 /*
 Name:     Find Me
-Version:  1.6 (Wed July 06, 2011)
+Version:  1.80 (Mon July 18, 2011)
 Author:     tidbit
+credits:     camerb
 Description: Find all matching text/phrases inside of files of a sepecified directory.
 
 right-click: context Menu
 esc: stop searching and replacing
 ctrl+w: exit the program
 
-add a * (asterisks) as the first letter in the File text field to recurse into sub folders.
+add a * (asterisks) as the first letter in the File text field to recurse into sub folders.\
+   Example: *C:\Documents and Settings\USER\Desktop\
    NOTE: Use with caution. it may take much longer.
 */
 
@@ -30,33 +32,34 @@ gui, +Default +Resize +minsize
 Gui, Add, Edit, x6 y10 w190 h20 vseldir, %A_desktop%
 Gui, Add, Button, xp+192 y10 w58 h20 vseldirbtn gbrowse, Browse
 
-Gui, Add, Radio, x6 y+2   w80  h20 vextmode +Checked cblue, Extensions:
-Gui, Add, Radio, x6 y+2   w80  h20 cred, Ignore:
-Gui, Add, Edit, x+2 yp-22 w168 h20 vexts  gext, txt`,ahk`,htm`,html
-Gui, Add, Edit, xp y+2    w168 h20 vXexts gext, bmp`,gif`,jpg`,png`,svg`,tif`,mid`,mp3`,wav`,wma`,avi`,flv`,mov`,mp4`,mpg`,swf`,vob`,wmv`,app`,exe`,msi`,pif`,vb`,wsf
+Gui, Add, Radio, x6  y+2   w80  h20 vextmode +Checked cblue, Extensions:
+Gui, Add, Radio, x6  y+2   w80  h20 cred, Ignore:
+Gui, Add, Edit,  x+2 yp-22 w168 h20 vexts  gext, txt`,ahk`,htm`,html
+Gui, Add, Edit,  xp  y+2   w168 h20 vXexts gext, bmp`,gif`,jpg`,png`,svg`,tif`,mid`,mp3`,wav`,wma`,avi`,flv`,mov`,mp4`,mpg`,swf`,vob`,wmv`,app`,exe`,msi`,pif`,wsf
 
-Gui, Add, Text, x6 yp+22 w60 h20 , Find:
-Gui, Add, Edit, xp+62 yp w108 h20 vword, Regex is Enabled. Case Insensitive
-Gui, Add, Button, xp+110 yp w20 h20 vwordhelp gregexhelp,?
-Gui, Add, Button, xp+22 yp w58 h20 vwordsearch gsearch +Default, Search
+Gui, Add, Text,   x6     yp+22 w60  h20 , Find:
+Gui, Add, Edit,   xp+62  yp    w108 h20 vword, Regex is Enabled. Case Insensitive
+Gui, Add, Button, xp+110 yp    w20  h20 vwordhelp gregexhelp,?
+Gui, Add, Button, xp+22  yp    w58  h20 vwordsearch gsearch +Default, Search
 
-Gui, add, Checkbox, x6 yp+22 gusereplace vusereplace, Replace?
-Gui, Add, Edit, xp+72 yp w120 h20 vreplace +Disabled, Regex is Enabled. Case Insensitive.
-Gui, Add, Button, xp+122 yp w58 h20 vreplacebtn greplace, Replace
+Gui, add, Checkbox, x6     yp+22 gusereplace vusereplace, Replace?
+Gui, Add, Edit,     xp+72  yp w120 h20 vreplace +Disabled, Regex is Enabled. Case Insensitive.
+Gui, Add, Button,   xp+122 yp w58  h20 vreplacebtn greplace, Replace
 
-Gui, Add, ListView, x6 yp+22 w250 h210 vlist hwndhListView glistview Count5000 +Checked, File|Line|Offset|Sample|Path
+Gui, Add, ListView, x6 yp+22 w250 h210 vlist hwndhListView glistview Count5000 +Checked, File|Line|Sample|Path
 
 LV_ModifyCol(1, "80 Left")
-LV_ModifyCol(2, "40 Integer Center")
-LV_ModifyCol(3, "40 Integer Center")
-LV_ModifyCol(4, "250 Left")
-LV_ModifyCol(5, "80 Left")
+LV_ModifyCol(2, "40 Integer right")
+LV_ModifyCol(3, "250 Left")
+LV_ModifyCol(4, "80 Left")
 
 Gui, Add, StatusBar,,
 Gui, Show, AutoSize, Find Me`, By: tidbit
 SB_SetText("Awaiting Action.", 1, 0)
 Gosub, guisize
 Return
+
+
 
 Guisize:
 	SB_SetParts((A_GuiWidth/3)+30, A_GuiWidth/3, A_GuiWidth/3)
@@ -81,7 +84,6 @@ Return
 
 
 
-
 usereplace:
 	gui, Submit, NoHide
 	If (usereplace==1)
@@ -89,6 +91,8 @@ usereplace:
 	Else
 		guiControl, Disable, replace
 Return
+
+
 
 replace:
 	gui, Submit, NoHide
@@ -99,6 +103,8 @@ replace:
 
 	Loop % LV_GetCount()
 	{
+		If (escIsPressed())
+			Break
 
 		SendMessage, 4140, A_index - 1, 0xF000, SysListView321  ; 4140 is LVM_GETITEMSTATE.  0xF000 is LVIS_STATEIMAGEMASK.
 		isChecked := (ErrorLevel >> 12) - 1
@@ -108,7 +114,7 @@ replace:
 			Continue
 
 		LV_GetText(line, A_index, 2)
-		LV_GetText(file, A_index, 5)
+		LV_GetText(file, A_index, 4)
 		LV_Modify(A_Index, "-Check")
 
 		SB_SetText("Replacing in: " file, 1, 0)
@@ -118,6 +124,7 @@ replace:
 
 	SB_SetText("Awaiting Action.", 1, 0)
 Return
+
 
 
 ext:
@@ -131,6 +138,7 @@ ext:
 Return
 
 
+
 browse:
 	FileSelectFolder, seldir, *%seldir%, 3, Select a folder.
 	If (RegExMatch(seldir, "^\s*$"))
@@ -139,10 +147,12 @@ browse:
 		GuiControl, , seldir, %seldir%
 Return
 
+
+
 listview:
 	If (A_GuiEvent=="DoubleClick")
 	{
-		LV_GetText(Filetorun, A_EventInfo,5)
+		LV_GetText(Filetorun, A_EventInfo,4)
 		If (filetorun=="File")
 			Return
 		run, %filetorun%
@@ -152,13 +162,15 @@ listview:
 Return
 
 
+
 search:
 	gui, Submit, NoHide
-	LV_ModifyCol(4, "AutoHdr", "Sample: (0)")
+	start:=A_TickCount
+
+	LV_ModifyCol(3, "AutoHdr", "Sample: (0)")
 
 	If (RegExMatch(seldir, "^\s*$"))
 		Return
-
 
 	if (SubStr(seldir, 1, 1)=="*")
 	{
@@ -174,62 +186,81 @@ search:
 	max:=0
 	Loop,%seldir%\*.*, 0, %recurseMode%
 	{
-	ToolTip %extmode%
 		if (extmode==1)
 		{
 			If A_LoopFileExt in %exts%
 			{
 				max+=1
 				flist.=A_LoopFileFullPath "`n"
-				SB_SetText("Counting files: "A_Index, 1, 0)
+				SB_SetText("Counting files: " max, 1, 0)
 			}
 		}
-
-		If (extmode==2)
+		Else
 		{
 			If A_LoopFileExt in %Xexts%
 				Continue
-			Else
-			{
-				max+=1
-				flist.=A_LoopFileFullPath "`n"
-				SB_SetText("Counting files: "A_Index, 1, 0)
-			}
+			max+=1
+			flist.=A_LoopFileFullPath "`n"
+			SB_SetText("Counting files: " max, 1, 0)
 		}
 		Continue
 	}
-	sort, flist, R
+	StringTrimRight, flist, flist, 1 ; remove the ending blank line.
+	sort, flist, R ; mainly used for files with dates in the name. put the newer items at the top.
+; MsgBox %flist%
 
-	Loop, parse, flist, `n
+	loop, parse, flist, `n, `r
 	{
-		filepath:=A_LoopField
-		SplitPath, filepath, fileName
-		SB_SetText("file: "A_Index "/" max " -- " fileName, 1, 0)
+		If (escIsPressed())
+			Break
 
-		FileRead, filetext, %filepath%
+		filePath:=A_LoopField
+		SplitPath, a_loopfield, fileName
+		SB_SetText("file: " A_Index "/" max " -- " fileName, 1, 0)
+		curFileNumber:=A_Index
+
+		FileRead, fileText, %filePath%
 		filetext:=unHTM(filetext)
-		If (!RegExMatch(filetext, "i`n)" word))
-			Continue
 
-		loop, parse, filetext, `n, `r
+		output:=agrep(fileText, word, 1)
+
+		;------ debugging GUI (pretty ugly, :D)
+		; xpos+=101
+		; gui, 92:add, text, x%xpos% y6 y6 w100, %fileName%
+		; gui, 92:add, edit, x%xpos% y6 y32 w100 h300, %output%
+		; gui, 92:show, w1000 x6 h356
+
+		loop, parse, fileText, `n, `r
 		{
+			If (escIsPressed())
+				Break
+			if (!RegExMatch(a_loopfield, "i`n)" word))
+				continue
 
-			If (pos:=RegExMatch(A_LoopField, "i`n)" word))
+			line:=A_LoopField
+			linenum:=A_Index
+			loop, parse, output, `n, `r
 			{
-				If (pos==-1)
-					pos=NULL
-				LV_Add("", fileName, A_index, pos, ConvertEntities(unHTM(A_LoopField)), filepath)
-				LV_ModifyCol(4, "AutoHdr", "Sample: (" LV_GetCount() ")")
+				if (InStr(line, A_LoopField))
+				{
+					LV_Add("", fileName, linenum, ConvertEntities(unHTM(line)), filePath)
+					LV_ModifyCol(3, "AutoHdr", "Sample: (" LV_GetCount() ")")
+					Break
+				}
+				else
+					continue
 			}
-			LV_ModifyCol(4, "AutoHdr", "Sample: (" LV_GetCount() ")")
+			LV_ModifyCol(3, "AutoHdr", "Sample: (" LV_GetCount() ")")
 		}
-
 	}
 
 	LV_ModifyCol(1, "Auto")
-	LV_ModifyCol(4, "Auto")
-	SB_SetText("Awaiting Action.", 1, 0)
+	LV_ModifyCol(2, "Auto")
+	LV_ModifyCol(3, "Auto")
+	stop:=round((A_TickCount-start)/1000, 3)
+	SB_SetText(curFileNumber " files in " stop " seconds. Awaiting Action.", 1, 0)
 Return
+
 
 
 regexhelp:
@@ -296,10 +327,14 @@ GuiContextMenu:
 	Menu, copymenu, Show, %A_GuiX%, %A_GuiY%
 return
 
+
+
 copymenu:
 	LV_GetText(copytext, RCrow, 4)
 	Clipboard:=copytext
 Return
+
+
 
 selmenu:
 	selall:=!selall
@@ -321,8 +356,8 @@ Return
 ; thanks SKAN! http://www.autohotkey.com/forum/viewtopic.php?t=51342&highlight=remove+html
 UnHTM( HTM ) {   ; Remove HTML formatting / Convert to ordinary text   by SKAN 19-Nov-2009
  Static HT,C=";" ; Forum Topic: www.autohotkey.com/forum/topic51342.html  Mod: 16-Sep-2010
- IfEqual,HT,,   SetEnv,HT, % "&aacuteá&acircâ&acute´&aeligæ&agrave� &amp&aringå&atildeã&au"
- . "mlä&bdquo„&brvbar¦&bull•&ccedilç&cedil¸&cent¢&circˆ&copy©&curren¤&dagger� &dagger‡&deg"
+ IfEqual,HT,,   SetEnv,HT, % "&aacuteá&acircâ&acute´&aeligæ&agrave? &amp&aringå&atildeã&au"
+ . "mlä&bdquo„&brvbar¦&bull•&ccedilç&cedil¸&cent¢&circˆ&copy©&curren¤&dagger? &dagger‡&deg"
  . "°&divide÷&eacuteé&ecircê&egraveè&ethð&eumlë&euro€&fnofƒ&frac12½&frac14¼&frac34¾&gt>&h"
  . "ellip…&iacuteí&icircî&iexcl¡&igraveì&iquest¿&iumlï&laquo«&ldquo“&lsaquo‹&lsquo‘&lt<&m"
  . "acr¯&mdash—&microµ&middot·&nbsp &ndash–&not¬&ntildeñ&oacuteó&ocircô&oeligœ&ograveò&or"
@@ -618,6 +653,90 @@ _MakeMatchList(Text, Start = 1, End = 0)
 
 
 
+
+/*
+Copyright 2010,2011 Tuncay. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are
+permitted provided that the following conditions are met:
+
+   1. Redistributions of source code must retain the above copyright notice, this list of
+      conditions and the following disclaimer.
+
+   2. Redistributions in binary form must reproduce the above copyright notice, this list
+      of conditions and the following disclaimer in the documentation and/or other materials
+      provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY Tuncay ``AS IS'' AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL Tuncay OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The views and conclusions contained in the software and documentation are those of the
+authors and should not be interpreted as representing official policies, either expressed
+or implied, of Tuncay.
+*/
+/*
+Function: agrep
+    Get all lines matching a regular expression.
+
+Parameters:
+    haystack        - Input string variable. Will not be modified directly.
+    pattern         - The regex used to match the lines.
+    ignoreCase      - Ignores the case of each character, makes lower and upper
+        case equivalent.
+    invert          - Invert the logic. Get those lines, which do not match.
+    lineMatch       - Match only whole lines (internally "^" and "$" are used,
+        otherwise ".*?" on both sides).
+    replace         - A string to replace the non matching lines (newline
+        inclusive) with.
+
+Returns:
+    All matching lines.
+
+Remarks:
+    ErrorLevel is set to the count of how many lines are leaved out in
+    final result.
+
+    The regular expression is enclosed by some constructs, especially by
+    the look-ahead assertion. Also depending on the lineMatch option,
+    the "^" and "$" is added at front and end of regex or just to match
+    somewhere in the line, ".*" is added on both sides. It is possible,
+    that some regex will not work within assertions, like backreferences.
+    Not sure at this point. Also regex-options cannot be given, as they are
+    specified within the function.
+
+Examples:
+    > ; Print all lines starting with "tf_".
+    > msgbox % agrep(FileContent, "^\s*tf_", true)
+
+About:
+    * Version 1.3 by Tuncay, 13 July 2011
+    * Discussion: [http://www.autohotkey.com/forum/viewtopic.php?t=74060]
+    * License: [http://autohotkey.net/~Tuncay/licenses/simplefiedBSD_tuncay.txt]
+
+Related:
+    * grep() by polythene: [http://www.autohotkey.com/forum/viewtopic.php?t=16164]
+    * TF_Find() by HugoV: [http://www.autohotkey.net/~hugov/tf-lib.htm#TF_Find]
+*/
+agrep(ByRef _haystack="", _pattern="", _ignoreCase=false, _invert=false, _lineMatch=false, _replace="")
+{
+    Return SubStr( RegExReplace(_haystack . "`n", (_ignoreCase ? "i" : "") . "`am)(*BSR_ANYCRLF)(?" . (_invert ? "=" : "!") . "(?:" . (_lineMatch ? "^" . _pattern . "$" : ".*?" . _pattern . ".*?") . "))^.*?\R", _replace, ErrorLevel), 1, -1)
+}
+
+escIsPressed()
+{
+   If (getkeystate("esc","p") == "U")
+      return false
+   Else If (getkeystate("esc","p") == "D")
+      return true
+   return getkeystate("esc","p")
+}
 
 ; ------ Hotkeys ---
 ; ------------------

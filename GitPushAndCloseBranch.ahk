@@ -23,10 +23,11 @@ issueNumber := match1
 command=perl C:\code\mtsi-scripts\jira-issue-title.pl %issueNumber%
 issueTitle := CmdRet_RunReturn( command )
 message .= issueTitle
+subject = Branch to merge [%currentBranchName%]
 ;debug(message)
 
 if InStr(message, "exception")
    message := Prompt("The message that will be sent to Nathan is as follows, it looks like it contains an exception, so please revise it:`n`n" . message)
 
 SleepSeconds(15)
-SendEmail("Branch to merge", message, "", "nathan@mitsi.com", "cameronbaustian@gmail.com")
+SendEmail(subject, message, "", "nathan@mitsi.com", "cameronbaustian@gmail.com")
