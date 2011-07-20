@@ -380,7 +380,6 @@ ForcePixelColorChangeByClicking(x, y, lightestOrDarkest, checkboxStates=2)
 ;}
 }
 
-;TODO write
 ;Clicks at a specified location with ControlClick, MouseClick or Click
 Click(xCoord, yCoord, options="Left Mouse")
 {
@@ -469,6 +468,30 @@ CurrentTime(options="")
 
    ;got forced into using this
    return returned
+}
+
+;FormatTime()
+;{
+;}
+
+;TESTME
+DeFormatTime(timestamp)
+{
+   if RegExMatch(timestamp, "(\d{4}).(\d{2}).(\d{2}).(\d{2}).(\d{2}).(\d{2})", m)
+   {
+      returned=%m1%%m2%%m3%%m4%%m5%%m6%
+      return returned
+   }
+   if RegExMatch(timestamp, "(\d{14})", m)
+   {
+      returned=%m1%
+      return returned
+   }
+   if RegExMatch(timestamp, "(\d{2}).(\d{2}).(\d{4})", m)
+   {
+      returned=%m1%
+      return returned
+   }
 }
 
 ;FIXME does not account for 60-99 seconds, etc...
