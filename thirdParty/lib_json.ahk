@@ -328,3 +328,7 @@ JSON_reduce(symbols, ret){
     return symbols
 
 }
+
+#Escapechar `
+#CommentFlag ;
+

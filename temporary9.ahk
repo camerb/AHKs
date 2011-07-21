@@ -1,5 +1,4 @@
 #include FcnLib.ahk
-#include thirdParty/WinGetAll.ahk
+#include thirdParty/lib_json.ahk
 
-;debug(WinGetAll())
-msgbox % wingetall()
+json...

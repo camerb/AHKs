@@ -366,5 +366,10 @@ ForceWinFocusCmd()
          if NOT ForceWinFocusIfExist("Administrator: Command Prompt ahk_class ConsoleWindowClass", "Exact")
             if NOT ForceWinFocusIfExist("ahk_class ConsoleWindowClass", "Exact")
                ForceWinFocusIfExist("cmd.exe", "Contains")
+
+   CustomTitleMatchMode("Contains")
+   IfWinActive, MINGW32
+      FatalErrord("", "Accidentally grabbed Git window")
+   CustomTitleMatchMode("Default")
 }
 ;}}}
