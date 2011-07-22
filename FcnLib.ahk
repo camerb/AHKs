@@ -1573,6 +1573,7 @@ isPlusOrMinus(cneterNumber, numbertocompare, plusOrMinus)
    return num
 }
 
+;gets the contents of the url bar for firefox, iexplore or opera
 #include thirdParty/DDE/DDEML.ahk
 GetURLbar(sServer)
 {
@@ -1601,6 +1602,16 @@ GetURLbar(sServer)
 
    ;MsgBox, % sData
    return sData
+}
+
+;Close the AHK using Process, Close
+AhkClose(ahkFilename)
+{
+   ;maybe we want to error out if there was no such ahk running at the time
+   SetTitleMatchMode, 2
+   WinGet, pid, PID, %ahkFilename%
+   Process, Close, %pid%
+   CustomTitleMatchMode("Default")
 }
 
 ;WRITEME make function for getting remote and local path of dropbox public folder

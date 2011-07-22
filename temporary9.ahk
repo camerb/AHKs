@@ -1,4 +1,6 @@
 #include FcnLib.ahk
 #include thirdParty/lib_json.ahk
 
-json...
+joe := Object()
+joe.joejoe := "here"
+msgbox % joe.joejoe

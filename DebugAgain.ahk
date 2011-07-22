@@ -149,11 +149,12 @@ if refreshServerMode
    }
    else if plackServer
    {
+      ForceWinFocusCmd()
+
       ProcessCloseAll("perl.exe")
-      ProcessClose("perl.exe") ;TODO close all?
-      ProcessClose("perl.exe") ;TODO close all?
-      ProcessClose("perl.exe") ;TODO close all?
-      ProcessClose("perl.exe") ;TODO close all?
+      if ProcessExist("perl.exe")
+         errord("red line", "stupid perl process did not close!!! this means ProcessCloseAll() is broken", A_LineNumber, A_ScriptName)
+
       Sleep, 100
       FileAppendLine("grey line - restarted plack server", "C:/code/epms_logs/plack.log")
       ;CmdRet_RunReturn("plackup psgi/dispatch.psgi -p 3001 -I"../App/lib"", "C:/code/epms/script")
