@@ -1,4 +1,5 @@
 ;#include FcnLib.ahk
+;I was testing out IronAHK msgboxes
 
    MsgBox, Hello World
    MsgBox, 16, Critical Error, An unspecified error has occurred

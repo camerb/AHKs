@@ -148,6 +148,9 @@ FormatTime CurrentDateTime,, Time
 SendInput %CurrentDateTime%
 return
 
+;hotstrings for auto-complete on linking people to the forum
+:*:the definitive autofire thread::http://www.autohotkey.com/forum/viewtopic.php?t=69474 - The Definitive Autofire Thread
+
 ;Paste without formatting
 ^+v:: SendViaClipboard(Clipboard)
 

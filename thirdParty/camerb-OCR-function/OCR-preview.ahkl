@@ -1,4 +1,4 @@
-/**
+﻿/**
  * OCR library preview script by camerb, excellent additions provided by tidbit
  *
  * This tiny script serves as a quick way to see what text will be picked up by the OCR library.
@@ -28,9 +28,10 @@ Loop
    WinMove, OcrPreviewWindow, , % topLeftX+2, % topLeftY-2
 
    ;NOTE: this is where the magical OCR function is called
-   magicalText := GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, "true")
+   magicalText := GetOCR(topLeftX, topLeftY, widthToScan, heightToScan)
 
-   liveMessage=Here is the text that GetOCR() found near your mouse:`n%magicalText%`n`nPress ESC at any time to exit
+   liveMessage=Here is the text that GetOCR() found near your mouse:`n%magicalText%`n`nPress ESC at any time to exit  %A_AHKversion%
+   ;msgbox, %magicalText%
    ToolTip, %liveMessage%
    Sleep, 100
 }

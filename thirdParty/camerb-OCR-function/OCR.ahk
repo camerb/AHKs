@@ -1,6 +1,6 @@
 /**
  *   OCR library by camerb
- *   v0.91 - 2011-07-18
+ *   v0.92 - 2011-07-22
  *
  * This OCR lib provides an easy way to check a part of the screen for
  * machine-readable text. You should note that OCR isn't a perfect technology,
@@ -20,17 +20,13 @@
 
 #Include GDIp.ahk
 #Include CMDret.ahk
+;#Include fcnlib.ahk
 
 
 GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, isDebugMode=false)
 {
    prevBatchLines := A_BatchLines
    SetBatchlines, -1 ;cuts the average time down from 140ms to 115ms for small areas
-
-   ;stupid globals that we have to get from the GDIp wrapper class
-   ;(why aren't these in a "get" function?)
-   global #GDIplus_mimeType_JPG
-   global #EncoderQuality
 
    fileNameDestJ = ResultImage.jpg
    jpegQuality = 100
@@ -46,12 +42,44 @@ GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, isDebugMode=false)
 
    ;convert the jpg file to pnm
    convertCmd=djpeg.exe -pnm -grayscale %fileNameDestJ% in.pnm
-   CmdRet_RunReturn(convertCmd)
 
    ;run the OCR
-   CMDout := CmdRet_RunReturn("gocr.exe -i in.pnm")
+   runCmd=gocr.exe -i in.pnm
 
-   StringReplace, result, cmdout, `r`n, %A_Space%, A
+   ;run both commands using the preferred method with cmdret
+   ;CmdRet_RunReturn(convertCmd)
+   ;CMDout := CmdRet_RunReturn(runCmd)
+
+   ;run both commands using the hacky ghetto cmdret method
+   ;GhettoCmdRet_RunReturn(convertCmd)
+   ;CMDout := GhettoCmdRet_RunReturn(runCmd)
+
+   ;run both commands using my mixed cmdret hack
+   CmdRet(convertCmd)
+   CMDout := CmdRet(runCmd)
+   ;CMDout := CmdRet("ping google.com")
+   ;addtotrace(CMDout)
+   return cmdout
+   ;sleep 10000
+
+   ;convert and run the OCR - hacky method for AHK_L unicode compat
+   ;CMDs =
+   ;(LTrim Join
+      ;djpeg.exe -pnm -grayscale %fileNameDestJ% in.pnm
+      ;,cmdstub.exe gocr.exe -i in.pnm
+   ;)
+
+   ;Loop, parse, CMDs, `,
+   ;{
+      ;CMD = %A_LoopField%
+      ;NULL =
+      ;CMDin = ""
+      ;CMDout =
+      ;CMDerr =
+      ;Ret := RunWaitEx(CMD, NULL, CMDin, CMDout, CMDerr)
+   ;}
+
+   ;StringReplace, result, cmdout, `r`n, %A_Space%, A
 
    ;suppress warnings from GOCR (we don't care, give us nothing)
    if InStr(result, "NOT NORMAL")
@@ -74,3 +102,37 @@ GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, isDebugMode=false)
 
    return %result%
 }
+
+RunWaitEx(CMD, CMDdir, CMDin, ByRef CMDout, ByRef CMDerr)
+{
+  ;VarSetCapacity(CMDOut, 100000)
+  ;VarSetCapacity(CMDerr, 100000)
+  RetVal := DllCall("cmdret.dll\RunWEx", "AStr", CMD, "AStr", CMDdir, "AStr", CMDin, "AStr", CMDout, "AStr", CMDerr)
+  Return, %RetVal%
+}
+
+GhettoCmdRet_RunReturn(command)
+{
+   file := "joe.txt"
+   command .= " > " . file
+   Run %comspec% /c "%command%"
+   FileRead, returned, %file%
+   return returned
+}
+
+CMDret(CMD)
+{
+   if RegExMatch(A_AHKversion, "^\Q1.0\E")
+   {
+      StrOut:=CMDret_RunReturn(cmd)
+   }
+   else
+   {
+      VarSetCapacity(StrOut, 20000)
+      RetVal := DllCall("cmdret.dll\RunReturn", "astr", CMD, "ptr", &StrOut)
+      strget:="strget"
+      StrOut:=%StrGet%(&StrOut, 20000, CP0)
+   }
+   Return, %StrOut%
+}
+
