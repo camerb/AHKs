@@ -161,4 +161,3 @@ ShortSleep()
    SleepSeconds(1)
 }
 
-ESC::ExitApp

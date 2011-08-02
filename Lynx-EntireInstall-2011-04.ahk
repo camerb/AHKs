@@ -35,9 +35,16 @@ startupShortcut=%A_StartupCommon%\ahkLink.lnk
    SleepSeconds(20)
    #Include Lynx-7-InstallIIS.ahk
    SleepSeconds(20)
-   #Include Lynx-8-MiscAndTest.ahk
+   ;#Include Lynx-8-MiscAndTest.ahk
+   MakeDesktopShortcuts()
+   InstallLynxMessenger()
+   EnableIISlocalhostRelay()
+   ChangeDesktopBackground()
    FileRemoveDir, C:\My Dropbox, 1
    MsgBox, Finished with Lynx Server Install
 ;}
+
+ExitApp
+ESC::ExitApp
 
 #include Lynx-FcnLib.ahk
