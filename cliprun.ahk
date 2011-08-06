@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-ProcessClose("chrome.exe")
+ProcessCloseAll("opera.exe")
 
 
 

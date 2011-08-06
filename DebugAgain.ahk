@@ -92,7 +92,7 @@ else if (project == "TM")
 }
 else if (debuggerCommand == "EPMS")
 {
-   ;apacheServer:=true
+   apacheServer:=true
    plackServer:=true
    projTitle := epmsTitles
    projDir=C:/code/epms/script
@@ -147,7 +147,7 @@ if refreshServerMode
       WinMinimize, httpd.exe
       WinWaitClose, httpd.exe
    }
-   else if plackServer
+   if plackServer
    {
       ForceWinFocusCmd()
 
@@ -165,7 +165,7 @@ if refreshServerMode
       SendInput, %projRun%{ENTER}
       ForceWinFocusIfExist("BareTail")
    }
-   else
+   if NOT apacheServer and NOT plackServer
    {
       ForceWinFocusCmd()
       SendInput, ^c

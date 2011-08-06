@@ -62,6 +62,13 @@ if (A_ComputerName = "PHOSPHORUS")
       Send, ^!2
    }
 
+   if ForceWinFocusIfExist("SQL Server Management Studio")
+   {
+      Send, ^!{PGUP}
+      Send, ^!3
+      Send, ^!{RIGHT}
+   }
+
    IfWinExist, PhosphorusVM - VMware Player ahk_class VMPlayerFrame
    {
       BlockInput, On

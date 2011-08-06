@@ -315,8 +315,14 @@ IfWinActive, Disconnect Terminal Services Session ahk_class #32770
 IfWinActive, , This will disconnect your Remote Desktop Services session
    Send, {ENTER}
 
-IfWinActive, Remote Desktop Connection, Do you want to connect despite these certificate errors?
+;IfWinActive, Remote Desktop Connection, Do you want to connect despite these certificate errors?
+   ;Send, !y
+IfWinExist, Remote Desktop Connection, Do you want to connect despite these certificate errors?
+{
+   WinActivate
+   Sleep, 100
    Send, !y
+}
 
 ;FF4 has fewer prompts now
 ;IfWinExist, Firefox Add-on Updates ahk_class MozillaDialogClass

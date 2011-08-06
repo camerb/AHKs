@@ -1,6 +1,6 @@
 /**
  *   OCR library by camerb
- *   v0.92 - 2011-07-22
+ *   v0.92 - 2011-08-03
  *
  * This OCR lib provides an easy way to check a part of the screen for
  * machine-readable text. You should note that OCR isn't a perfect technology,
@@ -20,7 +20,6 @@
 
 #Include GDIp.ahk
 #Include CMDret.ahk
-;#Include fcnlib.ahk
 
 
 GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, isDebugMode=false)
@@ -100,25 +99,25 @@ GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, isDebugMode=false)
    FileDelete, %fileNameDestJ%
    SetBatchlines, %prevBatchLines%
 
-   return %result%
+   return result
 }
 
-RunWaitEx(CMD, CMDdir, CMDin, ByRef CMDout, ByRef CMDerr)
-{
-  ;VarSetCapacity(CMDOut, 100000)
-  ;VarSetCapacity(CMDerr, 100000)
-  RetVal := DllCall("cmdret.dll\RunWEx", "AStr", CMD, "AStr", CMDdir, "AStr", CMDin, "AStr", CMDout, "AStr", CMDerr)
-  Return, %RetVal%
-}
+;RunWaitEx(CMD, CMDdir, CMDin, ByRef CMDout, ByRef CMDerr)
+;{
+   ;VarSetCapacity(CMDOut, 100000)
+   ;VarSetCapacity(CMDerr, 100000)
+   ;RetVal := DllCall("cmdret.dll\RunWEx", "AStr", CMD, "AStr", CMDdir, "AStr", CMDin, "AStr", CMDout, "AStr", CMDerr)
+   ;Return, %RetVal%
+;}
 
-GhettoCmdRet_RunReturn(command)
-{
-   file := "joe.txt"
-   command .= " > " . file
-   Run %comspec% /c "%command%"
-   FileRead, returned, %file%
-   return returned
-}
+;GhettoCmdRet_RunReturn(command)
+;{
+   ;file := "joe.txt"
+   ;command .= " > " . file
+   ;Run %comspec% /c "%command%"
+   ;FileRead, returned, %file%
+   ;return returned
+;}
 
 CMDret(CMD)
 {

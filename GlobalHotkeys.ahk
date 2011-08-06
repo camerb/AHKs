@@ -189,9 +189,28 @@ AppsKey & Launch_Media::
 SetTitleMatchMode, RegEx
 DetectHiddenWindows, On
 titletext := WinGetTitle("(Last.fm|Power FM)")
-DetectHiddenWindows, Off
+;debug(titletext)
 
-PowerIsStreamingInWMP:=WinExist("Windows Media Player")
+;FIXME buggy
+PowerIsStreamingInWMP:=WinExist(".+Windows Media Player")
+;titletext := WinGetTitle("Windows Media Player")
+;debug(titletext)
+
+WinGetTitle, titletext, foobar2000
+DetectHiddenWindows, Off
+if (titletext<>"")
+   notify("", titletext, 5)
+if (titletext=="")
+   WinGetTitle, titletext, ahk_class QWidget
+if (titletext=="")
+   WinGetTitle, titletext, foobar2000
+if (titletext<>"")
+{
+   titletext:=RegExReplace(titletext, "\[foobar2000.*$")
+   titletext:=RegExReplace(titletext, " \[Indie.Rock Playlist.*?\]")
+   titletext:=StringReplace(titletext, " - Last.fm - Opera")
+   notify("", titletext, 5)
+}
 if (titletext=="89.7 Power FM - Powered by ChristianNetcast.com - Opera" OR PowerIsStreamingInWMP)
 {
    playlist:=UrlDownloadToVar("http://on-air.897powerfm.com/")
@@ -204,18 +223,6 @@ if (titletext=="89.7 Power FM - Powered by ChristianNetcast.com - Opera" OR Powe
    outputVar:=RegExReplace(outputVar, " +", " ")
 
    notify("", outputVar, 5)
-   return
-}
-if (titletext=="")
-   WinGetTitle, titletext, ahk_class QWidget
-if (titletext=="")
-   WinGetTitle, titletext, foobar2000
-if (titletext<>"")
-{
-   titletext:=RegExReplace(titletext, "\[foobar2000.*$")
-   titletext:=RegExReplace(titletext, " \[Indie.Rock Playlist.*?\]")
-   titletext:=StringReplace(titletext, " - Last.fm - Opera")
-   notify("", titletext, 5)
 }
 return
 

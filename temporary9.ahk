@@ -1,6 +1,14 @@
 #include FcnLib.ahk
-#include thirdParty/lib_json.ahk
 
-joe := Object()
-joe.joejoe := "here"
-msgbox % joe.joejoe
+;Capslock::LCtrl
+Capslock::
+;LCtrl
+debug(A_ThisHotkey)
+return
+
+$f::
+debug(A_ThisHotkey)
+if(GetKeyState("Capslock", "P"))
+   Send, {Left}
+return
+

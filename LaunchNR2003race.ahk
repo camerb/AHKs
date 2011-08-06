@@ -1,5 +1,9 @@
 #include FcnLib.ahk
 
+Run, http://www.blazinpedals.com/
+Sleep, 1000
+ip:=Prompt("What is the IP for the race?")
+
 ChangeLogitechWheelMode()
 
 ;close junk that we don't want running during the race
@@ -8,8 +12,8 @@ Process, Close, dsidebar.exe
 SoundSet, 40
 
 RunAhk("NR2003hotkeys.ahk")
-;LaunchRace("68.195.69.18", "pedalsdown")
-LaunchRaceViaRLM()
+LaunchRace(ip, "pedalsdown")
+;LaunchRaceViaRLM()
 ExitApp
 
 LaunchRaceViaRLM()

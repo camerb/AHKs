@@ -43,7 +43,7 @@ MelGmailUrl=https://melindabaustian:%joe%@gmail.google.com/gmail/feed/atom
       }
 
       ;wait between updates, unless if currently messing with gmail in browser
-      ;  this will make it more accurate if we're reading emails right now
+      ;  this will make it more up-to-date if we're reading emails right now
       Loop 30
       {
          if InStr(WinGetActiveTitle(), "Gmail")

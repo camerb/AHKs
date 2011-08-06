@@ -19,5 +19,3 @@ CMDret(CMD)
    }
    Return, %StrOut%
 }
-
-   

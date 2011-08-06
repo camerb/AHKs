@@ -54,13 +54,13 @@ else if (FoobarPID)
    WinRestore, foobar2000
    if ForceWinFocusIfExist("^foobar2000", "RegEx")
    {
-      Sleep, 100
+      Sleep, 1000
       ;this will play
       Send, {ALT}pl
    }
    if ForceWinFocusIfExist("^.+foobar2000", "RegEx")
    {
-      Sleep, 100
+      Sleep, 1000
       ;this will stop it
       Send, {ALT}ps
    }

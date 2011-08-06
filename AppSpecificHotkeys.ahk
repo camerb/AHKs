@@ -326,3 +326,14 @@ SendInput, {CTRL UP}{SHIFT UP}Based on the Leasing Professional's presentation, 
 return
 #IfWinActive
 ;}}}
+
+;{{{AHK Forum quick replies
+#IfWinActive (Post a reply|Edit post)
+:*:!tutorial::Sure, you can do that with AHK... have you checked out the tutorial? http://www.autohotkey.com/docs/Tutorial.htm{ENTER}{ENTER}By the way, when you're reading through the tutorial, do not just gloss over it... instead: try all of the examples, run them, tweak them, and experiment with it. After all, the purpose of the tutorial is for you to be doing the examples as you're reading... it isn't just a quick read.
+:*:!codetags::Use [/code] tags when you're pasting code into the forums.
+:*:!cycle::Masterfocus made a nifty function called Cycle() that should fix your problem. Check this out:{ENTER}http://www.autohotkey.com/forum/viewtopic.php?p=388494#388494
+
+;perhaps I should write an article and put a link to it in here
+:*:!details::Please give use more details to help diagnose your problem... simply saying that it "doesn't work" doesn't help at all.
+#IfWinActive
+;}}}
