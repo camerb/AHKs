@@ -2,17 +2,17 @@
 #include thirdParty/Anchor.ahk
 
 /*
-Name:     Find Me
-Version:  1.80 (Mon July 18, 2011)
-Author:     tidbit
+Name:        Find Me
+Version:     1.9 (Mon July 25, 2011)
+Author:      tidbit
 credits:     camerb
-Description: Find all matching text/phrases inside of files of a sepecified directory.
+Description: Find all matching text/phrases inside of files of a specified directory.
 
 right-click: context Menu
 esc: stop searching and replacing
 ctrl+w: exit the program
 
-add a * (asterisks) as the first letter in the File text field to recurse into sub folders.\
+add a * (asterisks) as the first letter in the File text field to recurse into all sub folders.
    Example: *C:\Documents and Settings\USER\Desktop\
    NOTE: Use with caution. it may take much longer.
 */
@@ -23,14 +23,15 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance force
 SetBatchLines, -1
 
+Menu, copymenu, Add, Edit, editmenu
 Menu, copymenu, Add, Copy Text, copymenu
 Menu, copymenu, Add, Select All, selmenu
 selall:=0
 
 gui, +Default +Resize +minsize
 
-Gui, Add, Edit, x6 y10 w190 h20 vseldir, %A_desktop%
-Gui, Add, Button, xp+192 y10 w58 h20 vseldirbtn gbrowse, Browse
+Gui, Add, Edit,   x6     y10 w190 h20 vseldir, %A_desktop%
+Gui, Add, Button, xp+192 y10 w58  h20 vseldirbtn gbrowse, Browse
 
 Gui, Add, Radio, x6  y+2   w80  h20 vextmode +Checked cblue, Extensions:
 Gui, Add, Radio, x6  y+2   w80  h20 cred, Ignore:
@@ -84,49 +85,6 @@ Return
 
 
 
-usereplace:
-	gui, Submit, NoHide
-	If (usereplace==1)
-		guiControl, Enable, replace
-	Else
-		guiControl, Disable, replace
-Return
-
-
-
-replace:
-	gui, Submit, NoHide
-	If (usereplace==0)
-		Return
-
-	SB_SetText("Replacing... ", 1, 0)
-
-	Loop % LV_GetCount()
-	{
-		If (escIsPressed())
-			Break
-
-		SendMessage, 4140, A_index - 1, 0xF000, SysListView321  ; 4140 is LVM_GETITEMSTATE.  0xF000 is LVIS_STATEIMAGEMASK.
-		isChecked := (ErrorLevel >> 12) - 1
-		; isChecked := LV_GetNext(iteration, "Checked")
-
-		If (isChecked==0)
-			Continue
-
-		LV_GetText(line, A_index, 2)
-		LV_GetText(file, A_index, 4)
-		LV_Modify(A_Index, "-Check")
-
-		SB_SetText("Replacing in: " file, 1, 0)
-
-		TF_RegExReplaceInLines("!" file, line, line, "i)" word, replace)
-	}
-
-	SB_SetText("Awaiting Action.", 1, 0)
-Return
-
-
-
 ext:
 	gui, Submit, NoHide
 	If exts Contains .,%A_Space%
@@ -159,6 +117,78 @@ listview:
 	}
 	If (A_GuiEvent = "ColClick")
 		LV_SortArrow(hListView, A_EventInfo)
+Return
+
+
+GuiContextMenu:
+	If (A_GuiControl!="list")
+		return
+	RCrow:=A_EventInfo ; Right-Clicked row
+	Menu, copymenu, Show, %A_GuiX%, %A_GuiY%
+return
+
+
+editmenu:
+	LV_GetText(Filetorun, RCrow,4)
+	If (filetorun=="File")
+		Return
+	run, notepad.exe %filetorun%
+	; run, %A_ProgramFiles%\notepad++\notepad++.exe %filetorun%
+Return
+
+copymenu:
+	LV_GetText(copytext, RCrow, 3)
+	Clipboard:=copytext
+Return
+
+selmenu:
+	selall:=!selall
+	if (selall==1)
+		LV_Modify(0, "Check")
+	else
+		LV_Modify(0, "-Check")
+Return
+
+
+
+usereplace:
+	gui, Submit, NoHide
+	If (usereplace==1)
+		guiControl, Enable, replace
+	Else
+		guiControl, Disable, replace
+Return
+
+
+replace:
+	gui, Submit, NoHide
+	If (usereplace==0)
+		Return
+
+	SB_SetText("Replacing... ", 1, 0)
+
+	Loop % LV_GetCount()
+	{
+		If (escIsPressed())
+			Break
+
+		SendMessage, 4140, A_index - 1, 0xF000, SysListView321  ; 4140 is LVM_GETITEMSTATE.  0xF000 is LVIS_STATEIMAGEMASK.
+		isChecked := (ErrorLevel >> 12) - 1
+		; isChecked := LV_GetNext(iteration, "Checked")
+
+		If (isChecked==0)
+			Continue
+
+		LV_GetText(line, A_index, 2)
+		LV_GetText(file, A_index, 4)
+		LV_Modify(A_Index, "-Check")
+
+		SB_SetText("Replacing in: " file, 1, 0)
+
+		TF_RegExReplaceInLines("!" file, line, line, "i)" word, replace)
+	}
+
+	SB_SetText("Awaiting Action.", 1, 0)
 Return
 
 
@@ -218,7 +248,7 @@ search:
 		SplitPath, a_loopfield, fileName
 		SB_SetText("file: " A_Index "/" max " -- " fileName, 1, 0)
 		curFileNumber:=A_Index
-
+		
 		FileRead, fileText, %filePath%
 		filetext:=unHTM(filetext)
 
@@ -320,36 +350,8 @@ Return
 
 
 
-GuiContextMenu:
-	If (A_GuiControl!="list")
-		return
-	RCrow:=A_EventInfo ; Right-Clicked row
-	Menu, copymenu, Show, %A_GuiX%, %A_GuiY%
-return
-
-
-
-copymenu:
-	LV_GetText(copytext, RCrow, 4)
-	Clipboard:=copytext
-Return
-
-
-
-selmenu:
-	selall:=!selall
-	if (selall==1)
-		LV_Modify(0, "Check")
-	else
-		LV_Modify(0, "-Check")
-Return
-
-
-
-
 ; ------ Functions ---
 ; --------------------
-
 
 
 
@@ -389,6 +391,8 @@ ConvertEntities(HTML)
  Return, HTML
 }
 
+
+
 ; thanks Solar! http://www.autohotkey.com/forum/viewtopic.php?t=69642
 ; h = ListView handle
 ; c = 1 based index of the column
@@ -424,14 +428,9 @@ LV_SortArrow(h, c, d="") {
 
 
 
-
-
-
 ; ------ TF() Stuff ---
 ; ---------------------
 ; Thanks hugov! http://www.autohotkey.com/forum/viewtopic.php?t=46195
-
-
 
 TF_RegExReplaceInLines(Text, StartLine = 1, EndLine = 0, NeedleRegEx = "", Replacement = "")
 	{
@@ -653,7 +652,6 @@ _MakeMatchList(Text, Start = 1, End = 0)
 
 
 
-
 /*
 Copyright 2010,2011 Tuncay. All rights reserved.
 
@@ -729,6 +727,87 @@ agrep(ByRef _haystack="", _pattern="", _ignoreCase=false, _invert=false, _lineMa
     Return SubStr( RegExReplace(_haystack . "`n", (_ignoreCase ? "i" : "") . "`am)(*BSR_ANYCRLF)(?" . (_invert ? "=" : "!") . "(?:" . (_lineMatch ? "^" . _pattern . "$" : ".*?" . _pattern . ".*?") . "))^.*?\R", _replace, ErrorLevel), 1, -1)
 }
 
+
+
+/*
+	Function: Anchor
+		Defines how controls should be automatically positioned relative to the new dimensions of a window when resized.
+
+	Parameters:
+		cl - a control HWND, associated variable name or ClassNN to operate on
+		a - (optional) one or more of the anchors: 'x', 'y', 'w' (width) and 'h' (height),
+			optionally followed by a relative factor, e.g. "x h0.5"
+		r - (optional) true to redraw controls, recommended for GroupBox and Button types
+
+	Examples:
+> "xy" ; bounds a control to the bottom-left edge of the window
+> "w0.5" ; any change in the width of the window will resize the width of the control on a 2:1 ratio
+> "h" ; similar to above but directrly proportional to height
+
+	Remarks:
+		To assume the current window size for the new bounds of a control (i.e. resetting) simply omit the second and third parameters.
+		However if the control had been created with DllCall() and has its own parent window,
+			the container AutoHotkey created GUI must be made default with the +LastFound option prior to the call.
+		For a complete example see anchor-example.ahk.
+
+	License:
+		- Version 4.60a <http://www.autohotkey.net/~Titan/#anchor>
+		- Simplified BSD License <http://www.autohotkey.net/~Titan/license.txt>
+*/
+Anchor(i, a = "", r = false) {
+	static c, cs = 12, cx = 255, cl = 0, g, gs = 8, gl = 0, gpi, gw, gh, z = 0, k = 0xffff
+	If z = 0
+		VarSetCapacity(g, gs * 99, 0), VarSetCapacity(c, cs * cx, 0), z := true
+	If (!WinExist("ahk_id" . i)) {
+		GuiControlGet, t, Hwnd, %i%
+		If ErrorLevel = 0
+			i := t
+		Else ControlGet, i, Hwnd, , %i%
+	}
+	VarSetCapacity(gi, 68, 0), DllCall("GetWindowInfo", "UInt", gp := DllCall("GetParent", "UInt", i), "UInt", &gi)
+		, giw := NumGet(gi, 28, "Int") - NumGet(gi, 20, "Int"), gih := NumGet(gi, 32, "Int") - NumGet(gi, 24, "Int")
+	If (gp != gpi) {
+		gpi := gp
+		Loop, %gl%
+			If (NumGet(g, cb := gs * (A_Index - 1)) == gp) {
+				gw := NumGet(g, cb + 4, "Short"), gh := NumGet(g, cb + 6, "Short"), gf := 1
+				Break
+			}
+		If (!gf)
+			NumPut(gp, g, gl), NumPut(gw := giw, g, gl + 4, "Short"), NumPut(gh := gih, g, gl + 6, "Short"), gl += gs
+	}
+	ControlGetPos, dx, dy, dw, dh, , ahk_id %i%
+	Loop, %cl%
+		If (NumGet(c, cb := cs * (A_Index - 1)) == i) {
+			If a =
+			{
+				cf = 1
+				Break
+			}
+			giw -= gw, gih -= gh, as := 1, dx := NumGet(c, cb + 4, "Short"), dy := NumGet(c, cb + 6, "Short")
+				, cw := dw, dw := NumGet(c, cb + 8, "Short"), ch := dh, dh := NumGet(c, cb + 10, "Short")
+			Loop, Parse, a, xywh
+				If A_Index > 1
+					av := SubStr(a, as, 1), as += 1 + StrLen(A_LoopField)
+						, d%av% += (InStr("yh", av) ? gih : giw) * (A_LoopField + 0 ? A_LoopField : 1)
+			DllCall("SetWindowPos", "UInt", i, "Int", 0, "Int", dx, "Int", dy
+				, "Int", InStr(a, "w") ? dw : cw, "Int", InStr(a, "h") ? dh : ch, "Int", 4)
+			If r != 0
+				DllCall("RedrawWindow", "UInt", i, "UInt", 0, "UInt", 0, "UInt", 0x0101) ; RDW_UPDATENOW | RDW_INVALIDATE
+			Return
+		}
+	If cf != 1
+		cb := cl, cl += cs
+	bx := NumGet(gi, 48), by := NumGet(gi, 16, "Int") - NumGet(gi, 8, "Int") - gih - NumGet(gi, 52)
+	If cf = 1
+		dw -= giw - gw, dh -= gih - gh
+	NumPut(i, c, cb), NumPut(dx - bx, c, cb + 4, "Short"), NumPut(dy - by, c, cb + 6, "Short")
+		, NumPut(dw, c, cb + 8, "Short"), NumPut(dh, c, cb + 10, "Short")
+	Return, true
+}
+
+
+
 escIsPressed()
 {
    If (getkeystate("esc","p") == "U")
@@ -738,6 +817,8 @@ escIsPressed()
    return getkeystate("esc","p")
 }
 
+
+
 ; ------ Hotkeys ---
 ; ------------------
 
@@ -746,3 +827,4 @@ escIsPressed()
 GuiClose:
 ExitApp
 #IfWinActive
+

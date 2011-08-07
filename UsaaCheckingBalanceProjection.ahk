@@ -26,13 +26,10 @@ projectionCsv=%path%financialProjection.csv
 if NOT FileExist(infile)
    fatalErrord("the infile for creating the financial projection doesn't exist, cannot continue", A_ScriptName)
 
-ini=gitExempt/financial.ini
-CameronProjection := IniRead(ini, "", "CameronProjection")
-MelindaProjection := IniRead(ini, "", "MelindaProjection")
-currentCheckingBalance := IniRead(ini, "", "CheckingBalance")
-;debug(CameronProjection, MelindaProjection)
-;debug(fileexist(ini))
-;debug(fileexist("joe"))
+ini=gitExempt/NightlyStats.ini
+CameronProjection := IniRead(ini, date, "CameronProjection")
+MelindaProjection := IniRead(ini, date, "MelindaProjection")
+currentCheckingBalance := IniRead(ini, date, "CheckingBalance")
 
 ;put this in the expected file using an REFP
 expectedTransTpl=%path%expectedTransactions-tpl.txt
@@ -62,9 +59,6 @@ Loop, Read, %expectedTransFile%
    }
 }
 
-;Loop, %reTransCount%
-      ;debug("here", reTrans%A_Index%)
-
 ;Go through the history file
 ;(check each history against each expected--ij loop)
 Loop, Read, %infile%
@@ -77,7 +71,7 @@ Loop, Read, %infile%
       if RegExMatch(historyLine, reTrans%i%)
       {
          ;debug("found it", historyLine)
-         ;TODO mark it as found, mark historyTrans as expected?
+         ;TODO mark historyTrans as expected?
          reTrans%i%found:=true
       }
       ;debug(reTrans%i%, "", historyLine)
