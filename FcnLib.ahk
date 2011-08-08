@@ -199,7 +199,7 @@ MouseMoveIfImageSearch(filename)
       return false
    }
 
-   WinGetPos, no, no, winWidth, winHeight
+   WinGetPos, no, no, winWidth, winHeight, A
    ImageSearch, xvar, yvar, 0, 0, winWidth, winHeight, %filename%
 
    MouseMove, xvar, yvar
@@ -222,7 +222,7 @@ ClickIfImageSearch(filename, clickOptions="left Mouse")
       return false
    }
 
-   WinGetPos, no, no, winWidth, winHeight
+   WinGetPos, no, no, winWidth, winHeight, A
    ImageSearch, xvar, yvar, 0, 0, winWidth, winHeight, %filename%
 
    if NOT ErrorLevel
@@ -243,7 +243,7 @@ WaitForImageSearch(filename, variation=0, timeToWait=20, sleepTime=20) ;TODO opt
    TimeToStop:=CurrentTimePlus(timeToWait)
    while (CurrentlyBefore(TimeToStop))
    {
-      WinGetPos, no, no, winWidth, winHeight
+      WinGetPos, no, no, winWidth, winHeight, A
       ImageSearch, no, no, 0, 0, winWidth, winHeight, *%variation% %filename%
 
       if NOT ErrorLevel
