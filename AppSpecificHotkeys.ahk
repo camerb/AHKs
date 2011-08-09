@@ -54,6 +54,7 @@ SendInput {Raw}%clipboard%
 ;Send, {DOWN 3}{ENTER}
 return
 
+;for some reason you can't scroll up with the mousewheel in git (MINGW32)
 PGUP:: SendInput, {WHEELUP 10}
 PGDN:: SendInput, {WHEELDOWN 10}
 #IfWinActive ;End ahk_class ConsoleWindowClass

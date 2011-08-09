@@ -22,10 +22,10 @@ returned .= "3 days:`n" . CmdRet_RunReturn( command . " -3d" ) . "`n`n"
 returned .= "4 days:`n" . CmdRet_RunReturn( command . " -4d" ) . "`n`n"
 returned .= "5 days:`n" . CmdRet_RunReturn( command . " -5d" ) . "`n`n"
 
-SendEmail(subj, returned)
-
-;file=C:\My Dropbox\Public\JiraWorkmorrow.html
-;fileContents=<html><head><title>%subj%</title></head><body>%returned%</body></html>
+if InStr(returned, "exception.RemoteAuthenticationException")
+   returned := "Login exceptions detected (likely an incorrect username/password)`n`n" . returned
+else
+   SendEmail(subj, returned)
 
 file=C:\My Dropbox\Public\JiraWorkmorrow.txt
 fileContents=%subj%`n%returned%
