@@ -1,5 +1,7 @@
 #include FcnLib.ahk
 
+WinMove, 1094, 453, 653, 557
+
 Loop
 {
    ;addtotrace(A_TimeIdlePhysical)
