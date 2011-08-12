@@ -22,10 +22,23 @@
 #Include CMDret.ahk
 
 
-GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, isDebugMode=false)
+GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", isDebugMode=false)
 {
+   ;TODO validate to ensure that the coords are numbers
+
    prevBatchLines := A_BatchLines
    SetBatchlines, -1 ;cuts the average time down from 140ms to 115ms for small areas
+
+   if (heightToScan == "")
+   {
+      ;TODO throw error it not in the right coordmode
+      ;CoordMode, Mouse, Window
+      WinGetActiveStats, no, winWidth, winHeight, no, no
+      topLeftX := 0
+      topLeftY := 0
+      widthToScan  := winWidth
+      heightToScan := winHeight
+   }
 
    fileNameDestJ = ResultImage.jpg
    jpegQuality = 100

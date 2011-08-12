@@ -18,7 +18,7 @@ while NOT NetWorth
    LongSleep()
 
    page:=RegExReplace(page, "(`r|`n)", " ")
-   RegExMatch(page, "<li class..net-worth.><span class..balance.>..(\d{2}).(\d{3}.\d{2})</span>Net Worth</li>", match)
+   RegExMatch(page, "<li class..net-worth.><span class..balance.>..(\d{1,2,3}).(\d{3}.\d{2})</span>Net Worth</li>", match)
    netWorth=-%match1%%match2%
 }
 

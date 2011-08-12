@@ -1,5 +1,5 @@
 #include FcnLib.ahk
-#include thirdParty/Anchor.ahk
+;#include thirdParty/Anchor.ahk
 
 /*
 Name:        Find Me
@@ -248,7 +248,7 @@ search:
 		SplitPath, a_loopfield, fileName
 		SB_SetText("file: " A_Index "/" max " -- " fileName, 1, 0)
 		curFileNumber:=A_Index
-		
+
 		FileRead, fileText, %filePath%
 		filetext:=unHTM(filetext)
 

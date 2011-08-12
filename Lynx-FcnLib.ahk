@@ -161,3 +161,12 @@ ShortSleep()
    SleepSeconds(1)
 }
 
+WinLogActiveStats(function, lineNumber)
+{
+   WinGetActiveStats, winTitle, width, height, xPosition, yPosition
+   WinGetText, winText, A
+   allVars=function,lineNumber,winTitle,width,height,xPosition,yPosition,winText
+   Loop, Parse, allVars, CSV
+      %A_LoopField% := A_LoopField . ": " . %A_LoopField%
+   delog("Debugging window info", function, lineNumber, winTitle, width, height, xPosition, yPosition, winText)
+}

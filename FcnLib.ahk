@@ -1,9 +1,10 @@
 #SingleInstance Force
 
-#include thirdParty\Functions.ahk
+#include thirdParty/Functions.ahk
 ;#include thirdParty\Notify.ahk ;this causes windows to be open forever
-#include thirdParty\Cycle.ahk
-#include thirdParty\Format4Csv.ahk
+#include thirdParty/CmdRet.ahk
+#include thirdParty/Cycle.ahk
+;#include thirdParty/Format4Csv.ahk ;haven't used this yet, but I should
 #include FcnLib-Rewrites.ahk
 
 ;Takes a screenshot and saves it to the specified path
@@ -11,7 +12,7 @@
 ;Includes an optional text parameter that will allow you to
 ;begin the filename with a relevant text description, and
 ;end it with a timestamp
-;TODO adjust image quality ;TODO change image format
+;not implemented: adjust image quality, change image format
 #include thirdParty\ScreenCapture.ahk
 SaveScreenShot(descriptiveText="", directoryPath="dropbox", options="")
 {
@@ -1567,11 +1568,11 @@ NightlyStats(title, data)
 
 ;FIXME
 ;NOTE I hate the way this syntax looks
-isPlusOrMinus(cneterNumber, numbertocompare, plusOrMinus)
-{
-   if (number)
-   return num
-}
+;isPlusOrMinus(cneterNumber, numbertocompare, plusOrMinus)
+;{
+   ;if (number)
+   ;return num
+;}
 
 ;gets the contents of the url bar for firefox, iexplore or opera
 #include thirdParty/DDE/DDEML.ahk
@@ -1612,6 +1613,21 @@ AhkClose(ahkFilename)
    WinGet, pid, PID, %ahkFilename%
    Process, Close, %pid%
    CustomTitleMatchMode("Default")
+}
+
+;waits for the window to be active and then clicks the button (using alt+letter)
+;this should result in code that is more readable: WaitClick("&Save")
+;TODO might need a better name
+WaitClick(button)
+{
+   if NOT InStr(button, "&")
+      fatalErrord("couldn't click the button", "it didn't have an & specified:", button)
+   WinWaitActive, , %button%
+   Sleep, 100
+   button := StringLower(button)
+   RegExMatch(button, "\&(.)", match)
+   keys=!%match1%
+   Send, %keys%
 }
 
 ;WRITEME make function for getting remote and local path of dropbox public folder
@@ -1662,7 +1678,12 @@ AhkClose(ahkFilename)
 ;WRITEME make FinancialProjection.csv work with new NightlyStats.ini
 ;WRITEME process old DailyFinancial.csv data into NightlyStats.ini
 ;WRITEME generate Financial.csv from NightlyStats.ini (nightly script)
-
-
 ;WRITEME experiment with AHK_L
+
+;TODO for firefly
+; "Would you like to approve?"
+; Scorecard automation
+; Return to queue and search and sort
+; Delete filler text from Magic Faux MS_Word
+
 
