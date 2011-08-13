@@ -1,6 +1,8 @@
 #include FcnLib.ahk
 #include thirdParty/cmdret.ahk
 
+;test if the internet is down
+
 timer:=starttimer()
 url:=cycle("google.com", "dl.dropbox.com/u/789954/logs/trace.txt")
 joe:=urldownloadtovar("google.com")

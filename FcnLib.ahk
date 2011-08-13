@@ -1687,3 +1687,8 @@ WaitClick(button)
 ; Delete filler text from Magic Faux MS_Word
 
 
+
+;WRITEME be awesome
+;WRITEME polish up lib_Email.ahk, add better error handling and put it on the forums
+;WRITEME fix up OCR lib so that it works with AHK_L
+

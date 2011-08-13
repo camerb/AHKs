@@ -114,7 +114,7 @@ ShowPreviewOfAllTempAhks()
       allText .= "`n`n"
    }
 
-   Gui, Add, Edit, r65 c10 vMyEdit Disabled, %allText%
+   Gui, Add, Edit, r65 c10 Disabled, %allText%
    Gui, Show, x10 y10
    ;Gui, Show, W100 H300 X10 Y10
 }

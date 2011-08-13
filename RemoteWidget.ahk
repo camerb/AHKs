@@ -44,7 +44,7 @@ Loop
    lastEntireMessage:=entireMessage
    entireMessage:=GetWidgetText()
    ;entireMessage:="hi" ;to test when internet sucks
-   addtotrace(entireMessage)
+   ;addtotrace(entireMessage)
 
    ;if a change in the text has taken place, repaint
    ;(else: don't bother cause it flickers)
