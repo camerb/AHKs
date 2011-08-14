@@ -2,8 +2,6 @@
 #include ThirdParty/json.ahk
 #include ThirdParty/tf.ahk
 
-;DeleteTraceFile()
-
 ;close old windows, if they are still open for some reason
 if ForceWinFocusIfExist("out1.*OpenOffice.org", "RegEx")
 {
@@ -27,9 +25,9 @@ if NOT FileExist(infile)
    fatalErrord("the infile for creating the financial projection doesn't exist, cannot continue", A_ScriptName)
 
 ini=gitExempt/NightlyStats.ini
-CameronProjection := IniRead(ini, date, "CameronProjection")
-MelindaProjection := IniRead(ini, date, "MelindaProjection")
-currentCheckingBalance := IniRead(ini, date, "CheckingBalance")
+CameronProjection := GetMostRecentIniValue("CameronProjection")
+MelindaProjection := GetMostRecentIniValue("MelindaProjection")
+currentCheckingBalance := GetMostRecentIniValue("CheckingBalance")
 
 ;put this in the expected file using an REFP
 expectedTransTpl=%path%expectedTransactions-tpl.txt
@@ -153,3 +151,17 @@ ForceWinFocus("OpenOffice")
 
 ExitApp
 `:: ExitApp
+
+GetMostRecentIniValue(key)
+{
+   ini:=getPath("NightlyStats.ini")
+   returned=ERROR
+   date := currenttime("hyphendate")
+   while (returned == "ERROR")
+   {
+      returned := IniRead(ini, date, key)
+      date := AddDatetime(date, -1, "day")
+      date := Format(date, "hyphendate")
+   }
+   return returned
+}

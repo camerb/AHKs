@@ -64,7 +64,7 @@ if (A_ComputerName="PHOSPHORUS")
 ;{{{Send Morning AHK Status Briefing
 if (A_Hour=6 AND A_Min=0 AND A_Sec=0)
 {
-   if (A_ComputerName="PHOSPHORUS")
+   if ( A_ComputerName == LeadComputer() )
    {
       RunAhk("MorningStatus.ahk", "SendMessage")
       SleepSeconds(2)

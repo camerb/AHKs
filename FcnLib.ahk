@@ -490,7 +490,12 @@ DeFormatTime(timestamp)
    }
    if RegExMatch(timestamp, "(\d{2}).(\d{2}).(\d{4})", m)
    {
-      returned=%m1%
+      returned=%m3%%m1%%m2%000000
+      return returned
+   }
+   if RegExMatch(timestamp, "(\d{4}).(\d{2}).(\d{2})", m)
+   {
+      returned=%m1%%m2%%m3%000000
       return returned
    }
 }
@@ -1418,11 +1423,23 @@ MultiWinWait(successWin, successWinText, failureWin, failureWinText)
    }
 }
 
+;waits for the window to be active and then clicks the button (using alt+letter)
+;this should result in code that is more readable: WaitClick("&Save")
 ClickButton(button)
 {
    ;TODO figure out if the button is visible in the wintext
    ;TODO hit the alt key for the button, if it has that & in the name (more reliable)
-   ControlClick, %button%
+
+   ;ControlClick, %button%
+
+   if NOT InStr(button, "&")
+      fatalErrord("couldn't click the button", "it didn't have an & specified:", button)
+   WinWaitActive, , %button%
+   Sleep, 100
+   button := StringLower(button)
+   RegExMatch(button, "\&(.)", match)
+   keys=!%match1%
+   Send, %keys%
 }
 
 AddDatetime(datetime, numberToAdd, unitsOfNumberToAdd)
@@ -1431,7 +1448,10 @@ AddDatetime(datetime, numberToAdd, unitsOfNumberToAdd)
    ;TODO unhyphenate datetime if necessary
    ;TODO verify that number to add is a number
    ;TODO standardize naming of the units (m, mins, min, minute, minutes)
+   ;TODO figure out current format of the timestamp
+   datetime := DeFormatTime(datetime)
    datetime += %numberToAdd%, %unitsOfNumberToAdd%
+   ;TODO restore previous format of the timestamp
    return datetime
 }
 
@@ -1446,6 +1466,12 @@ Format(value, options)
          ;return match1 . match2
       ;else
          ;Errord("This value doesn't appear to be the correct type", A_ScriptName, A_LineNumber, A_ThisFunc, value, options)
+   }
+   else if InStr(options, "hyphendate")
+   {
+      RegExMatch(value, "(\d{4})(\d{2})(\d{2})(\d{6})?", m)
+      returned=%m1%-%m2%-%m3%
+      return returned
    }
 }
 
@@ -1613,21 +1639,6 @@ AhkClose(ahkFilename)
    WinGet, pid, PID, %ahkFilename%
    Process, Close, %pid%
    CustomTitleMatchMode("Default")
-}
-
-;waits for the window to be active and then clicks the button (using alt+letter)
-;this should result in code that is more readable: WaitClick("&Save")
-;TODO might need a better name
-WaitClick(button)
-{
-   if NOT InStr(button, "&")
-      fatalErrord("couldn't click the button", "it didn't have an & specified:", button)
-   WinWaitActive, , %button%
-   Sleep, 100
-   button := StringLower(button)
-   RegExMatch(button, "\&(.)", match)
-   keys=!%match1%
-   Send, %keys%
 }
 
 ;WRITEME make function for getting remote and local path of dropbox public folder
