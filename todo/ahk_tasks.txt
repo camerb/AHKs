@@ -1,0 +1,1 @@
+;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program

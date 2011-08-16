@@ -3,7 +3,7 @@
 
 /*
 Name:        Find Me
-Version:     1.9 (Mon July 25, 2011)
+Version:     1.9??? (Mon July 25, 2011)
 Author:      tidbit
 credits:     camerb
 Description: Find all matching text/phrases inside of files of a specified directory.
@@ -23,6 +23,10 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance force
 SetBatchLines, -1
 
+getOptionsFromIni("Search")
+getOptionsFromIni("Replace")
+getOptionsFromIni("SelDir")
+
 Menu, copymenu, Add, Edit, editmenu
 Menu, copymenu, Add, Copy Text, copymenu
 Menu, copymenu, Add, Select All, selmenu
@@ -30,21 +34,23 @@ selall:=0
 
 gui, +Default +Resize +minsize
 
-Gui, Add, Edit,   x6     y10 w190 h20 vseldir, %A_desktop%
-Gui, Add, Button, xp+192 y10 w58  h20 vseldirbtn gbrowse, Browse
+;Gui, Add, Edit,   x6     y10 w190 h20 vseldir, %A_desktop%
+Gui, Add, Combobox, x6     y10 w190     vseldir, %OptionsSelDir%
+Gui, Add, Button,   xp+192 y10 w58  h20 vseldirbtn gbrowse, Browse
 
 Gui, Add, Radio, x6  y+2   w80  h20 vextmode +Checked cblue, Extensions:
 Gui, Add, Radio, x6  y+2   w80  h20 cred, Ignore:
 Gui, Add, Edit,  x+2 yp-22 w168 h20 vexts  gext, txt`,ahk`,htm`,html
 Gui, Add, Edit,  xp  y+2   w168 h20 vXexts gext, bmp`,gif`,jpg`,png`,svg`,tif`,mid`,mp3`,wav`,wma`,avi`,flv`,mov`,mp4`,mpg`,swf`,vob`,wmv`,app`,exe`,msi`,pif`,wsf
 
-Gui, Add, Text,   x6     yp+22 w60  h20 , Find:
-Gui, Add, Edit,   xp+62  yp    w108 h20 vword, Regex is Enabled. Case Insensitive
-Gui, Add, Button, xp+110 yp    w20  h20 vwordhelp gregexhelp,?
-Gui, Add, Button, xp+22  yp    w58  h20 vwordsearch gsearch +Default, Search
+Gui, Add, Text,     x6     yp+22 w60  h20 , Find:
+Gui, Add, Combobox, xp+62  yp    w108     vChosenSearch, %OptionsSearch%
+Gui, Add, Button,   xp+110 yp    w20  h20 vwordhelp gregexhelp,?
+Gui, Add, Button,   xp+22  yp    w58  h20 vwordsearch gsearch +Default, Search
 
 Gui, add, Checkbox, x6     yp+22 gusereplace vusereplace, Replace?
-Gui, Add, Edit,     xp+72  yp w120 h20 vreplace +Disabled, Regex is Enabled. Case Insensitive.
+;Gui, Add, Edit,     xp+72  yp w120 h20 vreplace +Disabled, Regex is Enabled. Case Insensitive.
+Gui, Add, Combobox, xp+72  yp    w120     vChosenReplace, %OptionsReplace%
 Gui, Add, Button,   xp+122 yp w58  h20 vreplacebtn greplace, Replace
 
 Gui, Add, ListView, x6 yp+22 w250 h210 vlist hwndhListView glistview Count5000 +Checked, File|Line|Sample|Path
@@ -73,7 +79,7 @@ Guisize:
 	Anchor("exts", "w")
 	Anchor("Xexts", "w")
 
-	Anchor("word", "w")
+	Anchor("ChosenSearch", "w")
 	Anchor("wordhelp", "x")
 	Anchor("wordsearch", "x")
 
@@ -185,7 +191,7 @@ replace:
 
 		SB_SetText("Replacing in: " file, 1, 0)
 
-		TF_RegExReplaceInLines("!" file, line, line, "i)" word, replace)
+		TF_RegExReplaceInLines("!" file, line, line, "i)" ChosenSearch, replace)
 	}
 
 	SB_SetText("Awaiting Action.", 1, 0)
@@ -196,6 +202,15 @@ Return
 search:
 	gui, Submit, NoHide
 	start:=A_TickCount
+        saveOptionsToIni("Search")
+        saveOptionsToIni("Replace")
+        saveOptionsToIni("SelDir")
+        ;OptionsSearch=%word%|%OptionsSearch%
+        ;OptionsSearch := RegExReplace(OptionsSearch, "\|+", "|")
+        ;RegExMatch(OptionsSearch, "((\|[^|]+){10})", match)
+        ;OptionsSearch=%word%|%match1%
+        ;IniWrite, %OptionsSearch%, FindMe.ini, Recent, Search
+        ;GuiControl, , word, |%OptionsSearch%
 
 	LV_ModifyCol(3, "AutoHdr", "Sample: (0)")
 
@@ -252,7 +267,7 @@ search:
 		FileRead, fileText, %filePath%
 		filetext:=unHTM(filetext)
 
-		output:=agrep(fileText, word, 1)
+		output:=agrep(fileText, ChosenSearch, 1)
 
 		;------ debugging GUI (pretty ugly, :D)
 		; xpos+=101
@@ -264,7 +279,7 @@ search:
 		{
 			If (escIsPressed())
 				Break
-			if (!RegExMatch(a_loopfield, "i`n)" word))
+			if (!RegExMatch(a_loopfield, "i`n)" ChosenSearch))
 				continue
 
 			line:=A_LoopField
@@ -806,7 +821,7 @@ Anchor(i, a = "", r = false) {
 	Return, true
 }
 
-
+;;; functions that aren't from libs
 
 escIsPressed()
 {
@@ -817,7 +832,51 @@ escIsPressed()
    return getkeystate("esc","p")
 }
 
+getOptionsFromIni(field)
+{
+   global OptionsSearch
+   global OptionsReplace
+   global OptionSelDir
 
+   ;errorMessage=ZZZcustomLongErrorTextZZZ
+   IniRead, fromIni, FindMe.ini, Recent, %field%, ZZZerrorZZZ
+   if (fromIni == "ZZZerrorZZZ")
+      Options%field%=Regex is Enabled. Case Insensitive||
+   else
+      Options%field%:=fromIni
+}
+
+saveOptionsToIni(field)
+{
+   global OptionsSearch
+   global OptionsReplace
+   global OptionSelDir
+   global ChosenSearch
+   global ChosenReplace
+   global ChosenSelDir
+
+   thisFieldOptions:=Options%field%
+   thisFieldChosen:=Chosen%field%
+
+   ;thisFieldOptions=%thisFieldChosen%|%thisFieldOptions%|qwert|sdfg|Erty|DFgh|RTyui|SDXfhg|ASDgf|SERTY|SXDFgb|SWERTUYUg|SXDFgh
+   ;thisFieldOptions=%thisFieldChosen%|%thisFieldOptions%
+   thisFieldOptions := RegExReplace(thisFieldOptions, "\|+", "|")
+   ;RegExMatch(thisFieldOptions, "((\|[^|]+){10})", match)
+   match1=
+   Loop, Parse, thisFieldOptions, |
+   {
+      match1 .= "|" . A_LoopField
+      if (A_Index > 9)
+         break
+   }
+   thisFieldOptions=%thisFieldChosen%|%match1%
+
+   IniWrite, %thisFieldOptions%, FindMe.ini, Recent, %field%
+   GuiControl, , %thisFieldChosen%, |%thisFieldOptions%
+   Options%field%:=thisFieldOptions
+   ;Chosen%field%:=thisFieldChosen
+   ;addtotrace(FileRead("FindMe.ini"))
+}
 
 ; ------ Hotkeys ---
 ; ------------------
