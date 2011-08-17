@@ -1703,3 +1703,6 @@ AhkClose(ahkFilename)
 ;WRITEME polish up lib_Email.ahk, add better error handling and put it on the forums
 ;WRITEME fix up OCR lib so that it works with AHK_L
 
+
+;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
+
