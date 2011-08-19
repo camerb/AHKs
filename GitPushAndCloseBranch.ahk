@@ -30,4 +30,4 @@ if InStr(message, "exception")
    message := Prompt("The message that will be sent to Nathan is as follows, it looks like it contains an exception, so please revise it:`n`n" . message)
 
 SleepSeconds(15)
-SendEmail(subject, message, "", "geoff@mitsi.com", "cameronbaustian@gmail.com")
+SendEmail(subject, message, "", "nathan@mitsi.com", "cameronbaustian@gmail.com")
