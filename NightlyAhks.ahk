@@ -4,6 +4,9 @@
 
 debug("log grey line", "starting nightly scripts")
 
+if (NOT ProcessExist("dsidebar.exe") AND NOT IsVM())
+   RunProgram("dsidebar.exe")
+
 ;delete the entire section of the ini for unfinished scripts
 ini=gitExempt/%A_ComputerName%.ini
 IniDelete(ini, "RunAhkAndBabysit.ahk")
