@@ -361,6 +361,9 @@ ExitApp
 ;{{{ Dumb functions to help out
 ForceWinFocusCmd()
 {
+   if LiveSiteMode
+      Sleep, 1000
+
    ;TODO change this to one regex that excludes MINGW32
    if NOT ForceWinFocusIfExist("plackup ahk_class ConsoleWindowClass", "Contains")
       if NOT ForceWinFocusIfExist("_server.pl ahk_class ConsoleWindowClass", "Contains")

@@ -1424,7 +1424,7 @@ MultiWinWait(successWin, successWinText, failureWin, failureWinText)
 }
 
 ;waits for the window to be active and then clicks the button (using alt+letter)
-;this should result in code that is more readable: WaitClick("&Save")
+;this should result in code that is more readable: ClickButton("&Save")
 ClickButton(button)
 {
    ;TODO figure out if the button is visible in the wintext
@@ -1434,7 +1434,9 @@ ClickButton(button)
 
    if NOT InStr(button, "&")
       fatalErrord("couldn't click the button", "it didn't have an & specified:", button)
-   WinWaitActive, , %button%
+   WinWaitActive, , %button%, 5
+   if ErrorLevel
+      fatalErrord("never saw window", "the window containing the button I was looking for never popped up", "gave up looking for the window after 5 seconds... perhaps you should put a longer wait in before calling ClickButton()", button)
    Sleep, 100
    button := StringLower(button)
    RegExMatch(button, "\&(.)", match)

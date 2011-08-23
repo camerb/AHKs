@@ -565,3 +565,10 @@ EPMS
 cmd 1: {C:\code\epms\script\property_importers}, 2: {perl bozzuto.pl > C:\code\report.txt}
 EPMS
 cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl bozzuto.pl > C:\code\report.txt}
+EPMS workbench
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl bozzuto.pl > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl homeproperties.pl C:\import_files\empl\home_2011-05.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\import_files\props\home_2011-05.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\import_files\props\home_2011-08.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\import_files\prop\home_2011-08.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl homeproperties.pl C:\import_files\empl\home_2011-08.csv > C:\code\report.txt}
