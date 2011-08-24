@@ -1,29 +1,17 @@
 #include FcnLib.ahk
 
-SetBatchLines -1
-Process, Priority,, High
-a := 1, b := 0, LoopCount := 10000000
-st1 := A_TickCount
-Loop % LoopCOunt
-   If (a==b){
-   }
-b := 1
-Loop % LoopCount
-   If (a==b){
-   }
-end1 := A_TickCount
-
-a := 1, b := 0
-st2 := A_TickCount
-Loop % LoopCount
-   If (a=b){
-   }
-b := 1
-Loop % LoopCount
-   If (a=b){
-   }
-end2 := A_TickCount
-MsgBox % "== was " (end1-st1) "`n= was " (end2-st2)
+info :=      "AHK Version:`t" A_AhkVersion 
+   . "`nUnicode:`t`t" (A_IsUnicode ? "Yes " ((A_PtrSize=8) ? "(64-bit)" : "(32-bit)") : "No") 
+   . "`nOperating System:`t" (!A_OSVersion ? A_OSType : A_OSVersion) 
+   . "`nAdmin Rights:`t" (A_IsAdmin ? "Yes" : "No") 
+MsgBox, 68, Support Information, %info%`n`nWould you like to copy this information to the Clipboard? 
+IfMsgBox Yes 
+{ 
+   Clipboard :=   info 
+   ClipWait 
+   MsgBox, The information was sent to the Clipboard. 
+} 
+return
 
 
 
