@@ -1,2 +1,0 @@
-;WRITEME make script that tests multiple sendmodes
-;WRITEME ReceiveEmail lib

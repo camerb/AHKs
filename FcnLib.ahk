@@ -1708,3 +1708,7 @@ AhkClose(ahkFilename)
 
 ;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
 
+
+;WRITEME make script that tests multiple sendmodes
+;WRITEME ReceiveEmail lib
+
