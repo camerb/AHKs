@@ -5,7 +5,7 @@ fatalIfNotThisPc("BAUSTIAN-09PC")
 ;var:=urldownloadtovar("https://www.att.com/olam/gotoDataDetailsAction.olamexecute?reportActionEvent=A_UMD_DATA_DETAILS")
 ;debug(var)
 datestamp:=CurrentTime("hyphenated")
-gitWindow=MINGW32:/c/My Dropbox/cpan/ACH ahk_class ConsoleWindowClass
+gitWindow=MINGW32:/c/Dropbox/cpan/ACH ahk_class ConsoleWindowClass
 
 line1=git add --all
 line2=git commit -am "%datestamp%"
@@ -15,7 +15,7 @@ line4:=SexPanther()
 
 Run, C:\WINDOWS\system32\cmd.exe /c ""C:\Program Files\Git\bin\sh.exe" --login -i"
 ForceWinFocus("MINGW32", "Contains")
-Send, cd "/c/My Dropbox/cpan/ACH"{ENTER}
+Send, cd "/c/Dropbox/cpan/ACH"{ENTER}
 
 Loop 4
 {

@@ -3,7 +3,7 @@
 
 ProcessCloseAll("pidgin.exe")
 
-FileRead, statusText, C:\My Dropbox\Android\sd\imStatus.txt
+FileRead, statusText, C:\Dropbox\Android\sd\imStatus.txt
 statusText:=RegExReplace(statusText, "(`r|`n)", " ")
 statusText:=RegExReplace(statusText, " +", " ")
 ;statusText=Nyan Cat
@@ -61,7 +61,7 @@ SleepSeconds(10)
 ;Send, {DEL}
 ;Sleep, 100
 
-;FileRead, statusText, C:\My Dropbox\Android\sd\imStatus.txt
+;FileRead, statusText, C:\Dropbox\Android\sd\imStatus.txt
 ;statusText:=RegExReplace(statusText, "(`r|`n)", " ")
 ;statusText:=RegExReplace(statusText, " +", " ")
 ;SendViaClipboard(statusText)

@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-file=C:\My Dropbox\Public\remotewidget.txt
+file=C:\Dropbox\Public\remotewidget.txt
 
 Loop
 {

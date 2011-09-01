@@ -9,4 +9,4 @@ if NOT vimrcPath
    fatalErrord("no clue where the vimrc path should be")
 
 ;Copy the synced file to the correct location
-FileCopy("C:\My Dropbox\Misc\_vimrc", vimrcPath, "overwrite")
+FileCopy("C:\Dropbox\Misc\_vimrc", vimrcPath, "overwrite")

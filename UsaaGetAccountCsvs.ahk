@@ -1,5 +1,5 @@
 #include FcnLib.ahk
-#include C:\My Dropbox\AHKs\gitExempt\usaalogin.ahk
+#include C:\Dropbox\AHKs\gitExempt\usaalogin.ahk
 
 usaalogin()
 
@@ -22,7 +22,7 @@ SaveAccountTransactions(account, time)
    date:=CurrentTime("slashdate")
 
    LongSleep()
-   csvfilename=C:\My Dropbox\AHKs\gitExempt\usaa_export\usaa_%Account%_%time%.csv
+   csvfilename=C:\Dropbox\AHKs\gitExempt\usaa_export\usaa_%Account%_%time%.csv
    GoToPage( UsaaUrl(account) )
 
    ForceWinFocus("USAA / My Accounts / Account Summary - Opera")

@@ -1,17 +1,17 @@
 #include FcnLib.ahk
 
-;IniWrite, true, C:\My Dropbox\ahkConfig.ini, DebugAgainAhk, LiveSiteMode
-;if FileExist("C:\My Dropbox\ahkConfig.ini")
+;IniWrite, true, C:\Dropbox\ahkConfig.ini, DebugAgainAhk, LiveSiteMode
+;if FileExist("C:\Dropbox\ahkConfig.ini")
    ;debug("yup")
 
 
-;IniRead, LiveSiteMode, C:\My Dropbox\ahkConfig.ini, DebugAgainAhk, LiveSiteMode
+;IniRead, LiveSiteMode, C:\Dropbox\ahkConfig.ini, DebugAgainAhk, LiveSiteMode
 ;LiveSiteMode := LiveSiteMode == "true"
 ;if LiveSiteMode
    ;Run, LiveDbWarning.ahk
 
 bool:=prompt("Specify whether LiveSiteMode should be true or false:")
-;IniWrite, %bool%, C:\My Dropbox\ahkConfig.ini, DebugAgainAhk, LiveSiteMode
+;IniWrite, %bool%, C:\Dropbox\ahkConfig.ini, DebugAgainAhk, LiveSiteMode
 
 if (bool == "true")
 {
@@ -26,7 +26,7 @@ else
    message=dev mode
 }
 
-file=C:\My Dropbox\Public\remotewidget-livesitemode.txt
+file=C:\Dropbox\Public\remotewidget-livesitemode.txt
 FileDelete, %file%
 FileAppend, %message%`n, %file%
 

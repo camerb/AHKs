@@ -17,5 +17,5 @@ if ForceWinFocusIfExist("(AHKs|No Name).*GVIM", "RegEx")
    Send, {ESC 6}
    Send, ^wl
    Send, {;}
-   SendInput, split C{;}/My Dropbox/AHKs/%file%{ENTER}{F2 2}
+   SendInput, split C{;}/Dropbox/AHKs/%file%{ENTER}{F2 2}
 }

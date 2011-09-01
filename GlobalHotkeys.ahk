@@ -166,7 +166,7 @@ AppsKey & b::
 SetTitleMatchMode, 2
 WinGetTitle, titletext, Last.fm
 InputBox, inputtext, User, Whose account should we remove this artist from?
-logPath=C:\My Dropbox\Public\logs
+logPath=C:\Dropbox\Public\logs
 FileCreateDir, %logPath%
 FileAppend, %titletext%`n%inputtext%`n`n, %logPath%\removeartist.log
 return

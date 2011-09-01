@@ -8,7 +8,7 @@ old_prog = StartUp
 old_win = StartUp
 
 ; set location and header row for the output file
-filename =C:\My Dropbox\Public\trace.txt
+filename =C:\Dropbox\Public\trace.txt
 titlerow = StartTime%a_tab%EndTime%a_tab%UserName%a_tab%ProgramName%a_tab%WindowTitle`r`n
 
 ; set initial start time

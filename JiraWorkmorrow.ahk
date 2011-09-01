@@ -27,7 +27,7 @@ if InStr(returned, "exception.RemoteAuthenticationException")
 else
    SendEmail(subj, returned)
 
-file=C:\My Dropbox\Public\JiraWorkmorrow.txt
+file=C:\Dropbox\Public\JiraWorkmorrow.txt
 fileContents=%subj%`n%returned%
 FileDelete(file)
 FileAppend(fileContents, file)

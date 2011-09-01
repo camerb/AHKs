@@ -13,7 +13,7 @@ CustomTitleMatchMode("RegEx")
 WinWaitActive, (Administrator. Command Prompt|cmd.exe)
 CustomTitleMatchMode("Default")
 Sleep, 500
-SendInput, cd "C:\My Dropbox\Programs\irssi\"{ENTER}
+SendInput, cd "C:\Dropbox\Programs\irssi\"{ENTER}
 SendInput, irssi.bat{ENTER}
 Sleep, 500
 WinClose, irssi.bat

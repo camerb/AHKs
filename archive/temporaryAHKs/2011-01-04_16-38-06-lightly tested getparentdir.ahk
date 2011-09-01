@@ -1,7 +1,7 @@
 #include FcnLib.ahk
 
 debug(parentdir(A_ScriptFullPath))
-debug(parentdir("C:\My Dropbox\"))
+debug(parentdir("C:\Dropbox\"))
 
 ParentDir(fileOrFolder)
 {

@@ -1,7 +1,7 @@
 #include FcnLib.ahk
 
 
-   size:=dirgetsize("C:\My Dropbox\")
+   size:=dirgetsize("C:\Dropbox\")
    d := 1024 * 3
    dropboxSize := size / (1024 ** 3)
    ;dropboxSize := size / d

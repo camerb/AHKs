@@ -5,7 +5,7 @@ Run, Startup%A_ComputerName%.ahk
 RunAhk("StartIdleAhks.ahk")
 
 ;apps that should run on all my computers
-RunProgram("C:\My Dropbox\Programs\CLCL\CLCL.exe")
+RunProgram("C:\Dropbox\Programs\CLCL\CLCL.exe")
 RunProgram("Dropbox.exe")
 
 if NOT IsVM()
@@ -20,4 +20,4 @@ if NOT IsVM()
 ;Openoffice launcher
 
 if (GetOS() = "WIN_7")
-   RunProgram("C:\My Dropbox\Programs\Aura Beta 2\Aura.exe")
+   RunProgram("C:\Dropbox\Programs\Aura Beta 2\Aura.exe")

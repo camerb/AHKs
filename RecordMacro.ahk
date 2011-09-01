@@ -66,7 +66,7 @@ if NOT FileExist(tempFile)
 WinClose, %aswWindow%
 ss()
 
-path=C:\My Dropbox\AHKs\REFP\
+path=C:\Dropbox\AHKs\REFP\
 infile=%path%in1.txt
 refile2=%path%regex-rawmacro.txt
 outfile=%path%out1.txt

@@ -1,9 +1,6 @@
-#include FcnLib.ahk
-;#include thirdParty/Anchor.ahk
-
 /*
 Name:        Find Me
-Version:     1.9 (Mon July 25, 2011)
+Version:     2.0.2 (Mon August 29, 2011)
 Author:      tidbit
 credits:     camerb
 Description: Find all matching text/phrases inside of files of a specified directory.
@@ -22,32 +19,74 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance force
 SetBatchLines, -1
+OnExit, ExitLabel
+
+menu, tray, add, Options, Options
+
+; load everything on startup, if anything exists
+inifile:=A_ScriptDir "\FindMe_Config.ini"
+IniRead, wX,      %inifile%, Settings, X, -1
+IniRead, wY,      %inifile%, Settings, Y, -1
+IniRead, wWidth,  %inifile%, Settings, Width, -1
+IniRead, wHeight, %inifile%, Settings, Height, -1
+IniRead, seldir,  %inifile%, Settings, LastDir, -1
+IniRead, word,    %inifile%, Settings, LastSearch, Regex is Enabled. Case Insensitive
+IniRead, replace, %inifile%, Settings, LastReplace, Regex is Enabled. Case Insensitive
+IniRead, editor,  %inifile%, Settings, Editor, %A_WinDir%\notepad.exe
+IniRead, editorOptions,  %inifile%, Settings, EditorOptions,
+if (SubStr(seldir, 1, 1)=="*")
+	seldir:=SubStr(seldir, 2)
+
+; [LOAD]
+	SaveCount:=10
+	; syntax: DDL_Load(file [, max, cur, section, keyname, default])
+	listfile   := DDL_Load(inifile, SaveCount, "Logs", "LastFile", A_MyDocuments)
+	listsearch := DDL_Load(inifile, SaveCount, "Logs", "LastSearch")
+	listreplace:= DDL_Load(inifile, SaveCount, "Logs", "LastReplace")
+; [/LOAD]
 
 Menu, copymenu, Add, Edit, editmenu
 Menu, copymenu, Add, Copy Text, copymenu
 Menu, copymenu, Add, Select All, selmenu
+Menu, copymenu, Add, Export Checked, exportmenu
 selall:=0
 
-gui, +Default +Resize +minsize
+; ecb = Export CheckBox
+Gui, 2: add, Checkbox, x6  y6 w72 +checked vecb1, File
+Gui, 2: add, Checkbox, x+2 yp w72 +checked vecb2, Line
+Gui, 2: add, Checkbox, x+2 yp w72 +checked vecb3, Sample
+Gui, 2: add, Checkbox, x+2 yp w72 +checked vecb4, Path
+Gui, 2: add, Button, x6 y+8 w288  gexport, Save
 
-Gui, Add, Edit,   x6     y10 w190 h20 vseldir, %A_desktop%
-Gui, Add, Button, xp+192 y10 w58  h20 vseldirbtn gbrowse, Browse
 
-Gui, Add, Radio, x6  y+2   w80  h20 vextmode +Checked cblue, Extensions:
-Gui, Add, Radio, x6  y+2   w80  h20 cred, Ignore:
-Gui, Add, Edit,  x+2 yp-22 w168 h20 vexts  gext, txt`,ahk`,htm`,html
-Gui, Add, Edit,  xp  y+2   w168 h20 vXexts gext, bmp`,gif`,jpg`,png`,svg`,tif`,mid`,mp3`,wav`,wma`,avi`,flv`,mov`,mp4`,mpg`,swf`,vob`,wmv`,app`,exe`,msi`,pif`,wsf
 
-Gui, Add, Text,   x6     yp+22 w60  h20 , Find:
-Gui, Add, Edit,   xp+62  yp    w108 h20 vword, Regex is Enabled. Case Insensitive
-Gui, Add, Button, xp+110 yp    w20  h20 vwordhelp gregexhelp,?
-Gui, Add, Button, xp+22  yp    w58  h20 vwordsearch gsearch +Default, Search
+gui, +Default +Resize
 
-Gui, add, Checkbox, x6     yp+22 gusereplace vusereplace, Replace?
-Gui, Add, Edit,     xp+72  yp w120 h20 vreplace +Disabled, Regex is Enabled. Case Insensitive.
-Gui, Add, Button,   xp+122 yp w58  h20 vreplacebtn greplace, Replace
+w:=((wWidth>-100) ? wWidth-72 : 190)
+Gui, 1: Add, ComboBox,   x6  y10 w%w% r10 vseldir, %listfile%
+Gui, 1: Add, Button, x+2 y10 w58  h20 vseldirbtn gbrowse, Browse
 
-Gui, Add, ListView, x6 yp+22 w250 h210 vlist hwndhListView glistview Count5000 +Checked, File|Line|Sample|Path
+w:=((wWidth>-100) ? wWidth-95 : 168)
+Gui, 1: Add, Radio, x6  y+2   w80  h20 vextmode +Checked cblue, Extensions:
+Gui, 1: Add, Radio, x6  y+2   w80  h20 cred, Ignore:
+Gui, 1: Add, Edit,  x+2 yp-22 w%w% h20 vexts  gext, txt`,ahk`,htm`,html
+Gui, 1: Add, Edit,  xp  y+2   w%w% h20 vXexts gext, bmp`,gif`,jpg`,png`,svg`,tif`,mid`,mp3`,wav`,wma`,avi`,flv`,mov`,mp4`,mpg`,swf`,vob`,wmv`,app`,exe`,msi`,pif`,wsf
+
+w:=((wWidth>-100) ? wWidth-162 : 108)
+Gui, 1: Add, Text,   x6  y+2 w60  h20 , Find:
+Gui, 1: Add, ComboBox,   x+8 yp  w%w% r10 vword, %listsearch%
+Gui, 1: Add, Button, x+2 yp  w20  h20 vwordhelp gregexhelp,?
+Gui, 1: Add, Button, x+2 yp  w58  h20 vwordsearch gsearch +Default, Search
+
+w:=((wWidth>-100) ? wWidth-140 : 122)
+Gui, 1: Add, Checkbox, x6  yp+22   h20 gusereplace vusereplace, Replace?
+Gui, 1: Add, ComboBox,     x+2 yp w%w% r10 vreplace +Disabled, %listreplace%
+Gui, 1: Add, Button,   x+2 yp w58  h20 greplace vreplacebtn , Replace
+;~ MsgBox %yp%
+
+w:=((wWidth>-100)  ? wWidth-12   : 250)
+h:=((wHeight>-100) ? wHeight-140 : 210)
+Gui, 1: Add, ListView, x6 y+6 w%w% h%h% vlist hwndhListView glistview Count5000 +Checked, File|Line|Sample|Path
 
 LV_ModifyCol(1, "80 Left")
 LV_ModifyCol(2, "40 Integer right")
@@ -55,12 +94,21 @@ LV_ModifyCol(3, "250 Left")
 LV_ModifyCol(4, "80 Left")
 
 Gui, Add, StatusBar,,
-Gui, Show, AutoSize, Find Me`, By: tidbit
-SB_SetText("Awaiting Action.", 1, 0)
+
+
+; if _anything_ was missing or deformed or oddly placed, autosize it. safety first.
+SysGet, VirtualWidth, 78
+SysGet, VirtualHeight, 79
+
+if ((wX<-100 || xX>VirtualWidth) || (wY<-100 || wY>VirtualHeight) || wWidth<-100 || wHeight<-100)
+	Gui, 1: Show, AutoSize, Find Me
+else
+	Gui, 1: Show, x%wX% y%wY% w%wWidth% h%wHeight%, Find Me
+ScriptID:=WinActive("A")
+
 Gosub, guisize
+SB_SetText("Awaiting Action.", 1, 0)
 Return
-
-
 
 Guisize:
 	SB_SetParts((A_GuiWidth/3)+30, A_GuiWidth/3, A_GuiWidth/3)
@@ -86,7 +134,7 @@ Return
 
 
 ext:
-	gui, Submit, NoHide
+	gui, 1: Submit, NoHide
 	If exts Contains .,%A_Space%
 	{
 		StringReplace, exts, exts, .,, All
@@ -98,11 +146,16 @@ Return
 
 
 browse:
-	FileSelectFolder, seldir, *%seldir%, 3, Select a folder.
+	Gui, 1: Submit, NoHide
+
+	if (SubStr(seldir, 1, 1)=="*")
+		browsedir:=SubStr(seldir, 2)
+
+	FileSelectFolder, seldir, *%browsedir%, 3, Select a folder.
 	If (RegExMatch(seldir, "^\s*$"))
 		Return
 	Else
-		GuiControl, , seldir, %seldir%
+		Load_DDL_Values(inifile, "seldir", seldir, SaveCount, "Logs", "LastFile", A_MyDocuments)
 Return
 
 
@@ -129,10 +182,25 @@ return
 
 
 editmenu:
-	LV_GetText(Filetorun, RCrow,4)
+
+	; short variables for editor options in the INI.
+	; F = File to run.
+	; L = Line to open to.
+	LV_GetText(F, RCrow,4)
+	LV_GetText(L, RCrow,2)
+	IniRead, editor,  %inifile%, Settings, Editor, %A_WinDir%\notepad.exe
+	IniRead, editorOptions,  %inifile%, Settings, EditorOptions,
+
 	If (filetorun=="File")
 		Return
-	run, notepad.exe %filetorun%
+
+	if (InStr(F, A_Space))
+		F:= """" F """"
+	Transform, editorOptions, Deref, %editorOptions%
+
+	ToolTip, %editor% %editorOptions%
+
+	run, %editor% %editorOptions%
 	; run, %A_ProgramFiles%\notepad++\notepad++.exe %filetorun%
 Return
 
@@ -140,6 +208,7 @@ copymenu:
 	LV_GetText(copytext, RCrow, 3)
 	Clipboard:=copytext
 Return
+
 
 selmenu:
 	selall:=!selall
@@ -150,9 +219,13 @@ selmenu:
 Return
 
 
+exportmenu:
+	Gui, 2: Show, w300 autosize, Export - Find Me
+return
+
 
 usereplace:
-	gui, Submit, NoHide
+	gui, 1: Submit, NoHide
 	If (usereplace==1)
 		guiControl, Enable, replace
 	Else
@@ -160,8 +233,12 @@ usereplace:
 Return
 
 
+
 replace:
-	gui, Submit, NoHide
+	gui, 1: Submit, NoHide
+	Load_DDL_Values(inifile, "replace", replace, SaveCount, "Logs", "LastReplace")
+
+	IniWrite, %replace%, %inifile%, Settings, LastReplace
 	If (usereplace==0)
 		Return
 
@@ -193,8 +270,61 @@ Return
 
 
 
+export:
+	FileSelectFile, ExportFile, 16, %seldir%\Log.csv, Save the selected rows.
+	if (ErrorLevel)
+		return
+
+	Gui, 2: submit
+	gui, 1: Submit, nohide
+	Gui, 1: +LastFound
+	Gui, 1: Default
+
+	Exportlist:=""
+	SB_SetText("Exporting... ", 1, 0)
+
+	Loop % LV_GetCount()
+	{
+		If (escIsPressed())
+			Break
+
+		SendMessage, 4140, A_index - 1, 0xF000, SysListView321  ; 4140 is LVM_GETITEMSTATE.  0xF000 is LVIS_STATEIMAGEMASK.
+		isChecked := (ErrorLevel >> 12) - 1
+
+		If (isChecked==0)
+			Continue
+
+		; export Column info in CSV format.
+		; doing some voodoo to make it fit on as few amount of lines as possible.
+		if (ecb1==1)
+			Exportlist.="""" substr(LV_GetText(eCol, A_index, 1), 2) eCol """`,"
+		if (ecb2==1)
+			Exportlist.=substr(LV_GetText(eCol, A_index, 2), 2) eCol "`,"
+		if (ecb3==1)
+			Exportlist.="""" substr(LV_GetText(eCol, A_index, 3), 2) eCol """`,"
+		if (ecb4==1)
+			Exportlist.="""" substr(LV_GetText(eCol, A_index, 4), 2) eCol """`,"
+
+		; remove the trailing comma and append a newline.
+		; felt like being fancy and not using stringtrimright.
+		; some people also hate stringtrimright as much as goto/gui,destroy. I don't though.
+		Exportlist:=SubStr(Exportlist, 1, StrLen(Exportlist)-1) "`n"
+		Exportcount:=A_Index
+	}
+	FileAppend, %Exportlist%, %ExportFile%
+
+	; reuseing the variable since the important full path is no longer needed.
+	SplitPath, ExportFile, ExportFile
+	SB_SetText(Exportcount " items appended to " ExportFile ", Awaiting Action.", 1, 0)
+return
+
+
+
 search:
-	gui, Submit, NoHide
+	gui, 1: Submit, NoHide
+	Load_DDL_Values(inifile, "Word", Word, SaveCount, "Logs", "lastSearch")
+	Load_DDL_Values(inifile, "seldir", seldir, SaveCount, "Logs", "LastFile", A_MyDocuments)
+
 	start:=A_TickCount
 
 	LV_ModifyCol(3, "AutoHdr", "Sample: (0)")
@@ -210,12 +340,21 @@ search:
 	Else
 		recurseMode:=0
 
+        if NOT InStr( FileExist(seldir), "D" )
+        {
+                msgbox, The selected directory does not exist.
+                return
+        }
+
 	LV_Delete()
 	selall:=0
 	flist:=""
 	max:=0
 	Loop,%seldir%\*.*, 0, %recurseMode%
 	{
+		If (escIsPressed())
+			Break
+
 		if (extmode==1)
 		{
 			If A_LoopFileExt in %exts%
@@ -358,14 +497,14 @@ Return
 ; thanks SKAN! http://www.autohotkey.com/forum/viewtopic.php?t=51342&highlight=remove+html
 UnHTM( HTM ) {   ; Remove HTML formatting / Convert to ordinary text   by SKAN 19-Nov-2009
  Static HT,C=";" ; Forum Topic: www.autohotkey.com/forum/topic51342.html  Mod: 16-Sep-2010
- IfEqual,HT,,   SetEnv,HT, % "&aacuteÃ¡&acircÃ¢&acuteÂ´&aeligÃ¦&agrave? &amp&aringÃ¥&atildeÃ£&au"
- . "mlÃ¤&bdquoâ€ž&brvbarÂ¦&bullâ€¢&ccedilÃ§&cedilÂ¸&centÂ¢&circË†&copyÂ©&currenÂ¤&dagger? &daggerâ€¡&deg"
- . "Â°&divideÃ·&eacuteÃ©&ecircÃª&egraveÃ¨&ethÃ°&eumlÃ«&euroâ‚¬&fnofÆ’&frac12Â½&frac14Â¼&frac34Â¾&gt>&h"
- . "ellipâ€¦&iacuteÃ­&icircÃ®&iexclÂ¡&igraveÃ¬&iquestÂ¿&iumlÃ¯&laquoÂ«&ldquoâ€œ&lsaquoâ€¹&lsquoâ€˜&lt<&m"
- . "acrÂ¯&mdashâ€”&microÂµ&middotÂ·&nbsp &ndashâ€“&notÂ¬&ntildeÃ±&oacuteÃ³&ocircÃ´&oeligÅ“&ograveÃ²&or"
- . "dfÂª&ordmÂº&oslashÃ¸&otildeÃµ&oumlÃ¶&paraÂ¶&permilâ€°&plusmnÂ±&poundÂ£&quot""&raquoÂ»&rdquoâ€&reg"
- . "Â®&rsaquoâ€º&rsquoâ€™&sbquoâ€š&scaronÅ¡&sectÂ§&shy &sup1Â¹&sup2Â²&sup3Â³&szligÃŸ&thornÃ¾&tildeËœ&tim"
- . "esÃ—&tradeâ„¢&uacuteÃº&ucircÃ»&ugraveÃ¹&umlÂ¨&uumlÃ¼&yacuteÃ½&yenÂ¥&yumlÃ¿"
+ IfEqual,HT,,   SetEnv,HT, % "&aacuteá&acircâ&acute´&aeligæ&agrave? &amp&aringå&atildeã&au"
+ . "mlä&bdquo„&brvbar¦&bull•&ccedilç&cedil¸&cent¢&circˆ&copy©&curren¤&dagger? &dagger‡&deg"
+ . "°&divide÷&eacuteé&ecircê&egraveè&ethð&eumlë&euro€&fnofƒ&frac12½&frac14¼&frac34¾&gt>&h"
+ . "ellip…&iacuteí&icircî&iexcl¡&igraveì&iquest¿&iumlï&laquo«&ldquo“&lsaquo‹&lsquo‘&lt<&m"
+ . "acr¯&mdash—&microµ&middot·&nbsp &ndash–&not¬&ntildeñ&oacuteó&ocircô&oeligœ&ograveò&or"
+ . "dfª&ordmº&oslashø&otildeõ&oumlö&para¶&permil‰&plusmn±&pound£&quot""&raquo»&rdquo”&reg"
+ . "®&rsaquo›&rsquo’&sbquo‚&scaronš&sect§&shy &sup1¹&sup2²&sup3³&szligß&thornþ&tilde˜&tim"
+ . "es×&trade™&uacuteú&ucircû&ugraveù&uml¨&uumlü&yacuteý&yen¥&yumlÿ"
  $ := RegExReplace( HTM,"<[^>]+>" )               ; Remove all tags between  "<" and ">"
  Loop, Parse, $, &`;                              ; Create a list of special characters
    L := "&" A_LoopField C, R .= (!(A_Index&1)) ? ( (!InStr(R,L,1)) ? L:"" ) : ""
@@ -728,7 +867,6 @@ agrep(ByRef _haystack="", _pattern="", _ignoreCase=false, _invert=false, _lineMa
 }
 
 
-
 /*
 	Function: Anchor
 		Defines how controls should be automatically positioned relative to the new dimensions of a window when resized.
@@ -807,6 +945,67 @@ Anchor(i, a = "", r = false) {
 }
 
 
+; Load_DDL_Values(_File, _Control, _text [, _Max, _Section, _Keyname, _Default])
+; *** this is a combination of saving, loading and updating. nothing special. ***
+	; _File    - the INI file to read from
+	; _Control - the control to update
+	; _Text    - the text to save to the ini.
+	; _Max     - the max number of items to load in the DDL.
+	; _Section - the INI section to search.
+	; _Keyname - the name of the key group. DO NOT INCLUDE THE NUMBERS.
+	; _Default - the default text to use if the key does not exist.
+Load_DDL_Values(_File, _Control="", _text="", _Max=5, _Section="Logs", _Keyname="LastSearch", _Default="Regex is Enabled. Case Insensitive")
+{
+	; only change the INI if the last Replace option isn't the same.
+	; helps prevent duplicates.
+	IniRead, _first, %_file%, %_section%, %_keyname%1, %_default%
+	if (_first!=_text)
+	{
+		DDL_Save(_File, _text, _Max, _Section, _keyname, _Default)
+		list:=DDL_Load(_File,  _Max, _Section, _keyname, _Default)
+		GuiControl,, %_Control%, |%list%
+	}
+}
+
+; DDL_Load(_file [, _max, _section, _keyname, _default])
+	; _file    - the INI file to read from
+	; _max     - the max number of items to load in the DDL.
+	; _section - the INI section to search.
+	; _keyname - the name of the key group. DO NOT INCLUDE THE NUMBERS.
+	; _default - the default text to use if the key does not exist.
+DDL_Load(_file, _max=5, _section="Logs", _keyname="LastSearch", _default="Regex is Enabled. Case Insensitive")
+{
+	_list:=""
+	loop, %_max%
+	{
+		IniRead, _search, %_file%, %_section%, %_keyname%%A_index%, %_default%
+		_list.=((a_index==1) ? _search "||" : _search "|")
+	}
+	return _list
+}
+
+; DDL_Save(_file, _inputvar [, _max, _section, _keyname, _default])
+	; _file     - the INI file to save to.
+	; _inputvar - the variable to get the content from. This will be the first item in the list.
+	; _max      - the max number of items to save in the ini.
+	; _section  - the INI section to save in.
+	; _keyname  - the name of the key group. DO NOT INCLUDE THE NUMBERS.
+	; _default  - the default text to use if the key does not exist.
+DDL_Save(_file, _inputvar="", _max=5, _section="Logs", _keyname="LastSearch", _default="Regex is Enabled. Case Insensitive")
+{
+	; get everything
+	loop, %_max%
+		IniRead, _search%A_index%, %_file%, %_section%, %_keyname%%A_index%, %_default%
+	; re-order everything. last entered thing first.
+	loop, %_max%
+	{
+		_counteroffset:=A_Index-1
+		if (a_index==1)
+			IniWrite, %_inputvar%, %_file%, %_section%, %_keyname%1
+		if ((a_index)<=_Max && A_Index>=2)
+			IniWrite, % _search%_counteroffset%, %_file%, %_section%, %_keyname%%A_Index%
+	}
+}
 
 escIsPressed()
 {
@@ -817,14 +1016,28 @@ escIsPressed()
    return getkeystate("esc","p")
 }
 
+; ------ On Exit ---
+; ------------------
+ExitLabel:
+	WinGetPos, wX, wY, wWidth, wHeight, ahk_id %ScriptID%
+	IniWrite, %wX%,      %inifile%, Settings, X
+	IniWrite, %wY%,      %inifile%, Settings, Y
+	IniWrite, %wWidth%,  %inifile%, Settings, Width
+	IniWrite, %wHeight%, %inifile%, Settings, Height
 
+ExitApp
+
+; ------ Menu ---
+; ---------------
+Options:
+	run, %A_ScriptDir%\FindMe_Config.ini
+Return
 
 ; ------ Hotkeys ---
 ; ------------------
 
-#IfWinActive, Find Me`, By: tidbit
+#IfWinActive, Find Me
 ^w::
 GuiClose:
-ExitApp
+	ExitApp
 #IfWinActive
-

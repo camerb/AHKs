@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-path="C:\My Dropbox\AHKs\REFP\
+path="C:\Dropbox\AHKs\REFP\
 infile=%path%in1.txt"
 refile2=%path%regex-rawmacro.txt"
 outfile=%path%out1.txt"
@@ -15,7 +15,7 @@ RunAhk("RegExFileProcessor.ahk", params)
 ;PrependPath(filename)
 pp(filename)
 {
-   path=C:\My Dropbox\AHKs\REFP\
+   path=C:\Dropbox\AHKs\REFP\
    returned=%path%%filename%
    return returned
 }

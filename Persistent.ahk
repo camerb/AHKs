@@ -105,7 +105,7 @@ if (A_Hour=11 AND A_Min=05 AND A_Sec=0)
       }
 }
 
-if (A_Hour=11 AND A_Min=15 AND A_Sec=0)
+if (A_Hour=11 AND A_Min=25 AND A_Sec=0)
 {
    if (A_ComputerName="PHOSPHORUS")
       if A_WDay BETWEEN 2 AND 6
@@ -226,7 +226,7 @@ if (Mod(A_Sec, 15)==0)
          FileDelete, %A_LoopFileFullPath%
          if (status == "error") {
             time:=CurrentTime("hyphenated")
-            path=C:\My Dropbox\Public\ahkerrors\
+            path=C:\Dropbox\Public\ahkerrors\
             FileCreateDir, %path%
             FileMove, %tempahk%, %path%%time%-%tempahk%.txt, 1
          }
@@ -264,6 +264,11 @@ thewintitle=NetWorx Notification ahk_class TTimedMessageForm
 IfWinExist, %thewintitle%
 {
    WinMove, 3564, 0
+}
+thewintitle=NetWorx (All Connections) ahk_class TGraphForm
+IfWinExist, %thewintitle%
+{
+   WinMove, 3689, 960
 }
 ;}}}
 
@@ -525,23 +530,29 @@ if (A_ComputerName = "PHOSPHORUS" and Mod(A_Sec, 5)==0)
    archivePath=C:\import_files\archive\importReports\
    report=C:\code\report.txt
 
-   FileGetTime, timestamp, %report%
-   timestamp := FormatTime(timestamp, "yyyy-MM-dd_HH-mm-ss")
+   if FileGetSize(report)
+   {
+      FileGetTime, timestamp, %report%
+      timestamp := FormatTime(timestamp, "yyyy-MM-dd_HH-mm-ss")
 
-   archiveFile=%archivePath%%timestamp%.txt
-   if NOT FileExist(archiveFile)
-      FileCopy(report, archiveFile)
+      archiveFile=%archivePath%%timestamp%.txt
+      if NOT FileExist(archiveFile)
+         FileCopy(report, archiveFile)
+   }
 
    ;copypasta: also archive epms_workbench
    archivePath=C:\import_files\archive\epms_workbench\
    report=C:\code\epms\script\epms_workbench.pl
 
-   FileGetTime, timestamp, %report%
-   timestamp := FormatTime(timestamp, "yyyy-MM-dd_HH-mm-ss")
+   if FileGetSize(report)
+   {
+      FileGetTime, timestamp, %report%
+      timestamp := FormatTime(timestamp, "yyyy-MM-dd_HH-mm-ss")
 
-   archiveFile=%archivePath%%timestamp%.txt
-   if NOT FileExist(archiveFile)
-      FileCopy(report, archiveFile)
+      archiveFile=%archivePath%%timestamp%.txt
+      if NOT FileExist(archiveFile)
+         FileCopy(report, archiveFile)
+   }
 }
 ;}}}
 

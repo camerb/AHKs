@@ -1,3 +1,3 @@
 #include FcnLib.ahk
 
-Run, "C:\My Dropbox\AHKs\ForceReloadAll.exe"
+Run, "C:\Dropbox\AHKs\ForceReloadAll.exe"

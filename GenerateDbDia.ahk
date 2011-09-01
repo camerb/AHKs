@@ -5,9 +5,9 @@
 proj=epms
 proj=fl
 
-workingDir=C:\My Dropbox\Documentation\scripts\
-script=C:\My Dropbox\Documentation\scripts\schema_to_dia-%proj%.pl
-dia=C:\My Dropbox\Documentation\scripts\%proj%.dia
+workingDir=C:\Dropbox\Documentation\scripts\
+script=C:\Dropbox\Documentation\scripts\schema_to_dia-%proj%.pl
+dia=C:\Dropbox\Documentation\scripts\%proj%.dia
 
 if NOT FileExist(script)
 {

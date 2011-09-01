@@ -1,5 +1,11 @@
 SetTitleMatchMode, RegEx
 
+;ensure that the startup shortcut is set so that we don't have to do it manually
+target=C:\Dropbox\AHKs\Bootstrap.ahk
+workingDir=C:\Dropbox\AHKs\
+shortcut=%A_StartMenu%\Programs\Startup\AutoHotkey - Bootstrap.lnk
+FileCreateShortcut, %target%, %shortcut%, %workingDir%
+
 ;Items that continually run, such as closing annoying popup windows that come up all the time
 #include Persistent.ahk
 
@@ -12,6 +18,7 @@ SetTitleMatchMode, RegEx
 #include FcnLib.ahk
 
 ;########## all the includes that I need to be sure to make:
+;or maybe these should just be broken up into different collapsable sections
 
 ;need to separate the global hotkeys into related files (hotstrings, standard keys, special keys at top of keyboard)
 

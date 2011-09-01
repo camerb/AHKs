@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-filepath:="C:\My Dropbox\dirScan-homeDataEx.txt"
+filepath:="C:\Dropbox\dirScan-homeDataEx.txt"
 time:=CurrentTime("hyphenated")
 timer:=StartTimer()
 count=

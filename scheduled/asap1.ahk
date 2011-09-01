@@ -5,7 +5,7 @@
 FolderToCopy=C:\Documents and Settings\Baustian\Application Data\.minecraft
 DestinationComputer=PHOSPHORUS
 
-remotePath=C:\My Dropbox\AHKs\gitExempt\transferTo
+remotePath=C:\Dropbox\AHKs\gitExempt\transferTo
 
 FileCreateDir, %RemotePath%\%DestinationComputer%\%DateStamp%
 DateStamp := CurrentTime()

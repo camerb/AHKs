@@ -11,7 +11,7 @@ if ForceWinFocusIfExist("out1.*OpenOffice.org", "RegEx")
 
 A_Quote="
 date := currenttime("hyphendate")
-path=C:\My Dropbox\AHKs\gitExempt\
+path=C:\Dropbox\AHKs\gitExempt\
 currentMonth:=CurrentTime("MM")
 currentMonthNoZero:=CurrentTime("M")
 currentYear:=CurrentTime("yyyy")

@@ -13,4 +13,4 @@ WinClose
 Sleep, 20000
 RunProgram("Aura")
 
-
+CmdRet_RunReturn("net start uxsms")

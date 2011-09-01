@@ -2,7 +2,7 @@
 
 RunProgram("C:\Program Files\DOSBox-0.74\dosbox.exe")
 Sleep 3000
-text=mount a "C:\My Dropbox\Programs\AIRBUCKS"
+text=mount a "C:\Dropbox\Programs\AIRBUCKS"
 Send, %text%
 Sleep 100
 Send, {ENTER}

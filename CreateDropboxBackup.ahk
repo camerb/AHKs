@@ -6,7 +6,7 @@ archiveFilename := CurrentTime("hyphenated")
 archivePath=C:\DataExchange\DropboxArchive
 FileCreateDir, %archivePath%
 
-command="C:\Program Files\7-Zip\7z.exe" a -t7z %archivePath%\%archiveFilename%.7z "C:\My Dropbox"
+command="C:\Program Files\7-Zip\7z.exe" a -t7z %archivePath%\%archiveFilename%.7z "C:\Dropbox"
 
 Run, %command%
 

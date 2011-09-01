@@ -3,7 +3,7 @@
 sleepNum=250
 longSleep=10000
 
-Loop, read, C:\My Dropbox\AHKs\REFP\out1.txt
+Loop, read, C:\Dropbox\AHKs\REFP\out1.txt
 {
    cmd=%A_LoopReadLine%
    debug(cmd)

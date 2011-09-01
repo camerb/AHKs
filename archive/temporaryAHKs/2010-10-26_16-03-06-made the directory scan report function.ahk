@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-DirectoryScan("C:\DataExchange\*", "C:\My Dropbox\dirScan-workDataEx.txt")
+DirectoryScan("C:\DataExchange\*", "C:\Dropbox\dirScan-workDataEx.txt")
 
 ;Make a report file of all the files that match the given pattern in the specified directory
 DirectoryScan(directoryToScan, reportFilePath)

@@ -1,7 +1,7 @@
 #include FcnLib.ahk
 #include SendEmailSimpleLib.ahk
 
-logFile=C:\My Dropbox\Public\logs\%A_ComputerName%.txt
+logFile=C:\Dropbox\Public\logs\%A_ComputerName%.txt
 
 Gui, Add, Text,, Welcome to the Lynx Server Installer
 Gui, Add, Text,, Please select the components you would like to install:
@@ -31,6 +31,9 @@ if (A_ScreenWidth > 1280)
    delog("", "WARNING: The Lynx Server Install is designed to run on the physical machine, is appears as if you are running the script while logged in through Remote Desktop. The installation will continue, but proceed carefully.`n`nPress ESC at any time to cancel.")
 
 debug("Starting Lynx Server Installation`n`nPress ESC at any time to cancel.")
+
+;TODO send email status message
+;SendEmailSimple("Lynx Install Starting", "there is a lynx install that is starting up right now")
 
 if ChoseCopyInstallationFilesToHardDrive
    CopyInstallationFilesToHardDrive()
@@ -73,7 +76,7 @@ if ChoseChangeDesktopBackground
 TestBannerDotPlx()
 SendEmailSimple("Lynx Install Finishing", "this lynx install is finishing up right now, here are the logs", logfile)
 FileCopy(logfile, "C:\inetpub\logs\LynxInstallLog_ahk.txt", "overwrite")
-FileRemoveDir, C:\My Dropbox, 1
+FileRemoveDir, C:\Dropbox, 1
 
 MsgBox, Finished with Lynx Server Install
 ExitApp ;end of install

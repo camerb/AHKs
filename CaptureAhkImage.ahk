@@ -31,7 +31,7 @@ if ( GetOS() == "WIN_7" )
    path=C:\DataExchange\InstantAhkImage
    if RegExMatch(description, "(images)\/(.*?)\/(.*?)$", MatchVar)
    {
-      path=C:\My Dropbox\AHKs\images\%MatchVar2%
+      path=C:\Dropbox\AHKs\images\%MatchVar2%
       description=%MatchVar3%
       time:=""
    }
@@ -77,7 +77,7 @@ else if ( GetOS() == "WIN_XP" )
    path=C:\DataExchange\InstantAhkImage
    if RegExMatch(description, "(images)\/(.*?)\/(.*?)$", MatchVar)
    {
-      path=C:\My Dropbox\AHKs\images\%MatchVar2%
+      path=C:\Dropbox\AHKs\images\%MatchVar2%
       description=%MatchVar3%
       time:=""
    }

@@ -22,7 +22,7 @@ SaveScreenShot(descriptiveText="", directoryPath="dropbox", options="")
 
    ; OR directoryPath="")
    if (directoryPath="dropbox")
-      directoryPath=C:\My Dropbox\AHKs\gitExempt\screenshots\%A_ComputerName%
+      directoryPath=C:\Dropbox\AHKs\gitExempt\screenshots\%A_ComputerName%
    else if (directoryPath="local")
       directoryPath=C:\DataExchange\PrintScreen
 
@@ -718,12 +718,6 @@ ParentDir(fileOrFolder)
    return returned
 }
 
-;Returns if the directory exists
-DirExist(dirPath)
-{
-   return InStr(FileExist(dirPath), "D") ? 1 : 0
-}
-
 ;TODO We should keep an ini of paths found previously, and search for it if not in the ini-list
 ;TODO Perhaps this should be done with other items, like the windows user folder
 ;Returns the correct program files location (error message if the file doesn't exist)
@@ -802,7 +796,7 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
    ;log the message right away
    if loggedMode
    {
-      logPath=C:\My Dropbox\Public\logs
+      logPath=C:\Dropbox\Public\logs
       FileCreateDir, %logPath%
       FileAppend, %messageTitle% %messageText%, %logPath%\%A_ComputerName%.txt
    }
@@ -1147,14 +1141,14 @@ Prompt(message, options="")
 ;yeah
 SexPanther(SexPanther="SexPanther")
 {
-   IniRead, returned, C:\My Dropbox\misc\config.ini, %SexPanther%, Panther
-   IniRead, var, C:\My Dropbox\misc\config.ini, %SexPanther%, Sex
+   IniRead, returned, C:\Dropbox\misc\config.ini, %SexPanther%, Panther
+   IniRead, var, C:\Dropbox\misc\config.ini, %SexPanther%, Sex
    return returned . var
 }
 
 ;Make a report file of all the files that match the given pattern in the specified directory
 ;NOTE that you need to include a wildcard at the end!
-DirectoryScan(directoryToScan, reportFilePath="C:/My Dropbox/Public/logs/trace.txt")
+DirectoryScan(directoryToScan, reportFilePath="C:/Dropbox/Public/logs/trace.txt")
 {
    time:=CurrentTime("hyphenated")
    timer:=StartTimer()
@@ -1305,15 +1299,15 @@ AddToTrace(var, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t
    Loop 15
       var .= " " . t%A_Index%
    var = %var%
-   FileAppendLine(var, "C:\My Dropbox\Public\logs\trace.txt")
+   FileAppendLine(var, "C:\Dropbox\Public\logs\trace.txt")
 }
 
 DeleteTraceFile()
 {
    ;lets archive it and create a new file real quick
    timestamp:=CurrentTime("hyphenated")
-   archiveFile=C:\My Dropbox\AHKs\gitExempt\logs\traceArchive\%timestamp%.log
-   traceFile=C:\My Dropbox\Public\logs\trace.txt
+   archiveFile=C:\Dropbox\AHKs\gitExempt\logs\traceArchive\%timestamp%.log
+   traceFile=C:\Dropbox\Public\logs\trace.txt
 
    FileMove(traceFile, archiveFile)
    FileAppendLine("TRACE!!!", traceFile)
@@ -1553,13 +1547,13 @@ MorningStatusAppend(header, item)
 GetPath(file)
 {
    if (file == "NightlyStats.ini")
-      return "C:\My Dropbox\AHKs\gitExempt\NightlyStats.ini"
+      return "C:\Dropbox\AHKs\gitExempt\NightlyStats.ini"
    else if (file == "DailyFinancial.csv") ;deprecated
-      return "C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv"
+      return "C:\Dropbox\AHKs\gitExempt\DailyFinancial.csv"
    else if (file == "FinancialPast.csv")
-      return "C:\My Dropbox\AHKs\gitExempt\FinancialPast.csv"
+      return "C:\Dropbox\AHKs\gitExempt\FinancialPast.csv"
    else if (file == "trace" OR file == "trace.txt")
-      return "C:\My Dropbox\Public\logs\trace.txt"
+      return "C:\Dropbox\Public\logs\trace.txt"
    errord("orange line", "tried to GetPath() for an unknown file", file)
    return ""
 }
@@ -1703,12 +1697,13 @@ AhkClose(ahkFilename)
 
 ;WRITEME be awesome
 ;WRITEME polish up lib_Email.ahk, add better error handling and put it on the forums
-;WRITEME fix up OCR lib so that it works with AHK_L
+;WRITEME fix up OCR lib so that it works with AHK_L Unicode (I think it works)
+;WRITEME make tests for OCR lib for AHK_L Unicode, and AHK_basic
 
 
 ;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
 
 
 ;WRITEME make script that tests multiple sendmodes
-;WRITEME ReceiveEmail lib
+;WRITEME ReceiveEmail lib (SendEmail, too)
 

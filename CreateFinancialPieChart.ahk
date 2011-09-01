@@ -6,8 +6,8 @@
 
 date := currenttime("hyphendate")
 
-in =C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-credit-processed.csv
-out=C:\My Dropbox\AHKs\gitExempt\usaa_export\%date%-credit-graph
+in =C:\Dropbox\AHKs\gitExempt\usaa_export\%date%-credit-processed.csv
+out=C:\Dropbox\AHKs\gitExempt\usaa_export\%date%-credit-graph
 FileDelete(out . ".xls" )
 Run, scalc.exe "%in%"
 

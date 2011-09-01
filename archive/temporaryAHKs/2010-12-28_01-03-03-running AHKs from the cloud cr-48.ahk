@@ -7,10 +7,10 @@ last:=urlDownloadToVar("http://dl.dropbox.com/u/789954/text.txt")
 if (joe != last)
 {
    ;debug("silent log", "new version detected... going to run it")
-   FileDelete, C:\My Dropbox\Public\text.txt
-   FileAppend, %joe%, C:\My Dropbox\Public\text.txt
+   FileDelete, C:\Dropbox\Public\text.txt
+   FileAppend, %joe%, C:\Dropbox\Public\text.txt
    timestamp := CurrentTime()
-   FileAppend, %joe%, C:\My Dropbox\AHKs\scheduled\phosphorus\%timestamp%.ahk
+   FileAppend, %joe%, C:\Dropbox\AHKs\scheduled\phosphorus\%timestamp%.ahk
 }
 
 

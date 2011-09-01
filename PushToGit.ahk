@@ -6,7 +6,7 @@ if NOT A_ComputerName = "BAUSTIAN-09PC"
 ;var:=urldownloadtovar("https://www.att.com/olam/gotoDataDetailsAction.olamexecute?reportActionEvent=A_UMD_DATA_DETAILS")
 ;debug(var)
 datestamp:=CurrentTime("hyphenated")
-gitWindow=MINGW32:/c/My Dropbox/AHKs ahk_class ConsoleWindowClass
+gitWindow=MINGW32:/c/Dropbox/AHKs ahk_class ConsoleWindowClass
 
 line1=git add --all
 line2=git commit -am "%datestamp%"

@@ -1,13 +1,13 @@
 #include FcnLib.ahk
 #include thirdParty/COM.ahk
-#include C:\My Dropbox\AHKs\gitExempt\usaalogin.ahk
+#include C:\Dropbox\AHKs\gitExempt\usaalogin.ahk
 
 SetBatchLines, 300ms
 
 ;Awesome use of COM to log in to usaa
 
-ini=C:\My Dropbox\AHKs\gitExempt\financial.ini
-csvfile=C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv
+ini=C:\Dropbox\AHKs\gitExempt\financial.ini
+csvfile=C:\Dropbox\AHKs\gitExempt\DailyFinancial.csv
 ;time:=CurrentTime("hyphenated")
 
 RunIECOM()

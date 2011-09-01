@@ -1,10 +1,10 @@
 #include FcnLib.ahk
-#include C:\My Dropbox\AHKs\gitExempt\usaalogin.ahk
+#include C:\Dropbox\AHKs\gitExempt\usaalogin.ahk
 
 ;find out what the amount of slack in the expected transactions is
 ;assume that this will serve as the maximum credit card bill amount
 
-path=C:\My Dropbox\AHKs\gitExempt\
+path=C:\Dropbox\AHKs\gitExempt\
 expectedTransFile=%path%expectedTransactions-tpl.txt
 
 ;Read in all of the expected transactions

@@ -81,7 +81,7 @@ else
 
    if (InStr(bookmark, "NPR"))
    {
-      Run, C:\My Dropbox\Programs\npr.m3u
+      Run, C:\Dropbox\Programs\npr.m3u
       ForceWinFocus("Windows Media Player")
       WinMinimize, Windows Media Player
       SleepSeconds(10)

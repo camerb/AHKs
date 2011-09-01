@@ -2,7 +2,7 @@
 
 ;FcnLib-Rewrites.ahk by camerb
 
-;This library contains those functions that reproduce functionality in AHK_basic, but which have significant differences in usage and/or side effects. The differences in functionality in these functions were found to be preferable over the functionality of the commands as they are in plain AHK
+;This library contains those functions that reproduce functionality in AHK_basic, but which have significant differences in usage and/or side effects. The differences in functionality in these functions were found to be preferable over the functionality of the commands as they are in plain AHK (that's just my opinion, though)
 
 ;{{{ File Manipulation Functions
 FileAppend(text, file)
@@ -55,6 +55,43 @@ FileCreate(text, file)
    FileAppend(text, file)
 }
 
+;}}}
+
+;{{{Folder Manipulation Functions
+FileDeleteDir(dir)
+{
+   ;this will delete as much as possible from the target folder
+   ;depending upon file locks, some items may not get deleted
+
+   if NOT DirExist(dir)
+      return
+
+   dir:=EnsureEndsWith(dir, "\")
+   dir:=EnsureEndsWith(dir, "*")
+
+   ;delete as many files as we possibly can (typically difficult in windows)
+   Loop, %dir%, , 1
+   {
+      FileDelete, %A_LoopFileFullPath%
+   }
+
+   ;delete all the folders that we can
+   Loop, %dir%, 2, 1
+   {
+      FileRemoveDir, %A_LoopFileFullPath%, 1
+   }
+}
+
+;Returns if the directory exists
+;FIXME hmm, perhaps I should have named this starting with the word "file"
+FileDirExist(dirPath)
+{
+   return InStr(FileExist(dirPath), "D") ? 1 : 0
+}
+DirExist(dirPath)
+{
+   return FileDirExist(dirPath)
+}
 ;}}}
 
 ;{{{ INI Functions

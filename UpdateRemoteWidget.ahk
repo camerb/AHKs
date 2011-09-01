@@ -1,8 +1,8 @@
 #include FcnLib.ahk
 #NoTrayIcon
 
-file=C:\My Dropbox\Public\remotewidget.txt
-csv=C:\My Dropbox\Public\temps.csv
+file=C:\Dropbox\Public\remotewidget.txt
+csv=C:\Dropbox\Public\temps.csv
 
 time:=CurrentTime("hyphenated")
 

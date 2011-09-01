@@ -1,7 +1,7 @@
 #include FcnLib.ahk
 #include FcnLib-Opera.ahk
 #include MintLogin.ahk
-#include C:\My Dropbox\AHKs\gitExempt\usaalogin.ahk
+#include C:\Dropbox\AHKs\gitExempt\usaalogin.ahk
 
 mintlogin()
 
@@ -20,7 +20,7 @@ if NOT ForceWinFocusIfExist("Save As", "Exact")
 LongSleep()
 ForceWinFocus("Save As", "Exact")
 date:=CurrentTime("hyphendate")
-csvfilename=C:\My Dropbox\AHKs\gitExempt\mint_export\%date%.csv
+csvfilename=C:\Dropbox\AHKs\gitExempt\mint_export\%date%.csv
 Send, %csvfilename%
 Sleep, 100
 Send, {ENTER}

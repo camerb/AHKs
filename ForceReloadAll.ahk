@@ -48,8 +48,8 @@ totaltime:=elapsedtime(timer)
 addtotrace("Time it took for processes to close:", totaltime)
 
 ;debug("about to run main ahk files again")
-;RunAhk("""C:\My Dropbox\AHKs\StartIdleAhks.ahk""", )
-Run, C:\My Dropbox\AHKs\StartIdleAhks.ahk, C:\My Dropbox\AHKs
+;RunAhk("""C:\Dropbox\AHKs\StartIdleAhks.ahk""", )
+Run, C:\Dropbox\AHKs\StartIdleAhks.ahk, C:\Dropbox\AHKs
 
 CloseAllAhkProcesses(options)
 {

@@ -2,7 +2,7 @@
 
 ;GUI for REFP
 
-path=C:\My Dropbox\AHKs\REFP\
+path=C:\Dropbox\AHKs\REFP\
 infile=%path%in1.txt
 refile=%path%regex1.txt
 outfile=%path%out1.txt

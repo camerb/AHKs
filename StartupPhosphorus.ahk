@@ -26,7 +26,7 @@ Send, ^!2
 ForceWinFocus("GVIM", "Contains")
 Send, ^!2
 
-RunProgram("C:\My Dropbox\Programs\BareTail\baretail.exe")
+RunProgram("C:\Dropbox\Programs\BareTail\baretail.exe")
 ForceWinFocus("BareTail", "Contains")
 Send, ^!a
 

@@ -14,7 +14,7 @@ if InStr(params, "GatherData")
    if (A_ComputerName = LeadComputer())
    {
       filename=gitExempt\morning_status\drivespace-zzz-%A_ComputerName%.txt
-      size:=dirgetsize("C:\My Dropbox\")
+      size:=dirgetsize("C:\Dropbox\")
       dropboxSize := size / (1024 ** 3)
       message=Dropbox: %dropboxSize% of 3 GB used
       FileAppendLine(message, filename)

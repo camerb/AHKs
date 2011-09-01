@@ -23,9 +23,9 @@ ret:=CloseAllAhkProcesses("forcefully", excludeRegEx)
 
 totaltime:=elapsedtime(timer)
 
-idleAhk=C:\My Dropbox\AHKs\StartIdleAhks.ahk
+idleAhk=C:\Dropbox\AHKs\StartIdleAhks.ahk
 if FileExist(idleAhk)
-   Run, %idleAhk%, C:\My Dropbox\AHKs
+   Run, %idleAhk%, C:\Dropbox\AHKs
 
 CloseAllAhkProcesses(options, excludeRegEx)
 {

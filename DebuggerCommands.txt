@@ -301,9 +301,9 @@ cmd 1: {C:\code\DEEPCROW}, 2: {perl script\tm_server.pl -d}
 EPMS
 cmd 1: {C:\code\epms\script}, 2: {perl user_auth_expression_new.pl 2463 124 435 785}
 cmd 1: {C:\code\epms\script}, 2: {perl user_auth_expression_new.pl 1796 1345 1796 800 702}
-cmd 1: {"C:\My Dropbox"}, 2: {Mgmt-IDs-Merge7.bat}
-cmd 1: {"C:\My Dropbox"}, 2: {Mgmt-IDs-Merge7.bat > C:\report.txt}
-cmd 1: {"C:\My Dropbox"}, 2: {Mgmt-IDs-Merge7.bat > C:\code\report.txt}
+cmd 1: {"C:\Dropbox"}, 2: {Mgmt-IDs-Merge7.bat}
+cmd 1: {"C:\Dropbox"}, 2: {Mgmt-IDs-Merge7.bat > C:\report.txt}
+cmd 1: {"C:\Dropbox"}, 2: {Mgmt-IDs-Merge7.bat > C:\code\report.txt}
 cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
 EPMS
 cmd 1: {C:\code\epms\script}, 2: {perl epms_workbench.pl}
@@ -574,3 +574,6 @@ cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\i
 cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl homeproperties.pl C:\import_files\empl\home_2011-08.csv > C:\code\report.txt}
 cmd 1: {C:\code\epms\script\property_importers}, 2: {perl colonial.pl C:\import_files\prop\colonial_2011-08.csv > C:\code\report.txt}
 cmd 1: {C:\code\epms\script}, 2: {perl user_auth_expression_new.pl 3351 3369 3351}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\import_files\prop\home_2011-08.csv 0 > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl homeproperties.pl C:\import_files\empl\home_2011-08.csv 0 > C:\code\report.txt}
+EPMS

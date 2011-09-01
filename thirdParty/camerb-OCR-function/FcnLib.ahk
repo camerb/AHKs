@@ -21,7 +21,7 @@ SaveScreenShot(descriptiveText="", directoryPath="dropbox", options="")
 
    ; OR directoryPath="")
    if (directoryPath="dropbox")
-      directoryPath=C:\My Dropbox\AHKs\gitExempt\screenshots\%A_ComputerName%
+      directoryPath=C:\Dropbox\AHKs\gitExempt\screenshots\%A_ComputerName%
    else if (directoryPath="local")
       directoryPath=C:\DataExchange\PrintScreen
 

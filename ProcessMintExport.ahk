@@ -1,13 +1,13 @@
 #include FcnLib.ahk
 
 ;TODO we should probably just put everything in the mint path and we should probably make it global
-path=C:\My Dropbox\AHKs\gitExempt\usaa_export\
-mintpath=C:\My Dropbox\AHKs\gitExempt\mint_export\
+path=C:\Dropbox\AHKs\gitExempt\usaa_export\
+mintpath=C:\Dropbox\AHKs\gitExempt\mint_export\
 date := currenttime("hyphendate")
 
 ;fix debit vs credit (use minus sign)
 in =%mintpath%%date%.csv
-re =C:\My Dropbox\AHKs\REFP\regex-mint.txt
+re =C:\Dropbox\AHKs\REFP\regex-mint.txt
 out=%mintpath%%date%-processed.csv
 
 if NOT FileExist(in)
@@ -44,12 +44,12 @@ if (nonMatchCount > 1)
 
 ;make categories for the pie chart
 ;in =%path%%date%-credit.csv
-;re =C:\My Dropbox\AHKs\REFP\regex-financial-credit.txt
+;re =C:\Dropbox\AHKs\REFP\regex-financial-credit.txt
 ;out=%path%%date%-credit-processed.csv
 ;REFP(in, re, out)
 
 in =%path%%date%-checking.csv
-re =C:\My Dropbox\AHKs\REFP\regex-financial-checking.txt
+re =C:\Dropbox\AHKs\REFP\regex-financial-checking.txt
 out=%path%%date%-checking-processed.csv
 REFP(in, re, out)
 

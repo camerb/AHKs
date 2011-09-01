@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-AFFIDAVIT OF SPECIAL PROCESS SERVER 
+FileDeleteDir("C:\My Dropbox")
 
 
 

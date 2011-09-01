@@ -91,7 +91,7 @@ if (A_ComputerName="PHOSPHORUS")
 }
 
 ;make a list of all the ahks that didn't end gracefully
-Loop, C:\My Dropbox\AHKs\*.ahk
+Loop, C:\Dropbox\AHKs\*.ahk
 {
    time:=IniRead(ini, "RunAhkAndBabysit.ahk", A_LoopFileName)
    if (time <> "ERROR")

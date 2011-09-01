@@ -32,7 +32,7 @@ Continue?Visiting All Windows
 6 of 7
 ahk_id 0x10596
 ahk_class Vim
-temporary5.ahk (C:\My Dropbox\AHKs) - GVIM1
+temporary5.ahk (C:\Dropbox\AHKs) - GVIM1
 
 Continue?Visiting All Windows
 7 of 7
@@ -147,7 +147,7 @@ Visiting All Windows
 6 of 9
 ahk_id 0x105be
 ahk_class Vim
-temporary5.ahk (C:\My Dropbox\AHKs) - GVIM
+temporary5.ahk (C:\Dropbox\AHKs) - GVIM
 Vim tex
 Vim tabline
 Scrollbar

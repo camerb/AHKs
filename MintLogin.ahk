@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 #include FcnLib-Opera.ahk
-#include C:\My Dropbox\AHKs\gitExempt\usaalogin.ahk
+#include C:\Dropbox\AHKs\gitExempt\usaalogin.ahk
 
 mintLogin()
 {

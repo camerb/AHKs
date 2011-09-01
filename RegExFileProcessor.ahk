@@ -12,7 +12,7 @@ infile=%1%
 refile=%2%
 outfile=%3%
 
-path=C:\My Dropbox\AHKs\REFP\
+path=C:\Dropbox\AHKs\REFP\
 if (infile=="")
    infile=%path%in1.txt
 ;else

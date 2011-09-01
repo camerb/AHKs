@@ -1,9 +1,9 @@
 #include FcnLib.ahk
 #include FcnLib-Opera.ahk
-#include C:\My Dropbox\AHKs\gitExempt\usaalogin.ahk
+#include C:\Dropbox\AHKs\gitExempt\usaalogin.ahk
 
-ini=C:\My Dropbox\AHKs\gitExempt\datausage.ini
-csvfile=C:\My Dropbox\AHKs\gitExempt\datausage.csv
+ini=C:\Dropbox\AHKs\gitExempt\datausage.ini
+csvfile=C:\Dropbox\AHKs\gitExempt\datausage.csv
 time:=CurrentTime("hyphenated")
 
 while ((NOT CameronDataUsage) OR (NOT NoraDataUsage))

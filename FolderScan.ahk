@@ -1,11 +1,11 @@
 #include FcnLib.ahk
 
 ;folder scan function
-;FolderScan("C:\My Dropbox\AHKs\*", "conflicted", "paths")
-;FolderScan("C:\My Dropbox\AHKs\*", ".*;.*(TODO|WRITEME)", "fileContents")
-;FolderScan("C:\My Dropbox\AHKs\*", ".*;.*WRITEME", "fileContents")
-;FolderScan("C:\My Dropbox\AHKs\*", "listview", "fileContents")
-FolderScan("C:\My Dropbox\AHKs\*", "listview", "GUI")
+;FolderScan("C:\Dropbox\AHKs\*", "conflicted", "paths")
+;FolderScan("C:\Dropbox\AHKs\*", ".*;.*(TODO|WRITEME)", "fileContents")
+;FolderScan("C:\Dropbox\AHKs\*", ".*;.*WRITEME", "fileContents")
+;FolderScan("C:\Dropbox\AHKs\*", "listview", "fileContents")
+FolderScan("C:\Dropbox\AHKs\*", "listview", "GUI")
 
 ;note that the path is actually a haystack, preserving the search(haystack, needle) ordering that is common throughout AHK
 FolderScan(path, needle, options="files folders regex")

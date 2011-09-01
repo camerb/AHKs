@@ -1,6 +1,6 @@
 /*
 Name:        Find Me
-Version:     2.0 (Fri August 19, 2011)
+Version:     2.0.2 (Mon August 29, 2011)
 Author:      tidbit
 credits:     camerb
 Description: Find all matching text/phrases inside of files of a specified directory.
@@ -147,10 +147,10 @@ Return
 
 browse:
 	Gui, 1: Submit, NoHide
-	
+
 	if (SubStr(seldir, 1, 1)=="*")
 		browsedir:=SubStr(seldir, 2)
-		
+
 	FileSelectFolder, seldir, *%browsedir%, 3, Select a folder.
 	If (RegExMatch(seldir, "^\s*$"))
 		Return
@@ -182,24 +182,24 @@ return
 
 
 editmenu:
-	
+
 	; short variables for editor options in the INI.
-	; F = File to run. 
+	; F = File to run.
 	; L = Line to open to.
 	LV_GetText(F, RCrow,4)
 	LV_GetText(L, RCrow,2)
 	IniRead, editor,  %inifile%, Settings, Editor, %A_WinDir%\notepad.exe
 	IniRead, editorOptions,  %inifile%, Settings, EditorOptions,
-	
+
 	If (filetorun=="File")
 		Return
-	
+
 	if (InStr(F, A_Space))
 		F:= """" F """"
 	Transform, editorOptions, Deref, %editorOptions%
-		
+
 	ToolTip, %editor% %editorOptions%
-	
+
 	run, %editor% %editorOptions%
 	; run, %A_ProgramFiles%\notepad++\notepad++.exe %filetorun%
 Return
@@ -237,7 +237,7 @@ Return
 replace:
 	gui, 1: Submit, NoHide
 	Load_DDL_Values(inifile, "replace", replace, SaveCount, "Logs", "LastReplace")
-	
+
 	IniWrite, %replace%, %inifile%, Settings, LastReplace
 	If (usereplace==0)
 		Return
@@ -246,16 +246,16 @@ replace:
 
 	Loop % LV_GetCount()
 	{
-		If (escIsPressed())
+		If (stopSearchAsap())
 			Break
 
 		SendMessage, 4140, A_index - 1, 0xF000, SysListView321  ; 4140 is LVM_GETITEMSTATE.  0xF000 is LVIS_STATEIMAGEMASK.
 		isChecked := (ErrorLevel >> 12) - 1
 		; isChecked := LV_GetNext(iteration, "Checked")
-		
+
 		If (isChecked==0)
 			Continue
-		
+
 		LV_GetText(line, A_index, 2)
 		LV_GetText(file, A_index, 4)
 		LV_Modify(A_Index, "-Check")
@@ -279,21 +279,21 @@ export:
 	gui, 1: Submit, nohide
 	Gui, 1: +LastFound
 	Gui, 1: Default
-	
+
 	Exportlist:=""
 	SB_SetText("Exporting... ", 1, 0)
-	
+
 	Loop % LV_GetCount()
 	{
-		If (escIsPressed())
+		If (stopSearchAsap())
 			Break
 
 		SendMessage, 4140, A_index - 1, 0xF000, SysListView321  ; 4140 is LVM_GETITEMSTATE.  0xF000 is LVIS_STATEIMAGEMASK.
 		isChecked := (ErrorLevel >> 12) - 1
-		
+
 		If (isChecked==0)
 			Continue
-		
+
 		; export Column info in CSV format.
 		; doing some voodoo to make it fit on as few amount of lines as possible.
 		if (ecb1==1)
@@ -304,7 +304,7 @@ export:
 			Exportlist.="""" substr(LV_GetText(eCol, A_index, 3), 2) eCol """`,"
 		if (ecb4==1)
 			Exportlist.="""" substr(LV_GetText(eCol, A_index, 4), 2) eCol """`,"
-		
+
 		; remove the trailing comma and append a newline.
 		; felt like being fancy and not using stringtrimright.
 		; some people also hate stringtrimright as much as goto/gui,destroy. I don't though.
@@ -312,7 +312,7 @@ export:
 		Exportcount:=A_Index
 	}
 	FileAppend, %Exportlist%, %ExportFile%
-	
+
 	; reuseing the variable since the important full path is no longer needed.
 	SplitPath, ExportFile, ExportFile
 	SB_SetText(Exportcount " items appended to " ExportFile ", Awaiting Action.", 1, 0)
@@ -340,12 +340,21 @@ search:
 	Else
 		recurseMode:=0
 
+        if NOT InStr( FileExist(seldir), "D" )
+        {
+                msgbox, The selected directory does not exist.
+                return
+        }
+
 	LV_Delete()
 	selall:=0
 	flist:=""
 	max:=0
 	Loop,%seldir%\*.*, 0, %recurseMode%
 	{
+		If (stopSearchAsap())
+			Break
+
 		if (extmode==1)
 		{
 			If A_LoopFileExt in %exts%
@@ -371,14 +380,14 @@ search:
 
 	loop, parse, flist, `n, `r
 	{
-		If (escIsPressed())
+		If (stopSearchAsap())
 			Break
 
 		filePath:=A_LoopField
 		SplitPath, a_loopfield, fileName
 		SB_SetText("file: " A_Index "/" max " -- " fileName, 1, 0)
 		curFileNumber:=A_Index
-		
+
 		FileRead, fileText, %filePath%
 		filetext:=unHTM(filetext)
 
@@ -392,7 +401,7 @@ search:
 
 		loop, parse, fileText, `n, `r
 		{
-			If (escIsPressed())
+                        If (stopSearchAsap())
 				Break
 			if (!RegExMatch(a_loopfield, "i`n)" word))
 				continue
@@ -947,7 +956,7 @@ Anchor(i, a = "", r = false) {
 	; _Default - the default text to use if the key does not exist.
 Load_DDL_Values(_File, _Control="", _text="", _Max=5, _Section="Logs", _Keyname="LastSearch", _Default="Regex is Enabled. Case Insensitive")
 {
-	; only change the INI if the last Replace option isn't the same. 
+	; only change the INI if the last Replace option isn't the same.
 	; helps prevent duplicates.
 	IniRead, _first, %_file%, %_section%, %_keyname%1, %_default%
 	if (_first!=_text)
@@ -983,7 +992,7 @@ DDL_Load(_file, _max=5, _section="Logs", _keyname="LastSearch", _default="Regex 
 	; _keyname  - the name of the key group. DO NOT INCLUDE THE NUMBERS.
 	; _default  - the default text to use if the key does not exist.
 DDL_Save(_file, _inputvar="", _max=5, _section="Logs", _keyname="LastSearch", _default="Regex is Enabled. Case Insensitive")
-{	
+{
 	; get everything
 	loop, %_max%
 		IniRead, _search%A_index%, %_file%, %_section%, %_keyname%%A_index%, %_default%
@@ -998,13 +1007,25 @@ DDL_Save(_file, _inputvar="", _max=5, _section="Logs", _keyname="LastSearch", _d
 	}
 }
 
-escIsPressed()
+;escIsPressed()
+;{
+   ;If (getkeystate("esc","p") == "U")
+      ;return false
+   ;Else If (getkeystate("esc","p") == "D")
+      ;return true
+   ;return getkeystate("esc","p")
+;}
+
+stopSearchAsap()
 {
-   If (getkeystate("esc","p") == "U")
-      return false
-   Else If (getkeystate("esc","p") == "D")
-      return true
-   return getkeystate("esc","p")
+   global stopSearchAsap
+
+   ;msgbox, % stopsearchasap
+   If stopSearchAsap
+   {
+      stopSearchAsap := false
+      SB_SetText("Awaiting Action.", 1, 0)
+   }
 }
 
 ; ------ On Exit ---
@@ -1015,7 +1036,7 @@ ExitLabel:
 	IniWrite, %wY%,      %inifile%, Settings, Y
 	IniWrite, %wWidth%,  %inifile%, Settings, Width
 	IniWrite, %wHeight%, %inifile%, Settings, Height
-	
+
 ExitApp
 
 ; ------ Menu ---
@@ -1030,5 +1051,10 @@ Return
 #IfWinActive, Find Me
 ^w::
 GuiClose:
-	ExitApp
+ExitApp
+
+ESC::
+stopSearchAsap := true
+SB_SetText("Stopping search... ", 1, 0)
+return
 #IfWinActive

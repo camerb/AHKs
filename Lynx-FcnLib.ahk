@@ -158,7 +158,7 @@ DriveLetter()
 
 ShortSleep()
 {
-   SleepSeconds(1)
+   SleepSeconds(3)
 }
 
 WinLogActiveStats(function, lineNumber)

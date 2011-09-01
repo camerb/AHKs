@@ -1,6 +1,6 @@
 /**
  *   OCR library by camerb
- *   v0.92 - 2011-08-03
+ *   v0.92 - 2011-08-30
  *
  * This OCR lib provides an easy way to check a part of the screen for
  * machine-readable text. You should note that OCR isn't a perfect technology,

@@ -2,10 +2,10 @@
 #include FcnLib-Opera.ahk
 #include FcnLib-Misc.ahk
 #include MintLogin.ahk
-#include C:\My Dropbox\AHKs\gitExempt\usaalogin.ahk
+#include C:\Dropbox\AHKs\gitExempt\usaalogin.ahk
 
-ini=C:\My Dropbox\AHKs\gitExempt\financial.ini
-csvfile=C:\My Dropbox\AHKs\gitExempt\DailyFinancial.csv
+ini=C:\Dropbox\AHKs\gitExempt\financial.ini
+csvfile=C:\Dropbox\AHKs\gitExempt\DailyFinancial.csv
 time:=CurrentTime("hyphenated")
 
 ;get mint net worth
