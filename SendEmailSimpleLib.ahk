@@ -4,17 +4,19 @@
 ;Send an email without doing any of the complex queuing stuff
 SendEmailSimple(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sReplyTo="cameronbaustian+bot@gmail.com")
 {
-   item .= SexPanther()
+   ;sUsername, sPassword,
 
-   sFrom     := "cameronbaustian@gmail.com"
+   ;item .= SexPanther()
+
+   sFrom     := username . "@gmail.com"
 
    sServer   := "smtp.gmail.com" ; specify your SMTP server
    nPort     := 465 ; 25
    bTLS      := True ; False
    nSend     := 2   ; cdoSendUsingPort
    nAuth     := 1   ; cdoBasic
-   sUsername := "cameronbaustian"
-   sPassword := item
+   sUsername := "cameronbaustianmitsibot"
+   sPassword := "niftyemailpassword"
 
    SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
 }

@@ -6,17 +6,23 @@
 
 #SingleInstance force
 #Include OCR.ahk
+;#Include C:\Dropbox\ahks\FcnLib.ahk
+
+expected := "HELLO FRIENDS"
+textToType := "{enter 5}{space 20}" . expected
 
 Run, Notepad.exe
 Sleep, 2000
 SetTitleMatchMode, 2
 WinMove, Untitled - Notepad, , 0, 0
-Send, Hello World
+Send, %textToType%
 returned := GetOCR()
 ToolTip, %returned%
 Sleep, 2000
 if NOT InStr(returned, expected)
    msgbox face
+else
+   msgbox tests passed
 Process, Close, Notepad.exe
 ExitApp
 

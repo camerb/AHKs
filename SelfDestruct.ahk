@@ -1,2 +1,2 @@
 Sleep 100
-FileDelete, C:\Dropbox\AHKs\Scheduled-20110831182923.ahk
+FileDelete, C:\Dropbox\AHKs\Scheduled-20110901181347.ahk
