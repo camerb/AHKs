@@ -1710,3 +1710,9 @@ AhkClose(ahkFilename)
 
 ;WRITEME maybe I should generate a static page of the AHK Benchmarks page when we get IronAHK to where it runs pretty well. we should also keep track of version numbers and output to a db or ini or csv file... html file should look like: http://www.autohotkey.net/~Uberi/Scripts/Benchmarks/Benchmarks%20Combined%20%28shajul%29.html
 
+
+;WRITEME make a script that processes the code to see how far we are on each command... like this: http://www.ironahk.net/docs/developing/status/
+;WRITEME might be nice to make a glossary of ahk terms (might include some CS terms)
+;WRITEME make a widget sidebar in ahk... allow ability to add third-party widgets to the sidebar
+;WRITEME add "currently working on this jira issue" to the widget
+
