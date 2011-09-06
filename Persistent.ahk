@@ -363,6 +363,9 @@ WinClose, Windows Script Host, 'Ext' is undefined
 ;Come on, i already know my Win XP isn't pirated
 WinClose, Windows Genuine Advantage Notifications - Installation Wizard
 
+;Close error that sometimes comes up from Adobe Acrobat
+WinClose, Fatal Error, Acrobat failed to connect to a DDE server.
+
 ;Temporary solution, close the pestering dialog since i'm using the trial
 IfWinActive, Balsamiq Mockups For Desktop - * New Mockup ahk_class ApolloRuntimeContentWindow
    ClickIfImageSearch("images\balsamiq\TrialDialog.bmp")
