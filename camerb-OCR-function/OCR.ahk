@@ -1,6 +1,6 @@
 /**
  *   OCR library by camerb
- *   v0.92 - 2011-08-30
+ *   v0.94 - 2011-09-08
  *
  * This OCR lib provides an easy way to check a part of the screen for
  * machine-readable text. You should note that OCR isn't a perfect technology,
@@ -22,16 +22,33 @@
 #Include CMDret.ahk
 
 
-GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", isDebugMode=false)
+; the options parameter is a string and can contain any combination of the following:
+;   debug - for use to show errors that GOCR spits out (not helpful for daily use)
+;   numeric (or numeral, or number) - the text being scanned should be limited to
+;            numbers only (no letters or special characters)
+GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", options="")
 {
    ;TODO validate to ensure that the coords are numbers
 
    prevBatchLines := A_BatchLines
    SetBatchlines, -1 ;cuts the average time down from 140ms to 115ms for small areas
 
+   ;process options from the options param, if they are there
+   if options
+   {
+      if InStr(options, "debug")
+         isDebugMode:=true
+      if InStr(options, "numeral")
+         isNumericMode:=true
+      if InStr(options, "numeric")
+         isNumericMode:=true
+      if InStr(options, "number")
+         isNumericMode:=true
+   }
+
    if (heightToScan == "")
    {
-      ;TODO throw error it not in the right coordmode
+      ;TODO throw error if not in the right coordmode
       ;CoordMode, Mouse, Window
       WinGetActiveStats, no, winWidth, winHeight, no, no
       topLeftX := 0
@@ -56,42 +73,13 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", isDebugMode=fa
    convertCmd=djpeg.exe -pnm -grayscale %fileNameDestJ% in.pnm
 
    ;run the OCR
-   runCmd=gocr.exe -i in.pnm
-
-   ;run both commands using the preferred method with cmdret
-   ;CmdRet_RunReturn(convertCmd)
-   ;CMDout := CmdRet_RunReturn(runCmd)
-
-   ;run both commands using the hacky ghetto cmdret method
-   ;GhettoCmdRet_RunReturn(convertCmd)
-   ;CMDout := GhettoCmdRet_RunReturn(runCmd)
+   if isNumericMode
+      additionalParams .= "-C 0-9 "
+   runCmd=gocr.exe %additionalParams% in.pnm
 
    ;run both commands using my mixed cmdret hack
    CmdRet(convertCmd)
-   CMDout := CmdRet(runCmd)
-   ;CMDout := CmdRet("ping google.com")
-   ;addtotrace(CMDout)
-   return cmdout
-   ;sleep 10000
-
-   ;convert and run the OCR - hacky method for AHK_L unicode compat
-   ;CMDs =
-   ;(LTrim Join
-      ;djpeg.exe -pnm -grayscale %fileNameDestJ% in.pnm
-      ;,cmdstub.exe gocr.exe -i in.pnm
-   ;)
-
-   ;Loop, parse, CMDs, `,
-   ;{
-      ;CMD = %A_LoopField%
-      ;NULL =
-      ;CMDin = ""
-      ;CMDout =
-      ;CMDerr =
-      ;Ret := RunWaitEx(CMD, NULL, CMDin, CMDout, CMDerr)
-   ;}
-
-   ;StringReplace, result, cmdout, `r`n, %A_Space%, A
+   result := CmdRet(runCmd)
 
    ;suppress warnings from GOCR (we don't care, give us nothing)
    if InStr(result, "NOT NORMAL")
@@ -107,6 +95,11 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", isDebugMode=fa
          result=
    }
 
+   if isNumericMode
+   {
+      result := RegExReplace(result, "[ _]+", " ")
+   }
+
    ; Cleanup
    FileDelete, in.pnm
    FileDelete, %fileNameDestJ%
@@ -114,23 +107,6 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", isDebugMode=fa
 
    return result
 }
-
-;RunWaitEx(CMD, CMDdir, CMDin, ByRef CMDout, ByRef CMDerr)
-;{
-   ;VarSetCapacity(CMDOut, 100000)
-   ;VarSetCapacity(CMDerr, 100000)
-   ;RetVal := DllCall("cmdret.dll\RunWEx", "AStr", CMD, "AStr", CMDdir, "AStr", CMDin, "AStr", CMDout, "AStr", CMDerr)
-   ;Return, %RetVal%
-;}
-
-;GhettoCmdRet_RunReturn(command)
-;{
-   ;file := "joe.txt"
-   ;command .= " > " . file
-   ;Run %comspec% /c "%command%"
-   ;FileRead, returned, %file%
-   ;return returned
-;}
 
 CMDret(CMD)
 {

@@ -34,9 +34,13 @@ Loop, read, %infile%
       FileAppendLine(line, outFileBase . "-savings.csv")
    else if RegExMatch(line, "CHASE PREMIER CHECKING")
       FileAppendLine(line, outFileBase . "-chasechecking.csv")
+   else if RegExMatch(line, "ROUTINE CREDIT CARD")
+      FileAppendLine(line, outFileBase . "-routinecredit.csv")
    else
+   {
       nonMatchCount++
       ;AddToTrace(line)
+   }
 }
 
 if (nonMatchCount > 1)

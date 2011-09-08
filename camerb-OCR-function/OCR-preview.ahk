@@ -27,13 +27,28 @@ Loop
 
    WinMove, OcrPreviewWindow, , % topLeftX+2, % topLeftY-2
 
-   ;NOTE: this is where the magical OCR function is called
-   magicalText := GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, "true")
+   options:=""
+   if keyIsPressed("d")
+      options.=" debug"
+   if keyIsPressed("n")
+      options.=" numeric"
 
-   liveMessage=Here is the text that GetOCR() found near your mouse:`n%magicalText%`n`nPress ESC at any time to exit
+   ;NOTE: this is where the magical OCR function is called
+   magicalText := GetOCR(topLeftX, topLeftY, widthToScan, heightToScan, options)
+
+   liveMessage=Here is the text that GetOCR() found near your mouse:`n%magicalText%`n`nPress ESC at any time to exit`nHold the 'N' key to see output using the "numeric" option.`nHold the 'D' key to see output using the "debug" option.
    ToolTip, %liveMessage%
    Sleep, 100
 }
 ;end of script (obviously this never really exits)
 
 Esc:: ExitApp
+
+keyIsPressed(key)
+{
+   If (getkeystate(key,"p") == "U")
+      return false
+   Else If (getkeystate(key,"p") == "D")
+      return true
+   return getkeystate(key,"p")
+}
