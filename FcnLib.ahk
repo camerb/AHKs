@@ -1716,3 +1716,6 @@ AhkClose(ahkFilename)
 ;WRITEME make a widget sidebar in ahk... allow ability to add third-party widgets to the sidebar
 ;WRITEME add "currently working on this jira issue" to the widget
 
+
+;WRITEME during git commit... remove unstaged changes and add all new files (maybe in one action)
+
