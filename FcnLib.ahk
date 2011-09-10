@@ -1637,6 +1637,25 @@ AhkClose(ahkFilename)
    CustomTitleMatchMode("Default")
 }
 
+;Wait until the title of the active window changes
+;(note that changing to another window sets it off, too)
+WinWaitActiveTitleChange(oldTitle="")
+{
+   ;if they didn't give a title, try to grab the title as quickly as possible
+   ;this is less reliable, but if we don't have the title, we'll just do the best we can
+   if (oldTitle == "")
+      WinGetActiveTitle, oldTitle
+
+   ;loop until the window title changes
+   Loop
+   {
+      WinGetActiveTitle, newTitle
+      if (oldTitle != newTitle)
+         break
+      Sleep, 100
+   }
+}
+
 ;WRITEME make function for getting remote and local path of dropbox public folder
 ;WRITEME split csv processing out of the create pie chart macro
 ;WRITEME make monthly financial charts (rather than three-month)

@@ -1,36 +1,55 @@
 #include FcnLib.ahk
-#include thirdParty/cmdret.ahk
 
-;test if the internet is down
 
-timer:=starttimer()
-url:=cycle("google.com", "dl.dropbox.com/u/789954/logs/trace.txt")
-joe:=urldownloadtovar("google.com")
-joe:=urldownloadtovar("dl.dropbox.com/u/789954/logs/trace.txt")
-elapsed:=elapsedtime(timer)
-addtotrace(joe, elapsed)
-
-;if InternetIsDown()
-   ;errord("the internets are down")
-;else
-   ;debug("the internet is working fine")
-
-InternetIsDown()
+Loop, C:\Dropbox\Public\camerb-ahk-net\raw-articles\*
 {
-   if ( CantContact("google.com")
-         AND CantContact("usaa.com")
-         AND CantContact("amazon.com")
-         AND CantContact("yahoo.com") )
-      return true
-   else
-      return false
-}
+   thisFile := A_LoopFileFullPath
 
-CantContact(url)
-{
-   cmd=ping %url%
-   result := cmdret_runreturn("ping google.com")
-   if InStr(result, "Ping request could not find host")
-      return true
-   return false
+   thisShortFile := A_LoopFileName
+   thisShortFile := StringTrimRight(thisShortFile, 4)
+   destHtml=C:\Dropbox\Public\camerb-ahk-net\%thisShortFile%.html
+   ;debug(destHtml, thisfile)
+
+   thisTitle := FileReadLine(thisFile, 1)
+   thisSubTitle := FileReadLine(thisFile, 2)
+
+   ;TODO process list items
+   listItem=`n<li><a href="%thisShortFile%.html">%thisTitle% - %thisSubTitle%</a></li>
+
+   index=0
+   Loop, read, %thisFile%
+   {
+      index++
+      thisLine := A_LoopReadLine
+
+      if (index <= 2)
+         continue
+
+      ;debug(thisLine)
+
+      if (mod(index, 3) == 0)
+         continue
+      if (mod(index, 3) == 1)
+      {
+         addition=`n<h2>%thisLine%</h2>
+         articleText .= addition
+      }
+      if (mod(index, 3) == 2)
+      {
+         addition=`n<p>`n%thisLine%`n</p>
+         articleText .= addition
+      }
+
+      ;debug(articleText)
+   }
+
+   ;TODO make prettyDate
+   header=<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">`n<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">`n`n<meta name="description" content="Camerb's AHK site - %thisTitle%">`n<title>Camerb's AHK site - %thisTitle%</title>`n<link href="default.css" rel="stylesheet" type="text/css" media="all">`n</head>`n<body>`n`n<center>`n<table width="700px"><tr><td>`n`n<h1>%thisTitle%</h1>`n`n<p>%thisSubtitle%</p>`n<a href="index.html">Back to the home page</a>`n
+   footer=`n`n<br>`n<hr>`n<p><i>Last updated: %prettyDate%</i></p>`n`n</td>`n</tr>`n</table>`n</center>`n`n</body></html>
+
+   wholeFile=%header%%articleText%%footer%
+   FileCreate(wholeFile, destHtml)
 }
+ExitApp
+
+Esc::ExitApp

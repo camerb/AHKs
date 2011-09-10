@@ -7,11 +7,13 @@ onexit exithandler
 ws2_cleanup()
 socket:=ws2_connect("irc.freenode.net:6667")
 ws2_asyncselect(socket,"dataprocess")
-send("NICK " . nick())
+changenick(nick())
 send("USER " . nick() . " * * :the camerb irc client, made by camerb")
 send("JOIN " . channel())
-;debug("hi")
-;TODO here's where we should do periodic checks, like if we should set the status to "away"
+;here's where we should do periodic checks, like if we should set the status to "away"
+SetTimer, checkEverySecond, 1000
+SetTimer, checkEveryTenSeconds, % 1000 * 10
+SetTimer, checkEveryMinute, % 1000 * 60
 return
 
 ;TODO identify
@@ -20,44 +22,55 @@ return
 ;TODO config files
 
 dataprocess(socket,data){
-	static differentnick = 0
-        ;msgbox % data ;for testing
-        addtotrace(data)
+   static differentnick = 0
+   ;msgbox % data ;for testing
+   addtotrace(data)
 
-        ;if (InStr(data, "bot"))
-           ;msgbox, Did that guy say my name?
+   ;if (InStr(data, "bot"))
+      ;msgbox, Did that guy say my name?
 
-	stringtrimright,data,data,2
-	if(instr(data,"`r`n")){
-		stringreplace,data,data,`r`n`r`n,`r`n
-		loop,%data%,`n,`r
-			dataprocess(socket,a_loopfield)
-		return
-	}
-	stringsplit,param,data,%a_space%
-	name:=substr(data,2,instr(data,"!")-2)
-	if(param1 == "PING")
-        {
-           send("PONG " param2)
-           checkIfAfk()
-        }
-	else if(instr(data,"* " . nick() . " :Nickname is already in use.")){
-		if(differentnick = 0){
-			random,rand,11111,99999
-			send("NICK " . nick() . rand)
-			differentnick := 1
-		}
-		settimer, nick, -60000
-	}
-	else if(param2 == "JOIN" && regexmatch(param3,"^(list|of|authorized|users|which|will|hopefully|not|be|hardcoded|much|longer)$"))
-		send("MODE #joe +ov " name " " name)
-	else if(param2 == "KICK" && instr(data,nick()))
-		send("JOIN " param3)
+   ;parsing
+   stringtrimright,data,data,2
+   if(instr(data,"`r`n"))
+   {
+      stringreplace,data,data,`r`n`r`n,`r`n
+      loop,%data%,`n,`r
+         dataprocess(socket,a_loopfield)
+      return
+   }
+
+   ;parsing
+   stringsplit,param,data,%a_space%
+   name:=substr(data,2,instr(data,"!")-2)
+
+   ;respond to a ping, let them know we are here
+   if(param1 == "PING")
+   {
+      send("PONG " param2)
+      ;checkIfAfk()
+   }
+   ;that nick is taken, let's use a different one
+   else if(instr(data,"* " . nick() . " :Nickname is already in use."))
+   {
+      if(differentnick = 0)
+      {
+         random,rand,11111,99999
+         changenick(nick() . rand)
+         differentnick := 1
+      }
+      settimer, nick, -60000
+   }
+   ;this seems to be for re-joining after getting kicked
+   else if(param2 == "KICK" && instr(data,nick()))
+      send("JOIN " param3)
+   ;this is for a bot similar to ChanServ (not needed for an irc client)
+   ;else if(param2 == "JOIN" && regexmatch(param3,"^(list|of|authorized|users)$"))
+      ;send("MODE #joe +ov " name " " name)
 }
 
 send(data){
-	global socket
-	ws2_senddata(socket,data "`r`n")
+   global socket
+   ws2_senddata(socket,data "`r`n")
 }
 
 exithandler:
@@ -70,9 +83,20 @@ nick:
 changeNick(nick())
 return
 
+checkEverySecond:
+return
+
+checkEveryTenSeconds:
+;debug()
+checkIfAfk()
+return
+
+checkEveryMinute:
+return
+
 nick()
 {
-   return "camerb_girc"
+   return "cam_girc"
 }
 
 awaynick()
@@ -87,7 +111,7 @@ channel()
 
 checkIfAfk()
 {
-   if (A_TimeIdlePhysical > 1000 * 60 * 10)
+   if (A_TimeIdlePhysical > 1000 * 60 * 8)
       changeNick(awaynick())
    else
       changeNick(nick())

@@ -100,9 +100,12 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", options="")
       result := RegExReplace(result, "[ _]+", " ")
    }
 
-   ; Cleanup
-   FileDelete, in.pnm
-   FileDelete, %fileNameDestJ%
+   ; Cleanup (preserve the files if in debug mode)
+   if NOT isDebugMode
+   {
+      FileDelete, in.pnm
+      FileDelete, %fileNameDestJ%
+   }
    SetBatchlines, %prevBatchLines%
 
    return result
