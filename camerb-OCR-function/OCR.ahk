@@ -49,6 +49,7 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", options="")
    if (heightToScan == "")
    {
       ;TODO throw error if not in the right coordmode
+      ;or perhaps we can just process the entire screen
       ;CoordMode, Mouse, Window
       WinGetActiveStats, no, winWidth, winHeight, no, no
       topLeftX := 0
@@ -57,9 +58,10 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", options="")
       heightToScan := winHeight
    }
 
-   fileNameDestJ = ResultImage.jpg
+   fileNameDestJ = in.jpg
    jpegQuality = 100
 
+   ;take a screenshot of the specified area
    pToken:=Gdip_Startup()
    pBitmap:=Gdip_BitmapFromScreen(topLeftX "|" topLeftY "|" widthToScan "|" heightToScan)
    Gdip_SaveBitmapToFile(pBitmap, fileNameDestJ, 100)
@@ -69,7 +71,19 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", options="")
    while NOT FileExist(fileNameDestJ)
       Sleep, 10
 
+   ;ensure the exes are there
+   djpegPath=djpeg.exe
+   gocrPath=gocr.exe
+
+   if NOT FileExist(djpegPath)
+      return "ERROR: djpeg.exe not found in expected location"
+
+   if NOT FileExist(gocrPath)
+      return "ERROR: gocr.exe not found in expected location"
+
    ;convert the jpg file to pnm
+   ;NOTE maybe converting to greyscale isn't the best idea
+   ;  ... does it increase reliability or speed?
    convertCmd=djpeg.exe -pnm -grayscale %fileNameDestJ% in.pnm
 
    ;run the OCR

@@ -24,6 +24,13 @@ if NOT InStr(returned, expected)
 else
    msgbox tests passed
 Process, Close, Notepad.exe
+
+
+;img=C:\Dropbox\Public\ocr-tests\Company Processes.jpg
+;SplashImage, %img%
+;sleep, 2000
+;SplashImage, Off
+
 ExitApp
 
 ;sometimes this helps to ensure more consistent results when switching from one window to another

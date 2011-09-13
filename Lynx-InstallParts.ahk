@@ -316,8 +316,9 @@ InstallApache()
    SleepSeconds(1)
    WinLogActiveStats(A_ThisFunc, A_LineNumber)
    SleepSend("!n")
-   WinLogActiveStats(A_ThisFunc, A_LineNumber)
-   SleepSend("!a")
+   ClickButton("&accept")
+   ;WinLogActiveStats(A_ThisFunc, A_LineNumber)
+   ;SleepSend("!a")
    WinLogActiveStats(A_ThisFunc, A_LineNumber)
    SleepSend("!n")
    WinLogActiveStats(A_ThisFunc, A_LineNumber)
@@ -454,12 +455,14 @@ InstallLynxMessenger()
    ;install lynx messenger (cmd)
    command=msiexec.exe /I "C:\LynxCD\Server 7.11\setup\LynxMessengerV4_06.msi" INSTALLDIR="C:\Program Files\LynxMessenger\" SERVERURL=localhost GROUPNAME=Popup PCNAME=Server /quiet
    ret := CmdRet_RunReturn(command)
+   delog("", "started lynxmessenger install and it returned:", ret)
 
    ret := CmdRet_RunReturn("perl checkdb.plx", "C:\inetpub\wwwroot\cgi\")
+   delog("", "ran checkdb and it returned:", ret)
 
    ret := CmdRet_RunReturn("perl start-MSG-service.pl installall", "C:\inetpub\wwwroot\cgi\")
    if NOT InStr(ret, "Finished with 0 errors")
-      MsgBox, %ret%
+      errord("perl start-MSG-service.pl installall", "this command seemed to fail... it returned:", ret)
    delog("", "finished function", A_ThisFunc)
 }
 

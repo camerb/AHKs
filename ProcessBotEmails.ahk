@@ -57,7 +57,7 @@ examineEmail(emailFile)
    }
 
    ;get the email message
-   debug(boundary, subjectLine)
+   ;delog(boundary, subjectLine)
    Loop, read, %emailFile%
    {
       thisLine:=A_LoopReadLine

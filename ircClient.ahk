@@ -42,6 +42,7 @@ return
 ;TODO config files
 
 ;TODO ip lookup
+;TODO nick lookup
 ;TODO window to look at recent pastebin
 ;TODO button to run recent pastebin
 
@@ -128,7 +129,7 @@ return
 
 nick()
 {
-   return "cam_girc"
+   return "cam_irc"
 }
 
 awaynick()

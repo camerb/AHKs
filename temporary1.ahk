@@ -14,25 +14,25 @@ if (joyX < 50)
    direction=left
 ;addtotrace(direction)
 
-;mult:=2
-;if (45 < joyX and joyx < 55)
-   ;mult:=0.2
-;if (40 < joyX and joyx < 60)
-   ;mult:=0.5
-;if (35 < joyX and joyx < 65)
-   ;mult:=1.2
-;if (30 < joyX and joyx < 70)
-   ;mult:=1.7
-
-mult:=0.9
+mult:=2
 if (45 < joyX and joyx < 55)
-   mult:=0.1
-if (40 < joyX and joyx < 60)
    mult:=0.2
+if (40 < joyX and joyx < 60)
+   mult:=0.5
 if (35 < joyX and joyx < 65)
-   mult:=0.35
+   mult:=1.2
 if (30 < joyX and joyx < 70)
-   mult:=0.6
+   mult:=1.7
+
+;mult:=0.9
+;if (45 < joyX and joyx < 55)
+   ;mult:=0.1
+;if (40 < joyX and joyx < 60)
+   ;mult:=0.2
+;if (35 < joyX and joyx < 65)
+   ;mult:=0.35
+;if (30 < joyX and joyx < 70)
+   ;mult:=0.6
 
 speed:=joyx-50
 speed:=abs(speed)*mult
