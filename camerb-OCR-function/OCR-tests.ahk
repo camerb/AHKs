@@ -8,28 +8,37 @@
 #Include OCR.ahk
 ;#Include C:\Dropbox\ahks\FcnLib.ahk
 
-expected := "HELLO FRIENDS"
-textToType := "{enter 5}{space 20}" . expected
+;expected := "HELLO FRIENDS"
+;textToType := "{enter 5}{space 20}" . expected
 
-Run, Notepad.exe
-Sleep, 2000
-SetTitleMatchMode, 2
-WinMove, Untitled - Notepad, , 0, 0
-Send, %textToType%
+;Run, Notepad.exe
+;Sleep, 2000
+;SetTitleMatchMode, 2
+;WinMove, Untitled - Notepad, , 0, 0
+;Send, %textToType%
+;returned := GetOCR()
+;ToolTip, %returned%
+;Sleep, 2000
+;if NOT InStr(returned, expected)
+   ;msgbox face
+;else
+   ;msgbox tests passed
+;Process, Close, Notepad.exe
+
+
+expected=Company Processes
+img=C:\Dropbox\Public\ocr-tests\%expected%.jpg
+SplashImage, %img%
+sleep, 1000
 returned := GetOCR()
+sleep, 1000
+SplashImage, Off
 ToolTip, %returned%
 Sleep, 2000
 if NOT InStr(returned, expected)
    msgbox face
 else
    msgbox tests passed
-Process, Close, Notepad.exe
-
-
-;img=C:\Dropbox\Public\ocr-tests\Company Processes.jpg
-;SplashImage, %img%
-;sleep, 2000
-;SplashImage, Off
 
 ExitApp
 
