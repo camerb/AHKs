@@ -104,10 +104,6 @@ FileSelectFolder(StartingFolder = "", Options = "", Prompt = "") {
 	FileSelectFolder, v, %StartingFolder%, %Options%, %Prompt%
 	Return, v
 }
-FormatTime(YYYYMMDDHH24MISS = "", Format = "") {
-	FormatTime, v, %YYYYMMDDHH24MISS%, %Format%
-	Return, v
-}
 GetKeyState(WhichKey , Mode = "") {
 	GetKeyState, v, %WhichKey%, %Mode%
 	Return, v

@@ -419,17 +419,25 @@ Click(xCoord, yCoord, options="Left Mouse")
 
 ;TODO write
 ;Closes a window as gracefully as possible
+;TODO allow access by process?
 CloseWindowGracefully(title, text="", xClickToClose="", yClickToClose="")
 {
 ;Check if winexist each time (then return)
 
 }
 
+CurrentTime(options="")
+{
+   FormatTime, time,, yyyyMMddHHmmss
+   returned := FormatTime(time, options)
+   return returned
+}
+
 ;TODO enable slashes or colons?
 ;Gets the current time (unique, increasing)
 ; pass in a FormatTime-style string to customize your format
 ; or use one of the custom styles already thought up like hyphendate and slashdate
-CurrentTime(options="")
+FormatTime(time, options="")
 {
 ;use flags
 ;   date time datetime
@@ -453,27 +461,25 @@ CurrentTime(options="")
       time:=true
 
    if InStr(options, "slashdate")
-      FormatTime, returned,, MM/dd/yyyy
+      FormatTime, returned, %time%, MM/dd/yyyy
    else if InStr(options, "hyphenated")
-      FormatTime, returned,, yyyy-MM-dd_HH-mm-ss
+      FormatTime, returned, %time%, yyyy-MM-dd_HH-mm-ss
    else if InStr(options, "hyphendate")
-      FormatTime, returned,, yyyy-MM-dd
+      FormatTime, returned, %time%, yyyy-MM-dd
+   else if InStr(options, "wordsdate")
+      FormatTime, returned, %time%, MMMM d, yyyy
    else if InStr(options, "month")
-      FormatTime, returned,, MM
+      FormatTime, returned, %time%, MM
    else if InStr(options, "year")
-      FormatTime, returned,, yyyy
+      FormatTime, returned, %time%, yyyy
    else if options
-      FormatTime, returned,, %options%
+      FormatTime, returned, %time%, %options%
    else
-      FormatTime, returned,, yyyyMMddHHmmss
+      FormatTime, returned, %time%, yyyyMMddHHmmss
 
    ;got forced into using this
    return returned
 }
-
-;FormatTime()
-;{
-;}
 
 ;TESTME
 DeFormatTime(timestamp)

@@ -12,9 +12,10 @@ ws2_asyncselect(socket,"dataprocess")
 
 ;choose nick
 changenick(nick())
-send("USER " . nick() . " * * :the camerb irc client, made by camerb")
+;send("USER " . nick() . " * * :the camerb irc client, made by camerb")
 send("JOIN " . channel())
 
+Gui, +LastFound -Caption +ToolWindow
 Gui, Add, Edit, r10 w500 vOut ReadOnly
 Gui, Add, Edit, w500 vInputText
 Gui, Add, Button, Default, Run
@@ -99,6 +100,8 @@ appendToScrollback(textToAppend)
    global chatScrollback
    chatScrollback .= "`n" . textToAppend
    GuiControl, Text, Edit1, %chatScrollback%
+   PostMessage, 0xB1, -2, -1, Edit1, A
+   PostMessage 0xB7, , , Edit1, A
 }
 
 send(data){
