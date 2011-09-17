@@ -1,29 +1,8 @@
 #include FcnLib.ahk
 #include thirdParty\COM.ahk
 
-;Send an email without doing any of the complex queuing stuff
-SendEmailSimple(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sReplyTo="cameronbaustian+bot@gmail.com")
-{
-   ;sUsername, sPassword,
-
-   ;item .= SexPanther()
-
-   sFrom     := username . "@gmail.com"
-
-   sServer   := "smtp.gmail.com" ; specify your SMTP server
-   nPort     := 465 ; 25
-   bTLS      := True ; False
-   nSend     := 2   ; cdoSendUsingPort
-   nAuth     := 1   ; cdoBasic
-   sUsername := "cameronbaustianmitsibot"
-   sPassword := "niftyemailpassword"
-
-   SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
-}
-
 SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort=25, bTLS=true, nSend=2, nAuth=1)
 {
-   ;TODO catch error sending email
    COM_Init()
    pmsg :=   COM_CreateObject("CDO.Message")
    pcfg :=   COM_Invoke(pmsg, "Configuration")

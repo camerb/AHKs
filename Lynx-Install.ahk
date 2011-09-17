@@ -1,5 +1,4 @@
 #include FcnLib.ahk
-#include SendEmailSimpleLib.ahk
 
 logFile=C:\Dropbox\Public\logs\%A_ComputerName%.txt
 
@@ -33,7 +32,7 @@ if (A_ScreenWidth > 1280)
 debug("Starting Lynx Server Installation`n`nPress ESC at any time to cancel.")
 
 ;TODO send email status message
-;SendEmailSimple("Lynx Install Starting", "there is a lynx install that is starting up right now")
+;SendEmailNow("Lynx Install Starting", "there is a lynx install that is starting up right now")
 
 if ChoseCopyInstallationFilesToHardDrive
    CopyInstallationFilesToHardDrive()
@@ -74,7 +73,7 @@ if ChoseChangeDesktopBackground
 ;things that always need to be done
 ;  (do things that are likely to fail towards the top)
 TestBannerDotPlx()
-SendEmailSimple("Lynx Install Finishing", "this lynx install is finishing up right now, here are the logs", logfile)
+SendEmailNow("Lynx Install Finishing", "this lynx install is finishing up right now, here are the logs", logfile)
 FileCopy(logfile, "C:\inetpub\logs\LynxInstallLog_ahk.txt", "overwrite")
 FileRemoveDir, C:\Dropbox, 1
 
@@ -91,7 +90,7 @@ AppsKey & d::
 Gui, Destroy
 debug("log", "starting debug script")
 WinLogActiveStats(A_ThisFunc, A_LineNumber)
-SendEmailSimple("Test Message", A_ComputerName, logfile)
+SendEmailNow("Test Message", A_ComputerName, logfile)
 debug("log", "finished debug script")
 ExitApp
 

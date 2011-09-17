@@ -1,5 +1,5 @@
 #include FcnLib.ahk
-#include SendEmailSimpleLib.ahk
+#include SendEmailSimple.ahk
 
 Loop, C:\DataExchange\SendEmail\*.txt
 {

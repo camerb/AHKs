@@ -24,6 +24,8 @@ Loop
       ExitApp
    else if (ret == "f")
       break
+   else if (ret == "a")
+      break
    else if (strlen(ret) == 1)
       SendInput, %ret%{ENTER}
    else
@@ -35,6 +37,10 @@ SendInput, q{ENTER}
 
 if NOT commitMessage
    ExitApp
+
+;add all new files if they told us to...
+if (ret == "a")
+   SendInput, git add --all{ENTER}
 
 currentBranchName := GitGetCurrentBranchName()
 issueNumber := GitGetIssueNumber(currentBranchName)
