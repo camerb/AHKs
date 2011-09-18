@@ -29,58 +29,35 @@ ForceWinFocus("AutoScriptWriter II - ( by Larry Keys ) ahk_class ASW_Dev_01", "E
 while (WinGetHeight(aswWindow) < 70)
 {
    ControlClick, X66 Y27
-   Sleep 100
+   Sleep 1000
 }
 
-;Save as temporary.ahk and close
+;Save as raw_recorded.ahk and close
 ForceWinFocus(aswWindow, "Exact")
-WinMove, 10, 10
 ss()
-while NOT ForceWinFocusIfExist(SaveWindow)
-{
-   WinMove, 10, 10
-   ControlClick, X19 Y305
-   Sleep, 900 ;is this one really necessary?
-}
-if NOT (WinGetActiveTitle() == saveWindow)
-   fatalErrord("the save window didn't activate correctly", A_ScriptName, A_LineNumber)
+Click(200, 200, "control")
 ss()
-SendInput, ^a
+SendInput, {CTRLDOWN}{HOME}{CTRLUP}
 ss()
-SendInput, %tempFile%
+SendInput, {CTRLDOWN}{SHIFTDOWN}{END}{SHIFTUP}{CTRLUP}
 ss()
-SendInput, {ENTER}
+SendInput, ^c
 ss()
-sleepseconds(1)
-while ForceWinFocusIfExist(SaveWindow)
-   WinClose, %SaveWindow%
-Loop 10
-{
-   if FileExist(tempFile)
-      break
-   ss()
-}
-
-if NOT FileExist(tempFile)
-   fatalErrord("the script file was not saved properly", A_ScriptName, A_LineNumber)
 WinClose, %aswWindow%
-ss()
 
+FileAppend(Clipboard, tempFile)
+
+;prepare for the transformation
 path=C:\Dropbox\AHKs\REFP\
-infile=%path%in1.txt
 refile2=%path%regex-rawmacro.txt
-outfile=%path%out1.txt
-
-;FileCopy(tempFile, inFile, "overwrite")
-ss()
-
-;REFP(infile, refile2, outfile)
 REFP(tempFile, refile2, finalFile)
 SleepSeconds(1)
 
 ;TODO allow an option for putting a short sleep on every other line
+;TODO allow an option for relaxed ForceWinFocus (replaces file names with .*)
+;TODO allow an option for putting a "die if 'Confluence' is not in Active Title" on every other line
 FileCopy(finalFile, archiveFile, "overwrite")
-return
+ExitApp
 
 ss()
 {

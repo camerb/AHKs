@@ -100,9 +100,6 @@ DirExist(dirPath)
 IniWrite(file, section, key, value)
 {
    ;TODO put this in the read write and delete fcns
-   global A_IniFile
-   if (file == "")
-      file:=A_IniFile
    if (file == "")
       fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no filename was provided for writing the ini to")
    if (key == "")
@@ -121,9 +118,6 @@ IniWrite(file, section, key, value)
 
 IniDelete(file, section, key="")
 {
-   global A_IniFile
-   if (file == "")
-      file:=A_IniFile
    if (file == "")
       fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no filename was provided for deleting the ini value from")
    ;if (key == "")
@@ -139,9 +133,6 @@ IniDelete(file, section, key="")
 
 IniRead(file, section, key, Default = "ERROR")
 {
-   global A_IniFile
-   if (file == "")
-      file:=A_IniFile
    if (file == "")
       fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no filename was provided for reading the ini value from")
    if (key == "")

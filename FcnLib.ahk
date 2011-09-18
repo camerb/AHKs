@@ -1662,6 +1662,19 @@ WinWaitActiveTitleChange(oldTitle="")
    }
 }
 
+SendSlow(textToSend, pauseTime=500)
+{
+   Loop, parse, textToSend
+   {
+      ;only pause between each of the letters of the word
+      if textSendInProgress
+         Sleep, %pauseTime%
+
+      Send, %A_LoopField%
+      textSendInProgress:=true
+   }
+}
+
 ;WRITEME make function for getting remote and local path of dropbox public folder
 ;WRITEME split csv processing out of the create pie chart macro
 ;WRITEME make monthly financial charts (rather than three-month)
