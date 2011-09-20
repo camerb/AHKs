@@ -6,6 +6,7 @@ clientChoices=Albertelli Law|FDLG|Florida Foreclosure Attorneys, PLLC|Gladstone 
 city=Tampa
 client=Shapiro & Fishman, LLP
 
+statusProMessage=The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
 firefox=Status Pro Initial Catalog.*Firefox
 excel=In House Process Server Scorecard.*OpenOffice.org Calc
 
@@ -15,14 +16,26 @@ slowSendPauseTime=130
 ;reliable at 120,150
 
 Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
-;Gui, Add, Edit, r10 w500 vOut ReadOnly
-;Gui, Add, Edit, w500 vInputText
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry
 Gui, Show, , Firefly Shortcuts
 ;Sleep, 200
 WinMove, Firefly Shortcuts, , 1770, 550
+
+Loop
+{
+   GetKeyState, state, LCONTROL, P
+   if state = U  ; The key has been released, so break out of the loop.
+   {
+      ;Stuff for annoying firefly boxes that are always cancelled out of
+      IfWinActive, %statusProMessage%
+         if ClickIfImageSearch("images/firefly/wouldYouLikeToApproveThisJob.bmp")
+            Click(200, 90, "control")
+   }
+
+   Sleep, 100
+}
 
 return
 ;}}}
@@ -33,15 +46,20 @@ ButtonAddScorecardEntry:
 ArrangeWindows()
 ForceWinFocus(firefox)
 ss()
-Click(1100, 165, "left")
-Click(1100, 165, "left")
+Click(1100, 165, "left double")
+;Click(1100, 165, "left")
 ss()
 Send, {CTRLDOWN}c{CTRLUP}
 ss()
-Click(620, 237, "left")
-Click(620, 237, "left")
+Click(620, 237, "left double")
+;Click(620, 237, "left")
 ss()
 referenceNumber:=Clipboard
+if NOT RegExMatch(referenceNumber, "[0-9]{4}")
+{
+   msgbox, ERROR: I didn't get the reference number (scroll up, maybe?)
+   return
+}
 Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
 Click(620, 237, "left")
 ss()
@@ -49,8 +67,8 @@ Click(612, 254, "left")
 ss()
 Click(1254, 167, "left")
 ss()
-Click(922, 374, "left")
-Click(922, 374, "left")
+Click(922, 374, "left double")
+;Click(922, 374, "left")
 ss()
 server:=Clipboard
 Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
@@ -63,14 +81,24 @@ ss()
 status:=Clipboard
 FormatTime, today, , M/d/yyyy
 if InStr(status, "Cancelled")
+{
    msgbox, ERROR: It looks like this one was cancelled: status
+   return
+}
+
+IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
+{
+   msgbox, ERROR: The website gave us an odd error
+   return
+}
+
 
 ;;;;;;;;;;;;;;;;
 ForceWinFocus(excel)
 
 ;DELETEME remove this before moving live
 ss()
-Send, {UP 50}{LEFT 5}{UP 50}{LEFT 5}
+Send, {UP 50}{LEFT}{UP 50}{LEFT}
 ss()
 Send, {RIGHT}
 ss()
@@ -185,8 +213,18 @@ ss()
 ss()
 ss()
 Click(241, 255, "left control")
+Sleep, 500
+Click(855, 282, "left control")
 ss()
+Click(855, 282, "left control")
 BlockInput, MouseMoveOff
+
+if ForceWinFocusIfExist(statusProMessage)
+{
+   WinClose
+   GoSub, ButtonReloadQueue
+}
+
 return
 ;}}}
 
@@ -200,5 +238,6 @@ ArrangeWindows()
    global
    WinMove, %firefox%, , 0, 0, 1766, 1020
    WinMove, %excel%  , , 0, 0, 1766, 1020
-;left: 0     top: 0     width: 1766     height: 1020
+   If InStr(WinGetActiveTitle(), excel) OR InStr(WinGetActiveTitle(), firefox)
+      Send, ^!{NUMPAD5}
 }

@@ -384,36 +384,43 @@ ForcePixelColorChangeByClicking(x, y, lightestOrDarkest, checkboxStates=2)
 ;Clicks at a specified location with ControlClick, MouseClick or Click
 Click(xCoord, yCoord, options="Left Mouse")
 {
-   if (InStr(options, "Standard"))
+   numberOfTimesToClick:=1
+   if (InStr(options, "Double"))
+      numberOfTimesToClick:=2
+
+   Loop %numberOfTimesToClick%
    {
-      if (InStr(options, "Right"))
-         Click, right, %xCoord%, %yCoord%
-      else
-         Click, left, %xCoord%, %yCoord%
-   }
-   else if (InStr(options, "Mouse"))
-   {
-      if (InStr(options, "Right"))
-         MouseClick, right, %xCoord%, %yCoord%
-      else
-         MouseClick, left, %xCoord%, %yCoord%
-   }
-   else if (InStr(options, "Control"))
-   {
-      if (InStr(options, "Right"))
+      if (InStr(options, "Standard"))
       {
-         debug("r c")
-         ControlClick, x%xCoord% y%yCoord%, , , RIGHT
+         if (InStr(options, "Right"))
+            Click, right, %xCoord%, %yCoord%
+         else
+            Click, left, %xCoord%, %yCoord%
+      }
+      else if (InStr(options, "Mouse"))
+      {
+         if (InStr(options, "Right"))
+            MouseClick, right, %xCoord%, %yCoord%
+         else
+            MouseClick, left, %xCoord%, %yCoord%
+      }
+      else if (InStr(options, "Control"))
+      {
+         if (InStr(options, "Right"))
+         {
+            debug("r c")
+            ControlClick, x%xCoord% y%yCoord%, , , RIGHT
+         }
+         else
+            ControlClick, x%xCoord% y%yCoord%, , , LEFT
       }
       else
-         ControlClick, x%xCoord% y%yCoord%, , , LEFT
-   }
-   else
-   {
-      if (InStr(options, "Right"))
-         Click, right, %xCoord%, %yCoord%
-      else
-         Click, left, %xCoord%, %yCoord%
+      {
+         if (InStr(options, "Right"))
+            Click, right, %xCoord%, %yCoord%
+         else
+            Click, left, %xCoord%, %yCoord%
+      }
    }
 }
 
