@@ -192,6 +192,21 @@ SendViaClipboard(text)
 }
 
 ;If you see the image, move the mouse there
+SimpleImageSearch(filename)
+{
+   if NOT FileExist(filename)
+   {
+      errord(A_ThisFunc, filename, "the aforementioned file does not exist")
+      return false
+   }
+
+   WinGetPos, no, no, winWidth, winHeight, A
+   ImageSearch, xvar, yvar, 0, 0, winWidth, winHeight, %filename%
+
+   return NOT ErrorLevel
+}
+
+;If you see the image, move the mouse there
 MouseMoveIfImageSearch(filename)
 {
    if NOT FileExist(filename)
@@ -209,7 +224,7 @@ MouseMoveIfImageSearch(filename)
 }
 
 ;If you see the image, click it
-ClickIfImageSearch(filename, clickOptions="left Mouse")
+ClickIfImageSearch(filename, clickOptions="left mouse")
 {
    ;TODO make this look a little more like:
    ;if NOT VerifyFileExist(A_ThisFunc, filename)
@@ -1088,7 +1103,7 @@ CloseTrayTip(text)
       Loop, %id%
       {
          this_id := id%A_Index%
-         ControlGetText, TTtext,,ahk_id %this_id%
+         ControlGetText, TTtext, , ahk_id %this_id%
          if (InStr(TTtext, text))
             WinClose ahk_id %this_id%
       }
@@ -1561,6 +1576,8 @@ GetPath(file)
 {
    if (file == "NightlyStats.ini")
       return "C:\Dropbox\AHKs\gitExempt\NightlyStats.ini"
+   else if (file == "config.ini")
+      return "C:\Dropbox\Misc\config.ini"
    else if (file == "DailyFinancial.csv") ;deprecated
       return "C:\Dropbox\AHKs\gitExempt\DailyFinancial.csv"
    else if (file == "FinancialPast.csv")

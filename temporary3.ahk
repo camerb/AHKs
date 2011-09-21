@@ -1,15 +1,36 @@
 #include FcnLib.ahk
 
-file:="C:\joe.jpg"
-nl:=100
-nt:=100
-nw:=200
-nh:=200
-pToken:=Gdip_Startup()
-pBitmap:=Gdip_BitmapFromScreen(nL "|" nT "|" nW "|" nH)
-Gdip_SaveBitmapToFile(pBitmap, file, 100)
-Gdip_Shutdown(pToken)
 
-while NOT FileExist(file)
-   Sleep, 10
+;GoSub, LaunchTroublesomeGui
+Gui, 2: Add, ComboBox, vCityNew, joe|bob|sam
+Gui, 2: Add, ComboBox, vClientNew, joe|bob|sam
+Gui, 2: Add, Button, Default, Change To This Queue
+Gui, 2: Show
+return
 
+2ButtonChangeToThisQueue:
+Gui, 2: Submit
+city:=cityNew
+client:=clientNew
+Gui, 2: Destroy
+;GoSub, ButtonReloadQueue
+return
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;GoSub, LaunchTroublesomeGui
+;return
+
+;LaunchTroublesomeGui:
+;cityNew=hi
+;Gui, 2: Add, ComboBox, vCityNew, joe|bob|sam
+;Gui, 2: Add, Button, Default, Change To This Queue
+;Gui, 2: Show
+;return
+
+;2ButtonChangeToThisQueue:
+;Gui, 2: Submit
+;msgbox, you chose %citynew%
+;;city:=cityNew
+;Gui, 2: Destroy
+;GoSub, LaunchTroublesomeGui
+;return

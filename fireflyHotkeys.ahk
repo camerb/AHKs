@@ -3,8 +3,10 @@
 ;{{{Globals and making the gui
 cityChoices=Tampa|Ft. Lauderdale|Orlando|Jacksonville
 clientChoices=Albertelli Law|FDLG|Florida Foreclosure Attorneys, PLLC|Gladstone Law Group, P.A.|Marinosci Law Group, PC - Florida|Pendergast & Morgan, P.A.|Shapiro & Fishman, LLP|Law Offices of Douglas C. Zahm, P.A.
-city=Tampa
-client=Shapiro & Fishman, LLP
+
+ini := GetPath("config.ini")
+city := IniRead(ini, "firefly", "city")
+client := IniRead(ini, "firefly", "client")
 
 statusProMessage=The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
 firefox=Status Pro Initial Catalog.*Firefox
@@ -26,12 +28,35 @@ WinMove, Firefly Shortcuts, , 1770, 550
 Loop
 {
    GetKeyState, state, LCONTROL, P
-   if state = U  ; The key has been released, so break out of the loop.
+   if (state == "D" AND performingAMacro)
+      reload
+
+   GetKeyState, state, LCONTROL, P
+   if (state == "U")  ; The key has been released, so break out of the loop.
    {
       ;Stuff for annoying firefly boxes that are always cancelled out of
       IfWinActive, %statusProMessage%
          if ClickIfImageSearch("images/firefly/wouldYouLikeToApproveThisJob.bmp")
             Click(200, 90, "control")
+   }
+
+   if (Mod(A_Sec, 5)==0)
+   {
+      if NOT didThisOnce
+      {
+         didThisOnce:=true
+         IfWinActive, %statusProMessage%
+         {
+            if SimpleImageSearch("images/firefly/wouldYouLikeToApproveThisJob.bmp")
+               continue
+            SaveScreenShot("activeWindow")
+         }
+         ;AddToTrace(CurrentTime("hyphenated") . "hoping that this does not trigger more than once a second")
+      }
+   }
+   else
+   {
+      didThisOnce:=false
    }
 
    Sleep, 100
@@ -43,6 +68,8 @@ return
 
 ;{{{ButtonAddScorecardEntry:
 ButtonAddScorecardEntry:
+performingAMacro:=true
+
 ArrangeWindows()
 ForceWinFocus(firefox)
 ss()
@@ -157,11 +184,15 @@ ss()
 if NOT InStr(Clipboard, "Service County Not Required")
    msgbox, ERROR: It looks like you need a Service County - it says: %Clipboard%
 ss()
+
+performingAMacro:=false
 return
 ;}}}
 
 ;{{{ButtonChangeQueue:
 ButtonChangeQueue:
+performingAMacro:=true
+
 ArrangeWindows()
 Gui, 2: Add, ComboBox, vCityNew, %cityChoices%
 Gui, 2: Add, ComboBox, vClientNew, %clientChoices%
@@ -172,13 +203,19 @@ return
 Gui, 2: Submit
 city:=cityNew
 client:=clientNew
+IniWrite(ini, "firefly", "city", city)
+IniWrite(ini, "firefly", "client", client)
 Gui, 2: Destroy
 GoSub, ButtonReloadQueue
+
+performingAMacro:=false
 return
 ;}}}
 
 ;{{{ButtonReloadQueue:
 ButtonReloadQueue:
+performingAMacro:=true
+
 ArrangeWindows()
 URLbar := GetURLbar("firefox")
 if NOT InStr( URLbar, "status-pro.biz/fc/Portal.aspx" )
@@ -225,8 +262,10 @@ if ForceWinFocusIfExist(statusProMessage)
    GoSub, ButtonReloadQueue
 }
 
+performingAMacro:=false
 return
 ;}}}
+
 
 ss()
 {
@@ -241,3 +280,29 @@ ArrangeWindows()
    If InStr(WinGetActiveTitle(), excel) OR InStr(WinGetActiveTitle(), firefox)
       Send, ^!{NUMPAD5}
 }
+
+;SSsend(text)
+;{
+;}
+
+;controlMacrosGoneWild()
+;{
+   ;GetKeyState, state, LCONTROL, P
+   ;if (state == "D")
+   ;{
+      ;BlockInput, MouseMoveOff
+      ;return true
+   ;}
+;}
+
+;I think that I don't want to make this a hotkey or even a prefix key
+;because it seems like it could gobble up the modifier for Ctrl+C or things like that
+;LCONTROL & RCONTROL::
+;;debug("hellow")
+;reload
+;return
+
+`::
+BlockInput, MouseMoveOff
+reload
+return

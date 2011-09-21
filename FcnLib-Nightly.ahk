@@ -1,7 +1,6 @@
 #include FcnLib.ahk
 
-RuniMacro()
-ExitApp
+;Function lib for things that are too ghetto to happen during the day
 
 RuniMacro(script="URL GOTO=nascar.com")
 {

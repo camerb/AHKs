@@ -8,7 +8,7 @@ Loop
       break
 
    Send, {SPACE DOWN}
-   Sleep, 10
+   Sleep, 100
    Send, {SPACE UP}
    Sleep, 10
 }

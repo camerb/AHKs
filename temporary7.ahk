@@ -1,20 +1,19 @@
 #include FcnLib.ahk
+#include FcnLib-Nightly.ahk
 
-;investigating OnExit to improve queued AHKs
-;QueuedAhkManager.ahk
-
-;maybe we can write to a file when we have been interrupted while in the middle of an ahk
-;maybe we can also have a list of ahks that are exempt from the queue (like keylogger, widget, intellisense, autohotkey.ahk)
-
-OnExit, ExitSub
-
-Loop
-   SleepSeconds(1)
-
-ExitSub:
-debug("", A_ExitReason)
-;note that the exitreason is single if the same ahk was launched again
-;note that it is close if another ahk closed it
-ExitApp
-return
-
+joe:=SexPanther("pin")
+joseph:=SexPanther()
+macro=
+(
+VERSION BUILD=7300701 RECORDER=FX
+TAB T=1
+URL GOTO=https://www.usaa.com/inet/ent_logon/Logon
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:Logon ATTR=ID:usaaNum CONTENT=macnmel17
+SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:Logon ATTR=ID:usaaPass CONTENT=%joseph%
+TAG POS=1 TYPE=BUTTON ATTR=ID:login
+SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:CpEnterPinPage ATTR=ID:cppindatacontainer.verifypin CONTENT=%joe%
+TAG POS=1 TYPE=INPUT:IMAGE FORM=ID:CpEnterPinPage ATTR=NAME:PsButton_[action]Update[/action]&&SRC:https://content.usaa.com/mcontent/static_assets/Media/g_transparent.gif?cacheid=3007383100
+)
+runimacro(macro)

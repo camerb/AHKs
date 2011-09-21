@@ -112,9 +112,6 @@ GuiControlGet(Subcommand = "", ControlID = "", Param4 = "") {
 	GuiControlGet, v, %Subcommand%, %ControlID%, %Param4%
 	Return, v
 }
-ImageSearch(ByRef OutputVarX, ByRef OutputVarY, X1, Y1, X2, Y2, ImageFile) {
-	ImageSearch, OutputVarX, OutputVarY, %X1%, %Y1%, %X2%, %Y2%, %ImageFile%
-}
 Input(Options = "", EndKeys = "", MatchList = "") {
 	Input, v, %Options%, %EndKeys%, %MatchList%
 	Return, v
