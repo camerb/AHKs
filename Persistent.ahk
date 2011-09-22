@@ -243,6 +243,9 @@ if (Mod(A_Sec, 15)==0)
 CloseTrayTip("Automatic Updates is turned off")
 CloseTrayTip("A new version of Java is ready to be installed.")
 CloseTrayTip("There are unused icons on your desktop")
+
+if ForceWinFocusIfExist("Microsoft SQL Server Management Studio Recovered Files")
+   ClickButton("&Do Not Recover")
 ;}}}
 
 ;{{{ Miscellaneous stuff, done the new way

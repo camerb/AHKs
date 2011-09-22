@@ -12,7 +12,7 @@ ws2_asyncselect(socket,"dataprocess")
 
 ;choose nick
 changenick(nick())
-;send("USER " . nick() . " * * :the camerb irc client, made by camerb")
+send("USER " . nick() . " * * :the camerb irc client, made by camerb")
 send("JOIN " . channel())
 
 Gui, +LastFound -Caption +ToolWindow

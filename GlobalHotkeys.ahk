@@ -249,3 +249,16 @@ FileAppend(ahk, file)
 Run, %file%
 Sleep 2000
 Return
+
+;control the firefly macros if they ran amuck
+^`::
+DetectHiddenWindows, On
+IfWinExist, fireflyButtons.ahk
+{
+   BlockInput, MouseMoveOff
+   AhkClose("fireflyButtons.ahk")
+   RunAhk("fireflyButtons.ahk")
+   reload
+}
+DetectHiddenWindows, Off
+return

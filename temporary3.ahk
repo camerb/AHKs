@@ -1,36 +1,19 @@
 #include FcnLib.ahk
 
+Loop
+{
+   ;ClickIfImageSearch("images/firefly/expandJob.bmp")
+   filename=images/firefly/expandJob.bmp
 
-;GoSub, LaunchTroublesomeGui
-Gui, 2: Add, ComboBox, vCityNew, joe|bob|sam
-Gui, 2: Add, ComboBox, vClientNew, joe|bob|sam
-Gui, 2: Add, Button, Default, Change To This Queue
-Gui, 2: Show
-return
+   WinGetPos, no, no, winWidth, winHeight, A
+   ImageSearch, xvar, yvar, 0, 0, 150, winHeight, %filename%
 
-2ButtonChangeToThisQueue:
-Gui, 2: Submit
-city:=cityNew
-client:=clientNew
-Gui, 2: Destroy
-;GoSub, ButtonReloadQueue
-return
+   ;TODO but wasn't there something that would allow me to search from bottom to top?
+   ;WinGetPos, no, no, winWidth, winHeight, A
+   ;ystart:=winHeight
+   ;yfinish:=0
+   ;ImageSearch, xvar, yvar, 0, ystart, winWidth, yfinish, %filename%
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;GoSub, LaunchTroublesomeGui
-;return
-
-;LaunchTroublesomeGui:
-;cityNew=hi
-;Gui, 2: Add, ComboBox, vCityNew, joe|bob|sam
-;Gui, 2: Add, Button, Default, Change To This Queue
-;Gui, 2: Show
-;return
-
-;2ButtonChangeToThisQueue:
-;Gui, 2: Submit
-;msgbox, you chose %citynew%
-;;city:=cityNew
-;Gui, 2: Destroy
-;GoSub, LaunchTroublesomeGui
-;return
+   if NOT ErrorLevel
+      Click(xvar, yvar, clickOptions)
+}

@@ -1,10 +1,17 @@
 #include FcnLib.ahk
 
-;{{{Globals and making the gui
+;TODO move X to top-right
+;TODO make scorecard faster
+; Delete filler text from Magic Faux MS_Word
+; Auto-expand all pluses in the left-hand side
+;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
+
+
+;{{{Globals and making the gui (one-time tasks)
 cityChoices=Tampa|Ft. Lauderdale|Orlando|Jacksonville
 clientChoices=Albertelli Law|FDLG|Florida Foreclosure Attorneys, PLLC|Gladstone Law Group, P.A.|Marinosci Law Group, PC - Florida|Pendergast & Morgan, P.A.|Shapiro & Fishman, LLP|Law Offices of Douglas C. Zahm, P.A.
 
-ini := GetPath("config.ini")
+ini := GetPath("myconfig.ini")
 city := IniRead(ini, "firefly", "city")
 client := IniRead(ini, "firefly", "client")
 
@@ -21,24 +28,27 @@ Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry
+Gui, Add, Button, , X
+;Gui, Add, Button, , reload ahk
 Gui, Show, , Firefly Shortcuts
 ;Sleep, 200
 WinMove, Firefly Shortcuts, , 1770, 550
+;}}}
 
+;{{{Persistent items (things that are checked repetitively)
 Loop
 {
-   GetKeyState, state, LCONTROL, P
-   if (state == "D" AND performingAMacro)
-      reload
+   ;GetKeyState, state, LCONTROL, P
+   ;if (state == "D" AND performingAMacro)
+      ;reload
 
-   GetKeyState, state, LCONTROL, P
-   if (state == "U")  ; The key has been released, so break out of the loop.
-   {
-      ;Stuff for annoying firefly boxes that are always cancelled out of
-      IfWinActive, %statusProMessage%
-         if ClickIfImageSearch("images/firefly/wouldYouLikeToApproveThisJob.bmp")
-            Click(200, 90, "control")
-   }
+   ;expand all pluses
+   ClickIfImageSearch("images/firefly/expandJob.bmp")
+
+   ;Stuff for annoying firefly boxes that are always cancelled out of
+   IfWinActive, %statusProMessage%
+      if ClickIfImageSearch("images/firefly/wouldYouLikeToApproveThisJob.bmp")
+         Click(200, 90, "control")
 
    if (Mod(A_Sec, 5)==0)
    {
@@ -48,6 +58,8 @@ Loop
          IfWinActive, %statusProMessage%
          {
             if SimpleImageSearch("images/firefly/wouldYouLikeToApproveThisJob.bmp")
+               continue
+            if SimpleImageSearch("images/firefly/wouldYouLikeToContinueToApproveThisJob.bmp")
                continue
             SaveScreenShot("activeWindow")
          }
@@ -109,7 +121,7 @@ status:=Clipboard
 FormatTime, today, , M/d/yyyy
 if InStr(status, "Cancelled")
 {
-   msgbox, ERROR: It looks like this one was cancelled: status
+   msgbox, ERROR: It looks like this one was cancelled: %status%
    return
 }
 
@@ -144,46 +156,46 @@ Loop
 
 ss()
 Send, %server%{ENTER}
-ss()
+;ss()
 Send, ICMbaustian{ENTER}
-ss()
+;ss()
 Send, %today%{ENTER}
-ss()
+;ss()
 Send, %referenceNumber%{ENTER}
-ss()
+;ss()
 Send, ^c{ENTER}
-ss()
+;ss()
 Send, {ENTER}
-ss()
+;ss()
 Send, {ENTER}
-ss()
+;ss()
 Send, {ENTER}{ENTER}{ENTER}{ENTER}
-ss()
+;ss()
 Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-ss()
+;ss()
 Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-ss()
+;ss()
 Send, {ENTER}
-ss()
+;ss()
 Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-ss()
+;ss()
 Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-ss()
+;ss()
 Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-ss()
+;ss()
 Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-ss()
+;ss()
 Send, {ENTER}
-ss()
+;ss()
 Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-ss()
+;ss()
 Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
-ss()
+;ss()
 Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
-ss()
+;ss()
 if NOT InStr(Clipboard, "Service County Not Required")
    msgbox, ERROR: It looks like you need a Service County - it says: %Clipboard%
-ss()
+;ss()
 
 performingAMacro:=false
 return
@@ -223,9 +235,14 @@ if NOT InStr( URLbar, "status-pro.biz/fc/Portal.aspx" )
 
 ForceWinFocusIfExist(firefox)
 
-;Send, {PGUP 20}
-
 BlockInput, MouseMove
+
+;move to top of page
+;Click(1160, 200, "control")
+;ss()
+;Send, {PGUP 20}
+;ss()
+
 ClickIfImageSearch("images/firefly/closeTab.bmp", "control")
 
 ss()
@@ -259,17 +276,30 @@ BlockInput, MouseMoveOff
 if ForceWinFocusIfExist(statusProMessage)
 {
    WinClose
-   GoSub, ButtonReloadQueue
+   ;Send, ^{F5} ;this makes the webapp freak out... press the reload button in FF instead
+   ;GoSub, ButtonReloadQueue
 }
 
 performingAMacro:=false
 return
 ;}}}
 
+;{{{ ButtonX:
+ButtonX:
+ExitApp
+return
+;}}}
+
+;{{{ ButtonReloadAhk:
+ButtonReloadAhk:
+Reload
+return
+;}}}
+
 
 ss()
 {
-Sleep, 500
+   Sleep, 100
 }
 
 ArrangeWindows()
@@ -294,15 +324,3 @@ ArrangeWindows()
       ;return true
    ;}
 ;}
-
-;I think that I don't want to make this a hotkey or even a prefix key
-;because it seems like it could gobble up the modifier for Ctrl+C or things like that
-;LCONTROL & RCONTROL::
-;;debug("hellow")
-;reload
-;return
-
-`::
-BlockInput, MouseMoveOff
-reload
-return

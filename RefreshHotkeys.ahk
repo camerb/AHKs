@@ -12,5 +12,13 @@ if ForceWinFocusIfExist("(.txt.*ahk|AHKs|ahk).*GVIM", "RegEx")
    Send, {;}
    Send, wa{ENTER}
 }
+DetectHiddenWindows, On
+IfWinExist, fireflyButtons.ahk
+{
+   BlockInput, MouseMoveOff
+   AhkClose("fireflyButtons.ahk")
+   RunAhk("fireflyButtons.ahk")
+}
+DetectHiddenWindows, Off
 Reload
 return ;end of Appskey r hotkey

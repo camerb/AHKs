@@ -1469,7 +1469,6 @@ ClickButton(button)
 AddDatetime(datetime, numberToAdd, unitsOfNumberToAdd)
 {
    ;TODO verify that datetime is a datetime
-   ;TODO unhyphenate datetime if necessary
    ;TODO verify that number to add is a number
    ;TODO standardize naming of the units (m, mins, min, minute, minutes)
    ;TODO figure out current format of the timestamp
@@ -1571,13 +1570,14 @@ MorningStatusAppend(header, item)
    FileAppendLine(text, "gitExempt\morning_status\finance.txt")
 }
 
-;TODO maybe we should save this all in an ini and have an option to prompt if the file isn't found if A_Debug (and save it in the ini automatically)
 GetPath(file)
 {
    if (file == "NightlyStats.ini")
       return "C:\Dropbox\AHKs\gitExempt\NightlyStats.ini"
    else if (file == "config.ini")
       return "C:\Dropbox\Misc\config.ini"
+   else if (file == "myconfig.ini")
+      return "C:\Dropbox\Misc\config-" . A_ComputerName . ".ini"
    else if (file == "DailyFinancial.csv") ;deprecated
       return "C:\Dropbox\AHKs\gitExempt\DailyFinancial.csv"
    else if (file == "FinancialPast.csv")
@@ -1658,12 +1658,13 @@ GetURLbar(sServer)
 }
 
 ;Close the AHK using Process, Close
+;TODO ensure that this only closes AHKs, and never closes the editor that the script is open in...
 AhkClose(ahkFilename)
 {
    ;maybe we want to error out if there was no such ahk running at the time
    SetTitleMatchMode, 2
-   WinGet, pid, PID, %ahkFilename%
-   Process, Close, %pid%
+   WinGet, pid, PID, %ahkFilename% - AutoHotkey
+   ProcessClose(pid)
    CustomTitleMatchMode("Default")
 }
 
@@ -1749,35 +1750,19 @@ SendSlow(textToSend, pauseTime=500)
 ;WRITEME generate Financial.csv from NightlyStats.ini (nightly script)
 ;WRITEME experiment with AHK_L
 
-;TODO for firefly
-; "Would you like to approve?"
-; Scorecard automation
-; Return to queue and search and sort
-; Delete filler text from Magic Faux MS_Word
-
-
-
-;WRITEME be awesome
 ;WRITEME polish up lib_Email.ahk, add better error handling and put it on the forums
 ;WRITEME fix up OCR lib so that it works with AHK_L Unicode (I think it works)
 ;WRITEME make tests for OCR lib for AHK_L Unicode, and AHK_basic
 
-
-;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
-
-
 ;WRITEME make script that tests multiple sendmodes
 ;WRITEME ReceiveEmail lib (SendEmail, too)
 
-
 ;WRITEME maybe I should generate a static page of the AHK Benchmarks page when we get IronAHK to where it runs pretty well. we should also keep track of version numbers and output to a db or ini or csv file... html file should look like: http://www.autohotkey.net/~Uberi/Scripts/Benchmarks/Benchmarks%20Combined%20%28shajul%29.html
-
 
 ;WRITEME make a script that processes the code to see how far we are on each command... like this: http://www.ironahk.net/docs/developing/status/
 ;WRITEME might be nice to make a glossary of ahk terms (might include some CS terms)
 ;WRITEME make a widget sidebar in ahk... allow ability to add third-party widgets to the sidebar
 ;WRITEME add "currently working on this jira issue" to the widget
-
 
 ;WRITEME during git commit... remove unstaged changes and add all new files (maybe in one action)
 
