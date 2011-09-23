@@ -2,9 +2,7 @@
 
 Run, http://www.blazinpedals.com/
 Sleep, 1000
-ip:=Prompt("What is the IP for the race? 68.194.184.146?")
-if not ip
-   ip=68.194.184.146
+ip:=Prompt("What is the IP for the race?")
 
 ChangeLogitechWheelMode()
 

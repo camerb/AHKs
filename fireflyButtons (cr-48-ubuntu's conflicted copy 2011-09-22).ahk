@@ -1,10 +1,10 @@
 #include FcnLib.ahk
 
+;TODO move X to top-right
 ;TODO make scorecard faster
 ; Delete filler text from Magic Faux MS_Word
 ; Auto-expand all pluses in the left-hand side
 ;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
-;TODO make "ready to invoice" button that will get the file num and email erica "ready to invoice %fileno%"
 
 
 ;{{{Globals and making the gui (one-time tasks)
@@ -28,8 +28,8 @@ Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry
-Gui, Add, Button, x110 y6, x
-;Gui, Add, Button, , reload ahk
+Gui, Add, Button, , X
+Gui, Add, Button, , reload ahk
 Gui, Show, , Firefly Shortcuts
 ;Sleep, 200
 WinMove, Firefly Shortcuts, , 1770, 550
@@ -41,9 +41,6 @@ Loop
    ;GetKeyState, state, LCONTROL, P
    ;if (state == "D" AND performingAMacro)
       ;reload
-
-   ;expand all pluses
-   ;ClickIfImageSearch("images/firefly/expandJob.bmp")
 
    ;Stuff for annoying firefly boxes that are always cancelled out of
    IfWinActive, %statusProMessage%
@@ -238,10 +235,10 @@ ForceWinFocusIfExist(firefox)
 BlockInput, MouseMove
 
 ;move to top of page
-;Click(1160, 200, "control")
-;ss()
-;Send, {PGUP 20}
-;ss()
+Click(1160, 200, "control")
+ss()
+Send, {PGUP 20}
+ss()
 
 ClickIfImageSearch("images/firefly/closeTab.bmp", "control")
 
@@ -276,7 +273,7 @@ BlockInput, MouseMoveOff
 if ForceWinFocusIfExist(statusProMessage)
 {
    WinClose
-   ;Send, ^{F5} ;this makes the webapp freak out... press the reload button in FF instead
+   Send, ^{F5}
    ;GoSub, ButtonReloadQueue
 }
 
@@ -299,7 +296,7 @@ return
 
 ss()
 {
-   Sleep, 100
+   Sleep, 500
 }
 
 ArrangeWindows()

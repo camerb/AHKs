@@ -15,20 +15,46 @@ TAG POS=1 TYPE=A ATTR=TXT:Transactions
 URL GOTO=https://wwws.mint.com/transaction.event
 )
 
-RuniMacro(imacro)
-mintPage := GhettoUrlDownloadToVar("https://wwws.mint.com/overview.event")
+;toggle
+;RuniMacro()
+
+;RuniMacro(imacro)
+;mintPage := GhettoUrlDownloadToVar("https://wwws.mint.com/overview.event")
+;AddToTrace(mintPage)
+
+mintPage:=FileRead(GetPath("trace"))
+
+
 GrabDataFromPage(mintPage, "FOUR STAR CHECKING")
 ExitApp
 
+GetRegEx(tag)
+{
+   returned=<[^>]*%tag%[^>]*>(([^<]*)</[^>]*>)?
+   return returned
+}
+
+GetRegExOneItem()
+{
+   returned=<[^>]*>
+   return returned
+}
+
 GrabDataFromPage(page, item)
 {
-   regex=last-updated.*?(second|minute|hour|day|week).*?FOUR STAR CHECKING.*?balance...([0-9,.]+)
-   if NOT RegExMatch(page, regex, match)
-      return
-   freshness:=match1
-   balance:=match2
-   if RegExMatch(freshness, "(day|week)")
-      return
+   balanceRE:=GetRegEx("balance")
+   accountRE:=GetRegEx("accountName")
+   updatedRE:=GetRegEx("last-updated")
+   nicknameRE:=GetRegEx("nickname")
+
+   regex=%balanceRE%
+   ;regex=last-updated.*?(second|minute|hour|day|week).*?FOUR STAR CHECKING.*?balance...([0-9,.]+)
+   ;if NOT RegExMatch(page, regex, match)
+      ;return
+   ;freshness:=match1
+   ;balance:=match2
+   ;if RegExMatch(freshness, "(day|week)")
+      ;return
    ;debug(freshness, balance)
 
    ;ini:=GetPath("NightlyStats.ini")
@@ -45,8 +71,11 @@ GrabDataFromPage(page, item)
 
 RuniMacro(script="URL GOTO=nascar.com")
 {
-   RunProgram("Firefox")
+   if NOT ProcessExist("firefox.exe")
+      RunProgram("Firefox")
    ForceWinFocus("Firefox")
+   WinMove, Firefox, , , , 1766, 1020
+   Sleep, 200
    while NOT SimpleImageSearch("images/imacros/imacrosLargeLogo2.bmp")
    {
       ClickIfImageSearch("images/imacros/imacrosIcon.bmp")
@@ -54,8 +83,8 @@ RuniMacro(script="URL GOTO=nascar.com")
       Sleep, 500
    }
 
-   Click(89, 680)
-   Click(89, 760)
+   Click(89, 680) ;rec tab
+   Click(89, 760) ;load button
 
    file=C:\Dropbox\AHKs\gitExempt\iMacros\ahkScripted.iim
    FileCreate(script, file)
@@ -98,7 +127,7 @@ GhettoUrlDownloadToVar(url="")
 
    ;opera save page source
    WinGetActiveTitle, oldTitle
-   ForceWinFocus("ahk_class MozillaUIWindowClass")
+   ForceWinFocus("ahk_class Mozilla(UI)?WindowClass", "RegEx")
 
    ;if there was no url provided, that means we wanted the page that is currently open in the browser window
    if (url != "")
