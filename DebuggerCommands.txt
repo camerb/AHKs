@@ -581,3 +581,5 @@ cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl sequoia.pl > C:\code\r
 EPMS
 cmd 1: {C:\code\epms\script\property_importers}, 2: {perl homeproperties.pl C:\import_files\prop\home_2011-09.csv 0 > C:\code\report.txt}
 cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl homeproperties.pl C:\import_files\empl\home_2011-09.csv 0 > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\property_importers}, 2: {perl colonial.pl C:\import_files\prop\colonial_2011-09.csv > C:\code\report.txt}
+cmd 1: {C:\code\epms\script\employee_importers}, 2: {perl colonial.pl C:\import_files\empl\colonial_2011-09.csv > C:\code\report.txt}

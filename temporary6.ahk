@@ -18,19 +18,19 @@ URL GOTO=https://wwws.mint.com/transaction.event
 ;toggle
 ;RuniMacro()
 
-;RuniMacro(imacro)
-;mintPage := GhettoUrlDownloadToVar("https://wwws.mint.com/overview.event")
-;AddToTrace(mintPage)
+RuniMacro(imacro)
+mintPage := GhettoUrlDownloadToVar("https://wwws.mint.com/overview.event")
+AddToTrace(mintPage)
 
-mintPage:=FileRead(GetPath("trace"))
+;mintPage:=FileRead(GetPath("trace"))
 
 
 GrabDataFromPage(mintPage, "FOUR STAR CHECKING")
 ExitApp
 
-GetRegEx(tag)
+GetRegEx(tag, contents="")
 {
-   returned=<[^>]*%tag%[^>]*>(([^<]*)</[^>]*>)?
+   returned=<[^>]*%tag%[^>]*>%contents%(([^<]*)</[^>]*>)?
    return returned
 }
 
@@ -40,17 +40,33 @@ GetRegExOneItem()
    return returned
 }
 
+GetRegExNotXML()
+{
+   returned=[^<>]*
+   return returned
+}
+
 GrabDataFromPage(page, item)
 {
+   one:=GetRegExOneItem()
+   none:=GetRegExNotXML()
    balanceRE:=GetRegEx("balance")
    accountRE:=GetRegEx("accountName")
    updatedRE:=GetRegEx("last-updated")
    nicknameRE:=GetRegEx("nickname")
+   balanceRE:=GetRegEx("balance") . none
+   accountRE:=GetRegEx("accountName") . none
+   updatedRE:=GetRegEx("last-updated") . none
+   nicknameRE:=GetRegEx("nickname", item) . none
 
-   regex=%balanceRE%
+   regex=%balanceRE%%accountRE%%one%%one%%updatedRE%%nicknameRE%
+   Clipboard:=regex
    ;regex=last-updated.*?(second|minute|hour|day|week).*?FOUR STAR CHECKING.*?balance...([0-9,.]+)
-   ;if NOT RegExMatch(page, regex, match)
-      ;return
+   if NOT RegExMatch(page, regex, match)
+      return
+   debug(match)
+   debug(match2)
+   debug(match6)
    ;freshness:=match1
    ;balance:=match2
    ;if RegExMatch(freshness, "(day|week)")
@@ -94,10 +110,18 @@ RuniMacro(script="URL GOTO=nascar.com")
    Send, %file%{ENTER}
 
    Sleep, 200
-   Click(71, 171)
-   Sleep, 200
-   Click(46, 673)
+   ;Click(71, 171) ;click on the file
+   Click(100, 500) ;click in the window, then navigate to the file we want to run
+   Send, {UP 50}
+   sleep, 200
+   Send {DOWN}
+   sleep, 200
+   Send {DOWN}
 
+   Sleep, 200
+   Click(46, 673) ;click on play tab
+
+   ;click on the play button and monitor the color
    previousColor:=PixelGetColor(60, 709)
    Sleep, 200
    Click(60, 709)

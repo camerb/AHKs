@@ -17,7 +17,7 @@ client := IniRead(ini, "firefly", "client")
 
 statusProMessage=The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
 firefox=Status Pro Initial Catalog.*Firefox
-excel=In House Process Server Scorecard.*OpenOffice.org Calc
+excel=(In House Process Server Scorecard|Process Server Fee Determination).*OpenOffice.org Calc
 
 ;this is for the retarded comboboxes...
 slowSendPauseTime=130
@@ -83,7 +83,9 @@ ButtonAddScorecardEntry:
 performingAMacro:=true
 
 ArrangeWindows()
-ForceWinFocus(firefox)
+if FailedToFocusNecessaryWindow(firefox)
+   return
+
 ss()
 Click(1100, 165, "left double")
 ;Click(1100, 165, "left")
@@ -133,7 +135,8 @@ IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialog
 
 
 ;;;;;;;;;;;;;;;;
-ForceWinFocus(excel)
+if FailedToFocusNecessaryWindow(excel)
+   return
 
 ;DELETEME remove this before moving live
 ss()
@@ -233,7 +236,8 @@ URLbar := GetURLbar("firefox")
 if NOT InStr( URLbar, "status-pro.biz/fc/Portal.aspx" )
    return
 
-ForceWinFocusIfExist(firefox)
+if FailedToFocusNecessaryWindow(firefox)
+   return
 
 BlockInput, MouseMove
 
@@ -324,3 +328,18 @@ ArrangeWindows()
       ;return true
    ;}
 ;}
+
+FailedToFocusNecessaryWindow(window)
+{
+   if (window == "")
+   {
+      errord("", "Cameron did something wrong, the window variable was blank")
+      return true
+   }
+
+   if NOT ForceWinFocusIfExist(window)
+   {
+      errord("", "couldn't find this window", window)
+      return true
+   }
+}

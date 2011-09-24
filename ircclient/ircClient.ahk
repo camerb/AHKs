@@ -1,6 +1,6 @@
 #include *i thirdParty\winsock2.ahk
 #include *i winsock2.ahk
-#include *i FcnLib.ahk
+;#include *i FcnLib.ahk
 #singleinstance force
 #persistent
 setbatchlines -1
@@ -19,7 +19,7 @@ send("JOIN " . channel())
 Gui, +LastFound -Caption +ToolWindow
 Gui, Add, Edit, r10 w500 vOut ReadOnly
 Gui, Add, Edit, w500 vInputText
-Gui, Add, Button, Default, Send
+Gui, Add, Button, Default, Run
 Gui, Show
 
 ;here's where we should do periodic checks, like if we should set the status to "away"
@@ -28,24 +28,18 @@ SetTimer, checkEveryTenSeconds, % 1000 * 10
 SetTimer, checkEveryMinute, % 1000 * 60
 return
 
-ButtonSend:
+ButtonRun:
 Gui, Submit, NoHide
-
-if (InputText = "/QUIT")
-   GoSub, exithandler
-if (InputText = "/EXIT")
-   GoSub, exithandler
-
-msg:="PRIVMSG " . channel() . " :" . InputText
+msg:="PRIVMSG " . channel() . " " . InputText
 ;debug(msg)
 send(msg)
-appendToScrollback(nick() . ": " . InputText)
+appendToScrollback(nick() . " " . InputText)
 ;GuiControl, Text, Edit1, %chatScrollback%
 GuiControl, Text, Edit2,
 return
 
 ;TODO identify
-;TODO ipc gui?
+;TODO ipc gui
 ;TODO multi-channel
 ;TODO config files
 
@@ -58,7 +52,7 @@ dataprocess(socket,data){
    static differentnick = 0
    ;msgbox % data ;for testing
    appendToScrollback(data)
-   addtotrace(data)
+   ;addtotrace(data)
 
    ;if (InStr(data, "bot"))
       ;msgbox, Did that guy say my name?
