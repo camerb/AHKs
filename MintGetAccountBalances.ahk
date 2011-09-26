@@ -34,8 +34,7 @@ Loop, parse, keylist, CSV
 ;get net worth:
 ;TODO this needs to get active balances on all accounts, not just the ones that updated today
 ini := GetPath("NightlyStats.ini")
-date := CurrentTime("hyphendate")
-keylist := IniListAllKeys(ini, date)
+keylist := IniListAllKeys(ini, "MostRecent")
 Loop, parse, keylist, CSV
 {
    if (A_LoopField = "NetWorth")

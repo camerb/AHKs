@@ -1615,6 +1615,7 @@ NightlyStats(title, data)
    date:=CurrentTime("hyphendate")
 
    IniWrite(ini, date, title, data)
+   IniWrite(ini, "MostRecent", title, data)
    MorningStatusAppend(title, data)
 }
 
