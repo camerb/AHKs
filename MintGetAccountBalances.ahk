@@ -17,40 +17,16 @@ URL GOTO=https://wwws.mint.com/transaction.event
 
 RuniMacro(imacro)
 mintPage := GhettoUrlDownloadToVar("https://wwws.mint.com/overview.event")
-;AddToTrace(mintPage)
 
+;AddToTrace(mintPage)
 ;mintPage:=FileRead(GetPath("trace"))
+
 ini=C:\Dropbox\AHKs\gitExempt\mintIDs.ini
 
 keylist := IniListAllKeys(ini, "default")
-
 Loop, parse, keylist, CSV
-{
-   ;debug(A_LoopField)
-
    GrabDataFromPage(mintPage, A_LoopField)
-}
 
-;get net worth:
-;TODO this needs to get active balances on all accounts, not just the ones that updated today
-ini := GetPath("NightlyStats.ini")
-keylist := IniListAllKeys(ini, "MostRecent")
-Loop, parse, keylist, CSV
-{
-   if (A_LoopField = "NetWorth")
-      continue
-   netWorth += IniRead(ini, date, A_LoopField)
-}
-
-debug(netWorth)
-NightlyStats("NetWorth", netWorth)
-
-
-
-
-
-;GrabDataFromPage(mintPage, "FOUR STAR CHECKING")
-;GrabDataFromPage(mintPage, "")
 ExitApp
 
 GetRegEx(tag, contents="")
@@ -83,12 +59,10 @@ GrabDataFromPage(page, id)
    regex=(?P<id>%accountIdRE%)%imageRE%(?P<balance>%balanceRE%)%accountRE%(?P<updated>%updatedRE%)(?P<nickname>%nicknameRE%)
    Clipboard:=regex
    ;regex=last-updated.*?(second|minute|hour|day|week).*?FOUR STAR CHECKING.*?balance...([0-9,.]+)
+   ;TODO don't update the numbers if the last updated date is old
+
    if NOT RegExMatch(page, regex, match)
       return
-   ;debug(matchBalance)
-   ;debug(matchUpdated)
-   ;debug(match9)
-   ;debug(match16)
 
    ini=C:\Dropbox\AHKs\gitExempt\mintIDs.ini
    balance := StringReplace(match9, "$")
@@ -101,31 +75,6 @@ GrabDataFromPage(page, id)
       nickname .= "zzz" . id
 
    NightlyStats(nickname, balance)
-
-
-   ;this is how you iterate over each regexmatch in a string
-   ;while RegExMatch(page, regex, match)
-   ;{
-      ;debug(match)
-      ;page := StringReplace(page, match)
-   ;}
-
-   ;freshness:=match1
-   ;balance:=match2
-   ;if RegExMatch(freshness, "(day|week)")
-      ;return
-   ;debug(freshness, balance)
-
-   ;ini:=GetPath("NightlyStats.ini")
-   ;IniWrite(ini, "", "FinancesDateUpdated", time)
-   ;IniWrite(ini, "", "NetWorth", NetWorth)
-   ;IniWrite(ini, "", "SavingsBalance", SavingsBalance)
-   ;IniWrite(ini, "", "CheckingBalance", CheckingBalance)
-   ;IniWrite(ini, "", "CameronBalance", CameronBalance)
-   ;IniWrite(ini, "", "MelindaBalance", MelindaBalance)
-   ;IniWrite(ini, "", "OverallBalance", OverallBalance)
-   ;IniWrite(ini, "", "CameronProjection", CameronProjection)
-   ;IniWrite(ini, "", "MelindaProjection", MelindaProjection)
 }
 
 RuniMacro(script="URL GOTO=nascar.com")

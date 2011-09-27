@@ -53,9 +53,10 @@ if (A_ComputerName = LeadComputer())
    ;hypercam()
    RunThisNightlyAhk(7, "MintGetAccountBalances.ahk")
    ;hypercam()
-   RunThisNightlyAhk(7, "UsaaGetAccountBalances.ahk")
-   RunThisNightlyAhk(7, "UsaaGetAccountBalances-IE.ahk")
+   ;RunThisNightlyAhk(7, "UsaaGetAccountBalances.ahk") ;removeme?
+   ;RunThisNightlyAhk(7, "UsaaGetAccountBalances-IE.ahk") ;removeme?
    ;RunThisNightlyAhk(4, "GetMintNetWorth.ahk")
+   RunThisNightlyAhk(1, "GetNetWorth.ahk")
    RunThisNightlyAhk(2, "GetSlackInBudget.ahk")
    RunThisNightlyAhk(2, "ProcessMintExport.ahk")
    RunThisNightlyAhk(2, "MakeNightlyCsvsFromIni.ahk")

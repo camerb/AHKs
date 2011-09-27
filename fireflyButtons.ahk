@@ -17,7 +17,7 @@ client := IniRead(ini, "firefly", "client")
 
 statusProMessage=The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
 firefox=Status Pro Initial Catalog.*Firefox
-excel=(In House Process Server Scorecard|Process Server Fee Determination).*OpenOffice.org Calc
+excel=(In House Process Server Scorecard|Process Server Fee Determination).*(OpenOffice.org|LibreOffice) Calc
 
 ;this is for the retarded comboboxes...
 slowSendPauseTime=130
@@ -152,11 +152,12 @@ Loop
 {
    Send, {RIGHT}
    Send, ^c
-   Sleep, 500
+   Sleep, 100
    if NOT RegExMatch(Clipboard, "[A-Za-z]")
       break
 }
 
+Clipboard := "null"
 ss()
 Send, %server%{ENTER}
 ;ss()
@@ -166,7 +167,21 @@ Send, %today%{ENTER}
 ;ss()
 Send, %referenceNumber%{ENTER}
 ;ss()
-Send, ^c{ENTER}
+Sleep, 100
+Send, ^c
+Sleep, 100
+;ss()
+loop
+{
+   ServiceCounty := Clipboard
+   ;debug(ServiceCounty)
+   if (ServiceCounty != "null")
+      break
+   sleep, 100
+}
+Send, {ENTER}
+;ss()
+Send, {DOWN}
 ;ss()
 Send, {ENTER}
 ;ss()
@@ -196,8 +211,8 @@ Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
 ;ss()
 Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
 ;ss()
-if NOT InStr(Clipboard, "Service County Not Required")
-   msgbox, ERROR: It looks like you need a Service County - it says: %Clipboard%
+if NOT InStr(ServiceCounty, "Service County Not Required")
+   msgbox, ERROR: It looks like you need a Service County - it says: %ServiceCounty% %Clipboard%
 ;ss()
 
 performingAMacro:=false
