@@ -20,8 +20,8 @@ errord("red line", msg)
 compareSizesOfBackups(originalLocation, folder)
 {
 global
-origdir=%cpath%%folder%
-bkupdir=%originalLocation%%folder%
+origdir=%originalLocation%%folder%
+bkupdir=%cpath%%folder%
 origsize := DirGetSize(origdir)
 bkupsize := DirGetSize(bkupdir)
 thisItem = `n`nfolder: %folder%`norig size: %origsize%`nbkup size: %bkupsize%

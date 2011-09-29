@@ -423,7 +423,7 @@ Click(xCoord, yCoord, options="Left Mouse")
       {
          if (InStr(options, "Right"))
          {
-            debug("r c")
+            ;debug("r c")
             ControlClick, x%xCoord% y%yCoord%, , , RIGHT
          }
          else
@@ -1665,8 +1665,16 @@ AhkClose(ahkFilename)
    ;maybe we want to error out if there was no such ahk running at the time
    SetTitleMatchMode, 2
    WinGet, pid, PID, %ahkFilename% - AutoHotkey
+   ;debug(pid, ahkFilename)
    ProcessClose(pid)
    CustomTitleMatchMode("Default")
+   ;if pid
+   ;{
+      ;ProcessClose(pid)
+      ;return true
+   ;}
+   ;else
+      ;return false
 }
 
 ;Wait until the title of the active window changes
