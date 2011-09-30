@@ -1,5 +1,9 @@
 #include FcnLib.ahk
 
+;ProcessClose("TeamSpeak.exe")
+;LaunchTeamspeak2()
+;exitapp
+
 Run, http://www.blazinpedals.com/
 Sleep, 1000
 ip:=Prompt("What is the IP for the race? 68.194.184.146?")
@@ -7,6 +11,7 @@ if not ip
    ip=68.194.184.146
 
 ChangeLogitechWheelMode()
+LaunchTeamspeak2()
 
 ;close junk that we don't want running during the race
 Process, Close, FindAndRunRobot.exe
@@ -53,6 +58,25 @@ ChangeLogitechWheelMode()
 }
 
 ;{{{ archived
+
+LaunchTeamspeak2()
+{
+   RunProgram("C:\Program Files\Teamspeak2_RC2\TeamSpeak.exe")
+
+   ForceWinFocus("TeamSpeak 2")
+   Send, {ALT}{DOWN}q
+
+   ;ClickButton("&Connect")
+   ForceWinFocus("Quick Connect")
+   ControlClick, &Connect
+
+   WaitForImageSearch("images\teamspeak2\RacingRoom.bmp")
+   ClickIfImageSearch("images\teamspeak2\RacingRoom.bmp", "right")
+   Send, {DOWN}{ENTER}
+
+   ForceWinFocus("Need Password")
+   Send, pedalsdown{ENTER}
+}
 
 LaunchTeamspeak()
 {

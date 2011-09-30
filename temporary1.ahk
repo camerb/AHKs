@@ -1,16 +1,15 @@
 #include FcnLib.ahk
 
-cpath=C:\Home Backups\40GB\
+cpath=C:\Home Backups\160GB\
 e=E:\
 f=F:\
 
-compareSizesOfBackups(e, "DataExchange")
-compareSizesOfBackups(e, "dell")
-compareSizesOfBackups(e, "Documents and Settings")
-compareSizesOfBackups(e, "My Downloads")
-compareSizesOfBackups(e, "Papyrus")
-compareSizesOfBackups(e, "Program Files")
-compareSizesOfBackups(e, "WINDOWS")
+compareSizesOfBackups(f, "Dev-cpp")
+compareSizesOfBackups(f, "Documents and Settings")
+compareSizesOfBackups(f, "My Downloads")
+compareSizesOfBackups(f, "My Music")
+compareSizesOfBackups(f, "Program Files")
+compareSizesOfBackups(f, "WINDOWS")
 ;compareSizesOfBackups(f, "Downloads")
 ;compareSizesOfBackups(f, "Music")
 

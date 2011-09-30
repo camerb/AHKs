@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 #include thirdParty/cmdret.ahk
-#NoTrayIcon
+;#NoTrayIcon
 
 ;Run, TestRemoteWidget.ahk
 guiTitle=%A_ScriptName% ahk_class AutoHotkeyGUI
@@ -113,12 +113,12 @@ GetWidgetText()
 {
    timer:=StartTimer()
    returned .= PingPortOnCopper(8095, "crowd")
-   returned .= PingPortOnCopper(80,   "conf old")
-   returned .= PingPortOnCopper("http://206.190.248.57/secure/Dashboard.jspa", "jira old")
+   returned .= PingPortOnCopper(80,   "conf live")
+   returned .= PingPortOnCopper("http://206.190.248.57/secure/Dashboard.jspa", "jira live")
 
    ;returned .= PingPortOnCopper(8096, "crowd new")
    returned .= PingPortOnCopper(8031, "conf new")
-   returned .= PingPortOnCopper(8028, "jira new")
+   ;returned .= PingPortOnCopper(8028, "jira new")
    totalTime:=ElapsedTime(timer)
 
    returned .= totalTime . "  " . CurrentTime("hh-mm-ss")

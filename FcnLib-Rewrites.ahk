@@ -58,6 +58,8 @@ FileCreate(text, file)
 ;}}}
 
 ;{{{Folder Manipulation Functions
+
+;Delete folder very forcefully
 FileDeleteDir(dir)
 {
    ;this will delete as much as possible from the target folder
