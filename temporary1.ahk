@@ -6,8 +6,6 @@ f=F:\
 
 compareSizesOfBackups(f, "Dev-cpp")
 compareSizesOfBackups(f, "Documents and Settings")
-compareSizesOfBackups(f, "My Downloads")
-compareSizesOfBackups(f, "My Music")
 compareSizesOfBackups(f, "Program Files")
 compareSizesOfBackups(f, "WINDOWS")
 ;compareSizesOfBackups(f, "Downloads")

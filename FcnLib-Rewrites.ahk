@@ -59,6 +59,20 @@ FileCreate(text, file)
 
 ;{{{Folder Manipulation Functions
 
+;TESTME
+FileCopyDir(source, dest, options="")
+{
+   if InStr(options, "overwrite")
+      overwrite=1
+
+   if NOT DirExist(source)
+      return false
+   EnsureDirExists(dest)
+
+   FileCopyDir, %source%, %dest%, %overwrite%
+}
+
+;TODO consider a rename to FileDeleteDirForceful (or forceful option)
 ;Delete folder very forcefully
 FileDeleteDir(dir)
 {
@@ -86,6 +100,7 @@ FileDeleteDir(dir)
 
 ;Returns if the directory exists
 ;FIXME hmm, perhaps I should have named this starting with the word "file"
+;TODO rename all instances of DirExist to FileDirExist
 FileDirExist(dirPath)
 {
    return InStr(FileExist(dirPath), "D") ? 1 : 0

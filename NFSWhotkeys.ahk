@@ -6,11 +6,11 @@
    ;Sleep, 100
 ;}
 
-Joy4::
-Send, {SPACE DOWN}
-Sleep, 100
-Send, {SPACE UP}
-return
+;Joy4::
+;Send, {SPACE DOWN}
+;Sleep, 100
+;Send, {SPACE UP}
+;return
 
 Joy6::
 Send, {SPACE DOWN}
@@ -20,8 +20,9 @@ return
 
 Joy9::
 Send, {SPACE DOWN}
-Sleep, 220
+Sleep, 320
 Send, {SPACE UP}
+Reload
 return
 
 ;Joy1::

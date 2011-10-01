@@ -16,8 +16,7 @@ Send, sa
 ss()
 Send, !p
 ss()
-joe:=SexPanther("work")
-joe:=StringLower(joe)
+joe:=SexPanther("work-lc")
 SendRaw, % joe
 ;Send, {UP 5}{DOWN}{ENTER}
 Send, {ENTER}
