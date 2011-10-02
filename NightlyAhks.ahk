@@ -121,8 +121,9 @@ RunThisNightlyAhk(waitTimeInMinutes, ahkToRun, params="")
    ;TODO another ahk will sit there to babysit, or perhaps we can put that in persistent
 
    global A_Debug
+   ;A_Debug := true
 
-   if A_Debug
+   ;if A_Debug
       debug("", "nightly ahks: starting this ahk", ahkToRun)
 
    ;quote="
@@ -145,7 +146,7 @@ RunThisNightlyAhk(waitTimeInMinutes, ahkToRun, params="")
    ;close just the one we launched
    ;AhkClose(ahkToRun)
 
-   if A_Debug
+   ;if A_Debug
       debug("", "nightly ahks: finished this ahk", ahkToRun)
 }
 
