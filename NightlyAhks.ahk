@@ -92,7 +92,8 @@ RunThisNightlyAhk(1, "StartIdleAhks.ahk")
 if (A_ComputerName="PHOSPHORUS")
 {
    ;this needs a little bit of click-around time
-   RunThisNightlyAhk(2, "LaunchPidgin.ahk")
+   ;commented this out cause I'm in C-4's office all the time now
+   ;RunThisNightlyAhk(2, "LaunchPidgin.ahk")
 }
 
 ;make a list of all the ahks that didn't end gracefully
