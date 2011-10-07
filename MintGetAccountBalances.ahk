@@ -74,6 +74,8 @@ GrabDataFromPage(page, id)
    if NOT RegExMatch(id, "^527155")
       nickname .= "zzz" . id
 
+   ;debug(matchid, nickname, balance)
+
    NightlyStats(nickname, balance)
 }
 

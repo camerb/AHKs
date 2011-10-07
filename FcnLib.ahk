@@ -911,6 +911,7 @@ RunAhkAndBabysit(filename)
 RunAhk(ahkFilename, params="", options="")
 {
    command=AutoHotkey.exe %ahkFilename% %params%
+   ;command=C:\Program Files (x86)\AutoHotkey\AutoHotkey.exe %ahkFilename% %params%
    if InStr(options, "wait")
       RunWait %command%
    else

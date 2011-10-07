@@ -28,6 +28,7 @@ Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry
+Gui, Add, Button, , Record for Cameron
 Gui, Add, Button, x110 y6, x
 ;Gui, Add, Button, , reload ahk
 Gui, Show, , Firefly Shortcuts
@@ -77,6 +78,26 @@ Loop
 return
 ;}}}
 
+
+;{{{ButtonRecordForCameron:
+ButtonRecordForCameron:
+if NOT ProcessExist("HyCam2.exe")
+{
+   RunProgram("C:\Program Files\HyCam2\HyCam2.exe")
+   ForceWinFocus("HyperCam")
+   SleepSeconds(1)
+   Send, {F2}
+}
+else
+{
+   Send, {F2}
+   WinWait, HyperCam, , 1
+   WinClose, HyperCam
+   SleepSeconds(1)
+   ProcessCloseAll("HyCam2.exe")
+}
+return
+;}}}
 
 ;{{{ButtonAddScorecardEntry:
 ButtonAddScorecardEntry:
