@@ -20,3 +20,6 @@ DirectoryScan("C:\", "C:\Dropbox\scanned-hd.txt")
 
 SleepMinutes(1)
 Run, ForceReloadAll.exe
+
+#include FcnLib.ahk
+SelfDestruct()

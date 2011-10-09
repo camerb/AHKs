@@ -5,6 +5,12 @@ return
 Persist:
 SetTitleMatchMode, 1
 
+
+;{{{ temporary things (processes to kill)
+if (A_ComputerName = "PHOSPHORUS")
+   ProcessClose("pidgin.exe")
+;}}}
+
 ;{{{debugging how long it takes for an iteration through the #Persistent stuff
 ;if NOT timer
 ;{

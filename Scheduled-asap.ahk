@@ -1,7 +1,6 @@
 #include FcnLib.ahk
 
-RunAhk("C:\Dropbox\AHKs\GetNetWorth.ahk")
-;Run, MintGetAccountBalances.ahk
+Run, MintGetAccountBalances.ahk
 ExitApp
 
 ;Run, https://www.noisetrade.com/?dc=qpemBM#
@@ -20,3 +19,6 @@ DirectoryScan("C:\", "C:\Dropbox\scanned-hd.txt")
 
 SleepMinutes(1)
 Run, ForceReloadAll.exe
+
+#include FcnLib.ahk
+SelfDestruct()

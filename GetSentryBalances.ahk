@@ -27,8 +27,10 @@ csvLine:=concatWithSep(",", time, v1,v2,v3,v4,v5,v6,v7)
 FileAppendLine(csvLine, pricesFile)
 csvLine:=concatWithSep(",", time, total)
 FileAppendLine(csvLine, totalsFile)
-text=Sentry 401k Balance: %total%
-FileAppendLine(text, "gitExempt\morning_status\finance-401k.txt")
+;text=Sentry 401k Balance: %total%
+;FileAppendLine(text, "gitExempt\morning_status\finance-401k.txt")
+
+NightlyStats("Sentry401k", total)
 
 WinClose, Opera
 SleepSeconds(5)

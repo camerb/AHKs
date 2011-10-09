@@ -247,6 +247,17 @@ ClickIfImageSearch(filename, clickOptions="left mouse")
    return NOT ErrorLevel
 }
 
+;FIXME I don't like the boolean logic here... just doesn't seem readable
+;ErrordIfFileNotExist(ThisFunc, filename)
+;{
+   ;if NOT FileExist(filename)
+   ;{
+      ;errord(ThisFunc, filename, "the aforementioned file does not exist")
+      ;return false
+   ;}
+   ;return true
+;}
+
 ;Wait until a certain image appears
 WaitForImageSearch(filename, variation=0, timeToWait=20, sleepTime=20) ;TODO option to exit ahk if image was not found
 {
@@ -884,6 +895,8 @@ SelfDestruct()
    ;Exit
 }
 
+;TODO move this to persistent - but if we move this to persistent, we won't be able to return if there was an error...
+;  if we really wanted to return error state, maybe we could do UseErrorLevel, but i think that only applies to EXEs, not sure (prob won't catch AHK compile errors)
 RunAhkAndBabysit(filename)
 {
    if NOT FileExist(filename)
@@ -893,8 +906,6 @@ RunAhkAndBabysit(filename)
 
    Run, %filename%
 
-   ;TODO move this to persistent - but if we move this to persistent, we won't be able to return if there was an error...
-   ;  if we really wanted to return error state, maybe we could do UseErrorLevel, but i think that only applies to EXEs, not sure (prob won't catch AHK compile errors)
    WinWait, %filename%, (The program will exit|The previous version will remain in effect), 10
    sawErrorWindow := NOT ERRORLEVEL
    if sawErrorWindow
@@ -908,10 +919,16 @@ RunAhkAndBabysit(filename)
 
 ;TODO make an options param for wait and babysit?
 ;can you even wait and babysit at the same time?
-RunAhk(ahkFilename, params="", options="")
+RunAhk(filename, params="", options="")
 {
-   command=AutoHotkey.exe %ahkFilename% %params%
-   ;command=C:\Program Files (x86)\AutoHotkey\AutoHotkey.exe %ahkFilename% %params%
+   if NOT FileExist(filename)
+   {
+      errord(A_ThisFunc, filename, "the aforementioned file does not exist")
+      return false
+   }
+
+   command=AutoHotkey.exe %filename% %params%
+   ;command=C:\Program Files (x86)\AutoHotkey\AutoHotkey.exe %filename% %params%
    if InStr(options, "wait")
       RunWait %command%
    else

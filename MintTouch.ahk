@@ -1,19 +1,26 @@
 #include FcnLib.ahk
-#include FcnLib-Opera.ahk
-#include C:\Dropbox\AHKs\gitExempt\usaalogin.ahk
-#include MintLogin.ahk
+#include FcnLib-Nightly.ahk
 
 ;Touch Mint.com so that they will pull our account info (takes a while)
+MintLogIn()
+MintTouch()
 
-mintlogin()
+;#include FcnLib.ahk
+;#include FcnLib-Opera.ahk
+;#include C:\Dropbox\AHKs\gitExempt\usaalogin.ahk
+;#include MintLogin.ahk
 
-WaitForImageSearch("images/mint/UpdateAccountsButton.bmp")
-Sleep, 500
-ClickIfImageSearch("images/mint/UpdateAccountsButton.bmp")
-Click
+;;Touch Mint.com so that they will pull our account info (takes a while)
 
-SleepMinutes(2)
-Process, Close, opera.exe
+;mintlogin()
 
-ExitApp
-`:: ExitApp
+;WaitForImageSearch("images/mint/UpdateAccountsButton.bmp")
+;Sleep, 500
+;ClickIfImageSearch("images/mint/UpdateAccountsButton.bmp")
+;Click
+
+;SleepMinutes(2)
+;Process, Close, opera.exe
+
+;ExitApp
+;`:: ExitApp

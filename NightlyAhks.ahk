@@ -24,7 +24,7 @@ if NOT IsVM()
    RunThisNightlyAhk(7, "UpdateAdobeAcrobatReader.ahk")
 }
 
-;RunThisNightlyAhk(2, "MintTouch.ahk")
+RunThisNightlyAhk(5, "MintTouch.ahk")
 RunThisNightlyAhk(1, "MorningStatus.ahk", "GatherData")
 RunThisNightlyAhk(1, "RestartDropbox.ahk")
 RunThisNightlyAhk(1, "InfiniteLoop.ahk")
