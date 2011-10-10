@@ -1,6 +1,8 @@
 #include FcnLib.ahk
 
-RunAhk("C:\Dropbox\AHKs\GetNetWorth.ahk")
+;http://dl.dropbox.com/u/789954/remotewidget.txt
+
+;RunAhk("C:\Dropbox\AHKs\GetNetWorth.ahk")
 ;Run, MintGetAccountBalances.ahk
 ExitApp
 

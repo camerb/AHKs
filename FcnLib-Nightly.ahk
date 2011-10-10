@@ -5,6 +5,9 @@
 ;{{{Basic Functions ( like RunIMacro() )
 RuniMacro(script="URL GOTO=nascar.com")
 {
+;URL GOTO=http://dl.dropbox.com/u/789954/KnownTitle.html
+;SAVEAS TYPE=HTM FOLDER=%folder% FILE=%file%
+
    if NOT ProcessExist("firefox.exe")
       RunProgram("Firefox")
    ForceWinFocus("Firefox")
@@ -52,8 +55,14 @@ RuniMacro(script="URL GOTO=nascar.com")
    previousColor:=PixelGetColor(60, 709)
    Sleep, 200
    Click(60, 709)
-   MouseMove, 400, 709
 
+;TODO make this more reliable
+;delete saved source page
+;go to a simple page
+;save the source
+;wait for saved source page to exist
+
+   MouseMove, 400, 709
    Loop
    {
       currentColor:=PixelGetColor(60, 709)
@@ -66,12 +75,17 @@ RuniMacro(script="URL GOTO=nascar.com")
 
 GetFirefoxPageSource()
 {
+   ;TODO make optional url param
+   ;VERSION BUILD=7300701 RECORDER=FX
+   ;TAB T=1
+   ;URL GOTO=https://wwws.mint.com/login.event?task=L
+   
    folder=C:\Dropbox\AHKs\gitExempt\
    file=savedPageSource.html
    path=%folder%%file%
    imacro=
    (
-   SAVEAS TYPE=CPL FOLDER=%folder% FILE=%file%
+   SAVEAS TYPE=HTM FOLDER=%folder% FILE=%file%
    )
    RuniMacro(imacro)
    returned := FileRead(path)
@@ -183,4 +197,7 @@ MintTouch()
 }
 ;}}}
 
-
+ShortSleep()
+{
+   Sleep, 100
+}
