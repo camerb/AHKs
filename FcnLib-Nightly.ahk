@@ -5,8 +5,10 @@
 ;{{{Basic Functions ( like RunIMacro() )
 RuniMacro(script="URL GOTO=nascar.com")
 {
-;URL GOTO=http://dl.dropbox.com/u/789954/KnownTitle.html
-;SAVEAS TYPE=HTM FOLDER=%folder% FILE=%file%
+   startTime := CurrentTime("hyphenated")
+   lockfile := GetPath("imacro.lock")
+   FileCreate(startTime, lockfile)
+   script .= "`n`n`'end of the imacro`nFILEDELETE NAME=" . lockfile
 
    if NOT ProcessExist("firefox.exe")
       RunProgram("Firefox")
@@ -26,6 +28,7 @@ RuniMacro(script="URL GOTO=nascar.com")
    {
       ClickIfImageSearch("images/imacros/imacrosIcon.bmp")
       ClickIfImageSearch("images/imacros/imacrosIcon2.bmp")
+      MouseMove, 0, 0
       Sleep, 500
    }
 
@@ -41,7 +44,9 @@ RuniMacro(script="URL GOTO=nascar.com")
 
    Sleep, 200
    ;Click(71, 171) ;click on the file
-   Click(100, 500) ;click in the window, then navigate to the file we want to run
+
+   ;click in the window, then navigate to the file we want to run
+   Click(100, 500)
    Send, {UP 50}
    sleep, 200
    Send {DOWN}
@@ -51,99 +56,30 @@ RuniMacro(script="URL GOTO=nascar.com")
    Sleep, 200
    Click(46, 673) ;click on play tab
 
-   ;click on the play button and monitor the color
-   previousColor:=PixelGetColor(60, 709)
-   Sleep, 200
+   ;click on the play button
    Click(60, 709)
 
-;TODO make this more reliable
-;delete saved source page
-;go to a simple page
-;save the source
-;wait for saved source page to exist
-
-   MouseMove, 400, 709
-   Loop
-   {
-      currentColor:=PixelGetColor(60, 709)
-      if (previousColor == currentColor)
-         break
-   }
-
-   ;debug("looks like the imacro is done")
+   ;wait for the lockfile to disappear, then we'll know that the imacro is done
+   WaitFileNotExist(lockfile)
 }
 
-GetFirefoxPageSource()
+iMacroUrlDownloadToVar(url="")
 {
-   ;TODO make optional url param
-   ;VERSION BUILD=7300701 RECORDER=FX
-   ;TAB T=1
-   ;URL GOTO=https://wwws.mint.com/login.event?task=L
-   
+   if (url != "")
+      GoToUrlCommand=URL GOTO=%url%
+
    folder=C:\Dropbox\AHKs\gitExempt\
    file=savedPageSource.html
    path=%folder%%file%
    imacro=
    (
+   %GoToUrlCommand%
    SAVEAS TYPE=HTM FOLDER=%folder% FILE=%file%
    )
    RuniMacro(imacro)
    returned := FileRead(path)
    FileDelete(path)
    return returned
-}
-
-;some sites require a /real/ login, so we aren't able to do a
-;   simple request. Instead we should use a browser, view source,
-;   and copy the source to the clipboard.
-;TODO maybe have a browser param to choose which browser you
-;   want to use to request the page.
-;FIXME doesn't work quite right yet. Sometimes it doesn't copy
-GetFirefoxPageSource2()
-{
-   ;number to verify that the clipboard was never assigned to
-   null:=Random(100000,999999)
-   Clipboard:=null
-
-   ;opera save page source
-   WinGetActiveTitle, oldTitle
-   ForceWinFocus("ahk_class Mozilla(UI)?WindowClass", "RegEx")
-
-   ;press the button to launch the new window. but sometimes it doesn't pick it up
-   Loop
-   {
-      Send, ^u
-      Sleep, 200
-      if ForceWinFocusIfExist("Source", "Contains")
-         break
-      Sleep, 200
-   }
-   ShortSleep()
-   Send, ^a
-   Send, ^a
-   Send, ^a
-   Send, ^a
-   ShortSleep()
-   Send, ^c
-   Send, ^c
-   Send, ^c
-   Send, ^c
-   count=0
-   Loop
-   {
-      count++
-      if (Clipboard != null)
-         break
-      ShortSleep()
-   }
-   ShortSleep()
-   ;Send, ^w
-   ;ShortSleep()
-
-   while ForceWinFocusIfExist("Source.* ahk_class Mozilla(UI)?WindowClass", "RegEx")
-      WinClose
-
-   return Clipboard
 }
 ;}}}
 
@@ -196,8 +132,3 @@ MintTouch()
    RuniMacro(imacro)
 }
 ;}}}
-
-ShortSleep()
-{
-   Sleep, 100
-}

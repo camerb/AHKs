@@ -4,23 +4,3 @@
 ;Touch Mint.com so that they will pull our account info (takes a while)
 MintLogIn()
 MintTouch()
-
-;#include FcnLib.ahk
-;#include FcnLib-Opera.ahk
-;#include C:\Dropbox\AHKs\gitExempt\usaalogin.ahk
-;#include MintLogin.ahk
-
-;;Touch Mint.com so that they will pull our account info (takes a while)
-
-;mintlogin()
-
-;WaitForImageSearch("images/mint/UpdateAccountsButton.bmp")
-;Sleep, 500
-;ClickIfImageSearch("images/mint/UpdateAccountsButton.bmp")
-;Click
-
-;SleepMinutes(2)
-;Process, Close, opera.exe
-
-;ExitApp
-;`:: ExitApp
