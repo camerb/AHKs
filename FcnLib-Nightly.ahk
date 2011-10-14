@@ -14,13 +14,14 @@ RuniMacro(script="URL GOTO=nascar.com")
       RunProgram("Firefox")
    ForceWinFocus("Firefox")
    Sleep, 200
-   Send, ^!{NUMPAD4}
-   Sleep, 200
-   Send, ^!{NUMPAD5}
-   Sleep, 200
-   WinMove, Firefox, , , , 1766, 1020
-   Sleep, 200
-   WinMove, Firefox, , , , 1766, 1020
+   WinRestore, Firefox
+   ;Send, ^!{NUMPAD4}
+   ;Sleep, 200
+   ;Send, ^!{NUMPAD5}
+   ;Sleep, 200
+   ;WinMove, Firefox, , , , 1766, 1020
+   ;Sleep, 200
+   ;WinMove, Firefox, , , , 1766, 1020
    Sleep, 200
    WinMove, Firefox, , , , 1766, 1020
    Sleep, 200

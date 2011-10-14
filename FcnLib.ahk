@@ -1592,6 +1592,8 @@ GetPath(file)
 {
    if (file == "NightlyStats.ini")
       return "C:\Dropbox\AHKs\gitExempt\NightlyStats.ini"
+   else if (file == "RunOncePerDay.ini")
+      return "C:\Dropbox\AHKs\gitExempt\RunOncePerDay.ini"
    else if (file == "config.ini")
       return "C:\Dropbox\Misc\config.ini"
    else if (file == "questions.ini")

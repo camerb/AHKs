@@ -1,27 +1,30 @@
 #include FcnLib.ahk
 
-;ProcessClose("TeamSpeak.exe")
-;LaunchTeamspeak2()
-;exitapp
-
-Run, http://www.blazinpedals.com/
-Sleep, 1000
-ip:=Prompt("What is the IP for the race? 68.194.184.146?")
-if not ip
-   ip=68.194.184.146
-
+ip := GetIPaddress()
 ChangeLogitechWheelMode()
 LaunchTeamspeak2()
-
-;close junk that we don't want running during the race
-Process, Close, FindAndRunRobot.exe
-Process, Close, dsidebar.exe
+CloseProgramsThatHinderNR2003()
 SoundSet, 40
-
 RunAhk("NR2003hotkeys.ahk")
 LaunchRace(ip, "pedalsdown")
 ;LaunchRaceViaRLM()
-ExitApp
+ExitApp ;DONE WITH THE AUTO-EXECUTE
+
+GetIPaddress()
+{
+   Run, http://www.blazinpedals.com/
+   ForceWinFocus("Blazin' Pedals Online Racing League")
+   ip:=Prompt("What is the IP for the race? 68.194.184.146?")
+   if not ip
+      ip=68.194.184.146
+   return ip
+}
+
+CloseProgramsThatHinderNR2003()
+{
+   ProcessClose("FindAndRunRobot.exe")
+   ProcessClose("dsidebar.exe")
+}
 
 LaunchRaceViaRLM()
 {

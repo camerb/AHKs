@@ -13,8 +13,7 @@ Joy7:: msg("Sorry")
 Joy8:: msg("Thank you")
 
 Joy6::
-key := cycle("1|2|3|4|5|6|7|8|9")
-keystroke={F%key%}
+keystroke := cycle("{F1}|{F2}{SPACE}|{SPACE}|{F3}|{F4}|{F5}|{F6}|{F7}|{F8}|{F9}")
 Send, %keystroke%
 return
 

@@ -43,7 +43,6 @@ GrabDataFromPage(page, id)
    nicknameRE:=GetRegEx("nickname") . smallOrNone
 
    regex=(?P<id>%accountIdRE%)%imageRE%(?P<balance>%balanceRE%)%accountRE%(?P<updated>%updatedRE%)(?P<nickname>%nicknameRE%)
-   Clipboard:=regex
    ;regex=last-updated.*?(second|minute|hour|day|week).*?FOUR STAR CHECKING.*?balance...([0-9,.]+)
    ;TODO don't update the numbers if the last updated date is old
 
@@ -55,6 +54,7 @@ GrabDataFromPage(page, id)
    balance := StringReplace(balance, ",")
    balance := StringReplace(balance, "–", "-") ;replace the stylish emdash with normal minus
    balance := RegExReplace(balance, oneXML)
+   balance := RegExReplace(balance, "[^0-9.]{3}", "-") ;replace the stylish emdash with normal minus
 
    nickname := IniRead(ini, default, id)
    if NOT RegExMatch(id, "^527155")

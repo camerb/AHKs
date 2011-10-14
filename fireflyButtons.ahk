@@ -65,6 +65,10 @@ Loop
             SaveScreenShot("activeWindow")
          }
          ;AddToTrace(CurrentTime("hyphenated") . "hoping that this does not trigger more than once a second")
+
+         ;OTHER MESSAGES:
+         ;There was an error handling your current action.
+
       }
    }
    else

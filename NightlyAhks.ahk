@@ -24,7 +24,8 @@ if NOT IsVM()
    RunThisNightlyAhk(7, "UpdateAdobeAcrobatReader.ahk")
 }
 
-RunThisNightlyAhk(5, "MintTouch.ahk")
+RunThisNightlyAhk(3, "MintTouch.ahk")
+RunThisNightlyAhk(2, "X10HostingForumLogin.ahk")
 RunThisNightlyAhk(1, "MorningStatus.ahk", "GatherData")
 RunThisNightlyAhk(1, "RestartDropbox.ahk")
 RunThisNightlyAhk(1, "InfiniteLoop.ahk")
@@ -58,13 +59,13 @@ if (A_ComputerName = LeadComputer())
    ;RunThisNightlyAhk(7, "UsaaGetAccountBalances.ahk") ;removeme?
    ;RunThisNightlyAhk(7, "UsaaGetAccountBalances-IE.ahk") ;removeme?
    ;RunThisNightlyAhk(4, "GetMintNetWorth.ahk")
-   RunThisNightlyAhk(1, "GetNetWorth.ahk")
-   RunThisNightlyAhk(2, "GetSlackInBudget.ahk")
    RunThisNightlyAhk(2, "ProcessMintExport.ahk")
    RunThisNightlyAhk(2, "MakeNightlyCsvsFromIni.ahk")
 
    RunThisNightlyAhk(1, "UsaaCheckingBalanceProjection.ahk")
    RunThisNightlyAhk(1, "AddAhkTask.ahk", "copyTasksToFcnLib")
+   RunThisNightlyAhk(1, "GetNetWorth.ahk")
+   RunThisNightlyAhk(2, "GetSlackInBudget.ahk")
    ;RunAhkAndBabysit("CreateFinancialPieChart.ahk")
    ;SleepMinutes(15)
 }
