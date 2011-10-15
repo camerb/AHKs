@@ -1799,3 +1799,6 @@ SendSlow(textToSend, pauseTime=500)
 
 ;WRITEME during git commit... remove unstaged changes and add all new files (maybe in one action)
 
+
+;WRITEME automate this page: https://plus.google.com/u/0/notifications/circle
+
