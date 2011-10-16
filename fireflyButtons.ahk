@@ -1,4 +1,6 @@
 #include FcnLib.ahk
+#include SendEmailSimpleLib.ahk
+#NoTrayIcon
 
 ;TODO make scorecard faster
 ; Delete filler text from Magic Faux MS_Word
@@ -21,34 +23,29 @@ excel=(In House Process Server Scorecard|Process Server Fee Determination).*(Ope
 
 ;this is for the retarded comboboxes...
 slowSendPauseTime=130
-;breaks at 100,110
-;reliable at 120,150
+;breaks at 100,110 reliable at 120,150
 
 Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry
-Gui, Add, Button, , Record for Cameron
-Gui, Add, Button, x110 y6, x
-;Gui, Add, Button, , reload ahk
+Gui, Add, Button, , Ready To Invoice
+Gui, Add, Button, x10  y160, Record for Cameron
+Gui, Add, Button, x110 y6  , x
+
 Gui, Show, , Firefly Shortcuts
-;Sleep, 200
 WinMove, Firefly Shortcuts, , 1770, 550
 ;}}}
 
 ;{{{Persistent items (things that are checked repetitively)
 Loop
 {
-   ;GetKeyState, state, LCONTROL, P
-   ;if (state == "D" AND performingAMacro)
-      ;reload
-
    ;expand all pluses
    ;ClickIfImageSearch("images/firefly/expandJob.bmp")
 
    ;Stuff for annoying firefly boxes that are always cancelled out of
    IfWinActive, %statusProMessage%
-      if ClickIfImageSearch("images/firefly/wouldYouLikeToApproveThisJob.bmp")
+      if SimpleImageSearch("images/firefly/wouldYouLikeToApproveThisJob.bmp")
          Click(200, 90, "control")
 
    if (Mod(A_Sec, 5)==0)
@@ -83,6 +80,87 @@ return
 ;}}}
 
 
+;{{{ButtonReadyToInvoice:
+ButtonReadyToInvoice:
+BlockInput, MouseMove
+
+ArrangeWindows()
+if FailedToFocusNecessaryWindow(firefox)
+   return
+
+Clipboard:=""
+ss()
+Click(248, 223)
+ss()
+Send, {CTRLDOWN}a{CTRLUP}
+Send, {CTRLDOWN}c{CTRLUP}
+ss()
+clientFileNumber:=Clipboard
+length := strlen(clientFileNumber)
+if ( length > 10 || NOT clientFileNumber )
+{
+   msgbox, ERROR: I didn't get the client file number (scroll up, maybe?)
+   return
+}
+
+;insert note in the file
+ss()
+;ForceWinFocus("Status Pro Initial Catalog=StatusPro; - Portal - Mozilla Firefox")
+Click(391, 166, "left")
+ss()
+Send, {PGDN 20}
+ss()
+Click(1120, 975, "left")
+ss()
+WaitForImageSearch("images/firefly/NoteWizardWindow.bmp")
+;Sleep, 1000
+sendEmailFromMelinda(clientFileNumber, "Ready To Invoice?")
+;debug(clientFileNumber)
+
+ss()
+Click(789, 320, "left")
+ss()
+Send, InterOfficeNote
+;SendSlow("InterOfficeNote", slowSendPauseTime)
+ss()
+Click(828, 338, "left")
+ss()
+Click(982, 409, "left")
+ss()
+SendInput, Emailed Office: Ready to Invoice?
+ss()
+;Sleep, 3000
+
+;possible issues with note being typed in wrong
+;TODO perhaps we should copy the fields or OCR them to ensure it looks good
+;however, if I do OCR I will need to be careful, because it is possible that that text is elsewhere on the same page
+;if NOT SimpleImageSearch("images/firefly/ghettoReadyToInvoiceNoteIsCorrect.bmp")
+;{
+   ;RecoverFromMacrosGoneWild()
+   ;msgbox, it looks like the note wasn't typed in right
+   ;return
+;}
+if NOT SimpleImageSearch("images/firefly/InterOfficeNote.bmp")
+{
+   RecoverFromMacrosGoneWild()
+   msgbox, it looks like the note type wasn't typed in right
+   return
+}
+;if NOT SimpleImageSearch("images/firefly/ReadyToInvoiceNote.bmp")
+;{
+   ;RecoverFromMacrosGoneWild()
+   ;msgbox, it looks like the note text wasn't typed in right
+   ;return
+;}
+
+
+;Click(700, 634, "left") ;Save Note
+;Click(1095, 285, "left") ;click the X
+
+EndOfMacro()
+return
+;}}}
+
 ;{{{ButtonRecordForCameron:
 ButtonRecordForCameron:
 if NOT ProcessExist("HyCam2.exe")
@@ -105,7 +183,6 @@ return
 
 ;{{{ButtonAddScorecardEntry:
 ButtonAddScorecardEntry:
-performingAMacro:=true
 
 ArrangeWindows()
 if FailedToFocusNecessaryWindow(firefox)
@@ -240,13 +317,11 @@ if NOT InStr(ServiceCounty, "Service County Not Required")
    msgbox, ERROR: It looks like you need a Service County - it says: %ServiceCounty% %Clipboard%
 ;ss()
 
-performingAMacro:=false
 return
 ;}}}
 
 ;{{{ButtonChangeQueue:
 ButtonChangeQueue:
-performingAMacro:=true
 
 ArrangeWindows()
 Gui, 2: Add, ComboBox, vCityNew, %cityChoices%
@@ -263,13 +338,11 @@ IniWrite(ini, "firefly", "client", client)
 Gui, 2: Destroy
 GoSub, ButtonReloadQueue
 
-performingAMacro:=false
 return
 ;}}}
 
 ;{{{ButtonReloadQueue:
 ButtonReloadQueue:
-performingAMacro:=true
 
 ArrangeWindows()
 URLbar := GetURLbar("firefox")
@@ -324,7 +397,6 @@ if ForceWinFocusIfExist(statusProMessage)
    ;GoSub, ButtonReloadQueue
 }
 
-performingAMacro:=false
 return
 ;}}}
 
@@ -374,12 +446,45 @@ FailedToFocusNecessaryWindow(window)
    if (window == "")
    {
       errord("", "Cameron did something wrong, the window variable was blank")
+      RecoverFromMacrosGoneWild()
       return true
    }
 
    if NOT ForceWinFocusIfExist(window)
    {
       errord("", "couldn't find this window", window)
+      RecoverFromMacrosGoneWild()
       return true
    }
+}
+
+RecoverFromMacrosGoneWild()
+{
+   EndOfMacro()
+   ;do I want errord? or do I want a msgbox? ;prolly not msgbox cause we might want to log it
+   ;do I want to take a screenshot?
+}
+
+EndOfMacro()
+{
+   BlockInput, MouseMoveOff
+   ;should I log some stuff to an INI?
+}
+
+;Send an email without doing any of the complex queuing stuff
+SendEmailFromMelinda(sSubject, sBody, sAttach="", sTo="melindabaustian@gmail.com")
+{
+   sUsername := "melindabaustian"
+   sPassword := SexPanther("melinda")
+   sReplyTo:="melindabaustian@gmail.com"
+
+   sFrom     := sUsername . "@gmail.com"
+
+   sServer   := "smtp.gmail.com" ; specify your SMTP server
+   nPort     := 465 ; 25
+   bTLS      := True ; False
+   nSend     := 2   ; cdoSendUsingPort
+   nAuth     := 1   ; cdoBasic
+
+   SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
 }
