@@ -15,23 +15,10 @@ RuniMacro(script="URL GOTO=nascar.com")
    ForceWinFocus("Firefox")
    Sleep, 200
    WinRestore, Firefox
-   ;Send, ^!{NUMPAD4}
-   ;Sleep, 200
-   ;Send, ^!{NUMPAD5}
-   ;Sleep, 200
-   ;WinMove, Firefox, , , , 1766, 1020
-   ;Sleep, 200
-   ;WinMove, Firefox, , , , 1766, 1020
    Sleep, 200
    WinMove, Firefox, , , , 1766, 1020
    Sleep, 200
-   while NOT SimpleImageSearch("images/imacros/imacrosLargeLogo2.bmp")
-   {
-      ClickIfImageSearch("images/imacros/imacrosIcon.bmp")
-      ClickIfImageSearch("images/imacros/imacrosIcon2.bmp")
-      MouseMove, 0, 0
-      Sleep, 500
-   }
+   OpenIMacrosPanel()
 
    Click(89, 680) ;rec tab
    Click(89, 760) ;load button
@@ -81,6 +68,26 @@ iMacroUrlDownloadToVar(url="")
    returned := FileRead(path)
    FileDelete(path)
    return returned
+}
+
+OpenIMacrosPanel()
+{
+   ForceWinFocus("Firefox")
+   while NOT SimpleImageSearch("images/imacros/imacrosLargeLogo2.bmp")
+   {
+      ClickIfImageSearch("images/imacros/imacrosIcon.bmp")
+      ClickIfImageSearch("images/imacros/imacrosIcon2.bmp")
+      MouseMoveRandom() ;, 0, 0
+      Sleep, 500
+   }
+}
+
+CloseIMacrosPanel()
+{
+   ForceWinFocus("Firefox")
+   OpenIMacrosPanel()
+   ClickIfImageSearch("images/imacros/imacrosIcon.bmp")
+   ClickIfImageSearch("images/imacros/imacrosIcon2.bmp")
 }
 ;}}}
 

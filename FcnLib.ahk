@@ -1,11 +1,11 @@
 #SingleInstance Force
 
 #include thirdParty/Functions.ahk
-;#include thirdParty\Notify.ahk ;this causes windows to be open forever
 #include thirdParty/CmdRet.ahk
 #include thirdParty/Cycle.ahk
-;#include thirdParty/Format4Csv.ahk ;haven't used this yet, but I should
 #include FcnLib-Rewrites.ahk
+;#include thirdParty\Notify.ahk ;this causes windows to be open forever
+;#include thirdParty/Format4Csv.ahk ;haven't used this yet, but I should
 
 ;Takes a screenshot and saves it to the specified path
 ;Useful for debugging macros afterward
@@ -13,14 +13,15 @@
 ;begin the filename with a relevant text description, and
 ;end it with a timestamp
 ;not implemented: adjust image quality, change image format
-#include thirdParty\ScreenCapture.ahk
+#include thirdParty/ScreenCapture.ahk
 SaveScreenShot(descriptiveText="", directoryPath="dropbox", options="")
 {
    captureArea=0
    if InStr(options, "activeWindow")
       captureArea=1
 
-   ; OR directoryPath="")
+   if (directoryPath="") ;default
+      directoryPath=dropbox
    if (directoryPath="dropbox")
       directoryPath=C:\Dropbox\AHKs\gitExempt\screenshots\%A_ComputerName%
    else if (directoryPath="local")
@@ -304,13 +305,17 @@ Remap(input, remap1, replace1, remap2=0, replace2=0, remap3=0, replace3=0, remap
    return input
 }
 
-;I now think that moving to 0,0 is a better solution
-MoveToRandomSpotInWindow()
+;I now think that moving to 0,0 is a better solution (most of the time)
+MouseMoveRandom()
 {
    WinGetPos, no, no, winWidth, winHeight
    Random, xCoordinate, 0, winWidth
    Random, yCoordinate, 0, winHeight
    MouseMove, xCoordinate, yCoordinate
+}
+MoveToRandomSpotInWindow()
+{
+MouseMoveRandom()
 }
 
 WeightedRandom(OddsOfa1, OddsOfa2, OddsOfa3=0, OddsOfa4=0, OddsOfa5=0)

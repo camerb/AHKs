@@ -45,8 +45,14 @@ Loop
 
    ;Stuff for annoying firefly boxes that are always cancelled out of
    IfWinActive, %statusProMessage%
-      if SimpleImageSearch("images/firefly/wouldYouLikeToApproveThisJob.bmp")
-         Click(200, 90, "control")
+   {
+      if SimpleImageSearch("images/firefly/dialog/wouldYouLikeToApproveThisJob.bmp")
+         Click(200, 90, "control") ;no button
+      if SimpleImageSearch("images/firefly/dialog/pleaseSelectAnOptionFromTheDropDown.bmp")
+         Click(170, 90, "control") ;ok button
+      if SimpleImageSearch("images/firefly/dialog/selectedFeesEntryHasBeenDeletedSuccessfully.bmp")
+         Click(170, 90, "control") ;ok button
+   }
 
    if (Mod(A_Sec, 5)==0)
    {
@@ -55,17 +61,21 @@ Loop
          didThisOnce:=true
          IfWinActive, %statusProMessage%
          {
-            if SimpleImageSearch("images/firefly/wouldYouLikeToApproveThisJob.bmp")
+            if SimpleImageSearch("images/firefly/dialog/wouldYouLikeToApproveThisJob.bmp")
                continue
-            if SimpleImageSearch("images/firefly/wouldYouLikeToContinueToApproveThisJob.bmp")
+            if SimpleImageSearch("images/firefly/dialog/wouldYouLikeToContinueToApproveThisJob.bmp")
                continue
-            SaveScreenShot("activeWindow")
+            if SimpleImageSearch("images/firefly/dialog/thereWasAnErrorHandlingYourCurrentAction.bmp")
+               continue
+            if SimpleImageSearch("images/firefly/dialog/selectedFeesEntryHasBeenDeletedSuccessfully.bmp")
+               continue
+            if SimpleImageSearch("images/firefly/dialog/pleaseSelectAnOptionFromTheDropDown.bmp")
+               continue
+            if SimpleImageSearch("images/firefly/dialog/areYouSureYouWantToDeleteThisFeesEntry.bmp")
+               continue
+            SaveScreenShot("fireflyDialog", "dropbox", "activeWindow")
          }
          ;AddToTrace(CurrentTime("hyphenated") . "hoping that this does not trigger more than once a second")
-
-         ;OTHER MESSAGES:
-         ;There was an error handling your current action.
-
       }
    }
    else
@@ -85,7 +95,9 @@ ButtonReadyToInvoice:
 BlockInput, MouseMove
 
 ArrangeWindows()
-if FailedToFocusNecessaryWindow(firefox)
+if CantFocusNecessaryWindow(firefox)
+   return
+if CantFindTopOfFirefoxPage()
    return
 
 Clipboard:=""
@@ -161,31 +173,13 @@ EndOfMacro()
 return
 ;}}}
 
-;{{{ButtonRecordForCameron:
-ButtonRecordForCameron:
-if NOT ProcessExist("HyCam2.exe")
-{
-   RunProgram("C:\Program Files\HyCam2\HyCam2.exe")
-   ForceWinFocus("HyperCam")
-   SleepSeconds(1)
-   Send, {F2}
-}
-else
-{
-   Send, {F2}
-   WinWait, HyperCam, , 1
-   WinClose, HyperCam
-   SleepSeconds(1)
-   ProcessCloseAll("HyCam2.exe")
-}
-return
-;}}}
-
 ;{{{ButtonAddScorecardEntry:
 ButtonAddScorecardEntry:
 
 ArrangeWindows()
-if FailedToFocusNecessaryWindow(firefox)
+if CantFocusNecessaryWindow(firefox)
+   return
+if CantFindTopOfFirefoxPage()
    return
 
 ss()
@@ -237,7 +231,7 @@ IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialog
 
 
 ;;;;;;;;;;;;;;;;
-if FailedToFocusNecessaryWindow(excel)
+if CantFocusNecessaryWindow(excel)
    return
 
 ;DELETEME remove this before moving live
@@ -349,7 +343,9 @@ URLbar := GetURLbar("firefox")
 if NOT InStr( URLbar, "status-pro.biz/fc/Portal.aspx" )
    return
 
-if FailedToFocusNecessaryWindow(firefox)
+if CantFocusNecessaryWindow(firefox)
+   return
+if CantFindTopOfFirefoxPage()
    return
 
 BlockInput, MouseMove
@@ -360,7 +356,8 @@ BlockInput, MouseMove
 ;Send, {PGUP 20}
 ;ss()
 
-ClickIfImageSearch("images/firefly/closeTab.bmp", "control")
+Loop 10
+   ClickIfImageSearch("images/firefly/closeTab.bmp", "control")
 
 ss()
 MouseMove, 33, 115
@@ -368,6 +365,7 @@ ss()
 Click(33, 132, "left control")
 Sleep, 200
 MouseMove, 33, 198
+;ClickIfImageSearch("images/firefly/fileSearch.bmp", "control") ;TODO for reliability
 Click(259, 182, "left control")
 Sleep, 200
 SendSlow(city, slowSendPauseTime)
@@ -390,12 +388,13 @@ ss()
 Click(855, 282, "left control")
 BlockInput, MouseMoveOff
 
-if ForceWinFocusIfExist(statusProMessage)
-{
-   WinClose
-   ;Send, ^{F5} ;this makes the webapp freak out... press the reload button in FF instead
-   ;GoSub, ButtonReloadQueue
-}
+;if ForceWinFocusIfExist(statusProMessage)
+;{
+   ;;if the message is "error... current action" then we should try again slowly, but only try it again once...
+   ;WinClose ;this also makes the webapp freak out so maybe we shouldn't do it
+   ;;Send, ^{F5} ;this makes the webapp freak out... press the reload button in FF instead
+   ;;GoSub, ButtonReloadQueue
+;}
 
 return
 ;}}}
@@ -406,13 +405,28 @@ ExitApp
 return
 ;}}}
 
-;{{{ ButtonReloadAhk:
-ButtonReloadAhk:
-Reload
+;{{{ButtonRecordForCameron:
+ButtonRecordForCameron:
+if NOT ProcessExist("HyCam2.exe")
+{
+   RunProgram("C:\Program Files\HyCam2\HyCam2.exe")
+   ForceWinFocus("HyperCam")
+   SleepSeconds(1)
+   Send, {F2}
+}
+else
+{
+   Send, {F2}
+   WinWait, HyperCam, , 1
+   WinClose, HyperCam
+   SleepSeconds(1)
+   ProcessCloseAll("HyCam2.exe")
+}
 return
 ;}}}
 
 
+;{{{ functions
 ss()
 {
    Sleep, 100
@@ -427,21 +441,7 @@ ArrangeWindows()
       Send, ^!{NUMPAD5}
 }
 
-;SSsend(text)
-;{
-;}
-
-;controlMacrosGoneWild()
-;{
-   ;GetKeyState, state, LCONTROL, P
-   ;if (state == "D")
-   ;{
-      ;BlockInput, MouseMoveOff
-      ;return true
-   ;}
-;}
-
-FailedToFocusNecessaryWindow(window)
+CantFocusNecessaryWindow(window)
 {
    if (window == "")
    {
@@ -456,6 +456,21 @@ FailedToFocusNecessaryWindow(window)
       RecoverFromMacrosGoneWild()
       return true
    }
+}
+
+CantFindTopOfFirefoxPage()
+{
+   ;TODO do some clicking to scroll up
+   if NOT SimpleImageSearch("images/firefly/topOfPage.bmp")
+   {
+      errord("", "can't find the top of the page in firefox")
+      RecoverFromMacrosGoneWild()
+      return true
+   }
+
+   ;do a couple more clicks, just to make sure we're at the very, very top
+   Loop 10
+      Click(1753, 104, "control")
 }
 
 RecoverFromMacrosGoneWild()
@@ -488,3 +503,4 @@ SendEmailFromMelinda(sSubject, sBody, sAttach="", sTo="melindabaustian@gmail.com
 
    SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
 }
+;}}}

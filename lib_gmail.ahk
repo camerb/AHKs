@@ -1,7 +1,17 @@
 #include FcnLib.ahk
 #include thirdParty\COM.ahk
 
-SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom="", sServer="smtp.gmail.com", nPort=25, bTLS=true, nSend=2, nAuth=1)
+;TODO move sReplyTo to be an optional param
+/* Proposed Param order:
+sSubject, sBody, sAttach,
+sTo,
+sUsername, sPassword,
+sFrom="",
+sReplyTo="",
+sServer="smtp.gmail.com",
+nPort=25, bTLS=true, nSend=2, nAuth=1)
+*/
+SendGmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom="", sServer="smtp.gmail.com", nPort=25, bTLS=true, nSend=2, nAuth=1)
 {
    if (sFrom == "")
       sFrom := username . "@gmail.com"

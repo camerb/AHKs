@@ -1,4 +1,5 @@
 #include FcnLib.ahk
+#include FcnLib-Nightly.ahk
 
 ;{{{script
 
@@ -68,6 +69,7 @@ if (A_ComputerName = LeadComputer())
    RunThisNightlyAhk(2, "GetSlackInBudget.ahk")
    ;RunAhkAndBabysit("CreateFinancialPieChart.ahk")
    ;SleepMinutes(15)
+   CloseIMacrosPanel()
 }
 
 if (A_ComputerName="PHOSPHORUS")
@@ -94,7 +96,7 @@ if (A_ComputerName="PHOSPHORUS")
 {
    ;this needs a little bit of click-around time
    ;commented this out cause I'm in C-4's office all the time now
-   ;RunThisNightlyAhk(2, "LaunchPidgin.ahk")
+   RunThisNightlyAhk(2, "LaunchPidgin.ahk")
 }
 
 ;make a list of all the ahks that didn't end gracefully
