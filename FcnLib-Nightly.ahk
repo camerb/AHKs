@@ -3,12 +3,23 @@
 ;Function lib for things that are too ghetto to happen during the day
 
 ;{{{Basic Functions ( like RunIMacro() )
+
+;TODO turn this into something that is suitable to post as a lib
+;TODO needs better paths
+;TODO needs to depend on fewer libs
+;TODO error message is imacros is not installed
+;TODO error message if firefox is not installed
 RuniMacro(script="URL GOTO=nascar.com")
 {
    startTime := CurrentTime("hyphenated")
    lockfile := GetPath("imacro.lock")
    FileCreate(startTime, lockfile)
-   script .= "`n`n`'end of the imacro`nFILEDELETE NAME=" . lockfile
+   script=
+   (
+   TAB CLOSE
+   %script%
+   FILEDELETE NAME=%lockfile%
+   )
 
    if NOT ProcessExist("firefox.exe")
       RunProgram("Firefox")
@@ -16,39 +27,35 @@ RuniMacro(script="URL GOTO=nascar.com")
    Sleep, 200
    WinRestore, Firefox
    Sleep, 200
-   WinMove, Firefox, , , , 1766, 1020
+   WinRestore, Firefox
    Sleep, 200
-   OpenIMacrosPanel()
+   WinMove, Firefox, , 0, 0, 1766, 924
 
-   Click(89, 680) ;rec tab
-   Click(89, 760) ;load button
+   iMacroFile=%A_MyDocuments%\iMacros\Macros\ahkScripted.iim
+   FileCreate(script, iMacroFile)
+   ;FIXME something in here always makes it create a new firefox window on the home pc... why is that?
 
-   file=C:\Dropbox\AHKs\gitExempt\iMacros\ahkScripted.iim
-   FileCreate(script, file)
+   ff1:="C:\Program Files\Mozilla Firefox\firefox.exe"
+   ff2:="C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
+   ff3:="C:\Program Files\Mozilla Firefox 4.0 Beta 4\firefox.exe"
 
-   ForceWinFocus("Select file to load")
-   Sleep, 200
-   Send, %file%{ENTER}
+   if FileExist(ff1)
+      firefoxPath:=ff1
+   else if FileExist(ff2)
+      firefoxPath:=ff2
+   else if FileExist(ff3)
+      firefoxPath:=ff3
+   else
+      errord("", "cannot find path for firefox", A_LineNumber, A_ThisFunc, A_ScriptName)
 
-   Sleep, 200
-   ;Click(71, 171) ;click on the file
-
-   ;click in the window, then navigate to the file we want to run
-   Click(100, 500)
-   Send, {UP 50}
-   sleep, 200
-   Send {DOWN}
-   sleep, 200
-   Send {DOWN}
-
-   Sleep, 200
-   Click(46, 673) ;click on play tab
-
-   ;click on the play button
-   Click(60, 709)
+   Run,  "%firefoxPath%" http://run.imacros.net/?m=ahkScripted.iim
 
    ;wait for the lockfile to disappear, then we'll know that the imacro is done
    WaitFileNotExist(lockfile)
+
+   ;close the iMacros panel
+   ToggleIMacrosPanel()
+   FileDelete(iMacroFile)
 }
 
 iMacroUrlDownloadToVar(url="")
@@ -89,6 +96,11 @@ CloseIMacrosPanel()
    ClickIfImageSearch("images/imacros/imacrosIcon.bmp")
    ClickIfImageSearch("images/imacros/imacrosIcon2.bmp")
 }
+
+ToggleIMacrosPanel()
+{
+   ControlSend, , {F8}, Mozilla Firefox
+}
 ;}}}
 
 ;{{{ Mint Functions
@@ -98,7 +110,6 @@ MintLogIn()
    imacro=
    (
    VERSION BUILD=7300701 RECORDER=FX
-   TAB T=1
    URL GOTO=https://wwws.mint.com/login.event?task=L
    TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:loginUserSubmit.xevent ATTR=ID:form-login-username CONTENT=cameronbaustian@gmail.com
    SET !ENCRYPTION NO
@@ -117,7 +128,6 @@ MintGetTransactionCsvs()
    imacro=
    (
    VERSION BUILD=7300701 RECORDER=FX
-   TAB T=1
    URL GOTO=https://wwws.mint.com/transaction.event
    TAG POS=1 TYPE=A ATTR=TXT:Transactions
    ONDOWNLOAD FOLDER=C:\Dropbox\AHKs\GitExempt\mint_export\ FILE={{!NOW:yyyy-mm-dd}}.csv WAIT=YES
@@ -132,7 +142,6 @@ MintTouch()
    imacro=
    (
    VERSION BUILD=7300701 RECORDER=FX
-   TAB T=1
    URL GOTO=https://wwws.mint.com/overview.event
    TAG POS=1 TYPE=A ATTR=ID:module-accounts-update
    )

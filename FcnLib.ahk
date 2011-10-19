@@ -717,22 +717,20 @@ CloseDifficultAppsAllScreens()
       Send, {BROWSER_FORWARD}
    }
 
-   Process, WaitClose, ssms.exe, 15
+   Process, WaitClose, ssms.exe, 5
    Process, Close, ssms.exe
-   Process, WaitClose, vmware-vmx.exe, 15
+   Process, WaitClose, vmware-vmx.exe, 5
    Process, Close, vmware-vmx.exe
-   Process, WaitClose, vmplayer.exe, 15
+   Process, WaitClose, vmplayer.exe, 5
    Process, Close, vmplayer.exe
    Process, Close, FindAndRunRobot.exe
    Process, Close, dsidebar.exe
    Process, Close, hpupdate.exe
+   WinClose, SK Sync Server Version 1.0.01A ahk_class SunAwtFrame
 
    ;close the stupid thing that comes with ZoneAlarm
    Process, Close, ForceField.exe
 }
-
-;WRITEME
-;Gets the parent directory of the specified directory
 
 ;WRITEME
 ;Returns true if the specified path is a directory, false if it is a file
@@ -740,30 +738,31 @@ CloseDifficultAppsAllScreens()
 ;WRITEME
 ;Returns true if the specified path is a file, or false if it is a directory
 
-;WRITEME
 ;Creates the parent dir if necessary
 ;TODO if path is a directory, this ensures that that dir exists
+;simply: this ensures that the entire specified dir structure exists
 EnsureDirExists(path)
 {
    ;if path is a file, this ensures that the parent dir exists
    dir:=ParentDir(path)
-   ;simply: this ensures that the entire specified dir structure exists
 
    ;figure out if it is a file or dir
    ;split off filename if applicable
    FileCreateDir, %dir%
 }
 
+;TESTME
+;Gets the parent directory of the specified directory
 ParentDir(fileOrFolder)
 {
+   fileOrFolder := RegExReplace(fileOrFolder, "(\\|/)", "\")
    if (StringRight(fileOrFolder, 1) == "\")
       fileOrFolder:= StringTrimRight(fileOrFolder, 1)
    RegexMatch(fileOrFolder, "^.*\\", returned)
    return returned
 }
 
-;TODO We should keep an ini of paths found previously, and search for it if not in the ini-list
-;TODO Perhaps this should be done with other items, like the windows user folder
+;TODO Perhaps this should be done with other items, like the windows user folder, or like the dropbox folder
 ;Returns the correct program files location (error message if the file doesn't exist)
 ProgramFilesDir(relativePath)
 {
@@ -1736,6 +1735,19 @@ SendSlow(textToSend, pauseTime=500)
       Send, %A_LoopField%
       textSendInProgress:=true
    }
+}
+
+;thanks to berban for this one
+;takes a time in milliseconds and displays it in a readable fashion
+;RENAMEME
+PrettyTickCount(timeInMilliSeconds)
+{
+   ElapsedHours := SubStr(0 Floor(timeInMilliSeconds / 3600000), -1)
+   ElapsedMinutes := SubStr(0 Floor((timeInMilliSeconds - ElapsedHours * 3600000) / 60000), -1)
+   ElapsedSeconds := SubStr(0 Floor((timeInMilliSeconds - ElapsedHours * 3600000 - ElapsedMinutes * 60000) / 1000), -1)
+   ElapsedMilliseconds := SubStr(0 timeInMilliSeconds - ElapsedHours * 3600000 - ElapsedMinutes * 60000 - ElapsedSeconds * 1000, -2)
+   returned := ElapsedHours ":" ElapsedMinutes ":" ElapsedSeconds ":" ElapsedMilliseconds
+   return returned
 }
 
 ;WRITEME make function for getting remote and local path of dropbox public folder

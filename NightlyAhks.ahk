@@ -18,6 +18,10 @@ IniDelete(ini, "RunAhkAndBabysit.ahk")
 if (A_ComputerName = LeadComputer())
    DeleteTraceFile()
 
+;clear out all morning status messages
+;I might need to remove this someday and make it only delete some files
+FileDeleteDirForceful("C:\Dropbox\AHKs\gitExempt\morning_status\")
+
 if NOT IsVM()
 {
    RunThisNightlyAhk(1, "CopyVimSettings.ahk")
@@ -68,6 +72,7 @@ if (A_ComputerName = LeadComputer())
    RunThisNightlyAhk(1, "GetNetWorth.ahk")
    RunThisNightlyAhk(2, "GetSlackInBudget.ahk")
    ;RunAhkAndBabysit("CreateFinancialPieChart.ahk")
+   RunThisNightlyAhk(2, "CheckDropboxForConflictedCopies.ahk")
    ;SleepMinutes(15)
    CloseIMacrosPanel()
 }

@@ -347,3 +347,29 @@ return
 F5::return
 #IfWinActive
 ;}}}
+
+;{{{ VisDir
+#IfWinActive Visdir Free Disk Space Finder ahk_class TForm1
+F5::
+;refresh visdir in ghetto ways
+ProcessClose("VisDir.exe")
+RunProgram("VisDir.exe")
+ForceWinFocus("Visdir Free Disk Space Finder")
+ForceWinFocus("Select what to scan")
+Sleep, 100
+Click(102, 16, "control")
+Sleep, 100
+Click(49, 299, "control")
+ForceWinFocus("Visdir Free Disk Space Finder")
+Loop
+{
+   color := PixelGetColor(449, 163)
+   if (color == "0x0000FF") ;red
+      break
+   Sleep, 100
+}
+Sleep, 100
+Click(449, 163, "control")
+return
+#IfWinActive
+;}}}

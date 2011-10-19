@@ -6,7 +6,13 @@
 ; Delete filler text from Magic Faux MS_Word
 ; Auto-expand all pluses in the left-hand side
 ;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
-;TODO make "ready to invoice" button that will get the file num and email erica "ready to invoice %fileno%"
+;TODO change text in the MS-Word lookalike program (cause their template is wrong)
+;TODO make basic fees gui
+;TODO make in-depth fees gui
+
+;TODO make ready to invoice button yellow
+;TODO make background blueish to match sidebar
+;TODO make x button red (pale)
 
 
 ;{{{Globals and making the gui (one-time tasks)
@@ -487,7 +493,7 @@ EndOfMacro()
 }
 
 ;Send an email without doing any of the complex queuing stuff
-SendEmailFromMelinda(sSubject, sBody, sAttach="", sTo="melindabaustian@gmail.com")
+SendEmailFromMelinda(sSubject, sBody, sAttach="", sTo="Erica.Jordan@fireflylegal.com")
 {
    sUsername := "melindabaustian"
    sPassword := SexPanther("melinda")
