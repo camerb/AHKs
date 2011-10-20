@@ -14,6 +14,7 @@
 ;TODO make background blueish to match sidebar
 ;TODO make x button red (pale)
 
+;TODO deactivate capslock at the beginning of each macro
 
 ;{{{Globals and making the gui (one-time tasks)
 cityChoices=Tampa|Ft. Lauderdale|Orlando|Jacksonville
@@ -98,9 +99,9 @@ return
 
 ;{{{ButtonReadyToInvoice:
 ButtonReadyToInvoice:
+StartOfMacro()
 BlockInput, MouseMove
 
-ArrangeWindows()
 if CantFocusNecessaryWindow(firefox)
    return
 if CantFindTopOfFirefoxPage()
@@ -181,8 +182,8 @@ return
 
 ;{{{ButtonAddScorecardEntry:
 ButtonAddScorecardEntry:
+StartOfMacro()
 
-ArrangeWindows()
 if CantFocusNecessaryWindow(firefox)
    return
 if CantFindTopOfFirefoxPage()
@@ -317,13 +318,17 @@ if NOT InStr(ServiceCounty, "Service County Not Required")
    msgbox, ERROR: It looks like you need a Service County - it says: %ServiceCounty% %Clipboard%
 ;ss()
 
+EndOfMacro()
 return
 ;}}}
 
 ;{{{ButtonChangeQueue:
 ButtonChangeQueue:
 
-ArrangeWindows()
+;Gui, 2: +LastFound
+;HWND := WinExist()
+;msgbox % hwnd
+
 Gui, 2: Add, ComboBox, vCityNew, %cityChoices%
 Gui, 2: Add, ComboBox, vClientNew, %clientChoices%
 Gui, 2: Add, Button, Default, Change To This Queue
@@ -343,8 +348,8 @@ return
 
 ;{{{ButtonReloadQueue:
 ButtonReloadQueue:
+StartOfMacro()
 
-ArrangeWindows()
 URLbar := GetURLbar("firefox")
 if NOT InStr( URLbar, "status-pro.biz/fc/Portal.aspx" )
    return
@@ -392,7 +397,6 @@ Sleep, 500
 Click(855, 282, "left control")
 ss()
 Click(855, 282, "left control")
-BlockInput, MouseMoveOff
 
 ;if ForceWinFocusIfExist(statusProMessage)
 ;{
@@ -402,6 +406,7 @@ BlockInput, MouseMoveOff
    ;;GoSub, ButtonReloadQueue
 ;}
 
+EndOfMacro()
 return
 ;}}}
 
@@ -484,6 +489,12 @@ RecoverFromMacrosGoneWild()
    EndOfMacro()
    ;do I want errord? or do I want a msgbox? ;prolly not msgbox cause we might want to log it
    ;do I want to take a screenshot?
+}
+
+StartOfMacro()
+{
+   SetCapsLockState, Off
+   ArrangeWindows()
 }
 
 EndOfMacro()

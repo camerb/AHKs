@@ -9,45 +9,71 @@
 ;TODO needs to depend on fewer libs
 ;TODO error message is imacros is not installed
 ;TODO error message if firefox is not installed
-RuniMacro(script="URL GOTO=nascar.com")
+;TODO add in a "hide" option that will winhide the window
+RuniMacro(script="URL GOTO=nascar.com", options="")
 {
+   ;vars we'll use later
+   firefoxWindow= - Mozilla Firefox ahk_class Mozilla(UI)?WindowClass
+
+   ;make the lockfile
    startTime := CurrentTime("hyphenated")
    lockfile := GetPath("imacro.lock")
    FileCreate(startTime, lockfile)
+
+   ;tweak the script so that is will cooperate/communicate with AHK
    script=
    (
-   TAB CLOSE
+   TAB CLOSEALLOTHERS
    %script%
    FILEDELETE NAME=%lockfile%
    )
 
-   if NOT ProcessExist("firefox.exe")
-      RunProgram("Firefox")
-   ForceWinFocus("Firefox")
+   ;figure out where the firefox install is
+   ffList:="C:\Dropbox\Programs\FirefoxPortable\FirefoxPortable.exe,C:\Program Files\Mozilla Firefox 4.0 Beta 4\firefox.exe,C:\Program Files\Mozilla Firefox\firefox.exe,C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
+   Loop, parse, ffList, CSV
+   {
+      if FileExist(A_LoopField)
+      {
+         firefoxPath:=A_LoopField
+         break
+      }
+   }
+
+   ;error out if there were issues finding the FF path
+   if NOT firefoxPath
+      errord("", "cannot find path for firefox", A_LineNumber, A_ThisFunc, A_ScriptName)
+
+   ;are we using the portable version?
+   if InStr(firefoxPath, "FirefoxPortable")
+      usingPortableVersion:=true
+
+   if usingPortableVersion
+   {
+      ProcessCloseAll("firefox.exe")
+      if NOT ProcessExist("FirefoxPortable.exe")
+         Run,  "%firefoxPath%"
+   }
+   else
+   {
+      if NOT ProcessExist("firefox.exe")
+         Run,  "%firefoxPath%"
+         ;RunProgram("Firefox")
+   }
+
+   ;show the window in the correct location
+   ForceWinFocus(firefoxWindow)
    Sleep, 200
-   WinRestore, Firefox
+   WinRestore, %firefoxWindow%
    Sleep, 200
-   WinRestore, Firefox
+   WinRestore, %firefoxWindow%
    Sleep, 200
-   WinMove, Firefox, , 0, 0, 1766, 924
+   WinMove, %firefoxWindow%, , 0, 0, 1766, 924
 
    iMacroFile=%A_MyDocuments%\iMacros\Macros\ahkScripted.iim
    FileCreate(script, iMacroFile)
    ;FIXME something in here always makes it create a new firefox window on the home pc... why is that?
 
-   ff1:="C:\Program Files\Mozilla Firefox\firefox.exe"
-   ff2:="C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
-   ff3:="C:\Program Files\Mozilla Firefox 4.0 Beta 4\firefox.exe"
-
-   if FileExist(ff1)
-      firefoxPath:=ff1
-   else if FileExist(ff2)
-      firefoxPath:=ff2
-   else if FileExist(ff3)
-      firefoxPath:=ff3
-   else
-      errord("", "cannot find path for firefox", A_LineNumber, A_ThisFunc, A_ScriptName)
-
+   ;run the iMacro
    Run,  "%firefoxPath%" http://run.imacros.net/?m=ahkScripted.iim
 
    ;wait for the lockfile to disappear, then we'll know that the imacro is done
