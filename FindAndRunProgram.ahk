@@ -1,4 +1,6 @@
+#SingleInstance Off
 #include FcnLib.ahk
+#SingleInstance Off
 
 ;locate and run program, if possible
 

@@ -2,6 +2,7 @@
 #include SendEmailSimpleLib.ahk
 #NoTrayIcon
 
+;{{{ TODOs
 ;TODO make scorecard faster
 ; Delete filler text from Magic Faux MS_Word
 ; Auto-expand all pluses in the left-hand side
@@ -15,6 +16,8 @@
 ;TODO make x button red (pale)
 
 ;TODO deactivate capslock at the beginning of each macro
+;TODO make a macro that test their site and determines if the site is going slower than normal
+;}}}
 
 ;{{{Globals and making the gui (one-time tasks)
 cityChoices=Tampa|Ft. Lauderdale|Orlando|Jacksonville
@@ -38,6 +41,7 @@ Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry
 Gui, Add, Button, , Ready To Invoice
 Gui, Add, Button, x10  y160, Record for Cameron
+Gui, Add, Button, x10  y190, Test Something
 Gui, Add, Button, x110 y6  , x
 
 Gui, Show, , Firefly Shortcuts
@@ -436,6 +440,12 @@ else
 return
 ;}}}
 
+;{{{ ButtonTestSomething:
+ButtonTestSomething:
+CantFindTopOfFirefoxPage()
+return
+;}}}
+
 
 ;{{{ functions
 ss()
@@ -472,7 +482,13 @@ CantFocusNecessaryWindow(window)
 CantFindTopOfFirefoxPage()
 {
    ;TODO do some clicking to scroll up
-   if NOT SimpleImageSearch("images/firefly/topOfPage.bmp")
+
+   topOfPageIsVisible := SimpleImageSearch("images/firefly/HomeTab.bmp")
+      OR SimpleImageSearch("images/firefly/AffidavitsTab.bmp")
+      OR SimpleImageSearch("images/firefly/topOfPage.bmp")
+      OR SimpleImageSearch("images/firefly/topOfPage2.bmp")
+
+   if NOT topOfPageIsVisible
    {
       errord("", "can't find the top of the page in firefox")
       RecoverFromMacrosGoneWild()
@@ -506,6 +522,11 @@ EndOfMacro()
 ;Send an email without doing any of the complex queuing stuff
 SendEmailFromMelinda(sSubject, sBody, sAttach="", sTo="Erica.Jordan@fireflylegal.com")
 {
+   if (A_ComputerName != "BAUSTIAN-09PC")
+   {
+      errord(A_ComputerName, "The macro would normally send an email at this point, but since this is not the home computer, sending the email will be skipped", A_ThisFunc, A_LineNumber, A_ScriptName)
+      return
+   }
    sUsername := "melindabaustian"
    sPassword := SexPanther("melinda")
    sReplyTo:="melindabaustian@gmail.com"

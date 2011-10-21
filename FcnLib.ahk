@@ -707,6 +707,10 @@ CloseDifficultApps()
 
 CloseDifficultAppsAllScreens()
 {
+   DetectHiddenWindows, On
+   WinShow, SK Sync Server Version 1.0.01A ahk_class SunAwtFrame
+   WinClose, SK Sync Server Version 1.0.01A ahk_class SunAwtFrame
+
    Loop 5
       Send, {BROWSER_BACK}
 
@@ -717,19 +721,22 @@ CloseDifficultAppsAllScreens()
       Send, {BROWSER_FORWARD}
    }
 
-   Process, WaitClose, ssms.exe, 5
-   Process, Close, ssms.exe
-   Process, WaitClose, vmware-vmx.exe, 5
-   Process, Close, vmware-vmx.exe
-   Process, WaitClose, vmplayer.exe, 5
-   Process, Close, vmplayer.exe
-   Process, Close, FindAndRunRobot.exe
-   Process, Close, dsidebar.exe
-   Process, Close, hpupdate.exe
-   WinClose, SK Sync Server Version 1.0.01A ahk_class SunAwtFrame
+   ;NOTES: forcefield.exe is the stupid thing that comes with ZoneAlarm
+   listOstuff = ssms.exe,vmware-vmx.exe,vmplayer.exe,FindAndRunRobot.exe,dsidebar.exe,hpupdate.exe,java.exe,ping.exe,ForceField.exe
 
-   ;close the stupid thing that comes with ZoneAlarm
-   Process, Close, ForceField.exe
+   Loop, parse, listOstuff, CSV
+      ProcessCloseAll(A_LoopField)
+
+   ;Process, Close, ssms.exe
+   ;Process, Close, vmware-vmx.exe
+   ;Process, Close, vmplayer.exe
+   ;Process, Close, FindAndRunRobot.exe
+   ;Process, Close, dsidebar.exe
+   ;Process, Close, hpupdate.exe
+   ;ProcessCloseAll("java.exe")
+   ;ProcessCloseAll("ping.exe")
+
+   ;Process, Close, ForceField.exe
 }
 
 ;WRITEME
@@ -1450,7 +1457,8 @@ ThreadedMsgbox(message)
 ;tells the name of the lead computer
 LeadComputer()
 {
-   return "BAUSTIAN-09PC"
+   return "PHOSPHORUS"
+   ;return "BAUSTIAN-09PC"
 }
 
 MultiWinWait(successWin, successWinText, failureWin, failureWinText)
@@ -1821,4 +1829,7 @@ PrettyTickCount(timeInMilliSeconds)
 
 
 ;WRITEME unit tests for RunIMacro()
+
+
+;WRITEME monitor the dlb racing site to see if events are filling up
 

@@ -8,5 +8,7 @@ MintTouch()
 if (A_ComputerName="PHOSPHORUSVM")
 {
    Sleep, 500
-   ProcessClose("firefox.exe")
+   ProcessCloseAll("firefox.exe")
+   ProcessCloseAll("firefoxPortable.exe")
 }
+ExitApp

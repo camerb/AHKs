@@ -12,8 +12,11 @@
 ;TODO add in a "hide" option that will winhide the window
 RuniMacro(script="URL GOTO=nascar.com", options="")
 {
+   SetTitleMatchMode, RegEx
    ;vars we'll use later
    firefoxWindow=Mozilla Firefox ahk_class Mozilla(UI)?WindowClass
+   ;iMacroFile=%A_MyDocuments%\iMacros\Macros\ahkScripted.iim
+   iMacroFile=C:\WINDOWS\Temp\iMacros\ahkScripted.iim
 
    ;make the lockfile
    startTime := CurrentTime("hyphenated")
@@ -21,22 +24,19 @@ RuniMacro(script="URL GOTO=nascar.com", options="")
    FileCreate(startTime, lockfile)
 
    ;tweak the script so that is will cooperate/communicate with AHK
-   iMacroFile=%A_MyDocuments%\iMacros\Macros\ahkScripted.iim
-   /*
-   TAB CLOSEALLOTHERS
-   TAB CLOSE
-   TAB T=1
-   */
    script=
    (
-   TAB CLOSE
+   TAB CLOSEALLOTHERS
+   'TAB CLOSE
+   'TAB T=1
    %script%
    FILEDELETE NAME=%lockfile%
    )
+   FileCreate(script, iMacroFile)
 
    ;figure out where the firefox install is
-   ;ffList:="C:\Program Files\Mozilla Firefox 4.0 Beta 4\firefox.exe,C:\Program Files\Mozilla Firefox\firefox.exe,C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
-   ffList:="C:\Dropbox\Programs\FirefoxPortable\FirefoxPortable.exe,C:\Program Files\Mozilla Firefox 4.0 Beta 4\firefox.exe,C:\Program Files\Mozilla Firefox\firefox.exe,C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
+   ffList:="C:\Program Files\Mozilla Firefox 4.0 Beta 4\firefox.exe,C:\Program Files\Mozilla Firefox\firefox.exe,C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
+   ;ffList:="C:\Dropbox\Programs\FirefoxPortable\FirefoxPortable.exe,C:\Program Files\Mozilla Firefox 4.0 Beta 4\firefox.exe,C:\Program Files\Mozilla Firefox\firefox.exe,C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
    Loop, parse, ffList, CSV
    {
       if FileExist(A_LoopField)
@@ -54,36 +54,26 @@ RuniMacro(script="URL GOTO=nascar.com", options="")
    if InStr(firefoxPath, "FirefoxPortable")
       usingPortableVersion:=true
 
-   if usingPortableVersion
-      iMacroFile=C:\WINDOWS\Temp\iMacros\ahkScripted.iim
-   else
-      iMacroFile=%A_MyDocuments%\iMacros\Macros\ahkScripted.iim
-
-   FileCreate(script, iMacroFile)
-   Sleep, 1000
-
    ;if usingPortableVersion
    ;{
-      ;ProcessCloseAll("firefox.exe")
+      ;;ProcessCloseAll("firefox.exe")
       ;if NOT ProcessExist("FirefoxPortable.exe")
          ;Run,  "%firefoxPath%"
    ;}
    ;else
    ;{
-      if NOT ProcessExist("firefox.exe")
+      if NOT ( ProcessExist("firefox.exe") OR ProcessExist("FirefoxPortable.exe") )
          Run,  "%firefoxPath%"
-         ;RunProgram("Firefox")
    ;}
 
    ;show the window in the correct location
    ForceWinFocus(firefoxWindow)
-   Sleep, 1000
-   ;Sleep, 200
-   ;WinRestore, %firefoxWindow%
-   ;Sleep, 200
-   ;WinRestore, %firefoxWindow%
-   ;Sleep, 200
-   ;WinMove, %firefoxWindow%, , 0, 0, 1766, 924
+   Sleep, 200
+   WinRestore, %firefoxWindow%
+   Sleep, 200
+   WinRestore, %firefoxWindow%
+   Sleep, 200
+   WinMove, %firefoxWindow%, , 0, 0, 1766, 924
 
    ;FIXME something in here always makes it create a new firefox window on the home pc... why is that?
 
@@ -94,9 +84,9 @@ RuniMacro(script="URL GOTO=nascar.com", options="")
    WaitFileNotExist(lockfile)
 
    ;close the iMacros panel
-   ;ToggleIMacrosPanel()
+   ToggleIMacrosPanel()
    FileCreate("'this is where imacros are saved temporarily", iMacroFile)
-   Sleep, 1000
+   Sleep, 5000
 }
 
 iMacroUrlDownloadToVar(url="")

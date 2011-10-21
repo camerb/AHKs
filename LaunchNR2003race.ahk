@@ -47,6 +47,16 @@ ChangeLogitechWheelMode()
 {
    ;Tell the logitech profiler to go into NR2003 mode so that I don't have combined pedals
    Run, "C:\Program Files\Logitech\Profiler\LWEmon.exe"
+
+   WinWait, Logitech Profiler
+   IfWinExist, , Logitech Profiler was unable to detect any game controllers.
+   {
+      debug("CONNECT THE STERRING WHEEL")
+      WinActivate, Logitech Profiler
+      WinActivate, , Logitech Profiler was unable to detect any game controllers.
+      WinWaitClose, , Logitech Profiler was unable to detect any game controllers., 120
+   }
+
    ForceWinFocus("Logitech Profiler")
    ;Send, {ALT}ps{ENTER}
    Send, {ALT}

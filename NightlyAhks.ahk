@@ -94,6 +94,7 @@ if (A_ComputerName="PHOSPHORUSVM")
 
 ;===done with nightly tasks... lets start things back up again
 RunThisNightlyAhk(1, "StartIdleAhks.ahk")
+ProcessCloseAll("firefoxPortable.exe")
 
 ;RunThisNightlyAhk(2, "MoveMouseAcrossEntireScreen.ahk")
 

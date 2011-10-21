@@ -1,24 +1,25 @@
 #include FcnLib.ahk
 #include FcnLib-Nightly.ahk
 
-;Test Lynx
+;making a nifty way to upload screenshots to imgin.it
+;got the upload working but haven't messed with generating the image yet
 
-iMacro=
+ProcessCloseAll("firefox.exe")
+
+filePath=C:\Dropbox\AHKs\images\firebug\reloadButton.bmp
+imacro=
 (
 VERSION BUILD=7401004 RECORDER=FX
-TAB T=1
-URL GOTO=http://t-800/cgi/checkhome.plx
-TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:Login_Form ATTR=NAME:UserID CONTENT=security
-SET !ENCRYPTION NO
-TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:Login_Form ATTR=NAME:Password CONTENT=test
-TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:Login_Form ATTR=NAME:Enter&&VALUE:Enter<SP>Site
-URL GOTO=t-800/cgi/sendmessage.plx
-TAG POS=1 TYPE=TEXTAREA FORM=ACTION:/cgi/sendmessage.plx ATTR=NAME:Also CONTENT=CPU/%A_ComputerName%
-TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/cgi/sendmessage.plx ATTR=NAME:Subject CONTENT=test<SP>message
-TAG POS=1 TYPE=INPUT:SUBMIT FORM=ACTION:/cgi/sendmessage.plx ATTR=NAME:SUBMIT&&VALUE:Send<SP>Message
+URL GOTO=http://www.imgin.it/
+TAG POS=1 TYPE=INPUT:FILE FORM=ACTION:/ ATTR=ID:localUP CONTENT=%filePath%
+TAG POS=1 TYPE=INPUT:IMAGE FORM=ID:form_up ATTR=ID:subir
 )
-RunIMacro(iMacro)
+RunIMacro(imacro)
+page:=iMacroUrlDownloadToVar()
 
-WinWaitActive, Lynx Alert
-Send, ^w
-debug("lynx tests passed")
+;needle=href="([^"]*)"[^>]>URL:
+needle=(href="([^"]*)"[^>]*\>URL\:)
+
+RegExMatch(page, needle, match)
+Clipboard := match2
+debug("The image URL has been placed on the clipboard")
