@@ -74,7 +74,7 @@ if (A_ComputerName = LeadComputer())
    ;RunAhkAndBabysit("CreateFinancialPieChart.ahk")
    RunThisNightlyAhk(2, "CheckDropboxForConflictedCopies.ahk")
    ;SleepMinutes(15)
-   CloseIMacrosPanel()
+   ToggleIMacrosPanel()
 }
 
 if (A_ComputerName="PHOSPHORUS")
@@ -106,6 +106,7 @@ if (A_ComputerName="PHOSPHORUS")
 }
 
 ;make a list of all the ahks that didn't end gracefully
+;TODO switch this to IniListAllKeys()
 Loop, C:\Dropbox\AHKs\*.ahk
 {
    time:=IniRead(ini, "RunAhkAndBabysit.ahk", A_LoopFileName)

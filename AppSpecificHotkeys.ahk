@@ -354,9 +354,11 @@ F5::
 ;refresh visdir in ghetto ways
 ProcessClose("VisDir.exe")
 RunProgram("VisDir.exe")
-ForceWinFocus("Visdir Free Disk Space Finder")
-ForceWinFocus("Select what to scan")
 Sleep, 100
+ForceWinFocus("Visdir Free Disk Space Finder")
+Sleep, 100
+ForceWinFocus("Select what to scan")
+Sleep, 500
 Click(102, 16, "control")
 Sleep, 100
 Click(49, 299, "control")

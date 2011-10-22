@@ -313,6 +313,7 @@ MouseMoveRandom()
    Random, yCoordinate, 0, winHeight
    MouseMove, xCoordinate, yCoordinate
 }
+;deprecated:
 MoveToRandomSpotInWindow()
 {
 MouseMoveRandom()
@@ -1832,4 +1833,8 @@ PrettyTickCount(timeInMilliSeconds)
 
 
 ;WRITEME monitor the dlb racing site to see if events are filling up
+
+
+;WRITEME cpan4ahk ... a site that will give you links to all the pages of ahk libs and scripts
+;WRITEME need to make a script that will parse the XMLdocs in IA and make nifty HTML pages out of them
 

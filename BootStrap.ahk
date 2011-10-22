@@ -1,6 +1,7 @@
 #include FcnLib.ahk
 
-Run, Startup%A_ComputerName%.ahk
+startupAhk=Startup%A_ComputerName%.ahk
+RunAhk(startupAhk)
 
 RunAhk("StartIdleAhks.ahk")
 

@@ -118,26 +118,6 @@ iMacroUrlDownloadToVar(url="")
    return returned
 }
 
-OpenIMacrosPanel()
-{
-   ForceWinFocus("Firefox")
-   while NOT SimpleImageSearch("images/imacros/imacrosLargeLogo2.bmp")
-   {
-      ClickIfImageSearch("images/imacros/imacrosIcon.bmp")
-      ClickIfImageSearch("images/imacros/imacrosIcon2.bmp")
-      MouseMoveRandom() ;, 0, 0
-      Sleep, 500
-   }
-}
-
-CloseIMacrosPanel()
-{
-   ForceWinFocus("Firefox")
-   OpenIMacrosPanel()
-   ClickIfImageSearch("images/imacros/imacrosIcon.bmp")
-   ClickIfImageSearch("images/imacros/imacrosIcon2.bmp")
-}
-
 ToggleIMacrosPanel()
 {
    ControlSend, , {F8}, Mozilla Firefox
