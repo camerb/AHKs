@@ -1838,3 +1838,6 @@ PrettyTickCount(timeInMilliSeconds)
 ;WRITEME cpan4ahk ... a site that will give you links to all the pages of ahk libs and scripts
 ;WRITEME need to make a script that will parse the XMLdocs in IA and make nifty HTML pages out of them
 
+
+;WRITEME make a nifty MP3 youtube downloader that will access snipmp3.com
+
