@@ -16,7 +16,7 @@
 ;TODO make x button red (pale)
 
 ;TODO deactivate capslock at the beginning of each macro
-;TODO make a macro that test their site and determines if the site is going slower than normal
+;TODO make a macro that tests their site and determines if the site is going slower than normal
 ;}}}
 
 ;{{{Globals and making the gui (one-time tasks)
