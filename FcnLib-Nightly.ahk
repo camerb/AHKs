@@ -118,6 +118,7 @@ iMacroUrlDownloadToVar(url="")
    return returned
 }
 
+;I'm thinking this should generally be discouraged (the hotkey is configurable)
 ToggleIMacrosPanel()
 {
    ControlSend, , {F8}, Mozilla Firefox

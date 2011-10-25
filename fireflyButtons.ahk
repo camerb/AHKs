@@ -39,7 +39,8 @@ Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry
-Gui, Add, Button, , Ready To Invoice
+Gui, Color, 0xdd0000, ;0x00dd00
+Gui, Add, Button, -Background0x0000dd, Ready To Invoice
 Gui, Add, Button, x10  y160, Record for Cameron
 Gui, Add, Button, x10  y190, Test Something
 Gui, Add, Button, x110 y6  , x
