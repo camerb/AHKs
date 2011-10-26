@@ -10,10 +10,7 @@
 ;TODO change text in the MS-Word lookalike program (cause their template is wrong)
 ;TODO make basic fees gui
 ;TODO make in-depth fees gui
-
-;TODO make ready to invoice button yellow
 ;TODO make background blueish to match sidebar
-;TODO make x button red (pale)
 
 ;TODO deactivate capslock at the beginning of each macro
 ;TODO make a macro that tests their site and determines if the site is going slower than normal
@@ -39,7 +36,7 @@ Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry
-Gui, Color, 0xdd0000, ;0x00dd00
+;Gui, Color, 0xdd0000, ;0x00dd00
 Gui, Add, Button, -Background0x0000dd, Ready To Invoice
 Gui, Add, Button, x10  y160, Record for Cameron
 Gui, Add, Button, x10  y190, Test Something
@@ -104,7 +101,12 @@ return
 
 ;{{{ButtonReadyToInvoice:
 ButtonReadyToInvoice:
+
+if DoesntWantToRunMacro("Ready To Invoice")
+   return
+
 StartOfMacro()
+
 BlockInput, MouseMove
 
 if CantFocusNecessaryWindow(firefox)
@@ -443,7 +445,9 @@ return
 
 ;{{{ ButtonTestSomething:
 ButtonTestSomething:
-CantFindTopOfFirefoxPage()
+debug("starting to test something")
+iniPP(A_ThisLabel)
+debug("finished testing something")
 return
 ;}}}
 
@@ -501,23 +505,69 @@ CantFindTopOfFirefoxPage()
       Click(1753, 104, "control")
 }
 
-RecoverFromMacrosGoneWild()
+
+DoesntWantToRunMacro(macroName="")
 {
+   if NOT macroName
+      macroName:=GetButtonName()
+   message=You clicked the %macroName% button, do you really want to continue?
+
+   MsgBox, 4, , %message%
+   IfMsgBox, No
+   {
+      RecoverFromMacrosGoneWild("aborting macro (user decided they didn't want to run it)", "nolog")
+      return true
+   }
+}
+
+;TODO maybe this should be moved into the fcn lib?
+GetButtonName()
+{
+   returned:=RegExReplace(A_ThisLabel, "([A-Z])", " $1")
+   returned:=StringReplace(returned, "Button")
+   returned:=RegExReplace(returned, "^ +")
+   return returned
+}
+
+RecoverFromMacrosGoneWild(message="", options="")
+{
+   iniPP(A_ThisFunc)
+   if InStr(options, "screenshot")
+      SaveScreenShot(A_ScriptName . "-" . message)
+
    EndOfMacro()
    ;do I want errord? or do I want a msgbox? ;prolly not msgbox cause we might want to log it
-   ;do I want to take a screenshot?
+
+   if message
+      errord(options, message, A_ScriptName, A_ThisFunc, A_LineNumber)
 }
 
 StartOfMacro()
 {
+   iniPP("PressedAButton") ;yeah, we're basically denoting this twice in a row (PressedAButton will always equal StartOfMacro), but this will make the stats file more readable
+   iniPP(A_ThisFunc)
+   iniPP(A_ThisLabel) ;make a note that we pressed the button to start this macro
    SetCapsLockState, Off
    ArrangeWindows()
 }
 
 EndOfMacro()
 {
+   iniPP(A_ThisFunc)
    BlockInput, MouseMoveOff
    ;should I log some stuff to an INI?
+}
+
+ini()
+{
+   return GetPath("FireflyStats.ini")
+}
+
+iniPP(itemTracked)
+{
+   value := IniRead(ini(), "", itemTracked)
+   value++
+   IniWrite(ini(), "", itemTracked, value)
 }
 
 ;Send an email without doing any of the complex queuing stuff
