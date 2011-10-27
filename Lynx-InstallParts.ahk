@@ -309,7 +309,7 @@ InstallApache()
 {
    delog("", "started function", A_ThisFunc)
    SleepSeconds(20)
-   Run, C:\LynxCD\Server 7.11\Setup\apache_2.2.8-win32-x86-openssl-0.9.8g.msi
+   Run, C:\LynxCD\Server 7.11\inetpub\tools\apache\apache.msi
    SleepSeconds(9)
 
    ;ForceWinFocus("Apache")

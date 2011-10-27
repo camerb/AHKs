@@ -1,0 +1,1 @@
+;WRITEME macro for scanning multiple pages at home

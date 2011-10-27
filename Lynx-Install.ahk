@@ -30,6 +30,7 @@ if (A_ScreenWidth > 1280)
    delog("", "WARNING: The Lynx Server Install is designed to run on the physical machine, is appears as if you are running the script while logged in through Remote Desktop. The installation will continue, but proceed carefully.`n`nPress ESC at any time to cancel.")
 
 debug("Starting Lynx Server Installation`n`nPress ESC at any time to cancel.")
+delog("Starting Lynx Server Installation (In-house Installer)")
 
 ;TODO send email status message
 ;SendEmailNow("Lynx Install Starting", "there is a lynx install that is starting up right now")

@@ -102,7 +102,7 @@ return
 ;{{{ButtonReadyToInvoice:
 ButtonReadyToInvoice:
 
-if DoesntWantToRunMacro("Ready To Invoice")
+if DoesntWantToRunMacro()
    return
 
 StartOfMacro()
@@ -565,9 +565,14 @@ ini()
 
 iniPP(itemTracked)
 {
-   value := IniRead(ini(), "", itemTracked)
+   ;I'm thinking that the section should either be the computer name or the date
+   ini:=ini()
+   section:=A_ComputerName
+   key:=itemTracked
+
+   value := IniRead(ini, section, key)
    value++
-   IniWrite(ini(), "", itemTracked, value)
+   IniWrite(ini, section, key, value)
 }
 
 ;Send an email without doing any of the complex queuing stuff
