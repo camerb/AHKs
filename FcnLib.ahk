@@ -1843,3 +1843,6 @@ PrettyTickCount(timeInMilliSeconds)
 
 ;WRITEME make a nifty MP3 youtube downloader that will access snipmp3.com
 
+
+;WRITEME macro for scanning multiple pages at home
+

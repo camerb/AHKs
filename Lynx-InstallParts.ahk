@@ -314,25 +314,35 @@ InstallApache()
 
    ;ForceWinFocus("Apache")
    SleepSeconds(1)
-   WinLogActiveStats(A_ThisFunc, A_LineNumber)
+   WinWaitActive, , Installation Wizard
+   WinGetText, winText, A
+   RegExMatch(winText, "Apache HTTP Server [0-9.]*", match)
+   delog("", "installing web server version:", match)
+   ;WinLogActiveStats(A_ThisFunc, A_LineNumber)
+
    SleepSend("!n")
    ClickButton("&accept")
    ;WinLogActiveStats(A_ThisFunc, A_LineNumber)
-   ;SleepSend("!a")
-   WinLogActiveStats(A_ThisFunc, A_LineNumber)
    SleepSend("!n")
-   WinLogActiveStats(A_ThisFunc, A_LineNumber)
+   SleepSeconds(1)
+   ;WinLogActiveStats(A_ThisFunc, A_LineNumber)
    SleepSend("!n")
-   WinLogActiveStats(A_ThisFunc, A_LineNumber)
+   SleepSeconds(1)
+   ;WinLogActiveStats(A_ThisFunc, A_LineNumber)
    SleepSend("!n")
-   WinLogActiveStats(A_ThisFunc, A_LineNumber)
+   SleepSeconds(1)
+   WinLogActiveStats(A_ThisFunc, "joe")
    SleepSend("!n")
-   WinLogActiveStats(A_ThisFunc, A_LineNumber)
+   SleepSeconds(1)
+   WinLogActiveStats(A_ThisFunc, "sam")
    SleepSend("!n")
-   WinLogActiveStats(A_ThisFunc, A_LineNumber)
+   SleepSeconds(1)
+   WinLogActiveStats(A_ThisFunc, "bob")
    SleepSend("!i")
    WinWaitActive, , The Installation Wizard has successfully installed Apache
    SleepSend("!f")
+   ;need to do &Domain &Server &Email
+   ;fake.com     server.fake.com    admin@fake.com
 
    SleepSeconds(1)
    FileCopy("C:\LynxCD\Server 7.11\Setup\httpd.conf", "C:\Program Files (x86)\Apache Software Foundation\Apache2.2\conf\httpd.conf", "overwrite")
