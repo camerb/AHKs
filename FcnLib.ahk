@@ -1846,3 +1846,6 @@ PrettyTickCount(timeInMilliSeconds)
 
 ;WRITEME macro for scanning multiple pages at home
 
+
+;WRITEME NANY idea: screenshot sharing app that will let you quickly share a screenshot on imgin.it
+

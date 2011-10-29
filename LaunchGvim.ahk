@@ -1,18 +1,36 @@
 #include FcnLib.ahk
 
-fatalIfNotThisPC("BAUSTIAN-09PC")
+;exit if this computer shouldn't run this macro
+if (A_ComputerName = "BAUSTIAN-09PC")
+{
+}
+else if (A_ComputerName = "T-800")
+{
+}
+else
+{
+   fatalErrord(A_ComputerName, A_ScriptName, "macro not designed for this computer")
+}
 
-Process, Exist, WinSplit.exe
-if NOT ErrorLevel
-   RunProgram("WinSplit.exe")
+;start of the actual macro... this was originally written just for baustian-09pc
+;fatalIfNotThisPC("BAUSTIAN-09PC")
+if (A_ComputerName = "BAUSTIAN-09PC")
+{
+   ProcessExist("WinSplit.exe")
+   if NOT ErrorLevel
+      RunProgram("WinSplit.exe")
+}
 
 ;TODO check if GVIM window already exists?
-;Process, Exist, gvim.exe
+;ProcessExist("gvim.exe")
 ;if ErrorLevel
    ;ExitApp
 
 Run, C:\Dropbox\Programs\Vim\vim72\gvim.exe, C:\Dropbox\AHKs
 ;debug(A_WorkingDir)
 
-ForceWinFocus("GVIM", "Contains")
-SendInput, ^!{NUMPAD5}{F2}^w{RIGHT}{;}q{ENTER}
+if (A_ComputerName = "BAUSTIAN-09PC")
+{
+   ForceWinFocus("GVIM", "Contains")
+   SendInput, ^!{NUMPAD5}{F2}^w{RIGHT}{;}q{ENTER}
+}
