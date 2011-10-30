@@ -62,5 +62,5 @@ GrabDataFromPage(page, id)
 
    ;debug(matchid, nickname, balance)
 
-   NightlyStats(nickname, balance)
+   NightlyStats(nickname, balance, "noemail")
 }

@@ -1645,17 +1645,24 @@ CommandPromptCopy()
 ;write all this info out to the ini, csv and morning status email
 ;create the csv files afterward (pull the info from from the ini)
 ;;;TODO we could come up with the var name by getting rid of spaces
-NightlyStats(title, data)
+NightlyStats(title, data, options="")
 {
+   shouldEmail:=true
+
    if (title == "" OR data == "")
       return
+
+   if InStr(options, "noemail")
+      shouldEmail:=false
 
    ini:=GetPath("NightlyStats.ini")
    date:=CurrentTime("hyphendate")
 
    IniWrite(ini, date, title, data)
    IniWrite(ini, "MostRecent", title, data)
-   MorningStatusAppend(title, data)
+
+   if shouldEmail
+      MorningStatusAppend(title, data)
 }
 
 ;FIXME
