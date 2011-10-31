@@ -1,7 +1,6 @@
 #include FcnLib.ahk
 
-Additional Comments:
-Property is owner occupied.
+Did you ask what it takes to qualify? How did the agent respond?
 
 
 

@@ -10,6 +10,7 @@
 ;TODO error message is imacros is not installed
 ;TODO error message if firefox is not installed
 ;TODO add in a "hide" option that will winhide the window
+;TODO needs unit tests
 RuniMacro(script="URL GOTO=nascar.com", options="")
 {
    ;vars we'll use later

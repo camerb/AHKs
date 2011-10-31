@@ -138,12 +138,11 @@ if (A_Hour=13 AND A_Min=30 AND A_Sec=0)
          sendEmail("Update your jira tasks (completed and workmorrow)", "http://jira.mitsi.com`n`nMessage sent by bot")
 }
 
-;if (A_Hour=14 AND A_Min=50 AND A_Sec=0)
-;{
-;   if (A_ComputerName="PHOSPHORUS")
-;      if A_WDay BETWEEN 2 AND 6
-;         sendEmail("Update Timesheet", "http://timesheet.mitsi.com`n`nMessage sent by bot")
-;}
+if (A_WDay=4 AND A_Hour=10 AND A_Min=0 AND A_Sec=0)
+{
+   if (A_ComputerName="PHOSPHORUS")
+      sendEmail("Fantasy Nascar", "http://fantasygames.nascar.com/streak`n`nMake your fantasy picks", "", "cameronbaustian@gmail.com;melindabaustian@gmail.com")
+}
 
 if (A_WDay=5 AND A_Hour=10 AND A_Min=0 AND A_Sec=0)
 {

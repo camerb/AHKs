@@ -1,15 +1,9 @@
 #include FcnLib.ahk
 
+;NOTE: this was my attempt at trying to make the imacros lib work for several versions of firefox (this attempt mostly failed)
+
 ;Function lib for things that are too ghetto to happen during the day
 
-;{{{Basic Functions ( like RunIMacro() )
-
-;TODO turn this into something that is suitable to post as a lib
-;TODO needs better paths
-;TODO needs to depend on fewer libs
-;TODO error message is imacros is not installed
-;TODO error message if firefox is not installed
-;TODO add in a "hide" option that will winhide the window
 RuniMacro(script="URL GOTO=nascar.com", options="")
 {
    SetTitleMatchMode, RegEx
@@ -57,6 +51,7 @@ RuniMacro(script="URL GOTO=nascar.com", options="")
    ;if usingPortableVersion
    ;{
       ;;ProcessCloseAll("firefox.exe")
+      ;NOTE the issue here is that sometimes FirefoxPortable runs with the process name "firefox.exe" and sometimes it is "FirefoxPortable.exe"
       ;if NOT ProcessExist("FirefoxPortable.exe")
          ;Run,  "%firefoxPath%"
    ;}
@@ -89,94 +84,3 @@ RuniMacro(script="URL GOTO=nascar.com", options="")
    Sleep, 5000
 }
 
-iMacroUrlDownloadToVar(url="")
-{
-   if (url != "")
-      GoToUrlCommand=URL GOTO=%url%
-
-   folder=C:\Dropbox\AHKs\gitExempt\
-   file=savedPageSource.html
-   path=%folder%%file%
-   imacro=
-   (
-   %GoToUrlCommand%
-   SAVEAS TYPE=HTM FOLDER=%folder% FILE=%file%
-   )
-   RuniMacro(imacro)
-   returned := FileRead(path)
-   FileDelete(path)
-   return returned
-}
-
-OpenIMacrosPanel()
-{
-   ForceWinFocus("Firefox")
-   while NOT SimpleImageSearch("images/imacros/imacrosLargeLogo2.bmp")
-   {
-      ClickIfImageSearch("images/imacros/imacrosIcon.bmp")
-      ClickIfImageSearch("images/imacros/imacrosIcon2.bmp")
-      MouseMoveRandom() ;, 0, 0
-      Sleep, 500
-   }
-}
-
-CloseIMacrosPanel()
-{
-   ForceWinFocus("Firefox")
-   OpenIMacrosPanel()
-   ClickIfImageSearch("images/imacros/imacrosIcon.bmp")
-   ClickIfImageSearch("images/imacros/imacrosIcon2.bmp")
-}
-
-ToggleIMacrosPanel()
-{
-   ControlSend, , {F8}, Mozilla Firefox
-}
-;}}}
-
-;{{{ Mint Functions
-MintLogIn()
-{
-   panther:=SexPanther()
-   imacro=
-   (
-   VERSION BUILD=7300701 RECORDER=FX
-   URL GOTO=https://wwws.mint.com/login.event?task=L
-   TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:loginUserSubmit.xevent ATTR=ID:form-login-username CONTENT=cameronbaustian@gmail.com
-   SET !ENCRYPTION NO
-   TAG POS=1 TYPE=INPUT:PASSWORD FORM=ACTION:loginUserSubmit.xevent ATTR=ID:form-login-password CONTENT=%panther%
-   TAG POS=1 TYPE=LI ATTR=ID:log_in
-   TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:form-login ATTR=VALUE:Log<SP>In
-   TAG POS=1 TYPE=A ATTR=TXT:Transactions
-   URL GOTO=https://wwws.mint.com/transaction.event
-   )
-
-   RuniMacro(imacro)
-}
-
-MintGetTransactionCsvs()
-{
-   imacro=
-   (
-   VERSION BUILD=7300701 RECORDER=FX
-   URL GOTO=https://wwws.mint.com/transaction.event
-   TAG POS=1 TYPE=A ATTR=TXT:Transactions
-   ONDOWNLOAD FOLDER=C:\Dropbox\AHKs\GitExempt\mint_export\ FILE={{!NOW:yyyy-mm-dd}}.csv WAIT=YES
-   TAG POS=1 TYPE=A ATTR=ID:transactionExport
-   )
-
-   RuniMacro(imacro)
-}
-
-MintTouch()
-{
-   imacro=
-   (
-   VERSION BUILD=7300701 RECORDER=FX
-   URL GOTO=https://wwws.mint.com/overview.event
-   TAG POS=1 TYPE=A ATTR=ID:module-accounts-update
-   )
-
-   RuniMacro(imacro)
-}
-;}}}
