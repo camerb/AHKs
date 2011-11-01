@@ -306,6 +306,15 @@ IfWinExist, TGitCache, error
    if ForceWinFocusIfExist("TGitCache")
       Send, !x
 
+;tortoisegit crashed
+IfWinExist, TortoiseGit status cache
+{
+   WinActivate
+   Sleep, 10
+   Send, {ENTER}
+   Sleep, 500
+}
+
 IfWinExist, Find and Run Robot ahk_class TMessageForm, OK
 {
    WinActivate

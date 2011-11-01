@@ -32,5 +32,7 @@ Run, C:\Dropbox\Programs\Vim\vim72\gvim.exe, C:\Dropbox\AHKs
 if (A_ComputerName = "BAUSTIAN-09PC")
 {
    ForceWinFocus("GVIM", "Contains")
-   SendInput, ^!{NUMPAD5}{F2}^w{RIGHT}{;}q{ENTER}
+   SendInput, ^!{NUMPAD5}
 }
+
+Send, {F2}^w{RIGHT}{;}q{ENTER}
