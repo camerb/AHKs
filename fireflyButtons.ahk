@@ -36,10 +36,10 @@ Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry
-;Gui, Color, 0xdd0000, ;0x00dd00
-Gui, Add, Button, -Background0x0000dd, Ready To Invoice
-Gui, Add, Button, x10  y160, Record for Cameron
-Gui, Add, Button, x10  y190, Test Something
+Gui, Add, Button, , Ready To Invoice
+;Gui, Add, Button, , Add Fees
+Gui, Add, Button, x10  y190, Record for Cameron
+Gui, Add, Button, x10  y220, Test Something
 Gui, Add, Button, x110 y6  , x
 
 Gui, Show, , Firefly Shortcuts
@@ -98,6 +98,78 @@ Loop
 return
 ;}}}
 
+
+;{{{ButtonAddFees:
+ButtonAddFees:
+StartOfMacro()
+
+if CantFocusNecessaryWindow(firefox)
+   return
+if CantFindTopOfFirefoxPage()
+   return
+;Gui, 2: Add, Text,, FeesThing1
+;Gui, 2: Add, Text,, FeesThing2
+;Gui, 2: Add, Text,, FeesThing3
+;Gui, 2: Add, Text,, FeesThing4
+;Gui, 2: Add, Edit, vFeesVar1 x100 y2
+;Gui, 2: Add, Edit, vFeesVar2
+;Gui, 2: Add, Edit, vFeesVar3
+;Gui, 2: Add, Edit, vFeesVar4
+;Gui, 2: Add, Button, Default x190 y110, Go
+;Gui, 2: Show, , Firefly Fees AHK Dialog
+;Gui, 2: Show
+;return
+;2ButtonGo:
+;Gui, 2: Submit
+;Gui, 2: Destroy
+;debug(FeesVar1, Feesvar2, feesvar3, feesvar4)
+
+;TODO need to click on the fees button, not sure how to figure out where that is
+;Click(496, 807, "left") ;FIXME
+ClickIfImageSearch("images/firefly/feesButton.bmp")
+WaitForImageSearch("images/firefly/viewFeesWizard.bmp")
+
+Sleep, 1000
+
+;REMOVEME
+feesvar1=45
+feesvar2=45
+feesvar3=45
+feesvar4=45
+
+list=locate,locate,locate,locate
+Loop, parse, list, CSV
+{
+   fee:=A_LoopField
+   i:=A_Index
+   thisFeeAmount:=FeesVar%i%
+   ;if (thisFeeAmount == "")
+   ;   return
+   Click(600, 667, "left")
+   ss()
+   Send, client
+   ss()
+   Click(618, 688, "left")
+   ss()
+   Click(750, 667, "left")
+   ss()
+   Send, %fee%
+   ss()
+   Click(776, 684, "left")
+   ss()
+   Click(890, 669, "left")
+   ss()
+   Send, %thisFeeAmount%
+   ;Click(611, 476, "left") ;Click Add
+   ss()
+}
+
+;this should be done after the loop
+Sleep, 1000
+Click(1246, 425, "left") ;Click the X
+
+return
+;}}}
 
 ;{{{ButtonReadyToInvoice:
 ButtonReadyToInvoice:
@@ -336,18 +408,16 @@ ButtonChangeQueue:
 ;HWND := WinExist()
 ;msgbox % hwnd
 
-Gui, 2: Add, ComboBox, vCityNew, %cityChoices%
-Gui, 2: Add, ComboBox, vClientNew, %clientChoices%
+Gui, 2: Add, ComboBox, vCity, %cityChoices%
+Gui, 2: Add, ComboBox, vClient, %clientChoices%
 Gui, 2: Add, Button, Default, Change To This Queue
 Gui, 2: Show
 return
 2ButtonChangeToThisQueue:
 Gui, 2: Submit
-city:=cityNew
-client:=clientNew
+Gui, 2: Destroy
 IniWrite(ini, "firefly", "city", city)
 IniWrite(ini, "firefly", "client", client)
-Gui, 2: Destroy
 GoSub, ButtonReloadQueue
 
 return
@@ -417,9 +487,14 @@ EndOfMacro()
 return
 ;}}}
 
-;{{{ ButtonX:
+;{{{ ButtonX: and 2ButtonX:
 ButtonX:
 ExitApp
+return
+
+;FIXME not sure why this is broken
+2ButtonX:
+Gui, 2: Destroy
 return
 ;}}}
 
@@ -448,6 +523,7 @@ ButtonTestSomething:
 debug("starting to test something")
 iniPP(A_ThisLabel)
 debug("finished testing something")
+
 return
 ;}}}
 
