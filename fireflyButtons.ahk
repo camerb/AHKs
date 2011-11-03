@@ -11,6 +11,8 @@
 ;TODO make basic fees gui
 ;TODO make in-depth fees gui
 ;TODO make background blueish to match sidebar
+;TODO default PS Fee to $10
+;TODO validate Pinellas Fee ("" and 3 are valid, nothing else)
 
 ;TODO deactivate capslock at the beginning of each macro
 ;TODO make a macro that tests their site and determines if the site is going slower than normal
@@ -32,18 +34,30 @@ excel=(In House Process Server Scorecard|Process Server Fee Determination).*(Ope
 slowSendPauseTime=130
 ;breaks at 100,110 reliable at 120,150
 
+;figure out the coordinates where we will place the window
+xLocation=1770
+yLocation=550
+if (A_ComputerName == "T-800")
+{
+   xLocation=1129
+   yLocation=171
+}
+
 Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry
 Gui, Add, Button, , Ready To Invoice
-;Gui, Add, Button, , Add Fees
+
+if (A_ComputerName != "BAUSTIAN-09PC")
+   Gui, Add, Button, , Add Fees
+
 Gui, Add, Button, x10  y190, Record for Cameron
 Gui, Add, Button, x10  y220, Test Something
 Gui, Add, Button, x110 y6  , x
 
 Gui, Show, , Firefly Shortcuts
-WinMove, Firefly Shortcuts, , 1770, 550
+WinMove, Firefly Shortcuts, , %xLocation%, %yLocation%
 ;}}}
 
 ;{{{Persistent items (things that are checked repetitively)
@@ -107,17 +121,17 @@ if CantFocusNecessaryWindow(firefox)
    return
 if CantFindTopOfFirefoxPage()
    return
-;Gui, 2: Add, Text,, FeesThing1
-;Gui, 2: Add, Text,, FeesThing2
-;Gui, 2: Add, Text,, FeesThing3
-;Gui, 2: Add, Text,, FeesThing4
-;Gui, 2: Add, Edit, vFeesVar1 x100 y2
-;Gui, 2: Add, Edit, vFeesVar2
-;Gui, 2: Add, Edit, vFeesVar3
-;Gui, 2: Add, Edit, vFeesVar4
-;Gui, 2: Add, Button, Default x190 y110, Go
-;Gui, 2: Show, , Firefly Fees AHK Dialog
-;Gui, 2: Show
+Gui, 2: Add, Text,, Service of Process
+Gui, 2: Add, Text,, Process Server Fees
+Gui, 2: Add, Text,, Locate
+Gui, 2: Add, Text,, Pinellas County Sticker
+Gui, 2: Add, Edit, vFeesVar1 x100 y2
+Gui, 2: Add, Edit, vFeesVar2
+Gui, 2: Add, Edit, vFeesVar3
+Gui, 2: Add, Edit, vFeesVar4
+Gui, 2: Add, Button, Default x190 y110, Go
+Gui, 2: Show, , Firefly Fees AHK Dialog
+Gui, 2: Show
 ;return
 ;2ButtonGo:
 ;Gui, 2: Submit
@@ -137,12 +151,16 @@ feesvar2=45
 feesvar3=45
 feesvar4=45
 
-list=locate,locate,locate,locate
+
+list=Service of Process,Process Server Fees,Locate,Pinellas County Sticker
 Loop, parse, list, CSV
 {
    fee:=A_LoopField
    i:=A_Index
    thisFeeAmount:=FeesVar%i%
+   feeType=Client
+   if (i == 2)
+      feeType=Process Server
    ;if (thisFeeAmount == "")
    ;   return
    Click(600, 667, "left")
@@ -232,15 +250,10 @@ ss()
 ;possible issues with note being typed in wrong
 ;TODO perhaps we should copy the fields or OCR them to ensure it looks good
 ;however, if I do OCR I will need to be careful, because it is possible that that text is elsewhere on the same page
-;if NOT SimpleImageSearch("images/firefly/ghettoReadyToInvoiceNoteIsCorrect.bmp")
-;{
-   ;RecoverFromMacrosGoneWild()
-   ;msgbox, it looks like the note wasn't typed in right
-   ;return
-;}
 if NOT SimpleImageSearch("images/firefly/InterOfficeNote.bmp")
 {
    RecoverFromMacrosGoneWild()
+   iniPP("ReadyToInvoice-Error-NoteTypedIncorrectly")
    msgbox, it looks like the note type wasn't typed in right
    return
 }

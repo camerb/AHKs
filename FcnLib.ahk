@@ -809,13 +809,15 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
       silentMode := true
    if (InStr(textOrOptions, "log"))
       loggedMode := true
-   if (InStr(textOrOptions, "nolog"))
+   if (InStr(textOrOptions, "noLog"))
       loggedMode := false
    if (InStr(textOrOptions, "errord"))
    {
       errordMode := true
       displayTime = 20
    }
+   if (InStr(textOrOptions, "noTimeout"))
+      displayTime := ""
    ;TODO screenshot mode for debug() fcn
    ;if (InStr(textOrOptions, "screenshot"))
    ;{
