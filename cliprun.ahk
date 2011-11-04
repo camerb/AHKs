@@ -1,6 +1,36 @@
 #include FcnLib.ahk
 
-Did you ask what it takes to qualify? How did the agent respond?
+null
+
+
+
+ ~esc::ExitApp#include FcnLib.ahk
+
+null
+
+
+
+ ~esc::ExitApp#include FcnLib.ahk
+
+null
+
+
+
+ ~esc::ExitApp#include FcnLib.ahk
+
+null
+
+
+
+ ~esc::ExitApp#include FcnLib.ahk
+
+null
+
+
+
+ ~esc::ExitApp#include FcnLib.ahk
+
+null
 
 
 

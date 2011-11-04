@@ -1,6 +1,8 @@
 #include FcnLib.ahk
 #include C:/Dropbox/AHKs/thirdParty/cmdret.ahk
 
+fatalIfNotThisPc("PHOSPHORUS")
+
 date:=CurrentTime("hyphendate")
 releaseDir=C:\Lynx Server Installs\%date%\
 exePath=C:\Dropbox\AHKs\Lynx-Install.exe

@@ -8,10 +8,10 @@ Loop, parse, keylist, CSV
 {
    if (A_LoopField = "NetWorth")
       continue
-   ;debug(A_Loopfield)
+
    netWorth += IniRead(ini, "MostRecent", A_LoopField)
 }
 
-;debug(netWorth)
+netWorth := FormatDollar(netWorth)
 NightlyStats("NetWorth", netWorth)
 

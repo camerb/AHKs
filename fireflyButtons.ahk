@@ -141,7 +141,7 @@ Gui, 2: Show
 ;TODO need to click on the fees button, not sure how to figure out where that is
 ;Click(496, 807, "left") ;FIXME
 ClickIfImageSearch("images/firefly/feesButton.bmp")
-WaitForImageSearch("images/firefly/viewFeesWizard.bmp")
+WaitForImageSearch("images/firefly/feesWizardWindow.bmp")
 
 Sleep, 1000
 
@@ -162,7 +162,7 @@ Loop, parse, list, CSV
    if (i == 2)
       feeType=Process Server
    ;if (thisFeeAmount == "")
-   ;   return
+     ;continue
    Click(600, 667, "left")
    ss()
    Send, client
@@ -178,6 +178,7 @@ Loop, parse, list, CSV
    Click(890, 669, "left")
    ss()
    Send, %thisFeeAmount%
+   ss()
    ;Click(611, 476, "left") ;Click Add
    ss()
 }
@@ -241,7 +242,8 @@ Send, InterOfficeNote
 ss()
 Click(828, 338, "left")
 ss()
-Click(982, 409, "left")
+;click into the box so we can type the message body
+ClickMultipleTimesWithPause(982, 409, "left control", 3)
 ss()
 SendInput, Emailed Office: Ready to Invoice?
 ss()
@@ -253,16 +255,17 @@ ss()
 if NOT SimpleImageSearch("images/firefly/InterOfficeNote.bmp")
 {
    RecoverFromMacrosGoneWild()
-   iniPP("ReadyToInvoice-Error-NoteTypedIncorrectly")
-   msgbox, it looks like the note type wasn't typed in right
+   iniPP("ReadyToInvoice-Error-NoteTypedIncorrectly111")
+   msgbox, it looks like the note type wasn't typed in right (error 1)
    return
 }
-;if NOT SimpleImageSearch("images/firefly/ReadyToInvoiceNote.bmp")
-;{
-   ;RecoverFromMacrosGoneWild()
-   ;msgbox, it looks like the note text wasn't typed in right
-   ;return
-;}
+else if NOT SimpleImageSearch("images/firefly/ReadyToInvoiceNote.bmp")
+{
+   RecoverFromMacrosGoneWild()
+   iniPP("ReadyToInvoice-Error-NoteTypedIncorrectly222")
+   msgbox, it looks like the note text wasn't typed in right (error 2)
+   return
+}
 
 
 ;Click(700, 634, "left") ;Save Note
@@ -536,7 +539,6 @@ ButtonTestSomething:
 debug("starting to test something")
 iniPP(A_ThisLabel)
 debug("finished testing something")
-
 return
 ;}}}
 
@@ -685,5 +687,14 @@ SendEmailFromMelinda(sSubject, sBody, sAttach="", sTo="Erica.Jordan@fireflylegal
    nAuth     := 1   ; cdoBasic
 
    SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
+}
+
+ClickMultipleTimesWithPause(x, y, options, times)
+{
+   Loop %times%
+   {
+      Click(x, y, options)
+      ss()
+   }
 }
 ;}}}

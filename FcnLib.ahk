@@ -1592,7 +1592,7 @@ RemoveLineEndings(page)
 
 FormatDollar(amount)
 {
-   RegExMatch(amount, "(\d|,)*\.\d\d", returned)
+   RegExMatch(amount, "-?(\d|,)*\.\d\d", returned)
    returned:=RegExReplace(returned, ",", "")
    return returned
 }
@@ -1857,4 +1857,7 @@ PrettyTickCount(timeInMilliSeconds)
 
 
 ;WRITEME NANY idea: screenshot sharing app that will let you quickly share a screenshot on imgin.it
+
+
+;WRITEME bills reminder emailer
 
