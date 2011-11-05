@@ -15,6 +15,7 @@ Gui, Add, Checkbox, Checked vChoseTTS, Text-to-Speech
 Gui, Add, Checkbox, Checked vChoseIIS, IIS
 Gui, Add, Checkbox, Checked vChoseMakeDesktopShortcuts, Make Desktop Shortcuts
 Gui, Add, Checkbox, Checked vChoseLynxMessenger, Lynx Messenger
+Gui, Add, Checkbox, Checked vChoseInstallAllServices, Install All Services
 Gui, Add, Checkbox, Checked vChoseEnableIISlocalhostRelay, Enable IIS Localhost Relay
 Gui, Add, Checkbox, Checked vChoseChangeDesktopBackground, Change Desktop Background
 
@@ -66,6 +67,8 @@ if ChoseMakeDesktopShortcuts
    MakeDesktopShortcuts()
 if ChoseLynxMessenger
    InstallLynxMessenger()
+if ChoseInstallAllServices
+   InstallAllServices()
 if ChoseEnableIISlocalhostRelay
    EnableIISlocalhostRelay()
 if ChoseChangeDesktopBackground
@@ -74,12 +77,17 @@ if ChoseChangeDesktopBackground
 ;things that always need to be done
 ;  (do things that are likely to fail towards the top)
 TestBannerDotPlx()
-SendEmailNow("Lynx Install Finishing", "this lynx install is finishing up right now, here are the logs", logfile)
-FileCopy(logfile, "C:\inetpub\logs\LynxInstallLog_ahk.txt", "overwrite")
-FileRemoveDir, C:\Dropbox, 1
+CleanUpAfterLynxInstall()
 
 MsgBox, Finished with Lynx Server Install
 ExitApp ;end of install
+
+;TODO Run function with logging
+;RunFunctionWithLogging(functionName)
+;{
+   ;delog("", "started function", A_ThisFunc)
+   ;delog("", "finished function", A_ThisFunc)
+;}
 
 ;if they hit the x then close
 GuiClose:
@@ -90,9 +98,23 @@ ESC::ExitApp
 AppsKey & d::
 Gui, Destroy
 debug("log", "starting debug script")
+Loop 100
+   InstallAllServices()
+
+Loop 100
+{
+   ret := CmdRet_RunReturn("perl start-MSG-service.pl installall", "C:\inetpub\wwwroot\cgi\")
+   if NOT ret
+      nullsCount++
+}
+debug("errord", "nulls count", nullsCount)
+
+ret := CmdRet_RunReturn("perl start-MSG-service.pl installall", "C:\inetpub\wwwroot\cgi\")
+debug("errord", ret)
 WinLogActiveStats(A_ThisFunc, A_LineNumber)
 SendEmailNow("Test Message", A_ComputerName, logfile)
 debug("log", "finished debug script")
+CleanUpAfterLynxInstall()
 ExitApp
 
 #include Lynx-InstallParts.ahk

@@ -192,3 +192,17 @@ SendEmailNow(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sRepl
    SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
 }
 
+CleanUpAfterLynxInstall()
+{
+   ;if we aren't on a recognized machine
+   if NOT FileExist(GetPath("config.ini"))
+   {
+      SendEmailNow("Lynx Install Finishing", "this lynx install is finishing up right now, here are the logs", logfile)
+      FileCopy(logfile, "C:\inetpub\logs\LynxInstallLog_ahk.txt", "overwrite")
+      FileRemoveDir, C:\Dropbox, 1
+   }
+   else
+   {
+      SendEmailNow("Testing install procedures on " . A_ComputerName, "here are the logs", logfile)
+   }
+}

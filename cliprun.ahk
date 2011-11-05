@@ -1,36 +1,6 @@
 #include FcnLib.ahk
 
-null
-
-
-
- ~esc::ExitApp#include FcnLib.ahk
-
-null
-
-
-
- ~esc::ExitApp#include FcnLib.ahk
-
-null
-
-
-
- ~esc::ExitApp#include FcnLib.ahk
-
-null
-
-
-
- ~esc::ExitApp#include FcnLib.ahk
-
-null
-
-
-
- ~esc::ExitApp#include FcnLib.ahk
-
-null
+AL10-55158
 
 
 

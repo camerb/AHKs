@@ -216,7 +216,7 @@ clientFileNumber:=Clipboard
 length := strlen(clientFileNumber)
 if ( length > 10 || NOT clientFileNumber )
 {
-   msgbox, ERROR: I didn't get the client file number (scroll up, maybe?)
+   msgbox, ERROR: I didn't get the client file number (scroll up, maybe?) (error 3)
    return
 }
 
@@ -259,13 +259,14 @@ if NOT SimpleImageSearch("images/firefly/InterOfficeNote.bmp")
    msgbox, it looks like the note type wasn't typed in right (error 1)
    return
 }
-else if NOT SimpleImageSearch("images/firefly/ReadyToInvoiceNote.bmp")
-{
-   RecoverFromMacrosGoneWild()
-   iniPP("ReadyToInvoice-Error-NoteTypedIncorrectly222")
-   msgbox, it looks like the note text wasn't typed in right (error 2)
-   return
-}
+;this seems to cause some issues... odd situation... always thinks the note is typed incorrectly
+;else if NOT SimpleImageSearch("images/firefly/ReadyToInvoiceNote.bmp")
+;{
+   ;RecoverFromMacrosGoneWild()
+   ;iniPP("ReadyToInvoice-Error-NoteTypedIncorrectly222")
+   ;msgbox, it looks like the note text wasn't typed in right (error 2)
+   ;return
+;}
 
 
 ;Click(700, 634, "left") ;Save Note
@@ -296,7 +297,7 @@ ss()
 referenceNumber:=Clipboard
 if NOT RegExMatch(referenceNumber, "[0-9]{4}")
 {
-   msgbox, ERROR: I didn't get the reference number (scroll up, maybe?)
+   msgbox, ERROR: I didn't get the reference number (scroll up, maybe?) (error 4)
    return
 }
 Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
@@ -321,13 +322,13 @@ status:=Clipboard
 FormatTime, today, , M/d/yyyy
 if InStr(status, "Cancelled")
 {
-   msgbox, ERROR: It looks like this one was cancelled: %status%
+   msgbox, ERROR: It looks like this one was cancelled: %status% (error 5)
    return
 }
 
 IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
 {
-   msgbox, ERROR: The website gave us an odd error
+   msgbox, ERROR: The website gave us an odd error (error 6)
    return
 }
 
