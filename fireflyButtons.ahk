@@ -12,7 +12,6 @@
 ;TODO make in-depth fees gui
 ;TODO make background blueish to match sidebar
 ;TODO default PS Fee to $10
-;TODO validate Pinellas Fee ("" and 3 are valid, nothing else)
 
 ;TODO deactivate capslock at the beginning of each macro
 ;TODO make a macro that tests their site and determines if the site is going slower than normal
@@ -132,25 +131,35 @@ Gui, 2: Add, Edit, vFeesVar4
 Gui, 2: Add, Button, Default x190 y110, Go
 Gui, 2: Show, , Firefly Fees AHK Dialog
 Gui, 2: Show
-;return
-;2ButtonGo:
-;Gui, 2: Submit
-;Gui, 2: Destroy
+return
+2ButtonGo:
+Gui, 2: Submit
+Gui, 2: Destroy
 ;debug(FeesVar1, Feesvar2, feesvar3, feesvar4)
 
 ;TODO need to click on the fees button, not sure how to figure out where that is
 ;Click(496, 807, "left") ;FIXME
 ClickIfImageSearch("images/firefly/feesButton.bmp")
+ss()
+ClickIfImageSearch("images/firefly/feesButton.bmp")
+ss()
+ClickIfImageSearch("images/firefly/feesButton.bmp")
+ss()
 WaitForImageSearch("images/firefly/feesWizardWindow.bmp")
 
 Sleep, 1000
 
 ;REMOVEME
-feesvar1=45
-feesvar2=45
-feesvar3=45
-feesvar4=45
+;feesvar1=45
+;feesvar2=45
+;feesvar3=45
+;feesvar4=45
 
+if NOT (feesVar3 == "" or feesVar3 == 3)
+{
+   errord("notimeout", "Pinellas County Sticker Fee should be either blank or 3")
+   return
+}
 
 list=Service of Process,Process Server Fees,Locate,Pinellas County Sticker
 Loop, parse, list, CSV
@@ -161,30 +170,39 @@ Loop, parse, list, CSV
    feeType=Client
    if (i == 2)
       feeType=Process Server
-   ;if (thisFeeAmount == "")
-     ;continue
+   if (thisFeeAmount == "")
+     continue
+
+   ;FIXME this loop works fine with 1 sec pauses
+   ;but fails with 200ms pauses
    Click(600, 667, "left")
    ss()
-   Send, client
+   Send, %feeType%
    ss()
-   Click(618, 688, "left")
+   Send, {TAB}
    ss()
-   Click(750, 667, "left")
+   ;Click(618, 688, "left") ;select the DDL item we just typed in
+   ss()
+   ;Click(750, 667, "left")
    ss()
    Send, %fee%
    ss()
-   Click(776, 684, "left")
+   Send, {TAB}
    ss()
-   Click(890, 669, "left")
+   ;Click(776, 684, "left") ;select the DDL item we just typed in
+   ss()
+   ;Click(890, 669, "left")
+   ;ss()
+   ;Send, ^a
    ss()
    Send, %thisFeeAmount%
    ss()
-   ;Click(611, 476, "left") ;Click Add
+   Click(611, 476, "left") ;Click Add
    ss()
 }
 
 ;this should be done after the loop
-Sleep, 1000
+Sleep, 2000
 Click(1246, 425, "left") ;Click the X
 
 return
@@ -260,13 +278,13 @@ if NOT SimpleImageSearch("images/firefly/InterOfficeNote.bmp")
    return
 }
 ;this seems to cause some issues... odd situation... always thinks the note is typed incorrectly
-;else if NOT SimpleImageSearch("images/firefly/ReadyToInvoiceNote.bmp")
-;{
+else if NOT SimpleImageSearch("images/firefly/ReadyToInvoiceNote.bmp")
+{
    ;RecoverFromMacrosGoneWild()
-   ;iniPP("ReadyToInvoice-Error-NoteTypedIncorrectly222")
+   iniPP("ReadyToInvoice-Error-NoteTypedIncorrectly222")
    ;msgbox, it looks like the note text wasn't typed in right (error 2)
    ;return
-;}
+}
 
 
 ;Click(700, 634, "left") ;Save Note

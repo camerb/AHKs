@@ -260,7 +260,7 @@ ClickIfImageSearch(filename, clickOptions="left mouse")
 ;}
 
 ;Wait until a certain image appears
-WaitForImageSearch(filename, variation=0, timeToWait=20, sleepTime=20) ;TODO option to exit ahk if image was not found
+WaitForImageSearch(filename, variation=0, timeToWait=60, sleepTime=20) ;TODO option to exit ahk if image was not found
 {
    if NOT FileExist(filename)
    {
@@ -279,6 +279,7 @@ WaitForImageSearch(filename, variation=0, timeToWait=20, sleepTime=20) ;TODO opt
 
       Sleep, sleepTime
    }
+   delog(A_ThisFunc, "the function was waiting for the image to appear, but timed out", filename, variation, timeToWait, sleepTime)   
 
    return false
 }
@@ -849,9 +850,18 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
    ;log the message right away
    if loggedMode
    {
-      logPath=C:\Dropbox\Public\logs
-      FileCreateDir, %logPath%
-      FileAppend, %messageTitle% %messageText%, %logPath%\%A_ComputerName%.txt
+      logMessage=%messageTitle% %messageText%
+      ;logPath=C:\Dropbox\Public\logs
+      ;logFile=%A_ComputerName%.txt
+      date := CurrentTime("hyphendate")
+      if IsMyCompy()
+         logFileFullPath=C:\Dropbox\Public\logs\%A_ComputerName%.txt
+      else
+         logFileFullPath=C:\inetpub\logs\%date%.txt
+
+      ;FileCreateDir, %logPath%
+      ;FileAppend, %logMessage%, %logFileFullPath%
+      FileAppend(logMessage, logFileFullPath)
    }
 
    ;display info to the user
@@ -1296,13 +1306,24 @@ ConcatWithSep(separator, text0, text1, text2="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", te
    return returned
 }
 
-;figure out if this computer is a VM, if no name is passed, it assumes the local machine
+;figure out if this computer is a VM
+;if no name is passed, it assumes the local machine
 IsVM(ComputerName="")
 {
    if (ComputerName=="")
       ComputerName:=A_ComputerName
 
    return !!InStr(ComputerName, "VM")
+}
+
+;figure out if this computer is one I have ownership of (determines where we put some files)
+;if no name is passed, it assumes the local machine
+IsMyCompy(ComputerName="")
+{
+   if (ComputerName=="")
+      ComputerName:=A_ComputerName
+
+   return !!RegExMatch(ComputerName, "^(PHOSPHORUS|PHOSPHORUSVM|BAUSTIAN-09PC|T-800)$")
 }
 
 ;Reload the core scripts(as if we just restarted the pc)

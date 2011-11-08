@@ -192,17 +192,26 @@ SendEmailNow(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sRepl
    SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
 }
 
-CleanUpAfterLynxInstall()
-{
-   ;if we aren't on a recognized machine
-   if NOT FileExist(GetPath("config.ini"))
-   {
-      SendEmailNow("Lynx Install Finishing", "this lynx install is finishing up right now, here are the logs", logfile)
-      FileCopy(logfile, "C:\inetpub\logs\LynxInstallLog_ahk.txt", "overwrite")
-      FileRemoveDir, C:\Dropbox, 1
-   }
-   else
-   {
-      SendEmailNow("Testing install procedures on " . A_ComputerName, "here are the logs", logfile)
-   }
-}
+;attempts to email/ftp logs back home
+;SendLogsHome()
+;{
+   ;;if we aren't on a recognized machine
+   ;if NOT FileExist(GetPath("config.ini"))
+   ;{
+      ;SendEmailNow("Lynx Install Finishing", "this lynx install is finishing up right now, here are the logs", logfile)
+      ;FileCopy(logfile, "C:\inetpub\logs\LynxInstallLog_ahk.txt", "overwrite")
+      ;FileRemoveDir, C:\Dropbox, 1
+   ;}
+   ;else
+   ;{
+      ;SendEmailNow("Testing install procedures on " . A_ComputerName, "here are the logs", logfile)
+   ;}
+;}
+
+;TODO Run function with logging
+;RunFunctionWithLogging(functionName)
+;{
+   ;delog("", "started function", A_ThisFunc)
+   ;delog("", "finished function", A_ThisFunc)
+;}
+

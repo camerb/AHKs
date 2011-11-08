@@ -77,17 +77,10 @@ if ChoseChangeDesktopBackground
 ;things that always need to be done
 ;  (do things that are likely to fail towards the top)
 TestBannerDotPlx()
-CleanUpAfterLynxInstall()
+SendEmailNow("Lynx Install Finishing", "a lynx install is finishing up now, here are the logs", logfile)
 
 MsgBox, Finished with Lynx Server Install
 ExitApp ;end of install
-
-;TODO Run function with logging
-;RunFunctionWithLogging(functionName)
-;{
-   ;delog("", "started function", A_ThisFunc)
-   ;delog("", "finished function", A_ThisFunc)
-;}
 
 ;if they hit the x then close
 GuiClose:
@@ -97,6 +90,12 @@ ESC::ExitApp
 
 AppsKey & d::
 Gui, Destroy
+
+;blah blah ==========
+debug("log", "Check to ensure the logs have been placed in C:\inetpub\logs\")
+exitapp
+;blah blah delete this area ^^^^^^^^^^^
+
 debug("log", "starting debug script")
 Loop 100
    InstallAllServices()
