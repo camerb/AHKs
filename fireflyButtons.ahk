@@ -15,6 +15,14 @@
 
 ;TODO deactivate capslock at the beginning of each macro
 ;TODO make a macro that tests their site and determines if the site is going slower than normal
+
+
+;TODO issues that melinda brought up:
+;Reload Queue is not reliable when I am in a file
+;Does not answer Y to first question on the scorecard (in Open Office)
+;Sometimes the server's name in the file does not match the name in the scorecard, can you make it so that the macro still works and just leaves the name blank on the scorecard (right now it enters all the information one field off)?
+;Can you remove the box that alerts me that I need a Service County on the scorecard (either that or make disappear after half a second)? I do not like clicking ok
+;The "Would you like to approve?" box never shows up anymore. Don't know if you would want to remove that code?
 ;}}}
 
 ;{{{Globals and making the gui (one-time tasks)

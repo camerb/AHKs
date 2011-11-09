@@ -192,6 +192,14 @@ SendEmailNow(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sRepl
    SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
 }
 
+GetClientInfo()
+{
+   ;TODO need to fileappend the perl code to client_info.plx
+
+   ret := CmdRet_RunReturn("perl client_info.plx", "C:\inetpub\wwwroot\cgi\")
+   return ret
+}
+
 ;attempts to email/ftp logs back home
 ;SendLogsHome()
 ;{
