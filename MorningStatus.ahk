@@ -1,5 +1,9 @@
 #include FcnLib.ahk
 
+;FIXME I don't really like the way I did this anymore...
+;I'm thinking that I should split this into two AHKs... one called "GetFileSystemStats"
+;and the other can stay named "MorningStatus"
+
 params=%1%
 
 if InStr(params, "GatherData")

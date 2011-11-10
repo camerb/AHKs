@@ -4,6 +4,8 @@
 ;find out what the amount of slack in the expected transactions is
 ;assume that this will serve as the maximum credit card bill amount
 
+;also figures out a rough estimate of how much we are gaining/losing per month
+
 path=C:\Dropbox\AHKs\gitExempt\
 expectedTransFile=%path%expectedTransactions-tpl.txt
 
@@ -38,16 +40,49 @@ Loop, %reTransCount%
       debits += reTrans%i%amount
 }
 
-ini=gitExempt/financial.ini
-CameronProjection := IniRead(ini, "", "CameronProjection")
-MelindaProjection := IniRead(ini, "", "MelindaProjection")
+credits := FormatDollar(credits)
+debits  := FormatDollar(debits)
+
+ini=gitExempt/NightlyStats.ini
+CameronBalance := IniRead(ini, "MostRecent", "CameronBalance")
+MelindaBalance := IniRead(ini, "MostRecent", "MelindaBalance")
+CameronProjection:=GetCreditCardProjection(CameronBalance, 22)
+MelindaProjection:=GetCreditCardProjection(MelindaBalance, 12)
+
+TotalCreditProjection:=CameronProjection-MelindaProjection
+
+debug("ERRORD NOLOG", credits, debits, CameronProjection, MelindaProjection, TotalCreditProjection)
 
 MaximumCreditBill := Format(credits-debits, "Dollar")
-MonthlyDelta := Format(credits-debits-CameronProjection-MelindaProjection, "Dollar")
+MonthlyDelta := Format(MaximumCreditBill-TotalCreditProjection, "Dollar")
+;MaximumCreditBill := FormatDollar(credits-debits)
+;MonthlyDelta := FormatDollar(MaximumCreditBill-TotalCreditProjection)
 
-IniWrite(ini, "", "MaximumCreditBill", MaximumCreditBill)
-IniWrite(ini, "", "MonthlyDelta", MonthlyDelta)
+IniWrite(ini, "MostRecent", "MaximumCreditBill", MaximumCreditBill)
+IniWrite(ini, "MostRecent", "MonthlyDelta", MonthlyDelta)
 MorningStatusAppend("MaximumCreditBill", MaximumCreditBill)
 MorningStatusAppend("MonthlyDelta", MonthlyDelta)
 
-debug("ERRORD NOLOG", "", "The projected maximum amount for the credit card bill is", MaximumCreditBill, "", "Current projection of monthly change:", MonthlyDelta)
+debug("ERRORD NOLOG", "The projected maximum amount for the credit card bill is", MaximumCreditBill, "Current projection of monthly change:", MonthlyDelta)
+
+;functions:
+
+GetCreditCardProjection(currentCreditBalance, endOfBillingCycle)
+{
+   ;do some math and get the projected CC bill
+   FormatTime, currentDay, , dd
+   daysThruBillingPeriod := mod( currentDay - endOfBillingCycle + 31, 31 )
+   percentThru := daysThruBillingPeriod / 31 * 100
+   percentLeft := 100 - percentThru
+   spentPerPercent := currentCreditBalance / percentThru
+   projectedCreditCardBill := currentCreditBalance + percentLeft * spentPerPercent
+   projectedCreditCardBill := StringTrimRight(projectedCreditCardBill, 4)
+
+   ;fix the projection if something odd is going on (like if the bill hasn't been paid yet)
+   if (currentDay == endOfBillingCycle)
+      projectedCreditCardBill := currentCreditBalance
+   if (projectedCreditCardBill > 2000)
+      projectedCreditCardBill := currentCreditBalance
+
+   return projectedCreditCardBill
+}

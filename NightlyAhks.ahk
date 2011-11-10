@@ -31,6 +31,7 @@ if NOT IsVM()
 
 RunThisNightlyAhk(3, "MintTouch.ahk")
 RunThisNightlyAhk(2, "X10HostingForumLogin.ahk")
+RunThisNightlyAhk(2, "DeleteDropboxCruft.ahk")
 RunThisNightlyAhk(1, "MorningStatus.ahk", "GatherData")
 RunThisNightlyAhk(1, "RestartDropbox.ahk")
 RunThisNightlyAhk(1, "InfiniteLoop.ahk")
@@ -53,7 +54,8 @@ if (A_ComputerName = LeadComputer())
    ;  we can tell this if a screenshot saved is only half size
    ;  or possibly just check A_ScreenWidth
 
-   RunThisNightlyAhk(2, "GetPhoneDataUsage.ahk")
+   RunThisNightlyAhk(7, "UploadAhkDotNetFiles.ahk")
+   ;RunThisNightlyAhk(2, "GetPhoneDataUsage.ahk")
    ;hypercam()
    RunThisNightlyAhk(7, "GetSentryBalances.ahk")
    ;hypercam()

@@ -14,14 +14,13 @@
 ;TODO default PS Fee to $10
 
 ;TODO deactivate capslock at the beginning of each macro
-;TODO make a macro that tests their site and determines if the site is going slower than normal
+;TODO make a macro that tests their site and determines if the site is going slower than normal and logs out/in again
 
 
 ;TODO issues that melinda brought up:
 ;Reload Queue is not reliable when I am in a file
 ;Does not answer Y to first question on the scorecard (in Open Office)
 ;Sometimes the server's name in the file does not match the name in the scorecard, can you make it so that the macro still works and just leaves the name blank on the scorecard (right now it enters all the information one field off)?
-;Can you remove the box that alerts me that I need a Service County on the scorecard (either that or make disappear after half a second)? I do not like clicking ok
 ;The "Would you like to approve?" box never shows up anymore. Don't know if you would want to remove that code?
 ;}}}
 
@@ -54,10 +53,8 @@ Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry
-Gui, Add, Button, , Ready To Invoice
-
-if (A_ComputerName != "BAUSTIAN-09PC")
-   Gui, Add, Button, , Add Fees
+;Gui, Add, Button, , Ready To Invoice
+Gui, Add, Button, , Add Fees
 
 Gui, Add, Button, x10  y190, Record for Cameron
 Gui, Add, Button, x10  y220, Test Something
@@ -76,8 +73,9 @@ Loop
    ;Stuff for annoying firefly boxes that are always cancelled out of
    IfWinActive, %statusProMessage%
    {
-      if SimpleImageSearch("images/firefly/dialog/wouldYouLikeToApproveThisJob.bmp")
-         Click(200, 90, "control") ;no button
+      ;REMOVEME if Mel doesn't complain (2011-11-10)
+      ;if SimpleImageSearch("images/firefly/dialog/wouldYouLikeToApproveThisJob.bmp")
+         ;Click(200, 90, "control") ;no button
       if SimpleImageSearch("images/firefly/dialog/pleaseSelectAnOptionFromTheDropDown.bmp")
          Click(170, 90, "control") ;ok button
       if SimpleImageSearch("images/firefly/dialog/selectedFeesEntryHasBeenDeletedSuccessfully.bmp")
@@ -128,6 +126,7 @@ if CantFocusNecessaryWindow(firefox)
    return
 if CantFindTopOfFirefoxPage()
    return
+
 Gui, 2: Add, Text,, Service of Process
 Gui, 2: Add, Text,, Process Server Fees
 Gui, 2: Add, Text,, Locate
@@ -143,27 +142,24 @@ return
 2ButtonGo:
 Gui, 2: Submit
 Gui, 2: Destroy
-;debug(FeesVar1, Feesvar2, feesvar3, feesvar4)
 
-;TODO need to click on the fees button, not sure how to figure out where that is
-;Click(496, 807, "left") ;FIXME
-ClickIfImageSearch("images/firefly/feesButton.bmp")
-ss()
-ClickIfImageSearch("images/firefly/feesButton.bmp")
-ss()
-ClickIfImageSearch("images/firefly/feesButton.bmp")
-ss()
-WaitForImageSearch("images/firefly/feesWizardWindow.bmp")
+if CantFocusNecessaryWindow(firefox)
+   return
+if CantFindTopOfFirefoxPage()
+   return
 
-Sleep, 1000
+;timer:=startTimer()
+OpenFeesWindow()
+
+Sleep, 200
 
 ;REMOVEME
-;feesvar1=45
-;feesvar2=45
-;feesvar3=45
-;feesvar4=45
+;feesvar1=10
+;feesvar2=20
+;feesvar3=30
+;feesvar4=3
 
-if NOT (feesVar3 == "" or feesVar3 == 3)
+if NOT (feesVar4 == "" or feesVar4 == 3)
 {
    errord("notimeout", "Pinellas County Sticker Fee should be either blank or 3")
    return
@@ -181,38 +177,25 @@ Loop, parse, list, CSV
    if (thisFeeAmount == "")
      continue
 
-   ;FIXME this loop works fine with 1 sec pauses
-   ;but fails with 200ms pauses
-   Click(600, 667, "left")
-   ss()
+   ;TODO reliability would increase in this fcn if the sleeps were larger (perhaps this could run in the background bot)
+   Click(600, 667, "left control")
    Send, %feeType%
-   ss()
    Send, {TAB}
-   ss()
-   ;Click(618, 688, "left") ;select the DDL item we just typed in
-   ss()
-   ;Click(750, 667, "left")
-   ss()
    Send, %fee%
-   ss()
    Send, {TAB}
-   ss()
-   ;Click(776, 684, "left") ;select the DDL item we just typed in
-   ss()
-   ;Click(890, 669, "left")
-   ;ss()
-   ;Send, ^a
-   ss()
    Send, %thisFeeAmount%
-   ss()
-   Click(611, 476, "left") ;Click Add
-   ss()
+   Click(611, 476, "left control") ;Click Add
+   Sleep, 500
+   ;ugh, this sleep is huge... maybe we should wait for it to appear in the list
 }
 
 ;this should be done after the loop
-Sleep, 2000
-Click(1246, 425, "left") ;Click the X
+Click(1246, 425, "left control") ;Click the X
 
+;TODO might want to sanity check this to ensure that the fes were added correctly by checking the "Client Fees" and "Process Server Fees"
+;debug(elapsedTime(timer))
+
+EndOfMacro()
 return
 ;}}}
 
@@ -437,7 +420,7 @@ Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
 Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
 ;ss()
 if NOT InStr(ServiceCounty, "Service County Not Required")
-   msgbox, ERROR: It looks like you need a Service County - it says: %ServiceCounty% %Clipboard%
+   msgbox, , , ERROR: It looks like you need a Service County - it says: %ServiceCounty% %Clipboard%, 0.5
 ;ss()
 
 EndOfMacro()
@@ -662,6 +645,10 @@ RecoverFromMacrosGoneWild(message="", options="")
 
 StartOfMacro()
 {
+   ;ini:=ini()
+   ;time:=CurrentTime("hyphenated")
+   ;IniWrite(ini, "tracelogs", time, A_ThisLabel)
+
    iniPP("PressedAButton") ;yeah, we're basically denoting this twice in a row (PressedAButton will always equal StartOfMacro), but this will make the stats file more readable
    iniPP(A_ThisFunc)
    iniPP(A_ThisLabel) ;make a note that we pressed the button to start this macro
@@ -723,5 +710,15 @@ ClickMultipleTimesWithPause(x, y, options, times)
       Click(x, y, options)
       ss()
    }
+}
+
+OpenFeesWindow()
+{
+   Loop 3
+   {
+      ClickIfImageSearch("images/firefly/feesButton.bmp")
+      ss()
+   }
+   WaitForImageSearch("images/firefly/feesWizardWindow.bmp")
 }
 ;}}}
