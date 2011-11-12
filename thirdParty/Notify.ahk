@@ -28,16 +28,16 @@ Notify(Title="!!!",Message="",Duration=30,Options="",Image="")
  Static                ;Options string: "TS=12 GC=Blue..."
  static GF := 50       ;    Gui First Number  ;= override Gui: # used
  static GL := 74       ;    Gui Last Number   ;= between GF and GL
- static GC := "FFFFAA" ;    Gui Color         ;   ie: don't use GF<=Gui#<=GL
+ static GC := "666666" ;    Gui Color         ;   ie: don't use GF<=Gui#<=GL
  static GR := 9        ;    Gui Radius        ;       elsewhere in your script
  static GT := "Off"    ;    Gui Transparency
  static TS := 8        ;  Title Font Size
  static TW := 625      ;  Title Font Weight
- static TC := "Black"  ;  Title Font Color
+ static TC := "white"  ;  Title Font Color
  static TF := "Arial"  ;  Title Font Face
  static MS := 8        ;Message Font Size
  static MW := 550      ;Message Font Weight
- static MC := "Black"  ;Message Font Color
+ static MC := "white"  ;Message Font Color
  static MF := "Arial"  ;Message Font Face
  static BC := "000000"  ; Border Colors
  static BW := 2        ; Border Width/Thickness

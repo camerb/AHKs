@@ -9,4 +9,5 @@ if NOT (IsVM() OR A_ComputerName = "TOSHIMI")
    RunAhk("Keylogger.ahk")
 }
 
+RunAhk("ModifierKeysUp.ahk")
 RunAhk("AutoHotkey.ahk")

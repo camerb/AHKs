@@ -15,6 +15,7 @@
 
 ;TODO deactivate capslock at the beginning of each macro
 ;TODO make a macro that tests their site and determines if the site is going slower than normal and logs out/in again
+;TODO make macros more robust so that I can upgrade firefox
 
 
 ;TODO issues that melinda brought up:
@@ -591,6 +592,8 @@ CantFindTopOfFirefoxPage()
 
    topOfPageIsVisible := SimpleImageSearch("images/firefly/HomeTab.bmp")
       OR SimpleImageSearch("images/firefly/AffidavitsTab.bmp")
+      OR SimpleImageSearch("images/firefly/AffidavitsTab7.bmp")
+      OR SimpleImageSearch("images/firefly/HomeTab7.bmp")
       OR SimpleImageSearch("images/firefly/topOfPage.bmp")
       OR SimpleImageSearch("images/firefly/topOfPage2.bmp")
 
@@ -603,7 +606,8 @@ CantFindTopOfFirefoxPage()
 
    ;do a couple more clicks, just to make sure we're at the very, very top
    Loop 10
-      Click(1753, 104, "control")
+      Click(1760, 124, "control")
+      ;Click(1753, 104, "control")
 }
 
 
@@ -720,5 +724,10 @@ OpenFeesWindow()
       ss()
    }
    WaitForImageSearch("images/firefly/feesWizardWindow.bmp")
+}
+
+SelectAll()
+{
+   Send, {CTRLDOWN}{END}{SHIFTDOWN}{HOME}{SHIFTUP}{CTRLUP}
 }
 ;}}}

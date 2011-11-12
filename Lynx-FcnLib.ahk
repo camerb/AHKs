@@ -1,7 +1,8 @@
 #include FcnLib.ahk
 #include SendEmailSimpleLib.ahk
+#include gitExempt/Lynx-Passwords.ahk
 
-ExitApp
+ExitApp ;this is a lib
 
 ConfigureODBC(version)
 {
@@ -187,16 +188,17 @@ SendEmailNow(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sRepl
    nSend     := 2   ; cdoSendUsingPort
    nAuth     := 1   ; cdoBasic
    sUsername := "cameronbaustianmitsibot"
-   sPassword := "niftyemailpassword"
+   sPassword := GetLynxPassword("email")
 
    SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
 }
 
 GetClientInfo()
 {
-   ;TODO need to fileappend the perl code to client_info.plx
+   ;TODO need to filecreate the perl code to client_info.plx
 
    ret := CmdRet_RunReturn("perl client_info.plx", "C:\inetpub\wwwroot\cgi\")
+   msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
    return ret
 }
 
