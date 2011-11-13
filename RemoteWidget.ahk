@@ -21,14 +21,9 @@ if (A_ComputerName == "PHOSPHORUS")
 }
 else if (A_ComputerName == "BAUSTIAN-09PC")
 {
+   ;TODO figure out the position for the widget
    widgetX := 1771
    widgetY := 319
-}
-else if (A_ComputerName == "T-800")
-{
-   ;TODO figure out the position for the widget
-   widgetX := 1129
-   widgetY := 5
 }
 
 Gui, +ToolWindow -Caption
@@ -139,7 +134,7 @@ CantContact(url)
 {
    cmd=ping %url%
    result := cmdret_runreturn("ping google.com")
-;"Ping request could not find host" google.com. Please check the name and try again.
+;"Ping request could not find host" google.com. Please check the name and try again.
    if InStr(result, "Ping request could not find host")
       return true
    return false

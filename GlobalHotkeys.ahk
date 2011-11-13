@@ -103,10 +103,7 @@ return
 ;Run an AHK from the AHKs folder
 AppsKey & k::
 if NOT ProcessExist("FindAndRunRobot.exe") and NOT IsVM()
-{
    RunProgram("FindAndRunRobot.exe")
-   Sleep, 1000
-}
 
 if ProcessExist("FindAndRunRobot.exe")
 {

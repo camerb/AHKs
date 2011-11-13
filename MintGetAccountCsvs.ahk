@@ -1,5 +1,36 @@
 #include FcnLib.ahk
-#include FcnLib-Nightly.ahk
+#include FcnLib-Opera.ahk
+#include MintLogin.ahk
+#include C:\Dropbox\AHKs\gitExempt\usaalogin.ahk
 
-MintLogIn()
-MintGetTransactionCsvs()
+mintlogin()
+
+GoToPage("https://wwws.mint.com/transaction.event")
+LongSleep()
+
+Click(45, 145)
+Send, {PGDN 50}
+MedSleep()
+ClickIfImageSearch("images\mint\exportAllTransactions.bmp")
+ClickIfImageSearch("images\mint\exportAllTransactionsXP.bmp")
+
+LongSleep()
+if NOT ForceWinFocusIfExist("Save As", "Exact")
+   Send, {ENTER}
+LongSleep()
+ForceWinFocus("Save As", "Exact")
+date:=CurrentTime("hyphendate")
+csvfilename=C:\Dropbox\AHKs\gitExempt\mint_export\%date%.csv
+Send, %csvfilename%
+Sleep, 100
+Send, {ENTER}
+
+;close the window
+LongSleep()
+LongSleep()
+LongSleep()
+CustomTitleMatchMode("RegEx")
+WinClose, Mint.com.*Opera
+ExitApp
+
+`:: ExitApp

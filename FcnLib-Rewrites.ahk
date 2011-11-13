@@ -76,10 +76,6 @@ FileCopyDir(source, dest, options="")
 ;Delete folder very forcefully
 FileDeleteDir(dir)
 {
-   FileDeleteDirForceful(dir)
-}
-FileDeleteDirForceful(dir)
-{
    ;this will delete as much as possible from the target folder
    ;depending upon file locks, some items may not get deleted
 

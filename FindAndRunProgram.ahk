@@ -1,13 +1,8 @@
-#SingleInstance Off
 #include FcnLib.ahk
-#SingleInstance Off
 
 ;locate and run program, if possible
 
 pathOrAppFilenameOrAppNickname=%1%
-
-
-;TODO search dropbox programs folder, too
 
 ini=gitExempt\folderinfo.ini
 path:=pathOrAppFilenameOrAppNickname

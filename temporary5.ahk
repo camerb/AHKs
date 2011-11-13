@@ -11,7 +11,6 @@ deletetracefile()
 timer:=StartTimer()
 DeDupFilesInFolder("C:\Dropbox\Android\sd\Documents\")
 AddToTrace("green line", "time to complete was", ElapsedTime(timer))
-ExitApp
 
 DeDupFilesInFolder(folderPath)
 {

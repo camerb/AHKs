@@ -4,7 +4,7 @@ WinGetActiveTitle, titleofwin
 
 if RegExMatch(titleofwin, "GVIM")
 {
-   postit.="dip  delete paragraph`ndi{  delete braced section`n=G   format selection (more than =)`nset go += T`nso! tabshow.vim`n,c{space} comment selection`nggVG select all`nA  insert at end`nI   insert at beginning`n! perl % run current perl file`nCtrl+W, S split (same file)`nCtrl+W, V vert split (same file)`nzM close all folds`nzR open all folds`n"
+   postit.="dip  delete paragraph`ndi{  delete braced section`n=G   format selection (more than =)`nset go += T`nso! tabshow.vim`n,c{space} comment selection`nggVG select all`nA  insert at end`nI   insert at beginning`n! perl % run current perl file`nCtrl+W, S split (same file)`nCtrl+W, V vert split (same file)`n"
 }
 if RegExMatch(titleofwin, "AHKs.*GVIM")
 {

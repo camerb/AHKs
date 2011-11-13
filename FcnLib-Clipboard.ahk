@@ -30,7 +30,13 @@ CopyWait()
    Clipboard:=null
 
    Sleep, 100
-   copy()
+   Send, ^c
+   Send, ^c
+   Send, ^c
+   Send, ^c
+   Sleep, 100
+   ;ClipWait, 2
+   ;debug("silent log", "just copied to clipboard")
    count=0
    Loop
    {
@@ -54,4 +60,3 @@ ClipWait(clipboardContentsToWaitFor, options="")
 }
 
 ;TODO ClipWaitNull(), ClipWaitNotNull()
-; maybe waiting for it to be empty is the best solution... who would ever copy nothing?

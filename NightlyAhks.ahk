@@ -1,5 +1,4 @@
 #include FcnLib.ahk
-#include FcnLib-Nightly.ahk
 
 ;{{{script
 
@@ -18,10 +17,6 @@ IniDelete(ini, "RunAhkAndBabysit.ahk")
 if (A_ComputerName = LeadComputer())
    DeleteTraceFile()
 
-;clear out all morning status messages
-;I might need to remove this someday and make it only delete some files
-FileDeleteDirForceful("C:\Dropbox\AHKs\gitExempt\morning_status\")
-
 if NOT IsVM()
 {
    RunThisNightlyAhk(1, "CopyVimSettings.ahk")
@@ -29,9 +24,7 @@ if NOT IsVM()
    RunThisNightlyAhk(7, "UpdateAdobeAcrobatReader.ahk")
 }
 
-RunThisNightlyAhk(3, "MintTouch.ahk")
-RunThisNightlyAhk(2, "X10HostingForumLogin.ahk")
-RunThisNightlyAhk(2, "DeleteDropboxCruft.ahk")
+;RunThisNightlyAhk(2, "MintTouch.ahk")
 RunThisNightlyAhk(1, "MorningStatus.ahk", "GatherData")
 RunThisNightlyAhk(1, "RestartDropbox.ahk")
 RunThisNightlyAhk(1, "InfiniteLoop.ahk")
@@ -54,8 +47,7 @@ if (A_ComputerName = LeadComputer())
    ;  we can tell this if a screenshot saved is only half size
    ;  or possibly just check A_ScreenWidth
 
-   RunThisNightlyAhk(7, "UploadAhkDotNetFiles.ahk")
-   ;RunThisNightlyAhk(2, "GetPhoneDataUsage.ahk")
+   RunThisNightlyAhk(2, "GetPhoneDataUsage.ahk")
    ;hypercam()
    RunThisNightlyAhk(7, "GetSentryBalances.ahk")
    ;hypercam()
@@ -66,17 +58,15 @@ if (A_ComputerName = LeadComputer())
    ;RunThisNightlyAhk(7, "UsaaGetAccountBalances.ahk") ;removeme?
    ;RunThisNightlyAhk(7, "UsaaGetAccountBalances-IE.ahk") ;removeme?
    ;RunThisNightlyAhk(4, "GetMintNetWorth.ahk")
+   RunThisNightlyAhk(1, "GetNetWorth.ahk")
+   RunThisNightlyAhk(2, "GetSlackInBudget.ahk")
    RunThisNightlyAhk(2, "ProcessMintExport.ahk")
    RunThisNightlyAhk(2, "MakeNightlyCsvsFromIni.ahk")
 
    RunThisNightlyAhk(1, "UsaaCheckingBalanceProjection.ahk")
    RunThisNightlyAhk(1, "AddAhkTask.ahk", "copyTasksToFcnLib")
-   RunThisNightlyAhk(1, "GetNetWorth.ahk")
-   RunThisNightlyAhk(2, "GetSlackInBudget.ahk")
    ;RunAhkAndBabysit("CreateFinancialPieChart.ahk")
-   RunThisNightlyAhk(2, "CheckDropboxForConflictedCopies.ahk")
    ;SleepMinutes(15)
-   ToggleIMacrosPanel()
 }
 
 if (A_ComputerName="PHOSPHORUS")
@@ -96,19 +86,16 @@ if (A_ComputerName="PHOSPHORUSVM")
 
 ;===done with nightly tasks... lets start things back up again
 RunThisNightlyAhk(1, "StartIdleAhks.ahk")
-ProcessCloseAll("firefoxPortable.exe")
 
 ;RunThisNightlyAhk(2, "MoveMouseAcrossEntireScreen.ahk")
 
 if (A_ComputerName="PHOSPHORUS")
 {
    ;this needs a little bit of click-around time
-   ;commented this out cause I'm in C-4's office all the time now
    RunThisNightlyAhk(2, "LaunchPidgin.ahk")
 }
 
 ;make a list of all the ahks that didn't end gracefully
-;TODO switch this to IniListAllKeys()
 Loop, C:\Dropbox\AHKs\*.ahk
 {
    time:=IniRead(ini, "RunAhkAndBabysit.ahk", A_LoopFileName)
@@ -134,9 +121,8 @@ RunThisNightlyAhk(waitTimeInMinutes, ahkToRun, params="")
    ;TODO another ahk will sit there to babysit, or perhaps we can put that in persistent
 
    global A_Debug
-   ;A_Debug := true
 
-   ;if A_Debug
+   if A_Debug
       debug("", "nightly ahks: starting this ahk", ahkToRun)
 
    ;quote="
@@ -159,7 +145,7 @@ RunThisNightlyAhk(waitTimeInMinutes, ahkToRun, params="")
    ;close just the one we launched
    ;AhkClose(ahkToRun)
 
-   ;if A_Debug
+   if A_Debug
       debug("", "nightly ahks: finished this ahk", ahkToRun)
 }
 

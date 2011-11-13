@@ -1,13 +1,8 @@
 #include FcnLib.ahk
 #include thirdParty\COM.ahk
 
-SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom="", sServer="smtp.gmail.com", nPort=25, bTLS=true, nSend=2, nAuth=1)
+SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort=25, bTLS=true, nSend=2, nAuth=1)
 {
-   if (sFrom == "")
-      sFrom := username . "@gmail.com"
-   if (sReplyTo == "")
-      sReplyTo := username . "@gmail.com"
-
    COM_Init()
    pmsg :=   COM_CreateObject("CDO.Message")
    pcfg :=   COM_Invoke(pmsg, "Configuration")
