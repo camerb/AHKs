@@ -1574,10 +1574,18 @@ GetPath(file)
 {
    if (file == "NightlyStats.ini")
       return "C:\Dropbox\AHKs\gitExempt\NightlyStats.ini"
+   else if (file == "RunOncePerDay.ini")
+      return "C:\Dropbox\AHKs\gitExempt\RunOncePerDay.ini"
+   else if (file == "FireflyStats.ini")
+      return "C:\Dropbox\AHKs\gitExempt\FireflyStats.ini"
    else if (file == "config.ini")
       return "C:\Dropbox\Misc\config.ini"
+   else if (file == "questions.ini")
+      return "C:\Dropbox\Misc\questions.ini"
    else if (file == "myconfig.ini")
       return "C:\Dropbox\Misc\config-" . A_ComputerName . ".ini"
+   else if (file == "imacro.lock")
+      return "C:\Dropbox\Public\lock\imacro-" . A_ComputerName . ".lock"
    else if (file == "DailyFinancial.csv") ;deprecated
       return "C:\Dropbox\AHKs\gitExempt\DailyFinancial.csv"
    else if (file == "FinancialPast.csv")

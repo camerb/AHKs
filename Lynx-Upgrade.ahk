@@ -49,6 +49,8 @@ msg("If sql.txt or sql2.txt are not in the inetpub folder, then add them from \t
 
 if ApacheUpgradeNeeded
 {
+   msg("Uninstall apache")
+   ;ensure the service is gone
    msg("Install apache")
 }
 
