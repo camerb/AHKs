@@ -1,11 +1,11 @@
 #SingleInstance Force
 
 #include thirdParty/Functions.ahk
-;#include thirdParty\Notify.ahk ;this causes windows to be open forever
 #include thirdParty/CmdRet.ahk
 #include thirdParty/Cycle.ahk
-;#include thirdParty/Format4Csv.ahk ;haven't used this yet, but I should
 #include FcnLib-Rewrites.ahk
+;#include thirdParty\Notify.ahk ;this causes windows to be open forever
+;#include thirdParty/Format4Csv.ahk ;haven't used this yet, but I should
 
 ;Takes a screenshot and saves it to the specified path
 ;Useful for debugging macros afterward
@@ -13,14 +13,15 @@
 ;begin the filename with a relevant text description, and
 ;end it with a timestamp
 ;not implemented: adjust image quality, change image format
-#include thirdParty\ScreenCapture.ahk
+#include thirdParty/ScreenCapture.ahk
 SaveScreenShot(descriptiveText="", directoryPath="dropbox", options="")
 {
    captureArea=0
    if InStr(options, "activeWindow")
       captureArea=1
 
-   ; OR directoryPath="")
+   if (directoryPath="") ;default
+      directoryPath=dropbox
    if (directoryPath="dropbox")
       directoryPath=C:\Dropbox\AHKs\gitExempt\screenshots\%A_ComputerName%
    else if (directoryPath="local")
@@ -247,8 +248,19 @@ ClickIfImageSearch(filename, clickOptions="left mouse")
    return NOT ErrorLevel
 }
 
+;FIXME I don't like the boolean logic here... just doesn't seem readable
+;ErrordIfFileNotExist(ThisFunc, filename)
+;{
+   ;if NOT FileExist(filename)
+   ;{
+      ;errord(ThisFunc, filename, "the aforementioned file does not exist")
+      ;return false
+   ;}
+   ;return true
+;}
+
 ;Wait until a certain image appears
-WaitForImageSearch(filename, variation=0, timeToWait=20, sleepTime=20) ;TODO option to exit ahk if image was not found
+WaitForImageSearch(filename, variation=0, timeToWait=60, sleepTime=20) ;TODO option to exit ahk if image was not found
 {
    if NOT FileExist(filename)
    {
@@ -267,6 +279,7 @@ WaitForImageSearch(filename, variation=0, timeToWait=20, sleepTime=20) ;TODO opt
 
       Sleep, sleepTime
    }
+   delog(A_ThisFunc, "the function was waiting for the image to appear, but timed out", filename, variation, timeToWait, sleepTime)
 
    return false
 }
@@ -293,13 +306,18 @@ Remap(input, remap1, replace1, remap2=0, replace2=0, remap3=0, replace3=0, remap
    return input
 }
 
-;I now think that moving to 0,0 is a better solution
-MoveToRandomSpotInWindow()
+;I now think that moving to 0,0 is a better solution (most of the time)
+MouseMoveRandom()
 {
    WinGetPos, no, no, winWidth, winHeight
    Random, xCoordinate, 0, winWidth
    Random, yCoordinate, 0, winHeight
    MouseMove, xCoordinate, yCoordinate
+}
+;deprecated:
+MoveToRandomSpotInWindow()
+{
+MouseMoveRandom()
 }
 
 WeightedRandom(OddsOfa1, OddsOfa2, OddsOfa3=0, OddsOfa4=0, OddsOfa5=0)
@@ -691,6 +709,10 @@ CloseDifficultApps()
 
 CloseDifficultAppsAllScreens()
 {
+   DetectHiddenWindows, On
+   WinShow, SK Sync Server Version 1.0.01A ahk_class SunAwtFrame
+   WinClose, SK Sync Server Version 1.0.01A ahk_class SunAwtFrame
+
    Loop 5
       Send, {BROWSER_BACK}
 
@@ -701,22 +723,23 @@ CloseDifficultAppsAllScreens()
       Send, {BROWSER_FORWARD}
    }
 
-   Process, WaitClose, ssms.exe, 15
-   Process, Close, ssms.exe
-   Process, WaitClose, vmware-vmx.exe, 15
-   Process, Close, vmware-vmx.exe
-   Process, WaitClose, vmplayer.exe, 15
-   Process, Close, vmplayer.exe
-   Process, Close, FindAndRunRobot.exe
-   Process, Close, dsidebar.exe
-   Process, Close, hpupdate.exe
+   ;NOTES: forcefield.exe is the stupid thing that comes with ZoneAlarm
+   listOstuff = ssms.exe,vmware-vmx.exe,vmplayer.exe,FindAndRunRobot.exe,dsidebar.exe,hpupdate.exe,java.exe,ping.exe,ForceField.exe
 
-   ;close the stupid thing that comes with ZoneAlarm
-   Process, Close, ForceField.exe
+   Loop, parse, listOstuff, CSV
+      ProcessCloseAll(A_LoopField)
+
+   ;Process, Close, ssms.exe
+   ;Process, Close, vmware-vmx.exe
+   ;Process, Close, vmplayer.exe
+   ;Process, Close, FindAndRunRobot.exe
+   ;Process, Close, dsidebar.exe
+   ;Process, Close, hpupdate.exe
+   ;ProcessCloseAll("java.exe")
+   ;ProcessCloseAll("ping.exe")
+
+   ;Process, Close, ForceField.exe
 }
-
-;WRITEME
-;Gets the parent directory of the specified directory
 
 ;WRITEME
 ;Returns true if the specified path is a directory, false if it is a file
@@ -724,30 +747,31 @@ CloseDifficultAppsAllScreens()
 ;WRITEME
 ;Returns true if the specified path is a file, or false if it is a directory
 
-;WRITEME
 ;Creates the parent dir if necessary
 ;TODO if path is a directory, this ensures that that dir exists
+;simply: this ensures that the entire specified dir structure exists
 EnsureDirExists(path)
 {
    ;if path is a file, this ensures that the parent dir exists
    dir:=ParentDir(path)
-   ;simply: this ensures that the entire specified dir structure exists
 
    ;figure out if it is a file or dir
    ;split off filename if applicable
    FileCreateDir, %dir%
 }
 
+;TESTME
+;Gets the parent directory of the specified directory
 ParentDir(fileOrFolder)
 {
+   fileOrFolder := RegExReplace(fileOrFolder, "(\\|/)", "\")
    if (StringRight(fileOrFolder, 1) == "\")
       fileOrFolder:= StringTrimRight(fileOrFolder, 1)
    RegexMatch(fileOrFolder, "^.*\\", returned)
    return returned
 }
 
-;TODO We should keep an ini of paths found previously, and search for it if not in the ini-list
-;TODO Perhaps this should be done with other items, like the windows user folder
+;TODO Perhaps this should be done with other items, like the windows user folder, or like the dropbox folder
 ;Returns the correct program files location (error message if the file doesn't exist)
 ProgramFilesDir(relativePath)
 {
@@ -786,13 +810,15 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
       silentMode := true
    if (InStr(textOrOptions, "log"))
       loggedMode := true
-   if (InStr(textOrOptions, "nolog"))
+   if (InStr(textOrOptions, "noLog"))
       loggedMode := false
    if (InStr(textOrOptions, "errord"))
    {
       errordMode := true
       displayTime = 20
    }
+   if (InStr(textOrOptions, "noTimeout"))
+      displayTime := ""
    ;TODO screenshot mode for debug() fcn
    ;if (InStr(textOrOptions, "screenshot"))
    ;{
@@ -824,9 +850,18 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
    ;log the message right away
    if loggedMode
    {
-      logPath=C:\Dropbox\Public\logs
-      FileCreateDir, %logPath%
-      FileAppend, %messageTitle% %messageText%, %logPath%\%A_ComputerName%.txt
+      logMessage=%messageTitle% %messageText%
+      ;logPath=C:\Dropbox\Public\logs
+      ;logFile=%A_ComputerName%.txt
+      date := CurrentTime("hyphendate")
+      if IsMyCompy()
+         logFileFullPath=C:\Dropbox\Public\logs\%A_ComputerName%.txt
+      else
+         logFileFullPath=C:\inetpub\logs\%date%.txt
+
+      ;FileCreateDir, %logPath%
+      ;FileAppend, %logMessage%, %logFileFullPath%
+      FileAppend(logMessage, logFileFullPath)
    }
 
    ;display info to the user
@@ -884,6 +919,8 @@ SelfDestruct()
    ;Exit
 }
 
+;TODO move this to persistent - but if we move this to persistent, we won't be able to return if there was an error...
+;  if we really wanted to return error state, maybe we could do UseErrorLevel, but i think that only applies to EXEs, not sure (prob won't catch AHK compile errors)
 RunAhkAndBabysit(filename)
 {
    if NOT FileExist(filename)
@@ -893,8 +930,6 @@ RunAhkAndBabysit(filename)
 
    Run, %filename%
 
-   ;TODO move this to persistent - but if we move this to persistent, we won't be able to return if there was an error...
-   ;  if we really wanted to return error state, maybe we could do UseErrorLevel, but i think that only applies to EXEs, not sure (prob won't catch AHK compile errors)
    WinWait, %filename%, (The program will exit|The previous version will remain in effect), 10
    sawErrorWindow := NOT ERRORLEVEL
    if sawErrorWindow
@@ -908,9 +943,16 @@ RunAhkAndBabysit(filename)
 
 ;TODO make an options param for wait and babysit?
 ;can you even wait and babysit at the same time?
-RunAhk(ahkFilename, params="", options="")
+RunAhk(filename, params="", options="")
 {
-   command=AutoHotkey.exe %ahkFilename% %params%
+   if NOT FileExist(filename)
+   {
+      errord(A_ThisFunc, filename, "the aforementioned file does not exist")
+      return false
+   }
+
+   command=AutoHotkey.exe %filename% %params%
+   ;command=C:\Program Files (x86)\AutoHotkey\AutoHotkey.exe %filename% %params%
    if InStr(options, "wait")
       RunWait %command%
    else
@@ -1264,13 +1306,24 @@ ConcatWithSep(separator, text0, text1, text2="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", te
    return returned
 }
 
-;figure out if this computer is a VM, if no name is passed, it assumes the local machine
+;figure out if this computer is a VM
+;if no name is passed, it assumes the local machine
 IsVM(ComputerName="")
 {
    if (ComputerName=="")
       ComputerName:=A_ComputerName
 
    return !!InStr(ComputerName, "VM")
+}
+
+;figure out if this computer is one I have ownership of (determines where we put some files)
+;if no name is passed, it assumes the local machine
+IsMyCompy(ComputerName="")
+{
+   if (ComputerName=="")
+      ComputerName:=A_ComputerName
+
+   return !!RegExMatch(ComputerName, "^(PHOSPHORUS|PHOSPHORUSVM|BAUSTIAN-09PC|T-800)$")
 }
 
 ;Reload the core scripts(as if we just restarted the pc)
@@ -1428,7 +1481,8 @@ ThreadedMsgbox(message)
 ;tells the name of the lead computer
 LeadComputer()
 {
-   return "BAUSTIAN-09PC"
+   return "PHOSPHORUS"
+   ;return "BAUSTIAN-09PC"
 }
 
 MultiWinWait(successWin, successWinText, failureWin, failureWinText)
@@ -1559,7 +1613,7 @@ RemoveLineEndings(page)
 
 FormatDollar(amount)
 {
-   RegExMatch(amount, "(\d|,)*\.\d\d", returned)
+   RegExMatch(amount, "-?(\d|,)*\.\d\d", returned)
    returned:=RegExReplace(returned, ",", "")
    return returned
 }
@@ -1572,6 +1626,8 @@ MorningStatusAppend(header, item)
 
 GetPath(file)
 {
+   date := Currenttime("hyphendate")
+
    if (file == "NightlyStats.ini")
       return "C:\Dropbox\AHKs\gitExempt\NightlyStats.ini"
    else if (file == "RunOncePerDay.ini")
@@ -1592,6 +1648,13 @@ GetPath(file)
       return "C:\Dropbox\AHKs\gitExempt\FinancialPast.csv"
    else if (file == "trace" OR file == "trace.txt")
       return "C:\Dropbox\Public\logs\trace.txt"
+   else if (file == "logfile")
+   {
+      if IsMyCompy()
+         return "C:\Dropbox\Public\logs\" . A_ComputerName . ".txt"
+      else
+         return "C:\inetpub\logs\" . date . ".txt"
+   }
    errord("orange line", "tried to GetPath() for an unknown file", file)
    return ""
 }
@@ -1614,17 +1677,24 @@ CommandPromptCopy()
 ;write all this info out to the ini, csv and morning status email
 ;create the csv files afterward (pull the info from from the ini)
 ;;;TODO we could come up with the var name by getting rid of spaces
-NightlyStats(title, data)
+NightlyStats(title, data, options="")
 {
+   shouldEmail:=true
+
    if (title == "" OR data == "")
       return
+
+   if InStr(options, "noemail")
+      shouldEmail:=false
 
    ini:=GetPath("NightlyStats.ini")
    date:=CurrentTime("hyphendate")
 
    IniWrite(ini, date, title, data)
    IniWrite(ini, "MostRecent", title, data)
-   MorningStatusAppend(title, data)
+
+   if shouldEmail
+      MorningStatusAppend(title, data)
 }
 
 ;FIXME
@@ -1717,6 +1787,19 @@ SendSlow(textToSend, pauseTime=500)
    }
 }
 
+;thanks to berban for this one
+;takes a time in milliseconds and displays it in a readable fashion
+;RENAMEME
+PrettyTickCount(timeInMilliSeconds)
+{
+   ElapsedHours := SubStr(0 Floor(timeInMilliSeconds / 3600000), -1)
+   ElapsedMinutes := SubStr(0 Floor((timeInMilliSeconds - ElapsedHours * 3600000) / 60000), -1)
+   ElapsedSeconds := SubStr(0 Floor((timeInMilliSeconds - ElapsedHours * 3600000 - ElapsedMinutes * 60000) / 1000), -1)
+   ElapsedMilliseconds := SubStr(0 timeInMilliSeconds - ElapsedHours * 3600000 - ElapsedMinutes * 60000 - ElapsedSeconds * 1000, -2)
+   returned := ElapsedHours ":" ElapsedMinutes ":" ElapsedSeconds ":" ElapsedMilliseconds
+   return returned
+}
+
 ;WRITEME make function for getting remote and local path of dropbox public folder
 ;WRITEME split csv processing out of the create pie chart macro
 ;WRITEME make monthly financial charts (rather than three-month)
@@ -1782,4 +1865,32 @@ SendSlow(textToSend, pauseTime=500)
 ;WRITEME add "currently working on this jira issue" to the widget
 
 ;WRITEME during git commit... remove unstaged changes and add all new files (maybe in one action)
+
+
+;WRITEME automate this page: https://plus.google.com/u/0/notifications/circle
+
+
+;WRITEME unit tests for RunIMacro()
+
+
+;WRITEME monitor the dlb racing site to see if events are filling up
+
+
+;WRITEME cpan4ahk ... a site that will give you links to all the pages of ahk libs and scripts
+;WRITEME need to make a script that will parse the XMLdocs in IA and make nifty HTML pages out of them
+
+
+;WRITEME make a nifty MP3 youtube downloader that will access snipmp3.com
+
+
+;WRITEME macro for scanning multiple pages at home
+
+
+;WRITEME NANY idea: screenshot sharing app that will let you quickly share a screenshot on imgin.it
+
+
+;WRITEME bills reminder emailer
+
+
+;WRITEME fix MonthlyDelta number generated by the ahk that approximates the maximum allowable credit card bill
 

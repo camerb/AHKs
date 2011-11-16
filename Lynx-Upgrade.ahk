@@ -3,7 +3,6 @@
 #include thirdParty/Notify.ahk
 #singleinstance force
 
-
 sleep, 5000
 ExitApp
 
@@ -17,8 +16,9 @@ LynxOldVersion:=GetLynxVersion()
 
 msg("Attempting an upgrade from Lynx Version: " . LynxOldVersion)
 
-;DownloadLynxFile("version.txt")
-;UnzipInstallPackage()
+DownloadLynxFile("version.txt")
+DownloadLynxFile("server-upgrade-7.11.zip")
+UnzipInstallPackage("server-upgrade-7.11.zip")
 msg("Download 7.11.zip server code from the web")
 
 PerlOldVersion:=GetPerlVersion()
@@ -84,7 +84,7 @@ msg("Make case in sugar for 'Server Software Upgrade', note specific items/conce
 
 LynxNewVersion := GetLynxVersion()
 ShowUpgradeSummary()
-SendLogsHome()
+SendLogsHome("upgrade")
 ExitApp
 
 
@@ -102,6 +102,20 @@ reload
 return
 
 
+GetClientInfo()
+{
+   ;TODO need to filecreate the perl code to client_info.plx
+
+   ret := CmdRet_RunReturn("perl client_info.plx", "C:\inetpub\wwwroot\cgi\")
+   msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
+   return ret
+}
+
+msg(message)
+{
+   MsgBox, , Lynx Upgrade Assistant, %message%
+}
+
 ;Returns a true or false, confirming that they did or didn't complete this step
 ConfirmMsgBox(message)
 {
@@ -114,11 +128,6 @@ ConfirmMsgBox(message)
       return false
 }
 
-msg(message)
-{
-   MsgBox, , Lynx Upgrade Assistant, %message%
-}
-
 importantLogInfo()
 {
 }
@@ -127,11 +136,10 @@ logInfo()
 {
 }
 
-UnzipInstallPackage()
+UnzipInstallPackage(file)
 {
    notify("unzipping install package")
    ;7z=C:\temp\lynx_upgrade_files\7z.exe
-   file=joe
    unzip=C:\temp\lynx_upgrade_files\unzip.exe
    p=C:\temp\lynx_upgrade_files
    ;cmd=%7z% a -t7z %p%\archive.7z %p%\*.txt
@@ -245,21 +253,6 @@ ShowUpgradeSummary()
 CheckDatabaseFileSize()
 {
    msg("Check database file size to ensure it is smaller than 200MB")
-}
-
-SendLogsHome()
-{
-   joe := GetLynxPassword("ftp")
-   timestamp := Currenttime("hyphenated")
-   date := Currenttime("hyphendate")
-   logFileFullPath=C:\inetpub\logs\%date%.txt
-
-   ;send it back via ftp
-   cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath%" --user AHK:%joe% ftp://lynx.mitsi.com/update_logs/%timestamp%-test.txt
-   ret:=CmdRet_RunReturn(cmd)
-
-   ;send it back in an email
-   SendEmailNow("Upgrade Logs", A_ComputerName, logFileFullPath, "cameron@mitsi.com")
 }
 
 #include Lynx-FcnLib.ahk

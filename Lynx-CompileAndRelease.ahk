@@ -9,7 +9,11 @@ exePath=C:\Dropbox\AHKs\Lynx-Install.exe
 
 ;Compile that friggin ahk
 FileDelete(exePath)
-Sleep, 500
+WaitFileNotExist(exePath)
+;Sleep, 2000 ;it seems that a super-long sleep here always works
+;Sleep, 300 ;and now that we have a "WaitFileNotExist" in here, it seems to work with a somewhat-short sleep
+;Sleep, 100
+;trying it without any sleep... seems that the "WaitFileNotExist" should be enough
 cmd="C:\Program Files (x86)\AutoHotkey\Compiler\Ahk2Exe.exe" /in "Lynx-Install.ahk" /nodecompile
 CmdRet_RunReturn(cmd)
 if NOT FileExist(exePath)

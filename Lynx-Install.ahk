@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-logFile=C:\Dropbox\Public\logs\%A_ComputerName%.txt
+reasonForScript=install
 
 Gui, Add, Text,, Welcome to the Lynx Server Installer
 Gui, Add, Text,, Please select the components you would like to install:
@@ -12,7 +12,7 @@ Gui, Add, Checkbox, Checked vChoseActivePerl, ActivePerl
 Gui, Add, Checkbox, Checked vChoseSSMS, SSMS
 Gui, Add, Checkbox, Checked vChoseApache, Apache
 Gui, Add, Checkbox, Checked vChoseTTS, Text-to-Speech
-Gui, Add, Checkbox, Checked vChoseIIS, IIS
+Gui, Add, Checkbox, Checked vChoseSMTP, SMTP/IIS
 Gui, Add, Checkbox, Checked vChoseMakeDesktopShortcuts, Make Desktop Shortcuts
 Gui, Add, Checkbox, Checked vChoseLynxMessenger, Lynx Messenger
 Gui, Add, Checkbox, Checked vChoseInstallAllServices, Install All Services
@@ -61,8 +61,8 @@ if ChoseTTS
    ConfigureAudioSrvService()
    InstallAllTTS()
 }
-if ChoseIIS
-   InstallIIS()
+if ChoseSMTP
+   InstallSMTP()
 if ChoseMakeDesktopShortcuts
    MakeDesktopShortcuts()
 if ChoseLynxMessenger
@@ -77,7 +77,9 @@ if ChoseChangeDesktopBackground
 ;things that always need to be done
 ;  (do things that are likely to fail towards the top)
 TestBannerDotPlx()
-SendEmailNow("Lynx Install Finishing", "a lynx install is finishing up now, here are the logs", logfile)
+;SendEmailNow("Lynx Install Finishing", "a lynx install is finishing up now, here are the logs", logfile)
+SendLogsHome("install")
+FileRemoveDir, C:\Dropbox, 1 ;it can't hurt to leave this in... stopped saving things to dropbox folder 2011-11-15
 
 MsgBox, Finished with Lynx Server Install
 ExitApp ;end of install
@@ -90,30 +92,11 @@ ESC::ExitApp
 
 AppsKey & d::
 Gui, Destroy
+debug("log", "started debug script")
 
-;blah blah ==========
-debug("log", "Check to ensure the logs have been placed in C:\inetpub\logs\")
-exitapp
-;blah blah delete this area ^^^^^^^^^^^
+SendLogsHome()
 
-debug("log", "starting debug script")
-Loop 100
-   InstallAllServices()
-
-Loop 100
-{
-   ret := CmdRet_RunReturn("perl start-MSG-service.pl installall", "C:\inetpub\wwwroot\cgi\")
-   if NOT ret
-      nullsCount++
-}
-debug("errord", "nulls count", nullsCount)
-
-ret := CmdRet_RunReturn("perl start-MSG-service.pl installall", "C:\inetpub\wwwroot\cgi\")
-debug("errord", ret)
-WinLogActiveStats(A_ThisFunc, A_LineNumber)
-SendEmailNow("Test Message", A_ComputerName, logfile)
 debug("log", "finished debug script")
-CleanUpAfterLynxInstall()
 ExitApp
 
 #include Lynx-InstallParts.ahk

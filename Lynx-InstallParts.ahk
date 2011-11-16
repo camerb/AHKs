@@ -391,7 +391,7 @@ InstallAllTTS()
    delog("", "finished function", A_ThisFunc)
 }
 
-InstallIIS()
+InstallSMTP()
 {
    delog("", "started function", A_ThisFunc)
    SleepSeconds(20)

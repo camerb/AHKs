@@ -193,35 +193,49 @@ SendEmailNow(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sRepl
    SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
 }
 
-GetClientInfo()
+SendLogsHome(reasonForScript="UNSPECIFIED")
 {
-   ;TODO need to filecreate the perl code to client_info.plx
+   ;fix the params, if needed
+   reasonForScript := StringReplace(reasonForScript, "upgrade", "update")
 
-   ret := CmdRet_RunReturn("perl client_info.plx", "C:\inetpub\wwwroot\cgi\")
-   msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
-   return ret
+   joe := GetLynxPassword("ftp")
+   timestamp := Currenttime("hyphenated")
+   date := Currenttime("hyphendate")
+   logFileFullPath := GetPath("logfile")
+
+   ;send it back via ftp
+   dest=ftp://lynx.mitsi.com/%reasonForScript%_logs/%timestamp%.txt
+   cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath%" --user AHK:%joe% %dest%
+   ret:=CmdRet_RunReturn(cmd)
+
+   ;send it back in an email
+   subject=%reasonForScript% Logs
+   SendEmailNow(subject, A_ComputerName, logFileFullPath, "cameron@mitsi.com")
 }
 
-;attempts to email/ftp logs back home
-;SendLogsHome()
-;{
-   ;;if we aren't on a recognized machine
-   ;if NOT FileExist(GetPath("config.ini"))
-   ;{
-      ;SendEmailNow("Lynx Install Finishing", "this lynx install is finishing up right now, here are the logs", logfile)
-      ;FileCopy(logfile, "C:\inetpub\logs\LynxInstallLog_ahk.txt", "overwrite")
-      ;FileRemoveDir, C:\Dropbox, 1
-   ;}
-   ;else
-   ;{
-      ;SendEmailNow("Testing install procedures on " . A_ComputerName, "here are the logs", logfile)
-   ;}
-;}
+ShowTrayMessage(message)
+{
+   quote="
+   message := EnsureStartsWith(message, quote)
+   message := EnsureEndsWith(message, quote)
+   RunAhk("Lynx-NotifyBox.ahk", message)
+}
+
+HideTrayMessage(message)
+{
+   ;get pid (maybe get all pids)
+   ;ProcessClose(pid)
+}
 
 ;TODO Run function with logging
 ;RunFunctionWithLogging(functionName)
 ;{
-   ;delog("", "started function", A_ThisFunc)
-   ;delog("", "finished function", A_ThisFunc)
+   ;if NOT IsFunc(functionName)
+      ;return
+
+   ;delog("", "started function", functionName)
+   ;%A
+   ;delog("", "finished function", functionName)
+   ;FIXME the real issue here is that if the functions return early, the function will say that it finished, even though it didn't actually get to the end of it
 ;}
 
