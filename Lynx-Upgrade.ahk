@@ -12,6 +12,7 @@ ExitApp
 
 ;Beginning of the actual script
 SendEmailNow("Starting an upgrade", A_ComputerName, "", "cameron@mitsi.com")
+RunTaskManagerMinimized()
 LynxOldVersion:=GetLynxVersion()
 
 msg("Attempting an upgrade from Lynx Version: " . LynxOldVersion)
@@ -27,7 +28,6 @@ msg("Check the perl version to ensure that it is not older than 5.8.9")
 msg("If the perl version is older than 5.8.9, download the new perl")
 
 msg("Create the SMS key")
-RunTaskManagerMinimized() ;Open task manager and minimize it
 CheckDatabaseFileSize()
 GetServerSpecs()
 GetClientInfo()
@@ -60,6 +60,7 @@ msg("Restart apache services`n(wait until complete before performing the next st
 msg("Run perl start-msg-service.pl installall")
 
 ;admin login (web interface)
+;TODO pull password out of DB and open lynx interface automatically
 msg("Open the web interface, log in as admin, Install the new SMS key")
 msg("under change system settings, then under file system locations and logging change logging to extensive, log age to yearly, message age to never, and log size to 500MB. Save your changes")
 msg("Ask the customer if they have a public subscription page, and if not: Under Home Page and Subscriber Setup, change the home page to no_subscription.htm")
@@ -68,6 +69,7 @@ msg("Under back up system, set system backups monthly and database backups weekl
 ;msg("Restart the services one at a time in the Apache control services manager")
 
 ;security login (web interface)
+;TODO pull password out of DB and open lynx interface automatically
 msg("Add the four LynxGuide supervision channels: 000 Normal, 006, 007, 008, 009")
 msg("Add lynx2.mitsi.com to the LynxGuide channels 000 Normal, 000 Alarm, 001, 002, 003, 009")
 msg("Add 000 Normal, supervision restored for all hardware alarm groups")
