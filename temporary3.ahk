@@ -1,19 +1,44 @@
 #include FcnLib.ahk
 
-Loop
+ss()
+ForceWinFocus("Status Pro Initial Catalog=StatusPro; - Portal - Mozilla Firefox")
+
+;Loop 3
+   ;ClickIfImageSearch("images/firefly/feesButton.bmp")
+;ss()
+;WaitForImageSearch("images/firefly/feesWizardWindow.bmp")
+ClickIfImageSearch("images/firefly/feesButton.bmp")
+ss()
+ClickIfImageSearch("images/firefly/feesButton.bmp")
+ss()
+ClickIfImageSearch("images/firefly/feesButton.bmp")
+ss()
+WaitForImageSearch("images/firefly/feesWizardWindow.bmp")
+
+Loop 10
 {
-   ;ClickIfImageSearch("images/firefly/expandJob.bmp")
-   filename=images/firefly/expandJob.bmp
+ss()
+ForceWinFocus("Status Pro Initial Catalog=StatusPro; - Portal - Mozilla Firefox")
+Click(539, 516, "left")
+ss()
+Click(549, 479, "left")
+ss()
+;Send, {ENTER}
+ForceWinFocus("The page at https://www.status-pro.biz says:")
+Click(120, 97, "left")
+}
+ss()
+ForceWinFocus("Status Pro Initial Catalog=StatusPro; - Portal - Mozilla Firefox")
+ss()
+Click(1243, 425, "left")
+ss()
+Click(1243, 425, "left")
+ExitApp
 
-   WinGetPos, no, no, winWidth, winHeight, A
-   ImageSearch, xvar, yvar, 0, 0, 150, winHeight, %filename%
+ESC::ExitApp
+`::ExitApp
 
-   ;TODO but wasn't there something that would allow me to search from bottom to top?
-   ;WinGetPos, no, no, winWidth, winHeight, A
-   ;ystart:=winHeight
-   ;yfinish:=0
-   ;ImageSearch, xvar, yvar, 0, ystart, winWidth, yfinish, %filename%
-
-   if NOT ErrorLevel
-      Click(xvar, yvar, clickOptions)
+ss()
+{
+Sleep, 200
 }

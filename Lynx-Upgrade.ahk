@@ -3,6 +3,7 @@
 #include thirdParty/Notify.ahk
 #singleinstance force
 
+GetClientInfo()
 sleep, 5000
 ExitApp
 
@@ -109,6 +110,7 @@ GetClientInfo()
    ;TODO need to filecreate the perl code to client_info.plx
 
    ret := CmdRet_RunReturn("perl client_info.plx", "C:\inetpub\wwwroot\cgi\")
+
    msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
    return ret
 }

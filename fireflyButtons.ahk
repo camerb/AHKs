@@ -4,16 +4,13 @@
 
 ;{{{ TODOs
 ;TODO make scorecard faster
-; Delete filler text from Magic Faux MS_Word
-; Auto-expand all pluses in the left-hand side
+;FIXME Auto-expand all pluses in the left-hand side
 ;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
 ;TODO change text in the MS-Word lookalike program (cause their template is wrong)
-;TODO make basic fees gui
 ;TODO make in-depth fees gui
 ;TODO make background blueish to match sidebar
 ;TODO default PS Fee to $10
 
-;TODO deactivate capslock at the beginning of each macro
 ;TODO make a macro that tests their site and determines if the site is going slower than normal and logs out/in again
 ;TODO make macros more robust so that I can upgrade firefox
 
@@ -56,6 +53,7 @@ Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry
 ;Gui, Add, Button, , Ready To Invoice
 Gui, Add, Button, , Add Fees
+;Gui, Add, Button, , Refresh Login
 
 Gui, Add, Button, x10  y190, Record for Cameron
 Gui, Add, Button, x10  y220, Test Something
@@ -119,6 +117,40 @@ return
 ;}}}
 
 
+;{{{ButtonRefreshLogin:
+ButtonRefreshLogin:
+;Process, Close, firefox.exe
+
+;if CantFocusNecessaryWindow(firefox)
+   ;return
+ForceWinFocus("Mozilla Firefox")
+
+Loop
+{
+   IfWinActive, FireFly Dashboard - Main - Mozilla Firefox ahk_class MozillaUIWindowClass
+      break
+   if NOT InStr(WinGetActiveTitle(), "Mozilla Firefox")
+   {
+      errord("", "for some reason all of the firefox windows closed (error 10)")
+      return
+   }
+   Send, ^w
+   Sleep, 100
+}
+;RunProgram("C:\Program Files\Mozilla Firefox\firefox.exe")
+Sleep, 500
+Click(1730, 1110, "left mouse")
+Sleep, 500
+Click(50, 375)
+WinWaitActive, Mozilla Firefox
+Sleep, 200
+Send, !d
+Sleep, 200
+Send, https://www.status-pro.biz/dashboard/Default.aspx
+Send, {ENTER}
+return
+;}}}
+
 ;{{{ButtonAddFees:
 ButtonAddFees:
 StartOfMacro()
@@ -144,21 +176,12 @@ return
 Gui, 2: Submit
 Gui, 2: Destroy
 
-if CantFocusNecessaryWindow(firefox)
-   return
-if CantFindTopOfFirefoxPage()
-   return
-
-;timer:=startTimer()
-OpenFeesWindow()
-
-Sleep, 200
-
 ;REMOVEME
-;feesvar1=10
-;feesvar2=20
-;feesvar3=30
-;feesvar4=3
+feesvar1=10
+feesvar2=20
+feesvar3=30
+feesvar4=3
+;timer:=startTimer()
 
 if NOT (feesVar4 == "" or feesVar4 == 3)
 {
@@ -166,34 +189,48 @@ if NOT (feesVar4 == "" or feesVar4 == 3)
    return
 }
 
+if CantFocusNecessaryWindow(firefox)
+   return
+if CantFindTopOfFirefoxPage()
+   return
+
+OpenFeesWindow()
+
+;Sleep, 200 ;this seems to work sometimes... kinda
+;Sleep, 500
+   Sleep, 500
+
 list=Service of Process,Process Server Fees,Locate,Pinellas County Sticker
 Loop, parse, list, CSV
 {
-   fee:=A_LoopField
+   thisFee:=A_LoopField
    i:=A_Index
    thisFeeAmount:=FeesVar%i%
-   feeType=Client
+   thisFeeType=Client
    if (i == 2)
-      feeType=Process Server
+      thisFeeType=Process Server
    if (thisFeeAmount == "")
      continue
 
    ;TODO reliability would increase in this fcn if the sleeps were larger (perhaps this could run in the background bot)
    Click(600, 667, "left control")
-   Send, %feeType%
+   Send, %thisFeeType%
    Send, {TAB}
-   Send, %fee%
+   Send, %thisFee%
    Send, {TAB}
    Send, %thisFeeAmount%
    Click(611, 476, "left control") ;Click Add
-   Sleep, 500
+
    ;ugh, this sleep is huge... maybe we should wait for it to appear in the list
+   Sleep, 900
+   ;Sleep, 500
+   ;Sleep, 500
 }
 
 ;this should be done after the loop
 Click(1246, 425, "left control") ;Click the X
 
-;TODO might want to sanity check this to ensure that the fes were added correctly by checking the "Client Fees" and "Process Server Fees"
+;TODO might want to sanity check this to ensure that the fees were added correctly by checking the "Client Fees" and "Process Server Fees"
 ;debug(elapsedTime(timer))
 
 EndOfMacro()
@@ -320,7 +357,7 @@ ss()
 Click(922, 374, "left double")
 ;Click(922, 374, "left")
 ss()
-server:=Clipboard
+serverName:=Clipboard
 Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
 Click(911, 371, "left")
 ss()
@@ -342,10 +379,15 @@ IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialog
    return
 }
 
-
-;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 if CantFocusNecessaryWindow(excel)
    return
+
+;translate server name
+namesIni:=GetPath("FireflyConfig.ini")
+replacementName := IniRead(namesIni, "NameTranslations", serverName)
+if (replacementName != "ERROR")
+   serverName := replacementName
 
 ;DELETEME remove this before moving live
 ss()
@@ -368,7 +410,7 @@ Loop
 
 Clipboard := "null"
 ss()
-Send, %server%{ENTER}
+Send, %serverName%{ENTER}
 ;ss()
 Send, ICMbaustian{ENTER}
 ;ss()

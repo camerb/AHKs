@@ -1050,6 +1050,7 @@ GetCpuUsage( ProcNameOrPid )
 
 GetRamUsage(ProcNameOrPid, Units="K") {
    Process, Exist, %ProcNameOrPid%
+
    pid := Errorlevel
    if NOT pid
       pid := ProcNameOrPid
@@ -1632,6 +1633,8 @@ GetPath(file)
       return "C:\Dropbox\AHKs\gitExempt\NightlyStats.ini"
    else if (file == "RunOncePerDay.ini")
       return "C:\Dropbox\AHKs\gitExempt\RunOncePerDay.ini"
+   else if (file == "FireflyConfig.ini")
+      return "C:\Dropbox\AHKs\gitExempt\FireflyConfig.ini"
    else if (file == "FireflyStats.ini")
       return "C:\Dropbox\AHKs\gitExempt\FireflyStats.ini"
    else if (file == "config.ini")

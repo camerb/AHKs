@@ -1,7 +1,9 @@
 #include FcnLib.ahk
 
+thisFilePath=template.ahk
 
-gui, +Default +Resize +minsize
-Gui, Add, Combobox, xp+62  yp    w108     vword, |joe
-Gui, Show, AutoSize, window of awesome
-GuiControl, , word, |bob
+joe := SexPanther("lynx-ftp-ahk")
+timestamp := Currenttime("hyphenated")
+
+cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%thisFilePath%" --user AHK:%joe% ftp://lynx.mitsi.com/update_logs/%timestamp%-test.txt
+ret:=CmdRet_RunReturn(cmd)

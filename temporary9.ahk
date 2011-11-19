@@ -1,5 +1,7 @@
 #include FcnLib.ahk
 
+;making a zeropad function
+
 SetFormat, float, 06.0
 
 debug(zeropad2(31, 6))
