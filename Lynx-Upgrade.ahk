@@ -3,7 +3,9 @@
 #include thirdParty/Notify.ahk
 #singleinstance force
 
-GetClientInfo()
+;GetClientInfo()
+;debug(GetLynxVersion())
+;CheckDatabaseFileSize()
 sleep, 5000
 ExitApp
 
@@ -41,8 +43,10 @@ msg("Run perl start-msg-service.pl removeall")
 if PerlUpgradeNeeded
 {
    msg("Uninstall perl")
+   ;TODO wait for the finished page of the installer
    ;UNCOMMENTME FileDeleteDir("C:\Perl")
    msg("Install new perl")
+   ;TODO wait for the finished page of the installer
 }
 
 msg("Copy the contents of the zip files into C:\inetpub")
@@ -51,8 +55,10 @@ msg("If sql.txt or sql2.txt are not in the inetpub folder, then add them from \t
 if ApacheUpgradeNeeded
 {
    msg("Uninstall apache")
+   ;TODO wait for the finished page of the installer
    ;ensure the service is gone
    msg("Install apache")
+   ;TODO wait for the finished page of the installer
 }
 
 msg("Run perl banner.plx")
@@ -110,7 +116,7 @@ GetClientInfo()
    ;TODO need to filecreate the perl code to client_info.plx
 
    ret := CmdRet_RunReturn("perl client_info.plx", "C:\inetpub\wwwroot\cgi\")
-
+   ;ret := String
    msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
    return ret
 }
@@ -118,6 +124,11 @@ GetClientInfo()
 msg(message)
 {
    MsgBox, , Lynx Upgrade Assistant, %message%
+}
+
+LynxError(message)
+{
+   msg("ERROR: " . message)
 }
 
 ;Returns a true or false, confirming that they did or didn't complete this step
@@ -132,7 +143,7 @@ ConfirmMsgBox(message)
       return false
 }
 
-importantLogInfo()
+importantLogInfo(message)
 {
 }
 
@@ -237,11 +248,21 @@ IsPerlUpgradeNeeded()
 
 GetLynxVersion()
 {
-   versionFile=C:\inetpub\version.txt
-   if NOT FileExist(versionFile)
-      returned=lynx-old-build
-   else
-      FileRead, returned, %versionFile%
+   ;TODO need to filecreate the perl code to client_info.plx
+
+   clientInfo := CmdRet_RunReturn("perl client_info.plx", "C:\inetpub\wwwroot\cgi\")
+   ;return clientInfo
+   RegExMatch(clientInfo, "LynxMessageServer3\t([0-9.]+)", match)
+   returned := match1
+   ;msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
+   return returned
+
+   ;TODO might want to check both the DB and the version file
+   ;versionFile=C:\inetpub\version.txt
+   ;if NOT FileExist(versionFile)
+      ;returned=lynx-old-build
+   ;else
+      ;FileRead, returned, %versionFile%
 
    return returned
 }
@@ -256,7 +277,21 @@ ShowUpgradeSummary()
 
 CheckDatabaseFileSize()
 {
-   msg("Check database file size to ensure it is smaller than 200MB")
+   dbFile=C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\lLynx.mdf
+   if FileExist(dbFile)
+   {
+      dbSize:=FileGetSize(dbFile, "M")
+      if (dbSize > 200)
+      {
+         msg=Inform level 2 support that the database file size is %size%MB
+         msg(msg)
+      }
+   }
+   else
+   {
+      importantLogInfo("Could not find database file")
+      msg("Check database file size to ensure it is smaller than 200MB, if it is larger than 200MB, inform level 2 support")
+   }
 }
 
 #include Lynx-FcnLib.ahk
