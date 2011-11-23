@@ -8,9 +8,9 @@
 ;CheckDatabaseFileSize()
 ;GetPerlVersion()
 ;GetApacheVersion()
-debug(IsApacheUpgradeNeeded(), IsPerlUpgradeNeeded())
-sleep, 5000
-ExitApp
+;debug(IsApacheUpgradeNeeded(), IsPerlUpgradeNeeded())
+;sleep, 1000
+;ExitApp
 
 ;notify("message")
 ;notify("title", "text")
@@ -21,20 +21,21 @@ SendEmailNow("Starting an upgrade", A_ComputerName, "", "cameron@mitsi.com")
 RunTaskManagerMinimized()
 LynxOldVersion:=GetLynxVersion()
 
-msg("Attempting an upgrade from Lynx Version: " . LynxOldVersion)
-
 DownloadLynxFile("version.txt")
-DownloadLynxFile("server-upgrade-7.11.zip")
-UnzipInstallPackage("server-upgrade-7.11.zip")
-msg("Download 7.11.zip server code from the web")
+LynxDestinationVersion := FileRead("C:\temp\lynx_upgrade_files\version.txt")
+msg("Attempting an upgrade from Lynx Version: " . LynxOldVersion . " to " . LynxDestinationVersion)
+
+DownloadLynxFile("unzip.exe")
+DownloadLynxFile("upgrade_pack.zip")
+UnzipInstallPackage("upgrade_pack.zip")
 
 ;PerlOldVersion:=GetPerlVersion()
 PerlUpgradeNeeded:=IsPerlUpgradeNeeded()
 ApacheUpgradeNeeded:=IsApacheUpgradeNeeded()
-msg("Check the perl version to ensure that it is not older than 5.8.9")
-msg("If the perl version is older than 5.8.9, download the new perl")
+;msg("Check the perl version to ensure that it is not older than 5.8.9")
+;msg("If the perl version is older than 5.8.9, download the new perl")
 
-msg("Create the SMS key")
+msg("Ensure the SMS key is being created.")
 CheckDatabaseFileSize()
 GetServerSpecs()
 GetClientInfo()
@@ -70,6 +71,8 @@ msg("Run perl checkdb.plx")
 msg("Restart apache services`n(wait until complete before performing the next step)")
 msg("Run perl start-msg-service.pl installall")
 
+msg("Send Test SMS message, popup (to server), and email (to lynx2).")
+
 ;admin login (web interface)
 ;TODO pull password out of DB and open lynx interface automatically
 msg("Open the web interface, log in as admin, Install the new SMS key")
@@ -89,7 +92,6 @@ msg("Add lynx2@mitsi.com to 000 Alarm, 000 Normal and 990")
 ;TODO do all windows updates (if their server is acting funny)
 
 ;testing
-msg("Send Test SMS message, popup (to server), and email (to lynx2).")
 msg("Note in sugar: Tested SMS and Email to lynx2@mitsi.com, failed/passed by [initials] mm-dd-yyyy")
 
 msg("Note server version, last updated in sugar")
@@ -296,7 +298,21 @@ ShowUpgradeSummary()
 
 CheckDatabaseFileSize()
 {
-   dbFile=C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\lLynx.mdf
+   ;dbFile=C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\lLynx.mdf
+   ;dbFile=C:\Program Files\Microsoft SQL Server\MSSQL\MSSQL\DATA\lLynx.mdf
+   dbSearchPath=C:\Program Files\Microsoft SQL Server\*
+   Loop, %dbSearchPath%, 0, 1
+   {
+      if RegExMatch(A_LoopFileName, "Lynx\.mdf$")
+         dbFile := A_LoopFileFullPath
+   }
+   dbSearchPath=C:\Program Files (x86)\Microsoft SQL Server\*
+   Loop, %dbSearchPath%, 0, 1
+   {
+      if RegExMatch(A_LoopFileName, "Lynx\.mdf$")
+         dbFile := A_LoopFileFullPath
+   }
+
    if FileExist(dbFile)
    {
       dbSize:=FileGetSize(dbFile, "M")

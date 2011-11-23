@@ -338,12 +338,10 @@ if CantFindTopOfFirefoxPage()
 
 ss()
 Click(1100, 165, "left double")
-;Click(1100, 165, "left")
 ss()
 Send, {CTRLDOWN}c{CTRLUP}
 ss()
 Click(620, 237, "left double")
-;Click(620, 237, "left")
 ss()
 referenceNumber:=Clipboard
 if NOT RegExMatch(referenceNumber, "[0-9]{4}")
@@ -359,9 +357,12 @@ ss()
 Click(1254, 167, "left")
 ss()
 Click(922, 374, "left double")
-;Click(922, 374, "left")
 ss()
 serverName:=Clipboard
+if ( StrLen(serverName) > 25 )
+   RecoverFromMacrosGoneWild("ERROR: I got too much text for the server name (error 10)")
+if NOT RegExMatch(serverName, "[a-zA-Z .,]+")
+   RecoverFromMacrosGoneWild("ERROR: The server name has weird characters in it (error 11)`n" . serverName)
 Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
 Click(911, 371, "left")
 ss()
@@ -683,14 +684,20 @@ GetButtonName()
 RecoverFromMacrosGoneWild(message="", options="")
 {
    iniPP(A_ThisFunc)
+   EndOfMacro()
+
+   ;take a screenshot, if desired
    if InStr(options, "screenshot")
       SaveScreenShot(A_ScriptName . "-" . message)
 
-   EndOfMacro()
    ;do I want errord? or do I want a msgbox? ;prolly not msgbox cause we might want to log it
-
    if message
+   {
+      iniPP(message)
       errord(options, message, A_ScriptName, A_ThisFunc, A_LineNumber)
+   }
+
+   Reload
 }
 
 StartOfMacro()
