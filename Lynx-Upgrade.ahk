@@ -6,6 +6,9 @@
 ;GetClientInfo()
 ;debug(GetLynxVersion())
 ;CheckDatabaseFileSize()
+;GetPerlVersion()
+;GetApacheVersion()
+debug(IsApacheUpgradeNeeded(), IsPerlUpgradeNeeded())
 sleep, 5000
 ExitApp
 
@@ -25,8 +28,9 @@ DownloadLynxFile("server-upgrade-7.11.zip")
 UnzipInstallPackage("server-upgrade-7.11.zip")
 msg("Download 7.11.zip server code from the web")
 
-PerlOldVersion:=GetPerlVersion()
+;PerlOldVersion:=GetPerlVersion()
 PerlUpgradeNeeded:=IsPerlUpgradeNeeded()
+ApacheUpgradeNeeded:=IsApacheUpgradeNeeded()
 msg("Check the perl version to ensure that it is not older than 5.8.9")
 msg("If the perl version is older than 5.8.9, download the new perl")
 
@@ -234,13 +238,28 @@ GetServerSpecs()
 GetPerlVersion()
 {
    output:=CmdRet_RunReturn("perl -v")
-   RegExMatch(output, "v[0-9.]*", match)
-   return match
+   RegExMatch(output, "v([0-9.]+)", match)
+   return match1
+}
+
+GetApacheVersion()
+{
+   output := CmdRet_RunReturn("C:\Program Files (x86)\Apache Software Foundation\Apache2.2\bin\httpd.exe -v")
+   RegExMatch(output, "Apache.([0-9.]+)", match)
+   return match1
 }
 
 IsPerlUpgradeNeeded()
 {
-   if (GetPerlVersion() != "v5.8.9")
+   if (GetPerlVersion() != "5.8.9")
+      return true
+   else
+      return false
+}
+
+IsApacheUpgradeNeeded()
+{
+   if (GetApacheVersion() != "2.2.21")
       return true
    else
       return false

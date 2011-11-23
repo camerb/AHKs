@@ -14,6 +14,10 @@
 ;TODO make a macro that tests their site and determines if the site is going slower than normal and logs out/in again
 ;TODO make macros more robust so that I can upgrade firefox
 
+;FIXME FIXME FIXME
+;Can you see at the top, in the middle, above the Process Server Name, there is some info in blue? I think that sometimes there is alot of information there so the rest of the page is skewed and the macro ends up copypasting randomness all around.
+;I don't know if this is really part of the issue but thought I would throw it out. I was trying to add a scorecard entry on this one when the macros went wild.
+;end FIXME - from an email Mel sent on 11-22-2011 around 3:30pm
 
 ;TODO issues that melinda brought up:
 ;Reload Queue is not reliable when I am in a file
