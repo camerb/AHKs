@@ -477,9 +477,9 @@ InstallLynxMessenger()
 InstallAllServices()
 {
    delog("", "started function", A_ThisFunc)
-   ret := CmdRet_RunReturn("perl start-MSG-service.pl removeall", "C:\inetpub\wwwroot\cgi\")
+   ret := CmdRet_RunReturn("perl C:\inetpub\wwwroot\cgi\start-MSG-service.pl removeall", "C:\inetpub\wwwroot\cgi\")
 
-   ret := CmdRet_RunReturn("perl start-MSG-service.pl installall", "C:\inetpub\wwwroot\cgi\")
+   ret := CmdRet_RunReturn("perl C:\inetpub\wwwroot\cgi\start-MSG-service.pl installall", "C:\inetpub\wwwroot\cgi\")
    if NOT ret
       errord("installall", "(error 1) known issues here: this command returned nothing", ret)
    if InStr(ret, "Cannot start")

@@ -3,6 +3,7 @@
 #include thirdParty/Notify.ahk
 #singleinstance force
 
+;UnzipInstallPackage("upgrade_pack")
 ;GetClientInfo()
 ;debug(GetLynxVersion())
 ;CheckDatabaseFileSize()
@@ -27,7 +28,7 @@ msg("Attempting an upgrade from Lynx Version: " . LynxOldVersion . " to " . Lynx
 
 DownloadLynxFile("unzip.exe")
 DownloadLynxFile("upgrade_pack.zip")
-UnzipInstallPackage("upgrade_pack.zip")
+;UnzipInstallPackage("upgrade_pack")
 
 ;PerlOldVersion:=GetPerlVersion()
 PerlUpgradeNeeded:=IsPerlUpgradeNeeded()
@@ -41,8 +42,11 @@ GetServerSpecs()
 GetClientInfo()
 msg("Backup Lynx database")
 
-msg("Turn off IIS, change port to 8081, turn off app pools")
-msg("Turn off apache")
+if NOT GetApacheVersion() ;Apache is not installed, must be IIS
+   msg("Turn off IIS, change port to 8081, turn off app pools")
+else
+   CmdRet_RunReturn("net stop apache2.2")
+
 msg("Run perl start-msg-service.pl removeall")
 
 if PerlUpgradeNeeded
@@ -54,7 +58,8 @@ if PerlUpgradeNeeded
    ;TODO wait for the finished page of the installer
 }
 
-msg("Copy the contents of the zip files into C:\inetpub")
+notify("Copying the contents of the inetpub folder")
+FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_pack\inetpub", "C:\Inetpub")
 msg("If sql.txt or sql2.txt are not in the inetpub folder, then add them from \tools\")
 
 if ApacheUpgradeNeeded
@@ -68,7 +73,8 @@ if ApacheUpgradeNeeded
 
 msg("Run perl banner.plx")
 msg("Run perl checkdb.plx")
-msg("Restart apache services`n(wait until complete before performing the next step)")
+RestartService("apache2.2")
+SleepSeconds(2)
 msg("Run perl start-msg-service.pl installall")
 
 msg("Send Test SMS message, popup (to server), and email (to lynx2).")
@@ -161,10 +167,10 @@ UnzipInstallPackage(file)
 {
    notify("unzipping install package")
    ;7z=C:\temp\lynx_upgrade_files\7z.exe
-   unzip=C:\temp\lynx_upgrade_files\unzip.exe
    p=C:\temp\lynx_upgrade_files
+   folder:=file
    ;cmd=%7z% a -t7z %p%\archive.7z %p%\*.txt
-   cmd=%unzip% %p%\%file%.zip -d %p%\%file%
+   cmd=%p%\unzip.exe %p%\%file%.zip -d %p%\%folder%
    CmdRet_RunReturn(cmd, p)
    notify("finished unzipping install package")
 }
@@ -185,6 +191,8 @@ DownloadLynxFile(filename)
    UrlDownloadToFile, %url%, %dest%
 
    ;TODO perhaps we want to unzip the file now (if it is a 7z)
+   if RegExMatch(filename, "^(.*)\.zip$", match)
+      UnzipInstallPackage(match1)
 }
 
 TestDownloadProtocol(testProtocol)
@@ -326,6 +334,7 @@ CheckDatabaseFileSize()
    {
       importantLogInfo("Could not find database file")
       msg("Check database file size to ensure it is smaller than 200MB, if it is larger than 200MB, inform level 2 support")
+      ;TODO please provide the full path to the MDF file
    }
 }
 
