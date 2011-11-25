@@ -1,4 +1,5 @@
 #include FcnLib.ahk
+#include FcnLib-Clipboard.ahk
 #include SendEmailSimpleLib.ahk
 #NoTrayIcon
 
@@ -134,10 +135,8 @@ Loop
    IfWinActive, FireFly Dashboard - Main - Mozilla Firefox ahk_class MozillaUIWindowClass
       break
    if NOT InStr(WinGetActiveTitle(), "Mozilla Firefox")
-   {
-      errord("", "for some reason all of the firefox windows closed (error 10)")
-      return
-   }
+      RecoverFromMacrosGoneWild("ERROR: for some reason all of the firefox windows closed (error 19)")
+
    Send, ^w
    Sleep, 100
 }
@@ -241,92 +240,6 @@ EndOfMacro()
 return
 ;}}}
 
-;{{{ButtonReadyToInvoice:
-ButtonReadyToInvoice:
-
-if DoesntWantToRunMacro()
-   return
-
-StartOfMacro()
-
-BlockInput, MouseMove
-
-if CantFocusNecessaryWindow(firefox)
-   return
-if CantFindTopOfFirefoxPage()
-   return
-
-Clipboard:=""
-ss()
-Click(248, 223)
-ss()
-Send, {CTRLDOWN}a{CTRLUP}
-Send, {CTRLDOWN}c{CTRLUP}
-ss()
-clientFileNumber:=Clipboard
-length := strlen(clientFileNumber)
-if ( length > 10 || NOT clientFileNumber )
-{
-   msgbox, ERROR: I didn't get the client file number (scroll up, maybe?) (error 3)
-   return
-}
-
-;insert note in the file
-ss()
-;ForceWinFocus("Status Pro Initial Catalog=StatusPro; - Portal - Mozilla Firefox")
-Click(391, 166, "left")
-ss()
-Send, {PGDN 20}
-ss()
-Click(1120, 975, "left")
-ss()
-WaitForImageSearch("images/firefly/NoteWizardWindow.bmp")
-;Sleep, 1000
-sendEmailFromMelinda(clientFileNumber, "Ready To Invoice?")
-;debug(clientFileNumber)
-
-ss()
-Click(789, 320, "left")
-ss()
-Send, InterOfficeNote
-;SendSlow("InterOfficeNote", slowSendPauseTime)
-ss()
-Click(828, 338, "left")
-ss()
-;click into the box so we can type the message body
-ClickMultipleTimesWithPause(982, 409, "left control", 3)
-ss()
-SendInput, Emailed Office: Ready to Invoice?
-ss()
-;Sleep, 3000
-
-;possible issues with note being typed in wrong
-;TODO perhaps we should copy the fields or OCR them to ensure it looks good
-;however, if I do OCR I will need to be careful, because it is possible that that text is elsewhere on the same page
-if NOT SimpleImageSearch("images/firefly/InterOfficeNote.bmp")
-{
-   RecoverFromMacrosGoneWild()
-   iniPP("ReadyToInvoice-Error-NoteTypedIncorrectly111")
-   msgbox, it looks like the note type wasn't typed in right (error 1)
-   return
-}
-;this seems to cause some issues... odd situation... always thinks the note is typed incorrectly
-else if NOT SimpleImageSearch("images/firefly/ReadyToInvoiceNote.bmp")
-{
-   ;RecoverFromMacrosGoneWild()
-   iniPP("ReadyToInvoice-Error-NoteTypedIncorrectly222")
-   ;msgbox, it looks like the note text wasn't typed in right (error 2)
-   ;return
-}
-
-
-;Click(700, 634, "left") ;Save Note
-;Click(1095, 285, "left") ;click the X
-
-EndOfMacro()
-return
-;}}}
-
 ;{{{ButtonAddScorecardEntry:
 ButtonAddScorecardEntry:
 StartOfMacro()
@@ -339,16 +252,16 @@ if CantFindTopOfFirefoxPage()
 ss()
 Click(1100, 165, "left double")
 ss()
-Send, {CTRLDOWN}c{CTRLUP}
-ss()
-Click(620, 237, "left double")
-ss()
-referenceNumber:=Clipboard
+;Send, {CTRLDOWN}c{CTRLUP}
+
+;NOTE if she gets error 14, it probably means we need to use CopyWait() (not fast)
+referenceNumber:=CopyWait("fast")
 if NOT RegExMatch(referenceNumber, "[0-9]{4}")
-{
-   msgbox, ERROR: I didn't get the reference number (scroll up, maybe?) (error 4)
-   return
-}
+   RecoverFromMacrosGoneWild("ERROR: I didn't get the reference number (scroll up, maybe?) (error 14)")
+
+;ss()
+Click(620, 237, "left double")
+;ss()
 Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
 Click(620, 237, "left")
 ss()
@@ -361,7 +274,7 @@ ss()
 serverName:=Clipboard
 if ( StrLen(serverName) > 25 )
    RecoverFromMacrosGoneWild("ERROR: I got too much text for the server name (error 10)")
-if NOT RegExMatch(serverName, "[a-zA-Z .,]+")
+if NOT RegExMatch(serverName, "^[a-zA-Z .,]+$")
    RecoverFromMacrosGoneWild("ERROR: The server name has weird characters in it (error 11)`n" . serverName)
 Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
 Click(911, 371, "left")
@@ -373,16 +286,10 @@ ss()
 status:=Clipboard
 FormatTime, today, , M/d/yyyy
 if InStr(status, "Cancelled")
-{
-   msgbox, ERROR: It looks like this one was cancelled: %status% (error 5)
-   return
-}
+   RecoverFromMacrosGoneWild("ERROR: It looks like this one was cancelled (error 5)`n" . status)
 
 IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
-{
-   msgbox, ERROR: The website gave us an odd error (error 6)
-   return
-}
+   RecoverFromMacrosGoneWild("ERROR: The website gave us an odd error (error 6)")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 if CantFocusNecessaryWindow(excel)
@@ -413,7 +320,6 @@ Loop
       break
 }
 
-Clipboard := "null"
 ss()
 Send, %serverName%{ENTER}
 ;ss()
@@ -423,18 +329,11 @@ Send, %today%{ENTER}
 ;ss()
 Send, %referenceNumber%{ENTER}
 ;ss()
-Sleep, 100
-Send, ^c
-Sleep, 100
+ServiceCountyRequired := CopyWait("fast")
+if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
+   RecoverFromMacrosGoneWild("ERROR: The sevice county required field seems to be empty (error 17)`n" . ServiceCountyRequired)
+
 ;ss()
-loop
-{
-   ServiceCounty := Clipboard
-   ;debug(ServiceCounty)
-   if (ServiceCounty != "null")
-      break
-   sleep, 100
-}
 Send, {ENTER}
 ;ss()
 Send, {DOWN}
@@ -467,9 +366,14 @@ Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
 ;ss()
 Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
 ;ss()
-if NOT InStr(ServiceCounty, "Service County Not Required")
-   msgbox, , , ERROR: It looks like you need a Service County - it says: %ServiceCounty% %Clipboard%, 0.5
-;ss()
+if NOT InStr(ServiceCountyRequired, "Service County Not Required")
+{
+   msg=ERROR: It looks like you need a Service County - it says: %ServiceCountyRequired%
+   msgbox, , , %msg%, 0.5
+   AddToTrace("grey_line ServiceCountyRequired was: ", ServiceCountyRequired)
+}
+
+;TODO maybe we should save the excel sheet right here and make a backup, too
 
 EndOfMacro()
 return
@@ -729,7 +633,7 @@ iniPP(itemTracked)
 {
    ;I'm thinking that the section should either be the computer name or the date
    ini:=ini()
-   section:=A_ComputerName
+   section:=A_ComputerName . " " . CurrentTime("hyphendate")
    key:=itemTracked
 
    value := IniRead(ini, section, key)
