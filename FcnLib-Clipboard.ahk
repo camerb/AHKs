@@ -7,7 +7,12 @@
 ;NOTE that this should not wait at the end...
 copy(options="")
 {
-   sleepTime:=100
+   ;0    ""
+   ;10   "cautious"
+   ;100  "slow"
+   ;500  "super slow"
+   ;1000 "super super slow"
+   sleepTime:=0
    if InStr(options, "fast")
       sleepTime:=10
    else if InStr(options, "noSleep")
@@ -25,7 +30,7 @@ copy(options="")
 ;note that you need to paste in a ghetto way for the cmd prompt
 paste(options="")
 {
-   sleepTime:=100
+   sleepTime:=0
    if InStr(options, "fast")
       sleepTime:=10
    else if InStr(options, "noSleep")
@@ -50,7 +55,7 @@ CopyWait(options="")
 
    ClipWaitNot("null")
 
-   return ClipboardContents
+   return Clipboard
 
    ;number to verify that the clipboard was never assigned to
    ;null:=Random(100000,999999)
@@ -84,7 +89,10 @@ ClipWait(clipboardContentsToWaitFor, options="")
       ClipboardContents := Clipboard
       if (ClipboardContents == clipboardContentsToWaitFor)
          break
-      Sleep, 50
+
+      ;TODO decide how long of a pause I want here
+      Sleep, 10
+      ;Sleep, 50
    }
 }
 
@@ -95,7 +103,10 @@ ClipWaitNot(clipboardContentsToWaitFor, options="")
       ClipboardContents := Clipboard
       if (ClipboardContents != clipboardContentsToWaitFor)
          break
-      Sleep, 50
+
+      ;TODO decide how long of a pause I want here
+      Sleep, 10
+      ;Sleep, 50
    }
 }
 

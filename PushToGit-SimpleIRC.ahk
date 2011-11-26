@@ -2,17 +2,15 @@
 
 fatalIfNotThisPc("BAUSTIAN-09PC")
 
-repoPath=/c/Dropbox/AHKs/gitExempt/SimpleIRC
-gitRepoName=Simple-IRC
+repoPath=/c/Dropbox/Projects/Hatchling-IRC
+gitRepoName=Hatchling-IRC
 
-;var:=urldownloadtovar("https://www.att.com/olam/gotoDataDetailsAction.olamexecute?reportActionEvent=A_UMD_DATA_DETAILS")
-;debug(var)
 datestamp:=CurrentTime("hyphenated")
 gitWindow=MINGW32:%repoPath% ahk_class ConsoleWindowClass
 
 line1=git add --all
 line2=git commit -am "%datestamp%"
-;##git checkout master
+;##git checkout master ; don't checkout, cause we don't care at all about contributions from others. ;TODO change this for Hatchling!!!
 line3=git push git@github.com:camerb/%gitRepoName%.git master
 line4:=SexPanther()
 
@@ -28,5 +26,6 @@ Loop 4
    Send, %thisLine%{ENTER}
 }
 
+WinMinimize, %gitWindow%
 SleepMinutes(2)
 WinClose, %gitWindow%

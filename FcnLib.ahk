@@ -85,6 +85,8 @@ CustomTitleMatchMode(options="")
 ForceWinFocus(titleofwin, options="")
 {
    returned:=false
+   prevMode :=A_TitleMatchMode
+   prevSpeed:=A_TitleMatchModeSpeed
    CustomTitleMatchMode(options)
 
    OptionalDebug(options, titleofwin)
@@ -102,7 +104,9 @@ ForceWinFocus(titleofwin, options="")
       }
    }
 
-   CustomTitleMatchMode("Default")
+   ;CustomTitleMatchMode("Default")
+   SetTitleMatchMode, %prevMode%
+   SetTitleMatchMode, %prevSpeed%
 
    return returned
 }
@@ -115,6 +119,8 @@ ForceWinFocus(titleofwin, options="")
 ForceWinFocusIfExist(titleofwin, options="")
 {
    returned:=false
+   prevMode :=A_TitleMatchMode
+   prevSpeed:=A_TitleMatchModeSpeed
    CustomTitleMatchMode(options)
 
    OptionalDebug(options, titleofwin)
@@ -128,15 +134,19 @@ ForceWinFocusIfExist(titleofwin, options="")
       returned:=true
    }
 
-   CustomTitleMatchMode("Default")
+   ;CustomTitleMatchMode("Default")
+   SetTitleMatchMode, %prevMode%
+   SetTitleMatchMode, %prevSpeed%
 
    return returned
 }
 
 ;TODO not sure if the return values here are good or if they suck!
 ;Closes the window if it exists, then returns true if it actually did exist in the first place
-CloseWin(titleofwin, options="")
+WinClose(titleofwin, options="")
 {
+   prevMode :=A_TitleMatchMode
+   prevSpeed:=A_TitleMatchModeSpeed
    CustomTitleMatchMode(options)
 
    OptionalDebug(options, titleofwin)
@@ -147,9 +157,16 @@ CloseWin(titleofwin, options="")
       returned:=true
    }
 
-   CustomTitleMatchMode("Default")
+   ;CustomTitleMatchMode("Default")
+   SetTitleMatchMode, %prevMode%
+   SetTitleMatchMode, %prevSpeed%
 
    return returned
+}
+;TODO deprecate/rename this critter
+CloseWin(titleofwin, options="")
+{
+   WinClose(titleofwin, options)
 }
 
 ;TESTME
@@ -647,6 +664,8 @@ CloseDifficultApps()
 {
    ProcessClose("hpupdate.exe")
    ProcessClose("DesktopWeather.exe")
+   ProcessCloseAll("ping.exe")
+   ProcessCloseAll("javaw.exe")
 
    if ForceWinFocusIfExist("Irssi ahk_class PuTTY")
       Send, /quit Ragequit{ENTER}

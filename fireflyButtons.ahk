@@ -1,12 +1,12 @@
 #include FcnLib.ahk
 #include FcnLib-Clipboard.ahk
+#include FcnLib-Nightly.ahk
 #include SendEmailSimpleLib.ahk
 #NoTrayIcon
 
 ;{{{ TODOs
-;TODO make scorecard faster
+;TODO add dates to "Add Scorecard Entry"
 ;FIXME Auto-expand all pluses in the left-hand side
-;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
 ;TODO change text in the MS-Word lookalike program (cause their template is wrong)
 ;TODO make in-depth fees gui
 ;TODO make background blueish to match sidebar
@@ -20,11 +20,12 @@
 ;I don't know if this is really part of the issue but thought I would throw it out. I was trying to add a scorecard entry on this one when the macros went wild.
 ;end FIXME - from an email Mel sent on 11-22-2011 around 3:30pm
 
-;TODO issues that melinda brought up:
+;Items that don't seem to be important anymore (or things that I think I've finished):
+;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
 ;Reload Queue is not reliable when I am in a file
-;Does not answer Y to first question on the scorecard (in Open Office)
-;Sometimes the server's name in the file does not match the name in the scorecard, can you make it so that the macro still works and just leaves the name blank on the scorecard (right now it enters all the information one field off)?
-;The "Would you like to approve?" box never shows up anymore. Don't know if you would want to remove that code?
+;REMOVEME - I think this is working well now - Sometimes the server's name in the file does not match the name in the scorecard, can you make it so that the macro still works and just leaves the name blank on the scorecard (right now it enters all the information one field off)?
+;REMOVEME - I think I did remove this part of the code (2011-11-10)... The "Would you like to approve?" box never shows up anymore. Don't know if you would want to remove that code?
+;TODO make scorecard faster
 ;}}}
 
 ;{{{Globals and making the gui (one-time tasks)
@@ -58,7 +59,7 @@ Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry
 ;Gui, Add, Button, , Ready To Invoice
 Gui, Add, Button, , Add Fees
-;Gui, Add, Button, , Refresh Login
+Gui, Add, Button, , Refresh Login
 
 Gui, Add, Button, x10  y190, Record for Cameron
 Gui, Add, Button, x10  y220, Test Something
@@ -81,9 +82,11 @@ Loop
       ;if SimpleImageSearch("images/firefly/dialog/wouldYouLikeToApproveThisJob.bmp")
          ;Click(200, 90, "control") ;no button
       if SimpleImageSearch("images/firefly/dialog/pleaseSelectAnOptionFromTheDropDown.bmp")
-         Click(170, 90, "control") ;ok button
+         Click(170, 90, "control") ;center ok button
       if SimpleImageSearch("images/firefly/dialog/selectedFeesEntryHasBeenDeletedSuccessfully.bmp")
-         Click(170, 90, "control") ;ok button
+         Click(170, 90, "control") ;center ok button
+      if SimpleImageSearch("images/firefly/dialog/thereWasAnErrorHandlingYourCurrentAction.bmp")
+         Click(170, 90, "control") ;center ok button
    }
 
    if (Mod(A_Sec, 5)==0)
@@ -124,33 +127,42 @@ return
 
 ;{{{ButtonRefreshLogin:
 ButtonRefreshLogin:
-;Process, Close, firefox.exe
 
-;if CantFocusNecessaryWindow(firefox)
-   ;return
-ForceWinFocus("Mozilla Firefox")
+;this seems to fail
+;pid:=GetPID("firefox.exe")
+;debug(pid)
+;Process, Close, %pid%
+;Loop 10
+   ;Process, Close, firefox.exe
 
-Loop
+;this seems to work
+CustomTitleMatchMode("Contains")
+while ProcessExist("firefox.exe")
 {
-   IfWinActive, FireFly Dashboard - Main - Mozilla Firefox ahk_class MozillaUIWindowClass
-      break
-   if NOT InStr(WinGetActiveTitle(), "Mozilla Firefox")
-      RecoverFromMacrosGoneWild("ERROR: for some reason all of the firefox windows closed (error 19)")
-
-   Send, ^w
+   WinClose, Mozilla Firefox
    Sleep, 100
 }
-;RunProgram("C:\Program Files\Mozilla Firefox\firefox.exe")
-Sleep, 500
-Click(1730, 1110, "left mouse")
-Sleep, 500
-Click(50, 375)
-WinWaitActive, Mozilla Firefox
-Sleep, 200
-Send, !d
-Sleep, 200
-Send, https://www.status-pro.biz/dashboard/Default.aspx
-Send, {ENTER}
+
+;other attempts to kill FF
+;Process, Close, Plugin_container.exe
+;Process, Close, firefox.exe
+;Process, Close, Plugin_container.exe
+;Process, Close, firefox.exe
+
+;start firefox again ; this method is a little difficult, imacros will be easier
+RunProgram("C:\Program Files\Mozilla Firefox\firefox.exe")
+panther:=SexPanther("melinda")
+imacro=
+(
+TAB CLOSEALLOTHERS
+URL GOTO=https://www.status-pro.biz/dashboard/Default.aspx
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form1 ATTR=ID:LoginUser_UserName CONTENT=ICmbaustian
+SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:form1 ATTR=ID:LoginUser_Password CONTENT=%panther%
+TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:form1 ATTR=ID:LoginUser_LoginButton
+TAG POS=1 TYPE=A ATTR=TXT:Click<SP>Here<SP>to<SP>Log<SP>Into<SP>FC
+)
+RunIMacro(imacro)
 return
 ;}}}
 
@@ -180,10 +192,10 @@ Gui, 2: Submit
 Gui, 2: Destroy
 
 ;REMOVEME
-feesvar1=10
-feesvar2=20
-feesvar3=30
-feesvar4=3
+;feesvar1=10
+;feesvar2=20
+;feesvar3=30
+;feesvar4=3
 ;timer:=startTimer()
 
 if NOT (feesVar4 == "" or feesVar4 == 3)
@@ -251,43 +263,47 @@ if CantFindTopOfFirefoxPage()
 
 ss()
 Click(1100, 165, "left double")
-ss()
-;Send, {CTRLDOWN}c{CTRLUP}
+;ss()
 
-;NOTE if she gets error 14, it probably means we need to use CopyWait() (not fast)
-referenceNumber:=CopyWait("fast")
+;NOTE if she gets error 14, it probably means we need to use a slower CopyWait()
+referenceNumber:=CopyWait()
 if NOT RegExMatch(referenceNumber, "[0-9]{4}")
-   RecoverFromMacrosGoneWild("ERROR: I didn't get the reference number (scroll up, maybe?) (error 14)")
+   RecoverFromMacrosGoneWild("ERROR: I didn't get the reference number (scroll up, maybe?) (error 14)", referenceNumber)
 
-;ss()
 Click(620, 237, "left double")
-;ss()
-Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
-Click(620, 237, "left")
-ss()
-Click(612, 254, "left")
-ss()
-Click(1254, 167, "left")
-ss()
-Click(922, 374, "left double")
-ss()
-serverName:=Clipboard
+Send, {CTRLDOWN}a{CTRLUP}
+serverName:=CopyWait()
+if (serverName == "test3 test3") ;we're in testing mode
+   serverName=testing testing testing
 if ( StrLen(serverName) > 25 )
    RecoverFromMacrosGoneWild("ERROR: I got too much text for the server name (error 10)")
-if NOT RegExMatch(serverName, "^[a-zA-Z .,]+$")
-   RecoverFromMacrosGoneWild("ERROR: The server name has weird characters in it (error 11)`n" . serverName)
-Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
-Click(911, 371, "left")
-ss()
-Click(867, 397, "left")
-ss()
-Click(1264, 399, "left")
-ss()
-status:=Clipboard
+if RegExMatch(serverName, "[^a-zA-Z .,]")
+   RecoverFromMacrosGoneWild("ERROR: The server name has weird characters in it (error 11)", serverName)
+
+Click(620, 237, "left")
+Click(612, 254, "left")
+Click(1254, 167, "left")
+Click(922, 374, "left double")
+Send, {CTRLDOWN}a{CTRLUP}
+status:=CopyWait()
 FormatTime, today, , M/d/yyyy
+
+;if we're in testing mode
+if (serverName == "testing testing testing")
+   status=testing testing testing
+
+if RegExMatch(status, "[^a-zA-Z ]")
+   RecoverFromMacrosGoneWild("ERROR: The server name has weird characters in it (error 11)", serverName)
 if InStr(status, "Cancelled")
    RecoverFromMacrosGoneWild("ERROR: It looks like this one was cancelled (error 5)`n" . status)
 
+;TODO add the dates to this macro
+;take the Issue Date and put it into  the SPS field of the excel sheet
+;take the Case Status Date and put it in the Status Closed field of the Excel Sheet
+
+Click(911, 371, "left")
+Click(867, 397, "left")
+Click(1264, 399, "left")
 IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
    RecoverFromMacrosGoneWild("ERROR: The website gave us an odd error (error 6)")
 
@@ -314,58 +330,41 @@ ss()
 Loop
 {
    Send, {RIGHT}
-   Send, ^c
-   Sleep, 100
-   if NOT RegExMatch(Clipboard, "[A-Za-z]")
+   thisCell:=CopyWait()
+   if NOT RegExMatch(thisCell, "[A-Za-z]")
       break
 }
 
-ss()
+if (serverName == "testing testing testing")
+   serverName=Michael Hollihan
+
+;ss()
 Send, %serverName%{ENTER}
-;ss()
 Send, ICMbaustian{ENTER}
-;ss()
 Send, %today%{ENTER}
-;ss()
 Send, %referenceNumber%{ENTER}
-;ss()
-ServiceCountyRequired := CopyWait("fast")
+ServiceCountyRequired := CopyWait()
 if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
    RecoverFromMacrosGoneWild("ERROR: The sevice county required field seems to be empty (error 17)`n" . ServiceCountyRequired)
 
-;ss()
 Send, {ENTER}
-;ss()
 Send, {DOWN}
-;ss()
 Send, {ENTER}
-;ss()
 Send, {ENTER}
-;ss()
-Send, {ENTER}{ENTER}{ENTER}{ENTER}
-;ss()
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
 Send, {ENTER}
-;ss()
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
 Send, {ENTER}
-;ss()
+Send, {ENTER}
 Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
 Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
-;ss()
 Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
-;ss()
 if NOT InStr(ServiceCountyRequired, "Service County Not Required")
 {
    msg=ERROR: It looks like you need a Service County - it says: %ServiceCountyRequired%
@@ -514,6 +513,10 @@ ss()
 ArrangeWindows()
 {
    global
+   WinRestore, Mozilla Firefox
+   WinRestore, %firefox%
+   WinRestore, %excel%
+   WinMove, Mozilla Firefox, , 0, 0, 1766, 1020
    WinMove, %firefox%, , 0, 0, 1766, 1020
    WinMove, %excel%  , , 0, 0, 1766, 1020
    If InStr(WinGetActiveTitle(), excel) OR InStr(WinGetActiveTitle(), firefox)
@@ -598,7 +601,7 @@ RecoverFromMacrosGoneWild(message="", options="")
    if message
    {
       iniPP(message)
-      errord(options, message, A_ScriptName, A_ThisFunc, A_LineNumber)
+      errord(message, A_ScriptName, A_ThisFunc, A_LineNumber, options)
    }
 
    Reload

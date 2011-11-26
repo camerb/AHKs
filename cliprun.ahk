@@ -1,6 +1,10 @@
 #include FcnLib.ahk
 
-null
+!k::
+msgbox, hi
+Run tablet2.ahk
+ExitApp
+Return
 
 
 
