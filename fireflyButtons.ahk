@@ -295,7 +295,7 @@ if (serverName == "testing testing testing")
 if RegExMatch(status, "[^a-zA-Z ]")
    RecoverFromMacrosGoneWild("ERROR: The server name has weird characters in it (error 11)", serverName)
 if InStr(status, "Cancelled")
-   RecoverFromMacrosGoneWild("ERROR: It looks like this one was cancelled (error 5)`n" . status)
+   RecoverFromMacrosGoneWild("ERROR: It looks like this one was cancelled (error 5)", status)
 
 ;TODO add the dates to this macro
 ;take the Issue Date and put it into  the SPS field of the excel sheet
@@ -345,7 +345,7 @@ Send, %today%{ENTER}
 Send, %referenceNumber%{ENTER}
 ServiceCountyRequired := CopyWait()
 if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
-   RecoverFromMacrosGoneWild("ERROR: The sevice county required field seems to be empty (error 17)`n" . ServiceCountyRequired)
+   RecoverFromMacrosGoneWild("ERROR: The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
 
 Send, {ENTER}
 Send, {DOWN}

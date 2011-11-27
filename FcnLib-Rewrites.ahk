@@ -116,6 +116,8 @@ DirExist(dirPath)
 ;TESTME
 IniWrite(file, section, key, value)
 {
+   ;TODO sanitize key values (remove newline, colon, apostrophe)
+
    ;TODO put this in the read write and delete fcns
    if (file == "")
       fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no filename was provided for writing the ini to")
@@ -135,6 +137,8 @@ IniWrite(file, section, key, value)
 
 IniDelete(file, section, key="")
 {
+   ;TODO sanitize key values
+
    if (file == "")
       fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no filename was provided for deleting the ini value from")
    ;if (key == "")
@@ -150,6 +154,8 @@ IniDelete(file, section, key="")
 
 IniRead(file, section, key, Default = "ERROR")
 {
+   ;TODO sanitize key values
+
    if (file == "")
       fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no filename was provided for reading the ini value from")
    if (key == "")

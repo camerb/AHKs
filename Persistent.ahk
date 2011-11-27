@@ -5,6 +5,12 @@ return
 Persist:
 SetTitleMatchMode, 1
 
+
+;{{{ temporary things (processes to kill)
+;if (A_ComputerName = "PHOSPHORUS")
+   ;ProcessClose("pidgin.exe")
+;}}}
+
 ;{{{debugging how long it takes for an iteration through the #Persistent stuff
 ;if NOT timer
 ;{
@@ -115,6 +121,17 @@ if (A_Hour=11 AND A_Min=25 AND A_Sec=0)
       }
 }
 
+if (A_Hour=08 AND A_Min=01)
+{
+   if (A_ComputerName="PHOSPHORUS")
+      RunAhk("EpmsTimecardReminder.ahk")
+}
+if (A_Hour=10 AND A_Min=01)
+{
+   if (A_ComputerName="PHOSPHORUS")
+      RunAhk("EpmsTimecardReminder.ahk")
+}
+
 if (A_Hour=15 AND A_Min=15 AND A_Sec=0)
 {
    if (A_ComputerName="PHOSPHORUS")
@@ -132,11 +149,10 @@ if (A_Hour=13 AND A_Min=30 AND A_Sec=0)
          sendEmail("Update your jira tasks (completed and workmorrow)", "http://jira.mitsi.com`n`nMessage sent by bot")
 }
 
-if (A_Hour=14 AND A_Min=50 AND A_Sec=0)
+if (A_WDay=5 AND A_Hour=10 AND A_Min=0 AND A_Sec=0)
 {
    if (A_ComputerName="PHOSPHORUS")
-      if A_WDay BETWEEN 2 AND 6
-         sendEmail("Update Timesheet", "http://timesheet.mitsi.com`n`nMessage sent by bot")
+      sendEmail("Fantasy Nascar", "http://fantasygames.nascar.com/streak`n`nMake your fantasy picks", "", "cameronbaustian@gmail.com;melindabaustian@gmail.com")
 }
 
 if (A_WDay=5 AND A_Hour=10 AND A_Min=0 AND A_Sec=0)
@@ -240,9 +256,12 @@ if (Mod(A_Sec, 15)==0)
 ;}}}
 
 ;{{{ new ways to close unwanted windows
+
+;note that this is the body of the traytip, not the title
 CloseTrayTip("Automatic Updates is turned off")
 CloseTrayTip("A new version of Java is ready to be installed.")
 CloseTrayTip("There are unused icons on your desktop")
+CloseTrayTip("Click here to have Windows automatically keep your computer")
 
 if ForceWinFocusIfExist("Microsoft SQL Server Management Studio Recovered Files")
    ClickButton("&Do Not Recover")
@@ -297,6 +316,15 @@ WinClose, Search and Replace, Error opening
 IfWinExist, TGitCache, error
    if ForceWinFocusIfExist("TGitCache")
       Send, !x
+
+;tortoisegit crashed
+IfWinExist, TortoiseGit status cache
+{
+   WinActivate
+   Sleep, 10
+   Send, {ENTER}
+   Sleep, 500
+}
 
 IfWinExist, Find and Run Robot ahk_class TMessageForm, OK
 {
@@ -530,35 +558,12 @@ Loop, C:\My Dropbox\AHKs\gitExempt\transferTo\%A_ComputerName%\*.*, 2, 0
 }
 ;}}}
 
-;{{{ archive import reports for EPMS
+;{{{ Continual backups
+;archive import reports for EPMS
 if (A_ComputerName = "PHOSPHORUS" and Mod(A_Sec, 5)==0)
 {
-   archivePath=C:\import_files\archive\importReports\
-   report=C:\code\report.txt
-
-   if FileGetSize(report)
-   {
-      FileGetTime, timestamp, %report%
-      timestamp := FormatTime(timestamp, "yyyy-MM-dd_HH-mm-ss")
-
-      archiveFile=%archivePath%%timestamp%.txt
-      if NOT FileExist(archiveFile)
-         FileCopy(report, archiveFile)
-   }
-
-   ;copypasta: also archive epms_workbench
-   archivePath=C:\import_files\archive\epms_workbench\
-   report=C:\code\epms\script\epms_workbench.pl
-
-   if FileGetSize(report)
-   {
-      FileGetTime, timestamp, %report%
-      timestamp := FormatTime(timestamp, "yyyy-MM-dd_HH-mm-ss")
-
-      archiveFile=%archivePath%%timestamp%.txt
-      if NOT FileExist(archiveFile)
-         FileCopy(report, archiveFile)
-   }
+   BackupFile("C:\code\report.txt",                    "C:\import_files\archive\importReports\")  ;importer reports
+   BackupFile("C:\code\epms\script\epms_workbench.pl", "C:\import_files\archive\epms_workbench\") ;workbench
 }
 ;}}}
 
@@ -566,3 +571,24 @@ if (A_ComputerName = "PHOSPHORUS" and Mod(A_Sec, 5)==0)
 ;end of Persist subroutine
 return
 
+;{{{ functions of things that should only be used here in the Persistent file
+;is there a better name for this function?
+BackupFile(fileToBackup, archiveDir)
+{
+   if FileGetSize(fileToBackup)
+   {
+
+      FileGetTime, timestamp, %fileToBackup%
+      timestamp := FormatTime(timestamp, "yyyy-MM-dd_HH-mm-ss")
+
+      archiveFile=%archiveDir%%timestamp%.txt
+      if NOT FileExist(archiveFile)
+         FileCopy(fileToBackup, archiveFile)
+   }
+}
+
+;WRITEME
+BackupFolder(folderToBackup, archiveDir)
+{
+}
+;}}}

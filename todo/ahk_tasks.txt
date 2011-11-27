@@ -1,1 +1,0 @@
-;WRITEME crop autoX photo to 1920x1080
