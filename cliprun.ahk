@@ -1,10 +1,6 @@
 #include FcnLib.ahk
 
-!k::
-msgbox, hi
-Run tablet2.ahk
-ExitApp
-Return
+Demonstrating Comments: How did the agent demonstrate the apartment to you? Did she lead you through rooms? Open doors? Turn on lights? What apartment amenities did she point out? Thank you! 
 
 
 

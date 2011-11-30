@@ -1,0 +1,30 @@
+;check the first line of the file in a comment to see which compy the file should run on
+
+date := CurrentTime()
+tracefile=/home/user/Dropbox/Public/logs/trace.txt
+
+path:="/home/user/Dropbox/AHKs/scheduled/"
+file:="asap.ahk"
+targetCompyFile=%path%target_compy.txt
+FileRead, compy, %targetCompyFile%
+compy := RegExReplace(compy, "(`r|`n)")
+
+source=%path%%file%
+dest=%path%%compy%/%date%.ahk
+
+msg=`nSending AHK to %compy% for execution.
+
+FileAppend, %msg%, %tracefile%
+FileCopy, %source%, %dest%, 1
+msgbox, %source%
+msgbox, %dest%
+ExitApp
+
+;msgbox, hi %A_WorkingDir%
+date := CurrentTime("hyphenated")
+date := CurrentTime()
+;FileAppend, %date%, out.txt
+FileAppend, %date%, %tracefile%
+;#include /home/user/Dropbox/AHKs/FcnLib.ahk
+
+#include FcnLib-Linux.iahk

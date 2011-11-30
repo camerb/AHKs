@@ -18,7 +18,7 @@ copy(options="")
    else if InStr(options, "noSleep")
       sleepTime:=0
    else if InStr(options, "slow")
-      sleepTime:=500
+      sleepTime:=100
 
    Send, {CTRL DOWN}
    Sleep, %sleepTime%
@@ -36,7 +36,7 @@ paste(options="")
    else if InStr(options, "noSleep")
       sleepTime:=0
    else if InStr(options, "slow")
-      sleepTime:=500
+      sleepTime:=100
 
    Send, {CTRL DOWN}
    Sleep, %sleepTime%

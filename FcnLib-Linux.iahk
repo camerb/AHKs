@@ -1,0 +1,24 @@
+;These are functions that will only be used by the linux compy
+
+;Some of these are adapted from the other fcnlibs
+;Others here are solely for the purpose of making linux easier to deal with
+
+
+
+
+GetPath(nickname)
+{
+   if InStr(nickname, "iron-ahks-home-dir")
+      return "/home/user/Dropbox/IronAHK"
+   if InStr(nickname, "ahks-home-dir")
+      return "/home/user/Dropbox/AHKs"
+}
+
+CurrentTime(options="")
+{
+   FormatTime, time,, yyyyMMddHHmmss
+   returned := time
+   if InStr(options, "hyphenated")
+      FormatTime, returned, %time%, yyyy-MM-dd_HH-mm-ss
+   return returned
+}

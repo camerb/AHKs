@@ -58,23 +58,63 @@ ConfigureODBC(version)
 SleepSend(text)
 {
    ShortSleep()
+   Sleep, 3000
    Send, %text%
 }
 
 SleepClick(xCoord, yCoord, options="Left Mouse")
 {
    ShortSleep()
+   Sleep, 3000
    Click(xCoord, yCoord, options)
 }
 
-#include thirdparty/cmdret.ahk
 RestartService(serviceName)
 {
-   ShortSleep()
+   ;NOTE I could use the sc command, but that wouldn't wait for the service to start successfully
+   ;the NET command is basically a RunWait for services
+   Sleep, 100
    CmdRet_RunReturn("net stop " . serviceName)
-   ShortSleep()
+   Sleep, 100
    CmdRet_RunReturn("net start " . serviceName)
-   ShortSleep()
+   Sleep, 100
+}
+
+AllServicesAre(status)
+{
+   ;usage: stopped or running or started
+   if InStr(status, "STOPPED")
+      status=STOPPED
+   else if InStr(status, "STARTED") OR InStr(status, "RUNNING")
+      status=RUNNING
+   else
+      fatalErrord("", "USAGE: AllServicesAre(status) where status can be started, stopped or running")
+
+   services:="apache2.2,LynxApp1,LynxTCPService,LynxMessageServer,LynxMessageServer2,LynxMessageServer3"
+   Loop, parse, services, CSV
+   {
+      serviceName:=A_LoopField
+      ret := CmdRet_RunReturn("sc query " . serviceName)
+      Sleep, 100
+      if NOT InStr(ret, status)
+         return false
+   }
+   return true
+}
+
+InstallAll()
+{
+   ret := CmdRet_RunReturn("perl C:\inetpub\wwwroot\cgi\start-MSG-service.pl removeall", "C:\inetpub\wwwroot\cgi\")
+
+   ret := CmdRet_RunReturn("perl C:\inetpub\wwwroot\cgi\start-MSG-service.pl installall", "C:\inetpub\wwwroot\cgi\")
+   if NOT ret
+      errord("installall", "(error 1) known issues here: this command returned nothing", ret)
+   if InStr(ret, "Cannot start")
+      errord("installall", "Couldn't start a service... it returned:", ret)
+   if InStr(ret, "***")
+      errord("installall", "this command seemed to have an error... it returned:", ret)
+   if NOT InStr(ret, "Finished with 0 errors")
+      errord("installall", "this command seemed to fail... it returned:", ret)
 }
 
 GhettoCmdRet_RunReturn(command, workingDir="", options="")
@@ -173,6 +213,56 @@ WinLogActiveStats(function, lineNumber)
    delog("Debugging window info", function, lineNumber, winTitle, width, height, xPosition, yPosition, winText)
 }
 
+CmdRet_Perl(command)
+{
+   ;this specifies the full path twice, but it seems to make it more reliable for some reason
+   path:="C:\inetpub\wwwroot\cgi\"
+   fullCommand=perl %path%%command%
+   returned := CmdRet_RunReturn(fullCommand, path)
+   return returned
+}
+
+lynx_message(message)
+{
+   global A_LynxMaintenanceType
+   if (A_LynxMaintenanceType == "upgrade")
+      MsgBox, , Lynx Upgrade Assistant, %message%
+   else if (A_LynxMaintenanceType == "install")
+      debug("", message)
+   else
+      MsgBox, , Lynx Technician Assistant, %message%
+}
+
+lynx_error(message)
+{
+   global A_LynxMaintenanceType
+      ;MsgBox, , Lynx Upgrade Assistant, %message%
+   if (A_LynxMaintenanceType == "upgrade")
+      lynx_message("ERROR (Inform Level 2 support): " . message)
+   else if (A_LynxMaintenanceType == "install")
+      errord("", message)
+   else
+      lynx_message("ERROR (Inform Level 2 support): " . message)
+}
+
+lynx_fatalerror(message)
+{
+   lynx_error("FATAL " . message)
+   ExitApp
+}
+
+lynx_log(message)
+{
+   delog(message)
+}
+
+;TODO figure out how this should be different from the normal logs...
+; should the filename look like 2011-11-28-important.txt ???
+lynx_importantlog(message)
+{
+   delog(message)
+}
+
 ;Send an email without doing any of the complex queuing stuff
 SendEmailNow(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sReplyTo="cameronbaustian+bot@gmail.com")
 {
@@ -199,8 +289,8 @@ SendLogsHome(reasonForScript="UNSPECIFIED")
    reasonForScript := StringReplace(reasonForScript, "upgrade", "update")
 
    joe := GetLynxPassword("ftp")
-   timestamp := Currenttime("hyphenated")
-   date := Currenttime("hyphendate")
+   timestamp := CurrentTime("hyphenated")
+   date := CurrentTime("hyphendate")
    logFileFullPath := GetPath("logfile")
 
    ;send it back via ftp

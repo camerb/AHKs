@@ -17,6 +17,8 @@ if NOT IsVM()
    ;TODO turn this into RunProgramOneInstance() or make an options param... this is a tough decision, i almost need objects here
    if NOT ProcessExist("FindAndRunRobot.exe")
       RunProgram("C:\Program Files\FindAndRunRobot\FindAndRunRobot.exe")
+
+   RunAhk("ImageIt.ahk")
 }
 ;Openoffice launcher
 

@@ -468,7 +468,7 @@ InstallLynxMessenger()
    delog("", "started lynxmessenger install and it returned:", ret)
 
    ;move to its own function
-   ret := CmdRet_RunReturn("perl checkdb.plx", "C:\inetpub\wwwroot\cgi\")
+   ret := CmdRet_Perl("checkdb.plx")
    delog("", "ran checkdb and it returned:", ret)
 
    delog("", "finished function", A_ThisFunc)
@@ -477,17 +477,7 @@ InstallLynxMessenger()
 InstallAllServices()
 {
    delog("", "started function", A_ThisFunc)
-   ret := CmdRet_RunReturn("perl C:\inetpub\wwwroot\cgi\start-MSG-service.pl removeall", "C:\inetpub\wwwroot\cgi\")
-
-   ret := CmdRet_RunReturn("perl C:\inetpub\wwwroot\cgi\start-MSG-service.pl installall", "C:\inetpub\wwwroot\cgi\")
-   if NOT ret
-      errord("installall", "(error 1) known issues here: this command returned nothing", ret)
-   if InStr(ret, "Cannot start")
-      errord("installall", "Couldn't start a service... it returned:", ret)
-   if InStr(ret, "***")
-      errord("installall", "this command seemed to have an error... it returned:", ret)
-   if NOT InStr(ret, "Finished with 0 errors")
-      errord("installall", "this command seemed to fail... it returned:", ret)
+   InstallAll()
    delog("", "finished function", A_ThisFunc)
 }
 

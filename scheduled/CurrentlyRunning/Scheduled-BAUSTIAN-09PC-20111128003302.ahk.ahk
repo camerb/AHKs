@@ -60,3 +60,6 @@ AddToTrace(time, "killed pidgin", A_ComputerName)
 ProcessCloseAll("pidgin.exe")
 ExitApp
 }
+
+#include FcnLib.ahk
+SelfDestruct()

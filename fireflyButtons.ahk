@@ -266,18 +266,18 @@ Click(1100, 165, "left double")
 ;ss()
 
 ;NOTE if she gets error 14, it probably means we need to use a slower CopyWait()
-referenceNumber:=CopyWait()
+referenceNumber:=CopyWait("slow")
 if NOT RegExMatch(referenceNumber, "[0-9]{4}")
    RecoverFromMacrosGoneWild("ERROR: I didn't get the reference number (scroll up, maybe?) (error 14)", referenceNumber)
 
 Click(620, 237, "left double")
 Send, {CTRLDOWN}a{CTRLUP}
-serverName:=CopyWait()
+serverName:=CopyWait("slow")
 if (serverName == "test3 test3") ;we're in testing mode
    serverName=testing testing testing
 if ( StrLen(serverName) > 25 )
    RecoverFromMacrosGoneWild("ERROR: I got too much text for the server name (error 10)")
-if RegExMatch(serverName, "[^a-zA-Z .,]")
+if RegExMatch(serverName, "[^a-zA-Z .,-]")
    RecoverFromMacrosGoneWild("ERROR: The server name has weird characters in it (error 11)", serverName)
 
 Click(620, 237, "left")
@@ -285,7 +285,7 @@ Click(612, 254, "left")
 Click(1254, 167, "left")
 Click(922, 374, "left double")
 Send, {CTRLDOWN}a{CTRLUP}
-status:=CopyWait()
+status:=CopyWait("slow")
 FormatTime, today, , M/d/yyyy
 
 ;if we're in testing mode
@@ -293,7 +293,7 @@ if (serverName == "testing testing testing")
    status=testing testing testing
 
 if RegExMatch(status, "[^a-zA-Z ]")
-   RecoverFromMacrosGoneWild("ERROR: The server name has weird characters in it (error 11)", serverName)
+   RecoverFromMacrosGoneWild("ERROR: The status has weird characters in it (error 12)", serverName)
 if InStr(status, "Cancelled")
    RecoverFromMacrosGoneWild("ERROR: It looks like this one was cancelled (error 5)", status)
 
@@ -330,7 +330,9 @@ ss()
 Loop
 {
    Send, {RIGHT}
-   thisCell:=CopyWait()
+   sleep, 100
+   thisCell:=CopyWait("slow")
+   sleep, 100
    if NOT RegExMatch(thisCell, "[A-Za-z]")
       break
 }
