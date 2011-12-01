@@ -4,6 +4,7 @@
    ;RunProgram("BareTail.exe")
 
 files=C:\Dropbox\Public\logs\trace.txt,C:\Dropbox\Public\logs\BAUSTIAN-09PC.txt,C:\Dropbox\Public\logs\PHOSPHORUS.txt,C:\Dropbox\Public\logs\PHOSPHORUSVM.txt
+files .= "," . GetPath("FireflyStats.ini")
 
 if (A_ComputerName = "PHOSPHORUS")
    files .= ",C:\code\epms_logs\plack.log,C:\code\report.txt,C:\code\epms\script\mail\mqmail.log,C:\Program Files (x86)\Apache Software Foundation\Apache2.2\logs\access.log,C:\Program Files (x86)\Apache Software Foundation\Apache2.2\logs\error.log"

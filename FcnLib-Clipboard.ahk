@@ -84,7 +84,7 @@ CopyWait(options="")
 ;rewrite of the clipwait command
 ClipWait(clipboardContentsToWaitFor, options="")
 {
-   Loop
+   Loop 10
    {
       ClipboardContents := Clipboard
       if (ClipboardContents == clipboardContentsToWaitFor)
@@ -98,7 +98,7 @@ ClipWait(clipboardContentsToWaitFor, options="")
 
 ClipWaitNot(clipboardContentsToWaitFor, options="")
 {
-   Loop
+   Loop 10
    {
       ClipboardContents := Clipboard
       if (ClipboardContents != clipboardContentsToWaitFor)

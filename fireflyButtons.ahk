@@ -53,6 +53,8 @@ if (A_ComputerName == "T-800")
    yLocation=171
 }
 
+RecordStartOfFireflyPanel()
+
 Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
@@ -236,6 +238,7 @@ Loop, parse, list, CSV
    Send, %thisFeeAmount%
    Click(611, 476, "left control") ;Click Add
 
+
    ;ugh, this sleep is huge... maybe we should wait for it to appear in the list
    Sleep, 900
    ;Sleep, 500
@@ -255,37 +258,49 @@ return
 ;{{{ButtonAddScorecardEntry:
 ButtonAddScorecardEntry:
 StartOfMacro()
+iniPP("AddScorecardEntry-1")
 
 if CantFocusNecessaryWindow(firefox)
    return
+iniPP("AddScorecardEntry-2")
 if CantFindTopOfFirefoxPage()
    return
+iniPP("AddScorecardEntry-3")
 
 ss()
 Click(1100, 165, "left double")
-;ss()
+iniPP("AddScorecardEntry-4")
+ss()
 
 ;NOTE if she gets error 14, it probably means we need to use a slower CopyWait()
-referenceNumber:=CopyWait("slow")
+iniPP("AddScorecardEntry-5")
+referenceNumber:=CopyWaitMultipleAttempts("slow")
+iniPP("AddScorecardEntry-6")
 if NOT RegExMatch(referenceNumber, "[0-9]{4}")
    RecoverFromMacrosGoneWild("ERROR: I didn't get the reference number (scroll up, maybe?) (error 14)", referenceNumber)
+iniPP("AddScorecardEntry-7")
 
 Click(620, 237, "left double")
 Send, {CTRLDOWN}a{CTRLUP}
+iniPP("AddScorecardEntry-8")
 serverName:=CopyWait("slow")
+iniPP("AddScorecardEntry-9")
 if (serverName == "test3 test3") ;we're in testing mode
    serverName=testing testing testing
 if ( StrLen(serverName) > 25 )
    RecoverFromMacrosGoneWild("ERROR: I got too much text for the server name (error 10)")
 if RegExMatch(serverName, "[^a-zA-Z .,-]")
    RecoverFromMacrosGoneWild("ERROR: The server name has weird characters in it (error 11)", serverName)
+iniPP("AddScorecardEntry-10")
 
 Click(620, 237, "left")
 Click(612, 254, "left")
 Click(1254, 167, "left")
 Click(922, 374, "left double")
 Send, {CTRLDOWN}a{CTRLUP}
+iniPP("AddScorecardEntry-11")
 status:=CopyWait("slow")
+iniPP("AddScorecardEntry-12")
 FormatTime, today, , M/d/yyyy
 
 ;if we're in testing mode
@@ -311,7 +326,7 @@ IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialog
 if CantFocusNecessaryWindow(excel)
    return
 
-;translate server name
+;translate server name, if they go by something else
 namesIni:=GetPath("FireflyConfig.ini")
 replacementName := IniRead(namesIni, "NameTranslations", serverName)
 if (replacementName != "ERROR")
@@ -325,6 +340,7 @@ Send, {RIGHT}
 ss()
 Send, {DOWN}
 ss()
+iniPP("AddScorecardEntry-13")
 
 ;Loop to find the first empty column
 Loop
@@ -341,13 +357,15 @@ if (serverName == "testing testing testing")
    serverName=Michael Hollihan
 
 ;ss()
+iniPP("AddScorecardEntry-14")
 Send, %serverName%{ENTER}
 Send, ICMbaustian{ENTER}
 Send, %today%{ENTER}
 Send, %referenceNumber%{ENTER}
-ServiceCountyRequired := CopyWait()
-if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
-   RecoverFromMacrosGoneWild("ERROR: The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
+iniPP("AddScorecardEntry-15")
+ServiceCountyRequired := CopyWaitMultipleAttempts()
+iniPP("AddScorecardEntry-16")
+;perhaps the error 17 should be moved here in case if macros go wild...
 
 Send, {ENTER}
 Send, {DOWN}
@@ -367,6 +385,9 @@ Send, {ENTER}
 Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
 Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
 Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
+iniPP("AddScorecardEntry-17")
+if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
+   RecoverFromMacrosGoneWild("ERROR: The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
 if NOT InStr(ServiceCountyRequired, "Service County Not Required")
 {
    msg=ERROR: It looks like you need a Service County - it says: %ServiceCountyRequired%
@@ -611,7 +632,6 @@ RecoverFromMacrosGoneWild(message="", options="")
 
 StartOfMacro()
 {
-   ;ini:=ini()
    ;time:=CurrentTime("hyphenated")
    ;IniWrite(ini, "tracelogs", time, A_ThisLabel)
 
@@ -629,21 +649,30 @@ EndOfMacro()
    ;should I log some stuff to an INI?
 }
 
-ini()
-{
-   return GetPath("FireflyStats.ini")
-}
-
 iniPP(itemTracked)
 {
    ;I'm thinking that the section should either be the computer name or the date
-   ini:=ini()
+   ; for now a combination of the two will keep the sections unique
+   ini:=GetPath("FireflyStats.ini")
    section:=A_ComputerName . " " . CurrentTime("hyphendate")
    key:=itemTracked
 
    value := IniRead(ini, section, key)
    value++
    IniWrite(ini, section, key, value)
+}
+
+RecordStartOfFireflyPanel()
+{
+   ini:=GetPath("FireflyStats.ini")
+
+   ;write most recent date
+   section:=A_ComputerName . " " . CurrentTime("hyphendate")
+   date:=CurrentTime("hyphenated")
+   IniWrite(ini, section, "Firefly Panel Loaded (last loaded time)", date)
+
+   ;count number of loads/reloads
+   iniPP("Firefly Panel Loaded (number of times)")
 }
 
 ;Send an email without doing any of the complex queuing stuff
@@ -692,4 +721,76 @@ SelectAll()
 {
    Send, {CTRLDOWN}{END}{SHIFTDOWN}{HOME}{SHIFTUP}{CTRLUP}
 }
+
+;FIXME MAYBE? copypasta was the wrong decision
+;  however, I think writing a function would involve some ugly globals, and stuff like that
+CopyWaitMultipleAttempts(options="")
+{
+   success=success
+
+   ;attempt
+   returned := CopyWait(options)
+   if (NOT (returned == "" OR returned == "") )
+   {
+      tries++
+      msg=copywait %success% after %tries% tries
+      delog(a_linenumber, a_thisfunc, msg, "length was:", strlen(returned) )
+      inipp(msg)
+      return returned
+   }
+
+   ;attempt
+   Sleep, 10
+   returned := CopyWait(options)
+   if (NOT (returned == "" OR returned == "") )
+   {
+      tries++
+      msg=CopyWait %success% after %tries% tries
+      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
+      iniPP(msg)
+      return returned
+   }
+
+   ;attempt
+   Sleep, 100
+   returned := CopyWait(options)
+   if (NOT (returned == "" OR returned == "") )
+   {
+      tries++
+      msg=CopyWait %success% after %tries% tries
+      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
+      iniPP(msg)
+      return returned
+   }
+
+   ;attempt
+   Sleep, 250
+   returned := CopyWait(options)
+   if (NOT (returned == "" OR returned == "") )
+   {
+      tries++
+      msg=CopyWait %success% after %tries% tries
+      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
+      iniPP(msg)
+      return returned
+   }
+   else ;FAILURE
+   {
+      success=failed
+      tries++
+      msg=CopyWait %success% after %tries% tries
+      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
+      iniPP(msg)
+      return returned
+   }
+
+   ;attempt
+   ;Sleep, 250
+   ;returned := CopyWait(options)
+   ;tries++
+   ;success=failed
+   ;if CanReturnFromCopyWaitMultipleAttempts(A_LineNumber, A_ThisFunc, success, tries, returned)
+   ;   return returned
+}
+
 ;}}}

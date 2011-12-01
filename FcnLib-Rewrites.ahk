@@ -204,6 +204,11 @@ ProcessClose(exeName)
 
 ProcessCloseAll(exeName)
 {
+   ;FIXME
+   ;this waits for all processes to get closed...
+   ;something like "taskkill /f /im perl.exe" would be best, but that would require external libs
+   ;another solution is to just get a list of all processes with that name and ProcessClose() each one
+   ;   that would not wait for each one to close
    while ProcessExist(exeName)
    {
       ProcessClose(exeName)

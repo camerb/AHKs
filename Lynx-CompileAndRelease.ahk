@@ -15,6 +15,7 @@ WaitFileNotExist(exePath)
 ;Sleep, 100
 ;trying it without any sleep... seems that the "WaitFileNotExist" should be enough
 cmd="C:\Program Files (x86)\AutoHotkey\Compiler\Ahk2Exe.exe" /in "Lynx-Install.ahk" /nodecompile
+cmd="C:\Program Files (x86)\AutoHotkey\Compiler\Ahk2Exe.exe" /in "Lynx-Upgrade.ahk" /nodecompile
 CmdRet_RunReturn(cmd)
 if NOT FileExist(exePath)
    ExitApp

@@ -1678,6 +1678,10 @@ GetPath(file)
       else
          return "C:\inetpub\logs\" . date . ".txt"
    }
+   else if (file == "checkdb-logfile")
+      return "C:\inetpub\logs\" . date . "-checkdb.txt"
+   else if (file == "installall-logfile" OR file == "removeall-logfile")
+      return "C:\inetpub\logs\" . date . "-installall.txt"
    errord("orange line", "tried to GetPath() for an unknown file", file)
    return ""
 }

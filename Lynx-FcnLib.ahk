@@ -102,11 +102,32 @@ AllServicesAre(status)
    return true
 }
 
+StopAllLynxServices()
+{
+   RemoveAll()
+   CmdRet_RunReturn("net stop apache2.2")
+   TCP:="LynxTCPService.exe"
+   ProcessClose(TCP)
+   ProcessClose(TCP)
+   ProcessClose(TCP)
+   Sleep, 500
+   if ProcessExist(TCP)
+      lynx_error("LynxTCP service didn't seem to close")
+}
+
+RemoveAll()
+{
+   ret := CmdRet_Perl("start-MSG-service.pl removeall")
+   len := strlen(ret)
+   msg=Removed all services and the strlen of the removeall was %len%
+   FileAppendLine(msg, GetPath("logfile")) ;log abbreviated message
+   FileAppendLine(ret, GetPath("removeall-logfile")) ;log full message to separate log
+}
+
 InstallAll()
 {
-   ret := CmdRet_RunReturn("perl C:\inetpub\wwwroot\cgi\start-MSG-service.pl removeall", "C:\inetpub\wwwroot\cgi\")
+   ret := CmdRet_Perl("start-MSG-service.pl installall")
 
-   ret := CmdRet_RunReturn("perl C:\inetpub\wwwroot\cgi\start-MSG-service.pl installall", "C:\inetpub\wwwroot\cgi\")
    if NOT ret
       errord("installall", "(error 1) known issues here: this command returned nothing", ret)
    if InStr(ret, "Cannot start")
@@ -292,15 +313,24 @@ SendLogsHome(reasonForScript="UNSPECIFIED")
    timestamp := CurrentTime("hyphenated")
    date := CurrentTime("hyphendate")
    logFileFullPath := GetPath("logfile")
+   logFileFullPath2 := GetPath("checkdb-logfile")
+   logFileFullPath3 := GetPath("installall-logfile")
 
    ;send it back via ftp
    dest=ftp://lynx.mitsi.com/%reasonForScript%_logs/%timestamp%.txt
+   dest2=ftp://lynx.mitsi.com/%reasonForScript%_logs/%timestamp%-checkdb.txt
+   dest3=ftp://lynx.mitsi.com/%reasonForScript%_logs/%timestamp%-installall.txt
    cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath%" --user AHK:%joe% %dest%
+   ret:=CmdRet_RunReturn(cmd)
+   cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath2%" --user AHK:%joe% %dest2%
+   ret:=CmdRet_RunReturn(cmd)
+   cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath3%" --user AHK:%joe% %dest3%
    ret:=CmdRet_RunReturn(cmd)
 
    ;send it back in an email
    subject=%reasonForScript% Logs
-   SendEmailNow(subject, A_ComputerName, logFileFullPath, "cameron@mitsi.com")
+   allLogs=%logFileFullPath%|%logFileFullPath%|%logFileFullPath%
+   SendEmailNow(subject, A_ComputerName, allLogs, "cameron@mitsi.com")
 }
 
 ShowTrayMessage(message)
