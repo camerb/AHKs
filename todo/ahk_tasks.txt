@@ -1,2 +1,1 @@
-;WRITEME figure out how to add an AHK service on boot... (currently in C:\Dropbox\batch-file-example.bat)
-;WRITEME add AHK as a service using SC command
+;WRITEME use wireshark with ahk to examine live captures (pipe it out to a file)

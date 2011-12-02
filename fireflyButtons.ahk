@@ -53,8 +53,6 @@ if (A_ComputerName == "T-800")
    yLocation=171
 }
 
-RecordStartOfFireflyPanel()
-
 Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
@@ -65,10 +63,13 @@ Gui, Add, Button, , Refresh Login
 
 Gui, Add, Button, x10  y190, Record for Cameron
 Gui, Add, Button, x10  y220, Test Something
+;Gui, Add, Button, x10  y250, Report Undesired Error
 Gui, Add, Button, x110 y6  , x
 
 Gui, Show, , Firefly Shortcuts
 WinMove, Firefly Shortcuts, , %xLocation%, %yLocation%
+
+RecordSuccessfulStartOfFireflyPanel()
 ;}}}
 
 ;{{{Persistent items (things that are checked repetitively)
@@ -258,33 +259,36 @@ return
 ;{{{ButtonAddScorecardEntry:
 ButtonAddScorecardEntry:
 StartOfMacro()
-iniPP("AddScorecardEntry-1")
+iniPP("AddScorecardEntry-01")
 
 if CantFocusNecessaryWindow(firefox)
    return
-iniPP("AddScorecardEntry-2")
+iniPP("AddScorecardEntry-02")
 if CantFindTopOfFirefoxPage()
    return
-iniPP("AddScorecardEntry-3")
+iniPP("AddScorecardEntry-03")
 
 ss()
 Click(1100, 165, "left double")
-iniPP("AddScorecardEntry-4")
+iniPP("AddScorecardEntry-04")
 ss()
 
 ;NOTE if she gets error 14, it probably means we need to use a slower CopyWait()
-iniPP("AddScorecardEntry-5")
-referenceNumber:=CopyWaitMultipleAttempts("slow")
-iniPP("AddScorecardEntry-6")
+iniPP("AddScorecardEntry-05")
+
+;referenceNumber:=CopyWaitMultipleAttempts("slow")
+referenceNumber:=CopyWait("slow")
+
+iniPP("AddScorecardEntry-06")
 if NOT RegExMatch(referenceNumber, "[0-9]{4}")
    RecoverFromMacrosGoneWild("ERROR: I didn't get the reference number (scroll up, maybe?) (error 14)", referenceNumber)
-iniPP("AddScorecardEntry-7")
+iniPP("AddScorecardEntry-07")
 
 Click(620, 237, "left double")
 Send, {CTRLDOWN}a{CTRLUP}
-iniPP("AddScorecardEntry-8")
+iniPP("AddScorecardEntry-08")
 serverName:=CopyWait("slow")
-iniPP("AddScorecardEntry-9")
+iniPP("AddScorecardEntry-09")
 if (serverName == "test3 test3") ;we're in testing mode
    serverName=testing testing testing
 if ( StrLen(serverName) > 25 )
@@ -320,7 +324,7 @@ Click(911, 371, "left")
 Click(867, 397, "left")
 Click(1264, 399, "left")
 IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
-   RecoverFromMacrosGoneWild("ERROR: The website gave us an odd error (error 6)")
+   RecoverFromMacrosGoneWild("ERROR: The website gave us an odd error (error 6)", "screenshot")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 if CantFocusNecessaryWindow(excel)
@@ -363,7 +367,8 @@ Send, ICMbaustian{ENTER}
 Send, %today%{ENTER}
 Send, %referenceNumber%{ENTER}
 iniPP("AddScorecardEntry-15")
-ServiceCountyRequired := CopyWaitMultipleAttempts()
+;ServiceCountyRequired:=CopyWaitMultipleAttempts("slow")
+ServiceCountyRequired := CopyWait("slow")
 iniPP("AddScorecardEntry-16")
 ;perhaps the error 17 should be moved here in case if macros go wild...
 
@@ -493,7 +498,8 @@ ExitApp
 return
 
 ;FIXME not sure why this is broken
-2ButtonX:
+;   this should now be fixed
+2GuiClose:
 Gui, 2: Destroy
 return
 ;}}}
@@ -522,7 +528,24 @@ return
 ButtonTestSomething:
 debug("starting to test something")
 iniPP(A_ThisLabel)
+RecoverFromMacrosGoneWild("Worse Than Failure")
 debug("finished testing something")
+return
+;}}}
+
+;{{{ ButtonReportUndesiredError:
+ButtonReportUndesiredError:
+StartOfMacro()
+
+lastError:=IniRead(GetPath("FireflyStats.ini"), iniSection(), "MostRecentError")
+;message=This will send a message letting Cameron know that the most recent error should not have occurred
+message=This will send a message letting Cameron know that the most recent error should not have occurred, do you want to continue?`n`nThe error that will be reported is:`n%lastError%`n`n
+if DoesntWantToRunMacro(message)
+   return
+
+delog("red line", "Melinda thinks that the error that just happened should not have occurred", "The error was:", lastError)
+debug("nolog", "Thanks! This issue has been reported to Cameron")
+EndOfMacro()
 return
 ;}}}
 
@@ -592,12 +615,18 @@ DoesntWantToRunMacro(macroName="")
 {
    if NOT macroName
       macroName:=GetButtonName()
-   message=You clicked the %macroName% button, do you really want to continue?
+
+   if (strlen(macroName) < 25)
+      message=You clicked the %macroName% button
+   else
+      message:=macroName
+
+   message.=", do you really want to continue?"
 
    MsgBox, 4, , %message%
    IfMsgBox, No
    {
-      RecoverFromMacrosGoneWild("aborting macro (user decided they didn't want to run it)", "nolog")
+      RecoverFromMacrosGoneWild("aborting macro (user decided they didn't want to run it)")
       return true
    }
 }
@@ -613,8 +642,14 @@ GetButtonName()
 
 RecoverFromMacrosGoneWild(message="", options="")
 {
+   message=ERROR: %message%
+
    iniPP(A_ThisFunc)
    EndOfMacro()
+   ini:=GetPath("FireflyStats.ini")
+   section:=iniSection()
+   MostRecentError=%message% %options%
+   IniWrite(ini, section, "MostRecentError", MostRecentError)
 
    ;take a screenshot, if desired
    if InStr(options, "screenshot")
@@ -637,7 +672,8 @@ StartOfMacro()
 
    iniPP("PressedAButton") ;yeah, we're basically denoting this twice in a row (PressedAButton will always equal StartOfMacro), but this will make the stats file more readable
    iniPP(A_ThisFunc)
-   iniPP(A_ThisLabel) ;make a note that we pressed the button to start this macro
+   iniPP(A_ThisLabel) ;make a note that we pressed the button
+   iniPP(A_ThisFunc . "-" . A_ThisLabel) ;make a specific note that this macro started/got to the end
    SetCapsLockState, Off
    ArrangeWindows()
 }
@@ -645,8 +681,15 @@ StartOfMacro()
 EndOfMacro()
 {
    iniPP(A_ThisFunc)
+   iniPP(A_ThisFunc . "-" . A_ThisLabel) ;make a specific note that this macro started/got to the end
    BlockInput, MouseMoveOff
    ;should I log some stuff to an INI?
+}
+
+iniSection()
+{
+   section:=A_ComputerName . " " . CurrentTime("hyphendate")
+   return section
 }
 
 iniPP(itemTracked)
@@ -654,7 +697,7 @@ iniPP(itemTracked)
    ;I'm thinking that the section should either be the computer name or the date
    ; for now a combination of the two will keep the sections unique
    ini:=GetPath("FireflyStats.ini")
-   section:=A_ComputerName . " " . CurrentTime("hyphendate")
+   section:=iniSection()
    key:=itemTracked
 
    value := IniRead(ini, section, key)
@@ -662,12 +705,12 @@ iniPP(itemTracked)
    IniWrite(ini, section, key, value)
 }
 
-RecordStartOfFireflyPanel()
+RecordSuccessfulStartOfFireflyPanel()
 {
    ini:=GetPath("FireflyStats.ini")
 
    ;write most recent date
-   section:=A_ComputerName . " " . CurrentTime("hyphendate")
+   section:=iniSection()
    date:=CurrentTime("hyphenated")
    IniWrite(ini, section, "Firefly Panel Loaded (last loaded time)", date)
 
@@ -733,9 +776,9 @@ CopyWaitMultipleAttempts(options="")
    if (NOT (returned == "" OR returned == "") )
    {
       tries++
-      msg=copywait %success% after %tries% tries
-      delog(a_linenumber, a_thisfunc, msg, "length was:", strlen(returned) )
-      inipp(msg)
+      msg=CopyWait %success% after %tries% tries
+      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
+      iniPP(msg)
       return returned
    }
 
@@ -791,6 +834,34 @@ CopyWaitMultipleAttempts(options="")
    ;success=failed
    ;if CanReturnFromCopyWaitMultipleAttempts(A_LineNumber, A_ThisFunc, success, tries, returned)
    ;   return returned
+}
+
+CopyWaitMultipleAttempts222(options="")
+{
+   success=success
+
+   ;attempt
+   returned := CopyWait(options)
+   if (NOT (returned == "" OR returned == "") )
+   {
+      tries++
+      msg=CopyWait %success% after %tries% tries
+      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
+      iniPP(msg)
+      return returned
+   }
+
+   ;attempt
+   Sleep, 10
+   returned := CopyWait(options)
+   if (NOT (returned == "" OR returned == "") )
+   {
+      tries++
+      msg=CopyWait %success% after %tries% tries
+      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
+      iniPP(msg)
+      return returned
+   }
 }
 
 ;}}}

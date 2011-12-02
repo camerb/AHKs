@@ -25,12 +25,15 @@ copy(options="")
    Send, c
    Sleep, %sleepTime%
    Send, {CTRL UP}
+   Sleep, %sleepTime%
+   Send, ^c
 }
 
 ;note that you need to paste in a ghetto way for the cmd prompt
 paste(options="")
 {
-   sleepTime:=0
+   ;sleepTime:=0
+   sleepTime:=10
    if InStr(options, "fast")
       sleepTime:=10
    else if InStr(options, "noSleep")
@@ -48,12 +51,30 @@ paste(options="")
 ;this is what I've got at the moment... it needs to be refined
 CopyWait(options="")
 {
-   Clipboard := "null"
-   ClipWait("null")
+   null := "null"
+   Clipboard := null
+   iniPP("before ClipWait(null)")
+   ClipWait(null)
+   iniPP("after ClipWait(null)")
 
    copy(options)
 
-   ClipWaitNot("null")
+   iniPP("before wait for clip contents")
+   ;ClipWaitNot(null)
+   Loop 30
+   {
+      count++
+      if (Clipboard != null)
+      {
+         if (count >= 2)
+            iniPP("clipboard no longer null after # of tries: " . count)
+            ;debug("silent log yellow line", "clipboard is no longer null after # of tries:", count)
+         break
+      }
+      copy()
+      Sleep, 10
+   }
+   iniPP("after wait for clip contents")
 
    return Clipboard
 

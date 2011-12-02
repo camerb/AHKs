@@ -46,6 +46,7 @@ AppsKey & =::  Run, NewTempAhk.ahk
 
 AppsKey & 0::
 GetKeyState, controlState, Control
+Send, {APPSKEY UP}{LCTRL UP}{RCTRL UP}
 if (controlState == "D")
 {
    ActiveFile := Prompt("Which file would you like to work on?")
@@ -103,7 +104,10 @@ return
 ;Run an AHK from the AHKs folder
 AppsKey & k::
 if NOT ProcessExist("FindAndRunRobot.exe") and NOT IsVM()
+{
    RunProgram("FindAndRunRobot.exe")
+   Sleep, 1000
+}
 
 if ProcessExist("FindAndRunRobot.exe")
 {

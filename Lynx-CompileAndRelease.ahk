@@ -15,6 +15,7 @@ WaitFileNotExist(exePath)
 ;Sleep, 100
 ;trying it without any sleep... seems that the "WaitFileNotExist" should be enough
 cmd="C:\Program Files (x86)\AutoHotkey\Compiler\Ahk2Exe.exe" /in "Lynx-Install.ahk" /nodecompile
+CmdRet_RunReturn(cmd)
 cmd="C:\Program Files (x86)\AutoHotkey\Compiler\Ahk2Exe.exe" /in "Lynx-Upgrade.ahk" /nodecompile
 CmdRet_RunReturn(cmd)
 if NOT FileExist(exePath)
@@ -35,3 +36,27 @@ Loop, C:\Dropbox\AHKs\*.*
 FileCopy(exePath, "E:\Lynx-Install.exe", "overwrite")
 
 FileDelete(exePath)
+
+;TODO ahkFile does NOT support full paths yet.
+; maybe make that supported in the future
+CompileAhk(ahkFile)
+{
+   path=C:\Dropbox\AHKs\
+   filename := RegExReplace(ahkFile, "\.ahk$")
+
+   exePath=%path%%filename%.exe
+
+   ;Compile that friggin ahk
+   FileDelete(exePath)
+   WaitFileNotExist(exePath)
+
+   ;Sleep, 2000 ;it seems that a super-long sleep here always works
+   ;Sleep, 300 ;and now that we have a "WaitFileNotExist" in here, it seems to work with a somewhat-short sleep
+   ;Sleep, 100
+   ;trying it without any sleep... seems that the "WaitFileNotExist" should be enough
+
+   cmd="C:\Program Files (x86)\AutoHotkey\Compiler\Ahk2Exe.exe" /in "Lynx-Install.ahk" /nodecompile
+   CmdRet_RunReturn(cmd)
+   if NOT FileExist(exePath)
+      ExitApp
+}

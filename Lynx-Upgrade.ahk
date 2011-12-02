@@ -3,7 +3,7 @@
 #include thirdParty/Notify.ahk
 #singleinstance force
 
-A_LynxMaintenanceType := "upgrade"
+Lynx_MaintenanceType := "upgrade"
 
 ;EnsureApacheServiceNotExist()
 
