@@ -319,6 +319,13 @@ return
 #IfWinActive
 ;}}}
 
+;{{{EF Commander
+#IfWinActive ahk_class EF Commander
+;kill stupid hotkeys that mean different things
+F5::return
+#IfWinActive
+;}}}
+
 ;{{{EPMS stuff for Melinda
 #IfWinActive EPMS Shop
 ;#IfWinActive Mozilla Firefox
@@ -342,9 +349,8 @@ return
 #IfWinActive
 ;}}}
 
-;{{{EF Commander
-#IfWinActive ahk_class EF Commander
-;kill stupid hotkeys that mean different things
-F5::return
+;{{{AHK in Vim hotstrings
+#IfWinActive ahk.* ahk_class Vim
+:*:!debug::A_LineNumber, A_ScriptName, A_ThisFunc, A_ThisLabel,
 #IfWinActive
 ;}}}

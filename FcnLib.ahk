@@ -13,6 +13,10 @@
 ;begin the filename with a relevant text description, and
 ;end it with a timestamp
 ;not implemented: adjust image quality, change image format
+;PARAMETERS:
+;   descriptiveText - prepended onto the front of the filename
+;   directoryPath   - a path, "dropbox" or "local"
+;   options         - "activeWindow"
 #include thirdParty/ScreenCapture.ahk
 SaveScreenShot(descriptiveText="", directoryPath="dropbox", options="")
 {
@@ -1922,4 +1926,7 @@ PrettyTickCount(timeInMilliSeconds)
 
 ;WRITEME figure out how to add an AHK service on boot... (currently in C:\Dropbox\batch-file-example.bat)
 ;WRITEME add AHK as a service using SC command
+
+
+;WRITEME use wireshark with ahk to examine live captures (pipe it out to a file)
 

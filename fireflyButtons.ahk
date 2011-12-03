@@ -56,7 +56,7 @@ if (A_ComputerName == "T-800")
 Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
-Gui, Add, Button, , Add Scorecard Entry
+Gui, Add, Button, , Add Scorecard Entry-Old
 ;Gui, Add, Button, , Ready To Invoice
 Gui, Add, Button, , Add Fees
 Gui, Add, Button, , Refresh Login
@@ -256,8 +256,8 @@ EndOfMacro()
 return
 ;}}}
 
-;{{{ButtonAddScorecardEntry:
-ButtonAddScorecardEntry:
+;{{{ButtonAddScorecardEntry-Experimental:
+ButtonAddScorecardEntry-Experimental:
 StartOfMacro()
 iniPP("AddScorecardEntry-01")
 
@@ -268,20 +268,37 @@ if CantFindTopOfFirefoxPage()
    return
 iniPP("AddScorecardEntry-03")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; new way
+;ss()
+;Click(1100, 165, "left double")
+;iniPP("AddScorecardEntry-04")
+;ss()
+
+;;NOTE if she gets error 14, it probably means we need to use a slower CopyWait()
+;iniPP("AddScorecardEntry-05")
+
+;;referenceNumber:=CopyWaitMultipleAttempts("slow")
+;referenceNumber:=CopyWait("slow")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; old way
 ss()
 Click(1100, 165, "left double")
-iniPP("AddScorecardEntry-04")
+;Click(1100, 165, "left")
+iniPP("AddScorecardEntry-04-new")
 ss()
-
-;NOTE if she gets error 14, it probably means we need to use a slower CopyWait()
-iniPP("AddScorecardEntry-05")
-
-;referenceNumber:=CopyWaitMultipleAttempts("slow")
-referenceNumber:=CopyWait("slow")
+Send, {CTRLDOWN}c{CTRLUP}
+ss()
+iniPP("AddScorecardEntry-05-new")
+Click(620, 237, "left double")
+;Click(620, 237, "left")
+ss()
+referenceNumber:=Clipboard
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 iniPP("AddScorecardEntry-06")
 if NOT RegExMatch(referenceNumber, "[0-9]{4}")
-   RecoverFromMacrosGoneWild("ERROR: I didn't get the reference number (scroll up, maybe?) (error 14)", referenceNumber)
+   RecoverFromMacrosGoneWild("I didn't get the reference number (scroll up, maybe?) (error 14)", referenceNumber)
 iniPP("AddScorecardEntry-07")
 
 Click(620, 237, "left double")
@@ -292,9 +309,9 @@ iniPP("AddScorecardEntry-09")
 if (serverName == "test3 test3") ;we're in testing mode
    serverName=testing testing testing
 if ( StrLen(serverName) > 25 )
-   RecoverFromMacrosGoneWild("ERROR: I got too much text for the server name (error 10)")
+   RecoverFromMacrosGoneWild("I got too much text for the server name (error 10)")
 if RegExMatch(serverName, "[^a-zA-Z .,-]")
-   RecoverFromMacrosGoneWild("ERROR: The server name has weird characters in it (error 11)", serverName)
+   RecoverFromMacrosGoneWild("The server name has weird characters in it (error 11)", serverName)
 iniPP("AddScorecardEntry-10")
 
 Click(620, 237, "left")
@@ -312,9 +329,9 @@ if (serverName == "testing testing testing")
    status=testing testing testing
 
 if RegExMatch(status, "[^a-zA-Z ]")
-   RecoverFromMacrosGoneWild("ERROR: The status has weird characters in it (error 12)", serverName)
+   RecoverFromMacrosGoneWild("The status has weird characters in it (error 12)", serverName)
 if InStr(status, "Cancelled")
-   RecoverFromMacrosGoneWild("ERROR: It looks like this one was cancelled (error 5)", status)
+   RecoverFromMacrosGoneWild("It looks like this one was cancelled (error 5)", status)
 
 ;TODO add the dates to this macro
 ;take the Issue Date and put it into  the SPS field of the excel sheet
@@ -324,7 +341,7 @@ Click(911, 371, "left")
 Click(867, 397, "left")
 Click(1264, 399, "left")
 IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
-   RecoverFromMacrosGoneWild("ERROR: The website gave us an odd error (error 6)", "screenshot")
+   RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 if CantFocusNecessaryWindow(excel)
@@ -392,15 +409,164 @@ Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
 Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
 iniPP("AddScorecardEntry-17")
 if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
-   RecoverFromMacrosGoneWild("ERROR: The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
+   RecoverFromMacrosGoneWild("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
 if NOT InStr(ServiceCountyRequired, "Service County Not Required")
 {
-   msg=ERROR: It looks like you need a Service County - it says: %ServiceCountyRequired%
+   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
    msgbox, , , %msg%, 0.5
-   AddToTrace("grey_line ServiceCountyRequired was: ", ServiceCountyRequired)
+   AddToTrace("grey line ServiceCountyRequired was: ", ServiceCountyRequired)
 }
 
 ;TODO maybe we should save the excel sheet right here and make a backup, too
+
+EndOfMacro()
+return
+;}}}
+
+;{{{ButtonAddScorecardEntry-Old:
+ButtonAddScorecardEntry-Old:
+StartOfMacro()
+
+if CantFocusNecessaryWindow(firefox)
+   return
+if CantFindTopOfFirefoxPage()
+   return
+
+ss()
+Click(1100, 165, "left double")
+;Click(1100, 165, "left")
+ss()
+Send, {CTRLDOWN}c{CTRLUP}
+ss()
+Click(620, 237, "left double")
+;Click(620, 237, "left")
+ss()
+referenceNumber:=Clipboard
+if NOT RegExMatch(referenceNumber, "[0-9]{4}")
+   RecoverFromMacrosGoneWild("I didn't get the reference number (scroll up, maybe?) (error 14)", referenceNumber)
+Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
+Click(620, 237, "left")
+ss()
+Click(612, 254, "left")
+ss()
+Click(1254, 167, "left")
+ss()
+Click(922, 374, "left double")
+;Click(922, 374, "left")
+ss()
+server:=Clipboard
+Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
+Click(911, 371, "left")
+ss()
+Click(867, 397, "left")
+ss()
+Click(1264, 399, "left")
+ss()
+status:=Clipboard
+FormatTime, today, , M/d/yyyy
+if InStr(status, "Cancelled")
+   RecoverFromMacrosGoneWild("It looks like this one was cancelled (error 5)", status)
+
+IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
+   RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
+
+
+;;;;;;;;;;;;;;;;
+if CantFocusNecessaryWindow(excel)
+   return
+
+;DELETEME remove this before moving live
+ss()
+Send, {UP 50}{LEFT}{UP 50}{LEFT}
+ss()
+Send, {RIGHT}
+ss()
+Send, {DOWN}
+ss()
+
+;Loop to find the first empty column
+Loop
+{
+   Send, {RIGHT}
+   Send, ^c
+   Sleep, 100
+   if NOT RegExMatch(Clipboard, "[A-Za-z]")
+      break
+}
+
+Clipboard := "null"
+ss()
+Send, %server%{ENTER}
+;ss()
+Send, ICMbaustian{ENTER}
+;ss()
+Send, %today%{ENTER}
+;ss()
+Send, %referenceNumber%{ENTER}
+;ss()
+Sleep, 100
+Send, ^c
+Sleep, 100
+;ss()
+loop
+{
+   ServiceCounty := Clipboard
+   ;debug(ServiceCounty)
+   if (ServiceCounty != "null")
+      break
+   sleep, 100
+}
+Send, {ENTER}
+;ss()
+Send, {DOWN}
+;ss()
+Send, {ENTER}
+;ss()
+Send, {ENTER}
+;ss()
+Send, {ENTER}{ENTER}{ENTER}{ENTER}
+;ss()
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;ss()
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;ss()
+Send, {ENTER}
+;ss()
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;ss()
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;ss()
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;ss()
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;ss()
+Send, {ENTER}
+;ss()
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;ss()
+Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
+;ss()
+Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
+;ss()
+
+
+if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
+{
+   SaveScreenShot("firefly-error-17")
+   AddToTrace("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
+   ;UNSURE this was throwing so many errors that I just decided I wanted to investigate it a little
+   ;RecoverFromMacrosGoneWild("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
+}
+
+;if NOT InStr(ServiceCounty, "Service County Not Required")
+   ;msgbox, , , It looks like you need a Service County - it says: %ServiceCounty% %Clipboard%, 0.5
+if NOT InStr(ServiceCountyRequired, "Service County Not Required")
+{
+   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
+   msgbox, , , %msg%, 0.5
+   AddToTrace("grey line ServiceCountyRequired was: ", ServiceCountyRequired)
+}
+;ss()
 
 EndOfMacro()
 return
@@ -540,7 +706,7 @@ StartOfMacro()
 lastError:=IniRead(GetPath("FireflyStats.ini"), iniSection(), "MostRecentError")
 ;message=This will send a message letting Cameron know that the most recent error should not have occurred
 message=This will send a message letting Cameron know that the most recent error should not have occurred, do you want to continue?`n`nThe error that will be reported is:`n%lastError%`n`n
-if DoesntWantToRunMacro(message)
+if UserDoesntWantToRunMacro(message)
    return
 
 delog("red line", "Melinda thinks that the error that just happened should not have occurred", "The error was:", lastError)
@@ -611,7 +777,7 @@ CantFindTopOfFirefoxPage()
 }
 
 
-DoesntWantToRunMacro(macroName="")
+UserDoesntWantToRunMacro(macroName="")
 {
    if NOT macroName
       macroName:=GetButtonName()
@@ -626,7 +792,10 @@ DoesntWantToRunMacro(macroName="")
    MsgBox, 4, , %message%
    IfMsgBox, No
    {
-      RecoverFromMacrosGoneWild("aborting macro (user decided they didn't want to run it)")
+      ;This isn't an error at all! they just decided they didn't want to run it
+      ;RecoverFromMacrosGoneWild("aborting macro (user decided they didn't want to run it)")
+
+      EndOfMacro(A_ThisFunc)
       return true
    }
 }
@@ -642,10 +811,8 @@ GetButtonName()
 
 RecoverFromMacrosGoneWild(message="", options="")
 {
-   message=ERROR: %message%
-
    iniPP(A_ThisFunc)
-   EndOfMacro()
+   EndOfMacro(A_ThisFunc)
    ini:=GetPath("FireflyStats.ini")
    section:=iniSection()
    MostRecentError=%message% %options%
@@ -658,6 +825,9 @@ RecoverFromMacrosGoneWild(message="", options="")
    ;do I want errord? or do I want a msgbox? ;prolly not msgbox cause we might want to log it
    if message
    {
+      ;UNSURE Not sure, maybe this should be at the top of the function? (2011-12-02)
+      message=ERROR: %message%
+
       iniPP(message)
       errord(message, A_ScriptName, A_ThisFunc, A_LineNumber, options)
    }
@@ -678,12 +848,20 @@ StartOfMacro()
    ArrangeWindows()
 }
 
-EndOfMacro()
+EndOfMacro(howItEnded="EndOfMacro")
 {
-   iniPP(A_ThisFunc)
-   iniPP(A_ThisFunc . "-" . A_ThisLabel) ;make a specific note that this macro started/got to the end
+   iniPP(howItEnded)
+   iniPP(howItEnded . "-" . A_ThisLabel) ;make a specific note that this macro started/got to the end
+   if NOT RegExMatch(howItEnded, "^(EndOfMacro|RecoverFromMacrosGoneWild|UserDoesntWantToRunMacro)$")
+      IncorrectUsage("noticed you passed an odd param to EndOfMacro(): " . howItEnded)
    BlockInput, MouseMoveOff
-   ;should I log some stuff to an INI?
+}
+
+;note items here that I didn't intend on happening (kinda like a weak compile error)
+IncorrectUsage(message)
+{
+   iniPP("red line-IncorrectUsage")
+   delog(A_LineNumber, A_ScriptName, A_ThisFunc, A_ThisLabel, "Noticed an incorrect Usage", message)
 }
 
 iniSection()
