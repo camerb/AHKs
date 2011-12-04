@@ -1,2 +1,0 @@
-;WRITEME add a nice datestamp hotstring
-;WRITEME need to make an ini stats lib

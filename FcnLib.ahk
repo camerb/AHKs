@@ -1930,3 +1930,7 @@ PrettyTickCount(timeInMilliSeconds)
 
 ;WRITEME use wireshark with ahk to examine live captures (pipe it out to a file)
 
+
+;WRITEME add a nice datestamp hotstring
+;WRITEME need to make an ini stats lib
+
