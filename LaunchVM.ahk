@@ -1,5 +1,12 @@
 #include FcnLib.ahk
 
+Loop 20
+{
+   ProcessClose("vmware-vmx.exe")
+   ProcessClose("vmplayer.exe")
+}
+Sleep, 10000
+
 Run, C:\XPVM\Windows XP Professional.vmx
 
 ;Run, "C:\Program Files (x86)\VMware\VMware Player\vmplayer.exe"

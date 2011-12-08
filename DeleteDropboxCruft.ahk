@@ -2,8 +2,8 @@
 
 ;C:\Dropbox\.dropbox.cache
 ;folderPattern=C:\Documents and Settings\Administrator\Application Data\Dropbox\cache\*
-FileDeleteDir("C:\Dropbox\.dropbox.cache\")
-FileDeleteDir("C:\Documents and Settings\Administrator\Application Data\Dropbox\cache\")
+FileDeleteDirForceful("C:\Dropbox\.dropbox.cache\")
+FileDeleteDirForceful("C:\Documents and Settings\Administrator\Application Data\Dropbox\cache\")
 
 ;delete as many files as we possibly can (typically difficult in windows)
 ;Loop, %folderPattern%, , 1

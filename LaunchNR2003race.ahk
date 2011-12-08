@@ -1,27 +1,30 @@
 #include FcnLib.ahk
 
-;ProcessClose("TeamSpeak.exe")
-;LaunchTeamspeak2()
-;exitapp
-
-Run, http://www.blazinpedals.com/
-Sleep, 1000
-ip:=Prompt("What is the IP for the race? 68.194.184.146?")
-if not ip
-   ip=68.194.184.146
-
+ip := GetIPaddress()
 ChangeLogitechWheelMode()
 LaunchTeamspeak2()
-
-;close junk that we don't want running during the race
-Process, Close, FindAndRunRobot.exe
-Process, Close, dsidebar.exe
+CloseProgramsThatHinderNR2003()
 SoundSet, 40
-
 RunAhk("NR2003hotkeys.ahk")
 LaunchRace(ip, "pedalsdown")
 ;LaunchRaceViaRLM()
-ExitApp
+ExitApp ;DONE WITH THE AUTO-EXECUTE
+
+GetIPaddress()
+{
+   Run, http://www.blazinpedals.com/
+   ForceWinFocus("Blazin' Pedals Online Racing League")
+   ip:=Prompt("What is the IP for the race? 68.194.184.146?")
+   if not ip
+      ip=68.194.184.146
+   return ip
+}
+
+CloseProgramsThatHinderNR2003()
+{
+   ProcessClose("FindAndRunRobot.exe")
+   ProcessClose("dsidebar.exe")
+}
 
 LaunchRaceViaRLM()
 {
@@ -44,6 +47,16 @@ ChangeLogitechWheelMode()
 {
    ;Tell the logitech profiler to go into NR2003 mode so that I don't have combined pedals
    Run, "C:\Program Files\Logitech\Profiler\LWEmon.exe"
+
+   WinWait, Logitech Profiler
+   IfWinExist, , Logitech Profiler was unable to detect any game controllers.
+   {
+      debug("CONNECT THE STERRING WHEEL")
+      WinActivate, Logitech Profiler
+      WinActivate, , Logitech Profiler was unable to detect any game controllers.
+      WinWaitClose, , Logitech Profiler was unable to detect any game controllers., 120
+   }
+
    ForceWinFocus("Logitech Profiler")
    ;Send, {ALT}ps{ENTER}
    Send, {ALT}

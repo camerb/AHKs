@@ -2,9 +2,9 @@
 
 dir=C:\code\bench
 
-FileDeleteDir(dir)
+FileDeleteDirForceful(dir)
 
-FileDeleteDir(dir)
+FileDeleteDirForceful(dir)
 {
    if NOT DirExist(dir)
       return

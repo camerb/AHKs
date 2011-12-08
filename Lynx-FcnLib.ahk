@@ -97,7 +97,10 @@ AllServicesAre(status)
       ret := CmdRet_RunReturn("sc query " . serviceName)
       Sleep, 100
       if NOT InStr(ret, status)
+      {
+         ;debug("not stopped: ", serviceName)
          return false
+      }
    }
    return true
 }
@@ -115,6 +118,24 @@ StopAllLynxServices()
       lynx_error("LynxTCP service didn't seem to close")
 }
 
+BannerDotPlx()
+{
+   ret := CmdRet_Perl("banner.plx")
+   lynx_log("banner.plx returned: " . ret)
+   if NOT InStr(ret, "Location: /banner") ;/banner.gif")
+      lynx_error("the banner.plx file did not run correctly, instead it returned:" . ret)
+}
+
+;TODO run checkdb again (automated), pipe to log
+CheckDb()
+{
+   ret := CmdRet_Perl("checkdb.plx")
+   len := strlen(ret)
+   msg=Ran checkdb and the strlen of the checkdb was %len%
+   FileAppendLine(msg, GetPath("logfile")) ;log abbreviated message
+   FileAppendLine(ret, GetPath("checkdb-logfile")) ;log full message to separate log
+}
+
 RemoveAll()
 {
    ret := CmdRet_Perl("start-MSG-service.pl removeall")
@@ -127,6 +148,10 @@ RemoveAll()
 InstallAll()
 {
    ret := CmdRet_Perl("start-MSG-service.pl installall")
+   len := strlen(ret)
+   msg=Installed all services and the strlen of the installall was %len%
+   FileAppendLine(msg, GetPath("logfile")) ;log abbreviated message
+   FileAppendLine(ret, GetPath("installall-logfile")) ;log full message to separate log
 
    if NOT ret
       errord("installall", "(error 1) known issues here: this command returned nothing", ret)
@@ -304,10 +329,20 @@ SendEmailNow(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sRepl
    SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
 }
 
-SendLogsHome(reasonForScript="UNSPECIFIED")
+GetLynxMaintenanceType()
+{
+   global Lynx_MaintenanceType
+   ;fix the params, if needed
+   Lynx_MaintenanceType := StringReplace(Lynx_MaintenanceType, "upgrade", "update")
+   if NOT Lynx_MaintenanceType
+      Lynx_MaintenanceType := "UNSPECIFIED"
+   return Lynx_MaintenanceType
+}
+
+SendLogsHome()
 {
    ;fix the params, if needed
-   reasonForScript := StringReplace(reasonForScript, "upgrade", "update")
+   reasonForScript := GetLynxMaintenanceType()
 
    joe := GetLynxPassword("ftp")
    timestamp := CurrentTime("hyphenated")
@@ -348,6 +383,7 @@ HideTrayMessage(message)
 }
 
 ;TODO Run function with logging
+;On second thought, this seems like a really bad idea
 ;RunFunctionWithLogging(functionName)
 ;{
    ;if NOT IsFunc(functionName)

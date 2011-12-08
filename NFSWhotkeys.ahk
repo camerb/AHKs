@@ -1,10 +1,12 @@
 #include FcnLib.ahk
 
-;Loop
-;{
+Loop
+{
    ;ClickIfImageSearch("images/nfsw/NextButton.bmp")
-   ;Sleep, 100
-;}
+   Send, j
+   Send, [
+   Sleep, 100
+}
 
 ;Joy4::
 ;Send, {SPACE DOWN}

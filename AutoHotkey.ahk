@@ -1,6 +1,6 @@
 SetTitleMatchMode, RegEx
 
-delog("", "Started AutoHotkey")
+delog("grey line Started AutoHotkey")
 
 ;ensure that the startup shortcut is set so that we don't have to do it manually
 target=C:\Dropbox\AHKs\Bootstrap.ahk

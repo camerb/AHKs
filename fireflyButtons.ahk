@@ -14,6 +14,8 @@
 
 ;TODO make a macro that tests their site and determines if the site is going slower than normal and logs out/in again
 ;TODO make macros more robust so that I can upgrade firefox
+;TODO fix how it changes the server name in add scorecard entry by picking other items in the dropdown
+;TODO restore the name substitution feature that was once in add scorecard entry
 
 ;FIXME FIXME FIXME
 ;Can you see at the top, in the middle, above the Process Server Name, there is some info in blue? I think that sometimes there is alot of information there so the rest of the page is skewed and the macro ends up copypasting randomness all around.
@@ -56,13 +58,15 @@ if (A_ComputerName == "T-800")
 Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
-Gui, Add, Button, , Add Scorecard Entry-Old
-;Gui, Add, Button, , Ready To Invoice
+;Gui, Add, Button, , Add Scorecard Entry-Y
+Gui, Add, Button, , Add Scorecard Entry-ns
+Gui, Add, Button, , Add Scorecard Entry-sub
 Gui, Add, Button, , Add Fees
 Gui, Add, Button, , Refresh Login
 
-Gui, Add, Button, x10  y190, Record for Cameron
-Gui, Add, Button, x10  y220, Test Something
+Gui, Add, Button, x10  y230, Record for Cameron
+Gui, Add, Button, x10  y260, Test Something
+Gui, Add, Button, x10  y290, Notes
 ;Gui, Add, Button, x10  y250, Report Undesired Error
 Gui, Add, Button, x110 y6  , x
 
@@ -81,7 +85,7 @@ Loop
    ;Stuff for annoying firefly boxes that are always cancelled out of
    IfWinActive, %statusProMessage%
    {
-      ;REMOVEME if Mel doesn't complain (2011-11-10)
+      ;;REMOVEME if Mel doesn't complain (2011-11-10)
       ;if SimpleImageSearch("images/firefly/dialog/wouldYouLikeToApproveThisJob.bmp")
          ;Click(200, 90, "control") ;no button
       if SimpleImageSearch("images/firefly/dialog/pleaseSelectAnOptionFromTheDropDown.bmp")
@@ -423,8 +427,8 @@ EndOfMacro()
 return
 ;}}}
 
-;{{{ButtonAddScorecardEntry-Old:
-ButtonAddScorecardEntry-Old:
+;{{{ButtonAddScorecardEntry-ns:
+ButtonAddScorecardEntry-ns:
 StartOfMacro()
 
 if CantFocusNecessaryWindow(firefox)
@@ -434,17 +438,22 @@ if CantFindTopOfFirefoxPage()
 
 ss()
 Click(1100, 165, "left double")
-;Click(1100, 165, "left")
 ss()
 Send, {CTRLDOWN}c{CTRLUP}
 ss()
-Click(620, 237, "left double")
-;Click(620, 237, "left")
-ss()
+
 referenceNumber:=Clipboard
-if NOT RegExMatch(referenceNumber, "[0-9]{4}")
+if NOT RegExMatch(referenceNumber, "[0-9]{5}")
    RecoverFromMacrosGoneWild("I didn't get the reference number (scroll up, maybe?) (error 14)", referenceNumber)
-Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
+
+;old
+;Click(620, 237, "left double")
+StatusProCopyField(720, 237)
+ss()
+;Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
+;copy the server
+;TODO use the StatusProCopyField() for all copies
+
 Click(620, 237, "left")
 ss()
 Click(612, 254, "left")
@@ -452,9 +461,13 @@ ss()
 Click(1254, 167, "left")
 ss()
 Click(922, 374, "left double")
-;Click(922, 374, "left")
 ss()
 server:=Clipboard
+
+;for testing purposes
+;debug(referenceNumber, server)
+;RecoverFromMacrosGoneWild("Testing (error 00)")
+
 Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
 Click(911, 371, "left")
 ss()
@@ -479,7 +492,168 @@ if CantFocusNecessaryWindow(excel)
 ss()
 Send, {UP 50}{LEFT}{UP 50}{LEFT}
 ss()
-Send, {RIGHT}
+Send, {DOWN}
+ss()
+
+;Loop to find the first empty column
+Loop
+{
+   Send, {RIGHT}
+   Send, ^c
+   Sleep, 100
+   if NOT RegExMatch(Clipboard, "[A-Za-z]")
+      break
+}
+iniPP("server-" . server)
+
+Clipboard := "null"
+ss()
+Send, %server%{ENTER}
+Send, ICMbaustian{ENTER}
+Send, %today%{ENTER}
+Send, %referenceNumber%{ENTER}
+Sleep, 100
+Send, ^c
+Sleep, 100
+loop
+{
+   ServiceCountyRequired := Clipboard
+   if (ServiceCountyRequired != "null")
+      break
+   sleep, 100
+}
+
+;Send, {ENTER}
+;Send, {DOWN}
+;Send, {ENTER}
+;Send, {ENTER}
+;Send, {ENTER}{ENTER}{ENTER}{ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
+;Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {DOWN}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
+Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
+
+ss()
+
+if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
+{
+   SaveScreenShot("firefly-error-17")
+   AddToTrace("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
+   iniPP("error 17")
+   ;UNSURE this was throwing so many errors that I just decided I wanted to investigate it a little
+   ;RecoverFromMacrosGoneWild("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
+}
+
+;if NOT InStr(ServiceCounty, "Service County Not Required")
+   ;msgbox, , , It looks like you need a Service County - it says: %ServiceCounty% %Clipboard%, 0.5
+if NOT InStr(ServiceCountyRequired, "Service County Not Required")
+{
+   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
+   msgbox, , , %msg%, 0.5
+   AddToTrace("grey line ServiceCountyRequired was: ", ServiceCountyRequired)
+}
+;ss()
+
+EndOfMacro()
+return
+;}}}
+
+;{{{ButtonAddScorecardEntry-sub:
+ButtonAddScorecardEntry-sub:
+StartOfMacro()
+
+if CantFocusNecessaryWindow(firefox)
+   return
+if CantFindTopOfFirefoxPage()
+   return
+
+ss()
+Click(1100, 165, "left double")
+ss()
+Send, {CTRLDOWN}c{CTRLUP}
+ss()
+
+referenceNumber:=Clipboard
+if NOT RegExMatch(referenceNumber, "[0-9]{5}")
+   RecoverFromMacrosGoneWild("I didn't get the reference number (scroll up, maybe?) (error 14)", referenceNumber)
+
+;old
+;Click(620, 237, "left double")
+StatusProCopyField(720, 237)
+ss()
+;Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
+;copy the server
+;TODO use the StatusProCopyField() for all copies
+
+Click(620, 237, "left")
+ss()
+Click(612, 254, "left")
+ss()
+Click(1254, 167, "left")
+ss()
+Click(922, 374, "left double")
+ss()
+server:=Clipboard
+
+;for testing purposes
+;debug(referenceNumber, server)
+;RecoverFromMacrosGoneWild("Testing (error 00)")
+
+Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
+Click(911, 371, "left")
+ss()
+Click(867, 397, "left")
+ss()
+Click(1264, 399, "left")
+ss()
+status:=Clipboard
+FormatTime, today, , M/d/yyyy
+if InStr(status, "Cancelled")
+   RecoverFromMacrosGoneWild("It looks like this one was cancelled (error 5)", status)
+
+IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
+   RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
+
+
+;;;;;;;;;;;;;;;;
+if CantFocusNecessaryWindow(excel)
+   return
+
+;translate server name, if they go by something else
+namesIni:=GetPath("FireflyConfig.ini")
+replacementName := IniRead(namesIni, "NameTranslations", serverName)
+if (replacementName != "ERROR")
+   serverName := replacementName
+
+;DELETEME remove this before moving live
+ss()
+Send, {UP 50}{LEFT}{UP 50}{LEFT}
 ss()
 Send, {DOWN}
 ss()
@@ -493,67 +667,68 @@ Loop
    if NOT RegExMatch(Clipboard, "[A-Za-z]")
       break
 }
+iniPP("server-" . server)
 
 Clipboard := "null"
 ss()
 Send, %server%{ENTER}
-;ss()
 Send, ICMbaustian{ENTER}
-;ss()
 Send, %today%{ENTER}
-;ss()
 Send, %referenceNumber%{ENTER}
-;ss()
 Sleep, 100
 Send, ^c
 Sleep, 100
-;ss()
 loop
 {
-   ServiceCounty := Clipboard
-   ;debug(ServiceCounty)
-   if (ServiceCounty != "null")
+   ServiceCountyRequired := Clipboard
+   if (ServiceCountyRequired != "null")
       break
    sleep, 100
 }
-Send, {ENTER}
-;ss()
-Send, {DOWN}
-;ss()
-Send, {ENTER}
-;ss()
-Send, {ENTER}
-;ss()
-Send, {ENTER}{ENTER}{ENTER}{ENTER}
-;ss()
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
-Send, {ENTER}
-;ss()
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
-Send, {ENTER}
-;ss()
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;ss()
-Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
-;ss()
-Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
-;ss()
 
+;Send, {ENTER}
+;Send, {DOWN}
+;Send, {ENTER}
+;Send, {ENTER}
+;Send, {ENTER}{ENTER}{ENTER}{ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
+;Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {DOWN}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
+Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
+
+ss()
 
 if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
 {
    SaveScreenShot("firefly-error-17")
    AddToTrace("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
+   iniPP("error 17")
    ;UNSURE this was throwing so many errors that I just decided I wanted to investigate it a little
    ;RecoverFromMacrosGoneWild("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
 }
@@ -699,11 +874,29 @@ debug("finished testing something")
 return
 ;}}}
 
+;{{{ ButtonNotes:
+ButtonNotes:
+StartOfMacro()
+notes=
+(
+I love you!
+
+Here's an overview of the different versions of the buttons at the moment (newest is at the bottom):
+
+ASE-ns: I changed the manner in which the server name is copied from StatusPro, because it seemed to alter the combo box, rather than just getting the text.
+
+ASE-sub: I changed the "alias" feature for server names so that the we can deal with the names that are saved differently in StatusPro versus the Scorecard... (Like: Micky F. Hollihan --> Michael Hollihan)
+)
+debug("notimeout", "`n" . notes)
+EndOfMacro()
+return
+;}}}
+
 ;{{{ ButtonReportUndesiredError:
 ButtonReportUndesiredError:
 StartOfMacro()
 
-lastError:=IniRead(GetPath("FireflyStats.ini"), iniSection(), "MostRecentError")
+lastError:=IniRead(GetPath("MyStats.ini"), CurrentTime("hyphendate"), "FireflyMostRecentError")
 ;message=This will send a message letting Cameron know that the most recent error should not have occurred
 message=This will send a message letting Cameron know that the most recent error should not have occurred, do you want to continue?`n`nThe error that will be reported is:`n%lastError%`n`n
 if UserDoesntWantToRunMacro(message)
@@ -717,6 +910,7 @@ return
 
 
 ;{{{ functions
+
 ss()
 {
    Sleep, 100
@@ -738,18 +932,10 @@ ArrangeWindows()
 CantFocusNecessaryWindow(window)
 {
    if (window == "")
-   {
-      errord("", "Cameron did something wrong, the window variable was blank")
-      RecoverFromMacrosGoneWild()
-      return true
-   }
+      RecoverFromMacrosGoneWild("Cameron did something wrong, the window variable was blank")
 
    if NOT ForceWinFocusIfExist(window)
-   {
-      errord("", "couldn't find this window", window)
-      RecoverFromMacrosGoneWild()
-      return true
-   }
+      RecoverFromMacrosGoneWild("couldn't find this window: " . window)
 }
 
 CantFindTopOfFirefoxPage()
@@ -764,11 +950,7 @@ CantFindTopOfFirefoxPage()
       OR SimpleImageSearch("images/firefly/topOfPage2.bmp")
 
    if NOT topOfPageIsVisible
-   {
-      errord("", "can't find the top of the page in firefox")
-      RecoverFromMacrosGoneWild()
-      return true
-   }
+      RecoverFromMacrosGoneWild("can't find the top of the page in firefox")
 
    ;do a couple more clicks, just to make sure we're at the very, very top
    Loop 10
@@ -801,6 +983,7 @@ UserDoesntWantToRunMacro(macroName="")
 }
 
 ;TODO maybe this should be moved into the fcn lib?
+; Then again, maybe this is such a stupid, annoying Ghetto-hack that we don't want to
 GetButtonName()
 {
    returned:=RegExReplace(A_ThisLabel, "([A-Z])", " $1")
@@ -813,10 +996,10 @@ RecoverFromMacrosGoneWild(message="", options="")
 {
    iniPP(A_ThisFunc)
    EndOfMacro(A_ThisFunc)
-   ini:=GetPath("FireflyStats.ini")
-   section:=iniSection()
+   ini:=GetPath("MyStats.ini")
+   section:=CurrentTime("hyphendate")
    MostRecentError=%message% %options%
-   IniWrite(ini, section, "MostRecentError", MostRecentError)
+   IniWrite(ini, section, "FireflyMostRecentError", message)
 
    ;take a screenshot, if desired
    if InStr(options, "screenshot")
@@ -832,7 +1015,7 @@ RecoverFromMacrosGoneWild(message="", options="")
       errord(message, A_ScriptName, A_ThisFunc, A_LineNumber, options)
    }
 
-   Reload
+   Reload()
 }
 
 StartOfMacro()
@@ -864,36 +1047,10 @@ IncorrectUsage(message)
    delog(A_LineNumber, A_ScriptName, A_ThisFunc, A_ThisLabel, "Noticed an incorrect Usage", message)
 }
 
-iniSection()
-{
-   section:=A_ComputerName . " " . CurrentTime("hyphendate")
-   return section
-}
-
-iniPP(itemTracked)
-{
-   ;I'm thinking that the section should either be the computer name or the date
-   ; for now a combination of the two will keep the sections unique
-   ini:=GetPath("FireflyStats.ini")
-   section:=iniSection()
-   key:=itemTracked
-
-   value := IniRead(ini, section, key)
-   value++
-   IniWrite(ini, section, key, value)
-}
-
 RecordSuccessfulStartOfFireflyPanel()
 {
-   ini:=GetPath("FireflyStats.ini")
-
-   ;write most recent date
-   section:=iniSection()
-   date:=CurrentTime("hyphenated")
-   IniWrite(ini, section, "Firefly Panel Loaded (last loaded time)", date)
-
-   ;count number of loads/reloads
-   iniPP("Firefly Panel Loaded (number of times)")
+   iniMostRecentTime("Firefly Panel Loaded (last loaded time)") ;track the last time it was reloaded
+   iniPP("Firefly Panel Loaded (number of times)") ;count all the times it was reloaded
 }
 
 ;Send an email without doing any of the complex queuing stuff
@@ -1040,6 +1197,26 @@ CopyWaitMultipleAttempts222(options="")
       iniPP(msg)
       return returned
    }
+}
+
+StatusProCopyField(xCoord, yCoord)
+{
+   Click(xCoord, yCoord, "left")
+   Click(xCoord, yCoord, "right")
+   Send, {DOWN 3}{ENTER}
+}
+
+ShortenForDebug(text)
+{
+   len:=strlen(text)
+   start:=StringLeft(text, 10)
+   if (len > 25)
+   {
+      text=(((Text was %len% characters long and started with %start%)))
+      ;text.= full text stored at ... C:\fgakjldsfjlki
+      ;TODO store the full text in a separate file and note the location of that file
+   }
+   return text
 }
 
 ;}}}

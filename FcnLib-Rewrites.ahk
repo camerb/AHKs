@@ -74,7 +74,7 @@ FileCopyDir(source, dest, options="")
 
 ;TODO consider a rename to FileDeleteDirForceful (or forceful option)
 ;Delete folder very forcefully
-FileDeleteDir(dir)
+FileDeleteDirForceful(dir)
 {
    ;this will delete as much as possible from the target folder
    ;depending upon file locks, some items may not get deleted
@@ -108,6 +108,30 @@ FileDirExist(dirPath)
 DirExist(dirPath)
 {
    return FileDirExist(dirPath)
+}
+
+;Creates the parent dir if necessary
+;TODO if path is a directory, this ensures that that dir exists
+;simply: this ensures that the entire specified dir structure exists
+EnsureDirExists(path)
+{
+   ;if path is a file, this ensures that the parent dir exists
+   dir:=ParentDir(path)
+
+   ;figure out if it is a file or dir
+   ;split off filename if applicable
+   FileCreateDir, %dir%
+}
+
+;TESTME
+;Gets the parent directory of the specified directory
+ParentDir(fileOrFolder)
+{
+   fileOrFolder := RegExReplace(fileOrFolder, "(\\|/)", "\")
+   if (StringRight(fileOrFolder, 1) == "\")
+      fileOrFolder:= StringTrimRight(fileOrFolder, 1)
+   RegexMatch(fileOrFolder, "^.*\\", returned)
+   return returned
 }
 ;}}}
 
@@ -222,5 +246,13 @@ ProcessCloseAll(exeName)
 StringReplace(ByRef InputVar, SearchText, ReplaceText = "", All = "A") {
 	StringReplace, v, InputVar, %SearchText%, %ReplaceText%, %All%
 	Return, v
+}
+;}}}
+
+;{{{ Misc
+Reload()
+{
+   Reload
+   Sleep, 60000 ;noticed that reload doesn't reload instantly
 }
 ;}}}

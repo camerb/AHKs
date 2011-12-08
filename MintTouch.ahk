@@ -1,19 +1,14 @@
 #include FcnLib.ahk
-#include FcnLib-Opera.ahk
-#include C:\Dropbox\AHKs\gitExempt\usaalogin.ahk
-#include MintLogin.ahk
+#include FcnLib-Nightly.ahk
 
 ;Touch Mint.com so that they will pull our account info (takes a while)
+MintLogIn()
+MintTouch()
 
-mintlogin()
-
-WaitForImageSearch("images/mint/UpdateAccountsButton.bmp")
-Sleep, 500
-ClickIfImageSearch("images/mint/UpdateAccountsButton.bmp")
-Click
-
-SleepMinutes(2)
-Process, Close, opera.exe
-
+if (A_ComputerName="PHOSPHORUSVM")
+{
+   Sleep, 500
+   ProcessCloseAll("firefox.exe")
+   ProcessCloseAll("firefoxPortable.exe")
+}
 ExitApp
-`:: ExitApp

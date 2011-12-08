@@ -10,9 +10,10 @@ Loop 10
 TestDirExist()
 TestIsMinimizedIsMaximized()
 TestForceWinFocusIfExist()
-TestSendViaClipboard()
 TestDebugBool()
 TestGetXmlElement()
+;TODO run tests for OCR lib
+;TestSendViaClipboard() ;TODO let's stop testing this for now and make something that will test the entire clipboard lib well...
 ;TODO test InStr with case insensitivity
 
 debug("Tests have finished") ;}}}

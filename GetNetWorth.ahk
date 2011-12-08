@@ -6,12 +6,17 @@ ini := GetPath("NightlyStats.ini")
 keylist := IniListAllKeys(ini, "MostRecent")
 Loop, parse, keylist, CSV
 {
-   if (A_LoopField = "NetWorth")
-      continue
-   ;debug(A_Loopfield)
-   netWorth += IniRead(ini, "MostRecent", A_LoopField)
+   if IsLiquidAsset(A_LoopField)
+      netWorth += IniRead(ini, "MostRecent", A_LoopField)
 }
 
-;debug(netWorth)
+netWorth := FormatDollar(netWorth)
 NightlyStats("NetWorth", netWorth)
+ExitApp ;end of script
 
+IsLiquidAsset(accountTitle)
+{
+   if RegExMatch(accountTitle, "^(NetWorth|MaximumCreditBill|MonthlyDelta)$")
+      return false
+   return true
+}

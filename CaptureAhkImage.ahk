@@ -94,3 +94,7 @@ else if ( GetOS() == "WIN_XP" )
 ;{
    ;fatalErrord("looks like this OS is unsupported", "GetOS()", GetOS(), "A_ComputerName", A_ComputerName)
 ;}
+ExitApp
+
+ESC::ExitApp
+`::ExitApp

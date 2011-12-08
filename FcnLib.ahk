@@ -4,6 +4,7 @@
 #include thirdParty/CmdRet.ahk
 #include thirdParty/Cycle.ahk
 #include FcnLib-Rewrites.ahk
+#include FcnLib-IniStats.ahk
 ;#include thirdParty\Notify.ahk ;this causes windows to be open forever
 ;#include thirdParty/Format4Csv.ahk ;haven't used this yet, but I should
 
@@ -270,15 +271,15 @@ ClickIfImageSearch(filename, clickOptions="left mouse")
 }
 
 ;FIXME I don't like the boolean logic here... just doesn't seem readable
-;ErrordIfFileNotExist(ThisFunc, filename)
-;{
-   ;if NOT FileExist(filename)
-   ;{
-      ;errord(ThisFunc, filename, "the aforementioned file does not exist")
-      ;return false
-   ;}
-   ;return true
-;}
+ErrordIfFileNotExist(ThisFunc, filename)
+{
+   if NOT FileExist(filename)
+   {
+      errord(ThisFunc, filename, "the aforementioned file does not exist")
+      return false
+   }
+   return true
+}
 
 ;Wait until a certain image appears
 WaitForImageSearch(filename, variation=0, timeToWait=60, sleepTime=20) ;TODO option to exit ahk if image was not found
@@ -770,30 +771,6 @@ CloseDifficultAppsAllScreens()
 ;WRITEME
 ;Returns true if the specified path is a file, or false if it is a directory
 
-;Creates the parent dir if necessary
-;TODO if path is a directory, this ensures that that dir exists
-;simply: this ensures that the entire specified dir structure exists
-EnsureDirExists(path)
-{
-   ;if path is a file, this ensures that the parent dir exists
-   dir:=ParentDir(path)
-
-   ;figure out if it is a file or dir
-   ;split off filename if applicable
-   FileCreateDir, %dir%
-}
-
-;TESTME
-;Gets the parent directory of the specified directory
-ParentDir(fileOrFolder)
-{
-   fileOrFolder := RegExReplace(fileOrFolder, "(\\|/)", "\")
-   if (StringRight(fileOrFolder, 1) == "\")
-      fileOrFolder:= StringTrimRight(fileOrFolder, 1)
-   RegexMatch(fileOrFolder, "^.*\\", returned)
-   return returned
-}
-
 ;TODO Perhaps this should be done with other items, like the windows user folder, or like the dropbox folder
 ;Returns the correct program files location (error message if the file doesn't exist)
 ProgramFilesDir(relativePath)
@@ -882,8 +859,6 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
       else
          logFileFullPath=C:\inetpub\logs\%date%.txt
 
-      ;FileCreateDir, %logPath%
-      ;FileAppend, %logMessage%, %logFileFullPath%
       FileAppend(logMessage, logFileFullPath)
    }
 
@@ -940,6 +915,44 @@ SelfDestruct()
    ;TODO try and TESTME
    ;FileDelete, %A_ScriptFullPath%
    ;Exit
+}
+
+;TODO ahkFile does NOT support full paths yet.
+; maybe make that supported in the future
+CompileAhk(ahkFile)
+{
+   ErrordIfFileNotExist(A_ThisFunc, ahkFile)
+
+   ;WRITEME FileGetNameNoExt(), FileGetExt(), FileGetParentDir(localPath)
+   Loop, %ahkFile%
+   {
+      filename := A_LoopFileName
+      filepath := A_LoopFileFullPath
+      fileCount++
+   }
+   if NOT (fileCount == 1)
+      errord(A_LineNumber, A_ScriptName, A_ThisFunc, A_ThisLabel, "file count should have been 1", fileCount, ahkFile)
+
+   ;path := StringReplace(filepath, filename)
+   filename := RegExReplace(filename, "\.ahk$")
+
+   ;exePath=%path%%filename%.exe
+   exePath=%filename%.exe
+   ;debug(exepath)
+   ;debug(fileCount, filename, filepath) ;, path) ;, exePath)
+
+   ;Compile that friggin ahk
+   FileDelete(exePath)
+   WaitFileNotExist(exePath)
+   Sleep, 100
+
+   ahk2exe:=ProgramFilesDir("AutoHotkey\Compiler\Ahk2Exe.exe")
+   cmd="%ahk2exe%" /in "%ahkFile%" /nodecompile
+   CmdRet_RunReturn(cmd)
+
+   ErrordIfFileNotExist(A_ThisFunc, exePath)
+
+   return exePath
 }
 
 ;TODO move this to persistent - but if we move this to persistent, we won't be able to return if there was an error...
@@ -1659,13 +1672,13 @@ GetPath(file)
       return "C:\Dropbox\AHKs\gitExempt\RunOncePerDay.ini"
    else if (file == "FireflyConfig.ini")
       return "C:\Dropbox\AHKs\gitExempt\FireflyConfig.ini"
-   else if (file == "FireflyStats.ini")
-      return "C:\Dropbox\AHKs\gitExempt\FireflyStats.ini"
    else if (file == "config.ini")
       return "C:\Dropbox\Misc\config.ini"
    else if (file == "questions.ini")
       return "C:\Dropbox\Misc\questions.ini"
-   else if (file == "myconfig.ini")
+   else if (file = "MyStats.ini")
+      return "C:\Dropbox\Public\logs\" . A_ComputerName . ".ini"
+   else if (file = "myconfig.ini")
       return "C:\Dropbox\Misc\config-" . A_ComputerName . ".ini"
    else if (file == "imacro.lock")
       return "C:\Dropbox\Public\lock\imacro-" . A_ComputerName . ".lock"

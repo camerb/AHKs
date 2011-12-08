@@ -2,29 +2,13 @@
 #include FcnLib.ahk
 #include thirdParty/Notify.ahk
 #singleinstance force
-
 Lynx_MaintenanceType := "upgrade"
 
-;EnsureApacheServiceNotExist()
-
-;InstallAll()
-if NOT AllServicesAre("running")
-   msg("errors")
-msg("done")
-
-;UnzipInstallPackage("upgrade_pack")
-;GetClientInfo()
-;debug(GetLynxVersion())
-;CheckDatabaseFileSize()
-;GetPerlVersion()
-;GetApacheVersion()
-;debug(IsApacheUpgradeNeeded(), IsPerlUpgradeNeeded())
-;sleep, 1000
-ExitApp
-
-;notify("message")
-;notify("title", "text")
-;sleepseconds(2)
+;notify("started running checkdb")
+;CheckDb()
+;notify("finished running checkdb")
+;Sleep, 1000
+;ExitApp
 
 ;Beginning of the actual script
 SendEmailNow("Starting an upgrade", A_ComputerName, "", "cameron@mitsi.com")
@@ -33,19 +17,13 @@ LynxOldVersion:=GetLynxVersion()
 ;TODO get client information and insert it into the database (if empty)
 ; log the info as well
 
-DownloadLynxFile("version.txt")
-LynxDestinationVersion := FileRead("C:\temp\lynx_upgrade_files\version.txt")
+LynxDestinationVersion := GetLatestLynxVersion()
 msg("Attempting an upgrade from Lynx Version: " . LynxOldVersion . " to " . LynxDestinationVersion)
 
-DownloadLynxFile("unzip.exe")
-DownloadLynxFile("upgrade_pack.zip")
-;UnzipInstallPackage("upgrade_pack")
+DownloadAllLynxFilesForUpgrade()
 
-;PerlOldVersion:=GetPerlVersion()
 PerlUpgradeNeeded:=IsPerlUpgradeNeeded()
 ApacheUpgradeNeeded:=IsApacheUpgradeNeeded()
-;msg("Check the perl version to ensure that it is not older than 5.8.9")
-;msg("If the perl version is older than 5.8.9, download the new perl")
 
 msg("Ensure the SMS key is being created.")
 CheckDatabaseFileSize()
@@ -53,52 +31,24 @@ GetServerSpecs()
 GetClientInfo()
 msg("Backup Lynx database")
 
-if NOT GetApacheVersion() ;Apache is not installed, must be IIS
-   msg("Turn off IIS, change port to 8081, turn off app pools")
-else
-   CmdRet_RunReturn("net stop apache2.2")
+;START OF DOWNTIME
+TurnOffIisIfApplicable()
+StopAllLynxServices()
+EnsureAllServicesAreStopped()
 
-msg("Run perl start-msg-service.pl removeall") ;TODO
+UpgradePerlIfNeeded()
+CopyInetpubFolder()
+UpgradeApacheIfNeeded()
 
-if NOT AllServicesAre("stopped")
-   msg("ERROR: not all services are stopped")
-
-if PerlUpgradeNeeded
-{
-   msg("Uninstall perl")
-   ;TODO wait for the finished page of the installer
-   ;UNCOMMENTME FileDeleteDir("C:\Perl")
-   msg("Install new perl")
-   ;TODO wait for the finished page of the installer
-}
-
-;TODO CopyInetpubFolder()
-notify("Copying the contents of the inetpub folder")
-FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_pack\inetpub", "C:\Inetpub")
-AddSqlConnectStringFiles()
-
-if ApacheUpgradeNeeded
-{
-   msg("Uninstall apache")
-   ;TODO wait for the finished page of the installer
-   ;ensure the service is gone
-   EnsureApacheServiceNotExist()
-   msg("Install apache")
-   ;TODO wait for the finished page of the installer
-}
-
-msg("Run perl banner.plx") ;TODO
-msg("Run perl checkdb.plx")
-;TODO run checkdb again (automated), pipe to log
+BannerDotPlx()
+msg("Run perl checkdb.plx from C:\inetpub\wwwroot\cgi")
+CheckDb()
 RestartService("apache2.2")
 SleepSeconds(2)
-;msg("Run perl start-msg-service.pl installall")
 InstallAll()
 
-if NOT AllServicesAre("running")
-   msg("ERROR: not all services are running, inform level 2 support")
-
-msg("Send Test SMS message, popup (to server), and email (to lynx2).")
+;END OF DOWNTIME
+EnsureAllServicesAreRunning()
 
 ;admin login (web interface)
 ;TODO pull password out of DB and open lynx interface automatically
@@ -107,28 +57,27 @@ msg("under change system settings, then under file system locations and logging 
 msg("Ask the customer if they have a public subscription page, and if not: Under Home Page and Subscriber Setup, change the home page to no_subscription.htm")
 msg("Under back up system, set system backups monthly and database backups weekly")
 
-;msg("Restart the services one at a time in the Apache control services manager")
-
 ;security login (web interface)
 ;TODO pull password out of DB and open lynx interface automatically
+msg("Send Test SMS message, popup (to server), and email (to lynx2).")
+SendLogsHome()
 msg("Add the four LynxGuide supervision channels: 000 Normal, 006, 007, 008, 009")
 msg("Add lynx2.mitsi.com to the LynxGuide channels 000 Normal, 000 Alarm, 001, 002, 003, 009")
 msg("Add 000 Normal, supervision restored for all hardware alarm groups")
 msg("Add lynx2@mitsi.com to 000 Alarm, 000 Normal and 990")
 
-;TODO do all windows updates (if their server is acting funny)
-
 ;testing
-msg("Note in sugar: Tested SMS and Email to lynx2@mitsi.com, failed/passed by [initials] mm-dd-yyyy")
-
-msg("Note server version, last updated in sugar")
-msg("Make case in sugar for 'Server upgraded to 7.##.##.#', note specific items/concerns addressed with customer in description")
+;msg("Note in sugar: Tested SMS and Email to lynx2@mitsi.com, failed/passed by [initials] mm-dd-yyyy")
+;msg("Note server version, last updated in sugar")
+;msg("Make case in sugar for 'Server upgraded to 7.##.##.#', note specific items/concerns addressed with customer in description")
 
 LynxNewVersion := GetLynxVersion()
 ShowUpgradeSummary()
-SendLogsHome("upgrade")
 ExitApp
 
+
+;TODO do all windows updates (if their server is acting funny)
+;  this is a bad idea cause it will require a reboot
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; functions
 
@@ -149,9 +98,13 @@ GetClientInfo()
    ;TODO need to filecreate the perl code to client_info.plx
 
    ret := CmdRet_Perl("client_info.plx")
-   ;ret := String
-   msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
-   return ret
+   if ret
+      msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
+   else
+   {
+      Clipboard=SELECT [type],[ver],count(*) FROM[ipaddress] GROUP BY [type],[ver]
+      msg("Get the client data and put it into Sugar. The database query has been placed on the clipboard, so just paste it into SSMS to run it")
+   }
 }
 
 msg(message)
@@ -175,6 +128,20 @@ LynxError(message)
    ;else
       ;return false
 ;}
+
+EnsureAllServicesAreStopped()
+{
+   Sleep, 5000
+   if NOT AllServicesAre("stopped")
+      lynx_error("Not all services are stopped")
+}
+
+EnsureAllServicesAreRunning()
+{
+   Sleep, 5000
+   if NOT AllServicesAre("running")
+      lynx_error("Not all services are running")
+}
 
 importantLogInfo(message)
 {
@@ -240,6 +207,14 @@ TestDownloadProtocol(testProtocol)
       connectionProtocol:=testProtocol
 }
 
+CopyInetpubFolder()
+{
+   notify("Copying the contents of the inetpub folder")
+   FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_pack\inetpub", "C:\Inetpub", "overwrite")
+   AddSqlConnectStringFiles()
+   notify("finished copying inetpub folder")
+}
+
 RunTaskManagerMinimized()
 {
    Run, taskmgr
@@ -264,6 +239,50 @@ GetServerSpecs()
    ;UNCOMMENTME SaveScreenShot("serverSpecs", "C:\inetpub\logs\lynxUpgrades\", "activeWindow")
    msg("Enter server Computer Name, RAM, Processor Speed and OS into Sugar")
    WinClose, System
+}
+
+TurnOffIisIfApplicable()
+{
+   if NOT GetApacheVersion() ;Apache is not installed, must be IIS
+      msg("Turn off IIS, change port to 8081, turn off app pools")
+}
+
+UpgradePerlIfNeeded()
+{
+   if IsPerlUpgradeNeeded()
+   {
+      msg("Uninstall perl")
+      while GetPerlVersion()
+         lynx_error("Uninstall perl")
+
+      FileDeleteDirForceful("C:\Perl")
+
+      Run, C:\temp\lynx_upgrade_files\upgrade_pack\ActivePerl\ActivePerl.msi
+      Sleep, 2000
+      msg("Install new perl")
+      while IsPerlUpgradeNeeded()
+         lynx_error("Install new perl")
+   }
+}
+
+UpgradeApacheIfNeeded()
+{
+   if IsApacheUpgradeNeeded()
+   {
+      msg("Uninstall apache")
+      while GetApacheVersion()
+         lynx_error("Uninstall apache")
+      ;TODO wait for the finished page of the installer
+      ;ensure the service is gone
+      EnsureApacheServiceNotExist()
+
+      Run, C:\temp\lynx_upgrade_files\upgrade_pack\apache\apache.msi
+      Sleep, 2000
+      msg("Install new apache")
+      while IsApacheUpgradeNeeded()
+         lynx_error("Install new apache")
+      ;TODO wait for the finished page of the installer
+   }
 }
 
 GetPerlVersion()
@@ -296,43 +315,11 @@ IsApacheUpgradeNeeded()
       return false
 }
 
-WatchAsUninstallPerl()
-{
-   win=
-   successWin=
-   ForceWinFocus("ActivePerl 5.8.9 Build 827 Setup ahk_class MsiDialogCloseClass")
-   ;WinWaitNotExist, , Display the release notes, 600
-}
-WatchAsInstallPerl()
-{
-   win=
-   successWin=
-   ForceWinFocus("ActivePerl 5.8.9 Build 827 Setup ahk_class MsiDialogCloseClass")
-   WinWaitActive, , Display the release notes, 600
-   ;WinWaitNotExist, , Display the release notes, 600
-}
-WatchAsUninstallApache()
-{
-   win=
-   successWin=
-}
-WatchAsInstallApache()
-{
-   win=
-   successWin=
-   WinWaitActive, , Installation Wizard
-   WinWaitActive, , The Installation Wizard has successfully installed Apache
-   ;WinWaitNotExist, , The Installation Wizard has successfully installed Apache
-}
-;WinWaitExistThenDisappear()
-;{
-;}
-
 GetLynxVersion()
 {
    ;TODO need to filecreate the perl code to client_info.plx
 
-   clientInfo := CmdRet_RunReturn("perl client_info.plx", "C:\inetpub\wwwroot\cgi\")
+   clientInfo := CmdRet_Perl("client_info.plx")
    ;return clientInfo
    RegExMatch(clientInfo, "LynxMessageServer3\t([0-9.]+)", match)
    returned := match1
@@ -346,6 +333,13 @@ GetLynxVersion()
    ;else
       ;FileRead, returned, %versionFile%
 
+   return returned
+}
+
+GetLatestLynxVersion()
+{
+   DownloadLynxFile("version.txt")
+   returned := FileRead("C:\temp\lynx_upgrade_files\version.txt")
    return returned
 }
 
@@ -411,6 +405,16 @@ AddSqlConnectStringFiles()
       FileCopy(source1, dest1)
    if NOT FileExist(dest2)
       FileCopy(source2, dest2)
+}
+
+DownloadAllLynxFilesForUpgrade()
+{
+   FileDeleteDirForceful("C:\temp\lynx_upgrade_files")
+
+   notify("Downloading LynxGuide Upgrade Package")
+   DownloadLynxFile("unzip.exe")
+   DownloadLynxFile("upgrade_pack.zip")
+   notify("Finished Downloading")
 }
 
 #include Lynx-FcnLib.ahk
