@@ -344,10 +344,15 @@ return
 :*:!game::Not all applications listen for input on default SendModes, games are especially notorious for this. I would test sending the input with each of the four sendmodes, to see which SendMode successfully sends input to the application.  `nhttp://www.autohotkey.com/docs/commands/SendMode.htm `n`nAlso, there are a couple of other issues that can affect games, so be sure to check the games FAQ if that doesn't work: `nhttp://www.autohotkey.com/docs/FAQ.htm{#}games
 :*:!autofire::Ah, you want to check out 'The definitive autofire thread!'`n`n http://www.autohotkey.com/forum/viewtopic.php?t=69474
 
+
 ;perhaps I should write an article and put a link to it in here
 :*:!details::Please give use more details to help diagnose your problem... simply saying that it "doesn't work" doesn't help at all.
 #IfWinActive
 ;}}}
+
+;FIXME - should work in forums, pastebins, notepad, gvim... etc...
+;pastebin!!!
+:*:!pseudocode::;DISCLAIMER: this is totally pseudocode, written by camerb... you'll need to fix this so that commands work (because this certainly will not run as it is currently), but I think I made things pretty clear, so you can fix it up as you'd like it
 
 ;{{{AHK in Vim hotstrings
 #IfWinActive ahk.* ahk_class Vim

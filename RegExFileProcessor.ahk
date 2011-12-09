@@ -109,9 +109,10 @@ Loop %TotalRegExs%
 
    ;AddToTrace(needle%i%, replace%i%)
 
-   ;TODO put this into a fcn? GetTotalLinesinFile(tempFile)
-   Loop, read, %tempfile%
-      totalTempLines:=A_Index
+   ;DONE;;;TODO put this into a fcn? GetTotalLinesinFile(tempFile)
+   ;Loop, read, %tempfile%
+      ;totalTempLines:=A_Index
+   totalTempLines := FileLineCount(tempfile)
 
    ;process each line from the temp file
    Loop, read, %tempfile%
@@ -127,7 +128,7 @@ Loop %TotalRegExs%
       thisReplace := Replace%i%
       thisNeedle := Needle%i%
 
-      thisNeedle :=StripCommands(thisNeedle)
+      thisNeedle := StripCommands(thisNeedle)
 
       ;determine if this line is a match
       if NOT RegExMatch(A_LoopReadLine, thisNeedle)

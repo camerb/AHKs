@@ -55,6 +55,13 @@ FileCreate(text, file)
    FileAppend(text, file)
 }
 
+;A simple little function, probably isn't performed as quickly as it could be, but what's the harm?
+FileLineCount(file)
+{
+   Loop, read, %file%
+      returned:=A_Index
+   return returned
+}
 ;}}}
 
 ;{{{Folder Manipulation Functions

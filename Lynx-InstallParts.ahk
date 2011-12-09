@@ -413,8 +413,6 @@ InstallSMTP()
    SleepClick(253, 152)
    ;TESTME end of block to test
 
-   ;WinWaitActive, , &Add Required Role Services
-   ;WinWaitActive, , &Add Required Features
    MultiWinWait("", "&Add Required Role Services", "", "&Add Required Features")
    SleepSend("!a")
    WinWaitActive, , SMTP Server supports the transfer of e-mail messages

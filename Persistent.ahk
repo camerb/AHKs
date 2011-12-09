@@ -150,11 +150,11 @@ if (A_Hour=13 AND A_Min=30 AND A_Sec=0)
 }
 
 ;FIXME - another possibility is that I am not addressing multiple recipients correctly
-if (A_WDay=5 AND A_Hour=10 AND A_Min=22 AND A_Sec=0)
-{
-   if (A_ComputerName="PHOSPHORUS")
-      sendEmail("Fantasy Nascar", "http://fantasygames.nascar.com/streak`n`nMake your fantasy picks", "", "cameronbaustian@gmail.com;melindabaustian@gmail.com")
-}
+;if (A_WDay=5 AND A_Hour=10 AND A_Min=22 AND A_Sec=0)
+;{
+   ;if (A_ComputerName="PHOSPHORUS")
+      ;sendEmail("Fantasy Nascar", "http://fantasygames.nascar.com/streak`n`nMake your fantasy picks", "", "cameronbaustian@gmail.com;melindabaustian@gmail.com")
+;}
 
 if (A_WDay=5 AND A_Hour=10 AND A_Min=0 AND A_Sec=0)
 {
