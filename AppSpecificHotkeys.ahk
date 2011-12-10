@@ -359,3 +359,12 @@ return
 :*:!debug::A_LineNumber, A_ScriptName, A_ThisFunc, A_ThisLabel,
 #IfWinActive
 ;}}}
+
+;{{{ Sugar
+#IfWinActive Mitsi - Google Chrome
+:*:!s::
+date := CurrentTime("hyphendate")
+SendInput %A_Space%- CB %date%
+return
+#IfWinActive
+;}}}

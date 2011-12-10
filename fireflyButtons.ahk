@@ -56,11 +56,12 @@ if (A_ComputerName == "T-800")
 }
 
 Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
+;Gui, Color, 000032
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
 ;Gui, Add, Button, , Add Scorecard Entry-Y
-Gui, Add, Button, , Add Scorecard Entry-ns
-Gui, Add, Button, , Add Scorecard Entry-sub
+;Gui, Add, Button, , Add Scorecard Entry-ns
+Gui, Add, Button, , Add Scorecard Entry-sub2
 Gui, Add, Button, , Add Fees
 Gui, Add, Button, , Refresh Login
 
@@ -584,8 +585,8 @@ EndOfMacro()
 return
 ;}}}
 
-;{{{ButtonAddScorecardEntry-sub:
-ButtonAddScorecardEntry-sub:
+;{{{ButtonAddScorecardEntry-sub2:
+ButtonAddScorecardEntry-sub2:
 StartOfMacro()
 
 if CantFocusNecessaryWindow(firefox)
@@ -603,12 +604,8 @@ referenceNumber:=Clipboard
 if NOT RegExMatch(referenceNumber, "[0-9]{5}")
    RecoverFromMacrosGoneWild("I didn't get the reference number (scroll up, maybe?) (error 14)", referenceNumber)
 
-;old
-;Click(620, 237, "left double")
 StatusProCopyField(720, 237)
 ss()
-;Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
-;copy the server
 ;TODO use the StatusProCopyField() for all copies
 
 Click(620, 237, "left")
@@ -619,11 +616,7 @@ Click(1254, 167, "left")
 ss()
 Click(922, 374, "left double")
 ss()
-server:=Clipboard
-
-;for testing purposes
-;debug(referenceNumber, server)
-;RecoverFromMacrosGoneWild("Testing (error 00)")
+serverName:=Clipboard
 
 Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
 Click(911, 371, "left")
@@ -641,7 +634,11 @@ IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialog
    RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
 
 
-;;;;;;;;;;;;;;;;
+;for testing purposes
+;debug(referenceNumber, serverName)
+;RecoverFromMacrosGoneWild("Testing (error 00)")
+
+;#############################################################
 if CantFocusNecessaryWindow(excel)
    return
 
@@ -667,11 +664,11 @@ Loop
    if NOT RegExMatch(Clipboard, "[A-Za-z]")
       break
 }
-iniPP("server-" . server)
+;iniPP("server-" . server)
 
 Clipboard := "null"
 ss()
-Send, %server%{ENTER}
+Send, %serverName%{ENTER}
 Send, ICMbaustian{ENTER}
 Send, %today%{ENTER}
 Send, %referenceNumber%{ENTER}
@@ -686,23 +683,6 @@ loop
    sleep, 100
 }
 
-;Send, {ENTER}
-;Send, {DOWN}
-;Send, {ENTER}
-;Send, {ENTER}
-;Send, {ENTER}{ENTER}{ENTER}{ENTER}
-;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;Send, {ENTER}
-;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-
-;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;Send, {ENTER}
-;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
-;Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
 Send, {ENTER}
 Send, {DOWN}
 Send, {ENTER}
@@ -728,7 +708,7 @@ if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
 {
    SaveScreenShot("firefly-error-17")
    AddToTrace("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
-   iniPP("error 17")
+   iniPP("(error 17)-BlankServiceCountyRequired")
    ;UNSURE this was throwing so many errors that I just decided I wanted to investigate it a little
    ;RecoverFromMacrosGoneWild("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
 }
@@ -740,6 +720,7 @@ if NOT InStr(ServiceCountyRequired, "Service County Not Required")
    msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
    msgbox, , , %msg%, 0.5
    AddToTrace("grey line ServiceCountyRequired was: ", ServiceCountyRequired)
+   iniPP("(error 21)-ServiceCountyRequired-was-" . ServiceCountyRequired)
 }
 ;ss()
 
@@ -879,13 +860,11 @@ ButtonNotes:
 StartOfMacro()
 notes=
 (
-I love you!
-
 Here's an overview of the different versions of the buttons at the moment (newest is at the bottom):
 
 ASE-ns: I changed the manner in which the server name is copied from StatusPro, because it seemed to alter the combo box, rather than just getting the text.
 
-ASE-sub: I changed the "alias" feature for server names so that the we can deal with the names that are saved differently in StatusPro versus the Scorecard... (Like: Micky F. Hollihan --> Michael Hollihan)
+ASE-sub2: My second attempt of fixing the "alias" feature. (Changes aliases like: Micky F. Hollihan --> Michael Hollihan)
 )
 debug("notimeout", "`n" . notes)
 EndOfMacro()
