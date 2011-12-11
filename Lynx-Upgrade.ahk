@@ -11,6 +11,7 @@ Lynx_MaintenanceType := "upgrade"
 ;ExitApp
 
 ;Beginning of the actual script
+notify("Starting Upgrade of the LynxGuide server")
 SendEmailNow("Starting an upgrade", A_ComputerName, "", "cameron@mitsi.com")
 RunTaskManagerMinimized()
 LynxOldVersion:=GetLynxVersion()

@@ -1,0 +1,2 @@
+;WRITEME check if AHK compiles correctly
+;WRITEME make CompileAHK use UseErrorLevel
