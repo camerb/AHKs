@@ -245,13 +245,20 @@ WinWaitActive, EF Commander Free
 return
 
 ;----- Run Code From Clipboard - from tidbit, but modified alot
+;LOL... that if statement is horrible
 ~^Lwin::
+ahkHotkey=#include FcnLib.ahk`n`n%Clipboard%`n`n ~esc::ExitApp
+~^+Lwin::
+ahkNoHotkey=%Clipboard%
+if ahkHotkey
+   ahk:=ahkHotkey
+else
+   ahk:=ahkNoHotkey
 file=%A_ScriptDir%\cliprun.ahk
-ahk=#include FcnLib.ahk`n`n%Clipboard%`n`n`n`n ~esc::ExitApp
 FileDelete(file)
 FileAppend(ahk, file)
 Run, %file%
-Sleep 2000
+Sleep 2000 ;no, seriously, this will keep you from doing stupid stuff
 Return
 
 ;control the firefly macros if they ran amuck

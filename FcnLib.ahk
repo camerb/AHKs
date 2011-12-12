@@ -904,17 +904,8 @@ delog(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
 
 SelfDestruct()
 {
-   filename=SelfDestruct.ahk
-   ;TODO TESTME filename=%A_ScriptFullPath%
-   FileDelete, %filename%
-   ;TODO the self destruct macro could have a loop and check if the file exists (pointless?) -- later thought: actually, that will go into FileAppend()
-   FileAppend, Sleep 100`nFileDelete`, %A_ScriptFullPath%, %filename%
-   Run, %filename%
-   Exit
-
-   ;TODO try and TESTME
-   ;FileDelete, %A_ScriptFullPath%
-   ;Exit
+   FileDelete(A_ScriptFullPath)
+   ;FileDelete(A_ScriptDir . "\" . A_ScriptName)
 }
 
 ;TODO ahkFile does NOT support full paths yet.
@@ -1946,4 +1937,8 @@ PrettyTickCount(timeInMilliSeconds)
 
 ;WRITEME add a nice datestamp hotstring
 ;WRITEME need to make an ini stats lib
+
+
+;WRITEME check if AHK compiles correctly
+;WRITEME make CompileAHK use UseErrorLevel
 

@@ -222,48 +222,127 @@ if (Mod(A_Sec, 5)==0)
 ;}}}
 
 ;{{{Run scheduled AHKs
-if (Mod(A_Sec, 15)==0)
+if (Mod(A_Sec, 2)==0)
 {
    asapAhk=%A_WorkingDir%\scheduled\%A_ComputerName%\asap.ahk
    asapTxt=%A_WorkingDir%\scheduled\%A_ComputerName%\asap.txt
-   if FileExist(asapTxt)
-      FileMove(asapTxt, asapAhk, "overwrite")
+   lock=%A_WorkingDir%\scheduled\%A_ComputerName%\InProgress.lock
+   deleteLock=%A_WorkingDir%\scheduled\%A_ComputerName%\DeleteLock.now
 
-   ;TODO put all this crap into another ahk, so that persistent doesn't halt while we're babysitting other ahks
-   Loop, %A_WorkingDir%\scheduled\%A_ComputerName%\*.ahk
+   bothAsaps=%asapAhk%,%asapTxt%
+   Loop, parse, bothAsaps, CSV
    {
-      ;check to make sure filedate is a number and is 14 long
-      if ( strlen(A_LoopFileName) == 18 )
+      if FileExist(A_LoopField)
       {
-         StringTrimRight, filedate, A_LoopFileName, 4
-         if filedate is integer
-            shouldRun:=CurrentlyAfter(filedate)
+         time:=CurrentTime("hyphenated")
+         newFileName=%A_WorkingDir%\scheduled\%A_ComputerName%\%time%.ahk
+         FileMove(A_LoopField, newFileName)
       }
-      if (A_LoopFileName=="asap.ahk" or shouldRun)
-      {
-         ;copy file contents to a new ahk and run it
-         tempahk=C:\Dropbox\AHKs\scheduled\CurrentlyRunning\Scheduled-%A_ComputerName%-%A_LoopFileName%.ahk
-         FileCopy(A_LoopFileFullPath, tempahk)
-         FileAppend("`n#include FcnLib.ahk`nSelfDestruct()", tempahk)
-         debug("silent log", "running scheduled ahk:", tempahk)
-         status:=RunAhkAndBabysit(tempahk)
-         FileDelete, %A_LoopFileFullPath%
+   }
 
-         ;FIXME wtf... what was I thinking when I wrote this crackhead stuff? this doesn't work at all
-         ;if (status == "error") {
-            ;time:=CurrentTime("hyphenated")
-            ;path=C:\Dropbox\Public\ahkerrors\
-            ;FileCreateDir, %path%
-            ;FileMove, %tempahk%, %path%%time%-%tempahk%.txt, 1
+
+   if FileExist(deletelock)
+   {
+      FileDelete(lock)
+      FileDelete(deletelock)
+   }
+
+   if NOT FileExist(lock)
+   {
+      ;check if time to run an ahk
+      asapAhk=%A_WorkingDir%\scheduled\%A_ComputerName%\asap.ahk
+      asapTxt=%A_WorkingDir%\scheduled\%A_ComputerName%\asap.txt
+      if FileExist(asapTxt)
+         FileMove(asapTxt, asapAhk, "overwrite")
+
+      ;TODO put all this crap into another ahk, so that persistent doesn't halt while we're babysitting other ahks
+      Loop, %A_WorkingDir%\scheduled\%A_ComputerName%\*.ahk
+      {
+         filedate := A_LoopFileName
+         filedate := RegExReplace(filedate, "\.ahk$")
+         filedate := DeformatTime(filedate)
+
+         ;check to make sure filedate is a number and is 14 long
+         if ( strlen(filedate) != 14 )
+            continue
+         if NOT filedate is integer
+            continue
+         if NOT CurrentlyAfter(filedate)
+            continue
+
+         ;debug(filedate)
+
+         compilingPath=%A_WorkingDir%\scheduled\%A_ComputerName%\Compiling\%A_LoopFileName%
+         errorsPath   =%A_WorkingDir%\scheduled\%A_ComputerName%\Errors\%A_LoopFileName%
+         runningPath  =%A_WorkingDir%\scheduled\%A_ComputerName%\Running\%A_LoopFileName%
+         finishedPath =%A_WorkingDir%\scheduled\%A_ComputerName%\Finished\%A_LoopFileName%
+
+         ;debug(compilingPath)
+         FileMove(A_LoopFileFullPath, compilingPath)
+         FileAppend("`n#include FcnLib.ahk", compilingPath)
+
+         ;TODO write a testCompile function
+         ;if errorsCompiling
+         ;{
+            ;FileMove(A_LoopFileFullPath, errorsPath)
+            ;continue
          ;}
 
-         ;wait for the scheduled ahk to finish running and self-destruct
-         ;since this is the persistent file, we don't want more than one
-         ;scheduled ahk to run at one time
-         WaitFileNotExist(tempahk)
+         ;Prep for run (tell him that after he's done running, he's got to move himself to the finished folder)
+         FileMove(compilingPath, runningPath)
+         lastLine=`nFileMove("%runningPath%", "%finishedPath%")
+         FileAppend(lastLine, runningPath)
+
+         ;Run that sucka!
+         RunAhk(runningPath)
       }
    }
 }
+;}}}
+
+;{{{Run scheduled AHKs (old)
+;if (Mod(A_Sec, 15)==0)
+;{
+   ;asapAhk=%A_WorkingDir%\scheduled\%A_ComputerName%\asap.ahk
+   ;asapTxt=%A_WorkingDir%\scheduled\%A_ComputerName%\asap.txt
+   ;if FileExist(asapTxt)
+      ;FileMove(asapTxt, asapAhk, "overwrite")
+
+   ;;TODO put all this crap into another ahk, so that persistent doesn't halt while we're babysitting other ahks
+   ;Loop, %A_WorkingDir%\scheduled\%A_ComputerName%\*.ahk
+   ;{
+      ;;check to make sure filedate is a number and is 14 long
+      ;if ( strlen(A_LoopFileName) == 18 )
+      ;{
+         ;StringTrimRight, filedate, A_LoopFileName, 4
+         ;if filedate is integer
+            ;shouldRun:=CurrentlyAfter(filedate)
+      ;}
+      ;if (A_LoopFileName=="asap.ahk" or shouldRun)
+      ;{
+         ;;copy file contents to a new ahk and run it
+         ;tempahk=C:\Dropbox\AHKs\scheduled\CurrentlyRunning\Scheduled-%A_ComputerName%-%A_LoopFileName%.ahk
+         ;FileCopy(A_LoopFileFullPath, tempahk)
+         ;FileAppend("`n#include FcnLib.ahk`nSelfDestruct()", tempahk)
+         ;debug("silent log", "running scheduled ahk:", tempahk)
+         ;status:=RunAhkAndBabysit(tempahk)
+         ;FileDelete, %A_LoopFileFullPath%
+
+         ;;FIXME wtf... what was I thinking when I wrote this crackhead stuff? this doesn't work at all
+         ;;if (status == "error") {
+            ;;time:=CurrentTime("hyphenated")
+            ;;path=C:\Dropbox\Public\ahkerrors\
+            ;;FileCreateDir, %path%
+            ;;FileMove, %tempahk%, %path%%time%-%tempahk%.txt, 1
+         ;;}
+
+         ;;wait for the scheduled ahk to finish running and self-destruct
+         ;;since this is the persistent file, we don't want more than one
+         ;;scheduled ahk to run at one time
+         ;WaitFileNotExist(tempahk)
+      ;}
+   ;}
+;}
 ;}}}
 
 ;{{{ new ways to close unwanted windows

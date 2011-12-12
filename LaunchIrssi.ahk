@@ -15,6 +15,6 @@ CustomTitleMatchMode("Default")
 Sleep, 500
 SendInput, cd "C:\Dropbox\Programs\irssi\"{ENTER}
 SendInput, irssi.bat{ENTER}
-Sleep, 500
+WinWaitActive, camerb
 WinClose, irssi.bat
 
