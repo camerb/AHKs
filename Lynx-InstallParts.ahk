@@ -268,7 +268,12 @@ ConfigureSSMS()
 
    ForceWinFocus("Microsoft SQL Server Management Studio")
    WinClose
+   delog("", "finished function", A_ThisFunc)
+}
 
+ODBC()
+{
+   delog("", "started function", A_ThisFunc)
    ConfigureODBC("32")
    ConfigureODBC("64")
 
@@ -276,38 +281,29 @@ ConfigureSSMS()
    WinClose
    ForceWinFocus("SysWOW64")
    WinClose
+   delog("", "finished function", A_ThisFunc)
+}
 
+CopyInetpub()
+{
+   delog("", "started function", A_ThisFunc)
    FileCopyDir, C:\LynxCD\Server 7.11\inetpub, c:\inetpub, 1
    delog("", "finished function", A_ThisFunc)
 }
 
-TestBannerDotPlx()
+RunTests()
 {
    delog("", "started function", A_ThisFunc)
-   ret := CmdRet_RunReturn("perl C:\inetpub\wwwroot\cgi\banner.plx", "C:\inetpub\wwwroot\cgi\")
-   if NOT InStr(ret, "Location: /banner") ;/banner.gif")
-      errord("the banner.plx file did not run correctly, instead it returned:", ret)
-   delog("", "finished function", A_ThisFunc)
-}
-
-ConfigureW3SVCservice()
-{
-   delog("", "started function", A_ThisFunc)
-   ;stop and disable W3SVC service (WWW Pub Service)
-   SleepSeconds(20)
-   ShortSleep()
-   CmdRet_RunReturn("net stop W3SVC")
-   ShortSleep()
-   ret := CmdRet_Runreturn("sc config W3SVC start= disabled")
-   ;DO NOT check for success... (it may not have been installed in the first place)
-   ;if NOT InStr(ret, "SUCCESS")
-      ;MsgBox, %ret%
+   BannerDotPlx()
+   CheckDb()
    delog("", "finished function", A_ThisFunc)
 }
 
 InstallApache()
 {
    delog("", "started function", A_ThisFunc)
+   SleepSeconds(20)
+   ConfigureW3SVCservice()
    SleepSeconds(20)
    Run, C:\LynxCD\Server 7.11\inetpub\tools\apache\apache.msi
    SleepSeconds(9)
@@ -316,7 +312,7 @@ InstallApache()
    SleepSeconds(1)
    WinWaitActive, , Installation Wizard
    WinGetText, winText, A
-   RegExMatch(winText, "Apache HTTP Server [0-9.]*", match)
+   RegExMatch(winText, "Apache HTTP Server [0-9.]*\.", match)
    delog("", "installing web server version:", match)
    ;WinLogActiveStats(A_ThisFunc, A_LineNumber)
 
@@ -351,22 +347,11 @@ InstallApache()
    delog("", "finished function", A_ThisFunc)
 }
 
-ConfigureAudioSrvService()
-{
-   delog("", "started function", A_ThisFunc)
-   SleepSeconds(20)
-   ret := CmdRet_Runreturn("sc config AudioSrv start= auto")
-   if NOT InStr(ret, "SUCCESS")
-      MsgBox, %ret%
-   ShortSleep()
-   CmdRet_RunReturn("net start AudioSrv")
-   ShortSleep()
-   delog("", "finished function", A_ThisFunc)
-}
-
 InstallAllTTS()
 {
    delog("", "started function", A_ThisFunc)
+   SleepSeconds(20)
+   ConfigureAudioSrvService()
    SleepSeconds(20)
    Run, C:\LynxCD\Server 7.11\Text2Speech\SIIG\setup.exe
    WinWaitActive, , Welcome to the InstallShield Wizard

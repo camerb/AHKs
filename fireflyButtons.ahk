@@ -59,10 +59,10 @@ Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 ;Gui, Color, 000032
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
-;Gui, Add, Button, , Add Scorecard Entry-ns
-;Gui, Add, Button, , Add Scorecard Entry-sub2
+Gui, Add, Button, , Add Scorecard Entry-ns
+Gui, Add, Button, , Add Scorecard Entry-sub2
 Gui, Add, Button, , Add Scorecard Entry-sub3
-Gui, Add, Button, , Add Scorecard Entry-fcn
+;Gui, Add, Button, , Add Scorecard Entry-fcn
 Gui, Add, Button, , Add Fees
 Gui, Add, Button, , Refresh Login
 
@@ -752,11 +752,11 @@ StartOfMacro()
 ;notify us of possible issues in the alias names ini
 namesIni:=GetPath("FireflyConfig.ini")
 allNames:=IniListAllKeys(namesIni, "NameTranslations")
-Loop, parse, allNames, CSV
-{
-   if RegExMatch(A_LoopField, "[,.]")
-      RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
-}
+;Loop, parse, allNames, CSV
+;{
+   ;if RegExMatch(A_LoopField, "[,.]")
+      ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
+;}
 
 if CantFocusNecessaryWindow(firefox)
    return
@@ -905,11 +905,11 @@ StartOfMacro()
 ;notify us of possible issues in the alias names ini
 namesIni:=GetPath("FireflyConfig.ini")
 allNames:=IniListAllKeys(namesIni, "NameTranslations")
-Loop, parse, allNames, CSV
-{
-   if RegExMatch(A_LoopField, "[,.]")
-      RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
-}
+;Loop, parse, allNames, CSV
+;{
+   ;if RegExMatch(A_LoopField, "[,.]")
+      ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
+;}
 
 if CantFocusNecessaryWindow(firefox)
    return
@@ -1179,6 +1179,8 @@ notes=
 (
 Here's an overview of the different versions of the buttons at the moment (newest is at the bottom):
 
+ASE-ns: This version does not have the "alias" feature.
+
 ASE-sub2: (I got rid of this because it conflicted with sub3. Let me know if sub3 is broken, and I can restore sub2. ... My second attempt of fixing the "alias" feature. (Changes aliases like: Micky F. Hollihan --> Michael Hollihan)
 
 ASE-sub3: I changed the alias feature so that you don't need commas or periods in the key. This should make it more adaptive.
@@ -1290,15 +1292,15 @@ GetButtonName()
    return returned
 }
 
-PrepIniKey(text)
-{
-   returned:=RegExReplace(text, "(\r|\n)")
-   return returned
-}
+;PrepIniKey(text)
+;{
+   ;returned:=RegExReplace(text, "(\r|\n)")
+   ;return returned
+;}
 
 PrepIniKeyServerName(text)
 {
-   returned:=RegExReplace(text, "(,|.|\n|\r)")
+   returned:=RegExReplace(text, "(\,|\.)")
    return returned
 }
 

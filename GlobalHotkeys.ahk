@@ -46,7 +46,6 @@ AppsKey & =::  Run, NewTempAhk.ahk
 
 AppsKey & 0::
 GetKeyState, controlState, Control
-Send, {APPSKEY UP}{LCTRL UP}{RCTRL UP}
 if (controlState == "D")
 {
    ActiveFile := Prompt("Which file would you like to work on?")
@@ -57,6 +56,11 @@ if (controlState == "D")
 }
 else
    Run, temporary0.ahk
+Loop 5
+{
+   Sleep, 500
+   RunAhk("ModifierKeysUp.ahk")
+}
 return
 /*
 AppsKey & 0::  Run, temporary.ahk

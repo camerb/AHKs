@@ -130,6 +130,7 @@ BannerDotPlx()
 CheckDb()
 {
    ret := CmdRet_Perl("checkdb.plx")
+   RestartService("apache2.2")
    len := strlen(ret)
    msg=Ran checkdb and the strlen of the checkdb was %len%
    FileAppendLine(msg, GetPath("logfile")) ;log abbreviated message
@@ -163,6 +164,30 @@ InstallAll()
       errord("installall", "this command seemed to fail... it returned:", ret)
 }
 
+ConfigureW3SVCservice()
+{
+   ;stop and disable W3SVC service (WWW Pub Service)
+   ;SleepSeconds(20)
+   ShortSleep()
+   CmdRet_RunReturn("net stop W3SVC")
+   ShortSleep()
+   ret := CmdRet_Runreturn("sc config W3SVC start= disabled")
+   ;DO NOT check for success... (it may not have been installed in the first place)
+   ;if NOT InStr(ret, "SUCCESS")
+      ;MsgBox, %ret%
+}
+
+ConfigureAudioSrvService()
+{
+   ;SleepSeconds(20)
+   ret := CmdRet_Runreturn("sc config AudioSrv start= auto")
+   if NOT InStr(ret, "SUCCESS")
+      MsgBox, %ret%
+   ShortSleep()
+   CmdRet_RunReturn("net start AudioSrv")
+   ShortSleep()
+}
+
 GhettoCmdRet_RunReturn(command, workingDir="", options="")
 {
    if InStr(options, "extraGhettoForHighAuth")
@@ -186,9 +211,6 @@ GhettoCmdRet_RunReturn(command, workingDir="", options="")
    SleepSend("{ENTER}")
 
    ;TODO should we make something that will close the cmd window at the end?
-   ;SleepSend("Y{ENTER}")
-   ;SleepSeconds(2)
-   ;WinClose
 }
 
 autologin(options)
@@ -270,10 +292,11 @@ CmdRet_Perl(command)
 
 lynx_message(message)
 {
-   global A_LynxMaintenanceType
-   if (A_LynxMaintenanceType == "upgrade")
+   MaintType := GetLynxMaintenanceType()
+
+   if (MaintType == "upgrade")
       MsgBox, , Lynx Upgrade Assistant, %message%
-   else if (A_LynxMaintenanceType == "install")
+   else if (MaintType == "install")
       debug("", message)
    else
       MsgBox, , Lynx Technician Assistant, %message%
@@ -281,11 +304,12 @@ lynx_message(message)
 
 lynx_error(message)
 {
-   global A_LynxMaintenanceType
+   MaintType := GetLynxMaintenanceType()
+
       ;MsgBox, , Lynx Upgrade Assistant, %message%
-   if (A_LynxMaintenanceType == "upgrade")
+   if (MaintType == "upgrade")
       lynx_message("ERROR (Inform Level 2 support): " . message)
-   else if (A_LynxMaintenanceType == "install")
+   else if (MaintType == "install")
       errord("", message)
    else
       lynx_message("ERROR (Inform Level 2 support): " . message)
@@ -351,21 +375,39 @@ SendLogsHome()
    logFileFullPath2 := GetPath("checkdb-logfile")
    logFileFullPath3 := GetPath("installall-logfile")
 
-   ;send it back via ftp
-   dest=ftp://lynx.mitsi.com/%reasonForScript%_logs/%timestamp%.txt
-   dest2=ftp://lynx.mitsi.com/%reasonForScript%_logs/%timestamp%-checkdb.txt
-   dest3=ftp://lynx.mitsi.com/%reasonForScript%_logs/%timestamp%-installall.txt
-   cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath%" --user AHK:%joe% %dest%
-   ret:=CmdRet_RunReturn(cmd)
-   cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath2%" --user AHK:%joe% %dest2%
-   ret:=CmdRet_RunReturn(cmd)
-   cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath3%" --user AHK:%joe% %dest3%
-   ret:=CmdRet_RunReturn(cmd)
+   ;send it back via ftp (curl)
+   ;dest=ftp://lynx.mitsi.com/%reasonForScript%_logs/%timestamp%.txt
+   ;dest2=ftp://lynx.mitsi.com/%reasonForScript%_logs/%timestamp%-checkdb.txt
+   ;dest3=ftp://lynx.mitsi.com/%reasonForScript%_logs/%timestamp%-installall.txt
+   ;cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath%" --user AHK:%joe% %dest%
+   ;ret:=CmdRet_RunReturn(cmd)
+   ;cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath2%" --user AHK:%joe% %dest2%
+   ;ret:=CmdRet_RunReturn(cmd)
+   ;cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath3%" --user AHK:%joe% %dest3%
+   ;ret:=CmdRet_RunReturn(cmd)
+
+   ;try to send it back using MS-ftp
+   joe := GetLynxPassword("ftp")
+ftpfile=
+(
+open lynx.mitsi.com
+AHK
+%joe%
+put %logFileFullPath% %reasonForScript%_logs/%timestamp%.txt
+put %logFileFullPath2% %reasonForScript%_logs/%timestamp%-checkdb.txt
+put %logFileFullPath3% %reasonForScript%_logs/%timestamp%-installall.txt
+quit
+)
+   FileCreate(ftpfile, "ftp.scr")
+   ret:=CmdRet_RunReturn("ftp -s:ftp.scr")
+   notify("finished ftp connection")
+   notify(ret)
+   delog(ret)
 
    ;send it back in an email
-   subject=%reasonForScript% Logs
-   allLogs=%logFileFullPath%|%logFileFullPath%|%logFileFullPath%
-   SendEmailNow(subject, A_ComputerName, allLogs, "cameron@mitsi.com")
+   ;subject=%reasonForScript% Logs
+   ;allLogs=%logFileFullPath%|%logFileFullPath2%|%logFileFullPath3%
+   ;SendEmailNow(subject, A_ComputerName, allLogs, "cameron@mitsi.com")
 }
 
 ShowTrayMessage(message)

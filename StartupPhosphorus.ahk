@@ -130,6 +130,7 @@ CheckForRestoreBar(786, 87,  786, 110, 1649, 87,  1649, 110, 686, 110)
 CheckForRestoreBar(786, 110, 786, 133, 1649, 110, 1649, 133, 686, 110)
 
 notify("All finished with the boot AHK")
+SleepSeconds(15)
 ExitApp
 
 desktopSidebarNeedsRelocating()

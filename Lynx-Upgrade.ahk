@@ -4,11 +4,9 @@
 #singleinstance force
 Lynx_MaintenanceType := "upgrade"
 
-;notify("started running checkdb")
-;CheckDb()
-;notify("finished running checkdb")
-;Sleep, 1000
-;ExitApp
+SendLogsHome()
+Sleep, 10000
+ExitApp
 
 ;Beginning of the actual script
 notify("Starting Upgrade of the LynxGuide server")

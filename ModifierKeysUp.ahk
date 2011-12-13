@@ -6,4 +6,5 @@ Send, {LShift up}
 Send, {RShift up}
 Send, {LAlt up}
 Send, {RAlt up}
+Send, {Appskey up}
 

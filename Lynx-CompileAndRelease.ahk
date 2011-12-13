@@ -1,5 +1,4 @@
 #include FcnLib.ahk
-#include C:/Dropbox/AHKs/thirdParty/cmdret.ahk
 
 fatalIfNotThisPc("PHOSPHORUS")
 
@@ -28,3 +27,8 @@ Loop, C:\Dropbox\AHKs\*.*
       FileCopy(A_LoopFileFullPath, dest)
    }
 }
+
+;delete this after we move all the junk to the ftp site
+;exePath:=CompileAhk("C:\Dropbox\AHKs\Lynx-Install.ahk")
+exePath:=CompileAhk("Lynx-Install.ahk")
+FileMove(exePath, "E:\Lynx-Install.exe", "overwrite")

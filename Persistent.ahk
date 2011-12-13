@@ -167,6 +167,47 @@ if (A_WDay=6 AND A_Hour=10 AND A_Min=0 AND A_Sec=0)
    if (A_ComputerName="PHOSPHORUS")
       sendEmail("Mitsi Donut Day", "Message sent by bot")
 }
+
+if (A_DD=17 A_Hour=7 AND A_Min=59 AND A_Sec=0)
+{
+   if (A_ComputerName="PHOSPHORUS")
+   {
+      sendEmail("Bill reminder", "Cameron Mastercard`n`nMessage sent by bot")
+      SleepSeconds(2)
+   }
+}
+if (A_DD=07 A_Hour=7 AND A_Min=59 AND A_Sec=0)
+{
+   if (A_ComputerName="PHOSPHORUS")
+   {
+      sendEmail("Bill reminder", "Melinda Mastercard`n`nMessage sent by bot")
+      SleepSeconds(2)
+   }
+}
+if (A_DD=08 A_Hour=7 AND A_Min=59 AND A_Sec=0)
+{
+   if (A_ComputerName="PHOSPHORUS")
+   {
+      sendEmail("Bill reminder", "Time Warner Cable`n`nMessage sent by bot")
+      SleepSeconds(2)
+   }
+}
+if (A_DD=11 A_Hour=7 AND A_Min=59 AND A_Sec=0)
+{
+   if (A_ComputerName="PHOSPHORUS")
+   {
+      sendEmail("Bill reminder", "City of Garland Electric`n`nMessage sent by bot")
+      SleepSeconds(2)
+   }
+}
+if (A_DD=25 A_Hour=7 AND A_Min=59 AND A_Sec=0)
+{
+   if (A_ComputerName="PHOSPHORUS")
+   {
+      sendEmail("Bill reminder", "Chase Freedom Credit (Routine Bills Card)`n`nMessage sent by bot")
+      SleepSeconds(2)
+   }
+}
 ;}}}
 
 ;{{{Check weather and put it on the remote widget
