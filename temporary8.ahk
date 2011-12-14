@@ -1,21 +1,38 @@
 #include FcnLib.ahk
 
-
-
-text=
-(
-ExitApp
-CrazyNonExistantFunction()
-)
-
-;ahk=C:\Dropbox\AHKs\scheduled\BAUSTIAN-09PC\asap.ahk
-ahk=C:\Dropbox\AHKs\asap.ahk
-
-FileCreate(text, ahk)
-exe:=CompileAhk(ahk)
-;Run, %ahk%
-;Run, %ahk%, , UseErrorLevel
-Run, %exe%, , UseErrorLevel
-debug(ERRORLEVEL)
+debug( SuccessfullyCompiles("C:\Dropbox\AHKs\FcnLib.ahk"), SuccessfullyCompiles("C:\Dropbox\AHKs\CompileErrors.ahk"))
+;;Run, %ahk%, , UseErrorLevel
+;Run, %exe%, , UseErrorLevel
+;debug(ERRORLEVEL)
 
 ;Run, Target [, WorkingDir, Max|Min|Hide|UseErrorLevel, OutputVarPID]
+
+SuccessfullyCompiles(ahkPath)
+{
+   testOutPath=%A_Temp%\compileahk.txt
+   testAhk=%A_Temp%\compileahk.ahk
+
+   if NOT FileExist(ahkPath)
+      return false
+
+   text=
+   (
+   FileAppend, %ahkPath%, %testOutPath%
+   ExitApp
+
+   #include %ahkPath%
+   )
+
+   FileCreate("started compile text`n", testOutPath)
+   FileCreate(text, testAhk)
+
+   ;Run, %testAhk%
+   RunWait, %testAhk%
+   Sleep, 500
+
+   results:=FileRead(testOutPath)
+   FileDelete(testOutPath)
+   ;debug(results)
+   returned := !!InStr(results, ahkPath)
+   return !!InStr(results, ahkPath)
+}

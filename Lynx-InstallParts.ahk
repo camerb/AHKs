@@ -291,7 +291,7 @@ CopyInetpub()
    delog("", "finished function", A_ThisFunc)
 }
 
-RunTests()
+TestLynx()
 {
    delog("", "started function", A_ThisFunc)
    BannerDotPlx()

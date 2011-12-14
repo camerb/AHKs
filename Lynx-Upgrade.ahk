@@ -4,13 +4,14 @@
 #singleinstance force
 Lynx_MaintenanceType := "upgrade"
 
-SendLogsHome()
-Sleep, 10000
-ExitApp
+;SendLogsHome()
+;Sleep, 10000
+;ExitApp
 
 ;Beginning of the actual script
 notify("Starting Upgrade of the LynxGuide server")
 SendEmailNow("Starting an upgrade", A_ComputerName, "", "cameron@mitsi.com")
+TestScriptAbilities()
 RunTaskManagerMinimized()
 LynxOldVersion:=GetLynxVersion()
 ;TODO get client information and insert it into the database (if empty)
@@ -254,13 +255,17 @@ UpgradePerlIfNeeded()
       while GetPerlVersion()
          lynx_error("Uninstall perl")
 
-      FileDeleteDirForceful("C:\Perl")
+      oldPerlDir:="C:\Perl-old-" . CurrentTime("hyphenated")
+      ;FileDeleteDirForceful("C:\Perl")
+      FileMoveDir, "C:\Perl", oldPerlDir
 
       Run, C:\temp\lynx_upgrade_files\upgrade_pack\ActivePerl\ActivePerl.msi
       Sleep, 2000
       msg("Install new perl")
       while IsPerlUpgradeNeeded()
          lynx_error("Install new perl")
+
+      FileDeleteDirForceful(oldPerlDir)
    }
 }
 
@@ -282,20 +287,6 @@ UpgradeApacheIfNeeded()
          lynx_error("Install new apache")
       ;TODO wait for the finished page of the installer
    }
-}
-
-GetPerlVersion()
-{
-   output:=CmdRet_RunReturn("perl -v")
-   RegExMatch(output, "v([0-9.]+)", match)
-   return match1
-}
-
-GetApacheVersion()
-{
-   output := CmdRet_RunReturn("C:\Program Files (x86)\Apache Software Foundation\Apache2.2\bin\httpd.exe -v")
-   RegExMatch(output, "Apache.([0-9.]+)", match)
-   return match1
 }
 
 IsPerlUpgradeNeeded()

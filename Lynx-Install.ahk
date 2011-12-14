@@ -43,6 +43,8 @@ notify(msg)
 ;TODO send email status message
 ;SendEmailNow("Lynx Install Starting", "there is a lynx install that is starting up right now")
 
+TestScriptAbilities()
+
 if ChoseCopyInstallationFilesToHardDrive
    CopyInstallationFilesToHardDrive()
 if ChoseTurnOffWindowsFirewall
@@ -78,7 +80,7 @@ if ChoseChangeDesktopBackground
 
 ;things that always need to be done
 ;  (do things that are likely to fail towards the top)
-RunTests()
+TestLynx()
 ;SendEmailNow("Lynx Install Finishing", "a lynx install is finishing up now, here are the logs", logfile)
 SendLogsHome()
 FileRemoveDir, C:\Dropbox, 1 ;it can't hurt to leave this in... stopped saving things to dropbox folder 2011-11-15

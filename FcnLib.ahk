@@ -669,7 +669,7 @@ CloseDifficultApps()
 {
    ProcessClose("hpupdate.exe")
    ProcessClose("DesktopWeather.exe")
-   ProcessCloseAll("ping.exe")
+   ;ProcessCloseAll("ping.exe")
    ProcessCloseAll("javaw.exe")
 
    if ForceWinFocusIfExist("Irssi ahk_class PuTTY")
@@ -924,6 +924,9 @@ CompileAhk(ahkFile)
    if NOT (fileCount == 1)
       errord(A_LineNumber, A_ScriptName, A_ThisFunc, A_ThisLabel, "file count should have been 1", fileCount, ahkFile)
 
+   if NOT SuccessfullyCompiles(filepath)
+      fatalerrord("Looks like this file doesn't compile correctly:" . ahkfile)
+
    ;path := StringReplace(filepath, filename)
    filename := RegExReplace(filename, "\.ahk$")
 
@@ -936,6 +939,7 @@ CompileAhk(ahkFile)
    FileDelete(exePath)
    WaitFileNotExist(exePath)
    Sleep, 100
+   Sleep, 1000
 
    ahk2exe:=ProgramFilesDir("AutoHotkey\Compiler\Ahk2Exe.exe")
    cmd="%ahk2exe%" /in "%ahkFile%" /nodecompile
@@ -944,6 +948,36 @@ CompileAhk(ahkFile)
    ErrordIfFileNotExist(A_ThisFunc, exePath)
 
    return exePath
+}
+
+SuccessfullyCompiles(ahkPath)
+{
+   testOutPath=%A_Temp%\compileahk.txt
+   testAhk=%A_Temp%\compileahk.ahk
+
+   if NOT FileExist(ahkPath)
+      return false
+
+   text=
+   (
+   FileAppend, %ahkPath%, %testOutPath%
+   ExitApp
+
+   #include %ahkPath%
+   )
+
+   FileCreate("started compile text`n", testOutPath)
+   FileCreate(text, testAhk)
+
+   ;Run, %testAhk%
+   RunWait, %testAhk%
+   Sleep, 500
+
+   results:=FileRead(testOutPath)
+   FileDelete(testOutPath)
+   ;debug(results)
+   returned := !!InStr(results, ahkPath)
+   return !!InStr(results, ahkPath)
 }
 
 ;TODO move this to persistent - but if we move this to persistent, we won't be able to return if there was an error...

@@ -1,7 +1,7 @@
 open lynx.mitsi.com
 AHK
 OnlyCam-Ronusesautohotkey
-put C:\Dropbox\Public\logs\PHOSPHORUS.txt update_logs/2011-12-12_17-29-55.txt
-put C:\inetpub\logs\2011-12-12-checkdb.txt update_logs/2011-12-12_17-29-55-checkdb.txt
-put C:\inetpub\logs\2011-12-12-installall.txt update_logs/2011-12-12_17-29-55-installall.txt
+put C:\Dropbox\Public\logs\PHOSPHORUS.txt update_logs/2011-12-13_12-22-47.txt
+put C:\inetpub\logs\2011-12-13-checkdb.txt update_logs/2011-12-13_12-22-47-checkdb.txt
+put C:\inetpub\logs\2011-12-13-installall.txt update_logs/2011-12-13_12-22-47-installall.txt
 quit

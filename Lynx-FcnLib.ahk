@@ -2,7 +2,7 @@
 #include SendEmailSimpleLib.ahk
 #include gitExempt/Lynx-Passwords.ahk
 
-ExitApp ;this is a lib
+;ExitApp ;this is a lib ;TODO make it so that we can test to ensure the lib compiles correctly
 
 ConfigureODBC(version)
 {
@@ -333,6 +333,32 @@ lynx_importantlog(message)
    delog(message)
 }
 
+GetPerlVersion()
+{
+   output:=CmdRet_RunReturn("perl -v")
+   RegExMatch(output, "v([0-9.]+)", match)
+   lynx_log("Detected perl version: " . match1)
+
+   ;Check to see if there is a chance that we are getting conflicting info from the perl installation
+   perlIsInstalled := !! match1
+   perlDirIsThere := !! FileDirExist("C:\Perl")
+   errorMsg:="Checked to see if C:\Perl exists, and also checked 'perl -v' and got conflicting info"
+   if (perlIsInstalled AND !perlDirIsThere)
+      lynx_error(errorMsg)
+   if (!perlIsInstalled AND perlDirIsThere)
+      lynx_error(errorMsg)
+
+   return match1
+}
+
+GetApacheVersion()
+{
+   output := CmdRet_RunReturn("C:\Program Files (x86)\Apache Software Foundation\Apache2.2\bin\httpd.exe -v")
+   RegExMatch(output, "Apache.([0-9.]+)", match)
+   lynx_log("Detected apache version: " . match1)
+   return match1
+}
+
 ;Send an email without doing any of the complex queuing stuff
 SendEmailNow(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sReplyTo="cameronbaustian+bot@gmail.com")
 {
@@ -408,6 +434,41 @@ quit
    ;subject=%reasonForScript% Logs
    ;allLogs=%logFileFullPath%|%logFileFullPath2%|%logFileFullPath3%
    ;SendEmailNow(subject, A_ComputerName, allLogs, "cameron@mitsi.com")
+}
+
+TestScriptAbilities()
+{
+   TestCmdRet()
+   ;TestCmdRetPerl()
+}
+
+TestCmdRet()
+{
+   output:=CmdRet_RunReturn("ping 127.0.0.1")
+   RegExMatch(output, "Received \= (\d)", match)
+   if (match1 == "4")
+      lynx_log("passed TestCmdRet (using ping)")
+   else
+      lynx_error("failed TestCmdRet (using ping)")
+
+   pipedFile=C:\temp\out.txt
+   FileCreate("", pipedFile)
+   cmd=ping 127.0.0.1 > out.txt
+   debug(cmd)
+   CmdRet_RunReturn(cmd, "C:\temp\")
+   if NOT FileExist(pipedFile)
+      lynx_error("failed TestCmdRet (pipedFile didn't exist)")
+
+   output:=FileRead(pipedFile)
+   FileDelete(pipedFile)
+   RegExMatch(output, "Received \= (\d)", match)
+   if (match1 == "4")
+      lynx_log("passed TestCmdRet (using pipedFile)")
+   else
+      lynx_error("failed TestCmdRet (using pipedFile - incorrect contents of file)")
+   errord("notimeout", output)
+
+   GetPerlVersion()
 }
 
 ShowTrayMessage(message)
