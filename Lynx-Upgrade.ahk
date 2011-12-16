@@ -10,7 +10,7 @@ Lynx_MaintenanceType := "upgrade"
 
 ;Beginning of the actual script
 notify("Starting Upgrade of the LynxGuide server")
-SendEmailNow("Starting an upgrade", A_ComputerName, "", "cameron@mitsi.com")
+SendStartMaintenanceEmail()
 TestScriptAbilities()
 RunTaskManagerMinimized()
 LynxOldVersion:=GetLynxVersion()
@@ -31,7 +31,7 @@ GetServerSpecs()
 GetClientInfo()
 msg("Backup Lynx database")
 
-;START OF DOWNTIME
+notify("Start of Downtime", "Turning the LynxGuide Server off, in order to perform the upgrade")
 TurnOffIisIfApplicable()
 StopAllLynxServices()
 EnsureAllServicesAreStopped()
@@ -47,7 +47,7 @@ RestartService("apache2.2")
 SleepSeconds(2)
 InstallAll()
 
-;END OF DOWNTIME
+notify("End of Downtime", "The LynxGuide Server should be back up, now we will begin the tests and configuration phase")
 EnsureAllServicesAreRunning()
 
 ;admin login (web interface)
@@ -98,6 +98,7 @@ GetClientInfo()
    ;TODO need to filecreate the perl code to client_info.plx
 
    ret := CmdRet_Perl("client_info.plx")
+   ret := StringReplace("`t", "  `t  ")
    if ret
       msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
    else
@@ -132,15 +133,17 @@ LynxError(message)
 EnsureAllServicesAreStopped()
 {
    Sleep, 5000
+   ;FIXME - make this an error, not a log
    if NOT AllServicesAre("stopped")
-      lynx_error("Not all services are stopped")
+      lynx_log("Not all services are stopped")
 }
 
 EnsureAllServicesAreRunning()
 {
    Sleep, 5000
+   ;FIXME - make this an error, not a log
    if NOT AllServicesAre("running")
-      lynx_error("Not all services are running")
+      lynx_log("Not all services are running")
 }
 
 importantLogInfo(message)
@@ -305,27 +308,6 @@ IsApacheUpgradeNeeded()
       return false
 }
 
-GetLynxVersion()
-{
-   ;TODO need to filecreate the perl code to client_info.plx
-
-   clientInfo := CmdRet_Perl("client_info.plx")
-   ;return clientInfo
-   RegExMatch(clientInfo, "LynxMessageServer3\t([0-9.]+)", match)
-   returned := match1
-   ;msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
-   return returned
-
-   ;TODO might want to check both the DB and the version file
-   ;versionFile=C:\inetpub\version.txt
-   ;if NOT FileExist(versionFile)
-      ;returned=lynx-old-build
-   ;else
-      ;FileRead, returned, %versionFile%
-
-   return returned
-}
-
 GetLatestLynxVersion()
 {
    DownloadLynxFile("version.txt")
@@ -405,6 +387,8 @@ DownloadAllLynxFilesForUpgrade()
    DownloadLynxFile("unzip.exe")
    DownloadLynxFile("upgrade_pack.zip")
    notify("Finished Downloading")
+
+   FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_scripts", "C:\inetpub\wwwroot\cgi", "overwrite")
 }
 
 #include Lynx-FcnLib.ahk

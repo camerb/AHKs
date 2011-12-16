@@ -294,8 +294,7 @@ CopyInetpub()
 TestLynx()
 {
    delog("", "started function", A_ThisFunc)
-   BannerDotPlx()
-   CheckDb()
+   TestLynxSystem()
    delog("", "finished function", A_ThisFunc)
 }
 

@@ -82,6 +82,7 @@ RestartService(serviceName)
 
 AllServicesAre(status)
 {
+   ;FIXME - seems like this has issues in returning the incorrect value (maybe stopped includes some that aren't installed?
    ;usage: stopped or running or started
    if InStr(status, "STOPPED")
       status=STOPPED
@@ -98,7 +99,7 @@ AllServicesAre(status)
       Sleep, 100
       if NOT InStr(ret, status)
       {
-         ;debug("not stopped: ", serviceName)
+         lynx_log("not the correct status: " . serviceName . "   " . ret)
          return false
       }
    }
@@ -333,6 +334,34 @@ lynx_importantlog(message)
    delog(message)
 }
 
+GetLynxVersion()
+{
+   clientInfo := CmdRet_Perl("client_info.plx")
+   RegExMatch(clientInfo, "LynxMessageServer3\t([0-9.]+)", match)
+   if match1
+   {
+      lynxVersion := match1
+      lynx_log("Detected lynx version (from database): " . lynxVersion)
+   }
+
+   ;TODO might want to check both the DB and the version file
+   versionFile=C:\inetpub\version.txt
+   if FileExist(versionFile)
+      FileRead, returned, %versionFile%
+   RegExMatch(returned, "v([0-9.]+)", match)
+   if match1
+   {
+      lynxVersion := match1
+      lynx_log("Detected lynx version (from version text file): " . lynxVersion)
+   }
+
+   if NOT lynxVersion
+      lynxVersion := "unknown"
+   lynx_log("Detected lynx version: " . lynxVersion)
+
+   return lynxVersion
+}
+
 GetPerlVersion()
 {
    output:=CmdRet_RunReturn("perl -v")
@@ -414,6 +443,7 @@ SendLogsHome()
 
    ;try to send it back using MS-ftp
    joe := GetLynxPassword("ftp")
+   ftpFilename=ftp.scr
 ftpfile=
 (
 open lynx.mitsi.com
@@ -424,11 +454,12 @@ put %logFileFullPath2% %reasonForScript%_logs/%timestamp%-checkdb.txt
 put %logFileFullPath3% %reasonForScript%_logs/%timestamp%-installall.txt
 quit
 )
-   FileCreate(ftpfile, "ftp.scr")
-   ret:=CmdRet_RunReturn("ftp -s:ftp.scr")
-   notify("finished ftp connection")
-   notify(ret)
+   FileCreate(ftpfile, ftpFilename)
+   ret:=CmdRet_RunReturn("ftp -s:" . ftpFilename)
+   ;notify("finished ftp connection")
+   ;notify(ret)
    delog(ret)
+   FileDelete(ftpFilename)
 
    ;send it back in an email
    ;subject=%reasonForScript% Logs
@@ -440,6 +471,13 @@ TestScriptAbilities()
 {
    TestCmdRet()
    ;TestCmdRetPerl()
+}
+
+TestLynxSystem()
+{
+   BannerDotPlx()
+   CheckDb()
+   GetIEVersion()
 }
 
 TestCmdRet()
@@ -454,21 +492,36 @@ TestCmdRet()
    pipedFile=C:\temp\out.txt
    FileCreate("", pipedFile)
    cmd=ping 127.0.0.1 > out.txt
-   debug(cmd)
+   ;debug(cmd)
    CmdRet_RunReturn(cmd, "C:\temp\")
    if NOT FileExist(pipedFile)
       lynx_error("failed TestCmdRet (pipedFile didn't exist)")
 
-   output:=FileRead(pipedFile)
-   FileDelete(pipedFile)
-   RegExMatch(output, "Received \= (\d)", match)
-   if (match1 == "4")
-      lynx_log("passed TestCmdRet (using pipedFile)")
-   else
-      lynx_error("failed TestCmdRet (using pipedFile - incorrect contents of file)")
-   errord("notimeout", output)
+   ;this doesn't really work
+   ;output:=FileRead(pipedFile)
+   ;FileDelete(pipedFile)
+   ;RegExMatch(output, "Received \= (\d)", match)
+   ;if (match1 == "4")
+      ;lynx_log("passed TestCmdRet (using pipedFile)")
+   ;else
+      ;lynx_error("failed TestCmdRet (using pipedFile - incorrect contents of file)")
+   ;errord("notimeout", output)
 
    GetPerlVersion()
+}
+
+GetIEVersion()
+{
+   RegRead, IEVersion, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Internet Explorer, Version
+   lynx_log("IE Version is: " . IEVersion)
+   return IEVersion
+}
+
+SendStartMaintenanceEmail()
+{
+   maintType:=GetLynxMaintenanceType()
+   subject=Starting an %maintType% on %A_ComputerName%
+   SendEmailNow(subject, "", "", "cameron@mitsi.com")
 }
 
 ShowTrayMessage(message)

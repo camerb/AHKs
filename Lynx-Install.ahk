@@ -39,9 +39,7 @@ delog("Starting Lynx Server Installation (In-house Installer)")
 msg:="Starting Lynx Server Installation`n`nPress ESC at any time to cancel."
 debug(msg)
 notify(msg)
-
-;TODO send email status message
-;SendEmailNow("Lynx Install Starting", "there is a lynx install that is starting up right now")
+SendStartMaintenanceEmail()
 
 TestScriptAbilities()
 

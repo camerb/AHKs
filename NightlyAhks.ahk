@@ -26,7 +26,7 @@ if NOT IsVM()
 {
    RunThisNightlyAhk(1, "CopyVimSettings.ahk")
    ;hypercam()
-   RunThisNightlyAhk(7, "UpdateAdobeAcrobatReader.ahk")
+   ;RunThisNightlyAhk(7, "UpdateAdobeAcrobatReader.ahk")
 }
 
 RunThisNightlyAhk(3, "MintTouch.ahk")

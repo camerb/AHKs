@@ -51,15 +51,15 @@ if (controlState == "D")
    ActiveFile := Prompt("Which file would you like to work on?")
    ActiveFile := EnsureEndsWith(ActiveFile, ".ahk")
    command=Run, %ActiveFile%
-   FileDelete("temporary0.ahk")
-   FileAppend(command, "temporary0.ahk")
+   FileCreate(command, "temporary0.ahk")
 }
 else
    Run, temporary0.ahk
 Loop 5
 {
    Sleep, 500
-   RunAhk("ModifierKeysUp.ahk")
+   ;RunAhk("ModifierKeysUp.ahk")
+   Send, {appskey up}
 }
 return
 /*
