@@ -85,7 +85,7 @@ AllServicesAre(status)
    ;FIXME - seems like this has issues in returning the incorrect value (maybe stopped includes some that aren't installed?
    ;usage: stopped or running or started
    if InStr(status, "STOPPED")
-      status=STOPPED
+      status=(STOPPED|FAILED)
    else if InStr(status, "STARTED") OR InStr(status, "RUNNING")
       status=RUNNING
    else
@@ -97,7 +97,7 @@ AllServicesAre(status)
       serviceName:=A_LoopField
       ret := CmdRet_RunReturn("sc query " . serviceName)
       Sleep, 100
-      if NOT InStr(ret, status)
+      if NOT RegExMatch(ret, status)
       {
          lynx_log("not the correct status: " . serviceName . "   " . ret)
          return false

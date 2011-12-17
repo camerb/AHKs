@@ -15,7 +15,8 @@
 ;TODO make a macro that tests their site and determines if the site is going slower than normal and logs out/in again
 ;TODO make macros more robust so that I can upgrade firefox
 ;TODO fix how it changes the server name in add scorecard entry by picking other items in the dropdown
-;TODO restore the name substitution feature that was once in add scorecard entry
+;TODO use the StatusProCopyField() for all copies
+;TODO move parts into functions (like GetReferenceNumber(), GetServerName(), GetStatus() )
 
 ;FIXME FIXME FIXME
 ;Can you see at the top, in the middle, above the Process Server Name, there is some info in blue? I think that sometimes there is alot of information there so the rest of the page is skewed and the macro ends up copypasting randomness all around.
@@ -59,10 +60,11 @@ Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 ;Gui, Color, 000032
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
-Gui, Add, Button, , Add Scorecard Entry-ns
-Gui, Add, Button, , Add Scorecard Entry-sub2
+;Gui, Add, Button, , Add Scorecard Entry-ns
+;Gui, Add, Button, , Add Scorecard Entry-sub2
 Gui, Add, Button, , Add Scorecard Entry-sub3
-;Gui, Add, Button, , Add Scorecard Entry-fcn
+Gui, Add, Button, , Add Scorecard Entry-fcn
+Gui, Add, Button, , Add Scorecard Entry-st
 Gui, Add, Button, , Add Fees
 Gui, Add, Button, , Refresh Login
 
@@ -916,7 +918,6 @@ if CantFocusNecessaryWindow(firefox)
 if CantFindTopOfFirefoxPage()
    return
 
-;start of getting reference number
 referenceNumber:=GetReferenceNumber()
 
 ;start of getting server name
@@ -958,9 +959,149 @@ if (replacementName != "ERROR")
 
 
 ;for testing purposes
-debug(referenceNumber, serverName)
-RecoverFromMacrosGoneWild("Testing (error 00)")
+;debug(referenceNumber, serverName)
+;RecoverFromMacrosGoneWild("Testing (error 00)")
 
+;#############################################################
+if CantFocusNecessaryWindow(excel)
+   return
+
+;DELETEME remove this before moving live
+ss()
+Send, {UP 50}{LEFT}{UP 50}{LEFT}
+ss()
+Send, {DOWN}
+ss()
+
+;Loop to find the first empty column
+Loop
+{
+   Send, {RIGHT}
+   Send, ^c
+   Sleep, 100
+   if NOT RegExMatch(Clipboard, "[A-Za-z]")
+      break
+}
+;iniPP("server-" . server)
+
+Clipboard := "null"
+ss()
+Send, %serverName%{ENTER}
+Send, ICMbaustian{ENTER}
+Send, %today%{ENTER}
+Send, %referenceNumber%{ENTER}
+Sleep, 100
+Send, ^c
+Sleep, 100
+loop
+{
+   ServiceCountyRequired := Clipboard
+   if (ServiceCountyRequired != "null")
+      break
+   sleep, 100
+}
+
+Send, {ENTER}
+Send, {DOWN}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
+Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
+
+ss()
+
+if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
+{
+   SaveScreenShot("firefly-error-17")
+   AddToTrace("The sevice county required field seems to be empty (error 17)" . ServiceCountyRequired)
+   iniPP("(error 17)-BlankServiceCountyRequired")
+   ;UNSURE this was throwing so many errors that I just decided I wanted to investigate it a little
+   ;RecoverFromMacrosGoneWild("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
+}
+
+if NOT InStr(ServiceCountyRequired, "Service County Not Required")
+
+{
+   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
+   msgbox, , , %msg%, 0.5
+   AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
+   iniPP("(error 21)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+}
+;ss()
+
+EndOfMacro()
+return
+;}}}
+
+;{{{ButtonAddScorecardEntry-st:
+ButtonAddScorecardEntry-st:
+timer:=StartTimer()
+StartOfMacro()
+
+;notify us of possible issues in the alias names ini
+namesIni:=GetPath("FireflyConfig.ini")
+allNames:=IniListAllKeys(namesIni, "NameTranslations")
+;Loop, parse, allNames, CSV
+;{
+   ;if RegExMatch(A_LoopField, "[,.]")
+      ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
+;}
+
+if CantFocusNecessaryWindow(firefox)
+   return
+if CantFindTopOfFirefoxPage()
+   return
+
+;serverName
+;referenceNumber
+;status
+
+referenceNumber:=GetReferenceNumber()
+
+;TODO use the StatusProCopyField() for all copies
+
+;start of getting server name
+Clipboard:=""
+StatusProCopyField(720, 237)
+ClipWaitNot("")
+serverName:=Clipboard
+
+Clipboard:=""
+StatusProCopyField(953, 374)
+ClipWaitNot("")
+status:=Clipboard
+
+time:=ElapsedTime(timer)
+;FOR TESTING PURPOSES
+;debug(referenceNumber, serverName, status, time)
+;RecoverFromMacrosGoneWild("Testing (error 00)")
+
+if InStr(status, "Cancelled")
+   RecoverFromMacrosGoneWild("It looks like this one was cancelled (error 5)", status)
+
+IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
+   RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
+
+;translate server name, if they go by something else
+replacementName := IniRead(namesIni, "NameTranslations", PrepIniKeyServerName(serverName))
+if (replacementName != "ERROR")
+   serverName := replacementName
+
+
+
+FormatTime, today, , M/d/yyyy
 ;#############################################################
 if CantFocusNecessaryWindow(excel)
    return
@@ -1186,6 +1327,8 @@ ASE-sub2: (I got rid of this because it conflicted with sub3. Let me know if sub
 ASE-sub3: I changed the alias feature so that you don't need commas or periods in the key. This should make it more adaptive.
 
 ASE-fcn: This is something I started experimenting with to make programming easier on me. This might make getting the reference number more or less reliable. Not sure.
+
+ASE-st: Ok... I did a couple things here... I made it a bit better at copying the status, and I also made the macro faster. I think that the earlier versions are super-reliable, so I decided I would try to make them faster now.
 )
 debug("notimeout", "`n" . notes)
 EndOfMacro()
@@ -1527,6 +1670,7 @@ ShortenForDebug(text)
       text=(((Text was %len% characters long and started with %start%)))
       ;text.= full text stored at ... C:\fgakjldsfjlki
       ;TODO store the full text in a separate file and note the location of that file
+      ;and perhaps that should be moved to the fcnlib
    }
    return text
 }

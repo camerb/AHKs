@@ -98,7 +98,7 @@ GetClientInfo()
    ;TODO need to filecreate the perl code to client_info.plx
 
    ret := CmdRet_Perl("client_info.plx")
-   ret := StringReplace("`t", "  `t  ")
+   ret := StringReplace(ret, "`t", "  `t  ")
    if ret
       msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
    else

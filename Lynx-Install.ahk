@@ -96,6 +96,7 @@ AppsKey & d::
 Gui, Destroy
 debug("log", "started debug script")
 
+AllServicesAre("stopped")
 SendLogsHome()
 
 debug("log", "finished debug script")
