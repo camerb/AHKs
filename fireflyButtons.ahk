@@ -14,21 +14,17 @@
 
 ;TODO make a macro that tests their site and determines if the site is going slower than normal and logs out/in again
 ;TODO make macros more robust so that I can upgrade firefox
-;TODO fix how it changes the server name in add scorecard entry by picking other items in the dropdown
 ;TODO use the StatusProCopyField() for all copies
 ;TODO move parts into functions (like GetReferenceNumber(), GetServerName(), GetStatus() )
 
-;FIXME FIXME FIXME
+;FIXME FIXME FIXME - I think I fixed this
 ;Can you see at the top, in the middle, above the Process Server Name, there is some info in blue? I think that sometimes there is alot of information there so the rest of the page is skewed and the macro ends up copypasting randomness all around.
 ;I don't know if this is really part of the issue but thought I would throw it out. I was trying to add a scorecard entry on this one when the macros went wild.
 ;end FIXME - from an email Mel sent on 11-22-2011 around 3:30pm
 
 ;Items that don't seem to be important anymore (or things that I think I've finished):
 ;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
-;Reload Queue is not reliable when I am in a file
-;REMOVEME - I think this is working well now - Sometimes the server's name in the file does not match the name in the scorecard, can you make it so that the macro still works and just leaves the name blank on the scorecard (right now it enters all the information one field off)?
 ;REMOVEME - I think I did remove this part of the code (2011-11-10)... The "Would you like to approve?" box never shows up anymore. Don't know if you would want to remove that code?
-;TODO make scorecard faster
 ;}}}
 
 ;{{{Globals and making the gui (one-time tasks)
@@ -1069,6 +1065,8 @@ if CantFindTopOfFirefoxPage()
 ;status
 
 referenceNumber:=GetReferenceNumber()
+;serverName:=GetServerName()
+;status:=GetStatus()
 
 ;TODO use the StatusProCopyField() for all copies
 
@@ -1108,7 +1106,9 @@ if CantFocusNecessaryWindow(excel)
 
 ;DELETEME remove this before moving live
 ss()
-Send, {UP 50}{LEFT}{UP 50}{LEFT}
+Send, {UP 50}{LEFT}
+;TODO try removing one of these first
+Send, {UP 50}{LEFT}
 ss()
 Send, {DOWN}
 ss()
@@ -1162,6 +1162,7 @@ Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
 
 ss()
 
+;REMOVEME sometimes the SCR field is blank, and that is ok
 if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
 {
    SaveScreenShot("firefly-error-17")
@@ -1171,8 +1172,16 @@ if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
    ;RecoverFromMacrosGoneWild("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
 }
 
+;TODO
+;if blank "`r`n"
+;   ;do nothing
+;else if InStr(ServiceCountyRequired, "Service County Not Required")
+;   ;do nothing
+;else if InStr(ServiceCountyRequired, "Service County Required")
+;   ;message!
+;else
+;   ;errord
 if NOT InStr(ServiceCountyRequired, "Service County Not Required")
-
 {
    msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
    msgbox, , , %msg%, 0.5
