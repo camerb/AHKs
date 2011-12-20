@@ -1,7 +1,4 @@
-#include FcnLib.ahk
-#include FcnLib-Clipboard.ahk
-#include FcnLib-Nightly.ahk
-#include SendEmailSimpleLib.ahk
+#include firefly-FcnLib.ahk
 #NoTrayIcon
 
 ;{{{ TODOs
@@ -58,9 +55,10 @@ Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
 ;Gui, Add, Button, , Add Scorecard Entry-ns
 ;Gui, Add, Button, , Add Scorecard Entry-sub2
-Gui, Add, Button, , Add Scorecard Entry-sub3
-Gui, Add, Button, , Add Scorecard Entry-fcn
+;Gui, Add, Button, , Add Scorecard Entry-sub3
+;Gui, Add, Button, , Add Scorecard Entry-fcn
 Gui, Add, Button, , Add Scorecard Entry-st
+;Gui, Add, Button, , Add Scorecard Entry-mf
 Gui, Add, Button, , Add Fees
 Gui, Add, Button, , Refresh Login
 
@@ -1194,6 +1192,148 @@ EndOfMacro()
 return
 ;}}}
 
+;{{{ButtonAddScorecardEntry-mf:
+ButtonAddScorecardEntry-mf:
+timer:=StartTimer()
+StartOfMacro()
+
+;notify us of possible issues in the alias names ini
+namesIni:=GetPath("FireflyConfig.ini")
+allNames:=IniListAllKeys(namesIni, "NameTranslations")
+;Loop, parse, allNames, CSV
+;{
+   ;if RegExMatch(A_LoopField, "[,.]")
+      ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
+;}
+
+if CantFocusNecessaryWindow(firefox)
+   return
+if CantFindTopOfFirefoxPage()
+   return
+
+;serverName
+;referenceNumber
+;status
+
+referenceNumber:=GetReferenceNumber()
+serverName:=GetServerName()
+status:=GetStatus()
+
+;TODO use the StatusProCopyField() for all copies
+
+time:=ElapsedTime(timer)
+;FOR TESTING PURPOSES
+;debug(referenceNumber, serverName, status, time)
+;RecoverFromMacrosGoneWild("Testing (error 00)")
+
+if InStr(status, "Cancelled")
+   RecoverFromMacrosGoneWild("It looks like this one was cancelled (error 5)", status)
+
+IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
+   RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
+
+;translate server name, if they go by something else
+replacementName := IniRead(namesIni, "NameTranslations", PrepIniKeyServerName(serverName))
+if (replacementName != "ERROR")
+   serverName := replacementName
+
+
+
+FormatTime, today, , M/d/yyyy
+;#############################################################
+if CantFocusNecessaryWindow(excel)
+   return
+
+;DELETEME remove this before moving live
+ss()
+Send, {UP 50}{LEFT}
+;TODO try removing one of these first
+Send, {UP 50}{LEFT}
+ss()
+Send, {DOWN}
+ss()
+
+;Loop to find the first empty column
+Loop
+{
+   Send, {RIGHT}
+   Send, ^c
+   Sleep, 100
+   if NOT RegExMatch(Clipboard, "[A-Za-z]")
+      break
+}
+;iniPP("server-" . server)
+
+Clipboard := "null"
+ss()
+Send, %serverName%{ENTER}
+Send, ICMbaustian{ENTER}
+Send, %today%{ENTER}
+Send, %referenceNumber%{ENTER}
+Sleep, 100
+Send, ^c
+Sleep, 100
+loop
+{
+   ServiceCountyRequired := Clipboard
+   if (ServiceCountyRequired != "null")
+      break
+   sleep, 100
+}
+
+Send, {ENTER}
+Send, {DOWN}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
+Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
+
+ss()
+
+;REMOVEME sometimes the SCR field is blank, and that is ok
+if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
+{
+   SaveScreenShot("firefly-error-17")
+   AddToTrace("The sevice county required field seems to be empty (error 17)" . ServiceCountyRequired)
+   iniPP("(error 17)-BlankServiceCountyRequired")
+   ;UNSURE this was throwing so many errors that I just decided I wanted to investigate it a little
+   ;RecoverFromMacrosGoneWild("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
+}
+
+;TODO
+;if blank "`r`n"
+;   ;do nothing
+;else if InStr(ServiceCountyRequired, "Service County Not Required")
+;   ;do nothing
+;else if InStr(ServiceCountyRequired, "Service County Required")
+;   ;message!
+;else
+;   ;errord
+if NOT InStr(ServiceCountyRequired, "Service County Not Required")
+{
+   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
+   msgbox, , , %msg%, 0.5
+   AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
+   iniPP("(error 21)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+}
+;ss()
+
+EndOfMacro()
+return
+;}}}
+
 ;{{{ButtonChangeQueue:
 ButtonChangeQueue:
 
@@ -1338,6 +1478,8 @@ ASE-sub3: I changed the alias feature so that you don't need commas or periods i
 ASE-fcn: This is something I started experimenting with to make programming easier on me. This might make getting the reference number more or less reliable. Not sure.
 
 ASE-st: Ok... I did a couple things here... I made it a bit better at copying the status, and I also made the macro faster. I think that the earlier versions are super-reliable, so I decided I would try to make them faster now.
+
+ASE-mf: More functions... this should make things easier on me. You shouldn't notice a difference.
 )
 debug("notimeout", "`n" . notes)
 EndOfMacro()
@@ -1360,347 +1502,3 @@ EndOfMacro()
 return
 ;}}}
 
-
-;{{{ functions
-
-ss()
-{
-   Sleep, 100
-}
-
-ArrangeWindows()
-{
-   global
-   WinRestore, Mozilla Firefox
-   WinRestore, %firefox%
-   WinRestore, %excel%
-   WinMove, Mozilla Firefox, , 0, 0, 1766, 1020
-   WinMove, %firefox%, , 0, 0, 1766, 1020
-   WinMove, %excel%  , , 0, 0, 1766, 1020
-   If InStr(WinGetActiveTitle(), excel) OR InStr(WinGetActiveTitle(), firefox)
-      Send, ^!{NUMPAD5}
-}
-
-CantFocusNecessaryWindow(window)
-{
-   if (window == "")
-      RecoverFromMacrosGoneWild("Cameron did something wrong, the window variable was blank")
-
-   if NOT ForceWinFocusIfExist(window)
-      RecoverFromMacrosGoneWild("couldn't find this window: " . window)
-}
-
-CantFindTopOfFirefoxPage()
-{
-   ;TODO do some clicking to scroll up
-
-   topOfPageIsVisible := SimpleImageSearch("images/firefly/HomeTab.bmp")
-      OR SimpleImageSearch("images/firefly/AffidavitsTab.bmp")
-      OR SimpleImageSearch("images/firefly/AffidavitsTab7.bmp")
-      OR SimpleImageSearch("images/firefly/HomeTab7.bmp")
-      OR SimpleImageSearch("images/firefly/topOfPage.bmp")
-      OR SimpleImageSearch("images/firefly/topOfPage2.bmp")
-
-   if NOT topOfPageIsVisible
-      RecoverFromMacrosGoneWild("can't find the top of the page in firefox")
-
-   ;do a couple more clicks, just to make sure we're at the very, very top
-   Loop 10
-      Click(1760, 124, "control")
-      ;Click(1753, 104, "control")
-}
-
-
-UserDoesntWantToRunMacro(macroName="")
-{
-   if NOT macroName
-      macroName:=GetButtonName()
-
-   if (strlen(macroName) < 25)
-      message=You clicked the %macroName% button
-   else
-      message:=macroName
-
-   message.=", do you really want to continue?"
-
-   MsgBox, 4, , %message%
-   IfMsgBox, No
-   {
-      ;This isn't an error at all! they just decided they didn't want to run it
-      ;RecoverFromMacrosGoneWild("aborting macro (user decided they didn't want to run it)")
-
-      EndOfMacro(A_ThisFunc)
-      return true
-   }
-}
-
-;TODO maybe this should be moved into the fcn lib?
-; Then again, maybe this is such a stupid, annoying Ghetto-hack that we don't want to
-GetButtonName()
-{
-   returned:=RegExReplace(A_ThisLabel, "([A-Z])", " $1")
-   returned:=StringReplace(returned, "Button")
-   returned:=RegExReplace(returned, "^ +")
-   return returned
-}
-
-;PrepIniKey(text)
-;{
-   ;returned:=RegExReplace(text, "(\r|\n)")
-   ;return returned
-;}
-
-PrepIniKeyServerName(text)
-{
-   returned:=RegExReplace(text, "(\,|\.)")
-   return returned
-}
-
-RecoverFromMacrosGoneWild(message="", options="")
-{
-   iniPP(A_ThisFunc)
-   EndOfMacro(A_ThisFunc)
-   ini:=GetPath("MyStats.ini")
-   section:=CurrentTime("hyphendate")
-   MostRecentError=%message% %options%
-   IniWrite(ini, section, "FireflyMostRecentError", message)
-
-   ;take a screenshot, if desired
-   if InStr(options, "screenshot")
-      SaveScreenShot(A_ScriptName . "-" . message)
-
-   ;do I want errord? or do I want a msgbox? ;prolly not msgbox cause we might want to log it
-   if message
-   {
-      ;UNSURE Not sure, maybe this should be at the top of the function? (2011-12-02) ;removed 2011-12-10
-      ;message=ERROR: %message%
-
-      iniPP(message)
-      errord(message, A_ScriptName, A_ThisFunc, A_LineNumber, options)
-   }
-
-   Reload()
-}
-
-StartOfMacro()
-{
-   ;time:=CurrentTime("hyphenated")
-   ;IniWrite(ini, "tracelogs", time, A_ThisLabel)
-
-   iniPP("PressedAButton") ;yeah, we're basically denoting this twice in a row (PressedAButton will always equal StartOfMacro), but this will make the stats file more readable
-   iniPP(A_ThisFunc)
-   iniPP(A_ThisLabel) ;make a note that we pressed the button
-   iniPP(A_ThisFunc . "-" . A_ThisLabel) ;make a specific note that this macro started/got to the end
-   SetCapsLockState, Off
-   ArrangeWindows()
-}
-
-EndOfMacro(howItEnded="EndOfMacro")
-{
-   iniPP(howItEnded)
-   iniPP(howItEnded . "-" . A_ThisLabel) ;make a specific note that this macro started/got to the end
-   if NOT RegExMatch(howItEnded, "^(EndOfMacro|RecoverFromMacrosGoneWild|UserDoesntWantToRunMacro)$")
-      IncorrectUsage("noticed you passed an odd param to EndOfMacro(): " . howItEnded)
-   BlockInput, MouseMoveOff
-}
-
-;note items here that I didn't intend on happening (kinda like a weak compile error)
-IncorrectUsage(message)
-{
-   iniPP("red line-IncorrectUsage")
-   delog(A_LineNumber, A_ScriptName, A_ThisFunc, A_ThisLabel, "Noticed an incorrect Usage", message)
-}
-
-RecordSuccessfulStartOfFireflyPanel()
-{
-   iniMostRecentTime("Firefly Panel Loaded (last loaded time)") ;track the last time it was reloaded
-   iniPP("Firefly Panel Loaded (number of times)") ;count all the times it was reloaded
-}
-
-;Send an email without doing any of the complex queuing stuff
-SendEmailFromMelinda(sSubject, sBody, sAttach="", sTo="Erica.Jordan@fireflylegal.com")
-{
-   if (A_ComputerName != "BAUSTIAN-09PC")
-   {
-      errord(A_ComputerName, "The macro would normally send an email at this point, but since this is not the home computer, sending the email will be skipped", A_ThisFunc, A_LineNumber, A_ScriptName)
-      return
-   }
-   sUsername := "melindabaustian"
-   sPassword := SexPanther("melinda")
-   sReplyTo:="melindabaustian@gmail.com"
-
-   sFrom     := sUsername . "@gmail.com"
-
-   sServer   := "smtp.gmail.com" ; specify your SMTP server
-   nPort     := 465 ; 25
-   bTLS      := True ; False
-   nSend     := 2   ; cdoSendUsingPort
-   nAuth     := 1   ; cdoBasic
-
-   SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
-}
-
-ClickMultipleTimesWithPause(x, y, options, times)
-{
-   Loop %times%
-   {
-      Click(x, y, options)
-      ss()
-   }
-}
-
-OpenFeesWindow()
-{
-   Loop 3
-   {
-      ClickIfImageSearch("images/firefly/feesButton.bmp")
-      ss()
-   }
-   WaitForImageSearch("images/firefly/feesWizardWindow.bmp")
-}
-
-SelectAll()
-{
-   Send, {CTRLDOWN}{END}{SHIFTDOWN}{HOME}{SHIFTUP}{CTRLUP}
-}
-
-;FIXME MAYBE? copypasta was the wrong decision
-;  however, I think writing a function would involve some ugly globals, and stuff like that
-CopyWaitMultipleAttempts(options="")
-{
-   success=success
-
-   ;attempt
-   returned := CopyWait(options)
-   if (NOT (returned == "" OR returned == "") )
-   {
-      tries++
-      msg=CopyWait %success% after %tries% tries
-      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
-      iniPP(msg)
-      return returned
-   }
-
-   ;attempt
-   Sleep, 10
-   returned := CopyWait(options)
-   if (NOT (returned == "" OR returned == "") )
-   {
-      tries++
-      msg=CopyWait %success% after %tries% tries
-      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
-      iniPP(msg)
-      return returned
-   }
-
-   ;attempt
-   Sleep, 100
-   returned := CopyWait(options)
-   if (NOT (returned == "" OR returned == "") )
-   {
-      tries++
-      msg=CopyWait %success% after %tries% tries
-      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
-      iniPP(msg)
-      return returned
-   }
-
-   ;attempt
-   Sleep, 250
-   returned := CopyWait(options)
-   if (NOT (returned == "" OR returned == "") )
-   {
-      tries++
-      msg=CopyWait %success% after %tries% tries
-      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
-      iniPP(msg)
-      return returned
-   }
-   else ;FAILURE
-   {
-      success=failed
-      tries++
-      msg=CopyWait %success% after %tries% tries
-      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
-      iniPP(msg)
-      return returned
-   }
-
-   ;attempt
-   ;Sleep, 250
-   ;returned := CopyWait(options)
-   ;tries++
-   ;success=failed
-   ;if CanReturnFromCopyWaitMultipleAttempts(A_LineNumber, A_ThisFunc, success, tries, returned)
-   ;   return returned
-}
-
-CopyWaitMultipleAttempts222(options="")
-{
-   success=success
-
-   ;attempt
-   returned := CopyWait(options)
-   if (NOT (returned == "" OR returned == "") )
-   {
-      tries++
-      msg=CopyWait %success% after %tries% tries
-      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
-      iniPP(msg)
-      return returned
-   }
-
-   ;attempt
-   Sleep, 10
-   returned := CopyWait(options)
-   if (NOT (returned == "" OR returned == "") )
-   {
-      tries++
-      msg=CopyWait %success% after %tries% tries
-      delog(A_LineNumber, A_ThisFunc, msg, "length was:", strlen(returned) )
-      iniPP(msg)
-      return returned
-   }
-}
-
-StatusProCopyField(xCoord, yCoord)
-{
-   Click(xCoord, yCoord, "left")
-   Click(xCoord, yCoord, "right")
-   Send, {DOWN 3}{ENTER}
-}
-
-ShortenForDebug(text)
-{
-   len:=strlen(text)
-   start:=StringLeft(text, 10)
-   if (len > 25)
-   {
-      text=(((Text was %len% characters long and started with %start%)))
-      ;text.= full text stored at ... C:\fgakjldsfjlki
-      ;TODO store the full text in a separate file and note the location of that file
-      ;and perhaps that should be moved to the fcnlib
-   }
-   return text
-}
-
-GetReferenceNumber()
-{
-   Clipboard:=""
-   ss()
-   Click(1100, 165, "left double")
-   ss()
-   Send, {CTRLDOWN}c{CTRLUP}
-   ;ss()
-   ;ss()
-   ;sleep, 1000
-   ClipWaitNot("")
-
-   referenceNumber:=Clipboard
-   if NOT RegExMatch(referenceNumber, "[0-9]{5}")
-      RecoverFromMacrosGoneWild("I didn't get the reference number (scroll up, maybe?) (error 14)", referenceNumber)
-
-   return referenceNumber
-}
-
-;}}}

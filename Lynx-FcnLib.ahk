@@ -551,3 +551,9 @@ HideTrayMessage(message)
    ;FIXME the real issue here is that if the functions return early, the function will say that it finished, even though it didn't actually get to the end of it
 ;}
 
+LynxDatabaseQuery(query, columnsToLookAt="")
+{
+   params=get_query.plx "%query%" "%columnsToLookAt%"
+   ret := CmdRet_Perl(params)
+   return ret
+}
