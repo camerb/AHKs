@@ -58,7 +58,7 @@ Gui, Add, Button, , Change Queue
 ;Gui, Add, Button, , Add Scorecard Entry-sub3
 ;Gui, Add, Button, , Add Scorecard Entry-fcn
 Gui, Add, Button, , Add Scorecard Entry-st
-;Gui, Add, Button, , Add Scorecard Entry-mf
+Gui, Add, Button, , Add Scorecard Entry-mf
 Gui, Add, Button, , Add Fees
 Gui, Add, Button, , Refresh Login
 

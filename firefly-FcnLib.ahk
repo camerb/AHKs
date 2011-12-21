@@ -193,6 +193,9 @@ GetServerName()
    ClipWaitNot("")
    serverName:=Clipboard
 
+   if NOT RegExMatch(serverName, "[A-Za-z]{3}")
+      RecoverFromMacrosGoneWild("I didn't get a server name (might have a long defendant name) (error 23)", serverName)
+
    ;TODO check if the name is in the server name list
 
    return serverName
@@ -204,6 +207,11 @@ GetStatus()
    StatusProCopyField(953, 374)
    ClipWaitNot("")
    status:=Clipboard
+   if NOT RegExMatch(status, "(Closed|Served|Cancelled|Personal|Substitute|Not Served|Found)")
+   {
+      iniPP("status-" . status)
+      RecoverFromMacrosGoneWild("Invalid status (might have a long defendant name) (error 24) " . status)
+   }
    return status
 }
 ;}}}
