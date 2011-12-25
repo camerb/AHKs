@@ -29,3 +29,10 @@ zeropad2(num, digits)
    SetFormat, float, %prevFormat%
    return returned
 }
+
+FileGetPath(filename)
+{
+   RegExMatch(filename, "^(.+\\)([^\\]+)\.([^.])$", match)
+   RegExMatch(filename, "^(.+\\)([^\\]+)\.([^.])$", match)
+   RegExMatch(filename, "^([^\\]+)$", match)
+}
