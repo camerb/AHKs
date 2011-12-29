@@ -22,3 +22,10 @@ CurrentTime(options="")
       FormatTime, returned, %time%, yyyy-MM-dd_HH-mm-ss
    return returned
 }
+
+ShowGuiBriefly()
+{
+   Gui, Show
+   Sleep, 5000
+   ExitApp
+}

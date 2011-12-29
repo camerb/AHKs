@@ -1,0 +1,4 @@
+Various things/weirdnesses that I have noticed on IronAHK:
+
+Msgbox only allows one parameter for text in the box... (does not allow usage for title or timeout)
+Reload command does not reload the script from the disk, only reloads the script from RAM

@@ -1,3 +1,49 @@
+#include FcnLib-Linux.iahk
+
+Gui, Add, Text,, Please enter your name: %A_ComputerName%
+Gui, Add, Edit, vName
+Gui, Show
+Sleep, 5000
+ExitApp
+
+
+Gui, +ToolWindow -Caption
+Gui, Color, , 000022
+Gui, font, s7 cCCCCEE,
+Gui, font, , Verdana
+Gui, Margin, 0, 0
+Gui, Add, ListView, r10 w149 -Hdr, Text
+Gui, Show
+Sleep, 5000
+ExitApp
+
+Loop
+{
+   ;FileGetTime, modifiedTimeNew, /home/user/Dropbox/AHKs/LinuxAutorun.iahk
+   FileGetTime, modifiedTimeNew, /home/user/Dropbox/AHKs/LinuxTest.iahk
+   ;msgbox, % modifiedtime
+   if NOT modifiedTime
+      modifiedTime:=modifiedTimeNew
+   if (modifiedTime != modifiedTimeNew)
+   {
+      timestamp := CurrentTime()
+      file=/home/user/Dropbox/IronAHK/%timestamp%.sh
+      ;file=%timestamp%.sh
+      text=mono /home/user/Dropbox/IronAHK/IronAHK.exe /home/user/Dropbox/AHKs/LinuxAutorun.iahk
+      FileAppend, %text%, %file%
+      ;Run, %file%
+      Sleep, 2000
+      FileDelete, %file%
+      ;msgbox, hhiii
+      ;SetWorkingDir, /home/user/Dropbox/IronAHK
+      ;Run, ia.sh LinuxAutorun.iahk
+      ;msgbox, should run that sucka
+      modifiedTime:=modifiedTimeNew
+      ;reload
+   }
+}
+ExitApp
+
 ;check the first line of the file in a comment to see which compy the file should run on
 
 date := CurrentTime()
