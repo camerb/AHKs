@@ -1,4 +1,5 @@
 #include FcnLib.ahk
+#include thirdParty/Notify.ahk
 #include SendEmailSimpleLib.ahk
 #include gitExempt/Lynx-Passwords.ahk
 

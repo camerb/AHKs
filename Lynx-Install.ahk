@@ -1,7 +1,8 @@
-#singleinstance force
+;#singleinstance force
 #include FcnLib.ahk
-#include thirdParty/Notify.ahk
-#singleinstance force
+#include Lynx-FcnLib.ahk
+#include Lynx-InstallParts.ahk
+;#singleinstance force
 Lynx_MaintenanceType := "install"
 
 Gui, Add, Text,, Welcome to the Lynx Server Installer
@@ -102,5 +103,3 @@ SendLogsHome()
 debug("log", "finished debug script")
 ExitApp
 
-#include Lynx-InstallParts.ahk
-#include Lynx-FcnLib.ahk

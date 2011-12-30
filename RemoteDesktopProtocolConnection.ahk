@@ -5,7 +5,7 @@ computerName:=Prompt("Which computer do you want to connect to?")
 computerName:=StringUpper(computerName)
 
 ;different work computers have different passwords
-if RegExMatch(computerName, "i)^(T-1|T-101|T-800)$")
+if RegExMatch(computerName, "i)^(T-1|T-101|T-800|KP|BURNIN)$")
    joe:=SexPanther("lynx")
 else
    joe:=SexPanther("work")

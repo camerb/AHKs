@@ -1,7 +1,7 @@
-#singleinstance force
+;#singleinstance force
 #include FcnLib.ahk
-#include thirdParty/Notify.ahk
-#singleinstance force
+#include Lynx-FcnLib.ahk
+;#singleinstance force
 Lynx_MaintenanceType := "upgrade"
 
 ;SendLogsHome()
@@ -99,12 +99,13 @@ GetClientInfo()
 
    ret := CmdRet_Perl("client_info.plx")
    ret := StringReplace(ret, "`t", "  `t  ")
-   if ret
+   if InStr(ret, "LynxMessageService") ;TODO perhaps check if a tab is in there... that would be more generic
       msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
    else
    {
       Clipboard=SELECT [type],[ver],count(*) FROM[ipaddress] GROUP BY [type],[ver]
       msg("Get the client data and put it into Sugar. The database query has been placed on the clipboard, so just paste it into SSMS to run it")
+      lynx_log("I think this is an error: Tried to get client data from the database, but got this instead: " . ret)
    }
 }
 
@@ -391,4 +392,3 @@ DownloadAllLynxFilesForUpgrade()
    FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_scripts", "C:\inetpub\wwwroot\cgi", "overwrite")
 }
 
-#include Lynx-FcnLib.ahk
