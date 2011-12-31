@@ -102,6 +102,7 @@ GetGmailMessageCount(url, prettyName)
    RegExMatch(gmailPage, "<fullcount>(\d+)</fullcount>", gmailPage)
    RegExMatch(gmailPage, "\d+", number)
    ;number := getXmlElementContents(gmailPage, "fullcount")
+   ;return "lots and lots of text that continues to be typed"
 
    if (number == 0 || number == "")
       return ""

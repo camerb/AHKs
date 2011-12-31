@@ -147,13 +147,8 @@ EnsureAllServicesAreRunning()
       lynx_log("Not all services are running")
 }
 
-importantLogInfo(message)
-{
-}
-
-logInfo()
-{
-}
+;TODO get important info and condense into a summary
+;importantLogInfo(message)
 
 UnzipInstallPackage(file)
 {

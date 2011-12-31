@@ -254,6 +254,8 @@ return
 ahkHotkey=#include FcnLib.ahk`n`n%Clipboard%`n`n ~esc::ExitApp
 ~^+Lwin::
 ahkNoHotkey=%Clipboard%
+if InStr(Clipboard, "esc::")
+   ahkHotkey=
 if ahkHotkey
    ahk:=ahkHotkey
 else
