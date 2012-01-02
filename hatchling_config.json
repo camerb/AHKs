@@ -1,0 +1,12 @@
+{
+   "simple": {
+      "server": "irc.freenode.net",
+      "port": "6667",
+      "channel": "#ahk-bots-n-such",
+      "nick": "hatch_61_BAUSTIAN-09PC",
+      "password": "",
+      "font_color": "",
+      "background_color": "",
+      "lastItem": "lastItem"
+   }
+}

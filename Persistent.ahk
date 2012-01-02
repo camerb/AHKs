@@ -132,6 +132,15 @@ if (A_Hour=10 AND A_Min=01)
       RunAhk("EpmsTimecardReminder.ahk")
 }
 
+if (A_Hour=12 AND A_Min=0 AND A_Sec=0)
+{
+   if (A_ComputerName="PHOSPHORUS")
+   {
+      sendEmail("Read yer Bible", "Message sent by bot")
+      SleepSeconds(2)
+   }
+}
+
 if (A_Hour=15 AND A_Min=15 AND A_Sec=0)
 {
    if (A_ComputerName="PHOSPHORUS")

@@ -815,7 +815,7 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
    if (InStr(textOrOptions, "errord"))
    {
       errordMode := true
-      displayTime = 20
+      displayTime = 60
    }
    if (InStr(textOrOptions, "noTimeout"))
       displayTime := ""
@@ -1443,7 +1443,8 @@ AddToTrace(var, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t
    Loop 15
       var .= " " . t%A_Index%
    var = %var%
-   FileAppendLine(var, "C:\Dropbox\Public\logs\trace.txt")
+   traceFile:=GetPath("trace.txt")
+   FileAppendLine(var, traceFile)
 }
 
 DeleteTraceFile()
@@ -1451,7 +1452,7 @@ DeleteTraceFile()
    ;lets archive it and create a new file real quick
    timestamp:=CurrentTime("hyphenated")
    archiveFile=C:\Dropbox\AHKs\gitExempt\logs\traceArchive\%timestamp%.log
-   traceFile=C:\Dropbox\Public\logs\trace.txt
+   traceFile:=GetPath("trace.txt")
 
    FileMove(traceFile, archiveFile)
    FileAppendLine("TRACE!!!", traceFile)
