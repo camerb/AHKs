@@ -111,7 +111,7 @@ if (A_Hour=11 AND A_Min=05 AND A_Sec=0)
       }
 }
 
-if (A_Hour=11 AND A_Min=25 AND A_Sec=0)
+if (A_Hour=11 AND A_Min=15 AND A_Sec=0)
 {
    if (A_ComputerName="PHOSPHORUS")
       if A_WDay BETWEEN 2 AND 6
@@ -136,7 +136,7 @@ if (A_Hour=12 AND A_Min=0 AND A_Sec=0)
 {
    if (A_ComputerName="PHOSPHORUS")
    {
-      sendEmail("Read yer Bible", "Message sent by bot")
+      sendEmail("Read yer Bible", "Message sent by bot", "", "melindabaustian@gmail.com")
       SleepSeconds(2)
    }
 }
@@ -158,7 +158,6 @@ if (A_Hour=13 AND A_Min=30 AND A_Sec=0)
          sendEmail("Update your jira tasks (completed and workmorrow)", "http://jira.mitsi.com`n`nMessage sent by bot")
 }
 
-;FIXME - another possibility is that I am not addressing multiple recipients correctly
 ;if (A_WDay=5 AND A_Hour=10 AND A_Min=22 AND A_Sec=0)
 ;{
    ;if (A_ComputerName="PHOSPHORUS")

@@ -558,3 +558,10 @@ LynxDatabaseQuery(query, columnsToLookAt="")
    ret := CmdRet_Perl(params)
    return ret
 }
+
+GetSmsKey()
+{
+   queryResult:=LynxDatabaseQuery("select * from setup where [TYPE] = 'ID'", "Type,Value")
+   RegExMatch(queryResult, "ID\t([A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12})\t", match)
+   return match1
+}

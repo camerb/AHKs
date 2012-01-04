@@ -1,85 +1,97 @@
-boardwidth := 420
-boardheight := 400
-allLetters = A,B,C,D,E,F,G,H,J,K,L,M,N,O,P,Q,R,S,T,U,V,X,Y,Z
-Sort, allLetters, Random D,
-VarSetCapacity(ptWin, 16, 0)
-NumPut(boardWidth, ptWin, 8)
-NumPut(boardHeight, ptWin, 12)
-gui,color, 0xFFFFFF
-gui,show, h%BoardHeight% w%BoardWidth% x50 y50, HoneyCombs
-hdcWin := DllCall("GetDC", "UInt", hwnd:=WinExist("A"))
-brBlack := DllCall("CreateSolidBrush", "Int", 0x000000)
-brPurple := DllCall("CreateSolidBrush", "Int", 0xFF00FF)
-brYellow := DllCall("CreateSolidBrush", "Int", 0x00FFFF)
-Yellow := 0x00FFFF
-Red := 0x0000FF
-hFont:=DllCall("CreateFont", "int", 60, "int",30, "int", 0, "int", 0, "int", 600,"uint",0,"uint",0,"uint",0,"uint",1,"uint",0,"uint",0,"uint",0,"uint",0,"str", "Tahoma Regular")
-DllCall("SelectObject", "uint", hdcWin, "uint", hFont)
-DllCall("SetBkColor", "Int", hdcWin, "Int", Yellow)
-DllCall("SetTextColor", "Int", hdcWin, "Int", Red)
-gosub, draw_hexagons
-return
+#include FcnLib.ahk
 
-draw_hexagons:
-xpos := 60
-ypos := 60
-Loop, Parse, allLetters, csv
+GameStarted := 0
+PlayerCurrent := 1
+ButtonsPressed := 0
+
+Gui, Font, S22 CDefault, Verdana
+Gui, Add, Button, x22 y30 w60 h60 vA1 gButtonPress, A
+Gui, Add, Button, x82 y30 w60 h60 vA2 gButtonPress
+Gui, Add, Button, x142 y30 w60 h60 vA3 gButtonPress
+Gui, Add, Button, x22 y90 w60 h60 vB1 gButtonPress
+Gui, Add, Button, x82 y90 w60 h60 vB2 gButtonPress
+Gui, Add, Button, x142 y90 w60 h60 vB3 gButtonPress
+Gui, Add, Button, x22 y150 w60 h60 vC1 gButtonPress
+Gui, Add, Button, x82 y150 w60 h60 vC2 gButtonPress
+Gui, Add, Button, x142 y150 w60 h60 vC3 gButtonPress
+Gui, Font, S9 CDefault, Verdana
+Gui, Add, GroupBox, x12 y10 w200 h210 vStatus, No Game Started
+Menu, FileMenu, Add, New Game, NewGame
+Menu, FileMenu, Add
+Menu, FileMenu, Add, Statistics
+Menu, FileMenu, Add, Options
+Menu, FileMenu, Add
+Menu, FileMenu, Add, Exit, GuiClose
+Menu, MenuBar, Add, File, :FileMenu
+
+Menu, HelpMenu, Add, About
+Menu, MenuBar, Add, Help, :HelpMenu
+
+Gui, Menu, MenuBar
+Gui, Show, x539 y395 h237 w232, TicTacToe
+Return
+
+ButtonPress:
+If (GameStarted = 1)
+{
+	GuiControlGet, %A_GuiControl%
+	If (%A_GuiControl% = "")
 	{
-		cletter = %A_Loopfield%
-		LrgHex%A_Index% := A_Loopfield
-		rgHex%A_Index% := CreateNewHexagon(xpos,ypos)
-		DllCall("FillRgn", "UInt", hdcWin, "UInt", rgHex%A_Index%, "UInt", brYellow)
-		DllCall("FrameRgn", "Uint", hdcWin, "UInt",rgHex%A_Index%, "UInt", brBlack, "Int", 2, "Int", 2)
-		DllCall("TextOut", "Int", hdcWin, "UInt", xpos - 23, "UInt", ypos-25, "UInt", &cLetter, "UInt", 1)
-		ypos += 80
-		If (A_Index = 4)
-			xpos += 74, ypos := 100
-		else if (a_index = 8)
-			xpos +=74, ypos := 60
-		else if (a_index = 12)
-			xpos +=74, ypos := 100
-		else if (a_index = 16)
-			xpos +=74, ypos := 60
-		else if (a_index = 20)
-			break
-	}
-return
-
-;for testing only
-d::
-Random, rnum, 1, 20
-MsgBox % "Region : " . rnum . " is letter " . LrgHex%rnum%
-return
-
-
-;for testing only
-c::
-MouseGetPos, mx, my
-Loop, 20
+		GuiControlGet, Status
+		If (PlayerCurrent = 1)
 		{
-			if !(DllCall("PtInRegion", "UInt", rgHex%A_Index%, "Int", mx, "Int", my))
-				Continue
-			DllCall("FillRgn", "UInt", hdcWin, "UInt", rgHex%A_Index%, "UInt", brPurple)
-			DllCall("FrameRgn", "Uint", hdcWin, "UInt",rgHex%A_Index%, "UInt", brBlack, "Int", 2, "Int", 2)
+			GuiControl,, %A_GuiControl%, X
+			PlayerCurrent := 2
+			GuiControl,, Status, % SubStr(Status,1,-1) . PlayerCurrent
 		}
-return
+		Else
+		{
+			GuiControl,, %A_GuiControl%, O
+			PlayerCurrent := 1
+			GuiControl,, Status, % SubStr(Status,1,-1) . PlayerCurrent
+		}
+		ButtonsPressed += 1
+		If (ButtonsPressed = 9)
+		{
+			GameStarted = 0
+			GuiControl,, Status, Game Ended, Draw!
+		}
+	}
+}
+Return
 
-esc::
+NewGame:
+If (GameStarted = 1)
+   GuiControl,, Status, Game Restarted! - P1
+Else
+   GuiControl,, Status, Game Started! - P1
+GameStarted := 1
+ButtonsPressed := 0
+PlayerCurrent := 1
+GuiControl,, A1
+GuiControl,, A2
+GuiControl,, A3
+GuiControl,, B1
+GuiControl,, B2
+GuiControl,, B3
+GuiControl,, C1
+GuiControl,, C2
+GuiControl,, C3
+Return
+
+Statistics:
+; Put GuiCode and IniReading code here
+Return
+
+Options:
+; Gui Code, InIReading/Writing code here
+Return
+
+About:
+; Put Gui Code Here
+Return
+
 GuiClose:
-Loop, 20
-	DllCall("DeleteObject", "UInt", rgHex%A_Index%)
-DllCall("DeleteObject", "UInt", brBlack)
-DllCall("DeleteObject", "UInt", brPurple)
-DllCall("ReleaseDC", uint, hdcWin)
 ExitApp
 
-CreateNewHexagon(xpos, ypos)
-{
-		Hex := "-26,-42,26,-42,50,0,26,42,-26,42,-50,0,-26,-42"
-		VarSetCapacity(ptHexagon, 88)
-		loop, parse, Hex, `,
-			NumPut(a_loopfield+(a_index & 1 ? xpos : ypos), ptHexagon, a_index*4-4)
-		hname := DllCall("CreatePolygonRgn", "uint", &ptHexagon, "int", 12, "int", 1)
-		return hname
-}
-return
+ ~esc::ExitApp

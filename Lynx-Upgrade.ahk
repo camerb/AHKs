@@ -25,7 +25,7 @@ DownloadAllLynxFilesForUpgrade()
 PerlUpgradeNeeded:=IsPerlUpgradeNeeded()
 ApacheUpgradeNeeded:=IsApacheUpgradeNeeded()
 
-msg("Ensure the SMS key is being created.")
+CreateSmsKey()
 CheckDatabaseFileSize()
 GetServerSpecs()
 GetClientInfo()
@@ -52,7 +52,8 @@ EnsureAllServicesAreRunning()
 
 ;admin login (web interface)
 ;TODO pull password out of DB and open lynx interface automatically
-msg("Open the web interface, log in as admin, Install the new SMS key")
+msg("Open the web interface, log in as admin")
+InstallSmsKey()
 msg("under change system settings, then under file system locations and logging change logging to extensive, log age to yearly, message age to never, and log size to 500MB. Save your changes")
 msg("Ask the customer if they have a public subscription page, and if not: Under Home Page and Subscriber Setup, change the home page to no_subscription.htm")
 msg("Under back up system, set system backups monthly and database backups weekly")
@@ -99,7 +100,7 @@ GetClientInfo()
 
    ret := CmdRet_Perl("client_info.plx")
    ret := StringReplace(ret, "`t", "  `t  ")
-   if InStr(ret, "LynxMessageService") ;TODO perhaps check if a tab is in there... that would be more generic
+   if InStr(ret, "LynxMessageServer") ;TODO perhaps check if a tab is in there... that would be more generic
       msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
    else
    {
@@ -149,6 +150,8 @@ EnsureAllServicesAreRunning()
 
 ;TODO get important info and condense into a summary
 ;importantLogInfo(message)
+;{
+;}
 
 UnzipInstallPackage(file)
 {
@@ -347,7 +350,7 @@ CheckDatabaseFileSize()
    }
    else
    {
-      importantLogInfo("Could not find database file")
+      lynx_log("Could not find database file")
       msg("Check database file size to ensure it is smaller than 200MB, if it is larger than 200MB, inform level 2 support")
       ;TODO please provide the full path to the MDF file
    }
@@ -387,3 +390,14 @@ DownloadAllLynxFilesForUpgrade()
    FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_scripts", "C:\inetpub\wwwroot\cgi", "overwrite")
 }
 
+CreateSmsKey()
+{
+   if NOT GetSmsKey()
+      msg("Ensure the SMS key is being created.")
+}
+
+InstallSmsKey()
+{
+   if NOT GetSmsKey()
+      msg("Install the new SMS key")
+}
