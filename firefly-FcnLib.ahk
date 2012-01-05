@@ -204,6 +204,7 @@ GetServerName()
 GetStatus()
 {
    Clipboard:=""
+   ;StatusProCopyField(958, 374) ;experimenting trying to get it a little more reliable
    StatusProCopyField(953, 374)
    ClipWaitNot("")
    status:=Clipboard

@@ -27,10 +27,10 @@ Loop, parse, allAhksToCompile, CSV
 {
    thisNameOnly=%A_LoopField%
    thisAhk=%A_LoopField%.ahk
-   terminatorPath=T:\TechSupport\upgrade_files\%thisNameOnly%.exe
+   terminatorPath=T:\TechSupport\%thisNameOnly%.exe
 
    exePath:=CompileAhk(thisAhk)
-   Sleep, 1000
+   Sleep, 3000
    FileMove(exePath, terminatorPath, "overwrite")
 }
 

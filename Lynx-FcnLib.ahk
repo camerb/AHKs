@@ -308,13 +308,22 @@ lynx_error(message)
 {
    MaintType := GetLynxMaintenanceType()
 
-      ;MsgBox, , Lynx Upgrade Assistant, %message%
    if (MaintType == "upgrade")
-      lynx_message("ERROR (Inform Level 2 support): " . message)
+   {
+      full_message := "ERROR (Inform Level 2 support): " . message
+      lynx_message(full_message)
+      lynx_log(full_message)
+   }
    else if (MaintType == "install")
+   {
       errord("", message)
+   }
    else
-      lynx_message("ERROR (Inform Level 2 support): " . message)
+   {
+      full_message := "ERROR (Inform Level 2 support): " . message
+      lynx_message(full_message)
+      lynx_log(full_message)
+   }
 }
 
 lynx_fatalerror(message)
