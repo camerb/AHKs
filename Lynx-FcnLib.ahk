@@ -395,6 +395,14 @@ GetApacheVersion()
    output := CmdRet_RunReturn("C:\Program Files (x86)\Apache Software Foundation\Apache2.2\bin\httpd.exe -v")
    RegExMatch(output, "Apache.([0-9.]+)", match)
    lynx_log("Detected apache version: " . match1)
+
+   if FileDirExist("C:\Program Files (x86)\Apache Software Foundation\Apache2.2")
+      installDirIsThere := true
+   if FileDirExist("C:\Program Files\Apache Software Foundation\Apache2.2")
+      installDirIsThere := true
+   if NOT installDirIsThere
+      lynx_log("I think this is an error: Apache install directory cannot be found")
+
    return match1
 }
 

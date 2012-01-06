@@ -4,6 +4,7 @@
 ;Paste a url, rather than lots of text
 
 ;TODO parse the paste and figure out if it's ahk, perl, js, ini, diff or whatever
-url := Paste2(Clipboard, "Paste from camerb")
+theClipboard:=Clipboard
+url := Paste2(theClipboard, "Paste from camerb")
 SendViaClipboard(url)
-
+debug(theClipboard)

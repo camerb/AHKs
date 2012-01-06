@@ -41,8 +41,11 @@ CopyInetpubFolder()
 UpgradeApacheIfNeeded()
 
 BannerDotPlx()
+
+;CheckDb()
 msg("Run perl checkdb.plx from C:\inetpub\wwwroot\cgi")
 CheckDb()
+
 RestartService("apache2.2")
 SleepSeconds(2)
 InstallAll()
@@ -155,14 +158,13 @@ EnsureAllServicesAreRunning()
 
 UnzipInstallPackage(file)
 {
-   notify("unzipping install package")
    ;7z=C:\temp\lynx_upgrade_files\7z.exe
    p=C:\temp\lynx_upgrade_files
    folder:=file
    ;cmd=%7z% a -t7z %p%\archive.7z %p%\*.txt
    cmd=%p%\unzip.exe %p%\%file%.zip -d %p%\%folder%
    CmdRet_RunReturn(cmd, p)
-   notify("finished unzipping install package")
+   ;notify("Working on " . file)
 }
 
 ;WRITEME
@@ -212,7 +214,7 @@ TestDownloadProtocol(testProtocol)
 CopyInetpubFolder()
 {
    notify("Copying the contents of the inetpub folder")
-   FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_pack\inetpub", "C:\Inetpub", "overwrite")
+   FileCopyDir("C:\temp\lynx_upgrade_files\inetpub", "C:\Inetpub", "overwrite")
    AddSqlConnectStringFiles()
    notify("finished copying inetpub folder")
 }
@@ -261,7 +263,7 @@ UpgradePerlIfNeeded()
       ;FileDeleteDirForceful("C:\Perl")
       FileMoveDir, "C:\Perl", oldPerlDir
 
-      Run, C:\temp\lynx_upgrade_files\upgrade_pack\ActivePerl\ActivePerl.msi
+      Run, C:\temp\lynx_upgrade_files\ActivePerl\ActivePerl\ActivePerl.msi
       Sleep, 2000
       msg("Install new perl")
       while IsPerlUpgradeNeeded()
@@ -282,7 +284,7 @@ UpgradeApacheIfNeeded()
       ;ensure the service is gone
       EnsureApacheServiceNotExist()
 
-      Run, C:\temp\lynx_upgrade_files\upgrade_pack\apache\apache.msi
+      Run, C:\temp\lynx_upgrade_files\apache\apache\apache.msi
       Sleep, 2000
       msg("Install new apache")
       while IsApacheUpgradeNeeded()
@@ -380,14 +382,23 @@ AddSqlConnectStringFiles()
 
 DownloadAllLynxFilesForUpgrade()
 {
+   ;TODO if the modified date is older than today
    FileDeleteDirForceful("C:\temp\lynx_upgrade_files")
 
    notify("Downloading LynxGuide Upgrade Package")
    DownloadLynxFile("unzip.exe")
-   DownloadLynxFile("upgrade_pack.zip")
+   ;DownloadLynxFile("upgrade_pack.zip")
+   DownloadLynxFile("unzip.exe")
+   ;DownloadLynxFile("7zip.zip")
+   DownloadLynxFile("ActivePerl.zip")
+   DownloadLynxFile("apache.zip")
+   ;DownloadLynxFile("cUrl.zip")
+   DownloadLynxFile("inetpub.zip")
+   DownloadLynxFile("upgrade_scripts.zip")
+   DownloadLynxFile("zip-unzip.zip")
    notify("Finished Downloading")
 
-   FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_scripts", "C:\inetpub\wwwroot\cgi", "overwrite")
+   FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_scripts\upgrade_scripts", "C:\inetpub\wwwroot\cgi", "overwrite")
 }
 
 CreateSmsKey()
