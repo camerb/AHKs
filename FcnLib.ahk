@@ -910,7 +910,7 @@ SelfDestruct()
 
 ;TODO ahkFile does NOT support full paths yet.
 ; maybe make that supported in the future
-CompileAhk(ahkFile)
+CompileAhk(ahkFile, options="")
 {
    ErrordIfFileNotExist(A_ThisFunc, ahkFile)
 
@@ -942,8 +942,12 @@ CompileAhk(ahkFile)
    Sleep, 1000
 
    ahk2exe:=ProgramFilesDir("AutoHotkey\Compiler\Ahk2Exe.exe")
-   cmd="%ahk2exe%" /in "%ahkFile%" /nodecompile
+   if InStr(options, "MitsiIcon")
+      optionalIcon=/icon "C:\Dropbox\AHKs\ico\mtsi_0001.ico"
+
+   cmd="%ahk2exe%" /in "%ahkFile%" %optionalIcon% /nodecompile
    CmdRet_RunReturn(cmd)
+   ;WaitFileExist(exePath)
 
    ErrordIfFileNotExist(A_ThisFunc, exePath)
 
@@ -1976,4 +1980,8 @@ PrettyTickCount(timeInMilliSeconds)
 
 ;WRITEME check if AHK compiles correctly
 ;WRITEME make CompileAHK use UseErrorLevel
+
+
+;WRITEME make a nifty ahk sidebar
+;WRITEME ahk sidebar widgets: Clock, Weather, CPU, RAM, Gmail... Other Crud: Stocks
 

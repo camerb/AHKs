@@ -107,38 +107,6 @@ AllServicesAre(status)
    return true
 }
 
-StopAllLynxServices()
-{
-   RemoveAll()
-   CmdRet_RunReturn("net stop apache2.2")
-   TCP:="LynxTCPService.exe"
-   ProcessClose(TCP)
-   ProcessClose(TCP)
-   ProcessClose(TCP)
-   Sleep, 500
-   if ProcessExist(TCP)
-      lynx_error("LynxTCP service didn't seem to close")
-}
-
-BannerDotPlx()
-{
-   ret := CmdRet_Perl("banner.plx")
-   lynx_log("banner.plx returned: " . ret)
-   if NOT InStr(ret, "Location: /banner") ;/banner.gif")
-      lynx_error("the banner.plx file did not run correctly, instead it returned:" . ret)
-}
-
-;TODO run checkdb again (automated), pipe to log
-CheckDb()
-{
-   ret := CmdRet_Perl("checkdb.plx")
-   RestartService("apache2.2")
-   len := strlen(ret)
-   msg=Ran checkdb and the strlen of the checkdb was %len%
-   FileAppendLine(msg, GetPath("logfile")) ;log abbreviated message
-   FileAppendLine(ret, GetPath("checkdb-logfile")) ;log full message to separate log
-}
-
 RemoveAll()
 {
    ret := CmdRet_Perl("start-MSG-service.pl removeall")
@@ -374,9 +342,18 @@ GetLynxVersion()
 
 GetPerlVersion()
 {
-   output:=CmdRet_RunReturn("perl -v")
-   RegExMatch(output, "v([0-9.]+)", match)
-   lynx_log("Detected perl version: " . match1)
+   Loop, 20
+   {
+      output:=CmdRet_RunReturn("perl -v")
+      RegExMatch(output, "v([0-9.]+)", match)
+      lynx_log("Detected perl version: " . match1)
+      if match1
+         returned:=match1
+      if RegExMatch(returned, "\d")
+         break
+      Sleep, 2000
+   }
+   lynx_log("Concluded that perl version is: " . match1)
 
    ;Check to see if there is a chance that we are getting conflicting info from the perl installation
    perlIsInstalled := !! match1
@@ -387,23 +364,42 @@ GetPerlVersion()
    if (!perlIsInstalled AND perlDirIsThere)
       lynx_error(errorMsg)
 
-   return match1
+   return returned
 }
 
 GetApacheVersion()
 {
-   output := CmdRet_RunReturn("C:\Program Files (x86)\Apache Software Foundation\Apache2.2\bin\httpd.exe -v")
-   RegExMatch(output, "Apache.([0-9.]+)", match)
-   lynx_log("Detected apache version: " . match1)
-
    if FileDirExist("C:\Program Files (x86)\Apache Software Foundation\Apache2.2")
       installDirIsThere := true
    if FileDirExist("C:\Program Files\Apache Software Foundation\Apache2.2")
       installDirIsThere := true
    if NOT installDirIsThere
+   {
       lynx_log("I think this is an error: Apache install directory cannot be found")
+      return ""
+   }
 
-   return match1
+   file=C:\Program Files\Apache Software Foundation\Apache2.2\bin\httpd.exe
+   if FileExist(file)
+      ApacheExePath := file
+   file=C:\Program Files (x86)\Apache Software Foundation\Apache2.2\bin\httpd.exe
+   if FileExist(file)
+      ApacheExePath := file
+   ;ApacheExePath := ProgramFilesDir("\Apache Software Foundation\Apache2.2\bin\httpd.exe")
+   Loop, 20
+   {
+      output := CmdRet_RunReturn(ApacheExePath . " -v")
+      RegExMatch(output, "Apache.([0-9.]+)", match)
+      lynx_log("Detected apache version: " . match1)
+      if match1
+         returned:=match1
+      if RegExMatch(returned, "\d")
+         break
+      Sleep, 2000
+   }
+   lynx_log("Concluded that apache version is: " . match1)
+
+   return returned
 }
 
 ;Send an email without doing any of the complex queuing stuff
@@ -436,66 +432,18 @@ GetLynxMaintenanceType()
    return Lynx_MaintenanceType
 }
 
-SendLogsHome()
-{
-   ;fix the params, if needed
-   reasonForScript := GetLynxMaintenanceType()
-
-   joe := GetLynxPassword("ftp")
-   timestamp := CurrentTime("hyphenated")
-   date := CurrentTime("hyphendate")
-   logFileFullPath := GetPath("logfile")
-   logFileFullPath2 := GetPath("checkdb-logfile")
-   logFileFullPath3 := GetPath("installall-logfile")
-
-   ;send it back via ftp (curl)
-   ;dest=ftp://lynx.mitsi.com/%reasonForScript%_logs/%timestamp%.txt
-   ;dest2=ftp://lynx.mitsi.com/%reasonForScript%_logs/%timestamp%-checkdb.txt
-   ;dest3=ftp://lynx.mitsi.com/%reasonForScript%_logs/%timestamp%-installall.txt
-   ;cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath%" --user AHK:%joe% %dest%
-   ;ret:=CmdRet_RunReturn(cmd)
-   ;cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath2%" --user AHK:%joe% %dest2%
-   ;ret:=CmdRet_RunReturn(cmd)
-   ;cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%logFileFullPath3%" --user AHK:%joe% %dest3%
-   ;ret:=CmdRet_RunReturn(cmd)
-
-   ;try to send it back using MS-ftp
-   joe := GetLynxPassword("ftp")
-   ftpFilename=ftp.scr
-ftpfile=
-(
-open lynx.mitsi.com
-AHK
-%joe%
-put %logFileFullPath% %reasonForScript%_logs/%timestamp%.txt
-put %logFileFullPath2% %reasonForScript%_logs/%timestamp%-checkdb.txt
-put %logFileFullPath3% %reasonForScript%_logs/%timestamp%-installall.txt
-quit
-)
-   FileCreate(ftpfile, ftpFilename)
-   ret:=CmdRet_RunReturn("ftp -s:" . ftpFilename)
-   ;notify("finished ftp connection")
-   ;notify(ret)
-   delog(ret)
-   FileDelete(ftpFilename)
-
-   ;send it back in an email
-   ;subject=%reasonForScript% Logs
-   ;allLogs=%logFileFullPath%|%logFileFullPath2%|%logFileFullPath3%
-   ;SendEmailNow(subject, A_ComputerName, allLogs, "cameron@mitsi.com")
-}
-
-TestScriptAbilities()
-{
-   TestCmdRet()
-   ;TestCmdRetPerl()
-}
-
 TestLynxSystem()
 {
+   TestIfLynxIsThere()
    BannerDotPlx()
    CheckDb()
    GetIEVersion()
+}
+
+TestIfLynxIsThere()
+{
+   if NOT FileExist("C:\inetpub\wwwroot\cgi\checkdb.plx")
+      lynx_error("It looks like this is not a valid lynx install (checkdb file is not there).")
 }
 
 TestCmdRet()
@@ -533,13 +481,6 @@ GetIEVersion()
    RegRead, IEVersion, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Internet Explorer, Version
    lynx_log("IE Version is: " . IEVersion)
    return IEVersion
-}
-
-SendStartMaintenanceEmail()
-{
-   maintType:=GetLynxMaintenanceType()
-   subject=Starting an %maintType% on %A_ComputerName%
-   SendEmailNow(subject, "", "", "cameron@mitsi.com")
 }
 
 ShowTrayMessage(message)

@@ -1,30 +1,26 @@
 ;#singleinstance force
 #include FcnLib.ahk
 #include Lynx-FcnLib.ahk
+#include Lynx-UpgradeParts.ahk
 ;#singleinstance force
 Lynx_MaintenanceType := "upgrade"
 
-;SendLogsHome()
-;Sleep, 10000
-;ExitApp
-
-;Beginning of the actual script
+;Beginning of the actual upgrade procedure
 notify("Starting Upgrade of the LynxGuide server")
 SendStartMaintenanceEmail()
 TestScriptAbilities()
 RunTaskManagerMinimized()
-LynxOldVersion:=GetLynxVersion()
-;TODO get client information and insert it into the database (if empty)
-; log the info as well
 
+LynxOldVersion:=GetLynxVersion()
 LynxDestinationVersion := GetLatestLynxVersion()
 msg("Attempting an upgrade from Lynx Version: " . LynxOldVersion . " to " . LynxDestinationVersion)
-
-DownloadAllLynxFilesForUpgrade()
-
 PerlUpgradeNeeded:=IsPerlUpgradeNeeded()
 ApacheUpgradeNeeded:=IsApacheUpgradeNeeded()
 
+DownloadAllLynxFilesForUpgrade()
+
+;TODO get client information and insert it into the database (if empty)
+; log the info as well
 CreateSmsKey()
 CheckDatabaseFileSize()
 GetServerSpecs()
@@ -57,8 +53,8 @@ EnsureAllServicesAreRunning()
 ;TODO pull password out of DB and open lynx interface automatically
 msg("Open the web interface, log in as admin")
 InstallSmsKey()
-msg("under change system settings, then under file system locations and logging change logging to extensive, log age to yearly, message age to never, and log size to 500MB. Save your changes")
-msg("Ask the customer if they have a public subscription page, and if not: Under Home Page and Subscriber Setup, change the home page to no_subscription.htm")
+msg("(Change system settings > File system locations and logging):`n`nChange logging to extensive, log age to yearly, message age to never, and log size to 500MB. Save your changes")
+msg("Ask the customer if they have a public subscription page`n`nIf not: Under Home Page and Subscriber Setup, change the home page to no_subscription.htm")
 msg("Under back up system, set system backups monthly and database backups weekly")
 
 ;security login (web interface)
@@ -97,24 +93,9 @@ reload
 return
 
 
-GetClientInfo()
-{
-   ;TODO need to filecreate the perl code to client_info.plx
-
-   ret := CmdRet_Perl("client_info.plx")
-   ret := StringReplace(ret, "`t", "  `t  ")
-   if InStr(ret, "LynxMessageServer") ;TODO perhaps check if a tab is in there... that would be more generic
-      msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
-   else
-   {
-      Clipboard=SELECT [type],[ver],count(*) FROM[ipaddress] GROUP BY [type],[ver]
-      msg("Get the client data and put it into Sugar. The database query has been placed on the clipboard, so just paste it into SSMS to run it")
-      lynx_log("I think this is an error: Tried to get client data from the database, but got this instead: " . ret)
-   }
-}
-
 msg(message)
 {
+   message .= "`n`nClick OK to Continue"
    MsgBox, , Lynx Upgrade Assistant, %message%
 }
 
@@ -134,22 +115,6 @@ LynxError(message)
    ;else
       ;return false
 ;}
-
-EnsureAllServicesAreStopped()
-{
-   Sleep, 5000
-   ;FIXME - make this an error, not a log
-   if NOT AllServicesAre("stopped")
-      lynx_log("Not all services are stopped")
-}
-
-EnsureAllServicesAreRunning()
-{
-   Sleep, 5000
-   ;FIXME - make this an error, not a log
-   if NOT AllServicesAre("running")
-      lynx_log("Not all services are running")
-}
 
 ;TODO get important info and condense into a summary
 ;importantLogInfo(message)
@@ -211,88 +176,6 @@ TestDownloadProtocol(testProtocol)
       connectionProtocol:=testProtocol
 }
 
-CopyInetpubFolder()
-{
-   notify("Copying the contents of the inetpub folder")
-   FileCopyDir("C:\temp\lynx_upgrade_files\inetpub", "C:\Inetpub", "overwrite")
-   AddSqlConnectStringFiles()
-   notify("finished copying inetpub folder")
-}
-
-RunTaskManagerMinimized()
-{
-   Run, taskmgr
-   WinWait, Windows Task Manager
-   WinMinimize
-}
-
-GetServerSpecs()
-{
-   Loop 4
-   {
-      thisIP := A_IPaddress%A_Index%
-      if (thisIP != "0.0.0.0")
-         IPlist .= "`n" . thisIP
-   }
-   msg=The server's IP addresses are: %IPlist%`nPlease enter this info into Sugar
-   msg(msg)
-
-   Run, control /name Microsoft.System
-   WinWait, System
-   Sleep, 1000
-   ;UNCOMMENTME SaveScreenShot("serverSpecs", "C:\inetpub\logs\lynxUpgrades\", "activeWindow")
-   msg("Enter server Computer Name, RAM, Processor Speed and OS into Sugar")
-   WinClose, System
-}
-
-TurnOffIisIfApplicable()
-{
-   if NOT GetApacheVersion() ;Apache is not installed, must be IIS
-      msg("Turn off IIS, change port to 8081, turn off app pools")
-}
-
-UpgradePerlIfNeeded()
-{
-   if IsPerlUpgradeNeeded()
-   {
-      msg("Uninstall perl")
-      while GetPerlVersion()
-         lynx_error("Uninstall perl")
-
-      oldPerlDir:="C:\Perl-old-" . CurrentTime("hyphenated")
-      ;FileDeleteDirForceful("C:\Perl")
-      FileMoveDir, "C:\Perl", oldPerlDir
-
-      Run, C:\temp\lynx_upgrade_files\ActivePerl\ActivePerl\ActivePerl.msi
-      Sleep, 2000
-      msg("Install new perl")
-      while IsPerlUpgradeNeeded()
-         lynx_error("Install new perl")
-
-      FileDeleteDirForceful(oldPerlDir)
-   }
-}
-
-UpgradeApacheIfNeeded()
-{
-   if IsApacheUpgradeNeeded()
-   {
-      msg("Uninstall apache")
-      while GetApacheVersion()
-         lynx_error("Uninstall apache")
-      ;TODO wait for the finished page of the installer
-      ;ensure the service is gone
-      EnsureApacheServiceNotExist()
-
-      Run, C:\temp\lynx_upgrade_files\apache\apache\apache.msi
-      Sleep, 2000
-      msg("Install new apache")
-      while IsApacheUpgradeNeeded()
-         lynx_error("Install new apache")
-      ;TODO wait for the finished page of the installer
-   }
-}
-
 IsPerlUpgradeNeeded()
 {
    if (GetPerlVersion() != "5.8.9")
@@ -314,48 +197,6 @@ GetLatestLynxVersion()
    DownloadLynxFile("version.txt")
    returned := FileRead("C:\temp\lynx_upgrade_files\version.txt")
    return returned
-}
-
-ShowUpgradeSummary()
-{
-   global LynxOldVersion
-   global LynxNewVersion
-   msg=Upgraded server from %LynxOldVersion% to %LynxNewVersion%
-   msg(msg)
-}
-
-CheckDatabaseFileSize()
-{
-   ;dbFile=C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\lLynx.mdf
-   ;dbFile=C:\Program Files\Microsoft SQL Server\MSSQL\MSSQL\DATA\lLynx.mdf
-   dbSearchPath=C:\Program Files\Microsoft SQL Server\*
-   Loop, %dbSearchPath%, 0, 1
-   {
-      if RegExMatch(A_LoopFileName, "Lynx\.mdf$")
-         dbFile := A_LoopFileFullPath
-   }
-   dbSearchPath=C:\Program Files (x86)\Microsoft SQL Server\*
-   Loop, %dbSearchPath%, 0, 1
-   {
-      if RegExMatch(A_LoopFileName, "Lynx\.mdf$")
-         dbFile := A_LoopFileFullPath
-   }
-
-   if FileExist(dbFile)
-   {
-      dbSize:=FileGetSize(dbFile, "M")
-      if (dbSize > 200)
-      {
-         msg=Inform level 2 support that the database file size is %size%MB
-         msg(msg)
-      }
-   }
-   else
-   {
-      lynx_log("Could not find database file")
-      msg("Check database file size to ensure it is smaller than 200MB, if it is larger than 200MB, inform level 2 support")
-      ;TODO please provide the full path to the MDF file
-   }
 }
 
 EnsureApacheServiceNotExist()
@@ -380,35 +221,3 @@ AddSqlConnectStringFiles()
       FileCopy(source2, dest2)
 }
 
-DownloadAllLynxFilesForUpgrade()
-{
-   ;TODO if the modified date is older than today
-   FileDeleteDirForceful("C:\temp\lynx_upgrade_files")
-
-   notify("Downloading LynxGuide Upgrade Package")
-   DownloadLynxFile("unzip.exe")
-   ;DownloadLynxFile("upgrade_pack.zip")
-   DownloadLynxFile("unzip.exe")
-   ;DownloadLynxFile("7zip.zip")
-   DownloadLynxFile("ActivePerl.zip")
-   DownloadLynxFile("apache.zip")
-   ;DownloadLynxFile("cUrl.zip")
-   DownloadLynxFile("inetpub.zip")
-   DownloadLynxFile("upgrade_scripts.zip")
-   DownloadLynxFile("zip-unzip.zip")
-   notify("Finished Downloading")
-
-   FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_scripts\upgrade_scripts", "C:\inetpub\wwwroot\cgi", "overwrite")
-}
-
-CreateSmsKey()
-{
-   if NOT GetSmsKey()
-      msg("Ensure the SMS key is being created.")
-}
-
-InstallSmsKey()
-{
-   if NOT GetSmsKey()
-      msg("Install the new SMS key")
-}

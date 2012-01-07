@@ -22,17 +22,20 @@ Loop, C:\Dropbox\AHKs\*.*
 }
 
 ;Compile EXEs and put them in the right places
-allAhksToCompile=Lynx-Install,Lynx-Upgrade
+allAhksToCompile=Lynx-Upgrade
+;allAhksToCompile=Lynx-Install,Lynx-Upgrade
 Loop, parse, allAhksToCompile, CSV
 {
    thisNameOnly=%A_LoopField%
    thisAhk=%A_LoopField%.ahk
    terminatorPath=T:\TechSupport\%thisNameOnly%.exe
 
-   exePath:=CompileAhk(thisAhk)
+   exePath:=CompileAhk(thisAhk, "MitsiIcon")
    Sleep, 3000
    FileMove(exePath, terminatorPath, "overwrite")
 }
+
+ExitApp ;temporary cause I broke everything and have to move it into a common lib 2012-01-06
 
 ;delete this after we move all the junk to the ftp site
 ;exePath:=CompileAhk("C:\Dropbox\AHKs\Lynx-Install.ahk")
