@@ -168,7 +168,7 @@ TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:gaia_loginform ATTR=ID:signIn
 TAB OPEN
 TAB T=2
 URL GOTO=https://www.status-pro.biz/dashboard/Default.aspx
-TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form1 ATTR=ID:LoginUser_UserName CONTENT=ICmbaustian
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form1 ATTR=ID:LoginUser_UserName CONTENT=AHmbaustian
 SET !ENCRYPTION NO
 TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:form1 ATTR=ID:LoginUser_Password CONTENT=%panther%
 TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:form1 ATTR=ID:LoginUser_LoginButton
@@ -396,7 +396,7 @@ if (serverName == "testing testing testing")
 ;ss()
 iniPP("AddScorecardEntry-14")
 Send, %serverName%{ENTER}
-Send, ICMbaustian{ENTER}
+Send, AHmbaustian{ENTER}
 Send, %today%{ENTER}
 Send, %referenceNumber%{ENTER}
 iniPP("AddScorecardEntry-15")
@@ -526,7 +526,7 @@ Loop
 Clipboard := "null"
 ss()
 Send, %serverName%{ENTER}
-Send, ICMbaustian{ENTER}
+Send, AHmbaustian{ENTER}
 Send, %today%{ENTER}
 Send, %referenceNumber%{ENTER}
 Sleep, 100
@@ -670,7 +670,7 @@ Loop
 Clipboard := "null"
 ss()
 Send, %serverName%{ENTER}
-Send, ICMbaustian{ENTER}
+Send, AHmbaustian{ENTER}
 Send, %today%{ENTER}
 Send, %referenceNumber%{ENTER}
 Sleep, 100
@@ -812,7 +812,7 @@ Loop
 Clipboard := "null"
 ss()
 Send, %serverName%{ENTER}
-Send, ICMbaustian{ENTER}
+Send, AHMbaustian{ENTER}
 Send, %today%{ENTER}
 Send, %referenceNumber%{ENTER}
 Sleep, 100
@@ -947,7 +947,7 @@ Loop
 Clipboard := "null"
 ss()
 Send, %serverName%{ENTER}
-Send, ICMbaustian{ENTER}
+Send, AHmbaustian{ENTER}
 Send, %today%{ENTER}
 Send, %referenceNumber%{ENTER}
 Sleep, 100
@@ -1082,7 +1082,7 @@ Loop
 Clipboard := "null"
 ss()
 Send, %serverName%{ENTER}
-Send, ICMbaustian{ENTER}
+Send, AHmbaustian{ENTER}
 Send, %today%{ENTER}
 Send, %referenceNumber%{ENTER}
 Sleep, 100

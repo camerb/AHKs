@@ -51,20 +51,20 @@ EnsureAllServicesAreRunning()
 
 ;admin login (web interface)
 ;TODO pull password out of DB and open lynx interface automatically
-msg("Open the web interface, log in as admin")
 InstallSmsKey()
-msg("(Change system settings > File system locations and logging):`n`nChange logging to extensive, log age to yearly, message age to never, and log size to 500MB. Save your changes")
+;TODO ensure all locations are described correctly
+msg("(Admin Panel > Change system settings > File system locations and logging):`n`nChange logging to extensive, log age to yearly, message age to never, and log size to 500MB. Save your changes.")
 msg("Ask the customer if they have a public subscription page`n`nIf not: Under Home Page and Subscriber Setup, change the home page to no_subscription.htm")
-msg("Under back up system, set system backups monthly and database backups weekly")
+msg("Under back up system, set file system backups quarterly and database backups weekly")
 
 ;security login (web interface)
 ;TODO pull password out of DB and open lynx interface automatically
+msg("Ensure lynx2@mitsi.com is added in the contact list, with the comment 'Lynx Technical Support - Automated Supervision'")
 msg("Send Test SMS message, popup (to server), and email (to lynx2).")
 SendLogsHome()
-msg("Add the four LynxGuide supervision channels: 000 Normal, 006, 007, 008, 009")
-msg("Add lynx2.mitsi.com to the LynxGuide channels 000 Normal, 000 Alarm, 001, 002, 003, 009")
-msg("Add 000 Normal, supervision restored for all hardware alarm groups")
-msg("Add lynx2@mitsi.com to 000 Alarm, 000 Normal and 990")
+msg("Ensure the LynxGuide supervision channels 000 Normal, 000 Alarm, 001, 002, 006, 007, 008, 009 are enabled, with the company name in the subject line of each alarm message.")
+msg("Ensure lynx2 is a contact for the LynxGuide channels 000 Normal, 000 Alarm, 001, 002, 009")
+msg("For all hardware alarm groups, ensure lynx2 is a contact on 000 Normal, 000 Alarm and 990")
 
 ;testing
 ;msg("Note in sugar: Tested SMS and Email to lynx2@mitsi.com, failed/passed by [initials] mm-dd-yyyy")
@@ -73,6 +73,9 @@ msg("Add lynx2@mitsi.com to 000 Alarm, 000 Normal and 990")
 
 LynxNewVersion := GetLynxVersion()
 ShowUpgradeSummary()
+msg("Log off of the server")
+SleepMinutes(60*12)
+Shutdown, 4
 ExitApp
 
 

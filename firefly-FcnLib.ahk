@@ -210,7 +210,7 @@ GetStatus()
    status:=Clipboard
    if NOT RegExMatch(status, "(Closed|Served|Cancelled|Personal|Substitute|Not Served|Found)")
    {
-      iniPP("status-" . status)
+      ;iniPP("status-" . status)
       RecoverFromMacrosGoneWild("Invalid status (might have a long defendant name) (error 24) " . status)
    }
    return status
