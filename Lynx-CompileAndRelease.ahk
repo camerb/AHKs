@@ -23,7 +23,7 @@ Loop, C:\Dropbox\AHKs\*.*
 
 ;Compile EXEs and put them in the right places
 allAhksToCompile=Lynx-Upgrade
-;allAhksToCompile=Lynx-Install,Lynx-Upgrade
+allAhksToCompile=Lynx-Install,Lynx-Upgrade
 Loop, parse, allAhksToCompile, CSV
 {
    thisNameOnly=%A_LoopField%

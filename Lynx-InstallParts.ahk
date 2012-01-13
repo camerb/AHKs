@@ -1,4 +1,6 @@
 #include FcnLib.ahk
+#include Lynx-FcnLib.ahk
+#include Lynx-ProcedureParts.ahk
 
 SetComputerName()
 {
@@ -9,6 +11,20 @@ SetComputerName()
    SleepSend("Y{ENTER}")
    SleepSeconds(2)
    WinClose
+   delog("", "finished function", A_ThisFunc)
+}
+
+DownloadAllLynxFilesForInstall()
+{
+   delog("", "started function", A_ThisFunc)
+   FileDeleteDirForceful("C:\temp\lynx_upgrade_files")
+
+   notify("Downloading LynxGuide Install Package")
+   DownloadLynxFile("unzip.exe")
+   DownloadLynxFile("LynxCD.zip")
+   notify("Finished Downloading")
+
+   ;FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_scripts\upgrade_scripts", "C:\inetpub\wwwroot\cgi", "overwrite")
    delog("", "finished function", A_ThisFunc)
 }
 

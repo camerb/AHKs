@@ -45,7 +45,7 @@ SendStartMaintenanceEmail()
 TestScriptAbilities()
 
 if ChoseCopyInstallationFilesToHardDrive
-   CopyInstallationFilesToHardDrive()
+   DownloadAllLynxFilesForInstall()
 if ChoseTurnOffWindowsFirewall
    TurnOffWindowsFirewall()
 if ChoseChangeScreenResolution
@@ -97,8 +97,7 @@ AppsKey & d::
 Gui, Destroy
 debug("log", "started debug script")
 
-AllServicesAre("stopped")
-SendLogsHome()
+DownloadAllLynxFilesForInstall()
 
 debug("log", "finished debug script")
 ExitApp

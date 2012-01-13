@@ -3,7 +3,7 @@
 #include SendEmailSimpleLib.ahk
 #include gitExempt/Lynx-Passwords.ahk
 
-;ExitApp ;this is a lib ;TODO make it so that we can test to ensure the lib compiles correctly
+;this is a lib
 
 ConfigureODBC(version)
 {
@@ -523,3 +523,58 @@ GetSmsKey()
    RegExMatch(queryResult, "ID\t([A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12})\t", match)
    return match1
 }
+
+DownloadLynxFile(filename)
+{
+   global downloadPath
+
+   TestDownloadProtocol("ftp")
+   TestDownloadProtocol("http")
+
+   destinationFolder=C:\temp\lynx_upgrade_files
+   url=%downloadPath%/%filename%
+   dest=%destinationFolder%\%filename%
+
+   FileCreateDir, %destinationFolder%
+   UrlDownloadToFile, %url%, %dest%
+
+   ;TODO perhaps we want to unzip the file now (if it is a 7z)
+   if RegExMatch(filename, "^(.*)\.zip$", match)
+      UnzipInstallPackage(match1)
+}
+
+TestDownloadProtocol(testProtocol)
+{
+   global connectionProtocol
+   global downloadPath
+
+   if connectionProtocol
+      return ;we already found a protocol, so don't run the test again
+
+   ;prepare for the test
+   pass:=GetLynxPassword("generic")
+   if (testProtocol == "ftp")
+      downloadPath=ftp://update:%pass%@lynx.mitsi.com/upgrade_files
+   else if (testProtocol == "http")
+      downloadPath=http://update:%pass%@lynx.mitsi.com/Private/techsupport/upgrade_files
+
+   ;test it
+   url=%downloadPath%/test.txt
+   joe:=UrlDownloadToVar(url)
+
+   ;determine if the test was successful
+   if (joe == "test message")
+      connectionProtocol:=testProtocol
+}
+
+UnzipInstallPackage(file)
+{
+   ;7z=C:\temp\lynx_upgrade_files\7z.exe
+   p=C:\temp\lynx_upgrade_files
+   folder:=file
+   ;cmd=%7z% a -t7z %p%\archive.7z %p%\*.txt
+   cmd=%p%\unzip.exe %p%\%file%.zip -d %p%\%folder%
+   CmdRet_RunReturn(cmd, p)
+   ;notify("Working on " . file)
+}
+

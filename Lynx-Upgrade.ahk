@@ -124,61 +124,6 @@ LynxError(message)
 ;{
 ;}
 
-UnzipInstallPackage(file)
-{
-   ;7z=C:\temp\lynx_upgrade_files\7z.exe
-   p=C:\temp\lynx_upgrade_files
-   folder:=file
-   ;cmd=%7z% a -t7z %p%\archive.7z %p%\*.txt
-   cmd=%p%\unzip.exe %p%\%file%.zip -d %p%\%folder%
-   CmdRet_RunReturn(cmd, p)
-   ;notify("Working on " . file)
-}
-
-;WRITEME
-DownloadLynxFile(filename)
-{
-   global downloadPath
-
-   TestDownloadProtocol("ftp")
-   TestDownloadProtocol("http")
-
-   destinationFolder=C:\temp\lynx_upgrade_files
-   url=%downloadPath%/%filename%
-   dest=%destinationFolder%\%filename%
-
-   FileCreateDir, %destinationFolder%
-   UrlDownloadToFile, %url%, %dest%
-
-   ;TODO perhaps we want to unzip the file now (if it is a 7z)
-   if RegExMatch(filename, "^(.*)\.zip$", match)
-      UnzipInstallPackage(match1)
-}
-
-TestDownloadProtocol(testProtocol)
-{
-   global connectionProtocol
-   global downloadPath
-
-   if connectionProtocol
-      return ;we already found a protocol, so don't run the test again
-
-   ;prepare for the test
-   pass:=GetLynxPassword("generic")
-   if (testProtocol == "ftp")
-      downloadPath=ftp://update:%pass%@lynx.mitsi.com/upgrade_files
-   else if (testProtocol == "http")
-      downloadPath=http://update:%pass%@lynx.mitsi.com/Private/techsupport/upgrade_files
-
-   ;test it
-   url=%downloadPath%/test.txt
-   joe:=UrlDownloadToVar(url)
-
-   ;determine if the test was successful
-   if (joe == "test message")
-      connectionProtocol:=testProtocol
-}
-
 IsPerlUpgradeNeeded()
 {
    if (GetPerlVersion() != "5.8.9")
