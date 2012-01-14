@@ -57,8 +57,10 @@ Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
 ;Gui, Add, Button, , Add Scorecard Entry-fcn
 ;Gui, Add, Button, , Add Scorecard Entry-st
-Gui, Add, Button, , Add Scorecard Entry-mf
-Gui, Add, Button, , Add Scorecard Entry-sc
+;Gui, Add, Button, , Add Scorecard Entry-mf
+;Gui, Add, Button, , Add Scorecard Entry-sc
+Gui, Add, Button, , Add Scorecard Entry-new
+Gui, Add, Button, , Add Scorecard Entry-spd
 Gui, Add, Button, , Add Fees
 Gui, Add, Button, , Refresh Login
 
@@ -1015,8 +1017,8 @@ EndOfMacro()
 return
 ;}}}
 
-;{{{ButtonAddScorecardEntry-next:
-ButtonAddScorecardEntry-next:
+;{{{ButtonAddScorecardEntry-new:
+ButtonAddScorecardEntry-new:
 timer:=StartTimer()
 StartOfMacro()
 
@@ -1112,7 +1114,7 @@ Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
 Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
 Send, {ENTER}
 Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
+Send, {ENTER}{ENTER}{ENTER}{ENTER}
 Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
 
 ;TODO
@@ -1138,6 +1140,270 @@ if NOT InStr(ServiceCountyRequired, "Service County Not Required")
 {
    msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
    msgbox, , , %msg%, 0.5
+   AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
+   iniPP("(error 21)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+}
+;note that this should be true: the number of 26+28+29 = (error 21)
+
+EndOfMacro()
+return
+;}}}
+
+;{{{ButtonAddScorecardEntry-spd:
+ButtonAddScorecardEntry-spd:
+timer:=StartTimer()
+StartOfMacro()
+
+;notify us of possible issues in the alias names ini
+namesIni:=GetPath("FireflyConfig.ini")
+allNames:=IniListAllKeys(namesIni, "NameTranslations")
+;Loop, parse, allNames, CSV
+;{
+   ;if RegExMatch(A_LoopField, "[,.]")
+      ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
+;}
+
+if CantFocusNecessaryWindow(firefox)
+   return
+if CantFindTopOfFirefoxPage()
+   return
+
+referenceNumber:=GetReferenceNumber()
+serverName:=GetServerName()
+status:=GetStatus()
+
+time:=ElapsedTime(timer)
+;FOR TESTING PURPOSES
+;debug(referenceNumber, serverName, status, time)
+;RecoverFromMacrosGoneWild("Testing (error 00)")
+
+if InStr(status, "Cancelled")
+   RecoverFromMacrosGoneWild("It looks like this one was cancelled (error 5)", status)
+
+IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
+   RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
+
+;translate server name, if they go by something else
+replacementName := IniRead(namesIni, "NameTranslations", PrepIniKeyServerName(serverName))
+if (replacementName != "ERROR")
+   serverName := replacementName
+
+
+FormatTime, today, , MM/dd/yyyy
+;#############################################################
+if CantFocusNecessaryWindow(excel)
+   return
+
+;DELETEME remove this before moving live
+ss()
+Send, {UP 50}{LEFT}
+;TODO try removing one of these first
+Send, {UP 50}{LEFT}
+ss()
+Send, {DOWN}
+ss()
+
+;Loop to find the first empty column
+Loop
+{
+   Send, {RIGHT}
+   Send, ^c
+   Sleep, 100
+   if NOT RegExMatch(Clipboard, "[A-Za-z]")
+      break
+}
+
+Clipboard := "null"
+ss()
+SendInput, %serverName%{ENTER}
+SendInput, AHmbaustian{ENTER}
+SendInput, %today%{ENTER}
+SendInput, %referenceNumber%{ENTER}
+Sleep, 100
+SendInput, ^c
+Sleep, 100
+loop
+{
+   ServiceCountyRequired := Clipboard
+   if (ServiceCountyRequired != "null")
+      break
+   sleep, 100
+}
+
+SendInput, {ENTER}
+SendInput, {DOWN}
+SendInput, {ENTER}
+SendInput, {ENTER}
+SendInput, {ENTER}
+SendInput, {ENTER}
+SendInput, {ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {ENTER}{ENTER}{ENTER}{ENTER}
+SendInput, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
+
+;TODO
+if (ServiceCountyRequired == "`r`n")
+   iniPP("(error 26)-ServiceCountyRequired-was-blank-" . ServiceCountyRequired) ; {} ;do nothing
+else if InStr(ServiceCountyRequired, "Service County Not Required")
+   iniPP("(error 27)-ServiceCountyRequired-was-not-req" . ServiceCountyRequired) ; {} ;do nothing
+else if InStr(ServiceCountyRequired, "Service County Required")
+{
+   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
+   msgbox, , , %msg%, 0.5
+   AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
+   iniPP("(error 28)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+}
+else
+{
+   AddToTrace("grey line (error 29) ServiceCountyRequired was: " . ServiceCountyRequired)
+   iniPP("(error 29)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+}
+
+;REMOVEME once the portion above is finished and working well
+if NOT InStr(ServiceCountyRequired, "Service County Not Required")
+{
+   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
+   ;msgbox, , , %msg%, 0.5
+   AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
+   iniPP("(error 21)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+}
+;note that this should be true: the number of 26+28+29 = (error 21)
+
+EndOfMacro()
+return
+;}}}
+
+;{{{ButtonAddScorecardEntry-next:
+ButtonAddScorecardEntry-next:
+timer:=StartTimer()
+StartOfMacro()
+
+;notify us of possible issues in the alias names ini
+namesIni:=GetPath("FireflyConfig.ini")
+allNames:=IniListAllKeys(namesIni, "NameTranslations")
+;Loop, parse, allNames, CSV
+;{
+   ;if RegExMatch(A_LoopField, "[,.]")
+      ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
+;}
+
+if CantFocusNecessaryWindow(firefox)
+   return
+if CantFindTopOfFirefoxPage()
+   return
+
+referenceNumber:=GetReferenceNumber()
+serverName:=GetServerName()
+status:=GetStatus()
+
+time:=ElapsedTime(timer)
+;FOR TESTING PURPOSES
+;debug(referenceNumber, serverName, status, time)
+;RecoverFromMacrosGoneWild("Testing (error 00)")
+
+if InStr(status, "Cancelled")
+   RecoverFromMacrosGoneWild("It looks like this one was cancelled (error 5)", status)
+
+IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
+   RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
+
+;translate server name, if they go by something else
+replacementName := IniRead(namesIni, "NameTranslations", PrepIniKeyServerName(serverName))
+if (replacementName != "ERROR")
+   serverName := replacementName
+
+
+FormatTime, today, , MM/dd/yyyy
+;#############################################################
+if CantFocusNecessaryWindow(excel)
+   return
+
+;DELETEME remove this before moving live
+ss()
+Send, {UP 50}{LEFT}
+;TODO try removing one of these first
+Send, {UP 50}{LEFT}
+ss()
+Send, {DOWN}
+ss()
+
+;Loop to find the first empty column
+Loop
+{
+   Send, {RIGHT}
+   Send, ^c
+   Sleep, 100
+   if NOT RegExMatch(Clipboard, "[A-Za-z]")
+      break
+}
+
+Clipboard := "null"
+ss()
+SendInput, %serverName%{ENTER}
+SendInput, AHmbaustian{ENTER}
+SendInput, %today%{ENTER}
+SendInput, %referenceNumber%{ENTER}
+Sleep, 100
+SendInput, ^c
+Sleep, 100
+loop
+{
+   ServiceCountyRequired := Clipboard
+   if (ServiceCountyRequired != "null")
+      break
+   sleep, 100
+}
+
+SendInput, {ENTER}
+SendInput, {DOWN}
+SendInput, {ENTER}
+SendInput, {ENTER}
+SendInput, {ENTER}
+SendInput, {ENTER}
+SendInput, {ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {ENTER}
+SendInput, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+SendInput, {ENTER}{ENTER}{ENTER}{ENTER}
+SendInput, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
+
+;TODO
+if (ServiceCountyRequired == "`r`n")
+   iniPP("(error 26)-ServiceCountyRequired-was-blank-" . ServiceCountyRequired) ; {} ;do nothing
+else if InStr(ServiceCountyRequired, "Service County Not Required")
+   iniPP("(error 27)-ServiceCountyRequired-was-not-req" . ServiceCountyRequired) ; {} ;do nothing
+else if InStr(ServiceCountyRequired, "Service County Required")
+{
+   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
+   msgbox, , , %msg%, 0.5
+   AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
+   iniPP("(error 28)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+}
+else
+{
+   AddToTrace("grey line (error 29) ServiceCountyRequired was: " . ServiceCountyRequired)
+   iniPP("(error 29)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+}
+
+;REMOVEME once the portion above is finished and working well
+if NOT InStr(ServiceCountyRequired, "Service County Not Required")
+{
+   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
+   ;msgbox, , , %msg%, 0.5
    AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
    iniPP("(error 21)-ServiceCountyRequired-was-" . ServiceCountyRequired)
 }
@@ -1289,6 +1555,8 @@ ASE-st: Ok... I did a couple things here... I made it a bit better at copying th
 ASE-mf: More functions... this should make things easier on me. You shouldn't notice a difference.
 
 ASE-sc: Tried a different way to detect the Service County... this should make things a little easier on me.
+
+ASE-new: for the new scorecard
 )
 debug("notimeout", "`n" . notes)
 EndOfMacro()
