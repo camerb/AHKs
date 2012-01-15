@@ -131,7 +131,6 @@ Loop
 return
 ;}}}
 
-
 ;{{{ButtonRefreshLogin:
 ButtonRefreshLogin:
 
@@ -159,16 +158,24 @@ while ProcessExist("firefox.exe")
 ;start firefox again ; this method is a little difficult, imacros will be easier
 RunProgram("C:\Program Files\Mozilla Firefox\firefox.exe")
 panther:=SexPanther("melinda")
+melWorkEmail:=SexPanther("mel-work-email")
 imacro=
 (
 TAB CLOSEALLOTHERS
-URL GOTO=gmail.com
+URL GOTO=http://www.gmail.com
 TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://accounts.google.com/ServiceLoginAuth ATTR=ID:Email CONTENT=melindabaustian@gmail.com
 SET !ENCRYPTION NO
 TAG POS=1 TYPE=INPUT:PASSWORD FORM=ACTION:https://accounts.google.com/ServiceLoginAuth ATTR=ID:Passwd CONTENT=%panther%
 TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:gaia_loginform ATTR=ID:signIn
 TAB OPEN
 TAB T=2
+URL GOTO=https://mail.fireflylegal.com/owa
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:logonForm ATTR=ID:username CONTENT=excel/m.baustian
+SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:logonForm ATTR=ID:password CONTENT=%melWorkEmail%
+TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:logonForm ATTR=VALUE:Log<SP>On
+TAB OPEN
+TAB T=3
 URL GOTO=https://www.status-pro.biz/dashboard/Default.aspx
 TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form1 ATTR=ID:LoginUser_UserName CONTENT=AHmbaustian
 SET !ENCRYPTION NO
@@ -177,12 +184,9 @@ TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:form1 ATTR=ID:LoginUser_LoginButton
 TAG POS=1 TYPE=A ATTR=TXT:Click<SP>Here<SP>to<SP>Log<SP>Into<SP>FC
 )
 RunIMacro(imacro)
-;Sleep 500
 WinWaitActive, %statusProMessage%
-;Sleep 500
 if SimpleImageSearch("images/firefly/dialog/thereWasAnErrorHandlingYourCurrentAction.bmp")
    Click(170, 90, "control") ;center ok button
-;Sleep 500
 GoSub, ButtonReloadQueue
 return
 ;}}}
@@ -191,11 +195,8 @@ return
 ButtonAddFees:
 StartOfMacro()
 
-if CantFocusNecessaryWindow(firefox)
-   return
-if CantFindTopOfFirefoxPage()
-   return
-
+FindTopOfFirefoxPage()
+Gui, 2: Destroy
 Gui, 2: Add, Text,, Service of Process
 Gui, 2: Add, Text,, Process Server Fees
 Gui, 2: Add, Text,, Locate
@@ -225,10 +226,7 @@ if NOT (feesVar4 == "" or feesVar4 == 3)
    return
 }
 
-if CantFocusNecessaryWindow(firefox)
-   return
-if CantFindTopOfFirefoxPage()
-   return
+FindTopOfFirefoxPage()
 
 OpenFeesWindow()
 
@@ -279,11 +277,7 @@ ButtonAddScorecardEntry-Experimental:
 StartOfMacro()
 iniPP("AddScorecardEntry-01")
 
-if CantFocusNecessaryWindow(firefox)
-   return
-iniPP("AddScorecardEntry-02")
-if CantFindTopOfFirefoxPage()
-   return
+FindTopOfFirefoxPage()
 iniPP("AddScorecardEntry-03")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; new way
@@ -362,8 +356,7 @@ IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialog
    RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-if CantFocusNecessaryWindow(excel)
-   return
+FocusNecessaryWindow(excel)
 
 ;translate server name, if they go by something else
 namesIni:=GetPath("FireflyConfig.ini")
@@ -441,304 +434,6 @@ EndOfMacro()
 return
 ;}}}
 
-;{{{ButtonAddScorecardEntry-fcn:
-ButtonAddScorecardEntry-fcn:
-StartOfMacro()
-
-;notify us of possible issues in the alias names ini
-namesIni:=GetPath("FireflyConfig.ini")
-allNames:=IniListAllKeys(namesIni, "NameTranslations")
-;Loop, parse, allNames, CSV
-;{
-   ;if RegExMatch(A_LoopField, "[,.]")
-      ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
-;}
-
-if CantFocusNecessaryWindow(firefox)
-   return
-if CantFindTopOfFirefoxPage()
-   return
-
-referenceNumber:=GetReferenceNumber()
-
-;start of getting server name
-StatusProCopyField(720, 237)
-ss()
-;TODO use the StatusProCopyField() for all copies
-
-Click(620, 237, "left")
-
-ss()
-Click(612, 254, "left")
-ss()
-Click(1254, 167, "left")
-ss()
-Click(922, 374, "left double")
-ss()
-serverName:=Clipboard
-
-Send, {CTRLDOWN}a{CTRLUP}{CTRLDOWN}c{CTRLUP}
-Click(911, 371, "left")
-ss()
-Click(867, 397, "left")
-ss()
-Click(1264, 399, "left")
-ss()
-status:=Clipboard
-FormatTime, today, , M/d/yyyy
-if InStr(status, "Cancelled")
-   RecoverFromMacrosGoneWild("It looks like this one was cancelled (error 5)", status)
-
-IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
-   RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
-
-;translate server name, if they go by something else
-replacementName := IniRead(namesIni, "NameTranslations", PrepIniKeyServerName(serverName))
-if (replacementName != "ERROR")
-   serverName := replacementName
-
-
-
-;for testing purposes
-;debug(referenceNumber, serverName)
-;RecoverFromMacrosGoneWild("Testing (error 00)")
-
-;#############################################################
-if CantFocusNecessaryWindow(excel)
-   return
-
-;DELETEME remove this before moving live
-ss()
-Send, {UP 50}{LEFT}{UP 50}{LEFT}
-ss()
-Send, {DOWN}
-ss()
-
-;Loop to find the first empty column
-Loop
-{
-   Send, {RIGHT}
-   Send, ^c
-   Sleep, 100
-   if NOT RegExMatch(Clipboard, "[A-Za-z]")
-      break
-}
-;iniPP("server-" . server)
-
-Clipboard := "null"
-ss()
-Send, %serverName%{ENTER}
-Send, AHmbaustian{ENTER}
-Send, %today%{ENTER}
-Send, %referenceNumber%{ENTER}
-Sleep, 100
-Send, ^c
-Sleep, 100
-loop
-{
-   ServiceCountyRequired := Clipboard
-   if (ServiceCountyRequired != "null")
-      break
-   sleep, 100
-}
-
-Send, {ENTER}
-Send, {DOWN}
-Send, {ENTER}
-Send, {ENTER}
-Send, {ENTER}
-Send, {ENTER}
-Send, {ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
-Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
-
-ss()
-
-if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
-{
-   SaveScreenShot("firefly-error-17")
-   AddToTrace("The sevice county required field seems to be empty (error 17)" . ServiceCountyRequired)
-   iniPP("(error 17)-BlankServiceCountyRequired")
-   ;UNSURE this was throwing so many errors that I just decided I wanted to investigate it a little
-   ;RecoverFromMacrosGoneWild("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
-}
-
-if NOT InStr(ServiceCountyRequired, "Service County Not Required")
-
-{
-   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
-   msgbox, , , %msg%, 0.5
-   AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
-   iniPP("(error 21)-ServiceCountyRequired-was-" . ServiceCountyRequired)
-}
-;ss()
-
-EndOfMacro()
-return
-;}}}
-
-;{{{ButtonAddScorecardEntry-st:
-ButtonAddScorecardEntry-st:
-timer:=StartTimer()
-StartOfMacro()
-
-;notify us of possible issues in the alias names ini
-namesIni:=GetPath("FireflyConfig.ini")
-allNames:=IniListAllKeys(namesIni, "NameTranslations")
-;Loop, parse, allNames, CSV
-;{
-   ;if RegExMatch(A_LoopField, "[,.]")
-      ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
-;}
-
-if CantFocusNecessaryWindow(firefox)
-   return
-if CantFindTopOfFirefoxPage()
-   return
-
-;serverName
-;referenceNumber
-;status
-
-referenceNumber:=GetReferenceNumber()
-;serverName:=GetServerName()
-;status:=GetStatus()
-
-;TODO use the StatusProCopyField() for all copies
-
-;start of getting server name
-Clipboard:=""
-StatusProCopyField(720, 237)
-ClipWaitNot("")
-serverName:=Clipboard
-
-Clipboard:=""
-StatusProCopyField(953, 374)
-ClipWaitNot("")
-status:=Clipboard
-
-time:=ElapsedTime(timer)
-;FOR TESTING PURPOSES
-;debug(referenceNumber, serverName, status, time)
-;RecoverFromMacrosGoneWild("Testing (error 00)")
-
-if InStr(status, "Cancelled")
-   RecoverFromMacrosGoneWild("It looks like this one was cancelled (error 5)", status)
-
-IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
-   RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
-
-;translate server name, if they go by something else
-replacementName := IniRead(namesIni, "NameTranslations", PrepIniKeyServerName(serverName))
-if (replacementName != "ERROR")
-   serverName := replacementName
-
-
-
-FormatTime, today, , MM/dd/yyyy
-;#############################################################
-if CantFocusNecessaryWindow(excel)
-   return
-
-;DELETEME remove this before moving live
-ss()
-Send, {UP 50}{LEFT}
-;TODO try removing one of these first
-Send, {UP 50}{LEFT}
-ss()
-Send, {DOWN}
-ss()
-
-;Loop to find the first empty column
-Loop
-{
-   Send, {RIGHT}
-   Send, ^c
-   Sleep, 100
-   if NOT RegExMatch(Clipboard, "[A-Za-z]")
-      break
-}
-;iniPP("server-" . server)
-
-Clipboard := "null"
-ss()
-Send, %serverName%{ENTER}
-Send, AHmbaustian{ENTER}
-Send, %today%{ENTER}
-Send, %referenceNumber%{ENTER}
-Sleep, 100
-Send, ^c
-Sleep, 100
-loop
-{
-   ServiceCountyRequired := Clipboard
-   if (ServiceCountyRequired != "null")
-      break
-   sleep, 100
-}
-
-Send, {ENTER}
-Send, {DOWN}
-Send, {ENTER}
-Send, {ENTER}
-Send, {ENTER}
-Send, {ENTER}
-Send, {ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}{ENTER}
-Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
-
-ss()
-
-;REMOVEME sometimes the SCR field is blank, and that is ok
-if NOT RegExMatch(ServiceCountyRequired, "[A-Za-z]")
-{
-   SaveScreenShot("firefly-error-17")
-   AddToTrace("The sevice county required field seems to be empty (error 17)" . ServiceCountyRequired)
-   iniPP("(error 17)-BlankServiceCountyRequired")
-   ;UNSURE this was throwing so many errors that I just decided I wanted to investigate it a little
-   ;RecoverFromMacrosGoneWild("The sevice county required field seems to be empty (error 17)", ServiceCountyRequired)
-}
-
-;TODO
-;if blank "`r`n"
-;   ;do nothing
-;else if InStr(ServiceCountyRequired, "Service County Not Required")
-;   ;do nothing
-;else if InStr(ServiceCountyRequired, "Service County Required")
-;   ;message!
-;else
-;   ;errord
-if NOT InStr(ServiceCountyRequired, "Service County Not Required")
-{
-   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
-   msgbox, , , %msg%, 0.5
-   AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
-   iniPP("(error 21)-ServiceCountyRequired-was-" . ServiceCountyRequired)
-}
-;ss()
-
-EndOfMacro()
-return
-;}}}
-
 ;{{{ButtonAddScorecardEntry-mf:
 ButtonAddScorecardEntry-mf:
 timer:=StartTimer()
@@ -753,10 +448,7 @@ allNames:=IniListAllKeys(namesIni, "NameTranslations")
       ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
 ;}
 
-if CantFocusNecessaryWindow(firefox)
-   return
-if CantFindTopOfFirefoxPage()
-   return
+FindTopOfFirefoxPage()
 
 ;serverName
 ;referenceNumber
@@ -788,8 +480,7 @@ if (replacementName != "ERROR")
 
 FormatTime, today, , MM/dd/yyyy
 ;#############################################################
-if CantFocusNecessaryWindow(excel)
-   return
+FocusNecessaryWindow(excel)
 
 ;DELETEME remove this before moving live
 ss()
@@ -895,10 +586,7 @@ allNames:=IniListAllKeys(namesIni, "NameTranslations")
       ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
 ;}
 
-if CantFocusNecessaryWindow(firefox)
-   return
-if CantFindTopOfFirefoxPage()
-   return
+FindTopOfFirefoxPage()
 
 referenceNumber:=GetReferenceNumber()
 serverName:=GetServerName()
@@ -923,8 +611,7 @@ if (replacementName != "ERROR")
 
 FormatTime, today, , MM/dd/yyyy
 ;#############################################################
-if CantFocusNecessaryWindow(excel)
-   return
+FocusNecessaryWindow(excel)
 
 ;DELETEME remove this before moving live
 ss()
@@ -1031,10 +718,7 @@ allNames:=IniListAllKeys(namesIni, "NameTranslations")
       ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
 ;}
 
-if CantFocusNecessaryWindow(firefox)
-   return
-if CantFindTopOfFirefoxPage()
-   return
+FindTopOfFirefoxPage()
 
 referenceNumber:=GetReferenceNumber()
 serverName:=GetServerName()
@@ -1059,8 +743,7 @@ if (replacementName != "ERROR")
 
 FormatTime, today, , MM/dd/yyyy
 ;#############################################################
-if CantFocusNecessaryWindow(excel)
-   return
+FocusNecessaryWindow(excel)
 
 ;DELETEME remove this before moving live
 ss()
@@ -1163,10 +846,7 @@ allNames:=IniListAllKeys(namesIni, "NameTranslations")
       ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
 ;}
 
-if CantFocusNecessaryWindow(firefox)
-   return
-if CantFindTopOfFirefoxPage()
-   return
+FindTopOfFirefoxPage()
 
 referenceNumber:=GetReferenceNumber()
 serverName:=GetServerName()
@@ -1191,8 +871,7 @@ if (replacementName != "ERROR")
 
 FormatTime, today, , MM/dd/yyyy
 ;#############################################################
-if CantFocusNecessaryWindow(excel)
-   return
+FocusNecessaryWindow(excel)
 
 ;DELETEME remove this before moving live
 ss()
@@ -1295,10 +974,7 @@ allNames:=IniListAllKeys(namesIni, "NameTranslations")
       ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
 ;}
 
-if CantFocusNecessaryWindow(firefox)
-   return
-if CantFindTopOfFirefoxPage()
-   return
+FindTopOfFirefoxPage()
 
 referenceNumber:=GetReferenceNumber()
 serverName:=GetServerName()
@@ -1323,8 +999,7 @@ if (replacementName != "ERROR")
 
 FormatTime, today, , MM/dd/yyyy
 ;#############################################################
-if CantFocusNecessaryWindow(excel)
-   return
+FocusNecessaryWindow(excel)
 
 ;DELETEME remove this before moving live
 ss()
@@ -1419,8 +1094,8 @@ ButtonChangeQueue:
 ;Gui, 2: +LastFound
 ;HWND := WinExist()
 ;msgbox % hwnd
-Gui, 2: Destroy
 
+Gui, 2: Destroy
 Gui, 2: Add, ComboBox, vCity, %cityChoices%
 Gui, 2: Add, ComboBox, vClient, %clientChoices%
 Gui, 2: Add, Button, Default, Change To This Queue
@@ -1444,10 +1119,7 @@ URLbar := GetURLbar("firefox")
 if NOT InStr( URLbar, "status-pro.biz/fc/Portal.aspx" )
    return
 
-if CantFocusNecessaryWindow(firefox)
-   return
-if CantFindTopOfFirefoxPage()
-   return
+FindTopOfFirefoxPage()
 
 BlockInput, MouseMove
 

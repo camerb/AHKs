@@ -25,7 +25,7 @@ ArrangeWindows()
       Send, ^!{NUMPAD5}
 }
 
-CantFocusNecessaryWindow(window)
+FocusNecessaryWindow(window)
 {
    if (window == "")
       RecoverFromMacrosGoneWild("Cameron did something wrong, the window variable was blank")
@@ -34,9 +34,13 @@ CantFocusNecessaryWindow(window)
       RecoverFromMacrosGoneWild("couldn't find this window: " . window)
 }
 
-CantFindTopOfFirefoxPage()
+FindTopOfFirefoxPage()
 {
+   global firefox
+
    ;TODO do some clicking to scroll up
+
+   FocusNecessaryWindow(firefox)
 
    topOfPageIsVisible := SimpleImageSearch("images/firefly/HomeTab.bmp")
       OR SimpleImageSearch("images/firefly/AffidavitsTab.bmp")
@@ -236,7 +240,6 @@ SelectAll()
 ;}}}
 
 ;{{{ Frequent low-level tasks in firefly
-
 StatusProCopyField(xCoord, yCoord)
 {
    Click(xCoord, yCoord, "left")
@@ -255,6 +258,7 @@ OpenFeesWindow()
 }
 
 ;Send an email without doing any of the complex queuing stuff
+;FIXME DEPRECATED - now send all emails through the outlook account
 SendEmailFromMelinda(sSubject, sBody, sAttach="", sTo="Erica.Jordan@fireflylegal.com")
 {
    if (A_ComputerName != "BAUSTIAN-09PC")

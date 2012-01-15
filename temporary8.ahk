@@ -1,14 +1,26 @@
-;#include FcnLib.ahk
+#include FcnLib.ahk
 
+;Convert .doc to .pdf
 
+ss()
+Click(1174, 18, "left")
+ss()
+ForceWinFocus("OpenOffice.org Writer")
+title:=WinGetActiveTitle()
+RegExMatch(title, "^(.*).doc", match)
+Click(178, 69, "left")
+ss()
+ForceWinFocus("Export")
+Send, % match1
+Click(509, 370, "left")
+ss()
+ForceWinFocus("OpenOffice.org Writer")
+Send, {CTRLDOWN}ww{CTRLUP}
 
+ESC::ExitApp
+`::ExitApp
 
-AppendToCsv(t1, t2, t3, t4, t5)
-
-AppendToCsv(t1, t2, t3, t4, t5)
+ss()
 {
-   ;text="%t1%","%t2%","%t3%","%t4%"`r`n
-   ;text=%t1%,%t2%,%t3%,%t4%`r`n
-   text=%t1%,%t2%,%t3%,%t4%,%t5%`n
-   FileAppend, %text%, /home/user/Dropbox/Public/logs/irc.csv
+Sleep, 100
 }
