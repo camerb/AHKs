@@ -1985,3 +1985,6 @@ PrettyTickCount(timeInMilliSeconds)
 ;WRITEME make a nifty ahk sidebar
 ;WRITEME ahk sidebar widgets: Clock, Weather, CPU, RAM, Gmail... Other Crud: Stocks
 
+
+;WRITEME save Baretail colors config from work computer to dropbox
+
