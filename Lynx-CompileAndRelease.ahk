@@ -12,8 +12,8 @@ Loop, C:\Dropbox\AHKs\*.*
    if RegExMatch(A_LoopFileName, "^Lynx-")
    {
       ;check if it compiles
-      ;if NOT SuccessfullyCompiles(A_LoopFileFullPath)
-         ;fatalErrord("didn't compile", A_LoopFileFullPath)
+      if NOT SuccessfullyCompiles(A_LoopFileFullPath)
+         fatalErrord("didn't compile", A_LoopFileFullPath)
 
       ;move the file
       dest=%releaseDir%%A_LoopFileName%
@@ -34,8 +34,6 @@ Loop, parse, allAhksToCompile, CSV
    Sleep, 3000
    FileMove(exePath, terminatorPath, "overwrite")
 }
-
-ExitApp ;temporary cause I broke everything and have to move it into a common lib 2012-01-06
 
 ;delete this after we move all the junk to the ftp site
 ;exePath:=CompileAhk("C:\Dropbox\AHKs\Lynx-Install.ahk")

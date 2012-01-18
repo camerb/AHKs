@@ -78,7 +78,7 @@ quit
    FileDelete(ftpFilename)
 
    ;send it back in an email
-   subject=%reasonForScript% Logs
+   subject=Finishing %reasonForScript% on %A_ComputerName%
    allLogs=%logFileFullPath%|%logFileFullPath2%|%logFileFullPath3%
    SendEmailNow(subject, A_ComputerName, allLogs, "cameron@mitsi.com")
    delog("", "finished function", A_ThisFunc)

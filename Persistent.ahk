@@ -49,22 +49,22 @@ if (A_Hour==3 AND A_Min==5)
 ;}}}
 
 ;{{{Send Jira Status Workmorrow for the Tea Meeting Minutes
-if (A_ComputerName="PHOSPHORUS")
-{
-   if A_WDay BETWEEN 2 AND 6
-   {
-      if (A_Hour=13 AND A_Min=30 AND A_Sec=0)
-      {
-         RunAhk("JiraWorkmorrow.ahk", "reminder")
-         SleepSeconds(2)
-      }
-      if (A_Hour=14 AND A_Min=0 AND A_Sec=0)
-      {
-         RunAhk("JiraWorkmorrow.ahk")
-         SleepSeconds(2)
-      }
-   }
-}
+;if (A_ComputerName="PHOSPHORUS")
+;{
+;   if A_WDay BETWEEN 2 AND 6
+;   {
+;      if (A_Hour=13 AND A_Min=30 AND A_Sec=0)
+;      {
+;         RunAhk("JiraWorkmorrow.ahk", "reminder")
+;         SleepSeconds(2)
+;      }
+;      if (A_Hour=14 AND A_Min=0 AND A_Sec=0)
+;      {
+;         RunAhk("JiraWorkmorrow.ahk")
+;         SleepSeconds(2)
+;      }
+;   }
+;}
 ;}}}
 
 ;{{{Send Morning AHK Status Briefing
@@ -151,12 +151,12 @@ if (A_Hour=15 AND A_Min=15 AND A_Sec=0)
       }
 }
 
-if (A_Hour=13 AND A_Min=30 AND A_Sec=0)
-{
-   if (A_ComputerName="PHOSPHORUS")
-      if A_WDay BETWEEN 2 AND 6
-         sendEmail("Update your jira tasks (completed and workmorrow)", "http://jira.mitsi.com`n`nMessage sent by bot")
-}
+;if (A_Hour=13 AND A_Min=30 AND A_Sec=0)
+;{
+;   if (A_ComputerName="PHOSPHORUS")
+;      if A_WDay BETWEEN 2 AND 6
+;         sendEmail("Update your jira tasks (completed and workmorrow)", "http://jira.mitsi.com`n`nMessage sent by bot")
+;}
 
 ;if (A_WDay=5 AND A_Hour=10 AND A_Min=22 AND A_Sec=0)
 ;{
