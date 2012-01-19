@@ -5,10 +5,12 @@ here. Don't try to sell this code, cause it's free, but if
 this code just happens to help you be more productive and
 it makes you some money, that's perfectly fine.
 
-FYI: I run plain vanilla AHK (autohotkey.com). I don't run
-any of the variants, like IronAHK or AHK_L, but I might
-work with IronAHK if I move to Linux someday. All my current
-machines are running either Win7 or WinXP.
+FYI: I run vanilla AHK (AKA AHK_basic from autohotkey.com).
+I don't run any of the variants, like AHK_L or AHK_v2, but
+I do dabble a little with IronAHK on my CR-48 running Ubuntu.
+All of the scripts in this repo run on either Win7 or WinXP 
+with AHK_basic but about 90% of the scripts here will not
+run using IronAHK (just sayin').
 
 Come to #ahk on irc.freenode.net to discuss or ask for help.
 

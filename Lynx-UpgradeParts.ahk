@@ -22,7 +22,6 @@ DownloadAllLynxFilesForUpgrade()
    ;DownloadLynxFile("7zip.zip")
    DownloadLynxFile("ActivePerl.zip")
    DownloadLynxFile("apache.zip")
-   ;DownloadLynxFile("cUrl.zip")
    ;DownloadLynxFile("inetpub.zip")
    DownloadLynxFile("7.12.zip")
    DownloadLynxFile("upgrade_scripts.zip")
@@ -68,9 +67,14 @@ CheckDatabaseFileSize()
          dbFile := A_LoopFileFullPath
    }
 
+   ;while NOT FileExist(dbFile)
+   ;   prompt for the full path to the database file
+   ; if they say it is a remote db, don't fret
+
    if FileExist(dbFile)
    {
       dbSize:=FileGetSize(dbFile, "M")
+      delog("Checked the database size and found it was " . dbSize . "MB.")
       if (dbSize > 200)
       {
          msg=Inform level 2 support that the database file size is %size%MB
@@ -124,7 +128,7 @@ GetClientInfo()
    ret := CmdRet_Perl("client_info.plx")
    ret := StringReplace(ret, "`t", "  `t  ")
    if InStr(ret, "LynxMessageServer") ;TODO perhaps check if a tab is in there... that would be more generic
-      msg("Enter client data from Lynx Database into Sugar`n`n" . ret)
+      lynx_logAndShow("Enter client data from Lynx Database into Sugar`n`n" . ret)
    else
    {
       Clipboard=SELECT [type],[ver],count(*) FROM[ipaddress] GROUP BY [type],[ver]
@@ -183,6 +187,7 @@ UpgradePerlIfNeeded()
       FileMoveDir, "C:\Perl", oldPerlDir
 
       Run, C:\temp\lynx_upgrade_files\ActivePerl\ActivePerl\ActivePerl.msi
+      lynx_log("Started perl installer")
       Sleep, 2000
       msg("Install new perl")
       while IsPerlUpgradeNeeded()
@@ -206,6 +211,7 @@ UpgradeApacheIfNeeded()
       EnsureApacheServiceNotExist()
 
       Run, C:\temp\lynx_upgrade_files\apache\apache\apache.msi
+      lynx_log("Started apache installer")
       Sleep, 2000
       msg("Install new apache")
       while IsApacheUpgradeNeeded()

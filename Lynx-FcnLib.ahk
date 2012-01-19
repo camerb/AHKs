@@ -300,6 +300,12 @@ lynx_fatalerror(message)
    ExitApp
 }
 
+lynx_logAndShow(message)
+{
+   delog(message)
+   msg(message)
+}
+
 lynx_log(message)
 {
    delog(message)
@@ -521,7 +527,9 @@ GetSmsKey()
 {
    queryResult:=LynxDatabaseQuery("select * from setup where [TYPE] = 'ID'", "Type,Value")
    RegExMatch(queryResult, "ID\t([A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12})\t", match)
-   return match1
+   returned := match1
+   delog("Attempted to get the SMS key and got this:", returned)
+   return returned
 }
 
 DownloadLynxFile(filename)

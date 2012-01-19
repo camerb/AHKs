@@ -63,8 +63,6 @@ else if ( GetOS() == "WIN_XP" )
    Click(40, 70, "Control")
 
 
-
-
    KeyWait, ``, D
 
    Send, ^x^e1{TAB}1{ENTER}^v
@@ -90,11 +88,10 @@ else if ( GetOS() == "WIN_XP" )
    Sleep, 100
    WinClose, ahk_class MSPaintApp
 }
-;else
-;{
-   ;fatalErrord("looks like this OS is unsupported", "GetOS()", GetOS(), "A_ComputerName", A_ComputerName)
-;}
+else
+{
+   fatalErrord("looks like this OS is unsupported", "GetOS()", GetOS(), "A_ComputerName", A_ComputerName)
+}
 ExitApp
 
 ESC::ExitApp
-`::ExitApp
