@@ -1,0 +1,4 @@
+#include FcnLib.ahk
+
+SpiffyMute()
+

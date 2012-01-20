@@ -33,6 +33,14 @@ SendStartMaintenanceEmail()
    delog("", "finished function", A_ThisFunc)
 }
 
+StartLynxMaintenance()
+{
+   delog("", "started function", A_ThisFunc)
+   SendStartMaintenanceEmail()
+   WinClose, Initial Configuration Tasks
+   delog("", "finished function", A_ThisFunc)
+}
+
 TestScriptAbilities()
 {
    delog("", "started function", A_ThisFunc)

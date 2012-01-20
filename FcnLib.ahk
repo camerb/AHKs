@@ -270,17 +270,6 @@ ClickIfImageSearch(filename, clickOptions="left mouse")
    return NOT ErrorLevel
 }
 
-;FIXME I don't like the boolean logic here... just doesn't seem readable
-ErrordIfFileNotExist(ThisFunc, filename)
-{
-   if NOT FileExist(filename)
-   {
-      errord(ThisFunc, filename, "the aforementioned file does not exist")
-      return false
-   }
-   return true
-}
-
 ;Wait until a certain image appears
 WaitForImageSearch(filename, variation=0, timeToWait=60, sleepTime=20) ;TODO option to exit ahk if image was not found
 {
@@ -304,6 +293,23 @@ WaitForImageSearch(filename, variation=0, timeToWait=60, sleepTime=20) ;TODO opt
    delog(A_ThisFunc, "the function was waiting for the image to appear, but timed out", filename, variation, timeToWait, sleepTime)
 
    return false
+}
+
+WFCIImageSearch(filename, clickOptions="left mouse")
+{
+   WaitForImageSearch(filename)
+   ClickIfImageSearch(filename, clickOptions)
+}
+
+;FIXME I don't like the boolean logic here... just doesn't seem readable
+ErrordIfFileNotExist(ThisFunc, filename)
+{
+   if NOT FileExist(filename)
+   {
+      errord(ThisFunc, filename, "the aforementioned file does not exist")
+      return false
+   }
+   return true
 }
 
 IsRegExMatch(Haystack, Needle)
