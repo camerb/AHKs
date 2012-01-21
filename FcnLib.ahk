@@ -1994,3 +1994,6 @@ PrettyTickCount(timeInMilliSeconds)
 
 ;WRITEME save Baretail colors config from work computer to dropbox
 
+
+;WRITEME exe/bat installers for git, ahk, ahk_L
+
