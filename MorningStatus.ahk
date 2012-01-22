@@ -13,7 +13,18 @@ if InStr(params, "GatherData")
    freespace:=DriveSpaceFree("C:\")
    totalSpace:=freespace/1024
    message=%totalspace% GB free on %A_ComputerName%
-   FileAppendLine(message, filename)
+
+   if (totalSpace < 5 AND A_ComputerName = "BAUSTIAN-09PC")
+      shouldWrite := true
+   if (totalSpace < 10 AND A_ComputerName = "PHOSPHORUS")
+      shouldWrite := true
+   if (totalSpace < 0.85 AND A_ComputerName = "phosphorusVM")
+      shouldWrite := true
+   if (totalSpace < 2 AND A_ComputerName = "T-800")
+      shouldWrite := true
+
+   if shouldWrite
+      FileAppendLine(message, filename)
 
    if (A_ComputerName = LeadComputer())
    {

@@ -110,6 +110,8 @@ else
       url=http://www.last.fm/listen/user/cameronbaustian/recommended
    else if (InStr(bookmark, "Last"))
       url=http://www.last.fm/listen/user/cameronbaustian/personal
+   else if (InStr(bookmark, "Pan"))
+      url=http://www.pandora.com/
    else if (InStr(bookmark, "Kiss"))
       url=http://www.1061kissfm.com/mediaplayer/?station=KHKS-FM&action=listenlive&channel_title=
    else if (InStr(bookmark, "Mix"))

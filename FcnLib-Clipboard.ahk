@@ -131,6 +131,20 @@ ClipWaitNot(clipboardContentsToWaitFor, options="")
    }
 }
 
+SendViaClip(text)
+{
+   ;Sleep, 100
+   ;Send, %text%
+   ;Sleep, 90
+
+   null=null
+   Clipboard:=null
+   ClipWait(null)
+   Clipboard:=text
+   ClipWaitNot(null)
+   paste()
+}
+
 ;TODO ClipWaitNull(), ClipWaitNotNull()
 ; maybe waiting for it to be empty is the best solution... who would ever copy nothing?
 ; then again, there are probably some times when we want to wait for it to contain the text "null"

@@ -38,9 +38,12 @@ FindTopOfFirefoxPage()
 {
    global firefox
 
-   ;TODO do some clicking to scroll up
-
    FocusNecessaryWindow(firefox)
+
+   ;TODO do some clicking to scroll up
+   Click(1753, 116, "control")
+   Sleep, 100
+   ;Sleep, 3000
 
    topOfPageIsVisible := SimpleImageSearch("images/firefly/HomeTab.bmp")
       OR SimpleImageSearch("images/firefly/AffidavitsTab.bmp")
@@ -54,8 +57,9 @@ FindTopOfFirefoxPage()
 
    ;do a couple more clicks, just to make sure we're at the very, very top
    Loop 10
-      Click(1760, 124, "control")
+      Click(1753, 124, "control")
       ;Click(1753, 104, "control")
+      ;Click(1753, 974, "control")
 }
 ;}}}
 
@@ -247,16 +251,6 @@ StatusProCopyField(xCoord, yCoord)
    Send, {DOWN 3}{ENTER}
 }
 
-OpenFeesWindow()
-{
-   Loop 3
-   {
-      ClickIfImageSearch("images/firefly/feesButton.bmp")
-      ss()
-   }
-   WaitForImageSearch("images/firefly/feesWizardWindow.bmp")
-}
-
 ;Send an email without doing any of the complex queuing stuff
 ;FIXME DEPRECATED - now send all emails through the outlook account
 SendEmailFromMelinda(sSubject, sBody, sAttach="", sTo="Erica.Jordan@fireflylegal.com")
@@ -392,4 +386,24 @@ CopyWaitMultipleAttempts222(options="")
 }
 ;}}}
 
+;{{{ Assign globals and set modes
+AssignGlobals()
+{
+global
+SetTitleMatchMode, RegEx
 
+cityChoices=Tampa|Ft. Lauderdale|Orlando|Jacksonville
+clientChoices=Albertelli Law|FDLG|Florida Foreclosure Attorneys, PLLC|Gladstone Law Group, P.A.|Marinosci Law Group, PC - Florida|Pendergast & Morgan, P.A.|Shapiro & Fishman, LLP|Law Offices of Douglas C. Zahm, P.A.
+
+ini := GetPath("myconfig.ini")
+city := IniRead(ini, "firefly", "city")
+client := IniRead(ini, "firefly", "client")
+
+statusProMessage=The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
+firefox=Status Pro Initial Catalog.*Firefox
+excel=(In House Process Server Scorecard|Process Server Fee Determination).*(OpenOffice.org|LibreOffice) Calc
+
+;this is for the retarded comboboxes...
+slowSendPauseTime=130
+;breaks at 100,110 reliable at 120,150
+}

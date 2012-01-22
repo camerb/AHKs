@@ -29,7 +29,8 @@ if ( GetOS() == "WIN_7" )
    ForceWinFocus("Save As")
    time:=CurrentTime()
    path=C:\DataExchange\InstantAhkImage
-   if RegExMatch(description, "(images)\/(.*?)\/(.*?)$", MatchVar)
+   description:=StringReplace(description, "/", "\")
+   if RegExMatch(description, "(images)\\(.*?)\\(.*?)$", MatchVar)
    {
       path=C:\Dropbox\AHKs\images\%MatchVar2%
       description=%MatchVar3%
@@ -73,7 +74,8 @@ else if ( GetOS() == "WIN_XP" )
    ForceWinFocus("Save As")
    time:=CurrentTime()
    path=C:\DataExchange\InstantAhkImage
-   if RegExMatch(description, "(images)\/(.*?)\/(.*?)$", MatchVar)
+   description:=StringReplace(description, "/", "\")
+   if RegExMatch(description, "(images)\\(.*?)\\(.*?)$", MatchVar)
    {
       path=C:\Dropbox\AHKs\images\%MatchVar2%
       description=%MatchVar3%

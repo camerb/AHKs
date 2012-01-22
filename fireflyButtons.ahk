@@ -27,20 +27,7 @@
 ;}}}
 
 ;{{{Globals and making the gui (one-time tasks)
-cityChoices=Tampa|Ft. Lauderdale|Orlando|Jacksonville
-clientChoices=Albertelli Law|FDLG|Florida Foreclosure Attorneys, PLLC|Gladstone Law Group, P.A.|Marinosci Law Group, PC - Florida|Pendergast & Morgan, P.A.|Shapiro & Fishman, LLP|Law Offices of Douglas C. Zahm, P.A.
-
-ini := GetPath("myconfig.ini")
-city := IniRead(ini, "firefly", "city")
-client := IniRead(ini, "firefly", "client")
-
-statusProMessage=The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
-firefox=Status Pro Initial Catalog.*Firefox
-excel=(In House Process Server Scorecard|Process Server Fee Determination).*(OpenOffice.org|LibreOffice) Calc
-
-;this is for the retarded comboboxes...
-slowSendPauseTime=130
-;breaks at 100,110 reliable at 120,150
+assignGlobals()
 
 ;figure out the coordinates where we will place the window
 xLocation=1770
@@ -60,8 +47,8 @@ Gui, Add, Button, , Change Queue
 ;Gui, Add, Button, , Add Scorecard Entry-mf
 ;Gui, Add, Button, , Add Scorecard Entry-sc
 Gui, Add, Button, , Add Scorecard Entry-new
-Gui, Add, Button, , Add Scorecard Entry-spd
-Gui, Add, Button, , Add Fees
+;Gui, Add, Button, , Add Scorecard Entry-spd
+;Gui, Add, Button, , Add Fees
 Gui, Add, Button, , Refresh Login
 
 Gui, Add, Button, x10  y230, Record for Cameron
@@ -228,7 +215,7 @@ if NOT (feesVar4 == "" or feesVar4 == 3)
 
 FindTopOfFirefoxPage()
 
-OpenFeesWindow()
+;OpenFeesWindow()
 
 ;Sleep, 200 ;this seems to work sometimes... kinda
 ;Sleep, 500
