@@ -102,6 +102,7 @@ GetFees()
          numberOfFeesCounted++
    }
 
+   ;this probably isn't a big error, cause I wrote the stuff above to only account for some of the fees
    if (numberOfFeesCounted != feesCount)
    {
       errord("silent", "(error 31) fees counts did not match, might mean there are duplicate fees", referenceNumber, feesCount, numberOfFeesCounted)

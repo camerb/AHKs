@@ -50,6 +50,7 @@ Gui, Add, Button, , Add Scorecard Entry-new
 ;Gui, Add, Button, , Add Scorecard Entry-spd
 ;Gui, Add, Button, , Add Fees
 Gui, Add, Button, , Refresh Login
+Gui, Add, Button, , Load Reference Number
 
 Gui, Add, Button, x10  y230, Record for Cameron
 Gui, Add, Button, x10  y260, Test Something
@@ -120,6 +121,7 @@ return
 
 ;{{{ButtonRefreshLogin:
 ButtonRefreshLogin:
+StartOfMacro()
 
 ;this seems to fail
 ;pid:=GetPID("firefox.exe")
@@ -174,6 +176,8 @@ RunIMacro(imacro)
 WinWaitActive, %statusProMessage%
 if SimpleImageSearch("images/firefly/dialog/thereWasAnErrorHandlingYourCurrentAction.bmp")
    Click(170, 90, "control") ;center ok button
+
+EndOfMacro()
 GoSub, ButtonReloadQueue
 return
 ;}}}
@@ -974,6 +978,7 @@ return
 ButtonReloadQueue:
 StartOfMacro()
 
+;make this into its own function
 URLbar := GetURLbar("firefox")
 if NOT InStr( URLbar, "status-pro.biz/fc/Portal.aspx" )
    return
@@ -981,12 +986,6 @@ if NOT InStr( URLbar, "status-pro.biz/fc/Portal.aspx" )
 FindTopOfFirefoxPage()
 
 BlockInput, MouseMove
-
-;move to top of page
-;Click(1160, 200, "control")
-;ss()
-;Send, {PGUP 20}
-;ss()
 
 Loop 10
    ClickIfImageSearch("images/firefly/closeTab.bmp", "control")
@@ -1032,6 +1031,56 @@ EndOfMacro()
 return
 ;}}}
 
+;{{{ ButtonLoadReferenceNumber:
+ButtonLoadReferenceNumber:
+StartOfMacro()
+
+referenceNumber:=Prompt("Which reference number would you like to load?")
+if NOT referenceNumber
+   referenceNumber=2461358
+
+;make this into its own function
+URLbar := GetURLbar("firefox")
+if NOT InStr( URLbar, "status-pro.biz/fc/Portal.aspx" )
+   return
+
+FindTopOfFirefoxPage()
+
+BlockInput, MouseMove
+
+Loop 10
+   ClickIfImageSearch("images/firefly/closeTab.bmp", "control")
+
+ss()
+MouseMove, 33, 115
+ss()
+Click(33, 184, "left control")
+WaitForImageSearch("images/firefly/fileSearchScreen.bmp")
+Click(209, 372, "left control")
+SendViaClip(referenceNumber)
+;Send, %referenceNumber%{ENTER}
+Sleep, 100
+;TODO may need to tweak this sleep a little
+;ss()
+Click(42, 199, "left double")
+
+;TODO wait for all the elements of the page to load
+WaitForImageSearch("images/firefly/servicePicturesButton.bmp")
+WaitForImageSearch("images/firefly/propertyInformationButton.bmp")
+
+desiredReferenceNumber:=referenceNumber
+currentReferenceNumber:=GetReferenceNumber()
+
+if (currentReferenceNumber != desiredReferenceNumber)
+{
+   RecoverFromMacrosGoneWild("Loaded the wrong file number")
+   AddToTrace("Loaded the wrong file number " . currentReferenceNumber . " " . desiredReferenceNumber)
+}
+
+EndOfMacro()
+return
+;}}}
+
 ;{{{ ButtonX: and 2ButtonX:
 ButtonX:
 ExitApp
@@ -1066,12 +1115,11 @@ return
 
 ;{{{ ButtonTestSomething:
 ButtonTestSomething:
+;StartOfMacro()
 debug("starting to test something")
-iniPP(A_ThisLabel)
-joe:=GetStatus()
-debug(joe)
-RecoverFromMacrosGoneWild("Worse Than Failure")
+
 debug("finished testing something")
+;EndOfMacro()
 return
 ;}}}
 

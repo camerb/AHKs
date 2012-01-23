@@ -1997,3 +1997,6 @@ PrettyTickCount(timeInMilliSeconds)
 
 ;WRITEME exe/bat installers for git, ahk, ahk_L
 
+
+;WRITEME make an instant diff tool (put it on the pastebin, prompt for part 2, put on pastebin)
+

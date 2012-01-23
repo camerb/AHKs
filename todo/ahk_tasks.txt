@@ -1,1 +1,0 @@
-;WRITEME make an instant diff tool (put it on the pastebin, prompt for part 2, put on pastebin)
