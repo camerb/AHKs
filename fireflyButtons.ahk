@@ -47,7 +47,7 @@ Gui, Add, Button, , Change Queue
 ;Gui, Add, Button, , Add Scorecard Entry-mf
 ;Gui, Add, Button, , Add Scorecard Entry-sc
 Gui, Add, Button, , Add Scorecard Entry-new
-;Gui, Add, Button, , Add Scorecard Entry-spd
+Gui, Add, Button, , Add Scorecard Entry-fw
 ;Gui, Add, Button, , Add Fees
 Gui, Add, Button, , Refresh Login
 Gui, Add, Button, , Load Reference Number
@@ -823,8 +823,8 @@ EndOfMacro()
 return
 ;}}}
 
-;{{{ButtonAddScorecardEntry-next:
-ButtonAddScorecardEntry-next:
+;{{{ButtonAddScorecardEntry-fw:
+ButtonAddScorecardEntry-fw:
 timer:=StartTimer()
 StartOfMacro()
 
@@ -921,15 +921,15 @@ Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
 
 ;TODO
 if (ServiceCountyRequired == "`r`n")
-   iniPP("(error 26)-ServiceCountyRequired-was-blank-" . ServiceCountyRequired) ; {} ;do nothing
+   {} ;iniPP("(error 26)-ServiceCountyRequired-was-blank-" . ServiceCountyRequired) ; {} ;do nothing
 else if InStr(ServiceCountyRequired, "Service County Not Required")
-   iniPP("(error 27)-ServiceCountyRequired-was-not-req" . ServiceCountyRequired) ; {} ;do nothing
+   {} ;iniPP("(error 27)-ServiceCountyRequired-was-not-req" . ServiceCountyRequired) ; {} ;do nothing
 else if InStr(ServiceCountyRequired, "Service County Required")
 {
    msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
    msgbox, , , %msg%, 0.5
    ;AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
-   iniPP("(error 28)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+   ;iniPP("(error 28)-ServiceCountyRequired-was-" . ServiceCountyRequired)
 }
 else
 {
@@ -938,13 +938,13 @@ else
 }
 
 ;REMOVEME once the portion above is finished and working well
-if NOT InStr(ServiceCountyRequired, "Service County Not Required")
-{
-   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
-   ;msgbox, , , %msg%, 0.5
-   ;AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
-   iniPP("(error 21)-ServiceCountyRequired-was-" . ServiceCountyRequired)
-}
+;if NOT InStr(ServiceCountyRequired, "Service County Not Required")
+;{
+   ;msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
+   ;;msgbox, , , %msg%, 0.5
+   ;;AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
+   ;iniPP("(error 21)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+;}
 ;note that this should be true: the number of 26+28+29 = (error 21)
 
 EndOfMacro()
@@ -1137,6 +1137,10 @@ ASE-mf: More functions... this should make things easier on me. You shouldn't no
 ASE-sc: Tried a different way to detect the Service County... this should make things a little easier on me.
 
 ASE-new: for the new scorecard
+
+ASE-fw: fewer messages are sent to Cameron, plus the first few fields of the scorecard should be typed in faster (hopefully that is reliable)
+
+Load Reference Number: It loads a specified file with the reference number that you give it.
 )
 debug("notimeout", "`n" . notes)
 EndOfMacro()
