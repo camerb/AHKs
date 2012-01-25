@@ -2,11 +2,15 @@
 #NoTrayIcon
 
 ;{{{ TODOs
+;PRIORITIES:
+;  Add fees button that works on background computer
+;  Make FindTopOfFirefoxPage() more reliable (it used to be good)
+;  Track invoices (maybe email erica when invoice is generated) (need to discuss with mel)
+
 ;TODO add dates to "Add Scorecard Entry"
 ;FIXME Auto-expand all pluses in the left-hand side
 ;TODO change text in the MS-Word lookalike program (cause their template is wrong)
 ;TODO make in-depth fees gui
-;TODO make background blueish to match sidebar
 ;TODO default PS Fee to $10
 ;TODO use the StatusProCopyField() for all copies
 ;TODO changeall references of "Status" to "ServiceManner"
@@ -15,6 +19,9 @@
 ;TODO make macros more robust so that I can upgrade firefox
 ;TODO use the StatusProCopyField() for all copies
 ;TODO move parts into functions (like GetReferenceNumber(), GetServerName(), GetStatus() )
+;TODO Do you think that you could make a macro that after I invoice a Gladstone file it automatically emails Erica?
+;TODO Track number of invoiced files
+;TODO Track number of approved files
 
 ;FIXME FIXME FIXME - I think I fixed this
 ;Can you see at the top, in the middle, above the Process Server Name, there is some info in blue? I think that sometimes there is alot of information there so the rest of the page is skewed and the macro ends up copypasting randomness all around.
@@ -24,6 +31,9 @@
 ;Items that don't seem to be important anymore (or things that I think I've finished):
 ;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
 ;REMOVEME - I think I did remove this part of the code (2011-11-10)... The "Would you like to approve?" box never shows up anymore. Don't know if you would want to remove that code?
+
+;ABANDONED:
+;make background blueish to match sidebar
 ;}}}
 
 ;{{{Globals and making the gui (one-time tasks)
@@ -123,26 +133,13 @@ return
 ButtonRefreshLogin:
 StartOfMacro()
 
-;this seems to fail
-;pid:=GetPID("firefox.exe")
-;debug(pid)
-;Process, Close, %pid%
-;Loop 10
-   ;Process, Close, firefox.exe
-
-;this seems to work
+;kill firefox
 CustomTitleMatchMode("Contains")
 while ProcessExist("firefox.exe")
 {
    WinClose, Mozilla Firefox
    Sleep, 100
 }
-
-;other attempts to kill FF
-;Process, Close, Plugin_container.exe
-;Process, Close, firefox.exe
-;Process, Close, Plugin_container.exe
-;Process, Close, firefox.exe
 
 ;start firefox again ; this method is a little difficult, imacros will be easier
 RunProgram("C:\Program Files\Mozilla Firefox\firefox.exe")
@@ -987,8 +984,7 @@ FindTopOfFirefoxPage()
 
 BlockInput, MouseMove
 
-Loop 10
-   ClickIfImageSearch("images/firefly/closeTab.bmp", "control")
+CloseStatusProTabs()
 
 ss()
 MouseMove, 33, 115
@@ -1048,8 +1044,7 @@ FindTopOfFirefoxPage()
 
 BlockInput, MouseMove
 
-Loop 10
-   ClickIfImageSearch("images/firefly/closeTab.bmp", "control")
+CloseStatusProTabs()
 
 ss()
 MouseMove, 33, 115
@@ -1116,9 +1111,9 @@ return
 ;{{{ ButtonTestSomething:
 ButtonTestSomething:
 ;StartOfMacro()
-debug("starting to test something")
-
-debug("finished testing something")
+;debug("starting to test something")
+FindTopOfFirefoxPage()
+;debug("finished testing something")
 ;EndOfMacro()
 return
 ;}}}

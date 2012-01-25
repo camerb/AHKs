@@ -1,6 +1,10 @@
 #include FcnLib.ahk
-
 assignGlobals()
+
+;this is friggin awesome!!!!
+RefreshLogin()
+arrangeWindows()
+
 listFees=Service of Process,Process Server Fees,Locate,Pinellas County Sticker
 Loop, parse, listFees, CSV
 {
@@ -206,3 +210,32 @@ CopyWait2()
    return returned
 }
 
+RefreshLogin()
+{
+   ;kill firefox
+   CustomTitleMatchMode("Contains")
+   while ProcessExist("firefox.exe")
+   {
+      WinClose, Mozilla Firefox
+      Sleep, 100
+   }
+
+   ;start firefox again ; this method is a little difficult, imacros will be easier
+   RunProgram("C:\Program Files\Mozilla Firefox\firefox.exe")
+   panther:=SexPanther("melinda")
+   melWorkEmail:=SexPanther("mel-work-email")
+   imacro=
+   (
+   TAB CLOSEALLOTHERS
+   URL GOTO=https://www.status-pro.biz/dashboard/Default.aspx
+   TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:form1 ATTR=ID:LoginUser_UserName CONTENT=AHmbaustian
+   SET !ENCRYPTION NO
+   TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:form1 ATTR=ID:LoginUser_Password CONTENT=%panther%
+   TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:form1 ATTR=ID:LoginUser_LoginButton
+   TAG POS=1 TYPE=A ATTR=TXT:Click<SP>Here<SP>to<SP>Log<SP>Into<SP>FC
+   )
+   RunIMacro(imacro)
+   WinWaitActive, %statusProMessage%
+   if SimpleImageSearch("images/firefly/dialog/thereWasAnErrorHandlingYourCurrentAction.bmp")
+      Click(170, 90, "control") ;center ok button
+}

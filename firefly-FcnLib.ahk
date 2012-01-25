@@ -15,14 +15,28 @@ ss()
 ArrangeWindows()
 {
    global
-   WinRestore, Mozilla Firefox
-   WinRestore, %firefox%
-   WinRestore, %excel%
-   WinMove, Mozilla Firefox, , 0, 0, 1766, 1020
-   WinMove, %firefox%, , 0, 0, 1766, 1020
-   WinMove, %excel%  , , 0, 0, 1766, 1020
-   If InStr(WinGetActiveTitle(), excel) OR InStr(WinGetActiveTitle(), firefox)
-      Send, ^!{NUMPAD5}
+   if IsVM()
+   {
+      WinRestore, Mozilla Firefox
+      WinRestore, %firefox%
+      WinRestore, %excel%
+      WinMove, Mozilla Firefox, , 0, 0, 1280, 932
+      WinMove, %firefox%, , 0, 0, 1280, 932
+      WinMove, %excel%  , , 0, 0, 1280, 932
+      If InStr(WinGetActiveTitle(), excel) OR InStr(WinGetActiveTitle(), firefox)
+         Send, ^!{NUMPAD5}
+   }
+   else
+   {
+      WinRestore, Mozilla Firefox
+      WinRestore, %firefox%
+      WinRestore, %excel%
+      WinMove, Mozilla Firefox, , 0, 0, 1766, 1020
+      WinMove, %firefox%, , 0, 0, 1766, 1020
+      WinMove, %excel%  , , 0, 0, 1766, 1020
+      If InStr(WinGetActiveTitle(), excel) OR InStr(WinGetActiveTitle(), firefox)
+         Send, ^!{NUMPAD5}
+   }
 }
 
 FocusNecessaryWindow(window)
@@ -41,9 +55,9 @@ FindTopOfFirefoxPage()
    FocusNecessaryWindow(firefox)
 
    ;TODO do some clicking to scroll up
-   Click(1753, 116, "control")
+   Click(1753, 116, "")
    Sleep, 100
-   ;Sleep, 3000
+   Sleep, 3000
 
    topOfPageIsVisible := SimpleImageSearch("images/firefly/HomeTab.bmp")
       OR SimpleImageSearch("images/firefly/AffidavitsTab.bmp")
@@ -53,13 +67,12 @@ FindTopOfFirefoxPage()
       OR SimpleImageSearch("images/firefly/topOfPage2.bmp")
 
    if NOT topOfPageIsVisible
-      RecoverFromMacrosGoneWild("can't find the top of the page in firefox")
+      RecoverFromMacrosGoneWild("Can't find the top of the page in firefox")
 
    ;do a couple more clicks, just to make sure we're at the very, very top
    Loop 10
-      Click(1753, 124, "control")
-      ;Click(1753, 104, "control")
-      ;Click(1753, 974, "control")
+      Click(1753, 104, "")
+      ;Click(1753, 974, "control") ;bottom
 }
 ;}}}
 
@@ -109,7 +122,7 @@ RecoverFromMacrosGoneWild(message="", options="")
       ;message=ERROR: %message%
 
       iniPP(message)
-      errord(message, A_ScriptName, A_ThisFunc, A_LineNumber, options)
+      errord(options, message, A_ScriptName, A_ThisFunc, A_LineNumber)
    }
 
    Reload()
@@ -244,6 +257,12 @@ SelectAll()
 ;}}}
 
 ;{{{ Frequent low-level tasks in firefly
+CloseStatusProTabs()
+{
+   Loop 10
+      ClickIfImageSearch("images/firefly/closeTab.bmp", "control")
+}
+
 StatusProCopyField(xCoord, yCoord)
 {
    Click(xCoord, yCoord, "left")
