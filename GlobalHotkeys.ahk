@@ -270,7 +270,8 @@ Return
 ;control the firefly macros if they ran amuck
 ^`::
 DetectHiddenWindows, On
-IfWinExist, fireflyButtons.ahk
+;TODO make this a function IsAhkRunning() and include AutoHotkey in the title. (and allow regex)
+IfWinExist, firefly.*.ahk
 {
    BlockInput, MouseMoveOff
    AhkClose("fireflyButtons.ahk")

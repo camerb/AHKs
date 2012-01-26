@@ -303,7 +303,7 @@ lynx_fatalerror(message)
 lynx_logAndShow(message)
 {
    delog(message)
-   msg(message)
+   lynx_message(message)
 }
 
 lynx_log(message)

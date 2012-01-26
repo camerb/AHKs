@@ -42,6 +42,11 @@ assignGlobals()
 ;figure out the coordinates where we will place the window
 xLocation=1770
 yLocation=550
+if (A_ComputerName == "PHOSPHORUS")
+{
+   xLocation=3686
+   yLocation=480
+}
 if (A_ComputerName == "T-800")
 {
    xLocation=1129

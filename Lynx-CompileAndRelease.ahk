@@ -1,4 +1,5 @@
 #include FcnLib.ahk
+#include thirdParty\notify.ahk
 
 fatalIfNotThisPc("PHOSPHORUS")
 
@@ -12,8 +13,8 @@ Loop, C:\Dropbox\AHKs\*.*
    if RegExMatch(A_LoopFileName, "^Lynx-")
    {
       ;check if it compiles
-      if NOT SuccessfullyCompiles(A_LoopFileFullPath)
-         fatalErrord("didn't compile", A_LoopFileFullPath)
+      ;if NOT SuccessfullyCompiles(A_LoopFileFullPath)
+         ;fatalErrord("didn't compile", A_LoopFileFullPath)
 
       ;move the file
       dest=%releaseDir%%A_LoopFileName%
@@ -39,3 +40,7 @@ Loop, parse, allAhksToCompile, CSV
 ;exePath:=CompileAhk("C:\Dropbox\AHKs\Lynx-Install.ahk")
 exePath:=CompileAhk("Lynx-Install.ahk")
 FileMove(exePath, "E:\Lynx-Install.exe", "overwrite")
+
+notify("Finished compiling Lynx scripts")
+SleepSeconds(30)
+ExitApp

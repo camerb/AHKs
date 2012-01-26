@@ -225,6 +225,8 @@ CopyInetpubFolder()
 {
    delog("", "started function", A_ThisFunc)
    notify("Copying the contents of the inetpub folder")
+
+   ;NOTE that this is the zip file that we are downloading from the website!
    FileCopyDir("C:\temp\lynx_upgrade_files\7.12", "C:\Inetpub", "overwrite")
    AddSqlConnectStringFiles()
    notify("finished copying inetpub folder")
