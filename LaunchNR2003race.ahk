@@ -6,7 +6,7 @@ ChangeLogitechWheelMode()
 CloseProgramsThatHinderNR2003()
 SoundSet, 40
 RunAhk("NR2003hotkeys.ahk")
-LaunchRace(ip, "pedalsdown")
+LaunchRace(ip, "nascar2012")
 ;LaunchRaceViaRLM()
 ExitApp ;DONE WITH THE AUTO-EXECUTE
 
@@ -88,7 +88,7 @@ LaunchTeamspeak2()
    Send, {DOWN}{ENTER}
 
    ForceWinFocus("Need Password")
-   Send, pedalsdown{ENTER}
+   Send, nascar2012{ENTER}
 }
 
 LaunchTeamspeak()
