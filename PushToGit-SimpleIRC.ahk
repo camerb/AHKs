@@ -9,7 +9,7 @@ datestamp:=CurrentTime("hyphenated")
 gitWindow=MINGW32:%repoPath% ahk_class ConsoleWindowClass
 
 line1=git add --all
-line2=git commit -am "%datestamp%"
+line2=git commit -am"%datestamp%"
 ;##git checkout master ; don't checkout, cause we don't care at all about contributions from others. ;TODO change this for Hatchling!!!
 line3=git push git@github.com:camerb/%gitRepoName%.git master
 line4:=SexPanther()

@@ -21,6 +21,8 @@ FileCreateShortcut, %target%, %shortcut%, %workingDir%
 #include FcnLib.ahk
 #include FcnLib-IniStats.ahk
 
+Menu, tray, add, hi, hihi
+
 ;########## all the includes that I need to be sure to make:
 ;or maybe these should just be broken up into different collapsable sections
 

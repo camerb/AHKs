@@ -68,27 +68,6 @@ if (A_ComputerName = "PHOSPHORUS")
       Send, ^!3
       Send, ^!{RIGHT}
    }
-
-   IfWinExist, PhosphorusVM - VMware Player ahk_class VMPlayerFrame
-   {
-      BlockInput, On
-
-      ForceWinFocus("PhosphorusVM - VMware Player ahk_class VMPlayerFrame", "Exact")
-
-      ;TODO only needs to be a mousemove -- "MouseMoveIfImageSearch"
-      ClickIfImageSearch("images\VMware\BottomRightCorner.bmp")
-
-      Sleep 1000
-      Click down
-      MouseMove, 5, 5, , r
-      Click up
-      Sleep 1000
-      Click down
-      MouseMove, -5, -5, , r
-      Click up
-
-      BlockInput, Off
-   }
 }
 
 if (A_ComputerName = "BAUSTIAN-09PC")
@@ -103,4 +82,28 @@ if (A_ComputerName = "BAUSTIAN-09PC")
    WinMove, BareTail ahk_class TMainWindow, , 1177, 0, 589, 681
    WinMove, Irssi ahk_class PuTTY, , 1179, 680, 587, 340
 
+   WinMove, PhosphorusVM - VMware Player ahk_class VMPlayerFrame, , 100, 0, 1298, 1024
+}
+
+;fix VM scaling on any computer, if VM player is on
+IfWinExist, PhosphorusVM - VMware Player ahk_class VMPlayerFrame
+{
+   BlockInput, On
+
+   ForceWinFocus("PhosphorusVM - VMware Player ahk_class VMPlayerFrame", "Exact")
+
+   ;TODO only needs to be a mousemove -- "MouseMoveIfImageSearch"
+   ClickIfImageSearch("images\VMware\BottomRightCorner.bmp")
+
+   Sleep 2000
+   Click down
+   MouseMove, -5, -5, , r
+   Click up
+   Sleep 2000
+   Click down
+   MouseMove, 5, 5, , r
+   Click up
+   Sleep, 100
+
+   BlockInput, Off
 }
