@@ -1,9 +1,13 @@
 #include FcnLib.ahk
 assignGlobals()
+bot:=true
 
 ;this is friggin awesome!!!!
 RefreshLogin()
 arrangeWindows()
+
+referenceNumber=2461358
+OpenReferenceNumber(referenceNumber)
 
 listFees=Service of Process,Process Server Fees,Locate,Pinellas County Sticker
 Loop, parse, listFees, CSV
@@ -26,45 +30,57 @@ AddFees(type, name, amount)
    dist:=93
    ;WFCIImageSearch("images/firefly/fees/feesButton.bmp")
    ;Sleep, 5000
+
+   ;Click add new fee button
    WaitForImageSearch("images/firefly/fees/addNewFee.bmp", 60)
    ClickIfImageSearch("images/firefly/fees/addNewFee.bmp")
    ClickIfImageSearch("images/firefly/fees/addNewFee2.bmp")
    ClickIfImageSearch("images/firefly/fees/addNewFee2.bmp")
    ClickIfImageSearch("images/firefly/fees/addNewFee3.bmp")
    ClickIfImageSearch("images/firefly/fees/addNewFee4.bmp")
+   ClickIfImageSearch("images/firefly/fees/addNewFee1VM.bmp")
    MouseMove, 5, 5, , R
    Click
-   WFCIImageSearch("images/firefly/fees/feeGroupField.bmp")
-   MouseMove, %dist%, 5, , R
-   Click
-   Send, ^a
-   Sleep, 1000
-   Send, %type%
 
-   ;Send, {TAB}
-   Sleep, 1000
-   WFCIImageSearch("images/firefly/fees/feeDescriptionField.bmp") ;this one is a little farther to the right
-
-   ClickIfImageSearch("images/firefly/pinWindow.bmp")
-   ;FIXME FIXME FIXME
-   Sleep, 9000
-   ClickIfImageSearch("images/firefly/fees/feesWindow.bmp")
-
-   WFCIImageSearch("images/firefly/fees/feeDescriptionField.bmp") ;this one is a little farther to the right
-   MouseMove, %dist%, 5, , R
-   Click
-   Send, ^a
-   Sleep, 1000
-   Send, %name%
-   Sleep, 4000
-   WFCIImageSearch("images/firefly/fees/feeAmountField.bmp")
+   ;Click third Field
+   WFCIImageSearch(FixImagePathIfBot("images/firefly/fees/feeAmountField.bmp"))
    MouseMove, %dist%, 5, , R
    Click
    Send, ^a
    Sleep, 1000
    Send, %amount%
    Sleep, 2000
-   WFCIImageSearch("images/firefly/fees/save.bmp")
+
+   ;Send, {TAB}
+   ;Sleep, 1000
+   ;WFCIImageSearch(FixImagePathIfBot("images/firefly/fees/feeDescriptionField.bmp")) ;this one is a little farther to the right
+
+   ;ClickIfImageSearch("images/firefly/pinWindow.bmp")
+   ;;FIXME FIXME FIXME
+   ;Sleep, 9000
+   ;ClickIfImageSearch(FixImagePathIfBot("images/firefly/fees/feesWindow.bmp"))
+
+   ;Click on second field
+   WFCIImageSearch(FixImagePathIfBot("images/firefly/fees/feeDescriptionField.bmp"))
+   MouseMove, 120, 5, , R
+   Click
+   Send, ^a
+   Sleep, 1000
+   Send, %name%
+   Sleep, 2000
+
+   ;Click on first field (the troublesome reason why we fill out the field backwards)
+   WFCIImageSearch(FixImagePathIfBot("images/firefly/fees/feeGroupField.bmp"))
+   MouseMove, %dist%, 5, , R
+   Click
+   Send, ^a
+   Sleep, 1000
+   Send, %type%
+   ;Sleep, 2000 ;DO NOT SLEEP, CLICK QUICKLY
+
+   ;FIXME why did I need two images here?
+   ClickIfImageSearch(FixImagePathIfBot("images/firefly/fees/save1.bmp"))
+   ClickIfImageSearch(FixImagePathIfBot("images/firefly/fees/save.bmp"))
    Sleep, 2000
    WFCIImageSearch("images/firefly/fees/feesClose.bmp")
    Sleep, 5000
@@ -125,15 +141,15 @@ OpenFeesWindow()
 
    ClickIfImageSearch("images/firefly/fees/feesClose.bmp")
    Sleep, 500
-   if NOT ClickIfImageSearch("images/firefly/fees/feesButton.bmp")
+   if NOT ClickIfImageSearch(FixImagePathIfBot("images/firefly/fees/feesButton.bmp"))
    {
       ;click down on scrollbar
-      Click(1753, 974, "control")
+      ScrollDownLarge()
       Sleep, 500
-      ClickIfImageSearch("images/firefly/fees/feesButton.bmp")
+      ClickIfImageSearch(FixImagePathIfBot("images/firefly/fees/feesButton.bmp"))
    }
 
-   WaitForImageSearch("images/firefly/fees/referenceNumber.bmp")
+   WaitForImageSearch(FixImagePathIfBot("images/firefly/fees/referenceNumber.bmp"))
    Sleep, 5000
    ;WFCIImageSearch("images/firefly/pinWindow.bmp")
    ClickIfImageSearch("images/firefly/pinWindow.bmp")
@@ -142,18 +158,9 @@ OpenFeesWindow()
    ClickIfImageSearch("images/firefly/pinWindow2.bmp")
    ClickIfImageSearch("images/firefly/pinWindow.bmp")
    ClickIfImageSearch("images/firefly/pinWindow2.bmp")
-   WaitForImageSearch("images/firefly/fees/feesWindow.bmp")
+   WaitForImageSearch(FixImagePathIfBot("images/firefly/fees/feesWindow.bmp"))
 
 }
-;OpenFeesWindow()
-;{
-   ;Loop 3
-   ;{
-      ;ClickIfImageSearch("images/firefly/feesButton.bmp")
-      ;ss()
-   ;}
-   ;WaitForImageSearch("images/firefly/feesWizardWindow.bmp")
-;}
 
 
 ExitApp

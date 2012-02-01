@@ -99,7 +99,7 @@ GetServerSpecs()
       if (thisIP != "0.0.0.0")
          IPlist .= "`n" . thisIP
    }
-   msg=The server's IP addresses are: %IPlist%`nPlease enter this info into Sugar
+   msg=The server's computer name is %A_ComputerName%`nThe server's IP addresses are: %IPlist%`n`nPlease enter this info into Sugar
    msg(msg)
 
    Run, control /name Microsoft.System
@@ -107,7 +107,7 @@ GetServerSpecs()
    WinWait, System, , 20
    Sleep, 1000
    ;UNCOMMENTME SaveScreenShot("serverSpecs", "C:\inetpub\logs\lynxUpgrades\", "activeWindow")
-   msg("Enter server Computer Name, RAM, Processor Speed and OS into Sugar")
+   msg("Enter server RAM, Processor Speed and OS into Sugar")
    WinClose, System
    delog("", "finished function", A_ThisFunc)
 }
@@ -116,7 +116,7 @@ TurnOffIisIfApplicable()
 {
    delog("", "started function", A_ThisFunc)
    if NOT GetApacheVersion() ;Apache is not installed, must be IIS
-      msg("Turn off IIS, change port to 8081, turn off app pools")
+      msg("Disable IIS: Turn off LynxGuide website, change port to 8081, turn off app pools")
    delog("", "finished function", A_ThisFunc)
 }
 

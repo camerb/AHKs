@@ -31,10 +31,12 @@ Loop, parse, allAhksToCompile, CSV
    thisAhk=%A_LoopField%.ahk
    terminatorPath=T:\TechSupport\%thisNameOnly%.exe
 
+   notify("Compiling Lynx Script: " . thisAhk)
    exePath:=CompileAhk(thisAhk, "MitsiIcon")
    Sleep, 3000
    FileMove(exePath, terminatorPath, "overwrite")
 }
+notify("Finishing up... almost done")
 
 ;delete this after we move all the junk to the ftp site
 ;exePath:=CompileAhk("C:\Dropbox\AHKs\Lynx-Install.ahk")
@@ -42,5 +44,5 @@ exePath:=CompileAhk("Lynx-Install.ahk")
 FileMove(exePath, "E:\Lynx-Install.exe", "overwrite")
 
 notify("Finished compiling Lynx scripts")
-SleepSeconds(30)
+SleepSeconds(35)
 ExitApp

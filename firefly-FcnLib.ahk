@@ -194,7 +194,10 @@ GetReferenceNumber()
 {
    Clipboard:=""
    ss()
-   Click(1100, 165, "left double")
+   if IsBot()
+      Click(1220, 182, "left double")
+   else
+      Click(1100, 165, "left double")
    ss()
    Send, {CTRLDOWN}c{CTRLUP}
    ss()
@@ -257,6 +260,32 @@ SelectAll()
 ;}}}
 
 ;{{{ Frequent low-level tasks in firefly
+ScrollUpSmall()
+{
+   if IsBot()
+      Click(1267, 114, "left control")
+}
+
+ScrollUpLarge()
+{
+   if IsBot()
+      Click(1267, 124, "left control")
+}
+
+ScrollDownSmall()
+{
+   if IsBot()
+      Click(1267, 903, "left control")
+}
+
+ScrollDownLarge()
+{
+   if IsBot()
+      Click(1267, 894, "left control")
+   else
+      Click(1753, 974, "control")
+}
+
 CloseStatusProTabs()
 {
    Loop 10
@@ -293,10 +322,82 @@ SendEmailFromMelinda(sSubject, sBody, sAttach="", sTo="Erica.Jordan@fireflylegal
 
    SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
 }
+;}}}
 
+IsBot()
+{
+   global bot
+   return %bot%
+}
+
+;{{{ Big tasks in firefly
+OpenReferenceNumber(referenceNumber)
+{
+   URLbar := GetURLbar("firefox")
+   if NOT InStr( URLbar, "status-pro.biz/fc/Portal.aspx" )
+      return
+
+   FindTopOfFirefoxPage()
+
+   CloseStatusProTabs()
+
+   ss()
+
+   if IsBot()
+      MouseMove, 33, 123
+   else
+      MouseMove, 33, 115
+
+   ss()
+   if IsBot()
+      Click(33, 206, "left")
+   else
+      Click(33, 184, "left control")
+
+   if IsBot()
+      Sleep, 3000
+   else
+      WaitForImageSearch("images/firefly/fileSearchScreen.bmp")
+
+   if IsBot()
+      Click(209, 400, "left")
+   else
+      Click(209, 372, "left control")
+   SendViaClip(referenceNumber)
+   ;Send, %referenceNumber%{ENTER}
+   Sleep, 100
+   if IsBot()
+      Sleep, 400
+   ;TODO may need to tweak this sleep a little
+   ;ss()
+   if IsBot()
+      Click(42, 212, "left double")
+   else
+      Click(42, 199, "left double")
+
+   ;TODO wait for all the elements of the page to load
+   WaitForImageSearch(FixImagePathIfBot("images/firefly/servicePicturesButton.bmp"))
+   WaitForImageSearch(FixImagePathIfBot("images/firefly/propertyInformationButton.bmp"))
+
+   desiredReferenceNumber:=referenceNumber
+   currentReferenceNumber:=GetReferenceNumber()
+
+   if (currentReferenceNumber != desiredReferenceNumber)
+   {
+      RecoverFromMacrosGoneWild("Loaded the wrong file number")
+      AddToTrace("Loaded the wrong file number " . currentReferenceNumber . " " . desiredReferenceNumber)
+   }
+}
 ;}}}
 
 ;{{{ Not sure if these functions will be multi-use
+FixImagePathIfBot(path)
+{
+   if IsBot()
+      path := RegExReplace(path, "\.", "VM.")
+   return path
+}
+
 PrepIniKeyServerName(text)
 {
    returned:=RegExReplace(text, "(\,|\.)")

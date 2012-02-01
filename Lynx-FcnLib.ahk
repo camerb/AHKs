@@ -425,7 +425,8 @@ SendEmailNow(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sRepl
    sUsername := "cameronbaustianmitsibot"
    sPassword := GetLynxPassword("email")
 
-   SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
+   ;FIXME... make me a separate script!
+   ;SendTheFrigginEmail(sSubject, sAttach, sTo, sReplyTo, sBody, sUsername, sPassword, sFrom, sServer, nPort, bTLS, nSend, nAuth)
 }
 
 GetLynxMaintenanceType()

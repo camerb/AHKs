@@ -1039,43 +1039,8 @@ StartOfMacro()
 referenceNumber:=Prompt("Which reference number would you like to load?")
 if NOT referenceNumber
    referenceNumber=2461358
-
-;make this into its own function
-URLbar := GetURLbar("firefox")
-if NOT InStr( URLbar, "status-pro.biz/fc/Portal.aspx" )
-   return
-
-FindTopOfFirefoxPage()
-
 BlockInput, MouseMove
-
-CloseStatusProTabs()
-
-ss()
-MouseMove, 33, 115
-ss()
-Click(33, 184, "left control")
-WaitForImageSearch("images/firefly/fileSearchScreen.bmp")
-Click(209, 372, "left control")
-SendViaClip(referenceNumber)
-;Send, %referenceNumber%{ENTER}
-Sleep, 100
-;TODO may need to tweak this sleep a little
-;ss()
-Click(42, 199, "left double")
-
-;TODO wait for all the elements of the page to load
-WaitForImageSearch("images/firefly/servicePicturesButton.bmp")
-WaitForImageSearch("images/firefly/propertyInformationButton.bmp")
-
-desiredReferenceNumber:=referenceNumber
-currentReferenceNumber:=GetReferenceNumber()
-
-if (currentReferenceNumber != desiredReferenceNumber)
-{
-   RecoverFromMacrosGoneWild("Loaded the wrong file number")
-   AddToTrace("Loaded the wrong file number " . currentReferenceNumber . " " . desiredReferenceNumber)
-}
+OpenReferenceNumber(referenceNumber)
 
 EndOfMacro()
 return
