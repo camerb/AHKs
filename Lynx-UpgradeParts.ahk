@@ -244,3 +244,22 @@ ShowUpgradeSummary()
    delog("", "finished function", A_ThisFunc)
 }
 
+BackupLynxDatabase(description)
+{
+   delog("", "started function", A_ThisFunc)
+
+   archiveDescription=Archived%description%
+   ArchiveDatabaseBackup(archiveDescription)
+   Sleep, 1000
+
+   ;perform the backup
+   path:="C:\inetpub\wwwroot\cgi\"
+   RunWait, %path%backupdb.bat , %path%
+
+   Sleep, 1000
+
+   ArchiveDatabaseBackup(archiveDescription)
+
+   delog("", "finished function", A_ThisFunc)
+}
+

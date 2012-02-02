@@ -25,7 +25,7 @@ CreateSmsKey()
 CheckDatabaseFileSize()
 GetServerSpecs()
 GetClientInfo()
-msg("Backup Lynx database")
+BackupLynxDatabase("BeforeUpdate")
 
 notify("Start of Downtime", "Turning the LynxGuide Server off, in order to perform the upgrade")
 TurnOffIisIfApplicable()
@@ -71,6 +71,7 @@ msg("For all hardware alarm groups, ensure lynx2 is a contact on 000 Normal, 000
 ;msg("Note server version, last updated in sugar")
 ;msg("Make case in sugar for 'Server upgraded to 7.##.##.#', note specific items/concerns addressed with customer in description")
 
+BackupLynxDatabase("AfterUpdate")
 LynxNewVersion := GetLynxVersion()
 ShowUpgradeSummary()
 msg("Log off of the server")

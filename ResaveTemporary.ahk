@@ -14,9 +14,10 @@ if (mode="archive" || mode="a")
    ShowPreviewOfAllTempAhks()
 
    InputBox, sourcenumber, Source File, Which temporary ahk would you like to archive? (i.e. temporary#.ahk)
+   ;TODO give a different folder path if they want to revisit this AHK later
    ;FIXME blank is acceptable if ErrorLevel return ;if user hit cancel
 
-   InputBox, descr, Description, Give a couple words of description of this AHK:
+   InputBox, descr, Description, Give a couple words of description of this AHK:`n`nType REVISIT- if you plan on coming back to this AHK at some point.
 
    if (!isValid(sourcenumber))
    {

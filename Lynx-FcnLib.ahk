@@ -260,6 +260,25 @@ CmdRet_Perl(command)
    return returned
 }
 
+ArchiveDatabaseBackup(description="ArchivedDuringUpdate")
+{
+   if InStr(description, "ArchivedBeforeUpdate")
+      description=ArchivedBeforeUpdate
+   else if InStr(description, "ArchivedAfterUpdate")
+      description=ArchivedAfterUpdate
+   else
+      description=ArchivedDuringUpdate
+
+   backupFile=C:\inetpub\backup\lynx.bak
+   if FileExist(backupFile)
+   {
+      fileTime := FileGetTime(backupFile)
+      fileTime := FormatTime(fileTime, "hyphenated")
+      archiveFile=C:\inetpub\backup\DatabaseArchive\%fileTime%-LynxDatabase-%description%.bak
+      FileMove(backupFile, archiveFile, "overwrite")
+   }
+}
+
 lynx_message(message)
 {
    MaintType := GetLynxMaintenanceType()
@@ -364,11 +383,11 @@ GetPerlVersion()
    ;Check to see if there is a chance that we are getting conflicting info from the perl installation
    perlIsInstalled := !! match1
    perlDirIsThere := !! FileDirExist("C:\Perl")
-   errorMsg:="Checked to see if C:\Perl exists, and also checked 'perl -v' and got conflicting info"
+   errorMsg:="SILENT Checked to see if C:\Perl exists, and also checked 'perl -v' and got conflicting info"
    if (perlIsInstalled AND !perlDirIsThere)
-      lynx_error(errorMsg)
+      lynx_log(errorMsg)
    if (!perlIsInstalled AND perlDirIsThere)
-      lynx_error(errorMsg)
+      lynx_log(errorMsg)
 
    return returned
 }
