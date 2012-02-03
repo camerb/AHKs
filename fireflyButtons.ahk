@@ -1,5 +1,5 @@
 #include firefly-FcnLib.ahk
-#NoTrayIcon
+;#NoTrayIcon
 
 ;{{{ TODOs
 ;PRIORITIES:

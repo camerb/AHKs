@@ -48,16 +48,18 @@ FocusNecessaryWindow(window)
       RecoverFromMacrosGoneWild("couldn't find this window: " . window)
 }
 
+;seems to work really well for both manned and bot
 FindTopOfFirefoxPage()
 {
    global firefox
 
    FocusNecessaryWindow(firefox)
 
-   ;TODO do some clicking to scroll up
-   Click(1753, 116, "")
+   ScrollUpLarge()
    Sleep, 100
-   Sleep, 3000
+   Sleep, 1000
+   if IsBot()
+      Sleep, 3000
 
    topOfPageIsVisible := SimpleImageSearch("images/firefly/HomeTab.bmp")
       OR SimpleImageSearch("images/firefly/AffidavitsTab.bmp")
@@ -71,8 +73,7 @@ FindTopOfFirefoxPage()
 
    ;do a couple more clicks, just to make sure we're at the very, very top
    Loop 10
-      Click(1753, 104, "")
-      ;Click(1753, 974, "control") ;bottom
+      ScrollUpSmall()
 }
 ;}}}
 
@@ -264,18 +265,24 @@ ScrollUpSmall()
 {
    if IsBot()
       Click(1267, 114, "left control")
+   else
+      Click(1753, 104, "")
 }
 
 ScrollUpLarge()
 {
    if IsBot()
       Click(1267, 124, "left control")
+   else
+      Click(1753, 116, "")
 }
 
 ScrollDownSmall()
 {
    if IsBot()
       Click(1267, 903, "left control")
+   ;else
+      ;Click(1753, 984, "control") ;TESTME educated guess... not sure if this is right
 }
 
 ScrollDownLarge()

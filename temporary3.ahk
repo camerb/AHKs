@@ -2,6 +2,9 @@
 assignGlobals()
 bot:=true
 
+if NOT IsVM()
+   fatalerrord("this macro is only for VMs")
+
 ;this is friggin awesome!!!!
 RefreshLogin()
 arrangeWindows()
@@ -10,26 +13,25 @@ referenceNumber=2461358
 OpenReferenceNumber(referenceNumber)
 
 listFees=Service of Process,Process Server Fees,Locate,Pinellas County Sticker
-Loop, parse, listFees, CSV
-{
-   thisFee:=A_LoopField
-   i:=A_Index
-   thisFeeAmount:=FeeAmount%i%
-   thisFeeType=Client
-   if (i == 2)
-      thisFeeType=Process Server
-   AddFees(thisFeeType, thisFee, i)
-}
+;Loop, parse, listFees, CSV
+;{
+   ;thisFee:=A_LoopField
+   ;i:=A_Index
+   ;thisFeeAmount:=FeeAmount%i%
+   ;thisFeeType=Client
+   ;if (i == 2)
+      ;thisFeeType=Process Server
+   ;AddFees(thisFeeType, thisFee, i)
+;}
 GetFees()
 ExitApp
 
+;works ok on manned
+;works great on bot
 AddFees(type, name, amount)
 {
    OpenFeesWindow()
-   ;ForceWinFocus("Status Pro", "RegEx")
    dist:=93
-   ;WFCIImageSearch("images/firefly/fees/feesButton.bmp")
-   ;Sleep, 5000
 
    ;Click add new fee button
    WaitForImageSearch("images/firefly/fees/addNewFee.bmp", 60)
@@ -50,15 +52,6 @@ AddFees(type, name, amount)
    Sleep, 1000
    Send, %amount%
    Sleep, 2000
-
-   ;Send, {TAB}
-   ;Sleep, 1000
-   ;WFCIImageSearch(FixImagePathIfBot("images/firefly/fees/feeDescriptionField.bmp")) ;this one is a little farther to the right
-
-   ;ClickIfImageSearch("images/firefly/pinWindow.bmp")
-   ;;FIXME FIXME FIXME
-   ;Sleep, 9000
-   ;ClickIfImageSearch(FixImagePathIfBot("images/firefly/fees/feesWindow.bmp"))
 
    ;Click on second field
    WFCIImageSearch(FixImagePathIfBot("images/firefly/fees/feeDescriptionField.bmp"))
@@ -81,15 +74,23 @@ AddFees(type, name, amount)
    ;FIXME why did I need two images here?
    ClickIfImageSearch(FixImagePathIfBot("images/firefly/fees/save1.bmp"))
    ClickIfImageSearch(FixImagePathIfBot("images/firefly/fees/save.bmp"))
-   Sleep, 2000
-   WFCIImageSearch("images/firefly/fees/feesClose.bmp")
+   Sleep, 5000
+   WFCIImageSearch(FixImagePathIfBot("images/firefly/fees/feesClose.bmp"))
    Sleep, 5000
 }
 
 GetFees()
 {
    OpenFeesWindow()
-   WFCIImageSearch("images/firefly/fees/referenceNumber.bmp")
+
+   WFCIImageSearch(FixImagePathIfBot("images/firefly/fees/referenceNumber.bmp"))
+   Sleep, 1000
+
+   ;MouseMoveIfImageSearch("images/firefly/fees/feesWindow.bmp")
+   ;Sleep, 3000
+   ;MouseMove, 0, 35, , R
+   ;Click
+
    Send, ^a
    rawFees:=CopyWait2()
 
@@ -111,7 +112,7 @@ GetFees()
          thisFeeType=Process Server
 
       t=\t+
-      needle=%thisFeeType%%t%%thisFee%%t%.\d+.\d+%t%\d+%t%.\d+.\d+%t%.(\d+\.\d+)
+      needle=%thisFeeType%%t%%thisFee%%t%.(\d+.\d+)%t%\d+%t%.\d+.\d+%t%.(\d+\.\d+)
       RegExMatch(rawFees, needle, match)
       thisFeeAmount:=match1
 
@@ -129,13 +130,13 @@ GetFees()
       iniPP("(error 31) fees count mismatch")
    }
 
-   errord("nolog", referenceNumber, feesCount, FeeAmount1, FeeAmount2, FeeAmount3, FeeAmount4)
-   WFCIImageSearch("images/firefly/fees/feesClose.bmp")
+   errord("nolog notimeout", referenceNumber, feesCount, FeeAmount1, FeeAmount2, FeeAmount3, FeeAmount4)
+   ;WFCIImageSearch(FixImagePathIfBot("images/firefly/fees/feesClose.bmp"))
+   CloseFeesWindow()
 }
 
 OpenFeesWindow()
 {
-   ;ForceWinFocus("Status Pro", "RegEx")
    ArrangeWindows()
    FindTopOfFirefoxPage()
 
@@ -150,18 +151,28 @@ OpenFeesWindow()
    }
 
    WaitForImageSearch(FixImagePathIfBot("images/firefly/fees/referenceNumber.bmp"))
-   Sleep, 5000
-   ;WFCIImageSearch("images/firefly/pinWindow.bmp")
-   ClickIfImageSearch("images/firefly/pinWindow.bmp")
-   ClickIfImageSearch("images/firefly/pinWindow2.bmp")
-   ClickIfImageSearch("images/firefly/pinWindow.bmp")
-   ClickIfImageSearch("images/firefly/pinWindow2.bmp")
-   ClickIfImageSearch("images/firefly/pinWindow.bmp")
-   ClickIfImageSearch("images/firefly/pinWindow2.bmp")
+   Sleep, 1000
+   ;ClickIfImageSearch("images/firefly/pinWindow.bmp")
+   ;ClickIfImageSearch("images/firefly/pinWindow2.bmp")
+   ;ClickIfImageSearch("images/firefly/pinWindow.bmp")
+   ;ClickIfImageSearch("images/firefly/pinWindow2.bmp")
+   ;ClickIfImageSearch("images/firefly/pinWindow.bmp")
+   ;ClickIfImageSearch("images/firefly/pinWindow2.bmp")
    WaitForImageSearch(FixImagePathIfBot("images/firefly/fees/feesWindow.bmp"))
-
 }
 
+CloseFeesWindow()
+{
+   WFCIImageSearch(FixImagePathIfBot("images/firefly/fees/feesClose.bmp"))
+}
+
+;TESTME
+IsFeesWindowOpen()
+{
+   joe := ClickIfImageSearch(FixImagePathIfBot("images/firefly/fees/feesWindow.bmp"))
+   bob := ClickIfImageSearch(FixImagePathIfBot("images/firefly/fees/referenceNumber.bmp"))
+   return %joe% AND %bob%
+}
 
 ExitApp
 ;;;;; USING THIS AS A LIB
