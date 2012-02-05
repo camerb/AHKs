@@ -1,5 +1,5 @@
 #include firefly-FcnLib.ahk
-;#NoTrayIcon
+#NoTrayIcon
 
 ;{{{ TODOs
 ;PRIORITIES:
@@ -52,6 +52,8 @@ if (A_ComputerName == "T-800")
    xLocation=1129
    yLocation=171
 }
+xLocationApproval:= xLocation
+yLocationApproval:= yLocation + 400
 
 Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 ;Gui, Color, 000032
@@ -61,11 +63,11 @@ Gui, Add, Button, , Change Queue
 ;Gui, Add, Button, , Add Scorecard Entry-st
 ;Gui, Add, Button, , Add Scorecard Entry-mf
 ;Gui, Add, Button, , Add Scorecard Entry-sc
-Gui, Add, Button, , Add Scorecard Entry-new
+;Gui, Add, Button, , Add Scorecard Entry-new
 Gui, Add, Button, , Add Scorecard Entry-fw
-;Gui, Add, Button, , Add Fees
 Gui, Add, Button, , Refresh Login
 Gui, Add, Button, , Load Reference Number
+;Gui, Add, Button, , Add Fees
 
 Gui, Add, Button, x10  y230, Record for Cameron
 Gui, Add, Button, x10  y260, Test Something
@@ -138,13 +140,7 @@ return
 ButtonRefreshLogin:
 StartOfMacro()
 
-;kill firefox
-CustomTitleMatchMode("Contains")
-while ProcessExist("firefox.exe")
-{
-   WinClose, Mozilla Firefox
-   Sleep, 100
-}
+KillFirefox()
 
 ;start firefox again ; this method is a little difficult, imacros will be easier
 RunProgram("C:\Program Files\Mozilla Firefox\firefox.exe")
@@ -189,20 +185,25 @@ ButtonAddFees:
 StartOfMacro()
 
 FindTopOfFirefoxPage()
+referenceNumber := GetReferenceNumber()
+
 Gui, 2: Destroy
-Gui, 2: Add, Text,, Service of Process
-Gui, 2: Add, Text,, Process Server Fees
-Gui, 2: Add, Text,, Locate
-Gui, 2: Add, Text,, Pinellas County Sticker
+listFees := ListFees()
+Loop, parse, listFees, CSV
+{
+   thisFee:=A_LoopField
+   Gui, 2: Add, Text,, %thisFee%
+}
 Gui, 2: Add, Edit, vFeesVar1 x100 y2
 Gui, 2: Add, Edit, vFeesVar2
 Gui, 2: Add, Edit, vFeesVar3
 Gui, 2: Add, Edit, vFeesVar4
-Gui, 2: Add, Button, Default x190 y110, Go
+Gui, 2: Add, Button, Default x190 y110, Go Add Fees
 Gui, 2: Show, , Firefly Fees AHK Dialog
 Gui, 2: Show
 return
-2ButtonGo:
+;;;;;;;;;;;;;;;;;;;;;;;; WAIT FOR USER TO PRESS THE BUTTON
+2ButtonGoAddFees:
 Gui, 2: Submit
 Gui, 2: Destroy
 
@@ -211,7 +212,6 @@ Gui, 2: Destroy
 ;feesvar2=20
 ;feesvar3=30
 ;feesvar4=3
-;timer:=startTimer()
 
 if NOT (feesVar4 == "" or feesVar4 == 3)
 {
@@ -219,47 +219,17 @@ if NOT (feesVar4 == "" or feesVar4 == 3)
    return
 }
 
-FindTopOfFirefoxPage()
-
-;OpenFeesWindow()
-
-;Sleep, 200 ;this seems to work sometimes... kinda
-;Sleep, 500
-   Sleep, 500
-
-list=Service of Process,Process Server Fees,Locate,Pinellas County Sticker
-Loop, parse, list, CSV
+uiFile := GetPath("Firefly-1-Submitted.ini")
+botFile := GetPath("Firefly-2-Added.ini")
+Loop, parse, listFees, CSV
 {
-   thisFee:=A_LoopField
    i:=A_Index
+   thisFee:=A_LoopField
    thisFeeAmount:=FeesVar%i%
-   thisFeeType=Client
-   if (i == 2)
-      thisFeeType=Process Server
-   if (thisFeeAmount == "")
-     continue
 
-   ;TODO reliability would increase in this fcn if the sleeps were larger (perhaps this could run in the background bot)
-   Click(600, 667, "left control")
-   Send, %thisFeeType%
-   Send, {TAB}
-   Send, %thisFee%
-   Send, {TAB}
-   Send, %thisFeeAmount%
-   Click(611, 476, "left control") ;Click Add
-
-
-   ;ugh, this sleep is huge... maybe we should wait for it to appear in the list
-   Sleep, 900
-   ;Sleep, 500
-   ;Sleep, 500
+   if thisFeeAmount
+      IniWrite(uiFile, referenceNumber, thisFee, thisFeeAmount)
 }
-
-;this should be done after the loop
-Click(1246, 425, "left control") ;Click the X
-
-;TODO might want to sanity check this to ensure that the fees were added correctly by checking the "Client Fees" and "Process Server Fees"
-;debug(elapsedTime(timer))
 
 EndOfMacro()
 return
@@ -1082,7 +1052,60 @@ return
 ButtonTestSomething:
 ;StartOfMacro()
 ;debug("starting to test something")
-FindTopOfFirefoxPage()
+
+fees2AddedIni:=GetPath("Firefly-2-Added.ini")
+fees3ReviewedIni:=GetPath("Firefly-3-Reviewed.ini")
+referenceNumbersToReview := IniListAllSections(fees2AddedIni)
+listFees := ListFees()
+currentlyReviewingReferenceNumber:=""
+Loop, parse, referenceNumbersToReview, CSV
+{
+   thisReferenceNumber:=A_LoopField
+   Loop, parse, listFees, CSV
+   {
+      thisFee:=A_LoopField
+
+      feesAddedValue:=IniRead(fees2AddedIni, thisReferenceNumber, thisFee)
+      feesReviewedValue:=IniRead(fees3ReviewedIni, thisReferenceNumber, thisFee)
+
+      if (feesAddedValue == feesReviewedValue)
+         continue
+
+      debug(thisReferenceNumber)
+      currentlyReviewingReferenceNumber:=thisReferenceNumber
+      OpenReferenceNumber(currentlyReviewingReferenceNumber)
+      Gui, 2: Destroy
+      Gui, 2: +LastFound -Caption +ToolWindow +AlwaysOnTop
+      Gui, 2: Add, Text,, %currentlyReviewingReferenceNumber%
+      Gui, 2: Add, Button, , Mark As Reviewed
+      Gui, 2: Show, , Firefly Approval
+      WinMove, Firefly Approval, , %xLocationApproval%, %yLocationApproval%
+      return
+      ;AddFees(thisFee, uiValue)
+      ;IniWrite(botIni, thisReferenceNumber, thisFee, uiValue)
+      ;feesAddedCountSoFar++
+   }
+}
+debug("No reference numbers are ready to review at this time")
+return
+;;;;;;;;;;;;;;;;;;;;;;;; WAIT FOR USER TO PRESS THE BUTTON
+2ButtonMarkAsReviewed:
+;Gui, 2: Submit
+Gui, 2: Destroy
+fees2AddedIni:=GetPath("Firefly-2-Added.ini")
+fees3ReviewedIni:=GetPath("Firefly-3-Reviewed.ini")
+listFees := ListFees()
+
+;copy all keys-values over to ini 3
+;technically I could just copy the ref num, but this way I will be able to do a diff
+Loop, parse, listFees, CSV
+{
+   thisFee:=A_LoopField
+   thisFeeAmount := IniRead(fees2AddedIni, currentlyReviewingReferenceNumber, thisFee)
+   if (thisFeeAmount AND thisFeeAmount != "ERROR")
+      IniWrite(fees3ReviewedIni, currentlyReviewingReferenceNumber, thisFee, thisFeeAmount)
+}
+
 ;debug("finished testing something")
 ;EndOfMacro()
 return

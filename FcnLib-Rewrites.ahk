@@ -150,6 +150,7 @@ IniWrite(file, section, key, value)
    ;sanitize key and value (replace with NAK to indicate an error)
    key := RegExReplace(key, "(\r|\n)", "?")
    value := RegExReplace(value, "(\r|\n)", "?")
+   EnsureDirExists(file)
 
    ;TODO put this in the read write and delete fcns
    if (file == "")
@@ -172,6 +173,7 @@ IniDelete(file, section, key="")
 {
    ;sanitize key and value (replace with NAK to indicate an error)
    key := RegExReplace(key, "(\r|\n)", "?")
+   ;EnsureDirExists(file)
 
    if (file == "")
       fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no filename was provided for deleting the ini value from")
@@ -193,6 +195,7 @@ IniRead(file, section, key, Default = "ERROR")
    ;sanitize key and value (replace with NAK to indicate an error)
    ;TODO get a better value!!! NAK was bad, but ? would probably be used...
    key := RegExReplace(key, "(\r|\n)", "?")
+   ;EnsureDirExists(file)
 
    if (file == "")
       fatalErrord(A_ThisFunc, A_ThisLine, A_ScriptName, "no filename was provided for reading the ini value from")

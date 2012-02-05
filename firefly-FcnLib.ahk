@@ -2,6 +2,7 @@
 #include FcnLib-Clipboard.ahk
 #include FcnLib-Nightly.ahk
 #include SendEmailSimpleLib.ahk
+#include thirdParty\json.ahk
 
 
 ;{{{ ghettoness
@@ -57,7 +58,7 @@ FindTopOfFirefoxPage()
 
    ScrollUpLarge()
    Sleep, 100
-   Sleep, 1000
+   ;Sleep, 1000
    if IsBot()
       Sleep, 3000
 
@@ -261,6 +262,17 @@ SelectAll()
 ;}}}
 
 ;{{{ Frequent low-level tasks in firefly
+KillFirefox()
+{
+   ;kill firefox
+   CustomTitleMatchMode("Contains")
+   while ProcessExist("firefox.exe")
+   {
+      WinClose, Mozilla Firefox
+      Sleep, 100
+   }
+}
+
 ScrollUpSmall()
 {
    if IsBot()
@@ -331,15 +343,10 @@ SendEmailFromMelinda(sSubject, sBody, sAttach="", sTo="Erica.Jordan@fireflylegal
 }
 ;}}}
 
-IsBot()
-{
-   global bot
-   return %bot%
-}
-
-;{{{ Big tasks in firefly
+;{{{ Frequent high-level tasks in firefly
 OpenReferenceNumber(referenceNumber)
 {
+   iniPP("Loading ref num")
    URLbar := GetURLbar("firefox")
    if NOT InStr( URLbar, "status-pro.biz/fc/Portal.aspx" )
       return
@@ -361,28 +368,25 @@ OpenReferenceNumber(referenceNumber)
    else
       Click(33, 184, "left control")
 
-   if IsBot()
-      Sleep, 3000
-   else
-      WaitForImageSearch("images/firefly/fileSearchScreen.bmp")
+   WaitForImageSearch(FixImagePathIfBot("images/firefly/fileSearchScreen.bmp"))
 
    if IsBot()
       Click(209, 400, "left")
    else
       Click(209, 372, "left control")
    SendViaClip(referenceNumber)
-   ;Send, %referenceNumber%{ENTER}
-   Sleep, 100
+
+   ss()
    if IsBot()
       Sleep, 400
    ;TODO may need to tweak this sleep a little
-   ;ss()
+
    if IsBot()
       Click(42, 212, "left double")
    else
       Click(42, 199, "left double")
 
-   ;TODO wait for all the elements of the page to load
+   ;wait for all the elements of the page to load
    WaitForImageSearch(FixImagePathIfBot("images/firefly/servicePicturesButton.bmp"))
    WaitForImageSearch(FixImagePathIfBot("images/firefly/propertyInformationButton.bmp"))
 
@@ -394,10 +398,51 @@ OpenReferenceNumber(referenceNumber)
       RecoverFromMacrosGoneWild("Loaded the wrong file number")
       AddToTrace("Loaded the wrong file number " . currentReferenceNumber . " " . desiredReferenceNumber)
    }
+
+   ;FIXME I don't have an image yet for if the file is in use on Baustian-09pc
+   ;if ClickIfImageSearch(FixImagePathIfBot("images/firefly/fileInUse.bmp"))
+   if ClickIfImageSearch("images/firefly/fileInUseVM.bmp")
+   {
+      ExitFireflyFile()
+      iniPP("File Was In Use")
+      OpenReferenceNumber(referenceNumber) ;recursion seems ok here, but I fear it is super-dangerous
+   }
+   iniPP("Successfully reloaded ref number")
+}
+
+ExitFireflyFile()
+{
+   Loop, 5
+      ScrollUpLarge()
+
+   Loop, 10
+   {
+      ScrollDownLarge()
+      if ClickIfImageSearch(FixImagePathIfBot("images/firefly/exitFile.bmp"))
+         return
+   }
+
+   Loop, 10
+   {
+      ScrollUpLarge()
+      if ClickIfImageSearch(FixImagePathIfBot("images/firefly/exitFile.bmp"))
+         return
+   }
 }
 ;}}}
 
 ;{{{ Not sure if these functions will be multi-use
+IsBot()
+{
+   global bot
+   return %bot%
+}
+
+ReferenceNumberForTesting()
+{
+   return 2461358
+}
+
 FixImagePathIfBot(path)
 {
    if IsBot()
@@ -534,3 +579,22 @@ excel=(In House Process Server Scorecard|Process Server Fee Determination).*(Ope
 slowSendPauseTime=130
 ;breaks at 100,110 reliable at 120,150
 }
+;}}}
+
+;{{{ These things are kinda like globals
+GetSimpleFeesJson()
+{
+   ;only load it from the file if necessary
+   global fireflySimpleFeesJson
+   if NOT fireflySimpleFeesJson
+      fireflySimpleFeesJson := FileRead(GetPath("FireflyFees.json"))
+   return fireflySimpleFeesJson
+}
+
+ListFees()
+{
+   feesJson := GetSimpleFeesJson()
+   returned := json(feesJson, "listFees")
+   return returned
+}
+;}}}

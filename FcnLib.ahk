@@ -1702,38 +1702,46 @@ GetPath(file)
 {
    date := Currenttime("hyphendate")
 
-   if (file == "NightlyStats.ini")
+   if (file = "NightlyStats.ini")
       return "C:\Dropbox\AHKs\gitExempt\NightlyStats.ini"
-   else if (file == "RunOncePerDay.ini")
+   else if (file = "RunOncePerDay.ini")
       return "C:\Dropbox\AHKs\gitExempt\RunOncePerDay.ini"
-   else if (file == "FireflyConfig.ini")
+   else if (file = "FireflyConfig.ini")
       return "C:\Dropbox\AHKs\gitExempt\FireflyConfig.ini"
-   else if (file == "config.ini")
+   else if (file = "config.ini")
       return "C:\Dropbox\Misc\config.ini"
-   else if (file == "questions.ini")
+   else if (file = "questions.ini")
       return "C:\Dropbox\Misc\questions.ini"
+   else if (file = "FireflyFees.json")
+      return "C:\Dropbox\AHKs\gitExempt\firefly\FireflyFees.json"
+   else if (file = "Firefly-1-Submitted.ini")
+      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-1-UserWantsTheseFees.ini"
+   else if (file = "Firefly-2-Added.ini")
+      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-2-BotAddedTheseFees.ini"
+   else if (file = "Firefly-3-Reviewed.ini")
+      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-3-UserReviewedTheseFees.ini"
    else if (file = "MyStats.ini")
       return "C:\Dropbox\Public\logs\" . A_ComputerName . ".ini"
-   else if (file = "myconfig.ini")
+   else if (file = "MyConfig.ini")
       return "C:\Dropbox\Misc\config-" . A_ComputerName . ".ini"
-   else if (file == "imacro.lock")
+   else if (file = "iMacro.lock")
       return "C:\Dropbox\Public\lock\imacro-" . A_ComputerName . ".lock"
-   else if (file == "DailyFinancial.csv") ;deprecated
+   else if (file = "DailyFinancial.csv") ;deprecated
       return "C:\Dropbox\AHKs\gitExempt\DailyFinancial.csv"
-   else if (file == "FinancialPast.csv")
+   else if (file = "FinancialPast.csv")
       return "C:\Dropbox\AHKs\gitExempt\FinancialPast.csv"
-   else if (file == "trace" OR file == "trace.txt")
+   else if (file = "trace" OR file = "trace.txt")
       return "C:\Dropbox\Public\logs\trace.txt"
-   else if (file == "logfile")
+   else if (file = "logfile")
    {
       if IsMyCompy()
          return "C:\Dropbox\Public\logs\" . A_ComputerName . ".txt"
       else
          return "C:\inetpub\logs\" . date . ".txt"
    }
-   else if (file == "checkdb-logfile")
+   else if (file = "checkdb-logfile")
       return "C:\inetpub\logs\" . date . "-checkdb.txt"
-   else if (file == "installall-logfile" OR file == "removeall-logfile")
+   else if (file = "installall-logfile" OR file = "removeall-logfile")
       return "C:\inetpub\logs\" . date . "-installall.txt"
    errord("orange line", "tried to GetPath() for an unknown file", file)
    return ""

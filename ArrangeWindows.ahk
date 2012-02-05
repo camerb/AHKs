@@ -42,10 +42,10 @@ if (A_ComputerName = "PHOSPHORUS")
    WinMove, BareTail ahk_class TMainWindow, , 0, 0, %verticalSplit%, %horizontalSplit%
    WinMove, ahk_class gdkWindowToplevel, , 0, %horizontalSplit%, %verticalSplit%, %bottomLeftHeight%
    WinMove, Irssi ahk_class PuTTY, , 0, %horizontalSplit%, %verticalSplit%, %bottomLeftHeight%
-   WinMove, PhosphorusVM - VMware Player ahk_class VMPlayerFrame, , 2000, 0, 1298, 1024
+   WinMove, VM - VMware Player ahk_class VMPlayerFrame, , 2000, 0, 1298, 1024
 
    ;do this early, so VirtuaWin has time to move the window to the other desktop
-   if ForceWinFocusIfExist("PhosphorusVM - VMware Player ahk_class VMPlayerFrame", "Exact")
+   if ForceWinFocusIfExist("VM - VMware Player ahk_class VMPlayerFrame", "Exact")
       Send, ^!5
 
    if ForceWinFocusIfExist("Google Chrome")
@@ -82,15 +82,15 @@ if (A_ComputerName = "BAUSTIAN-09PC")
    WinMove, BareTail ahk_class TMainWindow, , 1177, 0, 589, 681
    WinMove, Irssi ahk_class PuTTY, , 1179, 680, 587, 340
 
-   WinMove, PhosphorusVM - VMware Player ahk_class VMPlayerFrame, , 100, 0, 1298, 1024
+   WinMove, VM - VMware Player ahk_class VMPlayerFrame, , 100, 0, 1298, 1024
 }
 
 ;fix VM scaling on any computer, if VM player is on
-IfWinExist, PhosphorusVM - VMware Player ahk_class VMPlayerFrame
+IfWinExist, VM - VMware Player ahk_class VMPlayerFrame
 {
    BlockInput, On
 
-   ForceWinFocus("PhosphorusVM - VMware Player ahk_class VMPlayerFrame", "Exact")
+   ForceWinFocus("VM - VMware Player ahk_class VMPlayerFrame", "Contains")
 
    ;TODO only needs to be a mousemove -- "MouseMoveIfImageSearch"
    ClickIfImageSearch("images\VMware\BottomRightCorner.bmp")
