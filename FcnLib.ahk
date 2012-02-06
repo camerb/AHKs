@@ -1718,8 +1718,8 @@ GetPath(file)
       return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-1-UserWantsTheseFees.ini"
    else if (file = "Firefly-2-Added.ini")
       return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-2-BotAddedTheseFees.ini"
-   else if (file = "Firefly-3-Reviewed.ini")
-      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-3-UserReviewedTheseFees.ini"
+   else if (file = "Firefly-3-Fetched.ini")
+      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-3-UserFetchedRefNumsForReview.ini"
    else if (file = "MyStats.ini")
       return "C:\Dropbox\Public\logs\" . A_ComputerName . ".ini"
    else if (file = "MyConfig.ini")

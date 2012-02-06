@@ -67,7 +67,8 @@ Gui, Add, Button, , Change Queue
 Gui, Add, Button, , Add Scorecard Entry-fw
 Gui, Add, Button, , Refresh Login
 Gui, Add, Button, , Load Reference Number
-;Gui, Add, Button, , Add Fees
+Gui, Add, Button, , Add Fees
+Gui, Add, Button, , Fetch RefNums Csv
 
 Gui, Add, Button, x10  y230, Record for Cameron
 Gui, Add, Button, x10  y260, Test Something
@@ -177,6 +178,82 @@ if SimpleImageSearch("images/firefly/dialog/thereWasAnErrorHandlingYourCurrentAc
 
 EndOfMacro()
 GoSub, ButtonReloadQueue
+return
+;}}}
+
+;{{{ ButtonFetchRefNumsCsv:
+ButtonFetchRefNumsCsv:
+StartOfMacro()
+
+fees1SubmittedIni:=GetPath("Firefly-1-Submitted.ini")
+fees2AddedIni:=GetPath("Firefly-2-Added.ini")
+fees3FetchedIni:=GetPath("Firefly-3-Fetched.ini")
+referenceNumbersToReview := IniListAllSections(fees2AddedIni)
+listFees := ListFees()
+currentlyReviewingReferenceNumber:=""
+Loop, parse, referenceNumbersToReview, CSV
+{
+   thisReferenceNumber:=A_LoopField
+
+   ;verify that all of the fees from 1 and 2 match, otherwise don't put them in the spreadsheet
+   if NOT feesMatchForThisReferenceNumber(thisReferenceNumber, fees1SubmittedIni, fees2AddedIni)
+      continue
+
+   ;TESTME this kinda seems like it is working, then sometimes it seems to break
+   ;don't put reference numbers in the spreadsheet twice
+   isSaved := IniRead(fees3FetchedIni, "", thisReferenceNumber)
+   ;debug(isSaved)
+   if (isSaved == 1)
+      continue
+
+   ;add to reviewed file
+   IniWrite(fees3FetchedIni, "", thisReferenceNumber, "1")
+
+   ;add to csv
+   csvFile := "C:\Documents and Settings\Baustian\Desktop\Firefly\RefNums\" . CurrentTime("hyphenated") . "-ReferenceNumbersToReview.csv"
+   ;debug(csvfile)
+   ;Clipboard := csvFile
+   FileAppendLine(thisReferenceNumber, csvFile)
+
+   countOfFetched++
+
+   ;REMOVEME 2012-02-05 LOTS OF OLD CRUD
+   ;Loop, parse, listFees, CSV
+   ;{
+      ;thisFee:=A_LoopField
+
+      ;feesAddedValue:=IniRead(fees2AddedIni, thisReferenceNumber, thisFee)
+      ;feesReviewedValue:=IniRead(fees3ReviewedIni, thisReferenceNumber, thisFee)
+
+      ;if (feesAddedValue == feesReviewedValue)
+         ;continue
+
+      ;debug(thisReferenceNumber)
+      ;currentlyReviewingReferenceNumber:=thisReferenceNumber
+      ;OpenReferenceNumber(currentlyReviewingReferenceNumber)
+      ;Gui, 2: Destroy
+      ;Gui, 2: +LastFound -Caption +ToolWindow +AlwaysOnTop
+      ;Gui, 2: Add, Text,, %currentlyReviewingReferenceNumber%
+      ;Gui, 2: Add, Button, , Mark As Reviewed
+      ;Gui, 2: Show, , Firefly Approval
+      ;WinMove, Firefly Approval, , %xLocationApproval%, %yLocationApproval%
+      ;return
+      ;;AddFees(thisFee, uiValue)
+      ;;IniWrite(botIni, thisReferenceNumber, thisFee, uiValue)
+      ;;feesAddedCountSoFar++
+   ;}
+}
+
+quote="
+csvFile:=EnsureStartsWith(csvFile, quote)
+csvFile:=EnsureEndsWith(csvFile, quote)
+;Open the file for melinda to see it
+if countOfFetched
+   CmdRet_RunReturn("C:\Dropbox\Programs\SnapDB\SnapDB.exe " . csvFile)
+else
+   debug("No reference numbers are ready to review at this time")
+
+EndOfMacro()
 return
 ;}}}
 
@@ -1053,58 +1130,6 @@ ButtonTestSomething:
 ;StartOfMacro()
 ;debug("starting to test something")
 
-fees2AddedIni:=GetPath("Firefly-2-Added.ini")
-fees3ReviewedIni:=GetPath("Firefly-3-Reviewed.ini")
-referenceNumbersToReview := IniListAllSections(fees2AddedIni)
-listFees := ListFees()
-currentlyReviewingReferenceNumber:=""
-Loop, parse, referenceNumbersToReview, CSV
-{
-   thisReferenceNumber:=A_LoopField
-   Loop, parse, listFees, CSV
-   {
-      thisFee:=A_LoopField
-
-      feesAddedValue:=IniRead(fees2AddedIni, thisReferenceNumber, thisFee)
-      feesReviewedValue:=IniRead(fees3ReviewedIni, thisReferenceNumber, thisFee)
-
-      if (feesAddedValue == feesReviewedValue)
-         continue
-
-      debug(thisReferenceNumber)
-      currentlyReviewingReferenceNumber:=thisReferenceNumber
-      OpenReferenceNumber(currentlyReviewingReferenceNumber)
-      Gui, 2: Destroy
-      Gui, 2: +LastFound -Caption +ToolWindow +AlwaysOnTop
-      Gui, 2: Add, Text,, %currentlyReviewingReferenceNumber%
-      Gui, 2: Add, Button, , Mark As Reviewed
-      Gui, 2: Show, , Firefly Approval
-      WinMove, Firefly Approval, , %xLocationApproval%, %yLocationApproval%
-      return
-      ;AddFees(thisFee, uiValue)
-      ;IniWrite(botIni, thisReferenceNumber, thisFee, uiValue)
-      ;feesAddedCountSoFar++
-   }
-}
-debug("No reference numbers are ready to review at this time")
-return
-;;;;;;;;;;;;;;;;;;;;;;;; WAIT FOR USER TO PRESS THE BUTTON
-2ButtonMarkAsReviewed:
-;Gui, 2: Submit
-Gui, 2: Destroy
-fees2AddedIni:=GetPath("Firefly-2-Added.ini")
-fees3ReviewedIni:=GetPath("Firefly-3-Reviewed.ini")
-listFees := ListFees()
-
-;copy all keys-values over to ini 3
-;technically I could just copy the ref num, but this way I will be able to do a diff
-Loop, parse, listFees, CSV
-{
-   thisFee:=A_LoopField
-   thisFeeAmount := IniRead(fees2AddedIni, currentlyReviewingReferenceNumber, thisFee)
-   if (thisFeeAmount AND thisFeeAmount != "ERROR")
-      IniWrite(fees3ReviewedIni, currentlyReviewingReferenceNumber, thisFee, thisFeeAmount)
-}
 
 ;debug("finished testing something")
 ;EndOfMacro()
@@ -1129,6 +1154,8 @@ ASE-new: for the new scorecard
 ASE-fw: fewer messages are sent to Cameron, plus the first few fields of the scorecard should be typed in faster (hopefully that is reliable)
 
 Load Reference Number: It loads a specified file with the reference number that you give it.
+
+Fetch RefNums Csv: Opens the Reference Numbers CSV of all of the files that you have to go back through and review/approve.
 )
 debug("notimeout", "`n" . notes)
 EndOfMacro()

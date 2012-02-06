@@ -432,6 +432,20 @@ ExitFireflyFile()
 ;}}}
 
 ;{{{ Not sure if these functions will be multi-use
+feesMatchForThisReferenceNumber(referenceNumber, fees1, fees2)
+{
+   listFees := ListFees()
+   Loop, parse, listFees, CSV
+   {
+      thisFee:=A_LoopField
+      feesValue1 := IniRead(fees1, referenceNumber, thisFee)
+      feesValue2 := IniRead(fees2, referenceNumber, thisFee)
+      if (feesValue1 != feesValue2)
+         return false
+   }
+   return true
+}
+
 IsBot()
 {
    global bot
