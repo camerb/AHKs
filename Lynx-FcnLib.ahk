@@ -606,3 +606,8 @@ UnzipInstallPackage(file)
    ;notify("Working on " . file)
 }
 
+RunIfFileIsThere(program)
+{
+   if FileExist(program)
+      Run, %program%
+}

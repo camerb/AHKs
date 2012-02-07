@@ -103,7 +103,14 @@ GetServerSpecs()
    msg(msg)
 
    Run, control /name Microsoft.System
-   notify("Launching system panel (you may have to launch this manually from Control Panel > System)")
+   ;RunIfFileIsThere(A_WinDir . "\system32\msinfo32.exe")
+   ;RunIfFileIsThere("C:\Program Files\Common Files\Microsoft Shared\MSInfo\msinfo32.exe")
+   ;Run, %A_WinDir%\system32\msinfo32.exe
+   ;Run, "C:\Program Files\Common Files\Microsoft Shared\MSInfo\msinfo32.exe"
+   ;TODO doesn't work on Server 2003
+   ;Start > Programs > Accessories > System Tools > System Information
+
+   notify("Launching system panel (you may have to launch this manually from Start > Settings > Control Panel > System)")
    WinWait, System, , 20
    Sleep, 1000
    ;UNCOMMENTME SaveScreenShot("serverSpecs", "C:\inetpub\logs\lynxUpgrades\", "activeWindow")

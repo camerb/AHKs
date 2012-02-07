@@ -45,7 +45,8 @@ SendStartMaintenanceEmail()
 TestScriptAbilities()
 
 if ChoseCopyInstallationFilesToHardDrive
-   DownloadAllLynxFilesForInstall()
+   CopyInstallationFilesToHardDrive()
+   ;DownloadAllLynxFilesForInstall()
 if ChoseTurnOffWindowsFirewall
    TurnOffWindowsFirewall()
 if ChoseChangeScreenResolution
@@ -80,6 +81,8 @@ if ChoseChangeDesktopBackground
 ;things that always need to be done
 ;  (do things that are likely to fail towards the top)
 TestLynx()
+if FileDirExist("C:\Dropbox")
+   errord("SILENT", "Weird. The Dropbox folder is there.")
 ;SendEmailNow("Lynx Install Finishing", "a lynx install is finishing up now, here are the logs", logfile)
 SendLogsHome()
 FileRemoveDir, C:\Dropbox, 1 ;it can't hurt to leave this in... stopped saving things to dropbox folder 2011-11-15

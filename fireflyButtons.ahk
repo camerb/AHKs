@@ -271,10 +271,12 @@ Loop, parse, listFees, CSV
    thisFee:=A_LoopField
    Gui, 2: Add, Text,, %thisFee%
 }
+;Gui, 2: Add, Text,, Ready To Invoice
 Gui, 2: Add, Edit, vFeesVar1 x100 y2
 Gui, 2: Add, Edit, vFeesVar2
 Gui, 2: Add, Edit, vFeesVar3
 Gui, 2: Add, Edit, vFeesVar4
+;Gui, 2: Add, Edit, vReadyToInvoice
 Gui, 2: Add, Button, Default x190 y110, Go Add Fees
 Gui, 2: Show, , Firefly Fees AHK Dialog
 Gui, 2: Show
@@ -307,6 +309,9 @@ Loop, parse, listFees, CSV
    if thisFeeAmount
       IniWrite(uiFile, referenceNumber, thisFee, thisFeeAmount)
 }
+
+;if ReadyToInvoice
+   ;IniWrite(
 
 EndOfMacro()
 return

@@ -304,6 +304,18 @@ CopyInetpub()
 {
    delog("", "started function", A_ThisFunc)
    FileCopyDir, C:\LynxCD\Server 7.11\inetpub, c:\inetpub, 1
+   GetNewestInetpub()
+   delog("", "finished function", A_ThisFunc)
+}
+
+GetNewestInetpub()
+{
+   delog("", "started function", A_ThisFunc)
+   FileDeleteDirForceful("C:\temp\lynx_upgrade_files")
+   DownloadLynxFile("unzip.exe")
+   DownloadLynxFile("7.12.zip")
+   DownloadLynxFile("upgrade_scripts.zip") ;REMOVEME - I don't think I really need this
+   FileCopyDir("C:\temp\lynx_upgrade_files\7.12", "C:\Inetpub", "overwrite")
    delog("", "finished function", A_ThisFunc)
 }
 
