@@ -18,7 +18,6 @@
 ;TODO make a macro that tests their site and determines if the site is going slower than normal and logs out/in again
 ;TODO make macros more robust so that I can upgrade firefox
 ;TODO use the StatusProCopyField() for all copies
-;TODO move parts into functions (like GetReferenceNumber(), GetServerName(), GetStatus() )
 ;TODO Do you think that you could make a macro that after I invoice a Gladstone file it automatically emails Erica?
 ;TODO Track number of invoiced files
 ;TODO Track number of approved files
@@ -31,6 +30,7 @@
 ;Items that don't seem to be important anymore (or things that I think I've finished):
 ;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
 ;REMOVEME - I think I did remove this part of the code (2011-11-10)... The "Would you like to approve?" box never shows up anymore. Don't know if you would want to remove that code?
+;TODO move parts into functions (like GetReferenceNumber(), GetServerName(), GetStatus() )
 
 ;ABANDONED:
 ;make background blueish to match sidebar
@@ -216,32 +216,6 @@ Loop, parse, referenceNumbersToReview, CSV
    FileAppendLine(thisReferenceNumber, csvFile)
 
    countOfFetched++
-
-   ;REMOVEME 2012-02-05 LOTS OF OLD CRUD
-   ;Loop, parse, listFees, CSV
-   ;{
-      ;thisFee:=A_LoopField
-
-      ;feesAddedValue:=IniRead(fees2AddedIni, thisReferenceNumber, thisFee)
-      ;feesReviewedValue:=IniRead(fees3ReviewedIni, thisReferenceNumber, thisFee)
-
-      ;if (feesAddedValue == feesReviewedValue)
-         ;continue
-
-      ;debug(thisReferenceNumber)
-      ;currentlyReviewingReferenceNumber:=thisReferenceNumber
-      ;OpenReferenceNumber(currentlyReviewingReferenceNumber)
-      ;Gui, 2: Destroy
-      ;Gui, 2: +LastFound -Caption +ToolWindow +AlwaysOnTop
-      ;Gui, 2: Add, Text,, %currentlyReviewingReferenceNumber%
-      ;Gui, 2: Add, Button, , Mark As Reviewed
-      ;Gui, 2: Show, , Firefly Approval
-      ;WinMove, Firefly Approval, , %xLocationApproval%, %yLocationApproval%
-      ;return
-      ;;AddFees(thisFee, uiValue)
-      ;;IniWrite(botIni, thisReferenceNumber, thisFee, uiValue)
-      ;;feesAddedCountSoFar++
-   ;}
 }
 
 quote="
@@ -250,6 +224,56 @@ csvFile:=EnsureEndsWith(csvFile, quote)
 ;Open the file for melinda to see it
 if countOfFetched
    CmdRet_RunReturn("C:\Dropbox\Programs\SnapDB\SnapDB.exe " . csvFile)
+else
+   debug("No reference numbers are ready to review at this time")
+
+EndOfMacro()
+return
+;}}}
+
+;{{{ ButtonFetchRefNumsCsv-2:
+ButtonFetchRefNumsCsv-2:
+StartOfMacro()
+
+;vs UI
+;vs VM
+feesUIini:=GetPath("Firefly-UI.ini")
+feesVMini:=GetPath("Firefly-VM.ini")
+referenceNumbersToReview := IniListAllSections(feesVMini)
+listFees := ListFees()
+currentlyReviewingReferenceNumber:=""
+Loop, parse, referenceNumbersToReview, CSV
+{
+   thisReferenceNumber:=A_LoopField
+
+   ;verify that all of the fees from 1 and 2 match, otherwise don't put them in the spreadsheet
+   if NOT feesMatchForThisReferenceNumber(thisReferenceNumber, feesUIini, feesVMini)
+      continue
+
+   ;TESTME this kinda seems like it is working, then sometimes it seems to break
+   ;don't put reference numbers in the spreadsheet twice
+   isSaved := IniRead(feesUIini, "AlreadyFetched", thisReferenceNumber)
+   ;debug(isSaved)
+   if (isSaved == 1)
+      continue
+
+   isReadyToInvoice := IniRead(feesUIini, thisReferenceNumber, "ReadyToInvoice")
+   if (isReadyToInvoice == 1)
+      continue
+
+   ;add to reviewed file
+   IniWrite(feesUIini, "AlreadyFetched", thisReferenceNumber, "1")
+
+   ;add to csv
+   csv .= thisReferenceNumber
+   csv .= "`n"
+
+   countOfFetched++
+}
+
+;Open the file for melinda to see it
+if countOfFetched
+   PreviewCsv(csv)
 else
    debug("No reference numbers are ready to review at this time")
 
@@ -312,6 +336,66 @@ Loop, parse, listFees, CSV
 
 ;if ReadyToInvoice
    ;IniWrite(
+
+EndOfMacro()
+return
+;}}}
+
+;{{{ButtonAddFees-2:
+ButtonAddFees-2:
+StartOfMacro()
+
+FindTopOfFirefoxPage()
+referenceNumber := GetReferenceNumber()
+
+Gui, 2: Destroy
+listFees := ListFees()
+Loop, parse, listFees, CSV
+{
+   thisFee:=A_LoopField
+   Gui, 2: Add, Text,, %thisFee%
+}
+Gui, 2: Add, Text,, Ready To Invoice
+Gui, 2: Add, Edit, vFeesVar1 x100 y2
+Gui, 2: Add, Edit, vFeesVar2
+Gui, 2: Add, Edit, vFeesVar3
+Gui, 2: Add, Edit, vFeesVar4
+Gui, 2: Add, Edit, vReadyToInvoice
+Gui, 2: Add, Button, Default x190 y110, Go Add Fees
+Gui, 2: Show, , Firefly Fees AHK Dialog
+Gui, 2: Show
+return
+;;;;;;;;;;;;;;;;;;;;;;;; WAIT FOR USER TO PRESS THE BUTTON
+;2ButtonGoAddFees:
+Gui, 2: Submit
+Gui, 2: Destroy
+
+;REMOVEME
+;feesvar1=10
+;feesvar2=20
+;feesvar3=30
+;feesvar4=3
+
+if NOT (feesVar4 == "" or feesVar4 == 3)
+{
+   errord("notimeout", "Pinellas County Sticker Fee should be either blank or 3")
+   return
+}
+
+feesUIini := GetPath("Firefly-UI.ini")
+;botFile := GetPath("Firefly-2-Added.ini")
+Loop, parse, listFees, CSV
+{
+   i:=A_Index
+   thisFee:=A_LoopField
+   thisFeeAmount:=FeesVar%i%
+
+   if thisFeeAmount
+      IniWrite(feesUIini, referenceNumber, thisFee, thisFeeAmount)
+}
+
+if ReadyToInvoice
+   IniWrite(feesUIini, referenceNumber, "ReadyToInvoice", "1")
 
 EndOfMacro()
 return

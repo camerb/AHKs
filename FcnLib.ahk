@@ -1714,11 +1714,15 @@ GetPath(file)
       return "C:\Dropbox\Misc\questions.ini"
    else if (file = "FireflyFees.json")
       return "C:\Dropbox\AHKs\gitExempt\firefly\FireflyFees.json"
-   else if (file = "Firefly-1-Submitted.ini")
+   else if (file = "Firefly-UI.ini") ;FIXME need to fix this soon
       return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-1-UserWantsTheseFees.ini"
-   else if (file = "Firefly-2-Added.ini")
+   else if (file = "Firefly-VM.ini") ;FIXME need to fix this soon
       return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-2-BotAddedTheseFees.ini"
-   else if (file = "Firefly-3-Fetched.ini")
+   else if (file = "Firefly-1-Submitted.ini") ;FIXME need to fix this soon
+      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-1-UserWantsTheseFees.ini"
+   else if (file = "Firefly-2-Added.ini") ;FIXME need to fix this soon
+      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-2-BotAddedTheseFees.ini"
+   else if (file = "Firefly-3-Fetched.ini") ;FIXME need to fix this soon
       return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-3-UserFetchedRefNumsForReview.ini"
    else if (file = "MyStats.ini")
       return "C:\Dropbox\Public\logs\" . A_ComputerName . ".ini"
@@ -1886,6 +1890,17 @@ PrettyTickCount(timeInMilliSeconds)
    ElapsedMilliseconds := SubStr(0 timeInMilliSeconds - ElapsedHours * 3600000 - ElapsedMinutes * 60000 - ElapsedSeconds * 1000, -2)
    returned := ElapsedHours ":" ElapsedMinutes ":" ElapsedSeconds ":" ElapsedMilliseconds
    return returned
+}
+
+PreviewCsv(csvContents)
+{
+   csvFile := "C:\Dropbox\temp\" . CurrentTime("hyphenated") . ".csv"
+   FileAppend(csvContents, csvFile)
+
+   quote="
+   csvFile:=EnsureStartsWith(csvFile, quote)
+   csvFile:=EnsureEndsWith(csvFile, quote)
+   CmdRet_RunReturn("C:\Dropbox\Programs\SnapDB\SnapDB.exe " . csvFile)
 }
 
 ;WRITEME make function for getting remote and local path of dropbox public folder
