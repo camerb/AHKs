@@ -697,6 +697,14 @@ Loop, C:\My Dropbox\AHKs\gitExempt\transferTo\%A_ComputerName%\*.*, 2, 0
 }
 ;}}}
 
+;{{{ Ensure VM firefly bot is running
+if (A_ComputerName = "BAUSTIANVM" and Mod(A_Sec, 5)==0)
+{
+   if IsAhkCurrentlyRunning("FireflyFeesBot")
+      RunAhk("C:\Dropbox\AHKs\FireflyFeesBot.ahk")
+}
+;}}}
+
 ;{{{ Continual backups
 ;archive import reports for EPMS
 if (A_ComputerName = "PHOSPHORUS" and Mod(A_Sec, 5)==0)

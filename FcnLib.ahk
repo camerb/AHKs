@@ -1847,6 +1847,17 @@ AhkClose(ahkFilename)
       ;return false
 }
 
+;TESTME
+IsAhkCurrentlyRunning(ahk)
+{
+   SetTitleMatchMode, 2
+   ahk := EnsureEndsWith(ahk, ".ahk")
+   WinGet, pid, PID, %ahk% - AutoHotkey
+   CustomTitleMatchMode("Default")
+   returned := !!pid
+   return returned
+}
+
 ;Wait until the title of the active window changes
 ;(note that changing to another window sets it off, too)
 WinWaitActiveTitleChange(oldTitle="")

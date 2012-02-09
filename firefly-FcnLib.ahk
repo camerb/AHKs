@@ -612,3 +612,45 @@ ListFees()
    return returned
 }
 ;}}}
+
+;{{{ iniFolder Library
+;TESTME
+IniFolderRead(iniFolder, section, key)
+{
+   iniFolder := EnsureEndsWith(iniFolder, "\")
+   timestamp := CurrentTime("hyphenated")
+   myIniFile=%iniFolder%%A_ComputerName%.ini
+   keyValue=(%key%)-(value)
+   keyDate=(%key%)-(timestamp)
+
+   ;search through all applicable files to get the most recently inserted value
+   maxValue=ERROR
+   maxDate=
+   Loop, %iniFolder%*.ini
+   {
+      thisValue := IniRead(myIniFile, section, keyValue)
+      thisTimestamp := IniRead(myIniFile, section, keyDate)
+      
+      thisTimestamp := DeFormatTimestamp(thisTimestamp)
+      if (thisTimestamp > maxDate)
+      {
+         maxValue := thisValue
+         maxDate := thisTimestamp
+      }
+   }
+   
+   return maxValue
+}
+
+IniFolderWrite(iniFolder, section, key, value)
+{
+   iniFolder := EnsureEndsWith(iniFolder, "\")
+   timestamp := CurrentTime("hyphenated")
+   myIniFile=%iniFolder%%A_ComputerName%.ini
+   keyValue=(%key%)-(value)
+   keyDate=(%key%)-(timestamp)
+
+   IniWrite(myIniFile, section, keyValue, value)
+   IniWrite(myIniFile, section, keyDate, timestamp)
+}
+;}}}
