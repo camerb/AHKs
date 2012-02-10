@@ -52,7 +52,15 @@ RuniMacro(script="URL GOTO=nascar.com", options="")
    if NOT firefoxPath
       errord("", "cannot find path for firefox", A_LineNumber, A_ThisFunc, A_ScriptName)
 
+   ;get firefox version
+   firefoxFolder:=ParentDir(firefoxPath)
+   firefoxFolder:=EnsureEndsWith(firefoxFolder, "\")
+   firefoxIniPath=%folder%application.ini
+   firefoxVersion:=IniRead(firefoxIniPath, "App", "Version")
+   firefoxVersion:=RegExMatch(firefoxVersion, "^\d+(\.\d+)?")
+
    ;are we using the portable version?
+   ;TODO ugh... the portable version causes so many problems
    if InStr(firefoxPath, "FirefoxPortable")
       usingPortableVersion:=true
 
@@ -101,8 +109,13 @@ RuniMacro(script="URL GOTO=nascar.com", options="")
    Sleep, 1000
 
    ;Run this junk on the home PC, cause it's running cruddy old Firefox 3.6.24
-   if (A_ComputerName = "BAUSTIAN-09PC")
+   ;if (A_ComputerName = "BAUSTIAN-09PC")
+   dmsg=Firefox Version is: %FirefoxVersion% on %A_ComputerName%
+   dmsg2=Firefox Version is: %FirefoxVersion% on %A_ComputerName% (determined this is less than v5)
+   AddToTrace(dmsg)
+   if (FirefoxVersion < 5)
    {
+      AddToTrace(dmsg2)
       ForceWinFocus("Mozilla Firefox", "Exact")
       WinClose("Mozilla Firefox", "Exact")
       Sleep, 200

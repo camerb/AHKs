@@ -39,19 +39,7 @@ Sleep, 1000
 KillFirefox()
 Reload()
 
-
-;feesJson := FileRead(GetPath("FireflyFees.json"))
-;listFees := json(feesJson, "listFees")
-;Loop, parse, listFees, CSV
-;{
-   ;thisFee:=A_LoopField
-   ;thisFeeType := json(feesJson, thisFee . ".type")
-   ;;AddFees(thisFeeType, thisFee, i)
-   ;debug(thisFee, thisFeeType)
-;}
-;GetFees()
 ExitApp
-
 
 ;works ok on manned
 ;works great on bot

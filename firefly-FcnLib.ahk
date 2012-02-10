@@ -619,26 +619,33 @@ IniFolderRead(iniFolder, section, key)
 {
    iniFolder := EnsureEndsWith(iniFolder, "\")
    timestamp := CurrentTime("hyphenated")
-   myIniFile=%iniFolder%%A_ComputerName%.ini
+   ;myIniFile=%iniFolder%%A_ComputerName%.ini
    keyValue=(%key%)-(value)
    keyDate=(%key%)-(timestamp)
 
    ;search through all applicable files to get the most recently inserted value
    maxValue=ERROR
-   maxDate=
+   maxDate=0
+   ;addToTrace("@@@@@@@@@@@@")
    Loop, %iniFolder%*.ini
    {
-      thisValue := IniRead(myIniFile, section, keyValue)
-      thisTimestamp := IniRead(myIniFile, section, keyDate)
-      
-      thisTimestamp := DeFormatTimestamp(thisTimestamp)
+      thisIniFile := A_LoopFileFullPath
+      thisValue := IniRead(thisIniFile, section, keyValue)
+      thisTimestamp := IniRead(thisIniFile, section, keyDate)
+
+      thisTimestamp := DeFormatTime(thisTimestamp)
+      ;addToTrace("@@@@@@@@@@@@")
+      ;addToTrace(thisTimestamp)
+      ;addToTrace(maxDate)
       if (thisTimestamp > maxDate)
       {
+         ;addToTrace("was bigger")
+         ;debug("notimeout nolog", thisTimestamp, maxDate)
          maxValue := thisValue
          maxDate := thisTimestamp
       }
    }
-   
+
    return maxValue
 }
 
