@@ -53,11 +53,15 @@ RuniMacro(script="URL GOTO=nascar.com", options="")
       errord("", "cannot find path for firefox", A_LineNumber, A_ThisFunc, A_ScriptName)
 
    ;get firefox version
-   firefoxFolder:=ParentDir(firefoxPath)
-   firefoxFolder:=EnsureEndsWith(firefoxFolder, "\")
-   firefoxIniPath=%folder%application.ini
-   firefoxVersion:=IniRead(firefoxIniPath, "App", "Version")
-   firefoxVersion:=RegExMatch(firefoxVersion, "^\d+(\.\d+)?")
+   ;addtotrace(version)
+   ;firefoxFolder:=ParentDir(firefoxPath)
+   ;firefoxFolder:=EnsureEndsWith(firefoxFolder, "\")
+   ;firefoxIniPath=%folder%application.ini
+   firefoxVersion:=GetFirefoxVersion(firefoxPath)
+   ;firefoxVersion:=RegExMatch(firefoxVersion, "^\d+(\.\d+)?")
+   ;RegExMatch(firefoxVersion, "^(\d+)", match)
+   ;firefoxVersion:=match1
+   ;firefoxVersion:=match
 
    ;are we using the portable version?
    ;TODO ugh... the portable version causes so many problems
@@ -108,17 +112,21 @@ RuniMacro(script="URL GOTO=nascar.com", options="")
    FileCreate("'this is where imacros are saved temporarily", iMacroFile)
    Sleep, 1000
 
+   ;TODO switch this over once I am confident the version num math is done correctly
    ;Run this junk on the home PC, cause it's running cruddy old Firefox 3.6.24
-   ;if (A_ComputerName = "BAUSTIAN-09PC")
    dmsg=Firefox Version is: %FirefoxVersion% on %A_ComputerName%
    dmsg2=Firefox Version is: %FirefoxVersion% on %A_ComputerName% (determined this is less than v5)
    AddToTrace(dmsg)
-   if (FirefoxVersion < 5)
-   {
+   if (ConvertVersionNumToInt(FirefoxVersion) < 5)
       AddToTrace(dmsg2)
+
+   if (A_ComputerName = "BAUSTIAN-09PC")
+   {
       ForceWinFocus("Mozilla Firefox", "Exact")
       WinClose("Mozilla Firefox", "Exact")
       Sleep, 200
+
+      ;TODO shouldn't I move this down below the if?
       ToggleIMacrosPanel()
    }
 }

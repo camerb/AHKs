@@ -1847,12 +1847,30 @@ AhkClose(ahkFilename)
       ;return false
 }
 
+GetFirefoxVersion(firefoxPath)
+{
+   folder:=ParentDir(firefoxPath)
+   folder:=EnsureEndsWith(folder, "\")
+   iniPath=%folder%application.ini
+   version:=IniRead(iniPath, "App", "Version")
+   return version
+}
+
+ConvertVersionNumToInt(versionNum)
+{
+   versionNum:=RegExMatch(versionNum, "^(\d+)", match)
+   versionNum:=match
+   return versionNum
+}
+
 ;TESTME
 IsAhkCurrentlyRunning(ahk)
 {
    SetTitleMatchMode, 2
+   DetectHiddenWindows, On
    ahk := EnsureEndsWith(ahk, ".ahk")
    WinGet, pid, PID, %ahk% - AutoHotkey
+   DetectHiddenWindows, Off
    CustomTitleMatchMode("Default")
    returned := !!pid
    return returned
@@ -2033,4 +2051,7 @@ PreviewCsv(csvContents)
 
 
 ;WRITEME make an instant diff tool (put it on the pastebin, prompt for part 2, put on pastebin)
+
+
+;WRITEME make forums scraper that will pull information from each lib into a common format on a common ahk.net site (CPAN4AHK)
 
