@@ -41,27 +41,17 @@ AppsKey & 6::  Run, temporary6.ahk
 AppsKey & 7::  Run, temporary7.ahk
 AppsKey & 8::  Run, temporary8.ahk
 AppsKey & 9::  Run, temporary9.ahk
+AppsKey & 0::  Run, temporary0.ahk
 AppsKey & -::  Run, ResaveTemporary.ahk
 AppsKey & =::  Run, NewTempAhk.ahk
 
-AppsKey & 0::
-GetKeyState, controlState, Control
-if (controlState == "D")
-{
-   ActiveFile := Prompt("Which file would you like to work on?")
-   ActiveFile := EnsureEndsWith(ActiveFile, ".ahk")
-   command=Run, %ActiveFile%
-   FileCreate(command, "temporary0.ahk")
-}
-else
-   Run, temporary0.ahk
-Loop 5
-{
-   Sleep, 500
-   ;RunAhk("ModifierKeysUp.ahk")
-   Send, {appskey up}
-}
+^+!#0::
+ActiveFile := Prompt("Which file would you like to work on?")
+ActiveFile := EnsureEndsWith(ActiveFile, ".ahk")
+command=Run, %ActiveFile%
+FileCreate(command, "temporary0.ahk")
 return
+
 /*
 AppsKey & 0::  Run, temporary.ahk
 ;or, this could be a way to run an ironahk script
