@@ -1724,6 +1724,8 @@ GetPath(file)
       return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-2-BotAddedTheseFees.ini"
    else if (file = "Firefly-3-Fetched.ini") ;FIXME need to fix this soon
       return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-3-UserFetchedRefNumsForReview.ini"
+   else if (file = "FireflyIniFolder")
+      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\inif\"
    else if (file = "MyStats.ini")
       return "C:\Dropbox\Public\logs\" . A_ComputerName . ".ini"
    else if (file = "MyConfig.ini")

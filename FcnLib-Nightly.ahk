@@ -107,6 +107,9 @@ RuniMacro(script="URL GOTO=nascar.com", options="")
    ;wait for the lockfile to disappear, then we'll know that the imacro is done
    WaitFileNotExist(lockfile)
 
+      Sleep, 5000
+   debug("should be done with imacro")
+
    ;close the iMacros panel
    ;ToggleIMacrosPanel()
    FileCreate("'this is where imacros are saved temporarily", iMacroFile)
@@ -120,15 +123,28 @@ RuniMacro(script="URL GOTO=nascar.com", options="")
    if (ConvertVersionNumToInt(FirefoxVersion) < 5)
       AddToTrace(dmsg2)
 
-   if (A_ComputerName = "BAUSTIAN-09PC")
+      Sleep, 5000
+   debug("should be done with imacro REALLY")
+
+   ;if (A_ComputerName = "BAUSTIAN-09PC")
+   if (ConvertVersionNumToInt(FirefoxVersion) < 5)
    {
       ForceWinFocus("Mozilla Firefox", "Exact")
       WinClose("Mozilla Firefox", "Exact")
       Sleep, 200
+   }
+
+   if ClickIfImageSearch("images/iMacros/iMacrosLargeLogo2.bmp")
+   {
+      Sleep, 5000
+      debug("saw the large logo")
 
       ;TODO shouldn't I move this down below the if?
       ToggleIMacrosPanel()
    }
+
+      ;Sleep, 5000
+   ;debug("about to toggle panel")
 }
 
 iMacroUrlDownloadToVar(url="")
@@ -153,7 +169,10 @@ iMacroUrlDownloadToVar(url="")
 ;I'm thinking this should generally be discouraged (the hotkey is configurable)
 ToggleIMacrosPanel()
 {
+   Sleep, 2000
    ControlSend, , {F8}, Mozilla Firefox
+   ;Send, {F8}
+   Sleep, 2000
 }
 ;}}}
 

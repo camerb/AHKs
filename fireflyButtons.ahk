@@ -281,8 +281,8 @@ EndOfMacro()
 return
 ;}}}
 
-;{{{ButtonAddFees:
-ButtonAddFees:
+;{{{ButtonAddFees-old:
+ButtonAddFees-old:
 StartOfMacro()
 
 FindTopOfFirefoxPage()
@@ -306,7 +306,7 @@ Gui, 2: Show, , Firefly Fees AHK Dialog
 Gui, 2: Show
 return
 ;;;;;;;;;;;;;;;;;;;;;;;; WAIT FOR USER TO PRESS THE BUTTON
-2ButtonGoAddFees:
+;2ButtonGoAddFees:
 Gui, 2: Submit
 Gui, 2: Destroy
 
@@ -341,8 +341,8 @@ EndOfMacro()
 return
 ;}}}
 
-;{{{ButtonAddFees-2:
-ButtonAddFees-2:
+;{{{ButtonAddFees:
+ButtonAddFees:
 StartOfMacro()
 
 FindTopOfFirefoxPage()
@@ -360,17 +360,18 @@ Gui, 2: Add, Edit, vFeesVar1 x100 y2
 Gui, 2: Add, Edit, vFeesVar2
 Gui, 2: Add, Edit, vFeesVar3
 Gui, 2: Add, Edit, vFeesVar4
-Gui, 2: Add, Edit, vReadyToInvoice
+;Gui, 2: Add, Edit, vReadyToInvoice
 Gui, 2: Add, Button, Default x190 y110, Go Add Fees
 Gui, 2: Show, , Firefly Fees AHK Dialog
 Gui, 2: Show
 return
 ;;;;;;;;;;;;;;;;;;;;;;;; WAIT FOR USER TO PRESS THE BUTTON
-;2ButtonGoAddFees:
+2ButtonGoAddFees:
 Gui, 2: Submit
 Gui, 2: Destroy
 
 ;REMOVEME
+ReadyToInvoice:=true
 ;feesvar1=10
 ;feesvar2=20
 ;feesvar3=30
@@ -382,6 +383,7 @@ if NOT (feesVar4 == "" or feesVar4 == 3)
    return
 }
 
+iniFolder:=GetPath("FireflyIniFolder")
 feesUIini := GetPath("Firefly-UI.ini")
 ;botFile := GetPath("Firefly-2-Added.ini")
 Loop, parse, listFees, CSV
@@ -389,11 +391,16 @@ Loop, parse, listFees, CSV
    i:=A_Index
    thisFee:=A_LoopField
    thisFeeAmount:=FeesVar%i%
+   thisKeySubmitted=FeeSubmitted-%thisFee%
 
    if thisFeeAmount
-      IniWrite(feesUIini, referenceNumber, thisFee, thisFeeAmount)
+      IniFolderWrite(iniFolder, referenceNumber, thisFee, thisFeeAmount)
+   if thisFeeAmount
+      IniWrite(feesUIini, referenceNumber, thisKeySubmitted, thisFeeAmount)
 }
 
+if thisFeeAmount
+   IniFolderWrite(iniFolder, referenceNumber, "ReadyToInvoice", "1")
 if ReadyToInvoice
    IniWrite(feesUIini, referenceNumber, "ReadyToInvoice", "1")
 

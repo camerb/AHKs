@@ -1,4 +1,4 @@
 #include FcnLib.ahk
 
+SpiffyMute()
 
-run, temporary9.ahk

@@ -1,6 +1,7 @@
 #include FcnLib.ahk
 #include FcnLib-Clipboard.ahk
 #include FcnLib-Nightly.ahk
+#include FcnLib-IniStats.ahk
 #include SendEmailSimpleLib.ahk
 #include thirdParty\json.ahk
 
@@ -659,5 +660,38 @@ IniFolderWrite(iniFolder, section, key, value)
 
    IniWrite(myIniFile, section, keyValue, value)
    IniWrite(myIniFile, section, keyDate, timestamp)
+}
+
+IniFolderListAllSections(iniFolder)
+{
+   iniFolder := EnsureEndsWith(iniFolder, "\")
+
+   Loop, %iniFolder%*.ini
+   {
+      thisIniFile := A_LoopFileFullPath
+
+      if (strlen(returned) != 0)
+         returned .= ","
+      returned .= IniListAllSections(thisIniFile)
+   }
+
+   return returned
+}
+
+IniFolderListAllKeys(iniFolder, section="") ;defaults to all sections
+{
+   ;deleting keys or sections is not allowed, because that will be a lot of work (you'd have to mark as inactive instead)
+   iniFolder := EnsureEndsWith(iniFolder, "\")
+
+   Loop, %iniFolder%*.ini
+   {
+      thisIniFile := A_LoopFileFullPath
+
+      if (strlen(returned) != 0)
+         returned .= ","
+      returned .= IniListAllKeys(thisIniFile, section)
+   }
+
+   return returned
 }
 ;}}}

@@ -697,11 +697,47 @@ Loop, C:\My Dropbox\AHKs\gitExempt\transferTo\%A_ComputerName%\*.*, 2, 0
 }
 ;}}}
 
-;{{{ Ensure VM firefly bot is running
+;{{{ Ensure VM firefly bot is running, and not crashed
 if (A_ComputerName = "BAUSTIANVM" and Mod(A_Sec, 5)==0)
 {
    if NOT IsAhkCurrentlyRunning("FireflyFeesBot")
       RunAhk("C:\Dropbox\AHKs\FireflyFeesBot.ahk")
+   if NOT IsAhkCurrentlyRunning("FireflyBotHelper")
+      RunAhk("C:\Dropbox\AHKs\FireflyBotHelper.ahk")
+
+   ;TODO
+   ;if bot or helper haven't said hi within a certain period of time, kill them and restart them
+
+   CurrentFirefoxUrl := GetUrlBar("Firefox")
+   if NOT MaxTimeToWaitForDeadBot
+      MaxTimeToWaitForDeadBot := "20200102010203"
+
+   if (CurrentFirefoxUrl == LastFirefoxUrl)
+   {
+      iniPP("saw old url")
+      if CurrentlyAfter(MaxTimeToWaitForDeadBot)
+      {
+         iniPP("killing rogue bot")
+         addtotrace(currenttime("hyphenated") . " killing rogue bot")
+         SaveScreenShot("FireflyBotFroze", "dropbox")
+
+         ;TODO figure out exactly what works best here...
+         ;     seems like we can't reboot the compy all the friggin time
+         ;Run, restart.ahk
+         ;Run, ForceReloadAll.exe
+         ;CloseAllAhks("", "AutoHotkey.ahk")
+         CloseAllAhks("AutoHotkey.ahk")
+
+         Reload()
+      }
+   }
+   else
+   {
+      iniPP("saw new url")
+      LastFirefoxUrl := CurrentFirefoxUrl
+      MaxTimeToWaitForDeadBot:=CurrentTimePlus(300) ;TODO I think this is five minutes
+   }
+
 }
 ;}}}
 

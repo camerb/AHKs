@@ -13,8 +13,8 @@ allWindows=AHK Sidebar,%childWindows%
 
 ;A_ScreenWidth
 ;A_ScreenHeight
-screenheight=768
-screenwidth=1024
+screenheight:=A_ScreenHeight
+screenwidth:=A_ScreenWidth
 width:=160
 height:=screenheight - trayheight
 xpos:=screenwidth - width
@@ -51,7 +51,7 @@ Loop, parse, childWindows, CSV
    }
 }
 SleepSeconds(2)
-SleepSeconds(20)
+;SleepSeconds(20)
 GoSub, ExitSub
 
 

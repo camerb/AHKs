@@ -7,6 +7,7 @@ bot:=true
 if NOT IsVM()
    fatalerrord("this macro is only for VMs")
 
+iniFolder:=GetPath("FireflyIniFolder")
 uiini:=GetPath("Firefly-1-Submitted.ini")
 botini:=GetPath("Firefly-2-Added.ini")
 uiSections := IniListAllSections(uiini)
@@ -19,22 +20,40 @@ Loop, parse, uiSections, CSV
    Loop, parse, listFees, CSV
    {
       thisFee:=A_LoopField
+      thisKeySubmitted=FeeSubmitted-%thisFee%
+      thisKeyAdded=FeeAdded-%thisFee%
 
-      botValue:=IniRead(botini, thisReferenceNumber, thisFee)
+      ;uiValue:=IniFolderRead(uiini, thisReferenceNumber, thisKeySubmitted)
+      ;botValue:=IniFolderRead(botini, thisReferenceNumber, thisKeyAdded)
       uiValue:=IniRead(uiini, thisReferenceNumber, thisFee)
+      botValue:=IniRead(botini, thisReferenceNumber, thisFee)
 
       if (botValue == uiValue)
          continue
 
       ;if ( Mod(feesAddedCountSoFar, 5) == 0)
          RefreshLogin()
-      arrangeWindows()
+      ;Sleep, 5000
+      ;debug("about to arrange windows")
+      ArrangeWindows()
+      ;Sleep, 5000
+      ;debug("about to open ref num")
       OpenReferenceNumber(thisReferenceNumber)
       AddFees(thisFee, uiValue)
       IniWrite(botIni, thisReferenceNumber, thisFee, uiValue)
+      IniFolderWrite(iniFolder, thisReferenceNumber, thisKeyAdded, uiValue)
       feesAddedCountSoFar++
+
+      msg=Added %feesAddedCountSoFar% fees so far
+      AddToTrace(msg)
+      iniPP("Bot Is Working")
    }
 }
+;msg=Added %feesAddedCountSoFar% fees so far
+;AddToTrace(msg)
+;AddToTrace("chillin")
+iniPP("Bot Is Chillin")
+
 Sleep, 1000
 KillFirefox()
 Reload()
