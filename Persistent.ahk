@@ -724,9 +724,9 @@ if (A_ComputerName = "BAUSTIANVM" and Mod(A_Sec, 5)==0)
          ;TODO figure out exactly what works best here...
          ;     seems like we can't reboot the compy all the friggin time
          ;Run, restart.ahk
-         ;Run, ForceReloadAll.exe
+         Run, ForceReloadAll.exe
          ;CloseAllAhks("", "AutoHotkey.ahk")
-         CloseAllAhks("AutoHotkey.ahk")
+         ;CloseAllAhks("AutoHotkey.ahk") ;seemed ok, but gave a lot of dead processes/tray icons
 
          Reload()
       }

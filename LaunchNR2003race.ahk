@@ -2,7 +2,7 @@
 
 ip := GetIPaddress()
 ChangeLogitechWheelMode()
-;LaunchTeamspeak2()
+LaunchTeamspeak2()
 CloseProgramsThatHinderNR2003()
 SoundSet, 40
 RunAhk("NR2003hotkeys.ahk")

@@ -1,6 +1,5 @@
 #include FcnLib.ahk
 #include firefly-FcnLib.ahk
-#include thirdParty\json.ahk
 assignGlobals()
 bot:=true
 
@@ -8,9 +7,9 @@ if NOT IsVM()
    fatalerrord("this macro is only for VMs")
 
 iniFolder:=GetPath("FireflyIniFolder")
-uiini:=GetPath("Firefly-1-Submitted.ini")
-botini:=GetPath("Firefly-2-Added.ini")
-uiSections := IniListAllSections(uiini)
+;uiini:=GetPath("Firefly-1-Submitted.ini")
+;botini:=GetPath("Firefly-2-Added.ini")
+uiSections := IniFolderListAllSections(iniFolder)
 feesJson := GetSimpleFeesJson()
 listFees := ListFees()
 Loop, parse, uiSections, CSV
@@ -23,24 +22,17 @@ Loop, parse, uiSections, CSV
       thisKeySubmitted=FeeSubmitted-%thisFee%
       thisKeyAdded=FeeAdded-%thisFee%
 
-      ;uiValue:=IniFolderRead(uiini, thisReferenceNumber, thisKeySubmitted)
-      ;botValue:=IniFolderRead(botini, thisReferenceNumber, thisKeyAdded)
-      uiValue:=IniRead(uiini, thisReferenceNumber, thisFee)
-      botValue:=IniRead(botini, thisReferenceNumber, thisFee)
+      uiValue:=IniFolderRead(iniFolder, thisReferenceNumber, thisKeySubmitted)
+      botValue:=IniFolderRead(iniFolder, thisReferenceNumber, thisKeyAdded)
 
       if (botValue == uiValue)
          continue
 
       ;if ( Mod(feesAddedCountSoFar, 5) == 0)
          RefreshLogin()
-      ;Sleep, 5000
-      ;debug("about to arrange windows")
       ArrangeWindows()
-      ;Sleep, 5000
-      ;debug("about to open ref num")
       OpenReferenceNumber(thisReferenceNumber)
       AddFees(thisFee, uiValue)
-      IniWrite(botIni, thisReferenceNumber, thisFee, uiValue)
       IniFolderWrite(iniFolder, thisReferenceNumber, thisKeyAdded, uiValue)
       feesAddedCountSoFar++
 
@@ -116,7 +108,19 @@ AddFees(name, amount)
    CloseFeesWindow()
    Sleep, 30000
 
-   ;TODO sanity check using GetFees()
+   ;POLISH sanity check using GetFees()
+   AllTheFeesJson := GetFees()
+   result := json(AllTheFeesJson, name)
+   if (result == amount)
+      msg=fee added correctly
+   else
+      msg=ERROR-looks like bot failed to add the fee correctly
+
+   ArrangeWindows()
+   FindTopOfFirefoxPage()
+   referenceNumber:=GetReferenceNumber()
+
+   IniFolderWrite(GetPath("FireflyIniFolder"), referenceNumber, "FeesAddedMessage-" . name, msg)
 }
 
 GetFees()
@@ -141,7 +145,8 @@ GetFees()
    feesCount:=match1
 
    ;pull out the individual fees
-   listFees=ListFees()
+   listFees:=ListFees()
+   AllTheFeesJson:=GetSimpleFeesJson()
    Loop, parse, listFees, CSV
    {
       thisFee:=A_LoopField
@@ -159,6 +164,7 @@ GetFees()
       FeeAmount%i%:=thisFeeAmount
       FeeType%i%:=thisFeeType
       FeeName%i%:=thisFee
+      json(AllTheFeesJson, thisFee, thisFeeAmount)
       if (thisFeeAmount != "")
          numberOfFeesCounted++
    }
@@ -170,9 +176,11 @@ GetFees()
       iniPP("(error 31) fees count mismatch")
    }
 
-   errord("nolog notimeout", referenceNumber, feesCount, FeeAmount1, FeeAmount2, FeeAmount3, FeeAmount4)
+   ;errord("nolog notimeout", referenceNumber, feesCount, FeeAmount1, FeeAmount2, FeeAmount3, FeeAmount4)
    ;WFCIImageSearch(FixImagePathIfBot("images/firefly/fees/feesClose.bmp"))
    CloseFeesWindow()
+
+   return AllTheFeesJson
 }
 
 OpenFeesWindow()

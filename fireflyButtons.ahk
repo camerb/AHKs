@@ -7,9 +7,16 @@
 ;  Make FindTopOfFirefoxPage() more reliable (it used to be good)
 ;  Track invoices (maybe email erica when invoice is generated) (need to discuss with mel)
 
+;Mel said she had a bunch of issues with the bot adding fees twice... I thought she said that was not a big issue?
+
+;email from melinda: 2012-02-16
+;- a "Ready to Invoice" checkbox on my fees gui that exports the file number to a spreadsheet somewhere (maybe that little "Go to the next job" button that you made would work with this as long as we are only exporting one job number per file)
+;- make sure that Add Scorecard is not trying to enter data into fields that cannot be modified (I think we need to work together to figure out the issue)
+;- fix the "Load Reference Number" macro so that if I hit cancel or the "X" it won't still try to add it (I have started hitting Ctrl ~ when that pops up but my first instinct is to hit the "X" and it drives me crazy when I do that!!)
+;- I also think I might want to change the layout of the buttons on the gui, but I am not quite sure what I want to do with it yet
+
 ;TODO add dates to "Add Scorecard Entry"
 ;FIXME Auto-expand all pluses in the left-hand side
-;TODO change text in the MS-Word lookalike program (cause their template is wrong)
 ;TODO make in-depth fees gui
 ;TODO default PS Fee to $10
 ;TODO use the StatusProCopyField() for all copies
@@ -31,6 +38,8 @@
 ;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
 ;REMOVEME - I think I did remove this part of the code (2011-11-10)... The "Would you like to approve?" box never shows up anymore. Don't know if you would want to remove that code?
 ;TODO move parts into functions (like GetReferenceNumber(), GetServerName(), GetStatus() )
+;- change "Add Scorecard Entry" so that it puts my name (Melinda Baustian instead of AHMBaustian)
+;TODO change text in the MS-Word lookalike program (cause their template is wrong)
 
 ;ABANDONED:
 ;make background blueish to match sidebar
@@ -355,7 +364,7 @@ Loop, parse, listFees, CSV
    thisFee:=A_LoopField
    Gui, 2: Add, Text,, %thisFee%
 }
-Gui, 2: Add, Text,, Ready To Invoice
+;Gui, 2: Add, Text,, Ready To Invoice
 Gui, 2: Add, Edit, vFeesVar1 x100 y2
 Gui, 2: Add, Edit, vFeesVar2
 Gui, 2: Add, Edit, vFeesVar3
@@ -384,7 +393,7 @@ if NOT (feesVar4 == "" or feesVar4 == 3)
 }
 
 iniFolder:=GetPath("FireflyIniFolder")
-feesUIini := GetPath("Firefly-UI.ini")
+;feesUIini := GetPath("Firefly-UI.ini")
 ;botFile := GetPath("Firefly-2-Added.ini")
 Loop, parse, listFees, CSV
 {
@@ -394,15 +403,15 @@ Loop, parse, listFees, CSV
    thisKeySubmitted=FeeSubmitted-%thisFee%
 
    if thisFeeAmount
-      IniFolderWrite(iniFolder, referenceNumber, thisFee, thisFeeAmount)
-   if thisFeeAmount
-      IniWrite(feesUIini, referenceNumber, thisKeySubmitted, thisFeeAmount)
+      IniFolderWrite(iniFolder, referenceNumber, thisKeySubmitted, thisFeeAmount)
+   ;if thisFeeAmount
+      ;IniWrite(feesUIini, referenceNumber, thisFee, thisFeeAmount)
 }
 
-if thisFeeAmount
-   IniFolderWrite(iniFolder, referenceNumber, "ReadyToInvoice", "1")
 if ReadyToInvoice
-   IniWrite(feesUIini, referenceNumber, "ReadyToInvoice", "1")
+   IniFolderWrite(iniFolder, referenceNumber, "ReadyToInvoice", "1")
+;if ReadyToInvoice
+   ;IniWrite(feesUIini, referenceNumber, "ReadyToInvoice", "1")
 
 EndOfMacro()
 return
@@ -1031,7 +1040,7 @@ Loop
 Clipboard := "null"
 ss()
 SendInput, %serverName%{ENTER}
-SendInput, AHmbaustian{ENTER}
+SendInput, Melinda Baustian{ENTER}
 SendInput, %today%{ENTER}
 SendInput, %referenceNumber%{ENTER}
 Sleep, 100

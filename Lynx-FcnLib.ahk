@@ -554,6 +554,7 @@ GetSmsKey()
 
 DownloadLynxFile(filename)
 {
+   delog("", "starting download: " . filename)
    global downloadPath
 
    TestDownloadProtocol("ftp")
