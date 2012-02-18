@@ -717,16 +717,17 @@ if (A_ComputerName = "BAUSTIANVM" and Mod(A_Sec, 5)==0)
       iniPP("saw old url")
       if CurrentlyAfter(MaxTimeToWaitForDeadBot)
       {
-         iniPP("killing rogue bot")
-         addtotrace(currenttime("hyphenated") . " killing rogue bot")
+         debugmsg:="killing rogue bot (reload after five) dmsg"
+         iniPP(debugmsg)
+         addtotrace(currenttime("hyphenated") . " " . debugmsg)
          SaveScreenShot("FireflyBotFroze", "dropbox")
 
          ;TODO figure out exactly what works best here...
          ;     seems like we can't reboot the compy all the friggin time
          ;Run, restart.ahk
-         Run, ForceReloadAll.exe
+         ;Run, ForceReloadAll.exe
          ;CloseAllAhks("", "AutoHotkey.ahk")
-         ;CloseAllAhks("AutoHotkey.ahk") ;seemed ok, but gave a lot of dead processes/tray icons
+         CloseAllAhks("AutoHotkey.ahk") ;seemed ok, but gave a lot of dead processes
 
          Reload()
       }
@@ -735,7 +736,7 @@ if (A_ComputerName = "BAUSTIANVM" and Mod(A_Sec, 5)==0)
    {
       iniPP("saw new url")
       LastFirefoxUrl := CurrentFirefoxUrl
-      MaxTimeToWaitForDeadBot:=CurrentTimePlus(300) ;TODO I think this is five minutes
+      MaxTimeToWaitForDeadBot:=CurrentTimePlus(500) ;TODO I think this is five minutes
    }
 
 }
