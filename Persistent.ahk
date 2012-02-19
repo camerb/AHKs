@@ -700,45 +700,24 @@ Loop, C:\My Dropbox\AHKs\gitExempt\transferTo\%A_ComputerName%\*.*, 2, 0
 ;{{{ Ensure VM firefly bot is running, and not crashed
 if (A_ComputerName = "BAUSTIANVM" and Mod(A_Sec, 5)==0)
 {
+   ;checkin
+   FireflyCheckin("Babysitter", "Watching")
+
    if NOT IsAhkCurrentlyRunning("FireflyFeesBot")
+   {
       RunAhk("C:\Dropbox\AHKs\FireflyFeesBot.ahk")
+      SleepSeconds(5)
+   }
    if NOT IsAhkCurrentlyRunning("FireflyBotHelper")
+   {
       RunAhk("C:\Dropbox\AHKs\FireflyBotHelper.ahk")
+      SleepSeconds(5)
+   }
 
-   ;TODO
    ;if bot or helper haven't said hi within a certain period of time, kill them and restart them
-
-   CurrentFirefoxUrl := GetUrlBar("Firefox")
-   if NOT MaxTimeToWaitForDeadBot
-      MaxTimeToWaitForDeadBot := "20200102010203"
-
-   if (CurrentFirefoxUrl == LastFirefoxUrl)
-   {
-      iniPP("saw old url")
-      if CurrentlyAfter(MaxTimeToWaitForDeadBot)
-      {
-         debugmsg:="killing rogue bot (reload after five) dmsg"
-         iniPP(debugmsg)
-         addtotrace(currenttime("hyphenated") . " " . debugmsg)
-         SaveScreenShot("FireflyBotFroze", "dropbox")
-
-         ;TODO figure out exactly what works best here...
-         ;     seems like we can't reboot the compy all the friggin time
-         ;Run, restart.ahk
-         ;Run, ForceReloadAll.exe
-         ;CloseAllAhks("", "AutoHotkey.ahk")
-         CloseAllAhks("AutoHotkey.ahk") ;seemed ok, but gave a lot of dead processes
-
-         Reload()
-      }
-   }
-   else
-   {
-      iniPP("saw new url")
-      LastFirefoxUrl := CurrentFirefoxUrl
-      MaxTimeToWaitForDeadBot:=CurrentTimePlus(500) ;TODO I think this is five minutes
-   }
-
+   VerifyFireflyCheckin("Bot")
+   VerifyFireflyCheckin("Helper")
+   Sleep, 1200
 }
 ;}}}
 
@@ -761,7 +740,6 @@ BackupFile(fileToBackup, archiveDir)
 {
    if FileGetSize(fileToBackup)
    {
-
       FileGetTime, timestamp, %fileToBackup%
       timestamp := FormatTime(timestamp, "yyyy-MM-dd_HH-mm-ss")
 
@@ -775,4 +753,75 @@ BackupFile(fileToBackup, archiveDir)
 BackupFolder(folderToBackup, archiveDir)
 {
 }
+
+VerifyFireflyCheckin(whoIsCheckingIn)
+{
+   ;if bot or helper haven't said hi within a certain period of time, kill them and restart them
+
+   ;FailedCheckinTime := CurrentTime() - 1000
+   FailedCheckinTime := CurrentTime() - 500
+   FailedCheckinTime := CurrentTime() - 200
+   ;addtotrace(currenttime())
+   ;addtotrace(failedcheckintime)
+   ;addtotrace("hello")
+
+   IniFolder:=GetPath("FireflyIniFolder")
+   lastCheckin:=IniFolderRead(IniFolder, "Check-In", whoIsCheckingIn)
+
+   if (lastCheckin < FailedCheckinTime)
+   {
+      debugmsg:="killing unresponsive bot 2m w exitapp"
+      iniPP(debugmsg)
+      addtotrace(debugmsg)
+      ;SaveScreenShot("FireflyBotFroze", "dropbox") ;UNCOMMENTME before moving live
+
+      ;TODO figure out exactly what works best here...
+      ;     seems like we can't reboot the compy all the friggin time
+      ;Run, restart.ahk
+      ;Run, ForceReloadAll.exe
+      ;CloseAllAhks("", "AutoHotkey.ahk")
+      CloseAllAhks("AutoHotkey.ahk") ;seemed ok, but gave a lot of dead processes
+
+      Reload
+      Sleep, 5000
+      ;Reload()
+      ExitApp
+   }
+
+
+   ;TODO remove all this stuff eventually 2012-02-18
+   ;CurrentFirefoxUrl := GetUrlBar("Firefox")
+   ;if NOT MaxTimeToWaitForDeadBot
+      ;MaxTimeToWaitForDeadBot := "20200102010203"
+
+   ;if (CurrentFirefoxUrl == LastFirefoxUrl)
+   ;{
+      ;iniPP("saw old url")
+      ;if CurrentlyAfter(MaxTimeToWaitForDeadBot)
+      ;{
+         ;debugmsg:="killing rogue bot (reload after five) dmsg"
+         ;iniPP(debugmsg)
+         ;addtotrace(currenttime("hyphenated") . " " . debugmsg)
+         ;SaveScreenShot("FireflyBotFroze", "dropbox")
+
+         ;;TODO figure out exactly what works best here...
+         ;;     seems like we can't reboot the compy all the friggin time
+         ;;Run, restart.ahk
+         ;;Run, ForceReloadAll.exe
+         ;;CloseAllAhks("", "AutoHotkey.ahk")
+         ;CloseAllAhks("AutoHotkey.ahk") ;seemed ok, but gave a lot of dead processes
+
+         ;Reload()
+      ;}
+   ;}
+   ;else
+   ;{
+      ;iniPP("saw new url")
+      ;LastFirefoxUrl := CurrentFirefoxUrl
+      ;MaxTimeToWaitForDeadBot:=CurrentTimePlus(500) ;TODO I think this is five minutes
+   ;}
+}
+
+;all I needed was the iniFolder lib
+#include Firefly-FcnLib.ahk
 ;}}}

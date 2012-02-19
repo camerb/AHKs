@@ -97,10 +97,11 @@ AllServicesAre(status)
    {
       serviceName:=A_LoopField
       ret := CmdRet_RunReturn("sc query " . serviceName)
+      lynx_log("sc query: " . serviceName . "   " . ret)
       Sleep, 100
       if NOT RegExMatch(ret, status)
       {
-         lynx_log("not the correct status: " . serviceName . "   " . ret)
+         lynx_error("Service had an incorrect status: " . serviceName . "   " . ret)
          return false
       }
    }

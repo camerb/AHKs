@@ -7,8 +7,15 @@ if NOT IsVM()
    fatalerrord("this macro is only for VMs")
 
 iniFolder:=GetPath("FireflyIniFolder")
-;uiini:=GetPath("Firefly-1-Submitted.ini")
-;botini:=GetPath("Firefly-2-Added.ini")
+
+;checkin
+FireflyCheckin("Bot", "Started/Chillin")
+
+;REMOVEME before moving live
+addtotrace("started bot")
+displayableIniFolder(inifolder)
+SleepMinutes(99)
+
 uiSections := IniFolderListAllSections(iniFolder)
 feesJson := GetSimpleFeesJson()
 listFees := ListFees()
@@ -39,6 +46,9 @@ Loop, parse, uiSections, CSV
       msg=Added %feesAddedCountSoFar% fees so far
       AddToTrace(msg)
       iniPP("Bot Is Working")
+
+      ;checkin
+      FireflyCheckin("Bot", "Working")
    }
 }
 ;msg=Added %feesAddedCountSoFar% fees so far

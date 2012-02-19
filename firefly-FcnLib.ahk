@@ -614,15 +614,46 @@ ListFees()
 }
 ;}}}
 
+;{{{ Firefly Check-Ins (monitoring the bot)
+FireflyCheckin(whoIsCheckingIn, Status)
+{
+   iniFolder:=GetPath("FireflyIniFolder")
+   iniFolderWrite(iniFolder, "Check-In", whoIsCheckingIn, CurrentTime())
+   iniFolderWrite(iniFolder, "Status", whoIsCheckingIn, Status)
+}
+;}}}
+
+;{{{ displayable iniFolder in one INI
+DisplayableIniFolder(iniFolder)
+{
+   iniFolder := EnsureEndsWith(iniFolder, "\")
+   destIni := iniFolder . "viewable\viewable.ini"
+
+   sections:=IniFolderListAllSections(iniFolder)
+   Loop, parse, sections, CSV
+   {
+      thisSection := A_LoopField
+      keys:=IniFolderListAllKeys(iniFolder, thisSection)
+      Loop, parse, keys, CSV
+      {
+         thisKey := A_LoopField
+         ;blah
+         value := IniFolderRead(iniFolder, thisSection, thisKey)
+         IniWrite(destIni, thisSection, thisKey, value)
+      }
+   }
+   addtotrace("finished making viewable inif")
+}
+;}}}
+
 ;{{{ iniFolder Library
-;TESTME
 IniFolderRead(iniFolder, section, key)
 {
    iniFolder := EnsureEndsWith(iniFolder, "\")
    timestamp := CurrentTime("hyphenated")
    ;myIniFile=%iniFolder%%A_ComputerName%.ini
-   keyValue=(%key%)-(value)
-   keyDate=(%key%)-(timestamp)
+   keyValue=%key%-value
+   keyDate=%key%-timestamp
 
    ;search through all applicable files to get the most recently inserted value
    maxValue=ERROR
@@ -655,8 +686,8 @@ IniFolderWrite(iniFolder, section, key, value)
    iniFolder := EnsureEndsWith(iniFolder, "\")
    timestamp := CurrentTime("hyphenated")
    myIniFile=%iniFolder%%A_ComputerName%.ini
-   keyValue=(%key%)-(value)
-   keyDate=(%key%)-(timestamp)
+   keyValue=%key%-value
+   keyDate=%key%-timestamp
 
    IniWrite(myIniFile, section, keyValue, value)
    IniWrite(myIniFile, section, keyDate, timestamp)
@@ -678,6 +709,7 @@ IniFolderListAllSections(iniFolder)
    return returned
 }
 
+;TESTME
 IniFolderListAllKeys(iniFolder, section="") ;defaults to all sections
 {
    ;deleting keys or sections is not allowed, because that will be a lot of work (you'd have to mark as inactive instead)
@@ -691,6 +723,11 @@ IniFolderListAllKeys(iniFolder, section="") ;defaults to all sections
          returned .= ","
       returned .= IniListAllKeys(thisIniFile, section)
    }
+
+   ;np=[^()]
+   ;haystack=\((%notParen%+)\)\-\(%notParen%+\)
+   ;returned := RegExReplace(returned, haystack, "$1")
+   returned := RegExReplace(returned, "\-(value|timestamp)$")
 
    return returned
 }
