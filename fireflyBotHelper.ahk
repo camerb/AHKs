@@ -17,7 +17,7 @@ Loop
    Sleep, 100
 
    ;checkin
-   if (A_Sec == 00)
+   if (A_Sec = 0)
    {
       FireflyCheckin("Helper", "Watching")
    }

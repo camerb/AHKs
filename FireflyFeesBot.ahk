@@ -12,9 +12,9 @@ iniFolder:=GetPath("FireflyIniFolder")
 FireflyCheckin("Bot", "Started/Chillin")
 
 ;REMOVEME before moving live
-addtotrace("started bot")
-displayableIniFolder(inifolder)
-SleepMinutes(99)
+;addtotrace("started bot")
+;displayableIniFolder(inifolder)
+;SleepMinutes(99)
 
 uiSections := IniFolderListAllSections(iniFolder)
 feesJson := GetSimpleFeesJson()

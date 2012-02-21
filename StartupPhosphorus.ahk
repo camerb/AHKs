@@ -102,6 +102,10 @@ RunWait, LaunchPidgin.ahk
 ;Send, ^!a
 ;NOTE I commented this line because it is already being shown on all screens in the launch pidgin script
 
+Run, C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe
+
+;;;;;;;;;;;;;done launching stuff
+
 if desktopSidebarNeedsRelocating()
    moveDesktopSidebar()
 

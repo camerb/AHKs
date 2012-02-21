@@ -61,6 +61,7 @@ msg("Under back up system, set file system backups quarterly and database backup
 ;TODO pull password out of DB and open lynx interface automatically
 msg("Ensure lynx2@mitsi.com is added in the contact list, with the comment 'Lynx Technical Support - Automated Supervision'")
 msg("Send Test SMS message, popup (to server), and email (to lynx2).")
+LynxNewVersion := GetLynxVersion()
 SendLogsHome()
 msg("Ensure the LynxGuide supervision channels 000 Normal, 000 Alarm, 001, 002, 006, 007, 008, 009 are enabled, with the company name in the subject line of each alarm message.")
 msg("Ensure lynx2 is a contact for the LynxGuide channels 000 Normal, 000 Alarm, 001, 002, 009")
@@ -72,7 +73,6 @@ msg("For all hardware alarm groups, ensure lynx2 is a contact on 000 Normal, 000
 ;msg("Make case in sugar for 'Server upgraded to 7.##.##.#', note specific items/concerns addressed with customer in description")
 
 BackupLynxDatabase("AfterUpdate")
-LynxNewVersion := GetLynxVersion()
 ShowUpgradeSummary()
 msg("Log off of the server")
 SleepMinutes(60*12)

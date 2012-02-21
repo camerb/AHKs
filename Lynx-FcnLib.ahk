@@ -480,7 +480,7 @@ TestCmdRet()
    if (match1 == "4")
       lynx_log("passed TestCmdRet (using ping)")
    else
-      lynx_error("failed TestCmdRet (using ping)")
+      lynx_log("ERROR: failed TestCmdRet (using ping)")
 
    pipedFile=C:\temp\out.txt
    FileCreate("", pipedFile)

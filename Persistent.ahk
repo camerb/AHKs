@@ -758,9 +758,9 @@ VerifyFireflyCheckin(whoIsCheckingIn)
 {
    ;if bot or helper haven't said hi within a certain period of time, kill them and restart them
 
-   ;FailedCheckinTime := CurrentTime() - 1000
-   FailedCheckinTime := CurrentTime() - 500
-   FailedCheckinTime := CurrentTime() - 200
+   FailedCheckinTime := CurrentTime() - 1000
+   ;FailedCheckinTime := CurrentTime() - 500
+   ;FailedCheckinTime := CurrentTime() - 200
    ;addtotrace(currenttime())
    ;addtotrace(failedcheckintime)
    ;addtotrace("hello")
