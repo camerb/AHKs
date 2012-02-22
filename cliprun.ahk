@@ -1,6 +1,9 @@
 #include FcnLib.ahk
 
-Run, C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe
+205.6
+217
+219
+201.4
 
 
  ~esc::ExitApp

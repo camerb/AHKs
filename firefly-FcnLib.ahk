@@ -628,6 +628,7 @@ DisplayableIniFolder(iniFolder)
 {
    iniFolder := EnsureEndsWith(iniFolder, "\")
    destIni := iniFolder . "viewable\viewable.ini"
+   FileDelete(destIni)
 
    sections:=IniFolderListAllSections(iniFolder)
    Loop, parse, sections, CSV
@@ -727,7 +728,8 @@ IniFolderListAllKeys(iniFolder, section="") ;defaults to all sections
    ;np=[^()]
    ;haystack=\((%notParen%+)\)\-\(%notParen%+\)
    ;returned := RegExReplace(returned, haystack, "$1")
-   returned := RegExReplace(returned, "\-(value|timestamp)$")
+   ;returned := RegExReplace(returned, "\-(value|timestamp)$")
+   returned := RegExReplace(returned, "\-(value|timestamp)")
 
    return returned
 }

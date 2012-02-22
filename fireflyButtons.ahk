@@ -3,11 +3,8 @@
 
 ;{{{ TODOs
 ;PRIORITIES:
-;  Add fees button that works on background computer
-;  Make FindTopOfFirefoxPage() more reliable (it used to be good)
 ;  Track invoices (maybe email erica when invoice is generated) (need to discuss with mel)
 
-;Mel said she had a bunch of issues with the bot adding fees twice... I thought she said that was not a big issue?
 
 ;email from melinda: 2012-02-16
 ;- a "Ready to Invoice" checkbox on my fees gui that exports the file number to a spreadsheet somewhere (maybe that little "Go to the next job" button that you made would work with this as long as we are only exporting one job number per file)
@@ -40,6 +37,9 @@
 ;TODO move parts into functions (like GetReferenceNumber(), GetServerName(), GetStatus() )
 ;- change "Add Scorecard Entry" so that it puts my name (Melinda Baustian instead of AHMBaustian)
 ;TODO change text in the MS-Word lookalike program (cause their template is wrong)
+;  Add fees button that works on background computer
+;  Make FindTopOfFirefoxPage() more reliable (it used to be good)
+;Mel said she had a bunch of issues with the bot adding fees twice... I thought she said that was not a big issue?
 
 ;ABANDONED:
 ;make background blueish to match sidebar
@@ -74,6 +74,7 @@ Gui, Add, Button, , Change Queue
 ;Gui, Add, Button, , Add Scorecard Entry-sc
 ;Gui, Add, Button, , Add Scorecard Entry-new
 Gui, Add, Button, , Add Scorecard Entry-fw
+Gui, Add, Button, , Add Scorecard Entry-yn
 Gui, Add, Button, , Refresh Login
 Gui, Add, Button, , Load Reference Number
 Gui, Add, Button, , Add Fees
@@ -290,66 +291,6 @@ EndOfMacro()
 return
 ;}}}
 
-;{{{ButtonAddFees-old:
-ButtonAddFees-old:
-StartOfMacro()
-
-FindTopOfFirefoxPage()
-referenceNumber := GetReferenceNumber()
-
-Gui, 2: Destroy
-listFees := ListFees()
-Loop, parse, listFees, CSV
-{
-   thisFee:=A_LoopField
-   Gui, 2: Add, Text,, %thisFee%
-}
-;Gui, 2: Add, Text,, Ready To Invoice
-Gui, 2: Add, Edit, vFeesVar1 x100 y2
-Gui, 2: Add, Edit, vFeesVar2
-Gui, 2: Add, Edit, vFeesVar3
-Gui, 2: Add, Edit, vFeesVar4
-;Gui, 2: Add, Edit, vReadyToInvoice
-Gui, 2: Add, Button, Default x190 y110, Go Add Fees
-Gui, 2: Show, , Firefly Fees AHK Dialog
-Gui, 2: Show
-return
-;;;;;;;;;;;;;;;;;;;;;;;; WAIT FOR USER TO PRESS THE BUTTON
-;2ButtonGoAddFees:
-Gui, 2: Submit
-Gui, 2: Destroy
-
-;REMOVEME
-;feesvar1=10
-;feesvar2=20
-;feesvar3=30
-;feesvar4=3
-
-if NOT (feesVar4 == "" or feesVar4 == 3)
-{
-   errord("notimeout", "Pinellas County Sticker Fee should be either blank or 3")
-   return
-}
-
-uiFile := GetPath("Firefly-1-Submitted.ini")
-botFile := GetPath("Firefly-2-Added.ini")
-Loop, parse, listFees, CSV
-{
-   i:=A_Index
-   thisFee:=A_LoopField
-   thisFeeAmount:=FeesVar%i%
-
-   if thisFeeAmount
-      IniWrite(uiFile, referenceNumber, thisFee, thisFeeAmount)
-}
-
-;if ReadyToInvoice
-   ;IniWrite(
-
-EndOfMacro()
-return
-;}}}
-
 ;{{{ButtonAddFees:
 ButtonAddFees:
 StartOfMacro()
@@ -400,7 +341,7 @@ Loop, parse, listFees, CSV
    i:=A_Index
    thisFee:=A_LoopField
    thisFeeAmount:=FeesVar%i%
-   thisKeySubmitted=FeeSubmitted-%thisFee%
+   thisKeySubmitted=DesiredFees-%thisFee%
 
    if thisFeeAmount
       IniFolderWrite(iniFolder, referenceNumber, thisKeySubmitted, thisFeeAmount)
@@ -1105,6 +1046,140 @@ EndOfMacro()
 return
 ;}}}
 
+;{{{ButtonAddScorecardEntry-yn:
+ButtonAddScorecardEntry-yn:
+timer:=StartTimer()
+StartOfMacro()
+
+;notify us of possible issues in the alias names ini
+namesIni:=GetPath("FireflyConfig.ini")
+allNames:=IniListAllKeys(namesIni, "NameTranslations")
+;Loop, parse, allNames, CSV
+;{
+   ;if RegExMatch(A_LoopField, "[,.]")
+      ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
+;}
+
+FindTopOfFirefoxPage()
+
+referenceNumber:=GetReferenceNumber()
+serverName:=GetServerName()
+status:=GetStatus()
+
+time:=ElapsedTime(timer)
+;FOR TESTING PURPOSES
+;debug(referenceNumber, serverName, status, time)
+;RecoverFromMacrosGoneWild("Testing (error 00)")
+
+if InStr(status, "Cancelled")
+   RecoverFromMacrosGoneWild("It looks like this one was cancelled (error 5)", status)
+
+IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
+   RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
+
+;translate server name, if they go by something else
+replacementName := IniRead(namesIni, "NameTranslations", PrepIniKeyServerName(serverName))
+if (replacementName != "ERROR")
+   serverName := replacementName
+
+
+FormatTime, today, , MM/dd/yyyy
+;#############################################################
+FocusNecessaryWindow(excel)
+
+;DELETEME remove this before moving live
+ss()
+Send, {UP 50}{LEFT}
+;TODO try removing one of these first
+Send, {UP 50}{LEFT}
+ss()
+Send, {DOWN}
+ss()
+
+;Loop to find the first empty column
+Loop
+{
+   Send, {RIGHT}
+   Send, ^c
+   Sleep, 100
+   if NOT RegExMatch(Clipboard, "[A-Za-z]")
+      break
+}
+
+Clipboard := "null"
+ss()
+SendInput, %serverName%{ENTER}
+SendInput, Melinda Baustian{ENTER}
+SendInput, %today%{ENTER}
+SendInput, %referenceNumber%{ENTER}
+Sleep, 100
+Send, ^c
+Sleep, 100
+loop
+{
+   ServiceCountyRequired := Clipboard
+   if (ServiceCountyRequired != "null")
+      break
+   sleep, 100
+}
+
+Send, {ENTER}
+Send, {DOWN}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {ENTER}
+;Send, {SHIFTDOWN}-{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {ENTER}
+;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+;Send, {ENTER}{ENTER}{ENTER}{ENTER}
+Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
+
+;TODO
+if (ServiceCountyRequired == "`r`n")
+   {} ;iniPP("(error 26)-ServiceCountyRequired-was-blank-" . ServiceCountyRequired) ; {} ;do nothing
+else if InStr(ServiceCountyRequired, "Service County Not Required")
+   {} ;iniPP("(error 27)-ServiceCountyRequired-was-not-req" . ServiceCountyRequired) ; {} ;do nothing
+else if InStr(ServiceCountyRequired, "Service County Required")
+{
+   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
+   msgbox, , , %msg%, 0.5
+   ;AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
+   ;iniPP("(error 28)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+}
+else
+{
+   AddToTrace("grey line (error 29) ServiceCountyRequired was: " . ServiceCountyRequired)
+   iniPP("(error 29)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+}
+
+;REMOVEME once the portion above is finished and working well
+;if NOT InStr(ServiceCountyRequired, "Service County Not Required")
+;{
+   ;msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
+   ;;msgbox, , , %msg%, 0.5
+   ;;AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
+   ;iniPP("(error 21)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+;}
+;note that this should be true: the number of 26+28+29 = (error 21)
+
+EndOfMacro()
+return
+;}}}
+
 ;{{{ButtonChangeQueue:
 ButtonChangeQueue:
 
@@ -1191,6 +1266,11 @@ StartOfMacro()
 referenceNumber:=Prompt("Which reference number would you like to load?")
 if NOT referenceNumber
    referenceNumber=2461358
+
+;strip off excess chars
+RegExMatch(referenceNumber, "(\d+)", match)
+referenceNumber:=match1
+
 BlockInput, MouseMove
 OpenReferenceNumber(referenceNumber)
 
@@ -1257,6 +1337,8 @@ ASE-sc: Tried a different way to detect the Service County... this should make t
 ASE-new: for the new scorecard
 
 ASE-fw: fewer messages are sent to Cameron, plus the first few fields of the scorecard should be typed in faster (hopefully that is reliable)
+
+ASE-yn: Trying to get the yesses and nos in the correct places... if I'm wrong, email me a screenshot of what it should look like instead.
 
 Load Reference Number: It loads a specified file with the reference number that you give it.
 

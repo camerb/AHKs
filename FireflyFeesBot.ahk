@@ -26,35 +26,41 @@ Loop, parse, uiSections, CSV
    Loop, parse, listFees, CSV
    {
       thisFee:=A_LoopField
-      thisKeySubmitted=FeeSubmitted-%thisFee%
-      thisKeyAdded=FeeAdded-%thisFee%
 
-      uiValue:=IniFolderRead(iniFolder, thisReferenceNumber, thisKeySubmitted)
-      botValue:=IniFolderRead(iniFolder, thisReferenceNumber, thisKeyAdded)
-
-      if (botValue == uiValue)
+      ;checking if already added
+      if IsFeeAddedCorrectly(thisReferenceNumber, thisFee)
          continue
 
+      ;go to the correct file
       ;if ( Mod(feesAddedCountSoFar, 5) == 0)
          RefreshLogin()
       ArrangeWindows()
       OpenReferenceNumber(thisReferenceNumber)
-      AddFees(thisFee, uiValue)
-      IniFolderWrite(iniFolder, thisReferenceNumber, thisKeyAdded, uiValue)
+      GetFees()
+
+      ;checking if already added
+      if IsFeeAddedCorrectly(thisReferenceNumber, thisFee)
+         continue
+
+      ;add the friggin fee!
+      thisKeySubmitted=DesiredFees-%thisFee%
+      desiredAmount:=IniFolderRead(iniFolder, thisReferenceNumber, "DesiredFees-" . thisFee)
+      AddFees(thisFee, desiredAmount)
+      IniFolderWrite(iniFolder, thisReferenceNumber, "BotAddedFee-" . thisFee, desiredAmount)
+
+      GetFees()
       feesAddedCountSoFar++
 
-      msg=Added %feesAddedCountSoFar% fees so far
-      AddToTrace(msg)
-      iniPP("Bot Is Working")
+      ;msg=Added %feesAddedCountSoFar% fees so far
+      ;AddToTrace(msg)
+      ;iniPP("Bot Is Working")
 
       ;checkin
       FireflyCheckin("Bot", "Working")
+      ;displayableIniFolder(inifolder)
    }
 }
-;msg=Added %feesAddedCountSoFar% fees so far
-;AddToTrace(msg)
-;AddToTrace("chillin")
-iniPP("Bot Is Chillin")
+;iniPP("Bot Is Chillin")
 
 Sleep, 1000
 KillFirefox()
@@ -66,6 +72,7 @@ ExitApp
 ;works great on bot
 AddFees(name, amount)
 {
+   iniFolder:=GetPath("FireflyIniFolder")
    feesJson := GetSimpleFeesJson()
    type := json(feesJson, name . ".type")
 
@@ -119,22 +126,24 @@ AddFees(name, amount)
    Sleep, 30000
 
    ;POLISH sanity check using GetFees()
-   AllTheFeesJson := GetFees()
-   result := json(AllTheFeesJson, name)
-   if (result == amount)
-      msg=fee added correctly
-   else
-      msg=ERROR-looks like bot failed to add the fee correctly
+   ;AllTheFeesJson := GetFees()
+   ;result := json(AllTheFeesJson, name)
+   ;if (result == amount)
+      ;msg=fee added correctly
+   ;else
+      ;msg=ERROR-looks like bot failed to add the fee correctly
 
-   ArrangeWindows()
-   FindTopOfFirefoxPage()
-   referenceNumber:=GetReferenceNumber()
+   ;ArrangeWindows()
+   ;FindTopOfFirefoxPage()
+   ;referenceNumber:=GetReferenceNumber()
 
-   IniFolderWrite(GetPath("FireflyIniFolder"), referenceNumber, "FeesAddedMessage-" . name, msg)
+   ;IniFolderWrite(iniFolder, referenceNumber, "FeesAddedMessage-" . name, msg)
 }
 
 GetFees()
 {
+   iniFolder:=GetPath("FireflyIniFolder")
+
    OpenFeesWindow()
 
    WFCIImageSearch(FixImagePathIfBot("images/firefly/fees/referenceNumber.bmp"))
@@ -175,8 +184,12 @@ GetFees()
       FeeType%i%:=thisFeeType
       FeeName%i%:=thisFee
       json(AllTheFeesJson, thisFee, thisFeeAmount)
+
       if (thisFeeAmount != "")
+      {
          numberOfFeesCounted++
+         IniFolderWrite(iniFolder, referenceNumber, "FeesOnFile-" . thisFee, thisFeeAmount)
+      }
    }
 
    ;this probably isn't a big error, cause I wrote the stuff above to only account for some of the fees
@@ -224,6 +237,28 @@ IsFeesWindowOpen()
    joe := ClickIfImageSearch(FixImagePathIfBot("images/firefly/fees/feesWindow.bmp"))
    bob := ClickIfImageSearch(FixImagePathIfBot("images/firefly/fees/referenceNumber.bmp"))
    return %joe% AND %bob%
+}
+
+IsFeeAddedCorrectly(referenceNumber, fee)
+{
+   iniFolder:=GetPath("FireflyIniFolder")
+   thisKeySubmitted=DesiredFees-%fee%
+   thisKeyAdded=FeesOnFile-%fee%
+
+   ;checking if already added
+   desiredValue := IniFolderRead(iniFolder, referenceNumber, thisKeySubmitted)
+   actualValue := IniFolderRead(iniFolder, referenceNumber, thisKeyAdded)
+
+   ;if there are additional fees, that's ok
+   ;only fuss about fees that Melinda told the bot she wanted to add
+   if (desiredValue == "ERROR")
+      return true
+
+   ;the fee is already there
+   if (desiredValue == actualValue)
+      return true
+   else
+      return false
 }
 
 ExitApp

@@ -3,6 +3,7 @@
 
 
 iniFolder:=GetPath("FireflyIniFolder")
-joe := IniFolderlistallkeys(inifolder, "Status")
+DisplayableIniFolder(iniFolder)
+;joe := IniFolderlistallkeys(inifolder, "Status")
 ;joe := IniFolderlistallsections(inifolder)
-debug(joe)
+;debug(joe)
