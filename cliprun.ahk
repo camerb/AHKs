@@ -1,9 +1,5 @@
 #include FcnLib.ahk
 
-205.6
-217
-219
-201.4
-
+2668598
 
  ~esc::ExitApp

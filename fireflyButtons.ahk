@@ -68,17 +68,13 @@ Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 ;Gui, Color, 000032
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
-;Gui, Add, Button, , Add Scorecard Entry-fcn
-;Gui, Add, Button, , Add Scorecard Entry-st
-;Gui, Add, Button, , Add Scorecard Entry-mf
-;Gui, Add, Button, , Add Scorecard Entry-sc
 ;Gui, Add, Button, , Add Scorecard Entry-new
-Gui, Add, Button, , Add Scorecard Entry-fw
+;Gui, Add, Button, , Add Scorecard Entry-fw
 Gui, Add, Button, , Add Scorecard Entry-yn
 Gui, Add, Button, , Refresh Login
 Gui, Add, Button, , Load Reference Number
 Gui, Add, Button, , Add Fees
-Gui, Add, Button, , Fetch RefNums Csv
+;Gui, Add, Button, , Fetch RefNums Csv
 
 Gui, Add, Button, x10  y230, Record for Cameron
 Gui, Add, Button, x10  y260, Test Something

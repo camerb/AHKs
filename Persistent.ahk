@@ -719,6 +719,13 @@ if (A_ComputerName = "BAUSTIANVM" and Mod(A_Sec, 5)==0)
    VerifyFireflyCheckin("Helper")
    Sleep, 1200
 }
+
+;getting some info about the AHK processes that are running currently
+if (A_ComputerName = "BAUSTIANVM" and A_Sec=42)
+{
+   HowManyAhks()
+   SleepSeconds(1)
+}
 ;}}}
 
 ;{{{ Continual backups
@@ -758,8 +765,8 @@ VerifyFireflyCheckin(whoIsCheckingIn)
 {
    ;if bot or helper haven't said hi within a certain period of time, kill them and restart them
 
-   FailedCheckinTime := CurrentTime() - 1000
-   ;FailedCheckinTime := CurrentTime() - 500
+   ;FailedCheckinTime := CurrentTime() - 1000
+   FailedCheckinTime := CurrentTime() - 500
    ;FailedCheckinTime := CurrentTime() - 200
    ;addtotrace(currenttime())
    ;addtotrace(failedcheckintime)
@@ -770,17 +777,18 @@ VerifyFireflyCheckin(whoIsCheckingIn)
 
    if (lastCheckin < FailedCheckinTime)
    {
-      debugmsg:="killing unresponsive bot 2m w exitapp"
+      debugmsg:="killing unresponsive bot"
       iniPP(debugmsg)
       addtotrace(debugmsg)
+      HowManyAhks()
       ;SaveScreenShot("FireflyBotFroze", "dropbox") ;UNCOMMENTME before moving live
 
       ;TODO figure out exactly what works best here...
       ;     seems like we can't reboot the compy all the friggin time
       ;Run, restart.ahk
-      ;Run, ForceReloadAll.exe
+      Run, ForceReloadAll.exe
       ;CloseAllAhks("", "AutoHotkey.ahk")
-      CloseAllAhks("AutoHotkey.ahk") ;seemed ok, but gave a lot of dead processes
+      ;CloseAllAhks("AutoHotkey.ahk") ;seemed ok, but gave a lot of dead processes
 
       Reload
       Sleep, 5000

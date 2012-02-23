@@ -1,5 +1,6 @@
 #include FcnLib.ahk
 #include firefly-FcnLib.ahk
+#singleinstance force
 assignGlobals()
 bot:=true
 
@@ -12,7 +13,7 @@ iniFolder:=GetPath("FireflyIniFolder")
 FireflyCheckin("Bot", "Started/Chillin")
 
 ;REMOVEME before moving live
-;addtotrace("started bot")
+addtotrace("started bot")
 ;displayableIniFolder(inifolder)
 ;SleepMinutes(99)
 
@@ -27,7 +28,10 @@ Loop, parse, uiSections, CSV
    {
       thisFee:=A_LoopField
 
+      FireflyCheckin("Bot", "Working")
+
       ;checking if already added
+      ;addtotrace("checking if fee is already added")
       if IsFeeAddedCorrectly(thisReferenceNumber, thisFee)
          continue
 
@@ -35,12 +39,20 @@ Loop, parse, uiSections, CSV
       ;if ( Mod(feesAddedCountSoFar, 5) == 0)
          RefreshLogin()
       ArrangeWindows()
+      ;addtotrace("opening ref num")
       OpenReferenceNumber(thisReferenceNumber)
+      ;addtotrace("getting fees")
       GetFees()
 
       ;checking if already added
+      ;addtotrace("checking if fee is already added")
       if IsFeeAddedCorrectly(thisReferenceNumber, thisFee)
          continue
+
+      addtotrace("looking at new fee - grey line")
+      addtotrace(thisreferencenumber)
+      addtotrace(thisfee)
+      addtotrace("adding the fee")
 
       ;add the friggin fee!
       thisKeySubmitted=DesiredFees-%thisFee%
@@ -48,11 +60,12 @@ Loop, parse, uiSections, CSV
       AddFees(thisFee, desiredAmount)
       IniFolderWrite(iniFolder, thisReferenceNumber, "BotAddedFee-" . thisFee, desiredAmount)
 
+      addtotrace("getting fees")
       GetFees()
       feesAddedCountSoFar++
 
-      ;msg=Added %feesAddedCountSoFar% fees so far
-      ;AddToTrace(msg)
+      msg=Added %feesAddedCountSoFar% fees so far
+      AddToTrace(msg)
       ;iniPP("Bot Is Working")
 
       ;checkin

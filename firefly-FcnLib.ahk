@@ -638,6 +638,13 @@ DisplayableIniFolder(iniFolder)
       Loop, parse, keys, CSV
       {
          thisKey := A_LoopField
+
+         if NOT thisKey
+         {
+            ;FIXME what the heck!? the key should never be null... make this less ghetto
+            ;errord("notimeout", iniFolder, thisSection, thisKey)
+            continue
+         }
          ;blah
          value := IniFolderRead(iniFolder, thisSection, thisKey)
          IniWrite(destIni, thisSection, thisKey, value)
@@ -707,6 +714,8 @@ IniFolderListAllSections(iniFolder)
       returned .= IniListAllSections(thisIniFile)
    }
 
+   ;TODO remove duplicates
+
    return returned
 }
 
@@ -729,8 +738,46 @@ IniFolderListAllKeys(iniFolder, section="") ;defaults to all sections
    ;haystack=\((%notParen%+)\)\-\(%notParen%+\)
    ;returned := RegExReplace(returned, haystack, "$1")
    ;returned := RegExReplace(returned, "\-(value|timestamp)$")
+
+   ;FIXME make this a little less ghetto, so that I can use "-value" and "-timestamp" in my keys
    returned := RegExReplace(returned, "\-(value|timestamp)")
 
+   ;TODO remove duplicates
+
    return returned
+}
+;}}}
+
+;{{{ debugging to see how many ahks are running
+HowManyAhks()
+{
+   DetectHiddenWindows On  ; Allows a script's hidden main window to be detected.
+   SetTitleMatchMode 2  ; Avoids the need to specify the full path of the file below.
+
+   ;returned:=false
+   WinGet, id, LIST, - AutoHotkey
+   Loop, %id%
+   {
+      count++
+      thisID:=id%A_Index%
+      ahkIdStr=ahk_id %thisID%
+      title:=wingettitle(ahkIdStr)
+
+      allTitles .= "`n" . title
+      ;regexmatch(title, "([A-Za-z0-9]*\.ahk)", smalltitle)
+      ;pid := WinGet("pid", ahkIdStr)
+
+      ;if NOT InStr(title, A_ScriptName) AND NOT RegExMatch(title, ExcludeRegEx)
+      ;{
+         ;returned:=true
+         ;if InStr(options, "graceful")
+            ;WinClose, %ahkIdStr%
+         ;if InStr(options, "forceful")
+            ;Process, Close, %pid%
+      ;}
+   }
+   ;debug("this many ahks", count, allTitles)
+   msg=found %count% ahks running
+   addToTrace(msg, allTitles)
 }
 ;}}}

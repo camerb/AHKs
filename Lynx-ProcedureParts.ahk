@@ -67,7 +67,8 @@ SendLogsHome()
 
    ;try to send it back using MS-ftp
    joe := GetLynxPassword("ftp")
-   ftpFilename=ftp.scr
+   ftpFilename=ftp.txt
+
 ftpfile=
 (
 open lynx.mitsi.com
@@ -78,6 +79,7 @@ put %logFileFullPath2% %reasonForScript%_logs/%timestamp%-checkdb.txt
 put %logFileFullPath3% %reasonForScript%_logs/%timestamp%-installall.txt
 quit
 )
+
    FileCreate(ftpfile, ftpFilename)
    ret:=CmdRet_RunReturn("ftp -s:" . ftpFilename)
    ;notify("finished ftp connection")
