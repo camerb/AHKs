@@ -556,10 +556,14 @@ GetSmsKey()
 DownloadLynxFile(filename)
 {
    delog("", "starting download: " . filename)
+   global connectionProtocol
    global downloadPath
 
    TestDownloadProtocol("ftp")
    TestDownloadProtocol("http")
+
+   if NOT connectionProtocol
+      lynx_error("Unable to download file. The server is unable to connect via ftp or http.")
 
    destinationFolder=C:\temp\lynx_upgrade_files
    url=%downloadPath%/%filename%
@@ -567,6 +571,9 @@ DownloadLynxFile(filename)
 
    FileCreateDir, %destinationFolder%
    UrlDownloadToFile, %url%, %dest%
+
+   if NOT FileExist(dest)
+      lynx_error("The file did not exist after it was downloaded.`nThis probably means it does not have permissions to access the directory.`n" . dest)
 
    ;TODO perhaps we want to unzip the file now (if it is a 7z)
    if RegExMatch(filename, "^(.*)\.zip$", match)

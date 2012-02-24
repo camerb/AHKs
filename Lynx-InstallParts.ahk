@@ -14,19 +14,20 @@ SetComputerName()
    delog("", "finished function", A_ThisFunc)
 }
 
-DownloadAllLynxFilesForInstall()
-{
-   delog("", "started function", A_ThisFunc)
-   FileDeleteDirForceful("C:\temp\lynx_upgrade_files")
+;not a good idea... 2GB over ftp is slow
+;DownloadAllLynxFilesForInstall()
+;{
+   ;delog("", "started function", A_ThisFunc)
+   ;FileDeleteDirForceful("C:\temp\lynx_upgrade_files")
 
-   notify("Downloading LynxGuide Install Package")
-   DownloadLynxFile("unzip.exe")
-   DownloadLynxFile("LynxCD.zip")
-   notify("Finished Downloading")
+   ;notify("Downloading LynxGuide Install Package")
+   ;DownloadLynxFile("unzip.exe")
+   ;DownloadLynxFile("LynxCD.zip")
+   ;notify("Finished Downloading")
 
-   ;FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_scripts\upgrade_scripts", "C:\inetpub\wwwroot\cgi", "overwrite")
-   delog("", "finished function", A_ThisFunc)
-}
+   ;;FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_scripts\upgrade_scripts", "C:\inetpub\wwwroot\cgi", "overwrite")
+   ;delog("", "finished function", A_ThisFunc)
+;}
 
 CopyInstallationFilesToHardDrive()
 {

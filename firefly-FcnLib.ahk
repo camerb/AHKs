@@ -747,37 +747,3 @@ IniFolderListAllKeys(iniFolder, section="") ;defaults to all sections
    return returned
 }
 ;}}}
-
-;{{{ debugging to see how many ahks are running
-HowManyAhks()
-{
-   DetectHiddenWindows On  ; Allows a script's hidden main window to be detected.
-   SetTitleMatchMode 2  ; Avoids the need to specify the full path of the file below.
-
-   ;returned:=false
-   WinGet, id, LIST, - AutoHotkey
-   Loop, %id%
-   {
-      count++
-      thisID:=id%A_Index%
-      ahkIdStr=ahk_id %thisID%
-      title:=wingettitle(ahkIdStr)
-
-      allTitles .= "`n" . title
-      ;regexmatch(title, "([A-Za-z0-9]*\.ahk)", smalltitle)
-      ;pid := WinGet("pid", ahkIdStr)
-
-      ;if NOT InStr(title, A_ScriptName) AND NOT RegExMatch(title, ExcludeRegEx)
-      ;{
-         ;returned:=true
-         ;if InStr(options, "graceful")
-            ;WinClose, %ahkIdStr%
-         ;if InStr(options, "forceful")
-            ;Process, Close, %pid%
-      ;}
-   }
-   ;debug("this many ahks", count, allTitles)
-   msg=found %count% ahks running
-   addToTrace(msg, allTitles)
-}
-;}}}

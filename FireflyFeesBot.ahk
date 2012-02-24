@@ -12,8 +12,18 @@ iniFolder:=GetPath("FireflyIniFolder")
 ;checkin
 FireflyCheckin("Bot", "Started/Chillin")
 
+;currentlyDebugging := 1
+if currentlyDebugging
+{
+   ms := Random(20, 10000)
+   Sleep, %ms%
+   Run, ForceReloadAll.exe
+   SleepMinutes(30)
+   ExitApp
+}
+
 ;REMOVEME before moving live
-addtotrace("started bot")
+;addtotrace("started bot")
 ;displayableIniFolder(inifolder)
 ;SleepMinutes(99)
 
@@ -27,8 +37,6 @@ Loop, parse, uiSections, CSV
    Loop, parse, listFees, CSV
    {
       thisFee:=A_LoopField
-
-      FireflyCheckin("Bot", "Working")
 
       ;checking if already added
       ;addtotrace("checking if fee is already added")
@@ -48,6 +56,8 @@ Loop, parse, uiSections, CSV
       ;addtotrace("checking if fee is already added")
       if IsFeeAddedCorrectly(thisReferenceNumber, thisFee)
          continue
+
+      FireflyCheckin("Bot", "Working")
 
       addtotrace("looking at new fee - grey line")
       addtotrace(thisreferencenumber)

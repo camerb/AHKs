@@ -11,6 +11,8 @@ FireflyCheckin("Helper", "Started")
 ;{{{Persistent items (things that are checked repetitively)
 Loop
 {
+   FireflyCheckin("Helper", "Watching (spammy)")
+
    if SimpleImageSearch("images/firefly/dialogWhite/thereWasAnErrorHandlingYourCurrentActionVM.bmp")
       ClickIfImageSearch("images/firefly/dialog/okButton.bmp")
 
@@ -19,7 +21,7 @@ Loop
    ;checkin
    if (A_Sec = 0)
    {
-      FireflyCheckin("Helper", "Watching")
+      FireflyCheckin("Helper", "Watching (0 sec)")
    }
 }
 

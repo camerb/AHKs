@@ -723,7 +723,8 @@ if (A_ComputerName = "BAUSTIANVM" and Mod(A_Sec, 5)==0)
 ;getting some info about the AHK processes that are running currently
 if (A_ComputerName = "BAUSTIANVM" and A_Sec=42)
 {
-   HowManyAhks()
+   HowManyAhksAreRunning()
+   HowManyAhksAreRunning(A_ScriptName)
    SleepSeconds(1)
 }
 ;}}}
@@ -780,13 +781,20 @@ VerifyFireflyCheckin(whoIsCheckingIn)
       debugmsg:="killing unresponsive bot"
       iniPP(debugmsg)
       addtotrace(debugmsg)
-      HowManyAhks()
+      HowManyAhksAreRunning()
+
+      ;TODO BlockInput, MouseMove
+      WinActivate, Program Manager
+      MouseMove, 720, 944, 20
+      MouseMove, 1080, 944, 80
+      MouseMove, 1280, 944, 80
+      ;TODO BlockInput, MouseMoveOff
       ;SaveScreenShot("FireflyBotFroze", "dropbox") ;UNCOMMENTME before moving live
 
       ;TODO figure out exactly what works best here...
       ;     seems like we can't reboot the compy all the friggin time
       ;Run, restart.ahk
-      Run, ForceReloadAll.exe
+      Run, ForceReloadAll.exe  ;just gives a lot of dead tray icons
       ;CloseAllAhks("", "AutoHotkey.ahk")
       ;CloseAllAhks("AutoHotkey.ahk") ;seemed ok, but gave a lot of dead processes
 
@@ -831,5 +839,6 @@ VerifyFireflyCheckin(whoIsCheckingIn)
 }
 
 ;all I needed was the iniFolder lib
+;and the ghetto methods of debugging how many ahks were running
 #include Firefly-FcnLib.ahk
 ;}}}
