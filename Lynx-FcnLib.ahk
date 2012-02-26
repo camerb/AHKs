@@ -569,6 +569,9 @@ DownloadLynxFile(filename)
    url=%downloadPath%/%filename%
    dest=%destinationFolder%\%filename%
 
+   if (filename == "7.12.zip")
+      url := StringReplace(url, "/upgrade_files", "")
+
    FileCreateDir, %destinationFolder%
    UrlDownloadToFile, %url%, %dest%
 

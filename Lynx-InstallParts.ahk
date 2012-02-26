@@ -340,7 +340,7 @@ InstallApache()
    SleepSeconds(1)
    WinWaitActive, , Installation Wizard
    WinGetText, winText, A
-   RegExMatch(winText, "Apache HTTP Server [0-9.]*\.", match)
+   RegExMatch(winText, "Apache HTTP Server [0-9.]*", match)
    delog("", "installing web server version:", match)
    ;WinLogActiveStats(A_ThisFunc, A_LineNumber)
 
@@ -352,16 +352,30 @@ InstallApache()
    ;WinLogActiveStats(A_ThisFunc, A_LineNumber)
    SleepSend("!n")
    SleepSeconds(1)
+
+   ;I am pretty sure this is where it asks us for all that stupid info that goes in the config file
+   ; this info doesn't matter because we will overwrite it during a CheckDB
+   SleepSend("!d")
+   SleepSend("^a")
+   SleepSend("asdf.com")
+   SleepSend("!s")
+   SleepSend("^a")
+   SleepSend("www.asdf.com")
+   SleepSend("!e")
+   SleepSend("^a")
+   SleepSend("asdf@asdf.com")
+   SleepSeconds(1)
+
    ;WinLogActiveStats(A_ThisFunc, A_LineNumber)
    SleepSend("!n")
    SleepSeconds(1)
-   WinLogActiveStats(A_ThisFunc, "joe")
+   ;WinLogActiveStats(A_ThisFunc, "joe")
    SleepSend("!n")
    SleepSeconds(1)
-   WinLogActiveStats(A_ThisFunc, "sam")
+   ;WinLogActiveStats(A_ThisFunc, "sam")
    SleepSend("!n")
    SleepSeconds(1)
-   WinLogActiveStats(A_ThisFunc, "bob")
+   ;WinLogActiveStats(A_ThisFunc, "bob")
    SleepSend("!i")
    WinWaitActive, , The Installation Wizard has successfully installed Apache
    SleepSend("!f")

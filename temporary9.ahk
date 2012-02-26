@@ -1,7 +1,7 @@
 #include FcnLib.ahk
 #include Firefly-FcnLib.ahk
 
-HowManyAhks()
+;HowManyAhks()
 
 iniFolder:=GetPath("FireflyIniFolder")
 DisplayableIniFolder(iniFolder)

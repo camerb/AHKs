@@ -63,6 +63,7 @@ msg("Ensure lynx2@mitsi.com is added in the contact list, with the comment 'Lynx
 msg("Send Test SMS message, popup (to server), and email (to lynx2).")
 LynxNewVersion := GetLynxVersion()
 SendLogsHome()
+msg("Disable 000 Supervision on Alarm Groups POPUP and LYNXKEYPRO, if they do not have any destinations set up.")
 msg("Ensure the LynxGuide supervision channels 000 Normal, 000 Alarm, 001, 002, 006, 007, 008, 009 are enabled, with the company name in the subject line of each alarm message.")
 msg("Ensure lynx2 is a contact for the LynxGuide channels 000 Normal, 000 Alarm, 001, 002, 009")
 msg("For all hardware alarm groups, ensure lynx2 is a contact on 000 Normal, 000 Alarm and 990")
