@@ -40,7 +40,6 @@ BannerDotPlx()
 
 msg("Run perl checkdb.plx from C:\inetpub\wwwroot\cgi")
 CheckDb()
-CheckDb()
 
 RestartService("apache2.2")
 SleepSeconds(2)
@@ -49,9 +48,11 @@ InstallAll()
 notify("End of Downtime", "The LynxGuide Server should be back up, now we will begin the tests and configuration phase")
 EnsureAllServicesAreRunning()
 
+;another checkdb just to ensure that the system is awesome
+CheckDb()
+
 ;admin login (web interface)
 ;TODO pull password out of DB and open lynx interface automatically
-;InstallSmsKey() ;the old place for installing the SMS key
 ;TODO ensure all locations are described correctly
 msg("(Admin Panel > Change system settings > File system locations and logging):`n`nChange logging to extensive, log age to yearly, message age to never, and log size to 500MB. Save your changes.")
 msg("Ask the customer if they have a public subscription page`n`nIf not: Under Home Page and Subscriber Setup, change the home page to no_subscription.htm")

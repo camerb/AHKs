@@ -171,9 +171,10 @@ StopAllLynxServices()
    RemoveAll()
    CmdRet_RunReturn("net stop apache2.2")
    TCP:="LynxTCPService.exe"
-   ProcessClose(TCP)
-   ProcessClose(TCP)
-   ProcessClose(TCP)
+
+   Loop, 10
+      ProcessClose(TCP)
+
    Sleep, 500
    if ProcessExist(TCP)
       lynx_error("LynxTCP service didn't seem to close")
