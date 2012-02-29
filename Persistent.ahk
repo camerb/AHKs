@@ -721,12 +721,13 @@ if (A_ComputerName = "BAUSTIANVM" and Mod(A_Sec, 5)==0)
 }
 
 ;getting some info about the AHK processes that are running currently
-;if (A_ComputerName = "BAUSTIANVM" and A_Sec=42)
-;{
+if (A_ComputerName = "BAUSTIANVM" and A_Sec=42)
+{
+   addToTrace("time marker (tick tock) grey line")
    ;HowManyAhksAreRunning()
    ;HowManyAhksAreRunning(A_ScriptName)
-   ;SleepSeconds(1)
-;}
+   SleepSeconds(1)
+}
 ;}}}
 
 ;{{{ Continual backups

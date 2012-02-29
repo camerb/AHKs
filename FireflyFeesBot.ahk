@@ -59,7 +59,8 @@ Loop, parse, uiSections, CSV
 
       FireflyCheckin("Bot", "Working")
 
-      addtotrace("looking at new fee - grey line")
+      ;addtotrace("looking at new fee - grey line")
+      addtotrace("looking at new fee")
       addtotrace(thisreferencenumber)
       addtotrace(thisfee)
       addtotrace("adding the fee")

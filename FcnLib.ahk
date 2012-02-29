@@ -1493,7 +1493,7 @@ AddToTrace(var, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t
    var = %var%
 
    ;put an awesome timestamp on it
-   var := CurrentTime("hyphenated") . ": " . var
+   var := CurrentTime("hyphenated") . " " . A_ComputerName . ": " . var
    traceFile:=GetPath("trace.txt")
    FileAppendLine(var, traceFile)
 }
