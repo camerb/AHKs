@@ -137,10 +137,12 @@ IsPerlUpgradeNeeded()
 
 IsApacheUpgradeNeeded()
 {
-   if (GetApacheVersion() != "2.2.21")
-      return true
-   else
+   if (GetApacheVersion() == "2.2.22")
       return false
+   else if (GetApacheVersion() == "2.2.21")
+      return false
+   else
+      return true
 }
 
 GetLatestLynxVersion()
