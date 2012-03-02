@@ -1,5 +1,5 @@
 #include FcnLib.ahk
 
-2668598
+processclose("opera.exe")
 
  ~esc::ExitApp

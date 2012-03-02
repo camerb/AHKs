@@ -8,12 +8,14 @@ Lynx_MaintenanceType := "upgrade"
 ;Beginning of the actual upgrade procedure
 notify("Starting Upgrade of the LynxGuide server")
 SendStartMaintenanceEmail()
+msg("Check to make sure you have a green messenger icon. If not, Inform level 2 support.")
 TestScriptAbilities()
 RunTaskManagerMinimized()
 
 LynxOldVersion:=GetLynxVersion()
 LynxDestinationVersion := GetLatestLynxVersion()
 msg("Attempting an upgrade from Lynx Version: " . LynxOldVersion . " to " . LynxDestinationVersion)
+CreateSmsKey()
 PerlUpgradeNeeded:=IsPerlUpgradeNeeded()
 ApacheUpgradeNeeded:=IsApacheUpgradeNeeded()
 
@@ -21,11 +23,9 @@ DownloadAllLynxFilesForUpgrade()
 
 ;TODO get client information and insert it into the database (if empty)
 ; log the info as well
-CreateSmsKey()
 CheckDatabaseFileSize()
 GetServerSpecs()
 GetClientInfo()
-InstallSmsKey()
 BackupLynxDatabase("BeforeUpdate")
 
 notify("Start of Downtime", "Turning the LynxGuide Server off, in order to perform the upgrade")
@@ -57,6 +57,7 @@ CheckDb()
 msg("(Admin Panel > Change system settings > File system locations and logging):`n`nChange logging to extensive, log age to yearly, message age to never, and log size to 500MB. Save your changes.")
 msg("Ask the customer if they have a public subscription page`n`nIf not: Under Home Page and Subscriber Setup, change the home page to no_subscription.htm")
 msg("Under back up system, set file system backups quarterly and database backups weekly")
+InstallSmsKey()
 
 ;security login (web interface)
 ;TODO pull password out of DB and open lynx interface automatically

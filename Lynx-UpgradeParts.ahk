@@ -226,6 +226,7 @@ UpgradeApacheIfNeeded()
          lynx_error("Install new apache")
       ;TODO wait for the finished page of the installer
    }
+   CmdRet_RunReturn("net stop apache2.2")
    delog("", "finished function", A_ThisFunc)
 }
 

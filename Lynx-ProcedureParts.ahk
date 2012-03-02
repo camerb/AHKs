@@ -11,16 +11,27 @@ BannerDotPlx()
    delog("", "finished function", A_ThisFunc)
 }
 
-;TODO run checkdb again (automated), pipe to log
 CheckDb()
 {
    delog("", "started function", A_ThisFunc)
+   lockfile := "C:\inetpub\wwwroot\cgi\update.lck"
+
+   ;do the checkdb
    ret := CmdRet_Perl("checkdb.plx")
    RestartService("apache2.2")
    len := strlen(ret)
    msg=Ran checkdb and the strlen of the checkdb was %len%
+
+   if FileExist(lockfile)
+   {
+      lynx_error("Lockfile was present after a checkdb")
+      ret .= "`n`nLOCKFILE WAS PRESENT AFTER THE CHECKDB"
+      ;FileDelete(lockfile)
+   }
+
    FileAppendLine(msg, GetPath("logfile")) ;log abbreviated message
    FileAppendLine(ret, GetPath("checkdb-logfile")) ;log full message to separate log
+
    delog("", "finished function", A_ThisFunc)
 }
 
