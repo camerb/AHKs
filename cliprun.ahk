@@ -1,5 +1,5 @@
 #include FcnLib.ahk
 
-processclose("opera.exe")
+Send, git reset HEAD cgi/Help/
 
  ~esc::ExitApp
