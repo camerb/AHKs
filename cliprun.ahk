@@ -1,5 +1,5 @@
 #include FcnLib.ahk
 
-Send, git reset HEAD cgi/Help/
+ Ctrl+Shift+Alt+Win+R
 
  ~esc::ExitApp

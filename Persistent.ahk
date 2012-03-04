@@ -349,51 +349,6 @@ if (Mod(A_Sec, 2)==0)
 }
 ;}}}
 
-;{{{Run scheduled AHKs (old)
-;if (Mod(A_Sec, 15)==0)
-;{
-   ;asapAhk=%A_WorkingDir%\scheduled\%A_ComputerName%\asap.ahk
-   ;asapTxt=%A_WorkingDir%\scheduled\%A_ComputerName%\asap.txt
-   ;if FileExist(asapTxt)
-      ;FileMove(asapTxt, asapAhk, "overwrite")
-
-   ;;TODO put all this crap into another ahk, so that persistent doesn't halt while we're babysitting other ahks
-   ;Loop, %A_WorkingDir%\scheduled\%A_ComputerName%\*.ahk
-   ;{
-      ;;check to make sure filedate is a number and is 14 long
-      ;if ( strlen(A_LoopFileName) == 18 )
-      ;{
-         ;StringTrimRight, filedate, A_LoopFileName, 4
-         ;if filedate is integer
-            ;shouldRun:=CurrentlyAfter(filedate)
-      ;}
-      ;if (A_LoopFileName=="asap.ahk" or shouldRun)
-      ;{
-         ;;copy file contents to a new ahk and run it
-         ;tempahk=C:\Dropbox\AHKs\scheduled\CurrentlyRunning\Scheduled-%A_ComputerName%-%A_LoopFileName%.ahk
-         ;FileCopy(A_LoopFileFullPath, tempahk)
-         ;FileAppend("`n#include FcnLib.ahk`nSelfDestruct()", tempahk)
-         ;debug("silent log", "running scheduled ahk:", tempahk)
-         ;status:=RunAhkAndBabysit(tempahk)
-         ;FileDelete, %A_LoopFileFullPath%
-
-         ;;FIXME wtf... what was I thinking when I wrote this crackhead stuff? this doesn't work at all
-         ;;if (status == "error") {
-            ;;time:=CurrentTime("hyphenated")
-            ;;path=C:\Dropbox\Public\ahkerrors\
-            ;;FileCreateDir, %path%
-            ;;FileMove, %tempahk%, %path%%time%-%tempahk%.txt, 1
-         ;;}
-
-         ;;wait for the scheduled ahk to finish running and self-destruct
-         ;;since this is the persistent file, we don't want more than one
-         ;;scheduled ahk to run at one time
-         ;WaitFileNotExist(tempahk)
-      ;}
-   ;}
-;}
-;}}}
-
 ;{{{ new ways to close unwanted windows
 
 ;note that this is the body of the traytip, not the title

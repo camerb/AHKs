@@ -254,7 +254,7 @@ file=%A_ScriptDir%\cliprun.ahk
 FileDelete(file)
 FileAppend(ahk, file)
 Run, %file%
-Sleep 2000 ;no, seriously, this will keep you from doing stupid stuff
+Sleep 2000 ;no, seriously, this will keep you from doing stupid stuff (running too many clipAHKs)
 Return
 
 ;control the firefly macros if they ran amuck
@@ -268,5 +268,7 @@ IfWinExist, firefly.*.ahk
    RunAhk("fireflyButtons.ahk")
    reload
 }
+else
+   RunAhk("fireflyButtons.ahk")
 DetectHiddenWindows, Off
 return
