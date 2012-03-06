@@ -102,7 +102,8 @@ return
 
 msg(message)
 {
-   message .= "`n`nClick OK to Continue"
+   message .= "`n`nLynx Maintenance has been paused. Click OK once you have performed the action specified above."
+   lynx_log("Message displayed to technician...`n" . msg)
    MsgBox, , Lynx Upgrade Assistant, %message%
 }
 
