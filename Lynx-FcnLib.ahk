@@ -506,7 +506,7 @@ TestCmdRet()
 GetIEVersion()
 {
    RegRead, IEVersion, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Internet Explorer, Version
-   lynx_log("IE Version is: " . IEVersion)
+   lynx_log("IE (Internet Explorer) Version is: " . IEVersion)
    return IEVersion
 }
 

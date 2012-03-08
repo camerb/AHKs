@@ -349,6 +349,14 @@ if (Mod(A_Sec, 2)==0)
 }
 ;}}}
 
+;{{{ Close unwanted windows, new ways, but not one-liners
+if ForceWinFocusIfExist("Microsoft Windows")
+{
+   if SimpleImageSearch("images/win7/doYouWantToScanAndFixFlashDrive.bmp")
+      ClickIfImageSearch("images/win7/continueWithoutScanning.bmp", "control")
+}
+;}}}
+
 ;{{{ new ways to close unwanted windows
 
 ;note that this is the body of the traytip, not the title

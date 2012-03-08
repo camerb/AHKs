@@ -1,7 +1,10 @@
 #include FcnLib.ahk
 
+SpiffyMute()
+
 startupAhk=Startup%A_ComputerName%.ahk
-RunAhk(startupAhk)
+if FileExist(startupAhk)
+   RunAhk(startupAhk)
 
 RunAhk("StartIdleAhks.ahk")
 

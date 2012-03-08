@@ -368,3 +368,39 @@ SendInput %A_Space%- CB %date%
 return
 #IfWinActive
 ;}}}
+
+;{{{ Emails to Lynx Customers
+#IfWinActive Write.* ahk_class MozillaWindowClass
+:*:!updated::
+text=The LynxGuide server update is complete and your server is back online. In addition, we have tested the server to ensure that it is processing alarms correctly. Feel free to contact Lynx Technical Support if you have any questions regarding the update or the new version of the LynxGuide Server software.`n`nRegards,
+SendInput %text%
+Send, !s!aLynxGuide Server Update Complete
+return
+
+;TODO sms failed... here's how we can re-enable it
+;TODO email failed, here's how we can re-enable it
+#IfWinActive
+;}}}
+
+;{{{ Re-tag Thunderbird inbox
+#IfWinActive Inbox - .* - Mozilla Thunderbird ahk_class MozillaWindowClass
+)::
+Send, {APPSKEY}g0
+return
+!::
+Send, {APPSKEY}g1
+return
+@::
+Send, {APPSKEY}g2
+return
+;#::
+;Send, {APPSKEY}g3
+;return
+;$::
+;Send, {APPSKEY}g4
+;return
+%::
+Send, {APPSKEY}g5
+return
+#IfWinActive
+;}}}

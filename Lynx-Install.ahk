@@ -10,7 +10,7 @@ Gui, Add, Text,, Please select the components you would like to install:
 
 Gui, Add, Checkbox, Checked vChoseCopyInstallationFilesToHardDrive, Copy Installation Files
 Gui, Add, Checkbox, Checked vChoseTurnOffWindowsFirewall, Turn Off Windows Firewall
-Gui, Add, Checkbox,         vChoseChangeScreenResolution, Change Screen Resolution
+Gui, Add, Checkbox, Checked vChoseChangeScreenResolution, Change Screen Resolution
 Gui, Add, Checkbox, Checked vChoseActivePerl, ActivePerl
 Gui, Add, Checkbox, Checked vChoseInstallSSMS, Install SSMS
 Gui, Add, Checkbox, Checked vChoseConfigureSSMS, Configure SSMS

@@ -64,6 +64,7 @@ InstallSmsKey()
 msg("Ensure lynx2@mitsi.com is added in the contact list, with the comment 'Lynx Technical Support - Automated Supervision'")
 msg("Send Test SMS message, popup (to server), and email (to lynx2).")
 LynxNewVersion := GetLynxVersion()
+TestLynxSystem()
 SendLogsHome()
 msg("Disable 000 Supervision on Alarm Groups POPUP and LYNXKEYPRO, if they do not have any destinations set up.")
 msg("Ensure the LynxGuide supervision channels 000 Normal, 000 Alarm, 001, 002, 006, 007, 008, 009 are enabled, with the company name in the subject line of each alarm message.")
@@ -103,7 +104,7 @@ return
 msg(message)
 {
    message .= "`n`nLynx Maintenance has been paused. Click OK once you have performed the action specified above."
-   lynx_log("Message displayed to technician...`n" . msg)
+   lynx_log("Message displayed to technician...`n" . message)
    MsgBox, , Lynx Upgrade Assistant, %message%
 }
 
@@ -131,20 +132,30 @@ LynxError(message)
 
 IsPerlUpgradeNeeded()
 {
-   if (GetPerlVersion() != "5.8.9")
-      return true
+   version := GetPerlVersion()
+
+   if (version == "5.8.9")
+      returned := false
    else
-      return false
+      returned := true
+
+   delog(A_ThisFunc, "Determined if the update was needed (next line)", returned, version)
+   return returned
 }
 
 IsApacheUpgradeNeeded()
 {
-   if (GetApacheVersion() == "2.2.22")
-      return false
-   else if (GetApacheVersion() == "2.2.21")
-      return false
+   version := GetApacheVersion()
+
+   if (version == "2.2.22")
+      returned := false
+   else if (version == "2.2.21")
+      returned := false
    else
-      return true
+      returned := true
+
+   delog(A_ThisFunc, "Determined if the update was needed (next line)", returned, version)
+   return returned
 }
 
 GetLatestLynxVersion()

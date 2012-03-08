@@ -1975,6 +1975,26 @@ PreviewCsv(csvContents)
    CmdRet_RunReturn("C:\Dropbox\Programs\SnapDB\SnapDB.exe " . csvFile)
 }
 
+IsVmRunning()
+{
+   CustomTitleMatchMode("RegEx")
+   winTitle=.+ - VMware Player ahk_class VMPlayerFrame
+   ;return WinExist(winTitle)
+   returned := false
+   IfWinExist, %winTitle%
+      returned := true
+   CustomTitleMatchMode("Default")
+
+   return returned
+}
+
+OpenVM()
+{
+   vmFile := "C:\XPVM\Windows XP Professional.vmx"
+   ErrordIfFileNotExist(ThisFunc, vmFile)
+   Run, %vmFile%
+}
+
 ;WRITEME make function for getting remote and local path of dropbox public folder
 ;WRITEME split csv processing out of the create pie chart macro
 ;WRITEME make monthly financial charts (rather than three-month)
