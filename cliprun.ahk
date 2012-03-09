@@ -1,5 +1,5 @@
 #include FcnLib.ahk
 
- Ctrl+Shift+Alt+Win+R
+ProcessClose("foobar2000.exe")
 
  ~esc::ExitApp
