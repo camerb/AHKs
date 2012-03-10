@@ -4,6 +4,10 @@
 #include Lynx-UpgradeParts.ahk
 ;#singleinstance force
 Lynx_MaintenanceType := "maint"
+
+
+;TODO make a gui instead
+
 SendFileHome()
 
 ;the end of the maintenance

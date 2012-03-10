@@ -64,7 +64,6 @@ if (A_ComputerName = LeadComputer())
    RunThisNightlyAhk(7, "MintGetAccountBalances.ahk")
    ;hypercam()
    ;RunThisNightlyAhk(7, "UsaaGetAccountBalances.ahk") ;removeme?
-   ;RunThisNightlyAhk(7, "UsaaGetAccountBalances-IE.ahk") ;removeme?
    ;RunThisNightlyAhk(4, "GetMintNetWorth.ahk")
    RunThisNightlyAhk(2, "ProcessMintExport.ahk")
    RunThisNightlyAhk(2, "MakeNightlyCsvsFromIni.ahk")
@@ -81,7 +80,6 @@ if (A_ComputerName = LeadComputer())
 
 if (A_ComputerName="PHOSPHORUS")
 {
-   RunThisNightlyAhk(1, "UpdatePerlPackages.ahk")
    ;looks like FF4 doesn't need a nightly restart (no longer a RAM hog)
    ;RunAhkAndBabysit("RestartFirefox.ahk")
    ;SleepMinutes(1)
