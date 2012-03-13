@@ -580,7 +580,15 @@ global
 SetTitleMatchMode, RegEx
 
 cityChoices=Tampa|Ft. Lauderdale|Orlando|Jacksonville
-clientChoices=Albertelli Law|FDLG|Florida Foreclosure Attorneys, PLLC|Gladstone Law Group, P.A.|Marinosci Law Group, PC - Florida|Pendergast & Morgan, P.A.|Shapiro & Fishman, LLP|Law Offices of Douglas C. Zahm, P.A.
+;clientChoices=Albertelli Law|FDLG|Florida Foreclosure Attorneys, PLLC|Gladstone Law Group, P.A.|Marinosci Law Group, PC - Florida|Pendergast & Morgan, P.A.|Shapiro & Fishman, LLP|Law Offices of Douglas C. Zahm, P.A.
+
+clientChoices=Albertelli Law|FDLG|Florida Foreclosure Attorneys, PLLC|Gladstone Law Group, P.A.|Marinosci Law Group, PC - Florida|Pendergast & Morgan, P.A.|Shapiro & Fishman, LLP|Law Offices of Douglas C. Zahm, P.A.|Deutsch, Levy & Engel, Chartered|Niew Legal Partners, PC|Lyman & Nielson, LLC|Laurie & Brennan LLP|Chitkowski Law Offices
+
+         ;Niew Legal Partners, PC
+         ;Lyman & Nielson, LLC
+         ;Laurie & Brennan LLP
+         ;Chitkowski Law Offices
+         ;Margery Newman
 
 ini := GetPath("myconfig.ini")
 city := IniRead(ini, "firefly", "city")

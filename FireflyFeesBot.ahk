@@ -75,7 +75,7 @@ Loop, parse, uiSections, CSV
       GetFees()
       feesAddedCountSoFar++
 
-      msg=Added %feesAddedCountSoFar% fees so far
+      msg=Added %feesAddedCountSoFar% fees so far this round
       AddToTrace(msg)
       ;iniPP("Bot Is Working")
 
