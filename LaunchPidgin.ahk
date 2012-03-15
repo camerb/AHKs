@@ -1,5 +1,7 @@
 #include FcnLib.ahk
 
+ExitApp ;TODO COMMENTME turn off pidgin while out of the office
+
 ;copypasta from UpdatePidginImStatus.ahk ... should there be a pidgin lib?
 RunProgram("C:\Program Files (x86)\Pidgin\pidgin.exe")
 while NOT ForceWinFocusIfExist("Buddy List ahk_class gdkWindowToplevel")
