@@ -214,7 +214,25 @@ SendViaClipboard(text)
    Sleep 100
 }
 
-;If you see the image, move the mouse there
+SimpleImageSearchWithDimensions(filename, xStart, yStart, width, height)
+{
+   ;TODO merge this mode into the others
+   ;should probably have a usage that looks like:
+   ;   SimpleImageSearch("file.bmp", "{CoordZone:\"0,0,10,20\"}")
+   ;should use json to specify the coordzone to search
+
+   if NOT FileExist(filename)
+   {
+      errord(A_ThisFunc, filename, "the aforementioned file does not exist")
+      return false
+   }
+
+   ;WinGetPos, no, no, winWidth, winHeight, A
+   ImageSearch, xvar, yvar, %xStart%, %yStart%, %width%, %height%, %filename%
+
+   return NOT ErrorLevel
+}
+
 SimpleImageSearch(filename)
 {
    if NOT FileExist(filename)
@@ -247,7 +265,7 @@ MouseMoveIfImageSearch(filename)
 }
 
 ;If you see the image, click it
-ClickIfImageSearch(filename, clickOptions="left mouse")
+ClickIfImageSearch(filename, options="left mouse")
 {
    ;TODO make this look a little more like:
    ;if NOT VerifyFileExist(A_ThisFunc, filename)
@@ -265,7 +283,7 @@ ClickIfImageSearch(filename, clickOptions="left mouse")
    ImageSearch, xvar, yvar, 0, 0, winWidth, winHeight, %filename%
 
    if NOT ErrorLevel
-      Click(xvar, yvar, clickOptions)
+      Click(xvar, yvar, options)
 
    return NOT ErrorLevel
 }
@@ -295,10 +313,10 @@ WaitForImageSearch(filename, variation=0, timeToWait=60, sleepTime=20) ;TODO opt
    return false
 }
 
-WFCIImageSearch(filename, clickOptions="left mouse")
+WFCIImageSearch(filename, options="left mouse")
 {
    WaitForImageSearch(filename)
-   ClickIfImageSearch(filename, clickOptions)
+   ClickIfImageSearch(filename, options)
 }
 
 ;FIXME I don't like the boolean logic here... just doesn't seem readable
@@ -345,7 +363,7 @@ MouseMoveRandom()
 ;deprecated:
 MoveToRandomSpotInWindow()
 {
-MouseMoveRandom()
+   MouseMoveRandom()
 }
 
 WeightedRandom(OddsOfa1, OddsOfa2, OddsOfa3=0, OddsOfa4=0, OddsOfa5=0)
@@ -398,7 +416,7 @@ BoolToString(bool)
       return "false"
 }
 
-;TODO write
+;WRITEME
 ;Returns true if color1 is darker than color2
 ColorIsDarkerThan(color1, color2)
 {
@@ -407,7 +425,7 @@ ColorIsDarkerThan(color1, color2)
 ;determine difference
 }
 
-;TODO write
+;WRITEME
 ;Continuously checks a pixel's color until it stabilizes at a certain color
 ;returns the color that it is holding at
 WaitUntilColorStopsChanging(x, y)
@@ -421,7 +439,7 @@ WaitUntilColorStopsChanging(x, y)
    return currentColor
 }
 
-;TODO write
+;WRITEME
 ;Keeps clicking a spot until it is as dark/as light as possible
 ;(for selecting/deselecting a checkbox)
 ForcePixelColorChangeByClicking(x, y, lightestOrDarkest, checkboxStates=2)

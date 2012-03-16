@@ -243,6 +243,49 @@ GetStatus()
    }
    return status
 }
+
+;TODO put this sucker into the ASE macro
+GetThatStupidDate()
+{
+   xDate := 0
+   yDate := 0
+   wDate := 100
+   hDate := 20
+
+   Loop, 12
+   {
+      file=images/firefly/date/monthWords%A_Index%.bmp
+      if SimpleImageSearchWithDimensions(file, xDate, yDate, wDate, hDate)
+      {
+         sawMonth := A_Index
+         break
+      }
+   }
+
+   Loop, 31
+   {
+      file=images/firefly/date/%A_Index%.bmp
+      if SimpleImageSearchWithDimensions(file, xDate, yDate, wDate, hDate)
+      {
+         sawDay := A_Index
+         break
+      }
+   }
+
+   Loop, 3
+   {
+      thisYear := 2010 + A_Index
+      file=images/firefly/date/%thisYear%.bmp
+      if SimpleImageSearchWithDimensions(file, xDate, yDate, wDate, hDate)
+      {
+         sawYear := thisYear
+         break
+      }
+   }
+
+   returned=%sawMonth%/%sawDay%/%sawYear%
+   return returned
+}
 ;}}}
 
 ;{{{ Generic things
