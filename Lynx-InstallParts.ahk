@@ -320,13 +320,6 @@ GetNewestInetpub()
    delog("", "finished function", A_ThisFunc)
 }
 
-TestLynx()
-{
-   delog("", "started function", A_ThisFunc)
-   TestLynxSystem()
-   delog("", "finished function", A_ThisFunc)
-}
-
 InstallApache()
 {
    delog("", "started function", A_ThisFunc)
