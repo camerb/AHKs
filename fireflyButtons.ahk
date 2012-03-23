@@ -156,6 +156,7 @@ melWorkEmail:=SexPanther("mel-work-email")
 imacro=
 (
 TAB CLOSEALLOTHERS
+URL GOTO=http://mail.google.com/mail/u/0/?logout&hl=en
 URL GOTO=http://www.gmail.com
 TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://accounts.google.com/ServiceLoginAuth ATTR=ID:Email CONTENT=melindabaustian@gmail.com
 SET !ENCRYPTION NO
