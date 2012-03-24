@@ -17,6 +17,7 @@ Gui, Add, Checkbox, Checked vChoseConfigureSSMS, Configure SSMS
 Gui, Add, Checkbox, Checked vChoseODBC, ODBC
 Gui, Add, Checkbox, Checked vChoseCopyInetpub, Copy Inetpub
 Gui, Add, Checkbox, Checked vChoseApache, Apache
+;TODO separate button for installing the Sound Card Drivers
 Gui, Add, Checkbox, Checked vChoseTTS, Text-to-Speech
 Gui, Add, Checkbox, Checked vChoseSMTP, SMTP/IIS
 Gui, Add, Checkbox, Checked vChoseMakeDesktopShortcuts, Make Desktop Shortcuts

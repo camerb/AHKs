@@ -4,22 +4,22 @@
 ;{{{ TODOs
 ;PRIORITIES:
 ;  Track invoices (maybe email erica when invoice is generated) (need to discuss with mel)
+;  Add the two dates to the ASE macro
 
 
 ;email from melinda: 2012-02-16
 ;- a "Ready to Invoice" checkbox on my fees gui that exports the file number to a spreadsheet somewhere (maybe that little "Go to the next job" button that you made would work with this as long as we are only exporting one job number per file)
-;- make sure that Add Scorecard is not trying to enter data into fields that cannot be modified (I think we need to work together to figure out the issue)
-;- fix the "Load Reference Number" macro so that if I hit cancel or the "X" it won't still try to add it (I have started hitting Ctrl ~ when that pops up but my first instinct is to hit the "X" and it drives me crazy when I do that!!)
+;- make sure that Add Scorecard is not trying to enter data into fields that cannot be modified (I think we need to work together to figure out the issue) --- (2012-03-22 I think this is done)
+;- fix the "Load Reference Number" macro so that if I hit cancel or the "X" it won't still try to add it (I have started hitting Ctrl ~ when that pops up but my first instinct is to hit the "X" and it drives me crazy when I do that!!) (2012-03-22 This will require a change of the Prompt() function so that it uses errorlevel)
 ;- I also think I might want to change the layout of the buttons on the gui, but I am not quite sure what I want to do with it yet
 
 ;TODO add dates to "Add Scorecard Entry"
 ;FIXME Auto-expand all pluses in the left-hand side
-;TODO make in-depth fees gui
-;TODO default PS Fee to $10
+;TODO default PS Fee to $10 (2012-03-22 I doubt she will actually want to do this anymore)
 ;TODO use the StatusProCopyField() for all copies
-;TODO changeall references of "Status" to "ServiceManner"
+;TODO changeall references of "Status" to "GetServiceManner" ;RIGHTHERERIGHTNOW
 
-;TODO make a macro that tests their site and determines if the site is going slower than normal and logs out/in again
+;TODO make a macro that tests their site and determines if the site is going slower than normal and logs out/in again (perhaps just put it in a routine function)
 ;TODO make macros more robust so that I can upgrade firefox
 ;TODO use the StatusProCopyField() for all copies
 ;TODO Do you think that you could make a macro that after I invoice a Gladstone file it automatically emails Erica?
@@ -34,7 +34,7 @@
 ;Items that don't seem to be important anymore (or things that I think I've finished):
 ;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
 ;REMOVEME - I think I did remove this part of the code (2011-11-10)... The "Would you like to approve?" box never shows up anymore. Don't know if you would want to remove that code?
-;TODO move parts into functions (like GetReferenceNumber(), GetServerName(), GetStatus() )
+;TODO move parts into functions (like GetReferenceNumber(), GetServerName(), GetServiceManner() )
 ;- change "Add Scorecard Entry" so that it puts my name (Melinda Baustian instead of AHMBaustian)
 ;TODO change text in the MS-Word lookalike program (cause their template is wrong)
 ;  Add fees button that works on background computer
@@ -538,7 +538,7 @@ FindTopOfFirefoxPage()
 
 referenceNumber:=GetReferenceNumber()
 serverName:=GetServerName()
-status:=GetStatus()
+status:=GetServiceManner()
 
 time:=ElapsedTime(timer)
 ;FOR TESTING PURPOSES
@@ -787,10 +787,11 @@ return
 ;{{{ ButtonTestSomething:
 ButtonTestSomething:
 ;StartOfMacro()
-;debug("starting to test something")
+notify("starting to test something")
 
+debug(GetThatStupidDate())
 
-;debug("finished testing something")
+notify("finished testing something")
 ;EndOfMacro()
 return
 ;}}}
@@ -800,15 +801,7 @@ ButtonNotes:
 StartOfMacro()
 notes=
 (
-Here's an overview of the different versions of the buttons at the moment (newest is at the bottom):
-
-ASE-st: Ok... I did a couple things here... I made it a bit better at copying the status, and I also made the macro faster. I think that the earlier versions are super-reliable, so I decided I would try to make them faster now.
-
-ASE-mf: More functions... this should make things easier on me. You shouldn't notice a difference.
-
-ASE-sc: Tried a different way to detect the Service County... this should make things a little easier on me.
-
-ASE-new: for the new scorecard
+Here's an overview of the different revisions at the moment (newest is at the bottom):
 
 ASE-fw: fewer messages are sent to Cameron, plus the first few fields of the scorecard should be typed in faster (hopefully that is reliable)
 
@@ -817,6 +810,8 @@ ASE-yn: Trying to get the yesses and nos in the correct places... if I'm wrong, 
 Load Reference Number: It loads a specified file with the reference number that you give it.
 
 Fetch RefNums Csv: Opens the Reference Numbers CSV of all of the files that you have to go back through and review/approve.
+
+Refresh Login: This isn't a new button, but I changed it so that it should force gmail to log out every time.
 )
 debug("notimeout", "`n" . notes)
 EndOfMacro()

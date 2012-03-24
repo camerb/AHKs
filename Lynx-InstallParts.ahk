@@ -524,6 +524,11 @@ EnableIISlocalhostRelay()
    SleepClick(120, 420)
    ForceWinFocus("IIS")
    WinClose
+
+   ;start and enable smtp service for auto-run
+   ;TODO make a function like PermanentEnableService("SMTPSVC") and PermanentDisableService
+   PermanentEnableService("SMTPSVC")
+
    delog("", "finished function", A_ThisFunc)
 }
 

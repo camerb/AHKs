@@ -162,6 +162,7 @@ EnsureAllServicesAreRunning()
    ;FIXME - make this an error, not a log
    if NOT AllServicesAre("running")
       lynx_log("I think this is an error: Not all services are running")
+   PermanentEnableService("SMTPSVC")
    delog("", "finished function", A_ThisFunc)
 }
 
@@ -218,7 +219,7 @@ UpgradeApacheIfNeeded()
       ;ensure the service is gone
       EnsureApacheServiceNotExist()
 
-      Run, C:\temp\lynx_upgrade_files\apache\apache\apache.msi
+      Run, C:\temp\lynx_upgrade_files\7.12\tools\apache\apache.msi
       lynx_log("Started apache installer")
       Sleep, 2000
       msg("Install new apache")
@@ -261,9 +262,15 @@ BackupLynxDatabase(description)
    ArchiveDatabaseBackup(archiveDescription)
    Sleep, 1000
 
+   ;TODO write the batch file (or copy it over)
+
    ;perform the backup
    path:="C:\inetpub\wwwroot\cgi\"
-   RunWait, %path%backupdb.bat , %path%
+   batFile=%path%backupdb.bat
+   if FileExist(batFile)
+      RunWait, %batFile%, %path%
+   else
+      msg("Make the backup of the lynx database manually")
 
    Sleep, 1000
 

@@ -70,6 +70,30 @@ SleepClick(xCoord, yCoord, options="Left Mouse")
    Click(xCoord, yCoord, options)
 }
 
+PermanentEnableService(serviceName)
+{
+   cmd1=net start %serviceName%
+   cmd2=sc config %serviceName% start= auto
+   CmdRet_RunReturn(cmd1)
+   ret := CmdRet_Runreturn(cmd2)
+
+   ;TODO figure out what to do here... do we want to log it?
+   ;if NOT InStr(ret, "SUCCESS")
+      ;MsgBox, %ret%
+}
+
+PermanentDisableService(serviceName)
+{
+   cmd1=net stop %serviceName%
+   cmd2=sc config %serviceName% start= disabled
+   CmdRet_RunReturn(cmd1)
+   ret := CmdRet_Runreturn(cmd2)
+
+   ;TODO figure out what to do here... do we want to log it?
+   ;if NOT InStr(ret, "SUCCESS")
+      ;MsgBox, %ret%
+}
+
 RestartService(serviceName)
 {
    ;NOTE I could use the sc command, but that wouldn't wait for the service to start successfully

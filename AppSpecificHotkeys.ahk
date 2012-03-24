@@ -384,6 +384,7 @@ return
 
 ;{{{ Re-tag Thunderbird inbox
 #IfWinActive Inbox - .* - Mozilla Thunderbird ahk_class MozillaWindowClass
+~::
 )::
 Send, {APPSKEY}g0
 return

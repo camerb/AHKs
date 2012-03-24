@@ -4,6 +4,7 @@
 #include FcnLib-IniStats.ahk
 #include SendEmailSimpleLib.ahk
 #include thirdParty\json.ahk
+#include thirdParty\notify.ahk
 
 
 ;{{{ ghettoness
@@ -228,7 +229,7 @@ GetServerName()
    return serverName
 }
 
-GetStatus()
+GetServiceManner()
 {
    Clipboard:=""
    ;StatusProCopyField(958, 374) ;experimenting trying to get it a little more reliable
@@ -247,9 +248,9 @@ GetStatus()
 ;TODO put this sucker into the ASE macro
 GetThatStupidDate()
 {
-   xDate := 0
-   yDate := 0
-   wDate := 100
+   xDate := 744
+   yDate := 464
+   wDate := 130
    hDate := 20
 
    Loop, 12
