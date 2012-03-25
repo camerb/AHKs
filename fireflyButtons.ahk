@@ -4,8 +4,13 @@
 ;{{{ TODOs
 ;PRIORITIES:
 ;  Track invoices (maybe email erica when invoice is generated) (need to discuss with mel)
-;  Add the two dates to the ASE macro
+;  Add the two dates to the ASE macro using OCR
+;  archive old iniFolder nightly and start VM so that it can sync the folder over
 
+;more ideas straight from melinda 2012-03-24
+;   email server macro
+;   email foqc macro
+;   melinda should probably have a helper macro that will click the stupid 'site had an error' box quickly
 
 ;email from melinda: 2012-02-16
 ;- a "Ready to Invoice" checkbox on my fees gui that exports the file number to a spreadsheet somewhere (maybe that little "Go to the next job" button that you made would work with this as long as we are only exporting one job number per file)
@@ -13,11 +18,11 @@
 ;- fix the "Load Reference Number" macro so that if I hit cancel or the "X" it won't still try to add it (I have started hitting Ctrl ~ when that pops up but my first instinct is to hit the "X" and it drives me crazy when I do that!!) (2012-03-22 This will require a change of the Prompt() function so that it uses errorlevel)
 ;- I also think I might want to change the layout of the buttons on the gui, but I am not quite sure what I want to do with it yet
 
+;TODO Ready to invoice spreadsheet from add fees
 ;TODO add dates to "Add Scorecard Entry"
 ;FIXME Auto-expand all pluses in the left-hand side
-;TODO default PS Fee to $10 (2012-03-22 I doubt she will actually want to do this anymore)
 ;TODO use the StatusProCopyField() for all copies
-;TODO changeall references of "Status" to "GetServiceManner" ;RIGHTHERERIGHTNOW
+;TODO changeall references of "Status" to "ServiceManner" ;RIGHTHERERIGHTNOW
 
 ;TODO make a macro that tests their site and determines if the site is going slower than normal and logs out/in again (perhaps just put it in a routine function)
 ;TODO make macros more robust so that I can upgrade firefox
@@ -25,13 +30,11 @@
 ;TODO Do you think that you could make a macro that after I invoice a Gladstone file it automatically emails Erica?
 ;TODO Track number of invoiced files
 ;TODO Track number of approved files
+;}}}
 
-;FIXME FIXME FIXME - I think I fixed this
-;Can you see at the top, in the middle, above the Process Server Name, there is some info in blue? I think that sometimes there is alot of information there so the rest of the page is skewed and the macro ends up copypasting randomness all around.
-;I don't know if this is really part of the issue but thought I would throw it out. I was trying to add a scorecard entry on this one when the macros went wild.
-;end FIXME - from an email Mel sent on 11-22-2011 around 3:30pm
-
+;{{{ TODO things that are finished, i think i've finished, or that I've abandoned
 ;Items that don't seem to be important anymore (or things that I think I've finished):
+;  ASE seems to have trouble locating the first empty cell now - fix it (2012-03-24 i think i fixed it)
 ;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
 ;REMOVEME - I think I did remove this part of the code (2011-11-10)... The "Would you like to approve?" box never shows up anymore. Don't know if you would want to remove that code?
 ;TODO move parts into functions (like GetReferenceNumber(), GetServerName(), GetServiceManner() )
@@ -40,9 +43,11 @@
 ;  Add fees button that works on background computer
 ;  Make FindTopOfFirefoxPage() more reliable (it used to be good)
 ;Mel said she had a bunch of issues with the bot adding fees twice... I thought she said that was not a big issue?
+;Long Defendant Name causes crazy copypasting - Can you see at the top, in the middle, above the Process Server Name, there is some info in blue? I think that sometimes there is alot of information there so the rest of the page is skewed and the macro ends up copypasting randomness all around. I don't know if this is really part of the issue but thought I would throw it out. I was trying to add a scorecard entry on this one when the macros went wild. - from an email Mel sent on 11-22-2011 around 3:30pm - this is definitely fixed (2012-03-24)
 
 ;ABANDONED:
 ;make background blueish to match sidebar
+;TODO default PS Fee to $10 (2012-03-22 I doubt she will actually want to do this anymore) those fees are already in there
 ;}}}
 
 ;{{{Globals and making the gui (one-time tasks)
@@ -68,9 +73,9 @@ Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
 ;Gui, Color, 000032
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
-;Gui, Add, Button, , Add Scorecard Entry-new
 ;Gui, Add, Button, , Add Scorecard Entry-fw
-Gui, Add, Button, , Add Scorecard Entry-yn
+;Gui, Add, Button, , Add Scorecard Entry-yn
+Gui, Add, Button, , Add Scorecard Entry-fb
 Gui, Add, Button, , Refresh Login
 Gui, Add, Button, , Load Reference Number
 Gui, Add, Button, , Add Fees
@@ -331,8 +336,6 @@ if NOT (feesVar4 == "" or feesVar4 == 3)
 }
 
 iniFolder:=GetPath("FireflyIniFolder")
-;feesUIini := GetPath("Firefly-UI.ini")
-;botFile := GetPath("Firefly-2-Added.ini")
 Loop, parse, listFees, CSV
 {
    i:=A_Index
@@ -342,14 +345,10 @@ Loop, parse, listFees, CSV
 
    if thisFeeAmount
       IniFolderWrite(iniFolder, referenceNumber, thisKeySubmitted, thisFeeAmount)
-   ;if thisFeeAmount
-      ;IniWrite(feesUIini, referenceNumber, thisFee, thisFeeAmount)
 }
 
 if ReadyToInvoice
    IniFolderWrite(iniFolder, referenceNumber, "ReadyToInvoice", "1")
-;if ReadyToInvoice
-   ;IniWrite(feesUIini, referenceNumber, "ReadyToInvoice", "1")
 
 if NOT IsVmRunning()
    OpenVM()
@@ -581,6 +580,7 @@ Loop
 }
 
 Clipboard := "null"
+
 ss()
 SendInput, %serverName%{ENTER}
 SendInput, Melinda Baustian{ENTER}
@@ -649,6 +649,142 @@ else
    ;iniPP("(error 21)-ServiceCountyRequired-was-" . ServiceCountyRequired)
 ;}
 ;note that this should be true: the number of 26+28+29 = (error 21)
+
+EndOfMacro()
+return
+;}}}
+
+;{{{ButtonAddScorecardEntry-fb:
+ButtonAddScorecardEntry-fb:
+timer:=StartTimer()
+StartOfMacro()
+
+;notify us of possible issues in the alias names ini
+namesIni:=GetPath("FireflyConfig.ini")
+allNames:=IniListAllKeys(namesIni, "NameTranslations")
+;Loop, parse, allNames, CSV
+;{
+   ;if RegExMatch(A_LoopField, "[,.]")
+      ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
+;}
+
+FindTopOfFirefoxPage()
+
+referenceNumber:=GetReferenceNumber()
+serverName:=GetServerName()
+status:=GetServiceManner()
+
+time:=ElapsedTime(timer)
+;FOR TESTING PURPOSES
+;debug(referenceNumber, serverName, status, time)
+;RecoverFromMacrosGoneWild("Testing (error 00)")
+
+if InStr(status, "Cancelled")
+   RecoverFromMacrosGoneWild("It looks like this one was cancelled (error 5)", status)
+
+IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
+   RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
+
+;translate server name, if they go by something else
+replacementName := IniRead(namesIni, "NameTranslations", PrepIniKeyServerName(serverName))
+if (replacementName != "ERROR")
+   serverName := replacementName
+
+
+FormatTime, today, , MM/dd/yyyy
+;#############################################################
+FocusNecessaryWindow(excel)
+
+ss()
+Send, {UP 50}
+Send, {UP 50}
+;Send, {RIGHT}
+
+;DELETEME remove this before moving live
+ss()
+;TODO try removing one of these first
+;Send, {LEFT}
+;Send, {LEFT}
+ss()
+Send, {DOWN}
+ss()
+
+;Loop to find the first empty column
+Loop
+{
+   cellContents:=CopyWait()
+   if NOT RegExMatch(cellContents, "[A-Za-z]")
+      break
+   Send, {RIGHT}
+}
+
+ss()
+SendInput, %serverName%{ENTER}
+SendInput, Melinda Baustian{ENTER}
+SendInput, %today%{ENTER}
+SendInput, %referenceNumber%{ENTER}
+
+/*
+Clipboard := "null"
+Sleep, 100
+Send, ^c
+Sleep, 100
+Loop
+{
+   ServiceCountyRequired := Clipboard
+   if (ServiceCountyRequired != "null")
+      break
+   sleep, 100
+}
+*/
+;(2012-03-24)
+
+ServiceCountyRequired:=CopyWait()
+
+Send, {ENTER}
+Send, {DOWN}
+;TODO enter SPS Received Date
+;called Issue Date in Status-Pro
+Send, {ENTER}
+;TODO enter the status closed date
+;called Case Status Date in Status-Pro
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {ENTER}
+Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
+
+;go back up to the field that melinda wants it to be in (SPS Recvd Date)
+Loop, 19
+   Send, {UP}
+
+if (ServiceCountyRequired == "`r`n")
+   {} ;do nothing
+else if InStr(ServiceCountyRequired, "Service County Not Required")
+   {} ;do nothing
+else if InStr(ServiceCountyRequired, "Service County Required")
+{
+   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
+   msgbox, , , %msg%, 0.5
+}
+else
+{
+   ;read the text but didn't comprehend what it said
+   AddToTrace("grey line (error 29) ServiceCountyRequired was: " . ServiceCountyRequired)
+   iniPP("(error 29)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+}
 
 EndOfMacro()
 return
@@ -789,7 +925,12 @@ ButtonTestSomething:
 ;StartOfMacro()
 notify("starting to test something")
 
-debug(GetThatStupidDate())
+;debug(GetThatStupidDate())
+
+;joe:=SimpleImageSearchWithDimensions("images/firefly/date/2011.bmp", 0, 0, 1000, 1000)
+;debug(joe)
+joe:=ClickIfImageSearch("images/firefly/date/2011.bmp *n50")
+;xDate, yDate, wDate, hDate)
 
 notify("finished testing something")
 ;EndOfMacro()
@@ -803,8 +944,6 @@ notes=
 (
 Here's an overview of the different revisions at the moment (newest is at the bottom):
 
-ASE-fw: fewer messages are sent to Cameron, plus the first few fields of the scorecard should be typed in faster (hopefully that is reliable)
-
 ASE-yn: Trying to get the yesses and nos in the correct places... if I'm wrong, email me a screenshot of what it should look like instead.
 
 Load Reference Number: It loads a specified file with the reference number that you give it.
@@ -812,6 +951,8 @@ Load Reference Number: It loads a specified file with the reference number that 
 Fetch RefNums Csv: Opens the Reference Numbers CSV of all of the files that you have to go back through and review/approve.
 
 Refresh Login: This isn't a new button, but I changed it so that it should force gmail to log out every time.
+
+ASE-fb: should be better at finding the first blank cell, without skipping a column. Plus, it should go to the SPS Recvd Date field at the end.
 )
 debug("notimeout", "`n" . notes)
 EndOfMacro()

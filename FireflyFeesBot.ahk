@@ -323,6 +323,7 @@ Client	Pinellas County Sticker	$3.00	1	$0.00	$3.00	New	 	0
 
 */
 
+/* moved to fcnlib-clipboard (2012-03-24)
 CopyWait2()
 {
    Clipboard:=""
@@ -336,6 +337,7 @@ CopyWait2()
    returned:=Clipboard
    return returned
 }
+*/
 
 RefreshLogin()
 {

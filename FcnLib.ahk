@@ -228,7 +228,7 @@ SimpleImageSearchWithDimensions(filename, xStart, yStart, width, height)
    }
 
    ;WinGetPos, no, no, winWidth, winHeight, A
-   ImageSearch, xvar, yvar, %xStart%, %yStart%, %width%, %height%, %filename%
+   ImageSearch, xvar, yvar, xStart, yStart, width, height, %filename%
 
    return NOT ErrorLevel
 }
@@ -273,11 +273,11 @@ ClickIfImageSearch(filename, options="left mouse")
    ;if ErrordIfFileNotExist(A_ThisFunc, filename)
       ;return false
 
-   if NOT FileExist(filename)
-   {
-      errord(A_ThisFunc, filename, "the aforementioned file does not exist")
-      return false
-   }
+   ;if NOT FileExist(filename)
+   ;{
+      ;errord(A_ThisFunc, filename, "the aforementioned file does not exist")
+      ;return false
+   ;}
 
    WinGetPos, no, no, winWidth, winHeight, A
    ImageSearch, xvar, yvar, 0, 0, winWidth, winHeight, %filename%

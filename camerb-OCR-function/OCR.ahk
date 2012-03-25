@@ -58,8 +58,9 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", options="")
       heightToScan := winHeight
    }
 
-   fileNameDestJ = in.jpg
-   jpegQuality = 100
+   fileNameDestJ := "in.jpg"
+   fileNamePnm := "in.pnm"
+   jpegQuality := 100
 
    ;take a screenshot of the specified area
    pToken:=Gdip_Startup()
@@ -85,14 +86,18 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", options="")
    ;NOTE maybe converting to greyscale isn't the best idea
    ;  ... does it increase reliability or speed?
    convertCmd=djpeg.exe -pnm -grayscale %fileNameDestJ% in.pnm
+   CmdRet(convertCmd)
+
+   ; Wait for pnm file to exist
+   while NOT FileExist(filenamePnm)
+      Sleep, 10
 
    ;run the OCR
    if isNumericMode
       additionalParams .= "-C 0-9 "
    runCmd=gocr.exe %additionalParams% in.pnm
 
-   ;run both commands using my mixed cmdret hack
-   CmdRet(convertCmd)
+   ;run command using my mixed cmdret hack
    result := CmdRet(runCmd)
 
    ;suppress warnings from GOCR (we don't care, give us nothing)
@@ -114,12 +119,21 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", options="")
       result := RegExReplace(result, "[ _]+", " ")
    }
 
-   ; Cleanup (preserve the files if in debug mode)
    if NOT isDebugMode
    {
+      ; Cleanup (preserve the files if in debug mode)
       FileDelete, in.pnm
       FileDelete, %fileNameDestJ%
    }
+   else
+   {
+      ;copy to an archive folder if in debug mode
+      FileCreateDir, archive
+      FormatTime, timestamp,, yyyy-MM-dd_HH-mm-ss
+      FileCopy, %fileNameDestJ%, archive\%timestamp%.jpg
+   }
+
+   ;return to previous speed
    SetBatchlines, %prevBatchLines%
 
    return result
@@ -129,10 +143,12 @@ CMDret(CMD)
 {
    if RegExMatch(A_AHKversion, "^\Q1.0\E")
    {
+      ;for AHK_basic
       StrOut:=CMDret_RunReturn(cmd)
    }
    else
    {
+      ;for AHK_L
       VarSetCapacity(StrOut, 20000)
       RetVal := DllCall("cmdret.dll\RunReturn", "astr", CMD, "ptr", &StrOut)
       strget:="strget"

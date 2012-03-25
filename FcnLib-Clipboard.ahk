@@ -7,12 +7,14 @@
 ;NOTE that this should not wait at the end...
 copy(options="")
 {
+   ;this seems super stupid... why would i do all this junk?
    ;0    ""
    ;10   "cautious"
    ;100  "slow"
    ;500  "super slow"
    ;1000 "super super slow"
-   sleepTime:=0
+
+   sleepTime:=10
    if InStr(options, "fast")
       sleepTime:=10
    else if InStr(options, "noSleep")
@@ -29,10 +31,9 @@ copy(options="")
    Send, ^c
 }
 
-;note that you need to paste in a ghetto way for the cmd prompt
+;TODO you need to paste in a ghetto way for the cmd prompt
 paste(options="")
 {
-   ;sleepTime:=0
    sleepTime:=10
    if InStr(options, "fast")
       sleepTime:=10
@@ -47,6 +48,59 @@ paste(options="")
    Sleep, %sleepTime%
    Send, {CTRL UP}
 }
+
+CopyWait2(options="useNull")
+{
+   knownClipboard:="null"
+   if InStr(options, "useBlank")
+      knownClipboard:=""
+
+   Clipboard:=knownClipboard
+   ClipWait(knownClipboard)
+   ss()
+   copy()
+   ;Send, {CTRLDOWN}c{CTRLUP}
+   ss()
+   ClipWaitNot(knownClipboard)
+
+   returned:=Clipboard
+   return returned
+}
+
+CopyWait(options="useNull")
+{
+   knownClipboard:="null"
+   if InStr(options, "useBlank")
+      knownClipboard:=""
+
+   Clipboard:=knownClipboard
+   ClipWait(knownClipboard)
+   ss()
+   copy()
+   ;Send, {CTRLDOWN}c{CTRLUP}
+   ss()
+   ClipWaitNot(knownClipboard)
+
+   returned:=Clipboard
+   return returned
+}
+
+/*
+CopyWait2()
+{
+   Clipboard:=""
+   ClipWait("")
+   ss()
+   copy()
+   ;Send, {CTRLDOWN}c{CTRLUP}
+   ss()
+   ClipWaitNot("")
+
+   returned:=Clipboard
+   return returned
+}
+*/
+/*
 
 ;this is what I've got at the moment... it needs to be refined
 CopyWait(options="")
@@ -99,10 +153,11 @@ CopyWait(options="")
 
    ;TODO return false if error?
 }
+*/
 
 ;TODO options (like a timeout)
 ;TODO options "notEqual" (then condense the ClipWait and ClipWaitNot into one
-;rewrite of the clipwait command
+;Waits for the clipboard to contain a specified string (exact match)
 ClipWait(clipboardContentsToWaitFor, options="")
 {
    Loop 10
@@ -111,9 +166,7 @@ ClipWait(clipboardContentsToWaitFor, options="")
       if (ClipboardContents == clipboardContentsToWaitFor)
          break
 
-      ;TODO decide how long of a pause I want here
       Sleep, 10
-      ;Sleep, 50
    }
 }
 
@@ -125,26 +178,23 @@ ClipWaitNot(clipboardContentsToWaitFor, options="")
       if (ClipboardContents != clipboardContentsToWaitFor)
          break
 
-      ;TODO decide how long of a pause I want here
       Sleep, 10
-      ;Sleep, 50
    }
 }
 
+;This is kinda similar to the Send or SendInput methods, except that it uses the clipboard to send text
 SendViaClip(text)
 {
-   ;Sleep, 100
-   ;Send, %text%
-   ;Sleep, 90
+   ;hey wait... we know what we want to put on the clipboard, so just check if that is equal
 
-   null=null
-   Clipboard:=null
-   ClipWait(null)
+   knownClipboard:=""
+   Clipboard:=knownClipboard
+   ClipWait(knownClipboard)
    Clipboard:=text
-   ClipWaitNot(null)
+   ClipWaitNot(knownClipboard)
    paste()
 }
 
 ;TODO ClipWaitNull(), ClipWaitNotNull()
-; maybe waiting for it to be empty is the best solution... who would ever copy nothing?
+; maybe waiting for it to be empty is the best solution... who would ever copy nothing? answer: me, when I am trying to scan through empty cells in Mel's ASE macro
 ; then again, there are probably some times when we want to wait for it to contain the text "null"

@@ -246,12 +246,18 @@ GetServiceManner()
 }
 
 ;TODO put this sucker into the ASE macro
+;TODO use OCR here
 GetThatStupidDate()
 {
    xDate := 744
    yDate := 464
    wDate := 130
    hDate := 20
+
+   xDate := 700
+   yDate := 400
+   wDate := 300
+   hDate := 200
 
    Loop, 12
    {
@@ -499,6 +505,7 @@ IsBot()
 
 ReferenceNumberForTesting()
 {
+;2522980
    return 2461358
 }
 
