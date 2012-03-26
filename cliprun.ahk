@@ -1,5 +1,6 @@
 #include FcnLib.ahk
 
-ProcessClose("foobar2000.exe")
+F9::SendInput {Backspace}
+$Backspace::Return
 
  ~esc::ExitApp

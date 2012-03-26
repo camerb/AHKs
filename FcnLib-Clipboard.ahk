@@ -57,10 +57,10 @@ CopyWait2(options="useNull")
 
    Clipboard:=knownClipboard
    ClipWait(knownClipboard)
-   ss()
+   Sleep, 10
    copy()
    ;Send, {CTRLDOWN}c{CTRLUP}
-   ss()
+   Sleep, 10
    ClipWaitNot(knownClipboard)
 
    returned:=Clipboard
@@ -75,10 +75,10 @@ CopyWait(options="useNull")
 
    Clipboard:=knownClipboard
    ClipWait(knownClipboard)
-   ss()
+   Sleep, 10
    copy()
    ;Send, {CTRLDOWN}c{CTRLUP}
-   ss()
+   Sleep, 10
    ClipWaitNot(knownClipboard)
 
    returned:=Clipboard

@@ -48,7 +48,8 @@ AppsKey & =::  Run, NewTempAhk.ahk
 ^+!#0::
 ActiveFile := Prompt("Which file would you like to work on?")
 ActiveFile := EnsureEndsWith(ActiveFile, ".ahk")
-command=Run, %ActiveFile%
+RegExMatch(ActiveFile, "^.*\\", folderPath)
+command=Run, %ActiveFile%, %folderPath%
 FileCreate(command, "temporary0.ahk")
 return
 
