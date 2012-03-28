@@ -712,10 +712,10 @@ ss()
 ;Loop to find the first empty column
 Loop
 {
+   Send, {RIGHT}
    cellContents:=CopyWait()
    if NOT RegExMatch(cellContents, "[A-Za-z]")
       break
-   Send, {RIGHT}
 }
 
 ss()

@@ -963,7 +963,7 @@ CompileAhk(ahkFile, options="")
    FileDelete(exePath)
    WaitFileNotExist(exePath)
    Sleep, 100
-   Sleep, 1000
+   ;Sleep, 1000
 
    ahk2exe:=ProgramFilesDir("AutoHotkey\Compiler\Ahk2Exe.exe")
    if InStr(options, "MitsiIcon")
@@ -2135,4 +2135,7 @@ OpenVM()
 
 
 ;WRITEME make forums scraper that will pull information from each lib into a common format on a common ahk.net site (CPAN4AHK)
+
+
+;WRITEME need to make a function that will run ahk code from a temp ahk file
 

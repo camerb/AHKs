@@ -4,12 +4,24 @@
  * Tests to verify that the OCR script is running correctly
 */
 
+/*
+;usages
+GetOCR()
+GetOCR(1, 2, 3, 4)
+GetOCR("activeWindow")
+GetOCR("screenCoords")
+GetOCR(1, 2, 3, 4, "activeWindow")
+GetOCR(1, 2, 3, 4, "screenCoords")
+GetOCR("numeric")
+
+*/
+
 #SingleInstance force
 #Include OCR.ahk
 ;#Include C:\Dropbox\ahks\FcnLib.ahk
 
 tests=GhettoBasicTest,GhettoBasicTest
-tests=ReturnsTrue,ReturnsFalse
+tests=ReturnsTrue,ReturnsFalse,QGThello,QGTindecision,QGTrecognition,QGTtesting
 Loop, parse, tests, CSV
 {
    testResults .= DynamicallyRunTest(A_LoopField)
@@ -46,8 +58,50 @@ returnsfalse()
 DynamicallyRunTest(testName)
 {
    results := %testName%()
-   fullMessage=%results%: %testName%`n
+
+   resultsWords=FAILED
+   if results
+      resultsWords=Passed
+
+   fullMessage=Test %resultsWords%: %testName%`n
    return fullMessage
+}
+
+QGThello()
+{
+   return QuickGuiUsingDynamicText("hello")
+}
+
+QGTindecision()
+{
+   return QuickGuiUsingDynamicText("indecision")
+}
+
+QGTrecognition()
+{
+   return QuickGuiUsingDynamicText("recognition")
+}
+
+QGTtesting()
+{
+   return QuickGuiUsingDynamicText("testing")
+}
+
+QuickGuiUsingDynamicText(expected)
+{
+   ;expected=Please enter your name
+   ;TODO fix this using an active window param
+   Gui, Font, s16
+   Gui, Add, Text,, %expected%
+   Gui, Show
+   ;Sleep, 200
+   result := GetOCR("activeWindow")
+   ;Sleep, 100
+   Gui, Destroy
+   msgbox, , , %result%, 2
+
+   if InStr(result, expected)
+      return true
 }
 
 GhettoBasicTest()

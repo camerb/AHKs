@@ -1,6 +1,5 @@
 #include FcnLib.ahk
 
-F9::SendInput {Backspace}
-$Backspace::Return
+2700373
 
  ~esc::ExitApp

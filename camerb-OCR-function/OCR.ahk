@@ -33,6 +33,16 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", options="")
    prevBatchLines := A_BatchLines
    SetBatchlines, -1 ;cuts the average time down from 140ms to 115ms for small areas
 
+   ;set defaults
+   isActiveWindowMode := false
+
+   if (topLeftY == "" AND widthToScan == "" AND heightToScan == "")
+   {
+      ;no coordinates were provided
+      isSingleParamMode := true
+      options := topLeftX
+   }
+
    ;process options from the options param, if they are there
    if options
    {
@@ -42,62 +52,79 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", options="")
          isNumericMode:=true
       if InStr(options, "numeric")
          isNumericMode:=true
-      if InStr(options, "number")
-         isNumericMode:=true
+      if InStr(options, "activeWindow")
+         isActiveWindowMode:=true
+      ;if InStr(options, "screenCoord")
+      ;   isActiveWindowMode:=false
    }
 
-   if (heightToScan == "")
+   if isSingleParamMode
    {
       ;TODO throw error if not in the right coordmode
       ;or perhaps we can just process the entire screen
-      ;CoordMode, Mouse, Window
-      WinGetActiveStats, no, winWidth, winHeight, no, no
       topLeftX := 0
       topLeftY := 0
-      widthToScan  := winWidth
-      heightToScan := winHeight
+      if isActiveWindowMode
+      {
+         WinGetActiveStats, no, winWidth, winHeight, no, no
+         widthToScan  := winWidth
+         heightToScan := winHeight
+      }
+      else
+      {
+         ;TODO fix this so that it gets the full width and full height across all monitors
+         widthToScan  := A_ScreenWidth
+         heightToScan := A_ScreenHeight
+      }
    }
 
-   fileNameDestJ := "in.jpg"
-   fileNamePnm := "in.pnm"
+   if isActiveWindowMode
+   {
+      WinGetPos, xOffset, yOffset, no, no, A
+      topLeftX += xOffset
+      topLeftY += yOffset
+   }
+   ;need to figure out if changing the coordmode will mess things up
+      ;CoordMode, Mouse, Window
+   ;else
+      ;CoordMode, Mouse, Screen
+
+   filenameJpg := "in.jpg"
+   filenamePnm := "in.pnm"
    jpegQuality := 100
+   djpegPath=djpeg.exe
+   gocrPath=gocr.exe
 
    ;take a screenshot of the specified area
    pToken:=Gdip_Startup()
    pBitmap:=Gdip_BitmapFromScreen(topLeftX "|" topLeftY "|" widthToScan "|" heightToScan)
-   Gdip_SaveBitmapToFile(pBitmap, fileNameDestJ, 100)
+   Gdip_SaveBitmapToFile(pBitmap, filenameJpg, jpegQuality)
    Gdip_Shutdown(pToken)
 
    ; Wait for jpg file to exist
-   while NOT FileExist(fileNameDestJ)
+   while NOT FileExist(filenameJpg)
       Sleep, 10
 
    ;ensure the exes are there
-   djpegPath=djpeg.exe
-   gocrPath=gocr.exe
-
    if NOT FileExist(djpegPath)
       return "ERROR: djpeg.exe not found in expected location"
-
    if NOT FileExist(gocrPath)
       return "ERROR: gocr.exe not found in expected location"
 
    ;convert the jpg file to pnm
    ;NOTE maybe converting to greyscale isn't the best idea
    ;  ... does it increase reliability or speed?
-   convertCmd=djpeg.exe -pnm -grayscale %fileNameDestJ% in.pnm
+   convertCmd=djpeg.exe -pnm -grayscale %filenameJpg% %filenamePnm%
    CmdRet(convertCmd)
 
    ; Wait for pnm file to exist
    while NOT FileExist(filenamePnm)
       Sleep, 10
 
-   ;run the OCR
+   ;run the OCR command using my mixed cmdret hack
    if isNumericMode
       additionalParams .= "-C 0-9 "
-   runCmd=gocr.exe %additionalParams% in.pnm
-
-   ;run command using my mixed cmdret hack
+   runCmd=gocr.exe %additionalParams% %filenamePnm%
    result := CmdRet(runCmd)
 
    ;suppress warnings from GOCR (we don't care, give us nothing)
@@ -122,15 +149,15 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", options="")
    if NOT isDebugMode
    {
       ; Cleanup (preserve the files if in debug mode)
-      FileDelete, in.pnm
-      FileDelete, %fileNameDestJ%
+      FileDelete, %filenamePnm%
+      FileDelete, %filenameJpg%
    }
    else
    {
       ;copy to an archive folder if in debug mode
       FileCreateDir, archive
       FormatTime, timestamp,, yyyy-MM-dd_HH-mm-ss
-      FileCopy, %fileNameDestJ%, archive\%timestamp%.jpg
+      FileCopy, %filenameJpg%, archive\%timestamp%.jpg
    }
 
    ;return to previous speed

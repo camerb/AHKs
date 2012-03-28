@@ -593,7 +593,7 @@ DownloadLynxFile(filename)
    url=%downloadPath%/%filename%
    dest=%destinationFolder%\%filename%
 
-   if (filename == "7.12.zip")
+   if RegExMatch(filename, "(7.12.zip|Lynx-Install.exe)")
       url := StringReplace(url, "/upgrade_files", "")
 
    FileCreateDir, %destinationFolder%
