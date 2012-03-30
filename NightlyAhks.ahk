@@ -1,8 +1,7 @@
 #include FcnLib.ahk
 #include FcnLib-Nightly.ahk
 
-;{{{script
-
+;{{{ Prepare for nightly AHKs
 A_Debug := true
 
 debug("log grey line", "starting nightly scripts")
@@ -21,7 +20,9 @@ if (A_ComputerName = LeadComputer())
 ;clear out all morning status messages
 ;I might need to remove this someday and make it only delete some files
 FileDeleteDirForceful("C:\Dropbox\AHKs\gitExempt\morning_status\")
+;}}}
 
+;{{{ Tasks for non-VMs
 if NOT IsVM()
 {
    RunThisNightlyAhk(1, "CopyVimSettings.ahk")
@@ -29,6 +30,9 @@ if NOT IsVM()
    ;RunThisNightlyAhk(7, "UpdateAdobeAcrobatReader.ahk")
 }
 
+;}}}
+
+;{{{ Tasks for all machines
 RunThisNightlyAhk(3, "MintTouch.ahk")
 RunThisNightlyAhk(2, "X10HostingForumLogin.ahk")
 RunThisNightlyAhk(2, "DeleteDropboxCruft.ahk")
@@ -38,6 +42,9 @@ RunThisNightlyAhk(1, "InfiniteLoop.ahk")
 RunThisNightlyAhk(5, "REFPunitTests.ahk", "completedFeaturesOnly")
 RunThisNightlyAhk(15, "UnitTests.ahk")
 
+;}}}
+
+;{{{ Tasks for home compy
 if (A_ComputerName="BAUSTIAN-09PC")
 {
    ;hypercam()
@@ -46,6 +53,9 @@ if (A_ComputerName="BAUSTIAN-09PC")
    RunThisNightlyAhk(3, "PushToGit.ahk")
 }
 
+;}}}
+
+;{{{ Tasks that should only be performed on one computer (dropbox will cause issues)
 if (A_ComputerName = LeadComputer())
 {
    ;tasks that should be performed on phosphorus
@@ -54,7 +64,7 @@ if (A_ComputerName = LeadComputer())
    ;  we can tell this if a screenshot saved is only half size
    ;  or possibly just check A_ScreenWidth
 
-   RunThisNightlyAhk(7, "UploadAhkDotNetFiles.ahk")
+   ;RunThisNightlyAhk(7, "UploadAhkDotNetFiles.ahk") ;causing errors, getting my ip blocked, so let's stop
    ;RunThisNightlyAhk(2, "GetPhoneDataUsage.ahk")
    ;hypercam()
    RunThisNightlyAhk(7, "GetSentryBalances.ahk")
@@ -77,7 +87,9 @@ if (A_ComputerName = LeadComputer())
    ;SleepMinutes(15)
    ToggleIMacrosPanel()
 }
+;}}}
 
+;{{{ Tasks for work compy
 if (A_ComputerName="PHOSPHORUS")
 {
    ;looks like FF4 doesn't need a nightly restart (no longer a RAM hog)
@@ -86,12 +98,16 @@ if (A_ComputerName="PHOSPHORUS")
    RunThisNightlyAhk(1, "UpdatePidginImStatus.ahk")
    RunThisNightlyAhk(1, "GitRefreshRemote.ahk")
 }
+;}}}
 
-if (A_ComputerName="PHOSPHORUSVM")
+;{{{ Tasks for VMs
+if IsVM()
 {
-   RunThisNightlyAhk(5, "DeleteDropboxCruft.ahk")
+   RunThisNightlyAhk(5, "DeleteDropboxCruft.ahk") ;(limited disk space)
 }
+;}}}
 
+;{{{ Finished with nightly tasks, lets start things back up again
 ;===done with nightly tasks... lets start things back up again
 RunThisNightlyAhk(1, "StartIdleAhks.ahk")
 ProcessCloseAll("firefoxPortable.exe")
@@ -123,7 +139,7 @@ debug("log grey line", "finished nightly scripts")
 ExitApp
 ;}}}
 
-;{{{ functions
+;{{{ functions (local lib)
 RunThisNightlyAhk(waitTimeInMinutes, ahkToRun, params="")
 {
    ;TODO put this in a separate script, do not compile (2 new ahks total)

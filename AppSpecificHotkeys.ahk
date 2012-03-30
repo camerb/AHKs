@@ -388,20 +388,14 @@ return
 )::
 Send, {APPSKEY}g0
 return
-!::
-Send, {APPSKEY}g1
-return
-@::
-Send, {APPSKEY}g2
-return
-;#::
-;Send, {APPSKEY}g3
-;return
-;$::
-;Send, {APPSKEY}g4
-;return
-%::
-Send, {APPSKEY}g5
+
++1::
++2::
++3::
++4::
++5::
+RegExMatch(A_ThisHotkey, ".$", match)
+Send, {APPSKEY}g%match%
 return
 #IfWinActive
 ;}}}

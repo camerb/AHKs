@@ -59,6 +59,7 @@ TestScriptAbilities()
    lynx_log("OS is: " . GetOS())
    TestCmdRet()
    TestIfLynxIsThere()
+   TestStartStopService()
    ;TestCmdRetPerl()
    delog("", "finished function", A_ThisFunc)
 }

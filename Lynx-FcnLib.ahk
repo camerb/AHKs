@@ -527,6 +527,19 @@ TestCmdRet()
    GetPerlVersion()
 }
 
+TestStartStopService()
+{
+   ret := CmdRet_RunReturn("sc stop LynxMessageServer3")
+   lynx_log(ret)
+   if ( InStr(ret, "FAILED") AND InStr(ret, "Access is denied") )
+   {
+      lynx_error("Unable to start and stop a service. Administrative rights are required for Lynx Maintenance, you probably need more privileges.")
+      return
+   }
+   Sleep, 10000
+   CmdRet_RunReturn("sc start LynxMessageServer3")
+}
+
 GetIEVersion()
 {
    RegRead, IEVersion, HKEY_LOCAL_MACHINE, SOFTWARE\Microsoft\Internet Explorer, Version

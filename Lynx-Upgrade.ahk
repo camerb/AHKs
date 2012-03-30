@@ -10,6 +10,7 @@ notify("Starting Upgrade of the LynxGuide server")
 SendStartMaintenanceEmail()
 msg("Check to make sure you have a green messenger icon. If not, Inform level 2 support.")
 TestScriptAbilities()
+TestLynxSystem()
 RunTaskManagerMinimized()
 
 LynxOldVersion:=GetLynxVersion()

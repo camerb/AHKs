@@ -46,8 +46,9 @@ Loop, %localPath%*, 0, 1
 
    cmd=C:\Dropbox\Programs\curl\curl.exe --upload-file "%thisFilePath%" --user camerb:%joe% "ftp://ftp.autohotkey.net/%relativePath%"
    ret:=CmdRet_RunReturn(cmd)
+   debug("errord log", ret, localpath, relativepath)
 
    msg.=relativePath . "`n"
 }
-debug("errord nolog", msg)
+debug("errord log", msg)
 ;debug("done")

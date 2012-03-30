@@ -21,18 +21,15 @@ GetOCR("numeric")
 ;#Include C:\Dropbox\ahks\FcnLib.ahk
 
 tests=GhettoBasicTest,GhettoBasicTest
-tests=ReturnsTrue,ReturnsFalse,QGThello,QGTindecision,QGTrecognition,QGTtesting
+tests=ReturnsTrue,ReturnsFalse,QGThello,QGTindecision,QGTrecognition,QGTgigantic
+tests=QGThello,QGTindecision,QGTrecognition,QGTgigantic
+tests=QGThello,QGTindecision,QGTrecognition,QGTgigantic,GhettoBasicTest
 Loop, parse, tests, CSV
 {
    testResults .= DynamicallyRunTest(A_LoopField)
 }
-msgbox %testresults%
+;msgbox %testresults%
 ExitApp
-
-if GhettoBasicTest()
-   msgbox, tests passed
-else
-   msgbox, drat. tests failed
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;end of tests
@@ -82,9 +79,9 @@ QGTrecognition()
    return QuickGuiUsingDynamicText("recognition")
 }
 
-QGTtesting()
+QGTgigantic()
 {
-   return QuickGuiUsingDynamicText("testing")
+   return QuickGuiUsingDynamicText("gigantic")
 }
 
 QuickGuiUsingDynamicText(expected)
@@ -95,10 +92,10 @@ QuickGuiUsingDynamicText(expected)
    Gui, Add, Text,, %expected%
    Gui, Show
    ;Sleep, 200
-   result := GetOCR("activeWindow")
+   result := GetOCR("activeWindow debug")
    ;Sleep, 100
    Gui, Destroy
-   msgbox, , , %result%, 2
+   ;msgbox, , , %result%, 2
 
    if InStr(result, expected)
       return true
