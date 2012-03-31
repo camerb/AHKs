@@ -1,4 +1,5 @@
 #include firefly-FcnLib.ahk
+#include thirdParty/OCR.ahk
 #NoTrayIcon
 
 ;{{{ TODOs
@@ -925,11 +926,11 @@ ButtonTestSomething:
 ;StartOfMacro()
 notify("starting to test something")
 
-;debug(GetThatStupidDate())
+GetThatStupidDate()
 
 ;joe:=SimpleImageSearchWithDimensions("images/firefly/date/2011.bmp", 0, 0, 1000, 1000)
 ;debug(joe)
-joe:=ClickIfImageSearch("images/firefly/date/2011.bmp *n50")
+;joe:=ClickIfImageSearch("images/firefly/date/2011.bmp *n50")
 ;xDate, yDate, wDate, hDate)
 
 notify("finished testing something")

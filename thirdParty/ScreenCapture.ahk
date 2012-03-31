@@ -1,3 +1,5 @@
+#include thirdParty/GDIp.ahk
+
 /* CaptureScreen(aRect, bCursor, sFileTo, nQuality)
 1) If the optional parameter bCursor is True, captures the cursor too.
 2) If the optional parameter sFileTo is 0, set the image to Clipboard.
@@ -183,15 +185,15 @@ Convert(sFileFr = "", sFileTo = "", nQuality = "")
 	DllCall("FreeLibrary", "Uint", hGdiPlus)
 }
 
-CreateDIBSection(hDC, nW, nH, bpp = 32, ByRef pBits = "")
-{
-	NumPut(VarSetCapacity(bi, 40, 0), bi)
-	NumPut(nW, bi, 4)
-	NumPut(nH, bi, 8)
-	NumPut(bpp, NumPut(1, bi, 12, "UShort"), 0, "Ushort")
-	NumPut(0,  bi,16)
-	Return	DllCall("gdi32\CreateDIBSection", "Uint", hDC, "Uint", &bi, "Uint", 0, "UintP", pBits, "Uint", 0, "Uint", 0)
-}
+;CreateDIBSection(hDC, nW, nH, bpp = 32, ByRef pBits = "")
+;{
+	;NumPut(VarSetCapacity(bi, 40, 0), bi)
+	;NumPut(nW, bi, 4)
+	;NumPut(nH, bi, 8)
+	;NumPut(bpp, NumPut(1, bi, 12, "UShort"), 0, "Ushort")
+	;NumPut(0,  bi,16)
+	;Return	DllCall("gdi32\CreateDIBSection", "Uint", hDC, "Uint", &bi, "Uint", 0, "UintP", pBits, "Uint", 0, "Uint", 0)
+;}
 
 SaveHBITMAPToFile(hBitmap, sFile)
 {

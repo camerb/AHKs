@@ -155,9 +155,9 @@ GetOCR(topLeftX="", topLeftY="", widthToScan="", heightToScan="", options="")
    else
    {
       ;copy to an archive folder if in debug mode
-      FileCreateDir, archive
+      FileCreateDir, ocr-archive
       FormatTime, timestamp,, yyyy-MM-dd_HH-mm-ss
-      FileCopy, %filenameJpg%, archive\%timestamp%.jpg
+      FileCopy, %filenameJpg%, ocr-archive\%timestamp%.jpg
    }
 
    ;return to previous speed

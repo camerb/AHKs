@@ -131,34 +131,6 @@ LynxError(message)
 ;{
 ;}
 
-IsPerlUpgradeNeeded()
-{
-   version := GetPerlVersion()
-
-   if (version == "5.8.9")
-      returned := false
-   else
-      returned := true
-
-   delog(A_ThisFunc, "Determined if the update was needed (next line)", returned, version)
-   return returned
-}
-
-IsApacheUpgradeNeeded()
-{
-   version := GetApacheVersion()
-
-   if (version == "2.2.22")
-      returned := false
-   else if (version == "2.2.21")
-      returned := false
-   else
-      returned := true
-
-   delog(A_ThisFunc, "Determined if the update was needed (next line)", returned, version)
-   return returned
-}
-
 GetLatestLynxVersion()
 {
    DownloadLynxFile("version.txt")

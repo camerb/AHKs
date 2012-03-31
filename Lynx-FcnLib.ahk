@@ -452,6 +452,32 @@ GetApacheVersion()
    return returned
 }
 
+IsPerlUpgradeNeeded()
+{
+   version := GetPerlVersion()
+
+   if (version == "5.8.9")
+      returned := false
+   else
+      returned := true
+
+   delog(A_ThisFunc, "Determined if the update was needed (next line)", returned, version)
+   return returned
+}
+
+IsApacheUpgradeNeeded()
+{
+   version := GetApacheVersion()
+
+   if (version == "2.2.22")
+      returned := false
+   else
+      returned := true
+
+   delog(A_ThisFunc, "Determined if the update was needed (next line)", returned, version)
+   return returned
+}
+
 ;Send an email without doing any of the complex queuing stuff
 SendEmailNow(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sReplyTo="cameronbaustian+bot@gmail.com")
 {
@@ -606,10 +632,15 @@ DownloadLynxFile(filename)
    url=%downloadPath%/%filename%
    dest=%destinationFolder%\%filename%
 
+   ;These files are in the base path, so they can be accessed easily by the techs
    if RegExMatch(filename, "(7.12.zip|Lynx-Install.exe)")
       url := StringReplace(url, "/upgrade_files", "")
 
    FileCreateDir, %destinationFolder%
+
+   ;TODO if the modified date is older than today
+   FileDelete(dest)
+
    UrlDownloadToFile, %url%, %dest%
 
    if NOT FileExist(dest)
@@ -650,7 +681,8 @@ UnzipInstallPackage(file)
    p=C:\temp\lynx_upgrade_files
    folder:=file
    ;cmd=%7z% a -t7z %p%\archive.7z %p%\*.txt
-   cmd=%p%\unzip.exe %p%\%file%.zip -d %p%\%folder%
+   file := EnsureEndsWith(file, ".zip")
+   cmd=%p%\unzip.exe %p%\%file% -d %p%\%folder%
    CmdRet_RunReturn(cmd, p)
    ;notify("Working on " . file)
 }

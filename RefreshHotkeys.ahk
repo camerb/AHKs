@@ -10,7 +10,8 @@ if ForceWinFocusIfExist("(.txt.*ahk|AHKs|ahk).*GVIM", "RegEx")
 {
    Send, {ESC}{ESC}
    Send, {;}
-   Send, wa{ENTER}
+   ;Send, wa{ENTER}
+   Send, wa{!}{ENTER}
 }
 DetectHiddenWindows, On
 IfWinExist, fireflyButtons.ahk

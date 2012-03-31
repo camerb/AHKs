@@ -5,6 +5,7 @@
 #include SendEmailSimpleLib.ahk
 #include thirdParty\json.ahk
 #include thirdParty\notify.ahk
+#include thirdParty\OCR.ahk
 
 
 ;{{{ ghettoness
@@ -249,48 +250,70 @@ GetServiceManner()
 ;TODO use OCR here
 GetThatStupidDate()
 {
-   xDate := 744
-   yDate := 464
-   wDate := 130
+   xDate := 494
+   yDate := 508
+   wDate := 112
    hDate := 20
 
-   xDate := 700
-   yDate := 400
-   wDate := 300
-   hDate := 200
+   ;xDate := 700
+   ;yDate := 400
+   ;wDate := 300
+   ;hDate := 200
 
-   Loop, 12
+   xSpacer := 50
+
+   FindTopOfFirefoxPage()
+   monthSeen := GetOCR(xDate, yDate, wDate, hDate, "activeWindow")
+
+   ;months=January,February,March,April,May,June,July,August,September,October,November,December
+   months=Jan__a y,Febru,Mar,April,My,June,Ju_,Augu,Se__emI_er,October,tIove mI_er,ecember
+   Loop, parse, months, CSV
    {
-      file=images/firefly/date/monthWords%A_Index%.bmp
-      if SimpleImageSearchWithDimensions(file, xDate, yDate, wDate, hDate)
-      {
-         sawMonth := A_Index
-         break
-      }
+      if InStr(monthSeen, A_LoopField)
+         monthNumber := A_Index
    }
+   ;returned .= GetOCR(xDate + xSpacer, yDate, wDate, hDate, "activeWindow numeric")
+   ;returned .= GetOCR(xDate + xSpacer, yDate, wDate - xSpacer, hDate, "activeWindow numeric")
 
-   Loop, 31
-   {
-      file=images/firefly/date/%A_Index%.bmp
-      if SimpleImageSearchWithDimensions(file, xDate, yDate, wDate, hDate)
-      {
-         sawDay := A_Index
-         break
-      }
-   }
+   Clipboard := monthSeen
+   RegExMatch(monthSeen, "(\d+) *(2011|2012|2013|2014|2015|2016|2017|2018|2019) *$", match)
+   ;daySeen := match2
+   ;daySeen := match2
+   debug(monthSeen, monthNumber, match1, match2)
+   ;debug(monthSeen, monthNumber, returned)
 
-   Loop, 3
-   {
-      thisYear := 2010 + A_Index
-      file=images/firefly/date/%thisYear%.bmp
-      if SimpleImageSearchWithDimensions(file, xDate, yDate, wDate, hDate)
-      {
-         sawYear := thisYear
-         break
-      }
-   }
+   ;Loop, 12
+   ;{
+      ;file=images/firefly/date/monthWords%A_Index%.bmp
+      ;if SimpleImageSearchWithDimensions(file, xDate, yDate, wDate, hDate)
+      ;{
+         ;sawMonth := A_Index
+         ;break
+      ;}
+   ;}
 
-   returned=%sawMonth%/%sawDay%/%sawYear%
+   ;Loop, 31
+   ;{
+      ;file=images/firefly/date/%A_Index%.bmp
+      ;if SimpleImageSearchWithDimensions(file, xDate, yDate, wDate, hDate)
+      ;{
+         ;sawDay := A_Index
+         ;break
+      ;}
+   ;}
+
+   ;Loop, 3
+   ;{
+      ;thisYear := 2010 + A_Index
+      ;file=images/firefly/date/%thisYear%.bmp
+      ;if SimpleImageSearchWithDimensions(file, xDate, yDate, wDate, hDate)
+      ;{
+         ;sawYear := thisYear
+         ;break
+      ;}
+   ;}
+
+   ;returned=%sawMonth%/%sawDay%/%sawYear%
    return returned
 }
 ;}}}

@@ -57,24 +57,6 @@ LynxError(message)
 ;{
 ;}
 
-IsPerlUpgradeNeeded()
-{
-   if (GetPerlVersion() != "5.8.9")
-      return true
-   else
-      return false
-}
-
-IsApacheUpgradeNeeded()
-{
-   if (GetApacheVersion() == "2.2.22")
-      return false
-   else if (GetApacheVersion() == "2.2.21")
-      return false
-   else
-      return true
-}
-
 GetLatestLynxVersion()
 {
    DownloadLynxFile("version.txt")

@@ -14,18 +14,27 @@ RunTaskManagerMinimized()
 DownloadAllLynxFilesForUpgrade()
 {
    delog("", "started function", A_ThisFunc)
-   ;TODO if the modified date is older than today
-   FileDeleteDirForceful("C:\temp\lynx_upgrade_files")
+
+   if FileExist("C:\temp\lynx_upgrade_files\useThis.zip")
+   {
+      lynx_log("using custom zip")
+      customZip := true
+   }
 
    notify("Downloading LynxGuide Upgrade Package")
    DownloadLynxFile("unzip.exe")
-   ;DownloadLynxFile("7zip.zip")
    DownloadLynxFile("ActivePerl.zip")
    DownloadLynxFile("apache.zip")
-   ;DownloadLynxFile("inetpub.zip")
-   DownloadLynxFile("7.12.zip")
    DownloadLynxFile("upgrade_scripts.zip")
-   ;DownloadLynxFile("zip-unzip.zip")
+   if NOT customZip
+   {
+      DownloadLynxFile("7.12.zip")
+   }
+   else
+   {
+      UnzipInstallPackage("7.12")
+      FileMove("C:\temp\lynx_upgrade_files\useThis.zip", "C:\temp\lynx_upgrade_files\7.12.zip", "overwrite")
+   }
    notify("Finished Downloading")
 
    FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_scripts\upgrade_scripts", "C:\inetpub\wwwroot\cgi", "overwrite")
@@ -239,6 +248,13 @@ CopyInetpubFolder()
    ;NOTE that this is the zip file that we are downloading from the website!
    FileCopyDir("C:\temp\lynx_upgrade_files\7.12", "C:\Inetpub", "overwrite")
    AddSqlConnectStringFiles()
+
+   ;verify that the files were copied correctly
+   if NOT IsFileEqual("C:\temp\lynx_upgrade_files\7.12\version.txt", "C:\inetpub\version.txt")
+      lynx_error("version.txt did not copy correctly")
+   if NOT IsFileEqual("C:\temp\lynx_upgrade_files\7.12\wwwroot\cgi\checkdb.plx", "C:\inetpub\wwwroot\cgi\checkdb.plx")
+      lynx_error("checkdb.plx did not copy correctly")
+
    notify("finished copying inetpub folder")
    delog("", "finished function", A_ThisFunc)
 }
