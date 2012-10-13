@@ -1,13 +1,12 @@
 #include FcnLib.ahk
 
-ip := GetIPaddress()
+;ip := GetIPaddress()
 ChangeLogitechWheelMode()
-LaunchTeamspeak2()
-CloseProgramsThatHinderNR2003()
-SoundSet, 40
-RunAhk("NR2003hotkeys.ahk")
-LaunchRace(ip, "nascar2012")
-;LaunchRaceViaRLM()
+;LaunchTeamspeak2()
+;CloseProgramsThatHinderNR2003()
+;SoundSet, 40
+;RunAhk("NR2003hotkeys.ahk")
+;LaunchRace(ip, "nascar2012")
 ExitApp ;DONE WITH THE AUTO-EXECUTE
 
 GetIPaddress()
@@ -67,7 +66,8 @@ ChangeLogitechWheelMode()
    Sleep, 100
    Send, {ENTER}
    Sleep, 100
-   WinClose, Logitech Profiler
+   ;WinClose, Logitech Profiler
+   WinMinimize, Logitech Profiler
 }
 
 ;{{{ archived

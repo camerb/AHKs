@@ -51,7 +51,7 @@ MelindaProjection:=GetCreditCardProjection(MelindaBalance, 12)
 
 TotalCreditProjection:=CameronProjection-MelindaProjection
 
-debug("ERRORD NOLOG", credits, debits, CameronProjection, MelindaProjection, TotalCreditProjection)
+;debug("ERRORD NOLOG", credits, debits, CameronProjection, MelindaProjection, TotalCreditProjection)
 
 MaximumCreditBill := Format(credits-debits, "Dollar")
 MonthlyDelta := Format(MaximumCreditBill-TotalCreditProjection, "Dollar")
@@ -63,7 +63,7 @@ IniWrite(ini, "MostRecent", "MonthlyDelta", MonthlyDelta)
 MorningStatusAppend("MaximumCreditBill", MaximumCreditBill)
 MorningStatusAppend("MonthlyDelta", MonthlyDelta)
 
-debug("ERRORD NOLOG", "The projected maximum amount for the credit card bill is", MaximumCreditBill, "Current projection of monthly change:", MonthlyDelta)
+;debug("ERRORD NOLOG", "The projected maximum amount for the credit card bill is", MaximumCreditBill, "Current projection of monthly change:", MonthlyDelta)
 
 ;functions:
 

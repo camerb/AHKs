@@ -339,7 +339,7 @@ return
 #IfWinActive (Post a reply|Edit post)
 :*:!tutorial::Sure, you can do that with AHK... have you checked out the tutorial? http://www.autohotkey.com/docs/Tutorial.htm{ENTER}{ENTER}By the way, when you're reading through the tutorial, do not just gloss over it... instead: try all of the examples, run them, tweak them, and experiment with it. After all, the purpose of the tutorial is for you to be doing the examples as you're reading... it isn't just a quick read.
 :*:!codetags::Use [/code] tags when you're pasting code into the forums.
-:*:!cycle::Masterfocus made a nifty function called Cycle() that should fix your problem. Check this out:{ENTER}http://www.autohotkey.com/forum/viewtopic.php?p=388494#388494
+:*:!cycle::Masterfocus made a nifty function called Cycle() that should fix your problem. Check this out:{ENTER}http://www.autohotkey.com/forum/viewtopic.php?p=388494#p388494
 :*:!ocr::You may want to check out Optical Character Recognition (OCR.ahk):{ENTER}http://www.autohotkey.com/forum/topic74227.html
 :*:!game::Not all applications listen for input on default SendModes, games are especially notorious for this. I would test sending the input with each of the four sendmodes, to see which SendMode successfully sends input to the application.  `nhttp://www.autohotkey.com/docs/commands/SendMode.htm `n`nAlso, there are a couple of other issues that can affect games, so be sure to check the games FAQ if that doesn't work: `nhttp://www.autohotkey.com/docs/FAQ.htm{#}games
 :*:!autofire::Ah, you want to check out 'The definitive autofire thread!'`n`n http://www.autohotkey.com/forum/viewtopic.php?t=69474
@@ -357,13 +357,19 @@ return
 ;{{{AHK in Vim hotstrings
 #IfWinActive ahk.* ahk_class Vim
 :*:!debug::A_LineNumber, A_ScriptName, A_ThisFunc, A_ThisLabel,
+:*:!date::
+date := CurrentTime("hyphendate")
+SendInput %A_Space%
+SendInput {;}
+SendInput (changed on %date%)
+return
 #IfWinActive
 ;}}}
 
 ;{{{ Sugar
 #IfWinActive Mitsi - Google Chrome
 :*:!s::
-date := CurrentTime("hyphendate")
+date := CurrentTime("slashdate")
 SendInput %A_Space%- CB %date%
 return
 #IfWinActive
@@ -371,19 +377,38 @@ return
 
 ;{{{ Emails to Lynx Customers
 #IfWinActive Write.* ahk_class MozillaWindowClass
+
+;TODO it would be really neat to have an AppsKey+? box for Thunderbird, so that I could remember all my hotstrings
 :*:!updated::
 text=The LynxGuide server update is complete and your server is back online. In addition, we have tested the server to ensure that it is processing alarms correctly. Feel free to contact Lynx Technical Support if you have any questions regarding the update or the new version of the LynxGuide Server software.`n`nRegards,
 SendInput %text%
 Send, !s!aLynxGuide Server Update Complete
 return
 
+:*:!contact info::
+text=Here is my contact information for future reference. Feel free to give me a call any time if you have questions about the Lynx system.`n`nThanks,
+SendInput %text%
+Send, !s!aLynx Contact Information
+return
+
+:*:!address::
+text=Our shipping address is below:`n`nMicro Technology Services, Inc.`nATTN: Lynx Department`n1819 Firman Drive`nSuite 137`nRichardson, TX 75081
+SendInput %text%
+return
+
+:*:!call::
+text=Please give Lynx Technical Support a call at (888) 230-6874 x140 if you have any questions.
+SendInput %text%
+return
+
+;TODO virtual specs
 ;TODO sms failed... here's how we can re-enable it
 ;TODO email failed, here's how we can re-enable it
 #IfWinActive
 ;}}}
 
 ;{{{ Re-tag Thunderbird inbox
-#IfWinActive Inbox - .* - Mozilla Thunderbird ahk_class MozillaWindowClass
+#IfWinActive .*@mitsi.com - Mozilla Thunderbird ahk_class MozillaWindowClass
 ~::
 )::
 Send, {APPSKEY}g0
@@ -394,8 +419,19 @@ return
 +3::
 +4::
 +5::
++6::
++7::
++8::
 RegExMatch(A_ThisHotkey, ".$", match)
 Send, {APPSKEY}g%match%
 return
 #IfWinActive
+;}}}
+
+;{{{ experimental stuff so that I can make an exit hotkey for iracing
+:*:iracing::
+MouseGetPos, outX, outY
+msg=X: %outx%`nY: %outy%`nthese coordinates should be the coords for the quit button in iracing
+QuickFileOutput(msg)
+return
 ;}}}

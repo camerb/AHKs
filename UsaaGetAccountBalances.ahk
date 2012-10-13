@@ -20,17 +20,18 @@ while NOT NetWorth
    RegExMatch(page, "<li class..net-worth.><span class..balance.>..(\d{2}).(\d{3}.\d{2})</span>Net Worth</li>", match)
    netWorth=-%match1%%match2%
 }
+;Sleep, 5000
 
-usaalogin()
+;usaalogin()
 
-SavingsBalance  := GetAccountInfo("encrypted10bb142d9db5d1209462ee637b61c599")
-CheckingBalance := GetAccountInfo("encrypted10bb142d9db5d12081af1bd8872ba833")
-CameronBalance  := GetAccountInfo("encryptedb15eff1c50e20965749b3338ceff1d4379e5098d18308caa")
-MelindaBalance  := GetAccountInfo("encryptedb15eff1c50e209657b4e04143ceb8bdd5e1587891b30192c")
+;SavingsBalance  := GetAccountInfo("encrypted10bb142d9db5d1209462ee637b61c599")
+;CheckingBalance := GetAccountInfo("encrypted10bb142d9db5d12081af1bd8872ba833")
+;CameronBalance  := GetAccountInfo("encryptedb15eff1c50e20965749b3338ceff1d4379e5098d18308caa")
+;MelindaBalance  := GetAccountInfo("encryptedb15eff1c50e209657b4e04143ceb8bdd5e1587891b30192c")
 
-WinClose
-SleepSeconds(2)
-Process, Close, opera.exe
+;WinClose
+;SleepSeconds(2)
+;Process, Close, opera.exe
 
 overallBalance := SavingsBalance + CheckingBalance - CameronBalance - MelindaBalance
 overallBalance := StringTrimRight(overallBalance, 4)

@@ -52,7 +52,7 @@ SentryLogin()
    VERSION BUILD=7300701 RECORDER=FX
    TAB T=1
    URL GOTO=https://sentryins.com/default.aspx
-   TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:loginform ATTR=ID:USERID CONTENT=camerb
+   TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:loginform ATTR=ID:USERID CONTENT=cameronbaustian
    SET !ENCRYPTION NO
    TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:loginform ATTR=ID:PASSWDTXT CONTENT=%panther%
    TAG POS=1 TYPE=INPUT:IMAGE FORM=ID:loginform ATTR=SRC:https://sentryins.com/graphics/buttons/login.gif
@@ -70,8 +70,6 @@ SentryLogin()
    a1 := IniRead(ini, iniSection, "answer1")
    a2 := IniRead(ini, iniSection, "answer2")
    a3 := IniRead(ini, iniSection, "answer3")
-
-   debug()
 
    if InStr(securityQuestionPage, "Security Prompt")
    {

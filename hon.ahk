@@ -4,14 +4,17 @@ G_RetreatPosX=0
 G_RetreatPosY=0
 
 AppsKey & ESC:: Suspend
-
 AppsKey & r:: Reload
 
 AppsKey & s::
 MouseGetPos, G_RetreatPosX, G_RetreatPosY
 return
 
+;TODO maybe make something that will flash when the ULT is back up
+;TODO also make something that will click (run) around when fighting creeps (while key is held down)
+
 `::
+ESC::
 SendMode, Event
 MouseMove, G_RetreatPosX, G_RetreatPosY
 Click, right, G_RetreatPosX, G_RetreatPosY

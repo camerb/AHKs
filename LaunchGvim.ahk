@@ -1,10 +1,13 @@
 #include FcnLib.ahk
 
 ;exit if this computer shouldn't run this macro
-if (A_ComputerName = "BAUSTIAN-09PC")
+if (A_ComputerName = "BAUSTIAN12")
 {
 }
 else if (A_ComputerName = "T-800")
+{
+}
+else if (A_ComputerName = "SEWING-XP")
 {
 }
 else
@@ -12,9 +15,9 @@ else
    fatalErrord(A_ComputerName, A_ScriptName, "macro not designed for this computer")
 }
 
-;start of the actual macro... this was originally written just for baustian-09pc
-;fatalIfNotThisPC("BAUSTIAN-09PC")
-if (A_ComputerName = "BAUSTIAN-09PC")
+;start of the actual macro... this was originally written just for BAUSTIAN12
+;fatalIfNotThisPC("BAUSTIAN12")
+if (A_ComputerName = "BAUSTIAN12")
 {
    ProcessExist("WinSplit.exe")
    if NOT ErrorLevel
@@ -27,12 +30,12 @@ if (A_ComputerName = "BAUSTIAN-09PC")
    ;ExitApp
 
 Run, C:\Dropbox\Programs\Vim\vim72\gvim.exe, C:\Dropbox\AHKs
-;debug(A_WorkingDir)
 
-if (A_ComputerName = "BAUSTIAN-09PC")
-{
-   ForceWinFocus("GVIM", "Contains")
-   SendInput, ^!{NUMPAD5}
-}
+;if (A_ComputerName = "BAUSTIAN12" AND ProcessExist("WinSplit.exe") )
+;{
+;   ForceWinFocus("GVIM ahk_class Vim", "Contains")
+;   SendInput, ^!{NUMPAD5}
+;}
 
+ForceWinFocus("GVIM ahk_class Vim", "Contains")
 Send, {F2}^w{RIGHT}{;}q{ENTER}

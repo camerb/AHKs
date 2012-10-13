@@ -126,9 +126,9 @@ Run %filename%
 return
 
 ;Print Screen and Save to Disk
-^PrintScreen:: SaveScreenShot("KeyPress", "dropbox")
+^PrintScreen:: SaveScreenShot2()
 !PrintScreen:: SaveScreenShot("KeyPress", "dropbox", "activeWindow")
-AppsKey & PrintScreen:: SaveScreenShot("KeyPress", "dropbox")
+AppsKey & PrintScreen:: SaveScreenShot2()
 
 
 ;Insert Date / Time Hotstrings

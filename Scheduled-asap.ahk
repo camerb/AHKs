@@ -37,22 +37,6 @@ Loop, parse, dates, CSV
 }
 }
 
-RunOncePerDay(description)
-{
-   sectionKey:=description
-
-   ini:=GetPath("RunOncePerDay.ini")
-   dateKey=date
-   currentDate:=CurrentTime("hyphendate")
-   lastRunDate:=IniRead(ini, sectionKey, dateKey)
-
-   if (currentDate == lastRunDate)
-      return false
-
-   IniWrite(ini, sectionKey, dateKey, currentDate)
-   return true
-}
-
 KillPidgin()
 {
 time:=currenttime("hyphenated")

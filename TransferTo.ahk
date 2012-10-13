@@ -3,7 +3,7 @@
 FolderToCopy := Prompt("What folder do you want to transfer to another computer?", "folder")
 DestinationComputer := Prompt("What PC do you want to transfer it to?")
 ;FolderToCopy=C:\Music\Jonah33
-;DestinationComputer=BAUSTIAN-09PC
+;DestinationComputer=baustian-09pc-OLD-OLD-OLD-OLD-OLD
 
 remotePath=C:\Dropbox\AHKs\gitExempt\transferTo
 

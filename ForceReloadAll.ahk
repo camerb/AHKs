@@ -45,7 +45,8 @@ while true
 ;}
 
 totaltime:=elapsedtime(timer)
-addtotrace("Time it took for processes to close:", totaltime)
+msg=Restarted all AHK processes in %totalTime%ms
+addtotrace(msg)
 
 ;debug("about to run main ahk files again")
 ;RunAhk("""C:\Dropbox\AHKs\StartIdleAhks.ahk""", )
@@ -60,9 +61,9 @@ CloseAllAhkProcesses(options)
       ahkIdStr=ahk_id %thisID%
       title:=wingettitle(ahkIdStr)
       regexmatch(title, "([A-Za-z0-9]*\.ahk)", smalltitle)
-      addtotrace("wintitle:", smalltitle)
+      ;addtotrace("wintitle:", smalltitle)
       pid := WinGet("pid", ahkIdStr)
-      addtotrace("pid:", pid)
+      ;addtotrace("pid:", pid)
       if NOT InStr(title, A_ScriptName)
          WinClose, %ahkIdStr%
    }

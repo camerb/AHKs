@@ -1,8 +1,6 @@
-;#singleinstance force
 #include FcnLib.ahk
 #include Lynx-FcnLib.ahk
 #include Lynx-InstallParts.ahk
-;#singleinstance force
 Lynx_MaintenanceType := "install"
 
 Gui, Add, Text,, Welcome to the Lynx Server Installer
@@ -42,6 +40,7 @@ msg:="Starting Lynx Server Installation`n`nPress ESC at any time to cancel."
 debug(msg)
 notify(msg)
 SendStartMaintenanceEmail()
+PreMaintenanceTasks()
 
 TestScriptAbilities()
 
@@ -80,13 +79,14 @@ if ChoseChangeDesktopBackground
 
 ;things that always need to be done
 ;  (do things that are likely to fail towards the top)
+PostMaintenanceTasks()
 TestLynxSystem()
-if FileDirExist("C:\Dropbox")
-   errord("SILENT", "Weird. The Dropbox folder is there.")
+
 ;SendEmailNow("Lynx Install Finishing", "a lynx install is finishing up now, here are the logs", logfile)
 SendLogsHome()
-FileRemoveDir, C:\Dropbox, 1 ;it can't hurt to leave this in... stopped saving things to dropbox folder 2011-11-15
+FileDelete("C:\Users\Administrator\Desktop\Lynx-Install.lnk")
 
+delog("Finished with Lynx Server Install")
 MsgBox, Finished with Lynx Server Install
 ExitApp ;end of install
 

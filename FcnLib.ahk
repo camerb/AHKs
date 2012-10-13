@@ -3,10 +3,12 @@
 #include thirdParty/Functions.ahk
 #include thirdParty/CmdRet.ahk
 #include thirdParty/Cycle.ahk
+#include thirdParty/Format4Csv.ahk ;haven't used this yet, but I should
 #include FcnLib-Rewrites.ahk
 #include FcnLib-IniStats.ahk
+#include FcnLib-GetUrlBar.ahk
+#include FcnLib-Nightly.ahk ;this was mainly added for FastNotification()
 ;#include thirdParty\Notify.ahk ;this causes windows to be open forever
-;#include thirdParty/Format4Csv.ahk ;haven't used this yet, but I should
 
 ;Takes a screenshot and saves it to the specified path
 ;Useful for debugging macros afterward
@@ -18,9 +20,12 @@
 ;   descriptiveText - prepended onto the front of the filename
 ;   directoryPath   - a path, "dropbox" or "local"
 ;   options         - "activeWindow"
+;FIXME screenshot capability is broken
 #include thirdParty/ScreenCapture.ahk
-SaveScreenShot(descriptiveText="", directoryPath="dropbox", options="")
+SaveScreenshot(descriptiveText="", directoryPath="dropbox", options="")
 {
+   ;TODO LowRes option
+   ;TODO HighRes option
    captureArea=0
    if InStr(options, "activeWindow")
       captureArea=1
@@ -36,6 +41,20 @@ SaveScreenShot(descriptiveText="", directoryPath="dropbox", options="")
    FormatTime FileNameText,, yyyyMMddHHmmss
    fullfilename = %directoryPath%\%descriptiveText%%FileNameText%.bmp
    CaptureScreen(captureArea,true,fullfilename)
+   ;addToTrace(fullFilename)
+}
+
+SaveScreenshot2()
+{
+   timestamp := CurrentTime("hyphenated")
+   filenameJpg=C:\Dropbox\AHKs\gitExempt\screenshots\%A_ComputerName%\%timestamp%.jpg
+   jpegQuality := 60
+
+   ;take a screenshot of the specified area
+   pToken:=Gdip_Startup()
+   pBitmap:=Gdip_BitmapFromScreen("0|0|" A_ScreenWidth "|" A_ScreenHeight)
+   Gdip_SaveBitmapToFile(pBitmap, filenameJpg, jpegQuality)
+   Gdip_Shutdown(pToken)
 }
 
 ;Sleeps for a specified number of minutes
@@ -134,7 +153,7 @@ ForceWinFocusIfExist(titleofwin, options="")
    {
       WinWait, %titleofwin%,
       IfWinNotActive, %titleofwin%,
-      WinActivate, %titleofwin%,
+         WinActivate, %titleofwin%,
       WinWaitActive, %titleofwin%,
       returned:=true
    }
@@ -243,8 +262,13 @@ SimpleImageSearch(filename)
 
    WinGetPos, no, no, winWidth, winHeight, A
    ImageSearch, xvar, yvar, 0, 0, winWidth, winHeight, %filename%
+   returned := ! ERRORLEVEL
 
-   return NOT ErrorLevel
+   ;FOR DEBUGGING ONLY
+   ;if returned
+      ;AddToTrace("Saw image: " . filename)
+
+   return returned
 }
 
 ;If you see the image, move the mouse there
@@ -558,6 +582,8 @@ FormatTime(time, options="")
       FormatTime, returned, %time%, MM
    else if InStr(options, "year")
       FormatTime, returned, %time%, yyyy
+   else if InStr(options, "date")
+      FormatTime, returned, %time%, yyyyMMdd
    else if options
       FormatTime, returned, %time%, %options%
    else
@@ -691,6 +717,8 @@ IsMaximized(title="", text="")
 ;Closes open applications that usually are difficult for windows to shut down (preps for a restart)
 CloseDifficultApps()
 {
+   ProcessClose("winsplit.exe")
+   ;ProcessClose("ssms.exe")
    ProcessClose("hpupdate.exe")
    ProcessClose("DesktopWeather.exe")
    ;ProcessCloseAll("ping.exe")
@@ -775,23 +803,12 @@ CloseDifficultAppsAllScreens()
    listOstuff = ssms.exe,vmware-vmx.exe,vmplayer.exe,FindAndRunRobot.exe,dsidebar.exe,hpupdate.exe,java.exe,ping.exe,ForceField.exe
 
    Loop, parse, listOstuff, CSV
-      ProcessCloseAll(A_LoopField)
-
-   ;Process, Close, ssms.exe
-   ;Process, Close, vmware-vmx.exe
-   ;Process, Close, vmplayer.exe
-   ;Process, Close, FindAndRunRobot.exe
-   ;Process, Close, dsidebar.exe
-   ;Process, Close, hpupdate.exe
-   ;ProcessCloseAll("java.exe")
-   ;ProcessCloseAll("ping.exe")
-
-   ;Process, Close, ForceField.exe
+      ProcessCloseFifty(A_LoopField)
+      ;ProcessCloseAll(A_LoopField)
 }
 
 ;WRITEME
-;Returns true if the specified path is a directory, false if it is a file
-
+;Returns true if the specified path is a directory, false if it is a file (even if it doesn't exist yet)
 ;WRITEME
 ;Returns true if the specified path is a file, or false if it is a directory
 
@@ -818,6 +835,13 @@ ProgramFilesDir(relativePath)
    Errord(A_ThisFunc, "was not able to find 'relativePath':", relativePath)
 }
 
+QuickFileOutput(text)
+{
+   timestamp := CurrentTime("hyphenated")
+   file=C:\Dropbox\fastData\quickFileOutput\%timestamp%-%A_ComputerName%.txt
+   FileCreate(text, file)
+}
+
 ;Debug vs Errord: Silent/Traytip/Msgbox/Overlay, Logged/Not, Info/Warning/Error
 ;
 ;Send an error message with as many parameters as necessary, save debug information to dropbox logs section
@@ -827,6 +851,8 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
    silentMode:=false
    trayMsgMode:=false
    errordMode:=false
+   printToTraceMode := true
+   printToIniMode := true
    displayTime=2
    if (InStr(textOrOptions, "trayMsg"))
       trayMsgMode := true
@@ -849,7 +875,16 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
       ;savescreenshot()
       ;append filename to the end of the debug message
    ;}
-   ;TODO email/text error mode for debug() fcn
+
+   ;TODO email/SMS error mode for debug() fcn
+   ;this is probably a bad idea... just leave it in FastNotification()
+
+   if NOT IsMyCompy()
+   {
+      ;TODO make a debug state for getting rid of Dropbox output in Lnx functions
+      printToTraceMode := false
+      printToIniMode := false
+   }
 
    ;put together the message
    if (errordMode)
@@ -900,6 +935,24 @@ debug(textOrOptions="Hello World!", text1="ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ", text2
          msgbox, , %messageTitle%, %messageText%, %displayTime%
       else
          msgbox, , %messageTitle%, %messageText%, %displayTime%
+   }
+
+   ;print to ini (iniFpp) I put this in so we could keep some stats for how often this stuff happens
+   ;this way I can view it in a unified IniFolder on my work PC each morning
+   if printToIniMode
+   {
+      iniF := GetPath("MainStatsIniFolder")
+      iniFkey=%textOrOptions% %text1%
+      iniFvalue := IniFolderRead(iniF, "", iniFkey)
+      iniFvalue++
+      IniFolderWrite(iniF, "", iniFkey, iniFvalue)
+   }
+
+   ;print to trace file
+   if printToTraceMode
+   {
+      AddToTrace(textOrOptions, text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15)
+      ;Trace2(textOrOptions, text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15)
    }
 
    return textOrOptions
@@ -956,8 +1009,6 @@ CompileAhk(ahkFile, options="")
 
    ;exePath=%path%%filename%.exe
    exePath=%filename%.exe
-   ;debug(exepath)
-   ;debug(fileCount, filename, filepath) ;, path) ;, exePath)
 
    ;Compile that friggin ahk
    FileDelete(exePath)
@@ -997,15 +1048,20 @@ SuccessfullyCompiles(ahkPath)
    FileCreate("started compile text`n", testOutPath)
    FileCreate(text, testAhk)
 
+   ;TODO choose one way or the other
    ;Run, %testAhk%
+   ;Sleep, 1000
    RunWait, %testAhk%
-   Sleep, 500
+   Sleep, 100
+   ;Sleep, 500
 
    results:=FileRead(testOutPath)
    FileDelete(testOutPath)
+   FileDelete(testAhk)
    ;debug(results)
+
    returned := !!InStr(results, ahkPath)
-   return !!InStr(results, ahkPath)
+   return returned
 }
 
 ;TODO move this to persistent - but if we move this to persistent, we won't be able to return if there was an error...
@@ -1030,6 +1086,8 @@ RunAhkAndBabysit(filename)
    }
 }
 
+;options param for AHK_L
+;options param for
 ;TODO make an options param for wait and babysit?
 ;can you even wait and babysit at the same time?
 RunAhk(filename, params="", options="")
@@ -1065,7 +1123,7 @@ sendEmail(sSubject, sBody, sAttach="", sTo="cameronbaustian@gmail.com", sReplyTo
    path=C:\DataExchange\SendEmail
    file=%path%\%timestamp%.txt
    sBody:=RegExReplace(sBody, "(`r`n)", "ZZZnewlineZZZ")
-   sBody:=RegExReplace(sBody, "(`r|`n)", "ZZZnewlineZZZ")
+    sBody:=RegExReplace(sBody, "(`r|`n)", "ZZZnewlineZZZ")
    FileCreateDir, %path%
    IniWrite, %sSubject%, %file%, pendingEmail, subject
    IniWrite, %sAttach%, %file%, pendingEmail, attach
@@ -1117,12 +1175,49 @@ GetProcesses()
    return l
 }
 
+;Gets the total cpu usage from the computer over a period of time
+GetTotalCpuUsage(Period = 500)
+{
+   ;retrieve the idle time and the tick time
+   IdleBefore := 0
+   DllCall("GetSystemTimes","Int64*",IdleBefore,"UInt",0,"UInt",0)
+   TimerBefore := 0
+   DllCall("QueryPerformanceCounter","Int64*",TimerBefore)
+
+   ;wait for a predefined period
+   Sleep, %Period%
+
+   ;retrieve the idle time and the tick time after the wait period
+   IdleAfter := 0
+   DllCall("GetSystemTimes","Int64*",IdleAfter,"UInt",0,"UInt",0)
+   TimerAfter := 0
+   DllCall("QueryPerformanceCounter","Int64*",TimerAfter)
+
+   ;retrieve the number of processing cores
+   VarSetCapacity(Temp1,36,0)
+   DllCall("GetNativeSystemInfo",A_PtrSize ? "UPtr" : "UInt",&Temp1)
+   CPUCount := NumGet(Temp1,20)
+
+   ;retrieve the tick frequency
+   TicksPerMillisecond := 0
+   DllCall("QueryPerformanceFrequency","Int64*",TicksPerMillisecond)
+
+   ;calculate the actual idle time and tick time
+   IdleTime := (IdleAfter - IdleBefore) / (CPUCount * 100)
+   TickTime := (TimerAfter - TimerBefore) / (TicksPerMillisecond / 1000)
+
+   ;calculate the CPU usage from the ratio of the times
+   Usage := 100 - (IdleTime / TickTime)
+
+   ;return the CPU usage, clamped to a range between 0 and 100, inclusive
+   Return, (Usage < 0) ? 0 : Usage
+}
+
 GetCpuUsage( ProcNameOrPid )
 {
    Process, Exist, %ProcNameOrPid%
    pid := Errorlevel
    if NOT pid
-
       pid := ProcNameOrPid
 
    Static oldKrnlTime, oldUserTime
@@ -1275,12 +1370,14 @@ RepairPath(FullPath)
 }
 
 ;Gets the deepest child's folder name
+;TESTME figure out if this approach will actually work in real life
 GetFolderName(FullPath)
 {
 
    returned := FullPath
    returned := RepairPath(returned)
    returned := RegExReplace(returned, "^.*(\\|\/)")
+   ;NOTE that we do not want to check if the dir exists, because we may be trying to create a directory path that doesn't exist yet
    return returned
 }
 
@@ -1296,6 +1393,10 @@ Prompt(message, options="")
       FileSelectFolder, returned, , , %message%
    else
       InputBox, returned, , %message%
+
+   if ErrorLevel
+      return "ERROR"
+
    return returned
 }
 
@@ -1311,6 +1412,8 @@ SexPanther(SexPanther="SexPanther")
 ;NOTE that you need to include a wildcard at the end!
 DirectoryScan(directoryToScan, reportFilePath="C:/Dropbox/Public/logs/trace.txt")
 {
+
+
    time:=CurrentTime("hyphenated")
    timer:=StartTimer()
    count=0
@@ -1404,17 +1507,21 @@ IsVM(ComputerName="")
    if (ComputerName=="")
       ComputerName:=A_ComputerName
 
-   return !!InStr(ComputerName, "VM")
+   ;noticed that this needs to be at the end of the computername (2012-08-27)
+   ;return !!InStr(ComputerName, "VM")
+   return !!RegExMatch(ComputerName, "VM$")
 }
 
 ;figure out if this computer is one I have ownership of (determines where we put some files)
 ;if no name is passed, it assumes the local machine
+;honestly, this is a horrible way to figure it out
 IsMyCompy(ComputerName="")
 {
    if (ComputerName=="")
       ComputerName:=A_ComputerName
+   ComputerName := StringUpper(ComputerName)
 
-   return !!RegExMatch(ComputerName, "^(PHOSPHORUS|PHOSPHORUSVM|BAUSTIAN-09PC|T-800)$")
+   return !!RegExMatch(ComputerName, "^(PHOSPHORUS|PHOSPHORUSVM|BAUSTIAN-09PC|T-800|BAUSTIAN12|BAUSTIANVM|SEWING-XP)$")
 }
 
 ;Reload the core scripts(as if we just restarted the pc)
@@ -1502,12 +1609,43 @@ IsDirFileOrIndeterminate(path)
 
 }
 
-AddToTrace(var, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t10="", t11="", t12="", t13="", t14="", t15="")
+trace2(var, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t10="", t11="", t12="", t13="", t14="", t15="")
 {
+   if NOT IsMyCompy()
+      return
+
    Loop 15
       var .= " " . t%A_Index%
 
-   ;get rid of extra spaces
+   ;get rid of line breaks
+   var := RegExReplace(var, "(\r|\n|\r\n)", " ")
+   ;get rid of extra spaces at beginning and end
+   var = %var%
+
+   ;put an awesome timestamp on it
+   datestamp := CurrentTime("hyphendate")
+   timestamp := CurrentTime("hyphenated")
+   var=%timestamp% %A_ComputerName%: %var%
+   ;traceFile:=GetPath("trace.txt")
+   tracePartsFile=C:\Dropbox\Public\logs\traceParts\%datestamp%-A_ComputerName.txt
+   FileAppendLine(var, tracePartsFile)
+}
+
+;want to deprecate this in favor of trace2 (similar to iniFolder)
+AddToTrace(var, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t10="", t11="", t12="", t13="", t14="", t15="")
+{
+   if NOT IsMyCompy()
+      return
+
+   Loop 15
+   {
+      thisTextItem := t%A_Index%
+      if (thisTextItem == "ZZZ-DEFAULT-BLANK-VAR-MSG-ZZZ")
+         break
+      var .= " " . thisTextItem
+   }
+
+   ;get rid of extra spaces at beginning and end
    var = %var%
 
    ;put an awesome timestamp on it
@@ -1516,6 +1654,7 @@ AddToTrace(var, t1="", t2="", t3="", t4="", t5="", t6="", t7="", t8="", t9="", t
    FileAppendLine(var, traceFile)
 }
 
+;want to deprecate this in favor of trace2 (similar to iniFolder)
 DeleteTraceFile()
 {
    ;lets archive it and create a new file real quick
@@ -1765,49 +1904,57 @@ GetPath(file)
       return "C:\Dropbox\AHKs\gitExempt\NightlyStats.ini"
    else if (file = "RunOncePerDay.ini")
       return "C:\Dropbox\AHKs\gitExempt\RunOncePerDay.ini"
-   else if (file = "FireflyConfig.ini")
-      return "C:\Dropbox\AHKs\gitExempt\FireflyConfig.ini"
+   else if (file = "LynxStats.ini")
+      return "C:\Dropbox\AHKs\gitExempt\LynxStats.ini"
+   else if (file = "MelFireflyConfig.ini")
+      return "C:\Dropbox\AHKs\gitExempt\MelFireflyConfig.ini"
    else if (file = "config.ini")
       return "C:\Dropbox\Misc\config.ini"
    else if (file = "questions.ini")
       return "C:\Dropbox\Misc\questions.ini"
    else if (file = "FireflyFees.json")
       return "C:\Dropbox\AHKs\gitExempt\firefly\FireflyFees.json"
-   else if (file = "Firefly-UI.ini") ;FIXME need to fix this soon
-      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-1-UserWantsTheseFees.ini"
-   else if (file = "Firefly-VM.ini") ;FIXME need to fix this soon
-      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-2-BotAddedTheseFees.ini"
-   else if (file = "Firefly-1-Submitted.ini") ;FIXME need to fix this soon
-      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-1-UserWantsTheseFees.ini"
-   else if (file = "Firefly-2-Added.ini") ;FIXME need to fix this soon
-      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-2-BotAddedTheseFees.ini"
-   else if (file = "Firefly-3-Fetched.ini") ;FIXME need to fix this soon
-      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\" . date . "-3-UserFetchedRefNumsForReview.ini"
    else if (file = "FireflyIniFolder")
-      return "C:\Dropbox\AHKs\gitExempt\firefly\botCommunication\inif\"
+      return "C:\Dropbox\fastData\fireflyBotCommunication\inifParts\"
+   else if (file = "FireflyCheckinIniFolder")
+      return "C:\Dropbox\fastData\fireflyCheckins\inifParts\"
+   else if (file = "FireflyStatsIniFolder")
+      return "C:\Dropbox\fastData\fireflyStats\inifParts\"
+   else if (file = "MainStatsIniFolder")
+      return "C:\Dropbox\fastData\main\stats\inifParts\"
    else if (file = "MyStats.ini")
       return "C:\Dropbox\Public\logs\" . A_ComputerName . ".ini"
    else if (file = "MyConfig.ini")
       return "C:\Dropbox\Misc\config-" . A_ComputerName . ".ini"
-   else if (file = "iMacro.lock")
-      return "C:\Dropbox\Public\lock\imacro-" . A_ComputerName . ".lock"
+   ;else if (file = "iMacro.lock")
+      ;return "C:\Dropbox\Public\lock\imacro-" . A_ComputerName . ".lock"
    else if (file = "DailyFinancial.csv") ;deprecated
       return "C:\Dropbox\AHKs\gitExempt\DailyFinancial.csv"
    else if (file = "FinancialPast.csv")
       return "C:\Dropbox\AHKs\gitExempt\FinancialPast.csv"
    else if (file = "trace" OR file = "trace.txt")
       return "C:\Dropbox\Public\logs\trace.txt"
+   else if (file = "lynx-generic")
+      return "C:\temp\logs\" . date . "-generic.txt"
+   else if (file = "lynx-logfile")
+      return "C:\temp\logs\" . date . "-generic.txt"
+   else if (file = "lynx-checkdb")
+      return "C:\temp\logs\" . date . "-checkdb.txt"
+   else if (file = "lynx-installall")
+      return "C:\temp\logs\" . date . "-installall.txt"
+   else if (file = "lynx-removeall")
+      return "C:\temp\logs\" . date . "-installall.txt"
    else if (file = "logfile")
    {
       if IsMyCompy()
          return "C:\Dropbox\Public\logs\" . A_ComputerName . ".txt"
       else
-         return "C:\inetpub\logs\" . date . ".txt"
+         return "C:\temp\logs\" . date . "-generic.txt"
    }
    else if (file = "checkdb-logfile")
-      return "C:\inetpub\logs\" . date . "-checkdb.txt"
+      return "C:\temp\logs\" . date . "-checkdb.txt"
    else if (file = "installall-logfile" OR file = "removeall-logfile")
-      return "C:\inetpub\logs\" . date . "-installall.txt"
+      return "C:\temp\logs\" . date . "-installall.txt"
    errord("orange line", "tried to GetPath() for an unknown file", file)
    return ""
 }
@@ -1850,6 +1997,22 @@ NightlyStats(title, data, options="")
       MorningStatusAppend(title, data)
 }
 
+RunOncePerDay(description)
+{
+   sectionKey:=description
+
+   ini:=GetPath("RunOncePerDay.ini")
+   dateKey=date
+   currentDate:=CurrentTime("hyphendate")
+   lastRunDate:=IniRead(ini, sectionKey, dateKey)
+
+   if (currentDate == lastRunDate)
+      return false
+
+   IniWrite(ini, sectionKey, dateKey, currentDate)
+   return true
+}
+
 ;FIXME
 ;NOTE I hate the way this syntax looks
 ;isPlusOrMinus(cneterNumber, numbertocompare, plusOrMinus)
@@ -1858,44 +2021,19 @@ NightlyStats(title, data, options="")
    ;return num
 ;}
 
-;gets the contents of the url bar for firefox, iexplore or opera
-#include thirdParty/DDE/DDEML.ahk
-GetURLbar(sServer)
-{
-   ;sServer := "firefox"   ; iexplore, opera
-   sTopic  := "WWW_GetWindowInfo"
-   sItem   := "0xFFFFFFFF"
-
-   idInst  := DdeInitialize()
-
-   hServer := DdeCreateStringHandle(idInst, sServer)
-   hTopic  := DdeCreateStringHandle(idInst, sTopic )
-   hItem   := DdeCreateStringHandle(idInst, sItem  )
-
-   hConv := DdeConnect(idInst, hServer, hTopic)
-   hData := DdeClientTransaction(0x20B0, hConv, hItem)   ; XTYP_REQUEST
-   sData := DdeAccessData(hData)
-
-   DdeFreeStringHandle(idInst, hServer)
-   DdeFreeStringHandle(idInst, hTopic )
-   DdeFreeStringHandle(idInst, hItem  )
-
-   DdeUnaccessData(hData)
-   DdeFreeDataHandle(hData)
-   DdeDisconnect(hConv)
-   DdeUninitialize(idInst)
-
-   ;MsgBox, % sData
-   return sData
-}
-
 ;Close the AHK using Process, Close
 ;TODO ensure that this only closes AHKs, and never closes the editor that the script is open in...
+;FIXME doesn't seem to work at all, especially on SupervisionCore.ahk
 AhkClose(ahkFilename)
 {
    ;maybe we want to error out if there was no such ahk running at the time
+   DetectHiddenWindows, On
+   ;SetTitleMatchMode, Slow
    SetTitleMatchMode, 2
    WinGet, pid, PID, %ahkFilename% - AutoHotkey
+   ;if ErrorLevel
+      ;debug("there was error", errorlevel)
+   debug("", A_ThisFunc, "pid, then errorlevel", pid, errorlevel)
    ;debug(pid, ahkFilename)
    ProcessClose(pid)
    CustomTitleMatchMode("Default")
@@ -1906,6 +2044,27 @@ AhkClose(ahkFilename)
    ;}
    ;else
       ;return false
+   DetectHiddenWindows, Off
+}
+
+IsAhkRunning(ahkFilename)
+{
+   DetectHiddenWindows, On
+   ;TODO make this a function IsAhkRunning() and include AutoHotkey in the title. (and allow regex)
+   ahkFilename := EnsureEndsWith(ahkFilename, ".ahk")
+   IfWinExist, %ahkFilename%
+      return true
+   else
+      return false
+   ;{
+      ;BlockInput, MouseMoveOff
+      ;AhkClose("fireflyButtons.ahk")
+      ;RunAhk("fireflyButtons.ahk")
+      ;reload
+   ;}
+   ;else
+      ;RunAhk("fireflyButtons.ahk")
+   DetectHiddenWindows, Off
 }
 
 GetFirefoxVersion(firefoxPath)
@@ -1917,12 +2076,20 @@ GetFirefoxVersion(firefoxPath)
    return version
 }
 
+GetRandomNumber()
+{
+   return 4  ;chosen by fair dice roll.
+             ;guaranteed to be random.
+}
+
 ConvertVersionNumToInt(versionNum)
 {
    versionNum:=RegExMatch(versionNum, "^(\d+)", match)
    versionNum:=match
    return versionNum
 }
+
+;In case you were wondering, GetRandomNumber() is definitely a reference to XKCD. Good job catching that reference.
 
 ;TESTME
 IsAhkCurrentlyRunning(ahk)
@@ -1978,7 +2145,7 @@ PrettyTickCount(timeInMilliSeconds)
    ElapsedMinutes := SubStr(0 Floor((timeInMilliSeconds - ElapsedHours * 3600000) / 60000), -1)
    ElapsedSeconds := SubStr(0 Floor((timeInMilliSeconds - ElapsedHours * 3600000 - ElapsedMinutes * 60000) / 1000), -1)
    ElapsedMilliseconds := SubStr(0 timeInMilliSeconds - ElapsedHours * 3600000 - ElapsedMinutes * 60000 - ElapsedSeconds * 1000, -2)
-   returned := ElapsedHours ":" ElapsedMinutes ":" ElapsedSeconds ":" ElapsedMilliseconds
+   returned := ElapsedHours "h:" ElapsedMinutes "m:" ElapsedSeconds "s." ElapsedMilliseconds
    return returned
 }
 
@@ -2013,7 +2180,157 @@ OpenVM()
    Run, %vmFile%
 }
 
+ScheduleRemoteAhk(ahkContents, targetComputer)
+{
+   if NOT isMyCompy(targetComputer)
+   {
+      errord("The target computer is not one of my conputers", A_LineNumber, A_ScriptName, A_ThisFunc, A_ThisLabel, targetComputer)
+      return
+   }
+
+   ;TODO I would prefer to compile the AHK here first, and fail immediately if it does not compile
+   ;DECISIONS need to figure out if I actually want to compile it in the same folder. I'm thinking that is a bad idea
+   ;quick write temp file
+   ;if NOT SuccessfullyCompiles(ahkPath)
+   ;{
+      ;errord("This ahk didn't compile", A_LineNumber, A_ScriptName, A_ThisFunc, A_ThisLabel, targetComputer)
+      ;QuickFileOutput(ahkContents)
+      ;return
+   ;}
+   ;delete the temp file
+
+   time:=CurrentTime()
+   ;computerName:=Prompt("What computer do you want to schedule this ahk for?")
+   ;ahkContents:=Prompt("Enter the text of your ahk here:")
+
+   filename=C:\Dropbox\AHKs\scheduled\%targetComputer%\%time%.ahk
+   ;FileCopy, C:\Dropbox\AHKs\template.ahk, %filename%, 1
+   FileCopy("C:\Dropbox\AHKs\template.ahk", filename, "overwrite")
+   ahkContents:=StringReplace(ahkContents, "``n", "`n")
+
+   ;FileAppend, %ahkContents%, %filename%
+   FileAppend(ahkContents, filename)
+}
+
+;should show the newest modified date out of all the files in that folder
+;gives the last modified date of the most recently modified file in the folder
+;TESTME not yet sure if it is perfect
+;WRITEME this definitely does not work yet
+FileDirGetModifiedDate(path)
+{
+   ;datestamp := CurrentTime("hyphendate")
+   ;needle=^%datestamp%
+
+   Loop, %IniFolder%*
+   {
+      ;deout .= "`n"
+      ;shouldArchive := true
+      ;destination=%IniFolder%archive\%A_LoopFileName%
+
+      ;if RegExMatch(A_LoopFileName, needle)
+         ;shouldArchive := false
+
+      if (thisModifiedDate > maxModifiedDate)
+      {
+         ;deout .= "ARCHIVE  "
+         ;FileMove(A_LoopFileFullPath, destination)
+         ;archivedFile := true
+         maxModifiedDate := thisModifiedDate
+      }
+
+      ;deout .= A_LoopFileFullPath
+      ;deout .= " moved to "
+      ;deout .= destination
+   }
+   ;debug("errord nolog", deout)
+
+   if true
+   {
+      ;;AddToTrace("yellow line - archived old fees files")
+      ;;QuickFileOutput("archived files:`n" . deout)
+   }
+   return maxModifiedDate
+}
+
 ;WRITEME make function for getting remote and local path of dropbox public folder
+GetDropboxPath(path, remoteOrLocal)
+{
+   if NOT RegExMatch(remoteOrLocal, "^(local|remote)$")
+      fatalerrord(A_ThisFunc, A_ScriptPath, A_LineNumber, "The only two options for the RemoteOrLocal Param are Remote Or Local, please obey usage guidelines.")
+
+   remotePath := "http://dl.dropbox.com/u/789954"
+   localPath := "C:\Dropbox\Public"
+   returned := path
+
+   ;if InStr(remoteOrLocal, "remote")
+      ;returned := RegExReplace(returned)
+   ;else if InStr(remoteOrLocal, "local")
+      ;returned := RegExReplace(returned)
+
+   ;http://dl.dropbox.com/u/789954/remotewidget.txt
+   ;C:\Dropbox\Public\logs\%A_ComputerName%.txt
+
+   ;if InStr(remoteOrLocal, "remote")
+      ;WRITEME returned := ConvertToForwardSlashes(returned)
+   ;else if InStr(remoteOrLocal, "local")
+      ;WRITEME returned := ConvertToBackSlashes(returned)
+
+   return returned
+}
+
+;notify me wherever I am, as quickly as possible
+;display a msgbox, and if that isn't acknowledged in a reasonable timeframe, then send an SMS
+FastNotification(message)
+{
+   fatalIfNotThisPc("PHOSPHORUS")
+
+   ;display a msgbox first and see if I'm at the computer
+   delog("", "Sending a FastNotification()", message)
+   MsgBox, , , %message%, 30
+   IfMsgBox Timeout
+   {
+      SendSmsCorrectlyButGhetto(message, "9723429753")
+   }
+}
+
+;Sends a text message from the bot
+;Uses iMacros to send from Google Voice
+SendSmsCorrectlyButGhetto(message, number)
+{
+   ;send text using google voice
+
+   RunProgram("C:\Program Files\Mozilla Firefox\firefox.exe")
+   panther:=SexPanther()
+   timestamp:=CurrentTime("hyphenated")
+   imacro=
+   (
+   TAB CLOSEALLOTHERS
+   URL GOTO=http://mail.google.com/mail/u/0/?logout&hl=en
+   URL GOTO=http://www.gmail.com
+   TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:https://accounts.google.com/ServiceLoginAuth ATTR=ID:Email CONTENT=cameronbaustianbot@gmail.com
+   SET !ENCRYPTION NO
+   TAG POS=1 TYPE=INPUT:PASSWORD FORM=ACTION:https://accounts.google.com/ServiceLoginAuth ATTR=ID:Passwd CONTENT=%panther%
+   TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:gaia_loginform ATTR=ID:signIn
+   URL GOTO=http://www.google.com/voice
+   )
+
+   RunIMacro(imacro)
+   Sleep, 1500
+   Send, m
+   Sleep, 1500
+   ;Sleep, 100
+   Send, %number%
+   Sleep, 500
+   Send, {TAB}
+   Sleep, 500
+   Send, %message%
+   Sleep, 500
+   Send, {TAB}
+   Sleep, 500
+   Send, {ENTER}
+}
+
+
 ;WRITEME split csv processing out of the create pie chart macro
 ;WRITEME make monthly financial charts (rather than three-month)
 
@@ -2035,107 +2352,90 @@ OpenVM()
 ;WRITEME use autologin to make a script that closes out the VPN connection gracefully
    ;WRITEME WinClose(text, title, options) that allows match modes, and also allows the "Gentle" option described in the docs (PostMessage)
 
-
+;WRITEME archive log files on a periodic basis, debug and trace and ini
 ;WRITEME archive log files monthly, archive trace file nightly
 ;WRITEME use TodWulff lib for url shortening urls that are on the clipboard
 
 ;WRITEME improve queueing of the three types of queued ahks
 ;WRITEME fix the 3 types of queued AHKs - nightly, scheduled, and persistent-timed - figure out what the specs really are for each category and why they are different
-
 ;WRITEME fix GetOS() - run cmd prompt on startup and get version and save it
-
 ;WRITEME FIXME issues where infiniteloop.ahk is run during nightly, but doesn't show as "unfinished" the next morning
-
-
 ;WRITEME fileappendlinecsv
 ;WRITEME formatdollar()
-
-
 ;WRITEME method to "test compile" each ahk function lib individually and return if it compiles successfully (well, run it, not compile to exe)
+
 ;WRITEME make a function so i can use gocr easily
-
-
 ;WRITEME experiment with a log file using ini (or a trace file)
-
-
 ;WRITEME make FinancialProjection.csv work with new NightlyStats.ini
 ;WRITEME process old DailyFinancial.csv data into NightlyStats.ini
 ;WRITEME generate Financial.csv from NightlyStats.ini (nightly script)
 ;WRITEME experiment with AHK_L
-
 ;WRITEME polish up lib_Email.ahk, add better error handling and put it on the forums
 ;WRITEME fix up OCR lib so that it works with AHK_L Unicode (I think it works)
 ;WRITEME make tests for OCR lib for AHK_L Unicode, and AHK_basic
-
 ;WRITEME make script that tests multiple sendmodes
+
 ;WRITEME ReceiveEmail lib (SendEmail, too)
-
 ;WRITEME maybe I should generate a static page of the AHK Benchmarks page when we get IronAHK to where it runs pretty well. we should also keep track of version numbers and output to a db or ini or csv file... html file should look like: http://www.autohotkey.net/~Uberi/Scripts/Benchmarks/Benchmarks%20Combined%20%28shajul%29.html
-
 ;WRITEME make a script that processes the code to see how far we are on each command... like this: http://www.ironahk.net/docs/developing/status/
 ;WRITEME might be nice to make a glossary of ahk terms (might include some CS terms)
 ;WRITEME make a widget sidebar in ahk... allow ability to add third-party widgets to the sidebar
 ;WRITEME add "currently working on this jira issue" to the widget
-
 ;WRITEME during git commit... remove unstaged changes and add all new files (maybe in one action)
-
-
 ;WRITEME automate this page: https://plus.google.com/u/0/notifications/circle
-
-
 ;WRITEME unit tests for RunIMacro()
-
-
 ;WRITEME monitor the dlb racing site to see if events are filling up
-
-
 ;WRITEME cpan4ahk ... a site that will give you links to all the pages of ahk libs and scripts
 ;WRITEME need to make a script that will parse the XMLdocs in IA and make nifty HTML pages out of them
-
-
 ;WRITEME make a nifty MP3 youtube downloader that will access snipmp3.com
-
 ;WRITEME macro for putting multiple scanned pages all into one PDF
-
 ;WRITEME NANY idea: screenshot sharing app that will let you quickly share a screenshot on imgin.it
-
-
 ;WRITEME bills reminder emailer
-
-
 ;WRITEME fix MonthlyDelta number generated by the ahk that approximates the maximum allowable credit card bill
-;WRITEME email reminder to Melinda just before timecard is due
-
 ;WRITEME figure out how to add an AHK service on boot... (currently in C:\Dropbox\batch-file-example.bat)
 ;WRITEME add AHK as a service using SC command
-
-
 ;WRITEME use wireshark with ahk to examine live captures (pipe it out to a file)
-
-
 ;WRITEME add a nice datestamp hotstring
 ;WRITEME need to make an ini stats lib
-
-
 ;WRITEME check if AHK compiles correctly
 ;WRITEME make CompileAHK use UseErrorLevel
-
-
 ;WRITEME make a nifty ahk sidebar
 ;WRITEME ahk sidebar widgets: Clock, Weather, CPU, RAM, Gmail... Other Crud: Stocks
-
-
 ;WRITEME save Baretail colors config from work computer to dropbox
-
-
 ;WRITEME exe/bat installers for git, ahk, ahk_L
-
+;   if AHK is not installed, then auto-install (maybe... think before you do it)
 
 ;WRITEME make an instant diff tool (put it on the pastebin, prompt for part 2, put on pastebin)
-
-
 ;WRITEME make forums scraper that will pull information from each lib into a common format on a common ahk.net site (CPAN4AHK)
-
-
 ;WRITEME need to make a function that will run ahk code from a temp ahk file
+
+;WRITEME change forum post for OCR lib to point to new release
+
+;WRITEME FileDirGetModifiedDate() should show the newest modified date out of all the files in that folder
+;WRITEME move files that are edited frequently and rapidly to the fastData folder
+
+;WRITEME  FIXME fix auto git commit of AHKs folder
+;WRITEME move morning status to fastData
+;WRITEME make auto anonymouse only happen on work compy--not needed: blocks have been removed
+;WRITEME DeleteConflictedCopies(folderPath, excludePath="")
+
+;WRITEME copy event to my work gmail calendar
+;WRITEME make event on my work gmail calendar
+;WRITEME verify that this event does not need to be on my work gmail calendar
+
+;WRITEME make AHK sidebar be able to force windows into sidebar
+
+;FRIGGIN HECK WRITEME fix the dang nabbed github auto-upload on the home pc
+;WRITEME unit tests for HATCHLING IRC
+;WRITEME icon for hatchling IRC
+
+;WRITEME allow "hidden" option while running iMacros (seems like this will be really hard to do) (entered at 2012-07-27_13-50-58)
+
+
+;WRITEME make checking balance projection create a guess of what the credit bill will be using an average of the last few bills (entered at 2012-08-05_01-18-41)
+
+
+;WRITEME automate freerice.com - just click at first (entered at 2012-10-05_19-35-17)
+;WRITEME automate freerice - try to record answers and respond accordingly (entered at 2012-10-05_19-36-07)
+;WRITEME terminate vsmon on home PC - process from the devil (entered at 2012-10-05_19-50-17)
 

@@ -33,6 +33,9 @@ if (A_ComputerName = "PHOSPHORUS")
    ;maybe just winactivate, not just forcewinfocus
    WinActivate, Irssi ahk_class PuTTY
 
+   WinMove, Mozilla Thunderbird, , 1920, 0, 1765, 1081
+   ;WinMove, Mozilla Thunderbird, , %verticalSplit%, 0, %rightWidth%, %bottomRightY%
+
    WinMove, Ext Designer ahk_class QWidget, , %verticalSplit%, 0, %rightWidth%, %bottomRightY%
    WinMove, GVIM ahk_class Vim, , %verticalSplit%, 0, %rightWidth%, %bottomRightY%
    WinMove, C:\Windows\system32\cmd.exe ahk_class ConsoleWindowClass, , 0, 0, %verticalSplit%, %horizontalSplit%
@@ -70,7 +73,7 @@ if (A_ComputerName = "PHOSPHORUS")
    }
 }
 
-if (A_ComputerName = "BAUSTIAN-09PC")
+if (A_ComputerName = "baustian-09pc-OLD")
 {
    SetTitleMatchMode, 2
 

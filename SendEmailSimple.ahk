@@ -1,5 +1,5 @@
 #include FcnLib.ahk
-#include thirdParty\COM.ahk
+;#include thirdParty\COM.ahk
 #include SendEmailSimpleLib.ahk
 
 ;Send an email without doing any of the complex queuing stuff

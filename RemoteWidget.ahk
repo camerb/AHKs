@@ -19,7 +19,7 @@ if (A_ComputerName == "PHOSPHORUS")
    widgetX := 3689
    widgetY := 323
 }
-else if (A_ComputerName == "BAUSTIAN-09PC")
+else if (A_ComputerName == "BAUSTIAN12")
 {
    widgetX := 1771
    widgetY := 319
@@ -88,6 +88,7 @@ GetWidgetText()
    InternetWasDown := InternetIsDown()
 
    returned.=urldownloadtovarcheck500("http://dl.dropbox.com/u/789954/remotewidget.txt")
+   returned.=urldownloadtovarcheck500("http://dl.dropbox.com/u/789954/fireflyFees.txt")
    if (A_ComputerName == "PHOSPHORUS")
       returned.=urldownloadtovarcheck500("http://dl.dropbox.com/u/789954/remotewidget-livesitemode.txt")
    returned.=GetGmailMessageCount(CamGmailUrl, "Cameron")
@@ -122,6 +123,7 @@ UrlDownloadToVarCheck500(url)
       title:=GetXmlElement(page, "title")
    }
 
+   page .= "`n"
    return page
 }
 

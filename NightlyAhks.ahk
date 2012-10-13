@@ -39,18 +39,31 @@ RunThisNightlyAhk(2, "DeleteDropboxCruft.ahk")
 RunThisNightlyAhk(1, "MorningStatus.ahk", "GatherData")
 RunThisNightlyAhk(1, "RestartDropbox.ahk")
 RunThisNightlyAhk(1, "InfiniteLoop.ahk")
+RunThisNightlyAhk(5, "DeleteDropboxConflictedCopies.ahk")
 RunThisNightlyAhk(5, "REFPunitTests.ahk", "completedFeaturesOnly")
 RunThisNightlyAhk(15, "UnitTests.ahk")
 
 ;}}}
 
-;{{{ Tasks for home compy
-if (A_ComputerName="BAUSTIAN-09PC")
+;{{{ Tasks for home compy OLD
+if (A_ComputerName="baustian-09pc-OLD")
 {
    ;hypercam()
    RunThisNightlyAhk(7, "SaveChromeBookmarks.ahk")
    RunThisNightlyAhk(10, "CreateDropboxBackup.ahk")
    RunThisNightlyAhk(3, "PushToGit.ahk")
+}
+;}}}
+
+;{{{ Tasks for home compy
+if (A_ComputerName="baustian12")
+{
+   RunThisNightlyAhk(2, "LaunchVM.ahk")
+   RunThisNightlyAhk(2, "fireflyRemote-RestartVMForceful.ahk")
+   ;hypercam()
+   RunThisNightlyAhk(7, "SaveChromeBookmarks.ahk")
+   RunThisNightlyAhk(10, "CreateDropboxBackup.ahk")
+   ;RunThisNightlyAhk(3, "PushToGit.ahk")
 }
 
 ;}}}
@@ -64,9 +77,12 @@ if (A_ComputerName = LeadComputer())
    ;  we can tell this if a screenshot saved is only half size
    ;  or possibly just check A_ScreenWidth
 
+   RunThisNightlyAhk(1, "fireflyCreateCodeBackups.ahk")
    ;RunThisNightlyAhk(7, "UploadAhkDotNetFiles.ahk") ;causing errors, getting my ip blocked, so let's stop
    ;RunThisNightlyAhk(2, "GetPhoneDataUsage.ahk")
    ;hypercam()
+
+   ;financials
    RunThisNightlyAhk(7, "GetSentryBalances.ahk")
    ;hypercam()
    RunThisNightlyAhk(7, "MintGetAccountCsvs.ahk")
@@ -77,13 +93,13 @@ if (A_ComputerName = LeadComputer())
    ;RunThisNightlyAhk(4, "GetMintNetWorth.ahk")
    RunThisNightlyAhk(2, "ProcessMintExport.ahk")
    RunThisNightlyAhk(2, "MakeNightlyCsvsFromIni.ahk")
-
    RunThisNightlyAhk(1, "UsaaCheckingBalanceProjection.ahk")
+
    RunThisNightlyAhk(1, "AddAhkTask.ahk", "copyTasksToFcnLib")
    RunThisNightlyAhk(1, "GetNetWorth.ahk")
    RunThisNightlyAhk(2, "GetSlackInBudget.ahk")
    ;RunAhkAndBabysit("CreateFinancialPieChart.ahk")
-   RunThisNightlyAhk(2, "CheckDropboxForConflictedCopies.ahk")
+   RunThisNightlyAhk(2, "DeleteDropboxConflictedCopies.ahk")
    ;SleepMinutes(15)
    ToggleIMacrosPanel()
 }
@@ -92,11 +108,15 @@ if (A_ComputerName = LeadComputer())
 ;{{{ Tasks for work compy
 if (A_ComputerName="PHOSPHORUS")
 {
-   ;looks like FF4 doesn't need a nightly restart (no longer a RAM hog)
-   ;RunAhkAndBabysit("RestartFirefox.ahk")
-   ;SleepMinutes(1)
-   RunThisNightlyAhk(1, "UpdatePidginImStatus.ahk")
-   RunThisNightlyAhk(1, "GitRefreshRemote.ahk")
+   ;RunThisNightlyAhk(1, "UpdatePidginImStatus.ahk")
+   ;RunThisNightlyAhk(1, "GitRefreshRemote.ahk")
+   RunThisNightlyAhk(1, "GetLynxVersionsOnServers.ahk")
+   ;RunThisNightlyAhk(1, "GetLynxReleaseVersion.ahk")
+   RunThisNightlyAhk(3, "LaunchBaretail.ahk")
+   RunThisNightlyAhk(9, "Lynx-Nightly.ahk")
+
+   datestamp := CurrentTime("hyphendate")
+   FileCreate(datestamp, "T:\TechSupport\upgrade_files\ensure-current.txt")
 }
 ;}}}
 
@@ -117,12 +137,18 @@ ProcessCloseAll("firefoxPortable.exe")
 if (A_ComputerName="PHOSPHORUS")
 {
    ;this needs a little bit of click-around time
-   ;commented this out cause I'm in C-4's office all the time now
    RunThisNightlyAhk(2, "LaunchPidgin.ahk")
 }
 
+if (A_ComputerName="BAUSTIAN12")
+{
+   SleepMinutes(5)
+   RunThisNightlyAhk(2, "fireflyRemote-CloseVM.ahk")
+   RunProgram("C:\Program Files\uTorrent\uTorrent.exe")
+}
+
 ;make a list of all the ahks that didn't end gracefully
-;TODO switch this to IniListAllKeys()
+;TODO switch this to IniListAllKeys() ;not sure what I meant by that
 Loop, C:\Dropbox\AHKs\*.ahk
 {
    time:=IniRead(ini, "RunAhkAndBabysit.ahk", A_LoopFileName)
@@ -167,11 +193,13 @@ RunThisNightlyAhk(waitTimeInMinutes, ahkToRun, params="")
 
    SleepMinutes(waitTimeInMinutes)
 
+   ;TODO close just the one we launched
+   ;AhkClose(ahkToRun)
+   ;check if that one actually closed
+
    ;close everything that it possibly could have launched
    CloseAllAhks(A_ScriptName)
-
-   ;close just the one we launched
-   ;AhkClose(ahkToRun)
+   ProcessCloseFifty("firefox.exe")
 
    ;if A_Debug
       debug("", "nightly ahks: finished this ahk", ahkToRun)
@@ -179,7 +207,7 @@ RunThisNightlyAhk(waitTimeInMinutes, ahkToRun, params="")
 
 hypercam()
 {
-   if (A_ComputerName="BAUSTIAN-09PC")
+   if (A_ComputerName="baustian12")
    {
       RunAhk("HyperCamRecord.ahk")
       SleepSeconds(10)

@@ -2,22 +2,28 @@
 
 #include FcnLib.ahk
 
-InputBox, mode, Archive`, Remap or make Permanent, Would you like to archive a temporary hotkey`, move it to a different hotkey or make it a permanent hotkey?
-;mode:=prompt("")
+;InputBox, mode, Archive`, Remap or make Permanent, Would you like to archive a temporary hotkey`, move it to a different hotkey or make it a permanent hotkey?
+mode:=prompt("Would you like to archive a temporary hotkey, remap it to a different hotkey or make it a permanent hotkey?")
 
 beg=temporary
 end=.ahk
 
+ShowPreviewOfAllTempAhks()
+
 if (mode="archive" || mode="a")
 {
    ;Archive Temporary File
-   ShowPreviewOfAllTempAhks()
 
-   InputBox, sourcenumber, Source File, Which temporary ahk would you like to archive? (i.e. temporary#.ahk)
+   ;InputBox, sourcenumber, Source File, Which temporary ahk would you like to archive? (i.e. temporary#.ahk)
+   sourcenumber:=prompt("Source File, Which temporary ahk would you like to archive? (i.e. temporary#.ahk)")
+   if (sourcenumber == "ERROR")
+      ExitApp
    ;TODO give a different folder path if they want to revisit this AHK later
-   ;FIXME blank is acceptable if ErrorLevel return ;if user hit cancel
 
-   InputBox, descr, Description, Give a couple words of description of this AHK:`n`nType REVISIT- if you plan on coming back to this AHK at some point.
+   ;InputBox, descr, Description, Give a couple words of description of this AHK:`n`nType REVISIT- if you plan on coming back to this AHK at some point.
+   descr:=prompt("Description, Give a couple words of description of this AHK:`n`nType REVISIT- if you plan on coming back to this AHK at some point.")
+   if (descr == "ERROR")
+      ExitApp
 
    if (!isValid(sourcenumber))
    {
@@ -35,10 +41,16 @@ else if (mode="remap" || mode="r")
 {
    ;Remap temporary hotkey to a new key (1-9)
 
-   InputBox, sourcenumber, Source File, Which temporary ahk would you like to copy? (i.e. temporary#.ahk)
+   ;InputBox, sourcenumber, Source File, Which temporary ahk would you like to copy? (i.e. temporary#.ahk)
+   sourcenumber:=prompt("Source File, Which temporary ahk would you like to copy? (i.e. temporary#.ahk)")
+   if (sourcenumber == "ERROR")
+      ExitApp
    ;FIXME blank is acceptable if ErrorLevel return ;if user hit cancel
 
-   InputBox, destnumber, Destination File, What should the new file be numbered as? (i.e. temporary#.ahk)
+   ;InputBox, destnumber Destination File, What should the new file be numbered as? (i.e. temporary#.ahk)
+   destnumber:=prompt("Destination File, What should the new file be numbered as? (i.e. temporary#.ahk)")
+   if (destnumber == "ERROR")
+      ExitApp
    ;FIXME if ErrorLevel return ;if user hit cancel
 
    if (!isValid(sourcenumber) || !isValid(destnumber) || sourcenumber=destnumber)
@@ -56,10 +68,16 @@ else if (mode="permanent" || mode="p")
 {
    ;Save temporary hotkey as a permanent hotkey
 
-   InputBox, sourcenumber, Source File, Which temporary ahk would you like to copy? (i.e. temporary#.ahk)
+   ;InputBox, sourcenumber, Source File, Which temporary ahk would you like to copy? (i.e. temporary#.ahk)
+   sourcenumber:=prompt("Source File, Which temporary ahk would you like to copy? (i.e. temporary#.ahk)")
+   if (sourcenumber == "ERROR")
+      ExitApp
    ;FIXME blank is acceptable if ErrorLevel return ;if user hit cancel
 
-   InputBox, destnumber, Destination File, What should the new file be named?
+   ;InputBox, destnumber, Destination File, What should the new file be named?
+   destnumber:=prompt("Destination File, What should the new file be named?")
+   if (destnumber == "ERROR")
+      ExitApp
    ;FIXME if ErrorLevel return ;if user hit cancel
 
    source=%beg%%sourcenumber%

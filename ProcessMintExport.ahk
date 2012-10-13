@@ -36,10 +36,14 @@ Loop, read, %infile%
       FileAppendLine(line, outFileBase . "-chasechecking.csv")
    else if RegExMatch(line, "ROUTINE CREDIT CARD")
       FileAppendLine(line, outFileBase . "-routinecredit.csv")
+   else if RegExMatch(line, "MORTGAGE LOAN.$")
+      FileAppendLine(line, outFileBase . "-mortgage.csv")
+   else if RegExMatch(line, "CREDIT CARD .Amazon.com..$")
+      FileAppendLine(line, outFileBase . "-amazoncredit.csv")
    else
    {
       nonMatchCount++
-      ;AddToTrace(line)
+      ;AddToTrace("NON-MATCH: " . line)
    }
 }
 

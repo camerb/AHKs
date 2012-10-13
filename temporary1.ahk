@@ -1,16 +1,18 @@
 #include FcnLib.ahk
-#include thirdParty\json.ahk
 
-;figuring out how to make nice loops through firefly fees
+ForceWinFocus("Mozilla Thunderbird")
+Send, {appskey}
+Sleep, 50
+Send, g1
 
-feesJson := FileRead(GetPath("FireflyFees.json"))
-listFees := json(feesJson, "listFees")
-Loop, parse, listFees, CSV
-{
-   thisFee:=A_LoopField
-   ;i:=A_Index
-   ;thisFeeAmount:=FeeAmount%i%
-   thisFeeType := json(feesJson, thisFee . ".type")
-   ;AddFees(thisFeeType, thisFee, i)
-   debug(thisFee, thisFeeType)
-}
+Sleep, 200
+Send, {appskey}
+Sleep, 50
+Send, f
+
+ForceWinFocus("Write")
+Sleep, 100
+Send, !s{end} - I'm on it CB
+Sleep, 100
+Send, ^{enter}
+

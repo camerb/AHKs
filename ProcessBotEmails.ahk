@@ -4,9 +4,12 @@
 ;recieve emails macro
 
 ;first, check the rss/xml page to see if there are new messages
+emailUsername=cameronbaustianbot
 joe:=SexPanther()
-BotGmailUrl=https://cameronbaustianbot:%joe%@gmail.google.com/gmail/feed/atom
-ini=C:\DataExchange\BotEmail\Received.ini
+
+BotGmailUrl=https://%emailUsername%:%joe%@gmail.google.com/gmail/feed/atom
+savePath := "C:\DataExchange\BotEmail\Received"
+ini=%savePath%.ini
 
 gmailPage:=urldownloadtovar(url)
 RegExMatch(gmailPage, "<fullcount>(\d+)</fullcount>", gmailPage)
@@ -25,14 +28,15 @@ if (number != "")
 
    ;TODO find a way to use RunProgram and pass in params, and specify to use CmdRet to run the program
    ;exePath="C:\Program Files (x86)\GmailBackup\gmail-backup.exe"
-   exePath="C:\Program Files\GmailBackup\gmail-backup.exe"
-   command=%exePath% backup "C:\DataExchange\BotEmail\Received" cameronbaustianbot@gmail.com %joe% %start% %end%
+   exePath="C:\Dropbox\Programs\GmailBackup\gmail-backup.exe"
+   EnsureDirExists(savePath)
+   command=%exePath% backup %savePath% %emailUsername%@gmail.com %joe% %start% %end%
    ret:=CmdRet_RunReturn(command)
    ;delog(ret)
    ;debug(command)
 
    ;processing the backup that just came in
-   Loop, C:\DataExchange\BotEmail\Received\*.eml
+   Loop, %savePath%\*.eml
    {
       if (IniRead(ini, "default", A_LoopFileName) == "ERROR")
       {
@@ -89,7 +93,20 @@ examineEmail(emailFile)
             findingStart:=true
          }
          else if (thisLine == "From: Bot Baustian <cameronbaustianbot@gmail.com>")
+         {
+            ;this is not an incoming email, don't process it
+            thisEmailIsOutbound:=true
             return
+         }
+         ;else if (thisLine == "From: `"(972) 342-9753`" <19724540889.19723429753.Pzkq8Mxk4c@txt.voice.google.com>")
+         ;{
+            ;;this was sent from my cell phone
+         ;}
+         ;else if InStr(thisLine == "******Forwarded by Actions******")
+         ;{
+            ;;this message was received by my cell phone and forwarded to the bot
+            ;thisMessageOriginallyReceivedByMyPhone:=true
+         ;}
       }
       else if findingSubject
       {
@@ -122,5 +139,9 @@ ProcessSingleEmail(emailSubject, emailMessage)
       FileAppendLine(emailMessage, filename)
       FileCopy(filename, archiveFile)
       ;TODO send it to an archive file as well
+   }
+   if InStr(emailMessage, "Say hello")
+   {
+      FastNotification("Hello!")
    }
 }

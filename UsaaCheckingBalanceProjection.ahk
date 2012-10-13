@@ -19,7 +19,6 @@ currentYear:=CurrentTime("yyyy")
 infile=%path%usaa_export\%date%-checking.csv
 expectedTransFile=%path%expectedTransactions.txt
 projectionCsv=%path%financialProjection.csv
-;projectionCsv=%path%out1.txt
 
 if NOT FileExist(infile)
    fatalErrord("the infile for creating the financial projection doesn't exist, cannot continue", A_ScriptName)

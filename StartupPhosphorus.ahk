@@ -54,19 +54,20 @@ Send, {F2}
 Send, ^w{RIGHT}{;}q{ENTER}
 Send, {;}BookmarkToRoot ahks{ENTER}
 
-;killing this because it beeps
-RunAhk("LaunchVM.ahk")
-ForceWinFocus("ahk_class VMPlayerFrame")
-SleepSeconds(2)
-ForceWinFocus("ahk_class VMPlayerFrame")
-Send, ^!5
+;took this out because bootup was taking a long time
+;RunAhk("LaunchVM.ahk")
+;ForceWinFocus("ahk_class VMPlayerFrame")
+;SleepSeconds(2)
+;ForceWinFocus("ahk_class VMPlayerFrame")
+;Send, ^!5
 
-ForceWinFocus("ahk_class VMPlayerFrame")
-file=images\vmware\phosphorusVmButton.bmp
-WaitForImageSearch(file)
-ClickIfImageSearch(file)
-Click
-Send, ^!5
+;i don't even use the work vm anymore anyway
+;ForceWinFocus("ahk_class VMPlayerFrame")
+;file=images\vmware\phosphorusVmButton.bmp
+;WaitForImageSearch(file)
+;ClickIfImageSearch(file)
+;Click
+;Send, ^!5
 
 Sleep, 10000
 
@@ -90,8 +91,8 @@ Send, cd C:/code/epms{ENTER}
 Send, git status{ENTER}
 Send, ^!a
 
-notify("Launching SSMS")
-RunWait, LaunchSSMS.ahk
+;notify("Launching SSMS")
+;RunWait, LaunchSSMS.ahk
 
 ;RunProgram("C:\Program Files (x86)\Pidgin\pidgin.exe")
 notify("Launching Pidgin")
@@ -102,7 +103,8 @@ RunWait, LaunchPidgin.ahk
 ;Send, ^!a
 ;NOTE I commented this line because it is already being shown on all screens in the launch pidgin script
 
-Run, C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe
+;Run, C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe
+RunProgram("C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe")
 
 ;;;;;;;;;;;;;done launching stuff
 
@@ -136,6 +138,7 @@ CheckForRestoreBar(786, 110, 786, 133, 1649, 110, 1649, 133, 686, 110)
 notify("All finished with the boot AHK")
 SleepSeconds(15)
 ExitApp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; END
 
 desktopSidebarNeedsRelocating()
 {

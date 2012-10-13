@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-if NOT A_ComputerName = "BAUSTIAN-09PC"
+if NOT A_ComputerName = "baustianvm"
    return
 
 ;var:=urldownloadtovar("https://www.att.com/olam/gotoDataDetailsAction.olamexecute?reportActionEvent=A_UMD_DATA_DETAILS")

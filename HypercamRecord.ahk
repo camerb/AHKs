@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-fatalIfNotThisPC("BAUSTIAN-09PC")
+fatalIfNotThisPC("baustian-09pc-OLD")
 
 RunProgram("C:\Program Files\HyCam2\HyCam2.exe")
 ForceWinFocus("HyperCam")

@@ -2,7 +2,7 @@ SetTitleMatchMode, RegEx
 
 ;delog("grey line Started AutoHotkey")
 iniPP("Started AutoHotkey")
-
+FindOutWhereItCrashed()
 ;ensure that the startup shortcut is set so that we don't have to do it manually
 target=C:\Dropbox\AHKs\Bootstrap.ahk
 workingDir=C:\Dropbox\AHKs\
@@ -20,8 +20,11 @@ FileCreateShortcut, %target%, %shortcut%, %workingDir%
 ;Functions
 #include FcnLib.ahk
 #include FcnLib-IniStats.ahk
+#include FcnLib-iMacros.ahk
 
-Menu, tray, add, hi, hihi
+;things that are rough and should be in the end no matter what
+ExitApp
+#include *i FcnLib-NotRealFcnLibs.ahk
 
 ;########## all the includes that I need to be sure to make:
 ;or maybe these should just be broken up into different collapsable sections

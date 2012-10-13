@@ -16,7 +16,13 @@ BannerDotPlx()
 CheckDb()
 {
    delog("", "started function", A_ThisFunc)
+
    lockfile := "C:\inetpub\wwwroot\cgi\update.lck"
+   DeleteExcessUpdaterFiles()
+
+   ;FileDelete("C:\inetpub\log\checkdb.log")
+   ;TODO someday, after we are sure the log files are being sent
+   ;need to think about this more... might be a bad idea (it only appends)
 
    ;do the checkdb
    ret := CmdRet_Perl("checkdb.plx")
@@ -24,15 +30,18 @@ CheckDb()
    len := strlen(ret)
    msg=Ran checkdb and the strlen of the checkdb was %len%
 
+   Sleep, 5000
+
    if FileExist(lockfile)
    {
       lynx_error("Lockfile was present after a checkdb")
       ret .= "`n`nLOCKFILE WAS PRESENT AFTER THE CHECKDB"
-      ;FileDelete(lockfile)
+      FileDelete(lockfile)
    }
 
-   FileAppendLine(msg, GetPath("logfile")) ;log abbreviated message
+   FileAppendLine(msg, GetPath("lynx-logfile")) ;log abbreviated message
    FileAppendLine(ret, GetPath("checkdb-logfile")) ;log full message to separate log
+   ;TODO append to extensive log file
 
    delog("", "finished function", A_ThisFunc)
 }
@@ -75,9 +84,10 @@ SendLogsHome()
    joe := GetLynxPassword("ftp")
    timestamp := CurrentTime("hyphenated")
    date := CurrentTime("hyphendate")
-   logFileFullPath := GetPath("logfile")
+   logFileFullPath := GetPath("lynx-logfile")
    logFileFullPath2 := GetPath("checkdb-logfile")
    logFileFullPath3 := GetPath("installall-logfile")
+   logFileFullPath4 := "C:\inetpub\log\checkdb.log"
 
    ;try to send it back using MS-ftp
    joe := GetLynxPassword("ftp")
@@ -88,9 +98,10 @@ ftpfile=
 open lynx.mitsi.com
 AHK
 %joe%
-put %logFileFullPath% %reasonForScript%_logs/%timestamp%.txt
+put %logFileFullPath% %reasonForScript%_logs/%timestamp%-generic.txt
 put %logFileFullPath2% %reasonForScript%_logs/%timestamp%-checkdb.txt
 put %logFileFullPath3% %reasonForScript%_logs/%timestamp%-installall.txt
+put %logFileFullPath4% %reasonForScript%_logs/%timestamp%-checkdb-ext.txt
 quit
 )
 

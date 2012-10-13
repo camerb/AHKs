@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-debug("Starting hotkey unit tests") ;{{{
+debug("Starting unit tests") ;{{{
 
 ;close all friggin pidgin windows so i don't spam them
 Loop 10

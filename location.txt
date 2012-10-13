@@ -1,0 +1,256 @@
+
+var _gaq = _gaq || []; _gaq.push(['gwo._setAccount', 'UA-226290-12']); _gaq.push(['gwo._trackPageview', '/2364003870/goal']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); })(); 
+IP Details for 67.210.231.220
+ 
+This information should not be used for emergency purposes, trying to find someone's exact physical address, or other purposes that would require 100% accuracy. Please read about geolocation accuracy for more information.
+ 
+
+
+
+
+
+Quick Links:
+ General IP Information
+ Geolocation Information
+ Geolocation Map
+ Comments about this IP address
+ 
+General IP Information
+ 
+
+
+
+IP:
+
+67.210.231.220
+
+
+
+Decimal:
+
+1137895388
+
+
+
+Hostname:
+
+www.epmsonline.com
+
+
+
+ISP:
+
+Global IP Networks
+
+
+
+Organization:
+
+JIM.NET
+
+
+
+Services:
+
+None detected
+
+
+
+Type:
+
+Corporate
+
+
+
+Assignment:
+
+Static IP
+
+
+
+Blacklist:
+
+
+
+ 
+Geolocation Information
+ 
+
+
+Country:
+
+United States 
+
+
+
+State/Region:
+
+Texas
+
+ 
+
+City:
+
+Plano
+
+ 
+
+Latitude:
+
+33.02
+
+ 
+
+Longitude:
+
+-96.7419
+
+ 
+
+Area Code:
+
+972
+
+ 
+
+Postal Code:
+
+75075
+
+ 
+
+
+Geolocation Map
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Loading...
+
+
+
+
+
+
+
+
+
+
+
+
+
+Map Data - Terms of Use
+
+
+Map Data
+
+
+
+
+
+
+
+Report a map error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+User Comments
+ No comments. Be the first to add one.
+ Enter up to 500 characters in your comment about this IP address.
+
+ 
+
+
+Related Articles
+ How accurate is geolocation?
+How do I hide my IP address?
+How do I change my IP address?
+What is a proxy server?
+ /* <![CDATA[ */ var google_conversion_id = 1072692559; var google_conversion_language = "en"; var google_conversion_format = "3"; var google_conversion_color = "666666"; var google_conversion_label = "l1zuCOHOugEQz_q__wM"; var google_conversion_value = 0; /* ]]> */ <div style="display:inline;"> <img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/1072692559/?label=l1zuCOHOugEQz_q__wM&guid=ON&script=0"/> </div>

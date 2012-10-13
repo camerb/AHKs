@@ -21,23 +21,30 @@ ArrangeWindows()
    global
    if IsVM()
    {
+      w=1281
+      h=925
+      ;FIXME these are the old values, switching to the new values above seems to break other things
+      w=1280
+      h=932
       WinRestore, Mozilla Firefox
       WinRestore, %firefox%
-      WinRestore, %excel%
-      WinMove, Mozilla Firefox, , 0, 0, 1280, 932
-      WinMove, %firefox%, , 0, 0, 1280, 932
-      WinMove, %excel%  , , 0, 0, 1280, 932
-      If InStr(WinGetActiveTitle(), excel) OR InStr(WinGetActiveTitle(), firefox)
-         Send, ^!{NUMPAD5}
+      ;WinRestore, %excel%
+      WinMove, Mozilla Firefox, , 0, 0, %w%, %h%
+      WinMove, %firefox%, , 0, 0, %w%, %h%
+      ;WinMove, %excel%  , , 0, 0, %w%, %h%
+      ;If InStr(WinGetActiveTitle(), excel) OR InStr(WinGetActiveTitle(), firefox)
+         ;Send, ^!{NUMPAD5}
    }
    else
    {
+      w=1766
+      h=1020
       WinRestore, Mozilla Firefox
       WinRestore, %firefox%
       WinRestore, %excel%
-      WinMove, Mozilla Firefox, , 0, 0, 1766, 1020
-      WinMove, %firefox%, , 0, 0, 1766, 1020
-      WinMove, %excel%  , , 0, 0, 1766, 1020
+      WinMove, Mozilla Firefox, , 0, 0, %w%, %h%
+      WinMove, %firefox%, , 0, 0, %w%, %h%
+      WinMove, %excel%  , , 0, 0, %w%, %h%
       If InStr(WinGetActiveTitle(), excel) OR InStr(WinGetActiveTitle(), firefox)
          Send, ^!{NUMPAD5}
    }
@@ -45,11 +52,13 @@ ArrangeWindows()
 
 FocusNecessaryWindow(window)
 {
+   qd("started focus")
    if (window == "")
-      RecoverFromMacrosGoneWild("Cameron did something wrong, the window variable was blank")
+      RecoverFromMacrosGoneWild("Cameron did something wrong, the window variable was blank (error 42)")
 
    if NOT ForceWinFocusIfExist(window)
-      RecoverFromMacrosGoneWild("couldn't find this window: " . window)
+      RecoverFromMacrosGoneWild("couldn't find this window (error 41): " . window)
+   qd("ended focus")
 }
 
 ;seems to work really well for both manned and bot
@@ -57,20 +66,30 @@ FindTopOfFirefoxPage()
 {
    global firefox
 
+   qd("started find top")
+   timerFcn := StartTimer()
+
    FocusNecessaryWindow(firefox)
 
    ScrollUpLarge()
    Sleep, 100
-   ;Sleep, 1000
+
+   ;used to be 3000
    if IsBot()
-      Sleep, 3000
+      Sleep, 200
+
+   qd("before top")
+   ;if we see these images, then we are already at the very top of the page and don't need to scroll up
+   if SimpleImageSearch( FixImagePathIfBot("images/firefly/topOfPage.bmp") )
+      return
+   qd("after top")
 
    topOfPageIsVisible := SimpleImageSearch("images/firefly/HomeTab.bmp")
       OR SimpleImageSearch("images/firefly/AffidavitsTab.bmp")
       OR SimpleImageSearch("images/firefly/AffidavitsTab7.bmp")
       OR SimpleImageSearch("images/firefly/HomeTab7.bmp")
-      OR SimpleImageSearch("images/firefly/topOfPage.bmp")
       OR SimpleImageSearch("images/firefly/topOfPage2.bmp")
+      OR SimpleImageSearch("images/firefly/topOfPage-wrong.bmp")
 
    if NOT topOfPageIsVisible
       RecoverFromMacrosGoneWild("Can't find the top of the page in firefox")
@@ -78,6 +97,10 @@ FindTopOfFirefoxPage()
    ;do a couple more clicks, just to make sure we're at the very, very top
    Loop 10
       ScrollUpSmall()
+
+   FireflyBotEndTimer(timerFcn, A_ThisFunc, 1, 5)
+
+   qd("end find top")
 }
 ;}}}
 
@@ -120,12 +143,17 @@ RecoverFromMacrosGoneWild(message="", options="")
    if InStr(options, "screenshot")
       SaveScreenShot(A_ScriptName . "-" . message)
 
+   if IsBot()
+   {
+      options .= " silent"
+
+      tracemsg=%A_ThisFunc% - faint orange line
+      AddToTrace(tracemsg)
+   }
+
    ;do I want errord? or do I want a msgbox? ;prolly not msgbox cause we might want to log it
    if message
    {
-      ;UNSURE Not sure, maybe this should be at the top of the function? (2011-12-02) ;removed 2011-12-10
-      ;message=ERROR: %message%
-
       iniPP(message)
       errord(options, message, A_ScriptName, A_ThisFunc, A_LineNumber)
    }
@@ -164,7 +192,7 @@ IncorrectUsage(message)
 
 RecordSuccessfulStartOfFireflyPanel()
 {
-   iniMostRecentTime("Firefly Panel Loaded (last loaded time)") ;track the last time it was reloaded
+   iniMostRecentTime("Firefly Panel Loaded (most recent time)") ;track the last time it was reloaded
    iniPP("Firefly Panel Loaded (number of times)") ;count all the times it was reloaded
 }
 
@@ -195,20 +223,75 @@ ShortenForDebug(text)
 ;}}}
 
 ;{{{ Getting info from Status-Pro
+GetEasyFileInfo()
+{
+   ;this one is not for bots
+   if IsBot()
+      return
+
+   addtotrace(A_ThisFunc . " triggered")
+
+   Click(1100, 165, "left double")
+   ;I noticed that this is in the middle of the page, so it should work fine
+
+   ss()
+   Send, {CTRLDOWN}a{CTRLUP}
+   ss()
+   allTheText := CopyWait()
+
+   timestamp := CurrentTime("hyphenated")
+   filepath=C:\Dropbox\fastData\quickFileOutput\%timestamp%-%A_ComputerName%.txt
+   FileAppend(allTheText, filepath)
+}
+
+GetFileNumber()
+{
+   if NOT IsBot()
+      errord("I didn't make it so that Mel's macros could get the file number")
+
+   Clipboard:="null"
+   ;StatusProCopyField(323, 247)
+   Click(323, 247, "double")
+   Send, ^a
+   Click(323, 247, "right")
+   Send, {DOWN 3}
+   Send, {ENTER}
+   ClipWaitNot("null")
+   fileNumber:=Clipboard
+
+   ;if NOT RegExMatch(serverName, "[A-Za-z]{3}")
+      ;RecoverFromMacrosGoneWild("I didn't get a server name (might have a long defendant name) (error 23)", serverName)
+   if (fileNumber == "null")
+   {
+      AddToTrace("GetFileNumber failed (error 33) - faint orange line")
+      RecoverFromMacrosGoneWild("I didnt get the file number (error 33)")
+   }
+
+   return fileNumber
+}
+
 GetReferenceNumber()
 {
-   Clipboard:=""
-   ss()
+   ;Clipboard:=""
+   ;ss()
+
    if IsBot()
       Click(1220, 182, "left double")
    else
-      Click(1100, 165, "left double")
-   ss()
-   Send, {CTRLDOWN}c{CTRLUP}
-   ss()
-   ClipWaitNot("")
+      Click(1212, 173, "left double")
+      ;Click(1100, 165, "left double") ;old compy
 
-   referenceNumber:=Clipboard
+   if IsBot()
+      Sleep, 200
+
+   ;ss()
+   ;Send, {CTRLDOWN}c{CTRLUP}
+   ;ss()
+   ;ClipWaitNot("")
+   ;referenceNumber:=Clipboard
+
+   referenceNumber:=CopyWait2()
+
    if NOT RegExMatch(referenceNumber, "[0-9]{5}")
       RecoverFromMacrosGoneWild("I didn't get the reference number (scroll up, maybe?) (error 14)", referenceNumber)
 
@@ -218,7 +301,8 @@ GetReferenceNumber()
 GetServerName()
 {
    Clipboard:=""
-   StatusProCopyField(720, 237)
+   ;StatusProCopyField(720, 237)
+   StatusProCopyField(820, 250)
    ClipWaitNot("")
    serverName:=Clipboard
 
@@ -230,14 +314,15 @@ GetServerName()
    return serverName
 }
 
+;This is also known as the status
 GetServiceManner()
 {
    Clipboard:=""
    ;StatusProCopyField(958, 374) ;experimenting trying to get it a little more reliable
-   StatusProCopyField(953, 374)
+   StatusProCopyField(1060, 394)
    ClipWaitNot("")
    status:=Clipboard
-   if NOT RegExMatch(status, "(Closed|Served|Cancelled|Personal|Substitute|Not Served|Found)")
+   if NOT RegExMatch(status, "(Closed|Served|Cancelled|Personal|Substitute|Not Served|Found|Posted)")
    {
       if status
          iniPP("(yellow line) I have never seen this status before: " . status)
@@ -382,6 +467,8 @@ ScrollDownLarge()
 CloseStatusProTabs()
 {
    Loop 10
+      ClickIfImageSearch("images/firefly/closeTab2.bmp", "control")
+   Loop 10
       ClickIfImageSearch("images/firefly/closeTab.bmp", "control")
 }
 
@@ -432,7 +519,10 @@ OpenReferenceNumber(referenceNumber)
    ss()
 
    if IsBot()
+   {
       MouseMove, 33, 123
+      Sleep, 500
+   }
    else
       MouseMove, 33, 115
 
@@ -445,15 +535,20 @@ OpenReferenceNumber(referenceNumber)
    WaitForImageSearch(FixImagePathIfBot("images/firefly/fileSearchScreen.bmp"))
 
    if IsBot()
+      Sleep, 500
+   ;TODO may need to tweak this sleep a little (was between 0 - 500)
+
+   if IsBot()
       Click(209, 400, "left")
    else
-      Click(209, 372, "left control")
+      ;Click(209, 372, "left control")
+      Click(230, 390, "left control")
    SendViaClip(referenceNumber)
 
    ss()
    if IsBot()
-      Sleep, 400
-   ;TODO may need to tweak this sleep a little
+      Sleep, 2500
+   ;TODO may need to tweak this sleep a little (was between 400 - 1500 - 2500)
 
    if IsBot()
       Click(42, 212, "left double")
@@ -506,6 +601,24 @@ ExitFireflyFile()
 ;}}}
 
 ;{{{ Not sure if these functions will be multi-use
+CheckBotHealth()
+{
+   if NOT IsVM()
+      return
+
+   FreeSpace:=DriveSpaceFree("C:\")
+   FreeSpace := FreeSpace / 1024
+   message=%FreeSpace% GB free on %A_ComputerName%
+
+   if (FreeSpace < 1.5)
+      AddToTrace(message)
+
+   ;TODO maybe this should be in the stats folder instead
+   iniFolder:=GetPath("FireflyCheckinIniFolder")
+   iniFolderWrite(iniFolder, "BotHealth", A_ComputerName . "FreeDiskSpace", FreeSpace)
+   iniFolderWrite(iniFolder, "BotHealth", A_ComputerName . "LastChecked", CurrentTime("hyphenated"))
+}
+
 feesMatchForThisReferenceNumber(referenceNumber, fees1, fees2)
 {
    listFees := ListFees()
@@ -528,7 +641,7 @@ IsBot()
 
 ReferenceNumberForTesting()
 {
-;2522980
+   return 2522980
    return 2461358
 }
 
@@ -653,21 +766,16 @@ AssignGlobals()
 global
 SetTitleMatchMode, RegEx
 
+;get the contents for the DDL in ChangeQueue
 cityChoices=Tampa|Ft. Lauderdale|Orlando|Jacksonville
-;clientChoices=Albertelli Law|FDLG|Florida Foreclosure Attorneys, PLLC|Gladstone Law Group, P.A.|Marinosci Law Group, PC - Florida|Pendergast & Morgan, P.A.|Shapiro & Fishman, LLP|Law Offices of Douglas C. Zahm, P.A.
+clientChoices := IniRead( GetPath("MelFireflyConfig.ini"), "Lists", "ClientChoices")
 
-clientChoices=Albertelli Law|FDLG|Florida Foreclosure Attorneys, PLLC|Gladstone Law Group, P.A.|Marinosci Law Group, PC - Florida|Pendergast & Morgan, P.A.|Shapiro & Fishman, LLP|Law Offices of Douglas C. Zahm, P.A.|Deutsch, Levy & Engel, Chartered|Niew Legal Partners, PC|Lyman & Nielson, LLC|Laurie & Brennan LLP|Chitkowski Law Offices
-
-         ;Niew Legal Partners, PC
-         ;Lyman & Nielson, LLC
-         ;Laurie & Brennan LLP
-         ;Chitkowski Law Offices
-         ;Margery Newman
-
+;get the currently selected info for ReloadQueue
 ini := GetPath("myconfig.ini")
 city := IniRead(ini, "firefly", "city")
 client := IniRead(ini, "firefly", "client")
 
+;window titles
 statusProMessage=The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
 firefox=Status Pro Initial Catalog.*Firefox
 excel=(In House Process Server Scorecard|Process Server Fee Determination).*(OpenOffice.org|LibreOffice) Calc
@@ -675,6 +783,32 @@ excel=(In House Process Server Scorecard|Process Server Fee Determination).*(Ope
 ;this is for the retarded comboboxes...
 slowSendPauseTime=130
 ;breaks at 100,110 reliable at 120,150
+
+;Counters that should start at zero
+feesAddedCountSoFar := 0
+
+}
+;}}}
+
+;{{{ warnings
+DoubleFeesWarning(referenceNumber)
+{
+   subject := "detected double fees " . CurrentTime("hyphendate")
+   message := referenceNumber
+   SendEmail(subject, message, "", "cameronbaustian@gmail.com")
+   SendEmail(subject, message, "", "melindabaustian@gmail.com")
+}
+
+DoubleSMS(message)
+{
+   SendEmail("", message, "", "9723429753@txt.att.net")
+   SendEmail("", message, "", "9724153698@txt.att.net")
+}
+
+DevModeDoubleSMS(message)
+{
+   SendEmail("", "DEV MODE " . message, "", "9723429753@txt.att.net")
+   ;SendEmail("", message, "", "9724153698@txt.att.net")
 }
 ;}}}
 
@@ -696,136 +830,147 @@ ListFees()
 }
 ;}}}
 
-;{{{ Firefly Check-Ins (monitoring the bot)
-FireflyCheckin(whoIsCheckingIn, Status)
+;{{{ Bot Communication (things related to the fees, but can be used on both PCs)
+GetNumberOfFeesNotYetAdded()
+{
+   timerFcn := StartTimer()
+
+   iniFolder:=GetPath("FireflyIniFolder")
+   uiSections := IniFolderListAllSections(iniFolder)
+   feesJson := GetSimpleFeesJson()
+   listFees := ListFees()
+   feeNotYetAdded := 0
+
+   ;if (A_ComputerName == "PHOSPHORUS")
+      ;debug("nolog", "hi")
+
+   Loop, parse, uiSections, CSV
+   {
+      thisReferenceNumber:=A_LoopField
+
+      totalFeesRequested++
+      ;lotsotext .= thisReferenceNumber . ","
+
+      Loop, parse, listFees, CSV
+      {
+         thisFee:=A_LoopField
+
+         ;totalFeesRequested++
+         ;lotsotext .= thisReferenceNumber . ","
+
+         status := FeeLookup2(thisReferenceNumber, thisFee)
+
+         ;if (status == "NO SUCH FEE WAS SUBMITTED")
+         ;{
+            ;noSuchFee++
+         ;}
+         ;if (status == "FEE WAS THERE")
+         ;{
+            ;feeAdded++
+         ;}
+         if (status == "NOT_YET_ADDED")
+         {
+            feeNotYetAdded++
+            lotsotext .= thisReferenceNumber . "," . thisFee . "`n"
+         }
+
+         totalFeesAdded++
+         ;lotsotext .= thisReferenceNumber . ","
+      }
+   }
+
+   FireflyBotEndTimer(timerFcn, A_ThisFunc, 0, 40)
+
+   return feeNotYetAdded
+}
+
+;TODO statuses:
+;ABORT           ABORT
+;NOT_SUBMITTED   NO_SUCH
+;ALREADY_ADDED
+;BOT_ADDED       ADDED
+;NOT_YET_ADDED   PENDING
+FeeLookup2(referenceNumber, fee)
 {
    iniFolder:=GetPath("FireflyIniFolder")
-   iniFolderWrite(iniFolder, "Check-In", whoIsCheckingIn, CurrentTime())
+   thisKeyDesired=DesiredFees-%fee%
+   thisKeyOnFile=FeesOnFile-%fee%
+
+   ;checking if already added
+   desiredValue := IniFolderRead(iniFolder, referenceNumber, thisKeyDesired)
+   actualValue := IniFolderRead(iniFolder, referenceNumber, thisKeyOnFile)
+   abortValue := IniFolderRead(iniFolder, referenceNumber, "ABORT")
+
+   ;check if we put an emergency abort on it
+   if InStr(abortValue, "TRUE")
+      return "ABORTED"
+
+   ;if there are additional fees, that's ok
+   ;only fuss about fees that Melinda told the bot she wanted to add
+   if (desiredValue == "ERROR")
+      return "NO_SUCH_FEE"
+
+   ;the fee is already there
+   ;TODO make it so that we can tell if the fee was already there, or was added by the bot ( BOT_ADDED )
+   if (desiredValue == actualValue)
+      return "ALREADY_ADDED"
+   else
+      return "NOT_YET_ADDED"
+}
+;}}}
+
+;{{{ Debug output, stopwatch timers
+qd(text)
+{
+   return
+
+   Sleep, 1000
+   addToTrace(text)
+   Sleep, 1000
+}
+
+FireflyBotEndTimer(timer, funcName, lowerBound, upperBound)
+{
+   lowerBound *= 1000
+   upperBound *= 1000
+
+   if ( IsBot() AND IsVM() )
+   {
+      elapsed := ElapsedTime(timer)
+      if (elapsed < lowerBound)
+      {
+         status=- faint green line
+         ppmsg=Timer-%funcName% was faster than expected %status%
+         IniPP(ppmsg)
+      }
+      if (upperBound < elapsed)
+      {
+         status=- faint yellow line
+         ppmsg=Timer-%funcName% was slower than expected %status%
+         IniPP(ppmsg)
+      }
+      tracemsg=Took %elapsed%ms for %funcName% %status%
+
+      if status
+         AddToTrace(tracemsg)
+
+      ;Write to verbose logs
+      timestamp := CurrentTime("hyphenated")
+      verbosemsg=%timestamp%: %tracemsg%
+      FileAppendLine(verbosemsg, "C:\Dropbox\Public\logs\fireflyTimers.txt")
+   }
+}
+;}}}
+
+;{{{ former Firefly Check-Ins (monitoring the bot)
+FireflyCheckin(whoIsCheckingIn, Status)
+{
+   iniFolder:=GetPath("FireflyCheckinIniFolder")
+
+   ;doing the checkin with fewer arguments
+   whoIsCheckingIn :=  A_ComputerName . "_" . A_ScriptName
+   iniFolderWrite(iniFolder, "ReadableCheckin", whoIsCheckingIn, CurrentTime("hyphenated"))
+   iniFolderWrite(iniFolder, "TickCheckin", whoIsCheckingIn, A_TickCount)
    iniFolderWrite(iniFolder, "Status", whoIsCheckingIn, Status)
-}
-;}}}
-
-;{{{ displayable iniFolder in one INI
-DisplayableIniFolder(iniFolder)
-{
-   iniFolder := EnsureEndsWith(iniFolder, "\")
-   destIni := iniFolder . "viewable\viewable.ini"
-   FileDelete(destIni)
-
-   sections:=IniFolderListAllSections(iniFolder)
-   Loop, parse, sections, CSV
-   {
-      thisSection := A_LoopField
-      keys:=IniFolderListAllKeys(iniFolder, thisSection)
-      Loop, parse, keys, CSV
-      {
-         thisKey := A_LoopField
-
-         if NOT thisKey
-         {
-            ;FIXME what the heck!? the key should never be null... make this less ghetto
-            ;errord("notimeout", iniFolder, thisSection, thisKey)
-            continue
-         }
-         ;blah
-         value := IniFolderRead(iniFolder, thisSection, thisKey)
-         IniWrite(destIni, thisSection, thisKey, value)
-      }
-   }
-   addtotrace("finished making viewable inif")
-}
-;}}}
-
-;{{{ iniFolder Library
-IniFolderRead(iniFolder, section, key)
-{
-   iniFolder := EnsureEndsWith(iniFolder, "\")
-   timestamp := CurrentTime("hyphenated")
-   ;myIniFile=%iniFolder%%A_ComputerName%.ini
-   keyValue=%key%-value
-   keyDate=%key%-timestamp
-
-   ;search through all applicable files to get the most recently inserted value
-   maxValue=ERROR
-   maxDate=0
-   ;addToTrace("@@@@@@@@@@@@")
-   Loop, %iniFolder%*.ini
-   {
-      thisIniFile := A_LoopFileFullPath
-      thisValue := IniRead(thisIniFile, section, keyValue)
-      thisTimestamp := IniRead(thisIniFile, section, keyDate)
-
-      thisTimestamp := DeFormatTime(thisTimestamp)
-      ;addToTrace("@@@@@@@@@@@@")
-      ;addToTrace(thisTimestamp)
-      ;addToTrace(maxDate)
-      if (thisTimestamp > maxDate)
-      {
-         ;addToTrace("was bigger")
-         ;debug("notimeout nolog", thisTimestamp, maxDate)
-         maxValue := thisValue
-         maxDate := thisTimestamp
-      }
-   }
-
-   return maxValue
-}
-
-IniFolderWrite(iniFolder, section, key, value)
-{
-   iniFolder := EnsureEndsWith(iniFolder, "\")
-   timestamp := CurrentTime("hyphenated")
-   myIniFile=%iniFolder%%A_ComputerName%.ini
-   keyValue=%key%-value
-   keyDate=%key%-timestamp
-
-   IniWrite(myIniFile, section, keyValue, value)
-   IniWrite(myIniFile, section, keyDate, timestamp)
-}
-
-IniFolderListAllSections(iniFolder)
-{
-   iniFolder := EnsureEndsWith(iniFolder, "\")
-
-   Loop, %iniFolder%*.ini
-   {
-      thisIniFile := A_LoopFileFullPath
-
-      if (strlen(returned) != 0)
-         returned .= ","
-      returned .= IniListAllSections(thisIniFile)
-   }
-
-   ;TODO remove duplicates
-
-   return returned
-}
-
-;TESTME
-IniFolderListAllKeys(iniFolder, section="") ;defaults to all sections
-{
-   ;deleting keys or sections is not allowed, because that will be a lot of work (you'd have to mark as inactive instead)
-   iniFolder := EnsureEndsWith(iniFolder, "\")
-
-   Loop, %iniFolder%*.ini
-   {
-      thisIniFile := A_LoopFileFullPath
-
-      if (strlen(returned) != 0)
-         returned .= ","
-      returned .= IniListAllKeys(thisIniFile, section)
-   }
-
-   ;np=[^()]
-   ;haystack=\((%notParen%+)\)\-\(%notParen%+\)
-   ;returned := RegExReplace(returned, haystack, "$1")
-   ;returned := RegExReplace(returned, "\-(value|timestamp)$")
-
-   ;FIXME make this a little less ghetto, so that I can use "-value" and "-timestamp" in my keys
-   returned := RegExReplace(returned, "\-(value|timestamp)")
-
-   ;TODO remove duplicates
-
-   return returned
 }
 ;}}}

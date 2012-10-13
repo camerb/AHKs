@@ -1,6 +1,7 @@
 #include FcnLib.ahk
 
-;debug("open:", IsVmRunning())
+;CompileAhk("Lynx-AutomateUpdate.ahk")
 
-if NOT IsVmRunning()
-   OpenVM()
+;Send error report???
+ForceWinFocus("AutoHotkey")
+ClickButton("&Don't Send")

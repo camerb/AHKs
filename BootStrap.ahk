@@ -1,6 +1,18 @@
 #include FcnLib.ahk
 
+iniMostRecentTime("Ran Bootstrap (most recent time)") ;track the last time it was reloaded
+iniPP("Ran Bootstrap (number of times)") ;count all the times it was reloaded
+
 SpiffyMute()
+
+;TODO, make the three numbered supervisionCore files
+;Loop, 3
+;{
+   supervisionCore=SupervisionCore%A_Index%.exe
+   supervisionCore=SupervisionCore1.exe
+   if FileExist(supervisionCore)
+      Run, %supervisionCore%
+;}
 
 startupAhk=Startup%A_ComputerName%.ahk
 if FileExist(startupAhk)
@@ -23,7 +35,8 @@ if NOT IsVM()
 
    RunAhk("ImageIt.ahk")
 }
-;Openoffice launcher
+
+;TODO Openoffice launcher, if available
 
 if (GetOS() = "WIN_7")
    RunProgram("C:\Dropbox\Programs\Aura Beta 2\Aura.exe")

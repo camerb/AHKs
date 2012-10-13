@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-fatalIfNotThisPc("BAUSTIAN-09PC")
+fatalIfNotThisPc("baustian-09pc-OLD")
 
 ;var:=urldownloadtovar("https://www.att.com/olam/gotoDataDetailsAction.olamexecute?reportActionEvent=A_UMD_DATA_DETAILS")
 ;debug(var)

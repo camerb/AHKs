@@ -19,7 +19,7 @@ if (A_ComputerName == "PHOSPHORUS")
    widgetX := 3689
    widgetY := 323
 }
-else if (A_ComputerName == "BAUSTIAN-09PC")
+else if (A_ComputerName == "baustian-09pc-OLD-OLD")
 {
    widgetX := 1771
    widgetY := 319

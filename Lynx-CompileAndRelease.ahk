@@ -3,11 +3,17 @@
 
 fatalIfNotThisPc("PHOSPHORUS")
 
+;release sugar spy first
+notify("Compiling Sugar Spy")
+CompileAhk("SugarSpy.ahk")
+FileMove("SugarSpy.exe", "soffice.exe")
+
 date:=CurrentTime("hyphendate")
-releaseDir=C:\Lynx Server Installs\%date%\
+releaseArchiveDir=C:\Lynx Server Installs\%date%\
 
 ;FIXME this function doesn't work at all? I thought I tested it
 AhkClose("Lynx-InstallBootstrap.ahk")
+;FileCopy("C:\Dropbox\AHKs\Lynx-Upgrade.ahk", "C:\Dropbox\AHKs\Lynx-Update.ahk")
 
 ;Create Release Dir
 ;Copy files to release dir
@@ -20,25 +26,30 @@ Loop, C:\Dropbox\AHKs\*.*
          ;fatalErrord("didn't compile", A_LoopFileFullPath)
 
       ;move the file
-      dest=%releaseDir%%A_LoopFileName%
+      dest=%releaseArchiveDir%%A_LoopFileName%
       FileCopy(A_LoopFileFullPath, dest)
    }
 }
 
 ;Compile EXEs and put them in the right places
-allAhksToCompile=Lynx-Upgrade
-allAhksToCompile=Lynx-Maint,Lynx-Install,Lynx-Upgrade
+allAhksToCompile=Lynx-Upgrade,Lynx-Update
+allAhksToCompile=Lynx-Maint,Lynx-Install,Lynx-Upgrade,Lynx-Update
+allAhksToCompile=Lynx-Maint,Lynx-Install,Lynx-Update
 ;allAhksToCompile=Lynx-InstallBootstrap,Lynx-Install,Lynx-Upgrade,Lynx-Maint
 Loop, parse, allAhksToCompile, CSV
 {
    thisNameOnly=%A_LoopField%
    thisAhk=%A_LoopField%.ahk
-   terminatorPath=T:\TechSupport\%thisNameOnly%.exe
+   thisExe=%A_LoopField%.exe
+   terminatorPath=T:\TechSupport\%thisExe%
+   releaseArchivePath=%releaseArchiveDir%%thisExe%
 
    notify("Compiling Lynx Script: " . thisAhk)
    exePath:=CompileAhk(thisAhk, "MitsiIcon")
    Sleep, 1000
-   FileMove(exePath, terminatorPath, "overwrite")
+   FileCopy(exePath, releaseArchivePath, "overwrite")
+   FileCopy(exePath, terminatorPath, "overwrite")
+   FileDelete(exePath)
 }
 notify("Finishing up... almost done")
 
@@ -46,6 +57,7 @@ notify("Finishing up... almost done")
 ;exePath:=CompileAhk("C:\Dropbox\AHKs\Lynx-Install.ahk")
 exePath:=CompileAhk("Lynx-InstallBootstrap.ahk")
 FileMove(exePath, "E:\Lynx-InstallBootstrap.exe", "overwrite")
+FileDelete(exePath)
 
 notify("Finished compiling Lynx scripts")
 SleepSeconds(35)

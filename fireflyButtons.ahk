@@ -3,52 +3,88 @@
 #NoTrayIcon
 
 ;{{{ TODOs
+;auto-archive fees from previous day, if count is zero
+
 ;PRIORITIES:
-;  Track invoices (maybe email erica when invoice is generated) (need to discuss with mel)
+;  write email template in thunderbird using macros
+;  need to make an "abort ref num" button on melinda's panel so that she can mark off refnums that she doesn't want the bot to touch anymore
+;  need to make the bot report page file size in the trace
+;  delete dropbox cruft very frequently on the VM
+;  need to separate the auto-save from the main ASE macro into a new, threaded background macro
+;    - (or maybe put it in refresh login, or at the very beginning of ASE)
+;    - (ASE does FF first then Excel)
+;  clock-in clock-out imacro
 ;  Add the two dates to the ASE macro using OCR
-;  archive old iniFolder nightly and start VM so that it can sync the folder over
+;  archive old iniFolder nightly and start VM so that it can sync the folder over (ugh, sounds like a lot of stupid work)
+;    - maybe just detect if 0 fees and archive file from previous day
+;  detect double fees in the VM bot
+;  detect progress of how many fees have yet to be added (on widget)
+;   melinda should probably have a helper macro that will click the stupid 'site had an error' box quickly
 
 ;more ideas straight from melinda 2012-03-24
 ;   email server macro
 ;   email foqc macro
-;   melinda should probably have a helper macro that will click the stupid 'site had an error' box quickly
 
 ;email from melinda: 2012-02-16
 ;- a "Ready to Invoice" checkbox on my fees gui that exports the file number to a spreadsheet somewhere (maybe that little "Go to the next job" button that you made would work with this as long as we are only exporting one job number per file)
-;- make sure that Add Scorecard is not trying to enter data into fields that cannot be modified (I think we need to work together to figure out the issue) --- (2012-03-22 I think this is done)
 ;- fix the "Load Reference Number" macro so that if I hit cancel or the "X" it won't still try to add it (I have started hitting Ctrl ~ when that pops up but my first instinct is to hit the "X" and it drives me crazy when I do that!!) (2012-03-22 This will require a change of the Prompt() function so that it uses errorlevel)
 ;- I also think I might want to change the layout of the buttons on the gui, but I am not quite sure what I want to do with it yet
 
-;TODO Ready to invoice spreadsheet from add fees
-;TODO add dates to "Add Scorecard Entry"
+;  Ready to invoice spreadsheet from add fees
+; add dates to "Add Scorecard Entry"
 ;FIXME Auto-expand all pluses in the left-hand side
-;TODO use the StatusProCopyField() for all copies
-;TODO changeall references of "Status" to "ServiceManner" ;RIGHTHERERIGHTNOW
+; use the StatusProCopyField() for all copies
+; changeall references of "Status" to "ServiceManner" ;in progress
 
-;TODO make a macro that tests their site and determines if the site is going slower than normal and logs out/in again (perhaps just put it in a routine function)
-;TODO make macros more robust so that I can upgrade firefox
-;TODO use the StatusProCopyField() for all copies
-;TODO Do you think that you could make a macro that after I invoice a Gladstone file it automatically emails Erica?
-;TODO Track number of invoiced files
-;TODO Track number of approved files
+;  make a macro that tests their site and determines if the site is going slower than normal and logs out/in again (perhaps just put it in a routine function)
+;  make macros more robust so that I can upgrade firefox (only if firefly IT gets to a point where they can do that)
+;  use the StatusProCopyField() for all copies
+;  Do you think that you could make a macro that after I invoice a Gladstone file it automatically emails Erica?
+;  Track invoices (maybe email erica when invoice is generated) (need to discuss with mel)
+;  Track number of invoiced files
+;  Track number of approved files
 ;}}}
 
-;{{{ TODO things that are finished, i think i've finished, or that I've abandoned
-;Items that don't seem to be important anymore (or things that I think I've finished):
-;  ASE seems to have trouble locating the first empty cell now - fix it (2012-03-24 i think i fixed it)
-;WRITEME firefly: make paste paste without formatting in the MS-Word lookalike program
-;REMOVEME - I think I did remove this part of the code (2011-11-10)... The "Would you like to approve?" box never shows up anymore. Don't know if you would want to remove that code?
-;TODO move parts into functions (like GetReferenceNumber(), GetServerName(), GetServiceManner() )
-;- change "Add Scorecard Entry" so that it puts my name (Melinda Baustian instead of AHMBaustian)
-;TODO change text in the MS-Word lookalike program (cause their template is wrong)
-;  Add fees button that works on background computer
-;  Make FindTopOfFirefoxPage() more reliable (it used to be good)
-;Mel said she had a bunch of issues with the bot adding fees twice... I thought she said that was not a big issue?
-;Long Defendant Name causes crazy copypasting - Can you see at the top, in the middle, above the Process Server Name, there is some info in blue? I think that sometimes there is alot of information there so the rest of the page is skewed and the macro ends up copypasting randomness all around. I don't know if this is really part of the issue but thought I would throw it out. I was trying to add a scorecard entry on this one when the macros went wild. - from an email Mel sent on 11-22-2011 around 3:30pm - this is definitely fixed (2012-03-24)
+;{{{ TODO reorganizing all TODO items into one Div
 
-;ABANDONED:
-;make background blueish to match sidebar
-;TODO default PS Fee to $10 (2012-03-22 I doubt she will actually want to do this anymore) those fees are already in there
+
+;{{{ ASK MEL: Things that I definitely need to ask Mel about
+;  so, idk what is up with this but the scorecard is saving all the time (you know what I mean when the green thing goes across the bottom and it says saving document?) and that is messing up the macro. Is there a way for the macro to detect that and wait for it to finish?
+;  make sure that Add Scorecard is not trying to enter data into fields that cannot be modified (I think we need to work together to figure out the issue) --- (2012-03-22 I think this is done)
+;  ASE seems to have trouble locating the first empty cell now - fix it (2012-03-24 i think i fixed it)
+;}}}
+
+;{{{ MIGHT REVISIT: Things that are probably done, but I might have to revisit them
+;  Make FindTopOfFirefoxPage() more reliable (it used to be good)
+;}}}
+
+;{{{ DONE: things that are definitely done
+;  need to make the bot report drive free space in the trace ;been working well for a while now 2012-06-09
+;  switch to counting checkins by looking at a_tickcount  ;(verified 2012-05-24)
+;  save scorecard at end of ASE
+;  fees yet to be added counter (make this work better)
+;     - make it not overwrite if the file already has the exact same contents
+;     - make it only run when the VM is open
+;     - make it display a message whenever the VM is closed
+;  Long Defendant Name causes crazy copypasting - Can you see at the top, in the middle, above the Process Server Name, there is some info in blue? I think that sometimes there is alot of information there so the rest of the page is skewed and the macro ends up copypasting randomness all around. I don't know if this is really part of the issue but thought I would throw it out. I was trying to add a scorecard entry on this one when the macros went wild. - from an email Mel sent on 11-22-2011 around 3:30pm - this is definitely fixed (2012-03-24)
+;  move parts into functions (like GetReferenceNumber(), GetServerName(), GetServiceManner() )
+;  Mel said she had a bunch of issues with the bot adding fees twice... I thought she said that was not a big issue?
+;  change "Add Scorecard Entry" so that it puts my name (Melinda Baustian instead of AHMBaustian)
+;  Add fees button that works on background computer (make the basic bot)
+;  I think I did remove this part of the code (2011-11-10)... The "Would you like to approve?" box never shows up anymore. Don't know if you would want to remove that code?
+;}}}
+
+;{{{ ABANDONED: Items that I am not going to bother with
+;  make paste paste without formatting in the MS-Word lookalike program
+;  make background blueish to match sidebar
+;  default PS Fee to $10 (2012-03-22 I doubt she will actually want to do this anymore) those fees are already in there
+;  change text in the MS-Word lookalike program (cause their template is wrong)
+;}}}
+
+;{{{ Blank Div
+;}}}
+
+;end of section reorganizing all TODO items into one Div
 ;}}}
 
 ;{{{Globals and making the gui (one-time tasks)
@@ -71,12 +107,10 @@ xLocationApproval:= xLocation
 yLocationApproval:= yLocation + 400
 
 Gui, +LastFound -Caption +ToolWindow +AlwaysOnTop
-;Gui, Color, 000032
+;Gui, Color, 000032   ;gui color doesn't look good
 Gui, Add, Button, , Reload Queue
 Gui, Add, Button, , Change Queue
-;Gui, Add, Button, , Add Scorecard Entry-fw
-;Gui, Add, Button, , Add Scorecard Entry-yn
-Gui, Add, Button, , Add Scorecard Entry-fb
+Gui, Add, Button, , Add Scorecard Entry
 Gui, Add, Button, , Refresh Login
 Gui, Add, Button, , Load Reference Number
 Gui, Add, Button, , Add Fees
@@ -84,12 +118,16 @@ Gui, Add, Button, , Add Fees
 
 Gui, Add, Button, x10  y230, Record for Cameron
 Gui, Add, Button, x10  y260, Test Something
-Gui, Add, Button, x10  y290, Notes
+Gui, Add, Button, x10  y290, Test Add Fee
+Gui, Add, Button, x10  y320, Notes
 ;Gui, Add, Button, x10  y250, Report Undesired Error
 Gui, Add, Button, x110 y6  , x
 
 Gui, Show, , Firefly Shortcuts
 WinMove, Firefly Shortcuts, , %xLocation%, %yLocation%
+
+;MouseMove, 0, 0, 0
+RunAhk("fireflyMelindaHelper.ahk")
 
 RecordSuccessfulStartOfFireflyPanel()
 ;}}}
@@ -103,9 +141,6 @@ Loop
    ;Stuff for annoying firefly boxes that are always cancelled out of
    IfWinActive, %statusProMessage%
    {
-      ;;REMOVEME if Mel doesn't complain (2011-11-10)
-      ;if SimpleImageSearch("images/firefly/dialog/wouldYouLikeToApproveThisJob.bmp")
-         ;Click(200, 90, "control") ;no button
       if SimpleImageSearch("images/firefly/dialog/pleaseSelectAnOptionFromTheDropDown.bmp")
          Click(170, 90, "control") ;center ok button
       if SimpleImageSearch("images/firefly/dialog/selectedFeesEntryHasBeenDeletedSuccessfully.bmp")
@@ -248,13 +283,12 @@ return
 ButtonFetchRefNumsCsv-2:
 StartOfMacro()
 
-;vs UI
-;vs VM
-feesUIini:=GetPath("Firefly-UI.ini")
-feesVMini:=GetPath("Firefly-VM.ini")
-referenceNumbersToReview := IniListAllSections(feesVMini)
+iniFolder:=GetPath("FireflyIniFolder")
+;feesUIini:=GetPath("Firefly-UI.ini")
+;feesVMini:=GetPath("Firefly-VM.ini")
+referenceNumbersToReview := IniFolderListAllSections(iniFolder)
 listFees := ListFees()
-currentlyReviewingReferenceNumber:=""
+;currentlyReviewingReferenceNumber:=""
 Loop, parse, referenceNumbersToReview, CSV
 {
    thisReferenceNumber:=A_LoopField
@@ -275,7 +309,7 @@ Loop, parse, referenceNumbersToReview, CSV
       continue
 
    ;add to reviewed file
-   IniWrite(feesUIini, "AlreadyFetched", thisReferenceNumber, "1")
+   IniFolderWrite(iniFolder, "AlreadyFetched", thisReferenceNumber, "1")
 
    ;add to csv
    csv .= thisReferenceNumber
@@ -283,6 +317,17 @@ Loop, parse, referenceNumbersToReview, CSV
 
    countOfFetched++
 }
+
+;TODO THIS IS THE PROCESS:
+/*
+scan through all reference numbers and get the numbers
+take the list and de-dup them
+NOTE that this list will basically make Mel revisit the same file numbers
+
+scan through and get a list of reference numbers - mark as pending
+get a list of all the incompleted file numbers
+scan all ref nums and mark as not pending if the ref nums don't have a
+*/
 
 ;Open the file for melinda to see it
 if countOfFetched
@@ -445,7 +490,7 @@ IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialog
 FocusNecessaryWindow(excel)
 
 ;translate server name, if they go by something else
-namesIni:=GetPath("FireflyConfig.ini")
+namesIni:=GetPath("MelFireflyConfig.ini")
 replacementName := IniRead(namesIni, "NameTranslations", serverName)
 if (replacementName != "ERROR")
    serverName := replacementName
@@ -520,13 +565,13 @@ EndOfMacro()
 return
 ;}}}
 
-;{{{ButtonAddScorecardEntry-yn:
-ButtonAddScorecardEntry-yn:
+;{{{ButtonAddScorecardEntry:
+ButtonAddScorecardEntry:
 timer:=StartTimer()
 StartOfMacro()
 
 ;notify us of possible issues in the alias names ini
-namesIni:=GetPath("FireflyConfig.ini")
+namesIni:=GetPath("MelFireflyConfig.ini")
 allNames:=IniListAllKeys(namesIni, "NameTranslations")
 ;Loop, parse, allNames, CSV
 ;{
@@ -539,6 +584,11 @@ FindTopOfFirefoxPage()
 referenceNumber:=GetReferenceNumber()
 serverName:=GetServerName()
 status:=GetServiceManner()
+
+;keep a list of all the ones she did so far
+datestamp:=CurrentTime("hyphendate")
+filepath=C:\Dropbox\Melinda\Firefly\RefNums-ASE\%datestamp%-AddedScorecardEntry.txt
+FileAppendLine(referenceNumber, filepath)
 
 time:=ElapsedTime(timer)
 ;FOR TESTING PURPOSES
@@ -559,145 +609,11 @@ if (replacementName != "ERROR")
 
 FormatTime, today, , MM/dd/yyyy
 ;#############################################################
-FocusNecessaryWindow(excel)
-
-;DELETEME remove this before moving live
-ss()
-Send, {UP 50}{LEFT}
-;TODO try removing one of these first
-Send, {UP 50}{LEFT}
-ss()
-Send, {DOWN}
-ss()
-
-;Loop to find the first empty column
-Loop
-{
-   Send, {RIGHT}
-   Send, ^c
-   Sleep, 100
-   if NOT RegExMatch(Clipboard, "[A-Za-z]")
-      break
-}
-
-Clipboard := "null"
-
-ss()
-SendInput, %serverName%{ENTER}
-SendInput, Melinda Baustian{ENTER}
-SendInput, %today%{ENTER}
-SendInput, %referenceNumber%{ENTER}
-Sleep, 100
-Send, ^c
-Sleep, 100
-loop
-{
-   ServiceCountyRequired := Clipboard
-   if (ServiceCountyRequired != "null")
-      break
-   sleep, 100
-}
-
-Send, {ENTER}
-Send, {DOWN}
-Send, {ENTER}
-Send, {ENTER}
-Send, {ENTER}
-Send, {ENTER}
-Send, {ENTER}
-Send, {ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {ENTER}
-Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-Send, {ENTER}
-Send, {ENTER}
-;Send, {SHIFTDOWN}-{SHIFTUP}{DEL}{ENTER}
-Send, {ENTER}
-Send, {ENTER}
-;Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
-;Send, {ENTER}{ENTER}{ENTER}{ENTER}
-Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
-
-;TODO
-if (ServiceCountyRequired == "`r`n")
-   {} ;iniPP("(error 26)-ServiceCountyRequired-was-blank-" . ServiceCountyRequired) ; {} ;do nothing
-else if InStr(ServiceCountyRequired, "Service County Not Required")
-   {} ;iniPP("(error 27)-ServiceCountyRequired-was-not-req" . ServiceCountyRequired) ; {} ;do nothing
-else if InStr(ServiceCountyRequired, "Service County Required")
-{
-   msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
-   msgbox, , , %msg%, 0.5
-   ;AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
-   ;iniPP("(error 28)-ServiceCountyRequired-was-" . ServiceCountyRequired)
-}
-else
-{
-   AddToTrace("grey line (error 29) ServiceCountyRequired was: " . ServiceCountyRequired)
-   iniPP("(error 29)-ServiceCountyRequired-was-" . ServiceCountyRequired)
-}
-
-;REMOVEME once the portion above is finished and working well
-;if NOT InStr(ServiceCountyRequired, "Service County Not Required")
-;{
-   ;msg=It looks like you need a Service County - it says: %ServiceCountyRequired%
-   ;;msgbox, , , %msg%, 0.5
-   ;;AddToTrace("grey line ServiceCountyRequired was: " . ServiceCountyRequired)
-   ;iniPP("(error 21)-ServiceCountyRequired-was-" . ServiceCountyRequired)
-;}
-;note that this should be true: the number of 26+28+29 = (error 21)
-
-EndOfMacro()
-return
-;}}}
-
-;{{{ButtonAddScorecardEntry-fb:
-ButtonAddScorecardEntry-fb:
-timer:=StartTimer()
-StartOfMacro()
-
-;notify us of possible issues in the alias names ini
-namesIni:=GetPath("FireflyConfig.ini")
-allNames:=IniListAllKeys(namesIni, "NameTranslations")
-;Loop, parse, allNames, CSV
-;{
-   ;if RegExMatch(A_LoopField, "[,.]")
-      ;RecoverFromMacrosGoneWild("Found commas or periods in the " . namesIni . " (error 22) specifically:", A_LoopField)
-;}
-
-FindTopOfFirefoxPage()
-
-referenceNumber:=GetReferenceNumber()
-serverName:=GetServerName()
-status:=GetServiceManner()
-
-time:=ElapsedTime(timer)
-;FOR TESTING PURPOSES
-;debug(referenceNumber, serverName, status, time)
-;RecoverFromMacrosGoneWild("Testing (error 00)")
-
-if InStr(status, "Cancelled")
-   RecoverFromMacrosGoneWild("It looks like this one was cancelled (error 5)", status)
-
-IfWinExist, The page at https://www.status-pro.biz says: ahk_class MozillaDialogClass
-   RecoverFromMacrosGoneWild("The website gave us an odd error (error 6)", "screenshot")
-
-;translate server name, if they go by something else
-replacementName := IniRead(namesIni, "NameTranslations", PrepIniKeyServerName(serverName))
-if (replacementName != "ERROR")
-   serverName := replacementName
-
-
-FormatTime, today, , MM/dd/yyyy
-;#############################################################
+;point A
 FocusNecessaryWindow(excel)
 
 ss()
-Send, {UP 50}
+Send, {UP 25}
 Send, {UP 50}
 ;Send, {RIGHT}
 
@@ -718,6 +634,8 @@ Loop
    if NOT RegExMatch(cellContents, "[A-Za-z]")
       break
 }
+
+;point B ## something makes it take a long time to get from point A above to here
 
 ss()
 SendInput, %serverName%{ENTER}
@@ -763,7 +681,7 @@ Send, {ENTER}
 Send, {SHIFTDOWN}y{SHIFTUP}{DEL}{ENTER}
 Send, {ENTER}
 Send, {ENTER}
-Send, {ENTER}
+Send, -{ENTER}
 Send, {ENTER}
 Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
 
@@ -771,7 +689,10 @@ Send, {SHIFTDOWN}n{SHIFTUP}{DEL}{ENTER}
 Loop, 19
    Send, {UP}
 
-if (ServiceCountyRequired == "`r`n")
+SCRlength := strlen(ServiceCountyRequired)
+if ( strlen(ServiceCountyRequired) == 0 )
+   {} ;do nothing
+else if (ServiceCountyRequired == "`r`n")
    {} ;do nothing
 else if InStr(ServiceCountyRequired, "Service County Not Required")
    {} ;do nothing
@@ -783,11 +704,12 @@ else if InStr(ServiceCountyRequired, "Service County Required")
 else
 {
    ;read the text but didn't comprehend what it said
-   AddToTrace("grey line (error 29) ServiceCountyRequired was: " . ServiceCountyRequired)
-   iniPP("(error 29)-ServiceCountyRequired-was-" . ServiceCountyRequired)
+   ;AddToTrace("grey line (error 29) ServiceCountyRequired was: " . ServiceCountyRequired . " length: " . scrlength)
+   iniPP("(error 29)-ServiceCountyRequired-was-" . ServiceCountyRequired . " length: " . scrlength)
 }
 
 EndOfMacro()
+;Run, fireflyBackupScorecard.ahk
 return
 ;}}}
 
@@ -817,24 +739,36 @@ return
 ;{{{ButtonReloadQueue:
 ButtonReloadQueue:
 StartOfMacro()
+qd("started reload queue =================================")
 
-;make this into its own function
+Run, fireflyBackupScorecard.ahk
+
+;TODO put this into another function, like FindTopOfFirefoxPage()
 URLbar := GetURLbar("firefox")
 if NOT InStr( URLbar, "status-pro.biz/fc/Portal.aspx" )
    return
 
+qd("before find top")
 FindTopOfFirefoxPage()
+qd("after find top")
 
 BlockInput, MouseMove
 
+qd("before close")
 CloseStatusProTabs()
+qd("after close")
 
 ss()
 MouseMove, 33, 115
 ss()
+
+qd("before click")
 Click(33, 132, "left control")
+qd("after click")
 Sleep, 200
+
 MouseMove, 33, 198
+
 ;ClickIfImageSearch("images/firefly/fileSearch.bmp", "control") ;TODO for reliability
 WaitForImageSearch("images/firefly/queueIsLoaded.bmp")
 Click(259, 182, "left control")
@@ -854,9 +788,10 @@ ss()
 ss()
 Click(241, 255, "left control")
 Sleep, 500
-Click(855, 282, "left control")
-ss()
-Click(855, 282, "left control")
+Click(935, 295, "left control double")
+;Click(935, 295, "left control")
+;ss()
+;Click(935, 295, "left control")
 
 ;if ForceWinFocusIfExist(statusProMessage)
 ;{
@@ -875,8 +810,13 @@ ButtonLoadReferenceNumber:
 StartOfMacro()
 
 referenceNumber:=Prompt("Which reference number would you like to load?")
+if (referenceNumber == "ERROR")
+{
+   EndOfMacro()
+   return
+}
 if NOT referenceNumber
-   referenceNumber=2461358
+   referenceNumber:=ReferenceNumberForTesting()
 
 ;strip off excess chars
 RegExMatch(referenceNumber, "(\d+)", match)
@@ -903,20 +843,34 @@ return
 
 ;{{{ButtonRecordForCameron:
 ButtonRecordForCameron:
+;debug("pressed button")
 if NOT ProcessExist("HyCam2.exe")
 {
-   RunProgram("C:\Program Files\HyCam2\HyCam2.exe")
-   ForceWinFocus("HyperCam")
-   SleepSeconds(1)
-   Send, {F2}
+   hypercampath=C:\Dropbox\Programs\HyperCam\HyCam2.exe
+   timestamp:=CurrentTime("hyphenated")
+   fileToSave=C:\Dropbox\AHKs\gitExempt\screenshots\%A_ComputerName%\hypercam-%timestamp%.avi
+   ;C:\Dropbox\fastData\hypercam_test.avi
+;C:\Dropbox\AHKs\gitExempt\screenshots\BAUSTIANVM
+
+   cmd=%hypercampath% -rec -x0 -y0 -w%A_ScreenWidth% -h%A_ScreenHeight% -a %fileToSave%
+   ;CmdRet_RunReturn(cmd)
+   Run, %cmd%
+   ;RunProgram("C:\Program Files\HyCam2\HyCam2.exe")
+   ;ForceWinFocus("HyperCam")
+   ;SleepSeconds(1)
+   ;Send, {F2}
 }
 else
 {
-   Send, {F2}
-   WinWait, HyperCam, , 1
+   ;debug("saw hycam")
+   ;Send, {F2}
+   ;WinWait, HyperCam, , 1
+   ;CustomTitleMatchMode("Contains")
    WinClose, HyperCam
    SleepSeconds(1)
-   ProcessCloseAll("HyCam2.exe")
+   ;ProcessCloseAll("HyCam2.exe")
+   Loop, 10
+      ProcessClose("HyCam2.exe")
 }
 return
 ;}}}
@@ -926,14 +880,29 @@ ButtonTestSomething:
 ;StartOfMacro()
 notify("starting to test something")
 
-GetThatStupidDate()
-
-;joe:=SimpleImageSearchWithDimensions("images/firefly/date/2011.bmp", 0, 0, 1000, 1000)
-;debug(joe)
-;joe:=ClickIfImageSearch("images/firefly/date/2011.bmp *n50")
-;xDate, yDate, wDate, hDate)
 
 notify("finished testing something")
+;EndOfMacro()
+return
+;}}}
+
+;{{{ ButtonTestAddFee:
+ButtonTestAddFee:
+;StartOfMacro()
+notify("starting to test adding fee using vm")
+
+;trigger an add fees on the testing machine
+iniFolder:=GetPath("FireflyIniFolder")
+refnum:=ReferenceNumberForTesting()
+;iniFolderWrite(iniFolder, refnum, "ReadyToInvoice", "1")
+iniFolderWrite(iniFolder, refnum, "DesiredFees-Locate", "10")
+iniFolderWrite(iniFolder, refnum, "BotAddedFee-Locate", "ERROR")
+iniFolderWrite(iniFolder, refnum, "FeesOnFile-Locate", "ERROR")
+iniFolderWrite(iniFolder, refnum, "DesiredFees-Pinellas County Sicker", "3")
+iniFolderWrite(iniFolder, refnum, "BotAddedFee-Pinellas County Sicker", "ERROR")
+iniFolderWrite(iniFolder, refnum, "FeesOnFile-Pinellas County Sicker", "ERROR")
+
+notify("finished writing to iniFs")
 ;EndOfMacro()
 return
 ;}}}
@@ -945,15 +914,13 @@ notes=
 (
 Here's an overview of the different revisions at the moment (newest is at the bottom):
 
-ASE-yn: Trying to get the yesses and nos in the correct places... if I'm wrong, email me a screenshot of what it should look like instead.
-
 Load Reference Number: It loads a specified file with the reference number that you give it.
 
 Fetch RefNums Csv: Opens the Reference Numbers CSV of all of the files that you have to go back through and review/approve.
 
 Refresh Login: This isn't a new button, but I changed it so that it should force gmail to log out every time.
 
-ASE-fb: should be better at finding the first blank cell, without skipping a column. Plus, it should go to the SPS Recvd Date field at the end.
+The Bot: if the bot detects double fees, it should send a text to you, and one to me as well
 )
 debug("notimeout", "`n" . notes)
 EndOfMacro()

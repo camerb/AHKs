@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-fatalIfNotThisPc("BAUSTIAN-09PC")
+fatalIfNotThisPc("baustian-09pc-OLD")
 
 repoPath=/c/Dropbox/Projects/Hatchling-IRC
 gitRepoName=Hatchling-IRC

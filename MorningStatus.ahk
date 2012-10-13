@@ -14,11 +14,13 @@ if InStr(params, "GatherData")
    totalSpace:=freespace/1024
    message=%totalspace% GB free on %A_ComputerName%
 
-   if (totalSpace < 5 AND A_ComputerName = "BAUSTIAN-09PC")
+   if (totalSpace < 5 AND A_ComputerName = "BAUSTIAN12")
       shouldWrite := true
    if (totalSpace < 10 AND A_ComputerName = "PHOSPHORUS")
       shouldWrite := true
    if (totalSpace < 0.85 AND A_ComputerName = "phosphorusVM")
+      shouldWrite := true
+   if (totalSpace < 0.85 AND A_ComputerName = "baustianVM")
       shouldWrite := true
    if (totalSpace < 2 AND A_ComputerName = "T-800")
       shouldWrite := true
@@ -31,7 +33,7 @@ if InStr(params, "GatherData")
       filename=gitExempt\morning_status\drivespace-zzz-%A_ComputerName%.txt
       size:=dirgetsize("C:\Dropbox\")
       dropboxSize := size / (1024 ** 3)
-      message=Dropbox: %dropboxSize% of 3 GB used
+      message=Dropbox: %dropboxSize% of 4.5 GB used
       FileAppendLine(message, filename)
 
       ;SysGet, MonitorCount, MonitorCount

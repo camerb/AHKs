@@ -18,14 +18,14 @@ SetComputerName()
 ;DownloadAllLynxFilesForInstall()
 ;{
    ;delog("", "started function", A_ThisFunc)
-   ;FileDeleteDirForceful("C:\temp\lynx_upgrade_files")
+   ;FileDeleteDirForceful("C:\temp\lynx_update_files")
 
    ;notify("Downloading LynxGuide Install Package")
    ;DownloadLynxFile("unzip.exe")
    ;DownloadLynxFile("LynxCD.zip")
    ;notify("Finished Downloading")
 
-   ;;FileCopyDir("C:\temp\lynx_upgrade_files\upgrade_scripts\upgrade_scripts", "C:\inetpub\wwwroot\cgi", "overwrite")
+   ;;FileCopyDir("C:\temp\lynx_update_files\upgrade_scripts\upgrade_scripts", "C:\inetpub\wwwroot\cgi", "overwrite")
    ;delog("", "finished function", A_ThisFunc)
 ;}
 
@@ -35,6 +35,8 @@ CopyInstallationFilesToHardDrive()
    ;Copy install files to the hard drive
    source:=DriveLetter() . ":\LynxCD\"
    FileCopyDir, %source%, C:\LynxCD\, 1
+   if NOT FileDirExist("C:\LynxCD\")
+      lynx_error("File copy of the server install files was not successful. Needs admin rights maybe?")
    delog("", "finished function", A_ThisFunc)
 }
 
@@ -56,6 +58,7 @@ TurnOffWindowsFirewall()
    WinLogActiveStats(A_ThisFunc, A_LineNumber)
    SleepSeconds(1)
    WinClose, Windows Firewall
+   WinClose, Customize Settings
    delog("", "finished function", A_ThisFunc)
 }
 
@@ -115,6 +118,108 @@ InstallActivePerl()
    delog("", "finished function", A_ThisFunc)
 }
 
+InstallSSMS2012()
+{
+   delog("", "started function", A_ThisFunc)
+
+   ;start of actual installation
+   Run, C:\LynxCD\Server 7.11\Setup\SQLEXPRADV_x64_ENU.exe
+
+   ForceWinFocus("SQL Server Installation Center")
+   ;ss()
+   Click(485, 44, "left")
+   ;ss()
+   ForceWinFocus("SQL Server 2012 Setup")
+
+   successWinText=I &accept the license terms
+   failureWinText=&Include SQL Server product updates
+   if ( MultiWinWait("", successWinText, "", failureWinText) = "FAILURE")
+   {
+      ;do this quickly
+      ;uncheck this box, so that it doesn't check for updates, we'll update it at the end
+      LongWinWait("&Include SQL Server product updates")
+      Sleep, 3000
+      ClickButton("&Include SQL Server product updates")
+      ClickButton("&Next")
+   }
+
+   ;ss()
+   LongWinWait("I &accept the license terms")
+   ;ss()
+   ClickButton("&accept")
+   ;ss()
+   ClickButton("&Next")
+   ;ss()
+
+   LongWinWait("Select the Express features to install")
+   ;ss()
+   Click(250, 290, "left") ;deselect SDK
+   ;ss()
+   ClickButton("&Next")
+   ForceWinFocus("SQL Server 2012 Setup")
+   ;ss()
+   ;ss()
+   LongWinWait("Specify the name and instance ID for the instance of SQL")
+   ;ss()
+   ClickButton("&Default")
+   ;ss()
+   ClickButton("&Next")
+   ;ss()
+   LongWinWait("Specify the service accounts")
+   ;ss()
+   ClickButton("&Next")
+
+   LongWinWait("Specify Database Engine authentication security mode")
+
+   Clipboard=Password1!
+   SleepSeconds(10)
+   ;ss()
+   ClickButton("&Mixed Mode")
+   ;ss()
+   ClickButton("&Enter password")
+   ;ss()
+   SendViaClipboard("Password1!")
+   ;ss()
+   ClickButton("C&onfirm password")
+   ;ss()
+   SendViaClipboard("Password1!")
+   ;ss()
+   ClickButton("&Add")
+   ForceWinFocus("Select Users or Groups")
+   Send, %A_ComputerName%\administrators
+   Click(404, 161, "left") ;check names
+   ;ss()
+   oldTitle:=WinGetActiveTitle()
+   Click(330, 222, "left") ;ok
+   ;ss()
+   WinWaitActiveTitleChange(oldTitle)
+   ForceWinFocus("SQL Server 2012 Setup")
+   ;ss()
+
+   ;just in case any old cruft from old installs is there
+   FileDeleteDirForceful("C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Data")
+
+   ClickButton("&Next")
+   Send, {ALTDOWN}o
+   ClickButton("&Next")
+   ;ss()
+   ClickButton("&Next")
+   LongWinWait("Your SQL Server 2012 installation completed successfully")
+
+   ;ss()
+   ;ss()
+   if ForceWinFocusIfExist("Computer restart required")
+   {
+      SleepSend("{ENTER}")
+   }
+   ;ss()
+   Click(688, 588)
+
+   ;ForceWinFocus("SQL Server Installation Center")
+   WinClose, SQL Server Installation Center
+
+   delog("", "finished function", A_ThisFunc)
+}
 
 InstallSSMS()
 {
@@ -167,21 +272,27 @@ InstallSSMS()
    Send, !n
 
    WinWaitActive, , Specify Database Engine authentication security mode, 600
-   SleepSeconds(1)
+   Clipboard=Password1!
+   SleepSeconds(10)
+   ;SleepSeconds(1)
    Send, !m
    SleepSeconds(1)
    Send, !e
    SleepSeconds(1)
-   Send, Password1!
+   Send, ^v
+   ;Send, Password1!
    SleepSeconds(1)
    Send, !o
    SleepSeconds(1)
-   Send, Password1!
+   Send, ^v
+   ;Send, Password1!
    SleepSeconds(1)
    Send, !a
 
    ForceWinFocus("Select Users or Groups")
+   SleepSeconds(10)
    SleepSend("!e")
+   SleepSeconds(10)
    SleepSend(A_ComputerName . "\Administrators")
    SleepSeconds(1)
    Click(325, 222)
@@ -198,6 +309,60 @@ InstallSSMS()
 
    ForceWinFocus("SQL Server Installation Center")
    WinClose
+   delog("", "finished function", A_ThisFunc)
+}
+
+ConfigureSSMS2012()
+{
+   delog("", "started function", A_ThisFunc)
+   SleepSeconds(60)
+
+   ;attach the database
+   AttachDatabase("")
+
+
+   delog("", "finished function", A_ThisFunc)
+}
+
+AttachDatabase(dbPath)
+{
+   delog("", "started function", A_ThisFunc)
+
+   dbLdfPath := RegExReplace(dbPath, "\.mdf$", "_log.LDF")
+
+   if NOT FileExist(dbPath)
+      fatalErrord("The MDF was not present at the specified path", dbPath)
+   if NOT FileExist(dbLdfPath)
+      fatalErrord("The LDF was not present at the specified path", dbLdfPath)
+
+sqlText=
+(
+USE [master]
+GO
+CREATE DATABASE [Lynx] ON
+( FILENAME = N'%dbPath%' ),
+( FILENAME = N'%dbLdfPath%' )
+ FOR ATTACH
+GO
+)
+batText=
+(
+@echo off
+cd \Inetpub\wwwroot\cgi
+sqlcmd -S .\ -i dbattach.sql >> "c:\temp\lynx_sql_log.txt"
+)
+;sqlcmd -S .\ -i dbattach.sql >> "c:\temp\lynx_update_files\logs\lynx_attach_db_log.txt"
+
+   sqlFile := "C:\inetpub\wwwroot\cgi\dbattach.sql"
+   batFile := "C:\inetpub\wwwroot\cgi\dbattach.bat"
+   FileCreate(sqlText, sqlFile)
+   FileCreate(batText, batFile)
+   Sleep, 100
+   CmdRet_Lynx("dbattach.bat")
+   Sleep, 100
+   FileDelete(sqlFile)
+   FileDelete(batFile)
+
    delog("", "finished function", A_ThisFunc)
 }
 
@@ -250,9 +415,15 @@ ConfigureSSMS()
 
    RestartService("MSSQLSERVER")
 
+   DownloadLynxFile("DefaultDatabase.zip")
+
    file1=lLynx.mdf
    file2=lLynx_log.ldf
+
    sourcePath=C:\LynxCD\Server 7.11\Setup\
+   ;TODO change over to using the new DB file sooner than later, right now the zip file appears to be corrupted
+   ;sourcePath=C:\temp\lynx_update_files\DefaultDatabase\DefaultDatabase\
+
    destPath=C:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\DATA\
    source1=%sourcePath%%file1%
    source2=%sourcePath%%file2%
@@ -312,11 +483,11 @@ CopyInetpub()
 GetNewestInetpub()
 {
    delog("", "started function", A_ThisFunc)
-   FileDeleteDirForceful("C:\temp\lynx_upgrade_files")
+   FileDeleteDirForceful("C:\temp\lynx_update_files")
    DownloadLynxFile("unzip.exe")
    DownloadLynxFile("7.12.zip")
    DownloadLynxFile("upgrade_scripts.zip") ;REMOVEME - I don't think I really need this
-   FileCopyDir("C:\temp\lynx_upgrade_files\7.12", "C:\Inetpub", "overwrite")
+   FileCopyDir("C:\temp\lynx_update_files\7.12", "C:\Inetpub", "overwrite")
    delog("", "finished function", A_ThisFunc)
 }
 
@@ -476,6 +647,8 @@ MakeDesktopShortcuts()
    FileCopy("C:\LynxCD\Server 7.11\Desktop\Log On Admin.url", "C:\Users\Administrator\Desktop\Log On Admin.url")
    FileCopy("C:\LynxCD\Server 7.11\Desktop\Log On Security Account.url", "C:\Users\Administrator\Desktop\Log On Security Account.url")
    FileCopy("C:\LynxCD\Server 7.11\Desktop\Log On Test Account.url", "C:\Users\Administrator\Desktop\Log On Test Account.url")
+   if NOT FileExist("C:\Users\Administrator\Desktop\Log On Test Account.url")
+      lynx_error("File copy of desktop icons was not successful")
    delog("", "finished function", A_ThisFunc)
 }
 
