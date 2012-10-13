@@ -10,3 +10,4 @@ temporary*.ahk
 archive/temporaryAHKs
 *.swp
 *.swo
+*.exe

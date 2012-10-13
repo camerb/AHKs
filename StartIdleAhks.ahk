@@ -9,8 +9,8 @@ if NOT (IsVM() OR A_ComputerName = "TOSHIMI" OR A_ComputerName = "T-800")
    RunAhk("Keylogger.ahk")
 }
 
-if (A_ComputerName = "BAUSTIANVM")
-   RunAhk("fireflySupervisionCore.ahk")
+;if (A_ComputerName = "BAUSTIANVM")
+   ;RunAhk("fireflySupervisionCore.ahk")
 
 ;RunAhk("ModifierKeysUp.ahk")
 RunAhk("AutoHotkey.ahk")

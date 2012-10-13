@@ -56,6 +56,14 @@ if (A_Hour==3 AND A_Min==5)
    RunAhk("NightlyAhks.ahk")
    SleepMinutes(2)
 }
+if (A_Min==10 AND A_ComputerName == "BAUSTIANVM" AND A_Hour<>3 AND A_Hour<>4)
+{
+   if RunOncePerDay("PushToGit-Nightly")
+   {
+      RunAhk("PushToGit.ahk")
+      SleepMinutes(1.1)
+   }
+}
 ;}}}
 
 LogLastLineExecuted("chk " . A_LineNumber)
