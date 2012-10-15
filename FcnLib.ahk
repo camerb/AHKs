@@ -2439,3 +2439,6 @@ SendSmsCorrectlyButGhetto(message, number)
 ;WRITEME automate freerice - try to record answers and respond accordingly (entered at 2012-10-05_19-36-07)
 ;WRITEME terminate vsmon on home PC - process from the devil (entered at 2012-10-05_19-50-17)
 
+
+;WRITEME delete exe files from github (also delete sugar* and lynx*) (entered at 2012-10-13_18-18-49)
+
