@@ -13,11 +13,11 @@ Loop, 50
 {
    Send, !d
    ;Send, ^c
-   Sleep, 100
+   Sleep, 1000
    url := CopyWait2()
 
    Sleep, 100
    Send, ^{pgdn}
-   Sleep, 100
+   Sleep, 1000
    FileAppend(url . "`n", "LinkList.txt")
 }

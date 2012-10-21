@@ -48,6 +48,9 @@ return
 ;TODO window to look at recent pastebin
 ;TODO button to run recent pastebin
 
+;TODO enable PMs
+;TODO block PMs from unregistered nicks
+
 dataprocess(socket,data){
    static differentnick = 0
    ;msgbox % data ;for testing

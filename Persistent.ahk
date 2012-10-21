@@ -1120,8 +1120,8 @@ LogLastLineExecuted("chk " . A_LineNumber)
 if (Mod(A_Sec, 5)==0 AND A_Min == 41)
 {
    ;Run, soffice.exe
-   Run, SugarSpyRetrieval.ahk
-   Run, SugarSpyProcessor.ahk
+   Run, SugarRetrieval.ahk
+   Run, SugarProcessor.ahk
 }
 ;if (Mod(A_Sec, 5)==0 AND A_Min == 41)
 ;{
