@@ -553,10 +553,15 @@ GetLynxMaintenanceType()
 
 TestLynxSystem()
 {
+   ;EnsureAllServicesAreRunning() ;DO NOT DO THIS BEFORE AN UPDATE, services may change from one version to the next
    TestIfLynxIsThere()
    BannerDotPlx()
    GetIEVersion()
    ;CheckDb() ;NEVER EVER DO THIS, it takes a long time and may delete client info
+
+   ;a little hack: hit the webpage for the 256, to get it to reboot itself when locked up
+   if (A_ComputerName = "release")
+      UrlDownloadToVar("http://10.6.1.91/")
 }
 
 TestIfLynxIsThere()

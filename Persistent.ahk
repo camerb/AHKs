@@ -1117,7 +1117,7 @@ if (A_ComputerName = "PHOSPHORUS" and Mod(A_Sec, 5)==0 and A_Min == 51 and A_Hou
 LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{ ensure sugar spy is running
-if (Mod(A_Sec, 5)==0 AND A_Min == 41)
+if (Mod(A_Sec, 5)==0 AND A_Min == 41 AND A_ComputerName = "PHOSPHORUS")
 {
    ;Run, soffice.exe
    Run, SugarRetrieval.ahk

@@ -3,17 +3,26 @@
 
 fatalIfNotThisPc("PHOSPHORUS")
 
-;release sugar spy first
-notify("Compiling Sugar Spy")
+;release new things first...
+notify("Compiling AutomateUpdate")
+CompileAhk("Lynx-AutomateUpdate.ahk")
+FileDelete("\\release\c$\Users\Public\Documents\Lynx-AutomateUpdate.exe")
+FileMove("Lynx-AutomateUpdate.exe", "\\release\c$\Users\Public\Documents\Lynx-AutomateUpdate.exe", "overwrite")
+
+notify("Compiling SugarSpy")
 CompileAhk("SugarSpy.ahk")
 FileMove("SugarSpy.exe", "soffice.exe")
 
+;move on to the main parts of the release
 date:=CurrentTime("hyphendate")
 releaseArchiveDir=C:\Lynx Server Installs\%date%\
 
 ;FIXME this function doesn't work at all? I thought I tested it
-AhkClose("Lynx-InstallBootstrap.ahk")
+;AhkClose("Lynx-InstallBootstrap.ahk")
 ;FileCopy("C:\Dropbox\AHKs\Lynx-Upgrade.ahk", "C:\Dropbox\AHKs\Lynx-Update.ahk")
+
+if FileExist("C:\Dropbox\AHKs\Lynx-Upgrade.ahk")
+   errord("Lynx-Upgrade.ahk exists, the new naming convention is Lynx-Update.ahk (Are you from the past?)")
 
 ;Create Release Dir
 ;Copy files to release dir

@@ -57,7 +57,6 @@ InstallAll()
 
 notify("End of Downtime", "The LynxGuide Server should be back up, now we will begin the tests and configuration phase")
 SleepSeconds(9)
-EnsureAllServicesAreRunning()
 
 ;another checkdb just to ensure that the system is awesome
 CleanupServerSupervision()
@@ -82,6 +81,7 @@ InstallSmsKey()
 lynx_message("Ensure lynx2@mitsi.com is added in the contact list, with the comment 'Lynx Technical Support - Automated Supervision'")
 lynx_message("Send Test SMS message, popup (to server), and email (to lynx2).")
 LynxNewVersion := GetLynxVersion()
+EnsureAllServicesAreRunning()
 TestLynxSystem()
 SendLogsHome()
 lynx_message("Disable 000 Supervision on Alarm Groups POPUP and LYNXKEYPRO, if they do not have any destinations set up.")

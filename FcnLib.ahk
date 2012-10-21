@@ -717,6 +717,11 @@ IsMaximized(title="", text="")
 ;Closes open applications that usually are difficult for windows to shut down (preps for a restart)
 CloseDifficultApps()
 {
+   ProcessClose("SupervisionCore.exe")
+   ProcessClose("SupervisionCore1.exe")
+   ProcessClose("SupervisionCore2.exe")
+   ProcessClose("SupervisionCore3.exe")
+
    ProcessClose("winsplit.exe")
    ;ProcessClose("ssms.exe")
    ProcessClose("hpupdate.exe")
