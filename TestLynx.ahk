@@ -7,8 +7,10 @@
 ;timeToWait := 2
 timeToWait := 5
 
-server=release
-user=test
+server=t-800
+user=security
+;server=release
+;user=test
 timestamp:=CurrentTime("hyphenated")
 message=Testing Lynx System - %timestamp%
 devices=

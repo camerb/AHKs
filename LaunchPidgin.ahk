@@ -1,5 +1,7 @@
 #include FcnLib.ahk
 
+;  /msg chanserv invite #ahk-ops
+
 ExitApp ;TODO COMMENTME turn off pidgin while out of the office
 
 ;copypasta from UpdatePidginImStatus.ahk ... should there be a pidgin lib?

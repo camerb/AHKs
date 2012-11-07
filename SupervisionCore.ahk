@@ -23,6 +23,7 @@ Loop
    ;VerifyFireflyCheckin("SupervisionCore2.ahk")
    ;VerifyFireflyCheckin("SupervisionCore3.ahk")
    VerifyFireflyCheckin("AutoHotkey.ahk")
+   VerifyFireflyCheckin("Persistent2.ahk")
 
    ;note that we got done with a supervision check
    FireflyCheckin("", "Working")

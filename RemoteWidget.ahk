@@ -99,9 +99,13 @@ GetWidgetText()
 
 GetGmailMessageCount(url, prettyName)
 {
+   urldownloadtovar("http://mail.google.com/mail/u/0/?logout&hl=en")
    gmailPage:=urldownloadtovar(url)
+   initialReturned := gmailPage
+   gmailPage := RemoveLineEndings(gmailPage)
    RegExMatch(gmailPage, "<fullcount>(\d+)</fullcount>", gmailPage)
    RegExMatch(gmailPage, "\d+", number)
+   ;QuickFileOutput(number . "`n`n" . url . "`n`n" . initialReturned)
    ;number := getXmlElementContents(gmailPage, "fullcount")
    ;return "lots and lots of text that continues to be typed"
 

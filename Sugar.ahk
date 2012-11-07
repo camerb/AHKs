@@ -7,7 +7,8 @@
 ;TODO should we do some logging?
 
 ;chillax a little while
-SleepMinutes(5)
+SleepMinutes(1)
+;SleepMinutes(5)
 Random, rand, 10000, 40000
 Sleep, %rand%
 
@@ -34,9 +35,14 @@ checkForSugar(browser)
 {
    global lastUrl
    url := GetUrlBar(browser)
+   url := RemoveLineEndings(url)
 
    ;if it isn't sugar, ignore it
    if NOT InStr(url, "sugar.mitsi.com")
+      return
+
+   ;this is the home page, don't make a new record for it
+   if (url = "sugar.mitsi.com/index.php")
       return
 
    ;check if url changed since last time
@@ -63,8 +69,8 @@ checkForSugar(browser)
 
    ;debug("saw sugar!!!", url, A_UserName, A_ComputerName, browser)
    text=%url%`n%user%`n%pc%`n%browser%
-   timestamp := CurrentTime("hyphenated")
-   ExtTimestamp=%timestamp%-%A_TickCount%
+   ExtTimestamp := CurrentTime("hyphenated extended")
+   ;ExtTimestamp=%timestamp%-%A_TickCount%
    ;file=C:\temp\archive\ss\0x562839.txt
    file=C:\temp\archive\ss\%ExtTimestamp%.txt
    FileCreate(text, file)

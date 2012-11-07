@@ -6,18 +6,12 @@ Persist:
 SetTitleMatchMode, 1
 
 
-LogLastLineExecuted("chk 0")
-
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{ temporary things (processes to kill)
 ;if (A_ComputerName = "PHOSPHORUS")
    ;ProcessClose("pidgin.exe")
 ;if (A_ComputerName = "BAUSTIAN12")
    ;ProcessClose("CLCL.exe")
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{debugging how long it takes for an iteration through the #Persistent stuff
 ;if NOT timer
@@ -34,8 +28,6 @@ LogLastLineExecuted("chk " . A_LineNumber)
 ;}
 ;timer:=starttimer()
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{Middle of the night unit tests, backups, and reload script
 if (A_Hour==3 AND A_Min==2)
@@ -66,8 +58,6 @@ if (A_Min==10 AND A_ComputerName == "BAUSTIANVM" AND A_Hour<>3 AND A_Hour<>4)
 }
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{Send Morning AHK Status Briefing
 if (A_Hour=6 AND A_Min=0 AND A_Sec=0)
 {
@@ -79,8 +69,6 @@ if (A_Hour=6 AND A_Min=0 AND A_Sec=0)
 }
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{Try refreshing mint each hour on vm
 if (A_Min=15 AND A_Sec=0 AND A_Hour<>3 AND A_Hour<>4)
 {
@@ -91,8 +79,6 @@ if (A_Min=15 AND A_Sec=0 AND A_Hour<>3 AND A_Hour<>4)
    }
 }
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{Test Lynx SMS everyday
 ;if (A_Hour=7 AND A_Min=50 AND A_Sec=0)
@@ -108,8 +94,6 @@ if A_WDay BETWEEN 2 AND 6
    RunDailyTask("07:50:00", "PHOSPHORUS", "TestLynx.ahk")
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{Test Lynx SMS everyday, again
 if A_WDay BETWEEN 2 AND 6
 {
@@ -123,8 +107,6 @@ if A_WDay BETWEEN 2 AND 6
          }
 }
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{Test Lynx SMS throughout the day
 ;Check out how I organized this in a really crappy way, sucky indents!!
@@ -145,12 +127,6 @@ if (A_Sec<9)
    }
 }
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
-
-LogLastLineExecuted("chk 1")
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{Routine email/msgbox reminders
 if (A_Hour=7 AND A_Min=55 AND A_Sec=0)
@@ -280,8 +256,6 @@ if (A_DD=26 AND A_Hour=7 AND A_Min=59 AND A_Sec=0)
 }
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{Check weather and put it on the remote widget
 if (Mod(A_Min, 15)==0 && A_Sec==0)
 {
@@ -292,8 +266,6 @@ if (Mod(A_Min, 15)==0 && A_Sec==0)
    }
 }
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{Monitor FF4 RAM usage
 ;if (Mod(A_Min, 15)==0 && A_Sec==35)
@@ -311,9 +283,7 @@ LogLastLineExecuted("chk " . A_LineNumber)
 ;}
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
 ;it seemed to hang up here on phosphorus once 10/4
-
 ;{{{Check bot emails, and process them accordingly (cloud AHKs and Lynx SMS checks)
 if (Mod(A_Sec, 5)==0)
 {
@@ -343,8 +313,6 @@ if (Mod(A_Sec, 5)==0)
    }
 }
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{Run scheduled AHKs
 if (Mod(A_Sec, 2)==0)
@@ -424,8 +392,6 @@ if (Mod(A_Sec, 2)==0)
    }
 }
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{ Run Queued Functions (queued in a variable)
 ;run every time through the loop (500 ms), or maybe we should wait longer, like 5 seconds
@@ -520,12 +486,6 @@ LogLastLineExecuted("chk " . A_LineNumber)
 ;}
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
-LogLastLineExecuted("chk 2")
-
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{ Close unwanted windows, new ways, but not one-liners
 if ForceWinFocusIfExist("Microsoft Windows")
 {
@@ -533,8 +493,6 @@ if ForceWinFocusIfExist("Microsoft Windows")
       ClickIfImageSearch("images/win7/continueWithoutScanning.bmp", "control")
 }
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{ new ways to close unwanted windows
 
@@ -549,9 +507,10 @@ if ForceWinFocusIfExist("Microsoft SQL Server Management Studio Recovered Files"
 
 IfWinActive, NEMON ahk_class #32770, Are you sure to close
    ClickButton("&Yes")
-;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
+IfWinActive, Security Alert ahk_class #32770, Revocation information for the security certificate
+   ClickButton("&Yes")
+;}}}
 
 ;{{{ Miscellaneous stuff, done the new way
 if (Mod(A_Sec, 5)==0)
@@ -580,8 +539,6 @@ if (Mod(A_Sec, 5)==0)
 }
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{ move network usage notification to a less annoying spot
 thewintitle=NetWorx Notification ahk_class TTimedMessageForm
 IfWinExist, %thewintitle%
@@ -595,14 +552,11 @@ IfWinExist, %thewintitle%
 }
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
 ;FIXME this region seems to die often on phosphorus
 ;{{{ kill processes that are of the devil
 Process, Close, newreleaseversion70700.exe
 Process, Close, DivXUpdate.exe
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{ Old legacy stuff for closing unwanted windows
 ;N64 emulator error
@@ -617,6 +571,10 @@ WinClose, VMware Player, The virtual machine is busy
 WinClose, VMware Player, internal error
 WinClose, Google Chrome, The program can't start because nspr4.dll is missing from your computer
 WinClose, Search and Replace, Error opening
+
+;Trying to compile an AHK that has compile errors (TODO log this window's text someday)
+WinClose, compileahk.ahk ahk_class #32770, Error
+
 
 IfWinExist, TGitCache, error
    if ForceWinFocusIfExist("TGitCache")
@@ -755,8 +713,6 @@ IfWinExist, %titleofwin%
 
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{ Close windows that have been open for a while (they are "abandoned")
 ;dangit... this isn't used anymore since we switched to Git
 ;TODO perhaps this approach can be used for telling last.fm to resume listening
@@ -778,8 +734,6 @@ IfWinExist .* - (Update|Commit) - TortoiseSVN Finished! ahk_class #32770
 }
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{ Watch for error messages from AHKs with syntax errors (and log them)
 ;FIXME this might not be working correctly
 ;IfWinExist, %filename%, (The program will exit|The previous version will remain in effect)
@@ -790,10 +744,6 @@ LogLastLineExecuted("chk " . A_LineNumber)
    ;;return "error"
 ;}
 ;}}}
-
-LogLastLineExecuted("chk 3")
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{ Keep Last.fm music running
 if (Mod(A_Sec, 30)==0)
@@ -840,8 +790,6 @@ DetectHiddenWindows, Off
 CustomTitleMatchMode("Default")
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{ TransferTo - Check to see if there are files that need to be moved out of the dropbox
 ;TODO put all this crap into another ahk, so that persistent doesn't halt while we're babysitting other ahks
 Loop, C:\My Dropbox\AHKs\gitExempt\transferTo\%A_ComputerName%\*.*, 2, 0
@@ -882,8 +830,6 @@ Loop, C:\My Dropbox\AHKs\gitExempt\transferTo\%A_ComputerName%\*.*, 2, 0
    Sleep, 5000
 }
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{ Ensure VM firefly bot is running, and not crashed
 ;if (A_ComputerName = "BAUSTIANVM" and Mod(A_Sec, 5)==0)
@@ -940,14 +886,13 @@ if (A_ComputerName = "BAUSTIANVM" and A_Min=0 and A_Sec=42)
 }
 
 ;TODO move this to the variable queued AHKs
-if (A_ComputerName = "PHOSPHORUS" and A_Sec=32)
-{
-   Run, fireflyCreateViewableInis.ahk
-   SleepSeconds(1.1)
-}
+;if (A_ComputerName = "PHOSPHORUS" and A_Sec=32)
+;{
+   ;Run, fireflyCreateViewableInis.ahk
+   ;SleepSeconds(1.1)
+;}
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
 ;FIXME this region seems to die often on phosphorus, due to the long pause
 ;{{{ Run the Supervision Core
 if (Mod(A_Sec, 5)==0)
@@ -986,8 +931,6 @@ if (Mod(A_Sec, 5)==0)
 }
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{ Count the number of fees that need to be added by the firefly bot
 ;if (A_ComputerName = "BAUSTIAN12" and A_Sec == 48)
 ;{
@@ -998,8 +941,6 @@ LogLastLineExecuted("chk " . A_LineNumber)
    ;Sleep, 1000
 ;}
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{ Continual backups
 
@@ -1031,8 +972,6 @@ if ( Mod(A_Sec, 5)==0 )
 }
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{ Get ready for iRacing, if applicable
 if mod(A_Sec, 30) == 0
 {
@@ -1042,8 +981,6 @@ if mod(A_Sec, 30) == 0
          ChangeLogitechWheelMode()
 }
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{ ensure race reminders are running
 if (A_ComputerName = "BAUSTIAN12" and Mod(A_Sec, 5)==0)
@@ -1060,8 +997,6 @@ if (A_ComputerName = "BAUSTIAN12" and Mod(A_Sec, 5)==0)
 }
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{ refresh networked hard drive connections
 ;TODO start network connections at the beginning of the day
 ;TODO start network connections whenever connection is lost
@@ -1071,8 +1006,6 @@ if (A_ComputerName = "PHOSPHORUS" and Mod(A_Sec, 5)==0 and A_Min == 38)
    SleepSeconds(1)
 }
 ;}}}
-
-LogLastLineExecuted("chk " . A_LineNumber)
 
 ;{{{ un-minimize RDP sessions... RDP should never be minimized, just move the window so I can't see it
 win= - Remote Desktop Connection
@@ -1089,8 +1022,6 @@ if IsMinimized(win)
 }
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{ resize Thunderbird Tasks window
 win=^(Edit|New) Task\:.*$
 CustomTitleMatchMode("RegEx")
@@ -1104,8 +1035,6 @@ IfWinActive, %win%
 CustomTitleMatchMode("Default")
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{ open pidgin at start of workday
 if (A_ComputerName = "PHOSPHORUS" and Mod(A_Sec, 5)==0 and A_Min == 51 and A_Hour == 07)
 {
@@ -1114,12 +1043,15 @@ if (A_ComputerName = "PHOSPHORUS" and Mod(A_Sec, 5)==0 and A_Min == 51 and A_Hou
 }
 ;}}}
 
-LogLastLineExecuted("chk " . A_LineNumber)
-
 ;{{{ ensure sugar spy is running
 if (Mod(A_Sec, 5)==0 AND A_Min == 41 AND A_ComputerName = "PHOSPHORUS")
 {
-   ;Run, soffice.exe
+   if NOT ProcessExist("soffice.exe")
+   {
+      errord("SILENT red line", "Noticed that soffice.exe was not running")
+      iniPP("red line - Noticed that soffice.exe was not running")
+   }
+   Run, soffice.exe
    Run, SugarRetrieval.ahk
    Run, SugarProcessor.ahk
 }
@@ -1134,6 +1066,8 @@ if (Mod(A_Sec, 5)==0 AND A_Min == 41 AND A_ComputerName = "PHOSPHORUS")
 ;}
 
 ;}}}
+
+LogLastLineExecuted("chk " . A_LineNumber)
 
 ;end of Persist subroutine
 return

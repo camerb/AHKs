@@ -16,12 +16,14 @@ TestScriptAbilities()
 TestLynxSystem()
 RunTaskManagerMinimized()
 
-LynxOldVersion:=GetLynxVersion()
-LynxDestinationVersion := GetLatestLynxVersion()
-lynx_message("Attempting an update from Lynx Version: " . LynxOldVersion . " to " . LynxDestinationVersion)
+;TODO move this into a function (figure out what #includes need to be moved)
+   LynxOldVersion := GetLynxVersion()
+   LynxDestinationVersion := GetLatestLynxVersion()
+   PerlUpgradeNeeded:=IsPerlUpgradeNeeded()
+   ApacheUpgradeNeeded:=IsApacheUpgradeNeeded()
+;ShowPreliminaryUpdateSummary()
+
 CreateSmsKey()
-PerlUpgradeNeeded:=IsPerlUpgradeNeeded()
-ApacheUpgradeNeeded:=IsApacheUpgradeNeeded()
 
 DownloadAllLynxFilesForUpgrade()
 

@@ -32,6 +32,9 @@ CheckDb()
 
    Sleep, 5000
 
+   ;Copy all the banner files back over
+   FileCopyDir, C:\inetpub\trash\banner, C:\inetpub\wwwroot\banner
+
    if FileExist(lockfile)
    {
       lynx_error("Lockfile was present after a checkdb")
@@ -41,7 +44,6 @@ CheckDb()
 
    FileAppendLine(msg, GetPath("lynx-logfile")) ;log abbreviated message
    FileAppendLine(ret, GetPath("checkdb-logfile")) ;log full message to separate log
-   ;TODO append to extensive log file
 
    delog("", "finished function", A_ThisFunc)
 }

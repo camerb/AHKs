@@ -38,4 +38,7 @@ Run, C:\Dropbox\Programs\Vim\vim72\gvim.exe, C:\Dropbox\AHKs
 ;}
 
 ForceWinFocus("GVIM ahk_class Vim", "Contains")
-Send, {F2}^w{RIGHT}{;}q{ENTER}
+Send, {F2 3}^w{RIGHT}{;}q{ENTER}
+SleepSeconds(2)
+if NOT ForceWinFocusIfExist("NERD_tree ahk_class Vim", "Contains")
+   Send, {F2}^w{RIGHT}{;}q{ENTER}

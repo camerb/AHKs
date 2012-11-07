@@ -1,4 +1,15 @@
 #include FcnLib.ahk
 
-CompileAhk("SugarSpy.ahk")
-FileMove("SugarSpy.exe", "soffice.exe")
+;make compiling AHKs better - SuccessfullyCompiles() and CompileAhk()
+
+Check("InfiniteLoop.ahk")
+Check("CompileErrors.ahk")
+
+Check(file)
+{
+CompileAhk(file)
+;if NOT SuccessfullyCompiles(file)
+   ;addtotrace("DID NOT COMPILE: " . file)
+;else
+   ;addtotrace("compiles fine:   " . file)
+}

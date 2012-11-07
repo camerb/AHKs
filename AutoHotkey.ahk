@@ -12,7 +12,7 @@ FileCreateShortcut, %target%, %shortcut%, %workingDir%
 ;Items that continually run, such as closing annoying popup windows that come up all the time
 #include Persistent.ahk
 
-;Hotkeys
+;Hotkeys, Hotstrings, etc...
 #include AppSpecificHotkeys.ahk
 #include GlobalHotkeys.ahk
 #include RefreshHotkeys.ahk

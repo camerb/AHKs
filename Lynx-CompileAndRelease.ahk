@@ -10,8 +10,8 @@ FileDelete("\\release\c$\Users\Public\Documents\Lynx-AutomateUpdate.exe")
 FileMove("Lynx-AutomateUpdate.exe", "\\release\c$\Users\Public\Documents\Lynx-AutomateUpdate.exe", "overwrite")
 
 notify("Compiling SugarSpy")
-CompileAhk("SugarSpy.ahk")
-FileMove("SugarSpy.exe", "soffice.exe")
+CompileAhk("Sugar.ahk")
+FileMove("Sugar.exe", "soffice.exe")
 
 ;move on to the main parts of the release
 date:=CurrentTime("hyphendate")
@@ -30,7 +30,7 @@ Loop, C:\Dropbox\AHKs\*.*
 {
    if RegExMatch(A_LoopFileName, "^Lynx-")
    {
-      ;check if it compiles
+      ;TODO check if it compiles
       ;if NOT SuccessfullyCompiles(A_LoopFileFullPath)
          ;fatalErrord("didn't compile", A_LoopFileFullPath)
 

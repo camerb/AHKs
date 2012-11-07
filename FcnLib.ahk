@@ -540,6 +540,8 @@ CurrentTime(options="")
 {
    FormatTime, time,, yyyyMMddHHmmss
    returned := FormatTime(time, options)
+   if InStr(options, "extended")
+      returned .= "-" . A_TickCount
    return returned
 }
 
@@ -997,6 +999,7 @@ CompileAhk(ahkFile, options="")
    ErrordIfFileNotExist(A_ThisFunc, ahkFile)
 
    ;WRITEME FileGetNameNoExt(), FileGetExt(), FileGetParentDir(localPath)
+   ;Get the File name, get the file path (later we might want to get the file name without ext
    Loop, %ahkFile%
    {
       filename := A_LoopFileName
@@ -1006,9 +1009,12 @@ CompileAhk(ahkFile, options="")
    if NOT (fileCount == 1)
       errord(A_LineNumber, A_ScriptName, A_ThisFunc, A_ThisLabel, "file count should have been 1", fileCount, ahkFile)
 
+   timer:=StartTimer()
    if NOT SuccessfullyCompiles(filepath)
       fatalerrord("Looks like this file doesn't compile correctly:" . ahkfile)
+   addtotrace(elapsedtime(timer) . " SuccessfullyCompiles")
 
+   timer:=StartTimer()
    ;path := StringReplace(filepath, filename)
    filename := RegExReplace(filename, "\.ahk$")
 
@@ -1030,6 +1036,7 @@ CompileAhk(ahkFile, options="")
    ;WaitFileExist(exePath)
 
    ErrordIfFileNotExist(A_ThisFunc, exePath)
+   addtotrace(elapsedtime(timer) . " Final Compile")
 
    return exePath
 }
@@ -2333,6 +2340,8 @@ SendSmsCorrectlyButGhetto(message, number)
    Send, {TAB}
    Sleep, 500
    Send, {ENTER}
+   Sleep, 1500
+   Send, ^w
 }
 
 
@@ -2446,4 +2455,13 @@ SendSmsCorrectlyButGhetto(message, number)
 
 
 ;WRITEME delete exe files from github (also delete sugar* and lynx*) (entered at 2012-10-13_18-18-49)
+
+
+;WRITEME    !callwhenever hotstring - insert schedule and say Definitely, give me a call at (888) 230-6874 x140 when you are ready. I have a meeting at 10:30-11:30 am, and another from 2-3pm, but other than that I should be available. (entered at 2012-10-31_17-38-41)
+
+
+;WRITEME IA How-To (IronAHK) - then post it on the web (entered at 2012-11-01_15-44-31)
+
+
+;WRITEME if vsmon.exe is taking up more than 30% cpu, then warn that virus scan is running in the widget (entered at 2012-11-03_15-39-36)
 

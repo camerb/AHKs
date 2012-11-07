@@ -47,7 +47,11 @@ Sleep, 200
 Send, ^a
 Sleep, 200
 Send, %login%
+Sleep, 200
+Send, !a
+Sleep, 200
 ClickButton("Always &ask for credentials")
+Sleep, 200
 ClickButton("Co&nnect")
 
 WinWaitActive, Windows Security

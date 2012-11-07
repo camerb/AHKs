@@ -42,7 +42,7 @@ Loop, C:\DataExchange\BotEmail\Received\*
 
 if NOT sawSmsCount
    testStatus=FAILED
-if (sawSmsCount == "1")
+else if (sawSmsCount == "1")
    testStatus=Passed
 else
    testStatus=DOUBLED (%sawSMSCount%)

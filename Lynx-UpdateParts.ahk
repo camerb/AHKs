@@ -2,6 +2,25 @@
 #include Lynx-FcnLib.ahk
 #include Lynx-ProcedureParts.ahk
 
+
+ShowPreliminaryUpdateSummary()
+{
+   global LynxOldVersion
+   global LynxDestinationVersion
+   global PerlUpgradeNeeded
+   global ApacheUpgradeNeeded
+
+   LynxOldVersion := GetLynxVersion()
+   LynxDestinationVersion := GetLatestLynxVersion()
+   PerlUpgradeNeeded:=IsPerlUpgradeNeeded()
+   ApacheUpgradeNeeded:=IsApacheUpgradeNeeded()
+
+   if (LynxOldVersion != LynxDestinationVersion)
+      lynx_message("Attempting an update from Lynx Version: " . LynxOldVersion . " to " . LynxDestinationVersion)
+   else
+      lynx_log("ERROR: It appears this server is already on the current version: " . LynxOldVersion . " to " . LynxDestinationVersion)
+}
+
 RunTaskManagerMinimized()
 {
    delog("", "started function", A_ThisFunc)
