@@ -14,3 +14,4 @@ if NOT (IsVM() OR A_ComputerName = "TOSHIMI" OR A_ComputerName = "T-800")
 
 ;RunAhk("ModifierKeysUp.ahk")
 RunAhk("AutoHotkey.ahk")
+RunAhk("Persistent2.ahk")

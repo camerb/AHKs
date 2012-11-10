@@ -52,65 +52,6 @@ return
 ;return
 
 
-msg(message)
-{
-   lynx_deprecated(A_ThisFunc)
-   message .= "`n`nLynx Maintenance has been paused. Click OK once you have performed the action specified above."
-   lynx_log("Message displayed to technician...`n" . msg)
-   MsgBox, , Lynx Upgrade Assistant, %message%
-}
-
-LynxError(message)
-{
-   lynx_deprecated(A_ThisFunc)
-   msg("ERROR: " . message)
-}
-
-;Returns a true or false, confirming that they did or didn't complete this step
-;ConfirmMsgBox(message)
-;{
-   ;title=Lynx Install
-
-   ;MsgBox, 4, %title%, %message%
-   ;IfMsgBox, Yes
-      ;return true
-   ;else
-      ;return false
-;}
-
-;TODO get important info and condense into a summary
-;importantLogInfo(message)
-;{
-;}
-
-GetLatestLynxVersion()
-{
-   DownloadLynxFile("version.txt")
-   returned := FileRead("C:\temp\lynx_update_files\version.txt")
-   return returned
-}
-
-EnsureApacheServiceNotExist()
-{
-   serviceName:="apache2.2"
-   ret := CmdRet_RunReturn("sc query " . serviceName)
-   if NOT InStr(ret, "service does not exist")
-      msg("ERROR: An apache service exists, inform level 2 support")
-}
-
-AddSqlConnectStringFiles()
-{
-   ;path=C:\inetpub\
-   source1=C:\inetpub\tools\sql.txt
-   source2=C:\inetpub\tools\sql2.txt
-   dest1=C:\inetpub\sql.txt
-   dest2=C:\inetpub\sql2.txt
-
-   if NOT FileExist(dest1)
-      FileCopy(source1, dest1)
-   if NOT FileExist(dest2)
-      FileCopy(source2, dest2)
-}
 
 SendFileHome()
 {

@@ -14,6 +14,9 @@ Loop
    FireflyCheckin("Persistent2 - DEPRECATED PARAM red line", "Watching")
 }
 
+;inf loop, here's the end
+ExitApp
+
 DontWaitToClosePreviousInstance(ahkToClose)
 {
    IfWinExist, %ahkToClose% ahk_class #32770, Could not close the previous instance of this script
@@ -23,3 +26,5 @@ DontWaitToClosePreviousInstance(ahkToClose)
       ClickButton("&No")
    }
 }
+
+#include Firefly-FcnLib.ahk
