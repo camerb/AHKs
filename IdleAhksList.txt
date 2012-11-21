@@ -1,0 +1,1 @@
+AutoHotkey.ahk,Persistent2.ahk,Persistent3.ahk,Persistent4.ahk,Persistent5.ahk,ImageIt.ahk

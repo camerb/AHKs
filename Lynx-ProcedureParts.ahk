@@ -37,7 +37,8 @@ CheckDb()
 
    if FileExist(lockfile)
    {
-      lynx_error("Lockfile was present after a checkdb")
+      lynx_log("ERROR: Lockfile was present after a checkdb")
+      ;lynx_error("Lockfile was present after a checkdb")
       ret .= "`n`nLOCKFILE WAS PRESENT AFTER THE CHECKDB"
       FileDelete(lockfile)
    }

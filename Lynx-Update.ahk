@@ -62,7 +62,7 @@ SleepSeconds(9)
 
 ;another checkdb just to ensure that the system is awesome
 CleanupServerSupervision()
-CheckDb()
+;CheckDb()
 
 ;ensure services are set to restart automatically after failures
 SetServiceToRetryAfterFailures("MSSQLSERVER")

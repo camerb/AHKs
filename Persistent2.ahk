@@ -1,6 +1,6 @@
 #include FcnLib.ahk
 
-FireflyCheckin("Persistent2 - DEPRECATED PARAM red line", "Started")
+ScriptCheckin("Started")
 
 Loop
 {
@@ -9,9 +9,10 @@ Loop
    DontWaitToClosePreviousInstance("AutoHotkey.ahk")
    DontWaitToClosePreviousInstance("RemoteWidget.ahk")
    DontWaitToClosePreviousInstance("KeepNetworkHardDrivesActive.ahk")
+   DontWaitToClosePreviousInstance("UpdateRemoteWidget.ahk")
 
    Sleep, 250
-   FireflyCheckin("Persistent2 - DEPRECATED PARAM red line", "Watching")
+   ScriptCheckin("Watching")
 }
 
 ;inf loop, here's the end
@@ -27,4 +28,4 @@ DontWaitToClosePreviousInstance(ahkToClose)
    }
 }
 
-#include Firefly-FcnLib.ahk
+;#include Firefly-FcnLib.ahk

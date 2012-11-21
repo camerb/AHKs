@@ -969,6 +969,7 @@ FireflyCheckin(whoIsCheckingIn, Status)
 
    ;doing the checkin with fewer arguments
    whoIsCheckingIn :=  A_ComputerName . "_" . A_ScriptName
+   iniPP("FireflyCheckin, yellow line - " . whoIsCheckingIn)
    iniFolderWrite(iniFolder, "ReadableCheckin", whoIsCheckingIn, CurrentTime("hyphenated"))
    iniFolderWrite(iniFolder, "TickCheckin", whoIsCheckingIn, A_TickCount)
    iniFolderWrite(iniFolder, "Status", whoIsCheckingIn, Status)

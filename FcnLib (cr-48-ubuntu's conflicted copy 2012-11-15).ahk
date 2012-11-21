@@ -115,20 +115,25 @@ ForceWinFocus(titleofwin, options="")
 
    OptionalDebug(options, titleofwin)
 
-   Loop
+   ;TODO don't do it if a matching window is already active
+   IfWinActive, %titleofwin%,
+      returned:=true
+   else
    {
-      WinWait, %titleofwin%, , 1
-      IfWinNotActive, %titleofwin%,
-         WinActivate, %titleofwin%,
-      WinWaitActive, %titleofwin%, , 1
-      IfWinActive, %titleofwin%,
+      Loop
       {
-         returned:=true
-         break
+         WinWait, %titleofwin%, , 1
+         IfWinNotActive, %titleofwin%,
+            WinActivate, %titleofwin%,
+         WinWaitActive, %titleofwin%, , 1
+         IfWinActive, %titleofwin%,
+         {
+            returned:=true
+            break
+         }
       }
    }
 
-   ;CustomTitleMatchMode("Default")
    SetTitleMatchMode, %prevMode%
    SetTitleMatchMode, %prevSpeed%
 
@@ -1804,6 +1809,14 @@ ClickButton(button)
    Send, %keys%
 }
 
+AlwaysIdleAhks()
+{
+   returned := FileRead("C:\Dropbox\AHKs\IdleAhksList.txt")
+   ;return "AutoHotkey.ahk,Persistent2.ahk,Persistent3.ahk,Persistent4.ahk,Persistent5.ahk,ImageIt.ahk"
+   ;TODO make an iniPP error for all items where the ahk file does not exist
+   return returned
+}
+
 AddDatetime(datetime, numberToAdd, unitsOfNumberToAdd)
 {
    ;TODO verify that datetime is a datetime
@@ -1889,10 +1902,13 @@ RegExMatchCount(Count_String, Count_Needle, Count_Type="", Count_SubPattern="")
    Return Count_n
 }
 
-;have an option to leave markers where the line endings were? ZZZnewlineZZZ
-RemoveLineEndings(page)
+;TESTME have an option to leave markers where the line endings were? ZZZnewlineZZZ
+RemoveLineEndings(page, options="")
 {
-   return RegExReplace(page, "(`r|`n)", " ")
+   marker := " "
+   if InStr(options, "leaveMarkers")
+      marker := "ZZZnewlineZZZ"
+   return RegExReplace(page, "(`r|`n)", marker)
 }
 
 FormatDollar(amount)
@@ -1929,6 +1945,8 @@ GetPath(file)
    else if (file = "FireflyIniFolder")
       return "C:\Dropbox\fastData\fireflyBotCommunication\inifParts\"
    else if (file = "FireflyCheckinIniFolder")
+      return "C:\Dropbox\fastData\fireflyCheckins\inifParts\"
+   else if (file = "CheckinIniFolder")
       return "C:\Dropbox\fastData\fireflyCheckins\inifParts\"
    else if (file = "FireflyStatsIniFolder")
       return "C:\Dropbox\fastData\fireflyStats\inifParts\"
@@ -1971,9 +1989,20 @@ GetPath(file)
    return ""
 }
 
+ScriptCheckin(CurrentStatus)
+{
+   iniFolder:=GetPath("CheckinIniFolder")
+
+   ;doing the checkin with fewer arguments
+   whoIsCheckingIn :=  A_ComputerName . "_" . A_ScriptName
+   iniFolderWrite(iniFolder, "ReadableCheckin", whoIsCheckingIn, CurrentTime("hyphenated"))
+   iniFolderWrite(iniFolder, "TickCheckin", whoIsCheckingIn, A_TickCount)
+   iniFolderWrite(iniFolder, "Status", whoIsCheckingIn, Status)
+}
+
 CommandPromptCopy()
 {
-   ;might not want to do this if it is already active
+   ;might not want to do this if it is already active, it would probably make it take longer
    ForceWinFocus("ahk_class ConsoleWindowClass")
 
    MouseClick, right, 13, 13
@@ -2464,7 +2493,4 @@ SendSmsCorrectlyButGhetto(message, number)
 
 
 ;WRITEME if vsmon.exe is taking up more than 30% cpu, then warn that virus scan is running in the widget (entered at 2012-11-03_15-39-36)
-
-
-;WRITEME delete .swo and .swp files from C:\dropbox\ahks on startup (entered at 2012-11-12_18-51-49)
 
