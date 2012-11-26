@@ -5,6 +5,9 @@
 ;RunAhk("ModifierKeysUp.ahk")
 RunAhk("AutoHotkey.ahk")
 RunAhk("Persistent2.ahk")
+RunAhk("Persistent3.ahk")
+RunAhk("Persistent4.ahk")
+RunAhk("Persistent5.ahk")
 RunAhk("ImageIt.ahk")
 
 ;instead, lets get the AHKs that are always idle from a list

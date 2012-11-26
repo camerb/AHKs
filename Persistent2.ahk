@@ -1,4 +1,5 @@
 #include FcnLib.ahk
+#NoTrayIcon
 
 ScriptCheckin("Started")
 

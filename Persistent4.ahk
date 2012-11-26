@@ -1,4 +1,5 @@
 #include FcnLib.ahk
+#NoTrayIcon
 
 #Persistent
 SetTimer, Persist, 500

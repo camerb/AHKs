@@ -326,15 +326,6 @@ F5::return
 #IfWinActive
 ;}}}
 
-;{{{EPMS stuff for Melinda
-#IfWinActive EPMS Shop
-;#IfWinActive Mozilla Firefox
-^+e::
-SendInput, {CTRL UP}{SHIFT UP}Executive Summary, Question 3: Based on the Leasing Professional's presentation, would you have leased this apartment? Why or Why Not? Please answer based on the presentation only, not on the apartment or community.
-return
-#IfWinActive
-;}}}
-
 ;{{{AHK Forum quick replies
 #IfWinActive (Post a reply|Edit post)
 :*:!tutorial::Sure, you can do that with AHK... have you checked out the tutorial? http://www.autohotkey.com/docs/Tutorial.htm{ENTER}{ENTER}By the way, when you're reading through the tutorial, do not just gloss over it... instead: try all of the examples, run them, tweak them, and experiment with it. After all, the purpose of the tutorial is for you to be doing the examples as you're reading... it isn't just a quick read.
@@ -347,6 +338,12 @@ return
 
 ;perhaps I should write an article and put a link to it in here
 :*:!details::Please give use more details to help diagnose your problem... simply saying that it "doesn't work" doesn't help at all.
+#IfWinActive
+;}}}
+
+;{{{AHK Pidgin Hotstrings
+#IfWinActive ahk_class gdkWindowToplevel
+:*:!invite::{ENTER}/msg chanserv invite {#}ahk-ops{ENTER}
 #IfWinActive
 ;}}}
 

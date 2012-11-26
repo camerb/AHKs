@@ -1245,7 +1245,8 @@ GetCpuUsage( ProcNameOrPid )
    Return Round( (newKrnlTime-oldKrnlTime + newUserTime-oldUserTime)/10000000 * 100 ,2)
 }
 
-GetRamUsage(ProcNameOrPid, Units="K") {
+GetRamUsage(ProcNameOrPid, Units="K")
+{
    Process, Exist, %ProcNameOrPid%
 
    pid := Errorlevel

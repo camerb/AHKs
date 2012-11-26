@@ -1,9 +1,13 @@
 
 #include thirdParty/DDE/DDEML.ahk
 
-;gets the contents of the url bar for firefox, iexplore or opera, and soon chrome, too!!!
+;gets the contents of the url bar for firefox, iexplore, opera, or chrome
 GetURLbar(browser)
 {
+   ;TODO in case the window specified does not exist, this message will be returned instead
+   ;noSuchWindowMessage := "NO SUCH WINDOW"
+   noSuchWindowMessage := ""
+
    if (browser = "chrome")
    {
       prevMode  := A_TitleMatchMode
