@@ -490,14 +490,15 @@ ArchiveOldInifParts(IniFolder)
 ;}}}
 
 ;{{{ former Firefly Check-Ins (monitoring the bot)
-ScriptCheckin(Status)
+ScriptCheckin(CurrentStatus)
 {
    iniFolder:=GetPath("FireflyCheckinIniFolder")
 
    ;doing the checkin with fewer arguments
-   whoIsCheckingIn := A_ScriptName
+   whoIsCheckingIn :=  A_ComputerName . "_" . A_ScriptName
+   iniPP("FireflyCheckin, yellow line - " . whoIsCheckingIn)
    iniFolderWrite(iniFolder, "ReadableCheckin", whoIsCheckingIn, CurrentTime("hyphenated"))
    iniFolderWrite(iniFolder, "TickCheckin", whoIsCheckingIn, A_TickCount)
-   iniFolderWrite(iniFolder, "Status", whoIsCheckingIn, Status)
+   iniFolderWrite(iniFolder, "Status", whoIsCheckingIn, CurrentStatus)
 }
 ;}}}

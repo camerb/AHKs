@@ -7,13 +7,6 @@ return
 
 Persist:
 
-;accept chanserv invites automatically (what's the harm?)
-if ForceWinFocusIfExist("Pidgin ahk_class gdkWindowToplevel")
-{
-   if SimpleImageSearch("images/pidgin/chanservInvitation.bmp")
-      Send, !a
-}
-
 ScriptCheckin("Working")
 ;end of Persist subroutine
 return
