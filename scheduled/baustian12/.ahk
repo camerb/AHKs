@@ -1,1 +1,0 @@
-MsgBox Hotkey Timer!!! Ring, ring!`n;wa!MsgBox Hotkey Timer!!! Ring, ring!`nERROR
